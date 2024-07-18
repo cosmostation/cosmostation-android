@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.usdxAmount
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.usdxAmount
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentPoolListBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.PoolOptionFragment
@@ -28,7 +28,7 @@ class PoolListFragment : Fragment() {
     private var _binding: FragmentPoolListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
 
     private lateinit var kavaViewModel: KavaViewModel
 
@@ -43,7 +43,7 @@ class PoolListFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine
+            selectedChain: BaseChain
         ): PoolListFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -73,12 +73,12 @@ class PoolListFragment : Fragment() {
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.apply {
-                getParcelable("selectedChain", CosmosLine::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
             }
 
         } else {
             arguments?.apply {
-                (getParcelable("selectedChain") as? CosmosLine)?.let {
+                (getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }

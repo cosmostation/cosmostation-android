@@ -21,8 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -35,7 +34,6 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
-import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -54,10 +52,10 @@ class DashboardFragment : Fragment() {
 
     private var baseAccount: BaseAccount? = null
 
-    private var toDisplayEvmChains = mutableListOf<EthereumLine>()
-    private var searchEvmChains = mutableListOf<EthereumLine>()
-    private var toDisplayCosmosChains = mutableListOf<CosmosLine>()
-    private var searchCosmosChains = mutableListOf<CosmosLine>()
+    private var mainnetChains = mutableListOf<BaseChain>()
+    private var searchMainnetChains = mutableListOf<BaseChain>()
+    private var testnetChains = mutableListOf<BaseChain>()
+    private var searchTestnetChains = mutableListOf<BaseChain>()
 
     private var totalChainValue: BigDecimal = BigDecimal.ZERO
 
@@ -92,19 +90,6 @@ class DashboardFragment : Fragment() {
         initSearchView()
     }
 
-    private fun initData(baseAccount: BaseAccount?) {
-        searchEvmChains.clear()
-        searchCosmosChains.clear()
-
-        baseAccount?.let { account ->
-            toDisplayEvmChains = account.sortedDisplayEvmLines()
-            searchEvmChains.addAll(toDisplayEvmChains)
-
-            toDisplayCosmosChains = account.sortedDisplayCosmosLines()
-            searchCosmosChains.addAll(toDisplayCosmosChains)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
         updateView()
@@ -128,6 +113,21 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    private fun initData(baseAccount: BaseAccount?) {
+        searchMainnetChains.clear()
+        searchTestnetChains.clear()
+
+        baseAccount?.let { account ->
+            mainnetChains =
+                account.sortedDisplayChains().filter { chain -> !chain.isTestnet }.toMutableList()
+            searchMainnetChains.addAll(mainnetChains)
+
+            testnetChains =
+                account.sortedDisplayChains().filter { chain -> chain.isTestnet }.toMutableList()
+            searchTestnetChains.addAll(testnetChains)
+        }
+    }
+
     private fun updateViewWithLoadedData(baseAccount: BaseAccount?) {
         initDisplayData(baseAccount)
         initRecyclerView()
@@ -139,7 +139,10 @@ class DashboardFragment : Fragment() {
 
     private fun initRecyclerView() {
         dashAdapter = DashboardAdapter(
-            requireContext(), searchEvmChains, searchCosmosChains, listener = nodeDownCheckAction
+            requireContext(),
+            searchMainnetChains,
+            searchTestnetChains,
+            listener = nodeDownCheckAction
         )
 
         binding?.recycler?.apply {
@@ -151,49 +154,82 @@ class DashboardFragment : Fragment() {
     }
 
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
-        override fun nodeDown(line: CosmosLine) {
-            if (!line.fetched) {
-                return
-            }
-            if (line is EthereumLine) {
-                if (line !is ChainOktEvm) {
-                    if (line.supportCosmos && line.cosmosBalances == null) {
-                        nodeDownPopup()
-                        return
-                    }
-                }
-
-                if (line.web3j == null) {
+        override fun nodeDown(chain: BaseChain) {
+            if (!chain.fetched) return
+            if (chain.isEvmCosmos()) {
+                if (chain.grpcFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
                     return
                 }
 
-                if (line.supportCosmos) {
-                    Intent(requireContext(), CosmosActivity::class.java).apply {
-                        putExtra("selectedChain", line as Parcelable)
-                        startActivity(this)
-                    }
-                    requireActivity().toMoveAnimation()
-                } else {
-                    Intent(requireContext(), EvmActivity::class.java).apply {
-                        putExtra("selectedChain", line as Parcelable)
-                        startActivity(this)
-                    }
-                    requireActivity().toMoveAnimation()
-                }
-
-            } else {
-                if (line !is ChainOkt996Keccak) {
-                    if (line.cosmosBalances == null) {
-                        nodeDownPopup()
-                        return
-                    }
+                if (chain.web3j == null) {
+                    nodeDownPopup()
+                    return
                 }
                 Intent(requireContext(), CosmosActivity::class.java).apply {
-                    putExtra("selectedChain", line as Parcelable)
+                    putExtra("selectedChain", chain as Parcelable)
                     startActivity(this)
                 }
                 requireActivity().toMoveAnimation()
+
+            } else if (chain.isCosmos()) {
+                when (chain) {
+                    is ChainOktEvm -> {
+                        chain.oktFetcher?.let {
+                            if (it.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                                nodeDownPopup()
+                                return
+                            }
+                            Intent(requireContext(), CosmosActivity::class.java).apply {
+                                putExtra("selectedChain", chain as Parcelable)
+                                startActivity(this)
+                            }
+                            requireActivity().toMoveAnimation()
+                        }
+                    }
+
+                    is ChainOkt996Keccak -> {
+                        chain.oktFetcher?.let {
+                            if (it.lcdAccountInfo?.isJsonNull == true) {
+                                nodeDownPopup()
+                                return
+                            }
+                            Intent(requireContext(), CosmosActivity::class.java).apply {
+                                putExtra("selectedChain", chain as Parcelable)
+                                startActivity(this)
+                            }
+                            requireActivity().toMoveAnimation()
+                        }
+
+                    }
+
+                    else -> {
+                        chain.grpcFetcher?.let {
+                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                                nodeDownPopup()
+                                return
+                            }
+                            Intent(requireContext(), CosmosActivity::class.java).apply {
+                                putExtra("selectedChain", chain as Parcelable)
+                                startActivity(this)
+                            }
+                            requireActivity().toMoveAnimation()
+                        }
+                    }
+                }
+
+            } else {
+                chain.evmRpcFetcher?.let {
+                    if (chain.web3j == null) {
+                        nodeDownPopup()
+                        return
+                    }
+                    Intent(requireContext(), EvmActivity::class.java).apply {
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
+                    }
+                    requireActivity().toMoveAnimation()
+                }
             }
         }
     }
@@ -203,48 +239,47 @@ class DashboardFragment : Fragment() {
             account.apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
-                        sortedDisplayEvmLines().asSequence().concurrentForEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                        sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                            if (Prefs.style == 1) {
+                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                    withContext(Dispatchers.Main) {
+                                        updateRowData(chain.tag)
+                                    }
+                                } else {
+                                    if (chain.address.isNotEmpty()) {
+                                        updateRowData(chain.tag)
+                                    }
+                                }
                             }
-                        }
 
-                        sortedDisplayCosmosLines().asSequence().concurrentForEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                            if (!chain.fetched) {
+                                ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadChainData(line, id, false)
-                            }
-                        }
-                        if (isNew) {
-                            PushManager.syncAddresses(Prefs.fcmToken)
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        sortedDisplayEvmLines().asSequence().concurrentForEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithPrivateKey(privateKey)
+                        sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithPrivateKey(privateKey)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadEvmChainData(line, id, false)
+                            if (Prefs.style == 1) {
+                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                    withContext(Dispatchers.Main) {
+                                        updateRowData(chain.tag)
+                                    }
+                                } else {
+                                    if (chain.address.isNotEmpty()) {
+                                        updateRowData(chain.tag)
+                                    }
+                                }
                             }
-                        }
 
-                        sortedDisplayCosmosLines().asSequence().concurrentForEach { line ->
-                            if (line.address?.isEmpty() == true) {
-                                line.setInfoWithPrivateKey(privateKey)
-
+                            if (!chain.fetched) {
+                                ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
-                            if (!line.fetched) {
-                                ApplicationViewModel.shared.loadChainData(line, id, false)
-                            }
-                        }
-                        if (isNew) {
-                            PushManager.syncAddresses(Prefs.fcmToken)
                         }
                     }
                 }
@@ -264,7 +299,7 @@ class DashboardFragment : Fragment() {
 
     private fun updateSearchView() {
         binding?.apply {
-            if (toDisplayEvmChains.size + toDisplayCosmosChains.size > 15) {
+            if (mainnetChains.size + testnetChains.size > 15) {
                 searchBar.visibility = View.VISIBLE
             } else {
                 searchBar.visibility = View.GONE
@@ -281,11 +316,11 @@ class DashboardFragment : Fragment() {
 
     private fun updateRowData(tag: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val searchEvmResult = searchEvmChains.filter { it.tag == tag }
-            val evmIterator = searchEvmResult.iterator()
-            while (evmIterator.hasNext()) {
-                val chain = evmIterator.next()
-                val index = searchEvmChains.indexOf(chain)
+            val searchMainnetResult = searchMainnetChains.filter { it.tag == tag }
+            val mainIterator = searchMainnetResult.iterator()
+            while (mainIterator.hasNext()) {
+                val chain = mainIterator.next()
+                val index = searchMainnetChains.indexOf(chain)
                 if (::dashAdapter.isInitialized) {
                     withContext(Dispatchers.Main) {
                         dashAdapter.notifyItemChanged(index + 1)
@@ -293,13 +328,13 @@ class DashboardFragment : Fragment() {
                 }
             }
 
-            val searchResult = searchCosmosChains.filter { it.tag == tag }
+            val searchResult = searchTestnetChains.filter { it.tag == tag }
             val iterator = searchResult.iterator()
             while (iterator.hasNext()) {
                 val chain = iterator.next()
-                val index = searchCosmosChains.indexOf(chain)
-                val position = if (searchEvmChains.size > 0) {
-                    searchEvmChains.size + 2
+                val index = searchTestnetChains.indexOf(chain)
+                val position = if (searchMainnetChains.size > 0) {
+                    searchMainnetChains.size + 2
                 } else {
                     1
                 }
@@ -317,11 +352,11 @@ class DashboardFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             var totalSum = BigDecimal.ZERO
 
-            toDisplayEvmChains.forEach { chain ->
+            mainnetChains.forEach { chain ->
                 totalSum = totalSum.add(chain.allValue(false))
             }
 
-            toDisplayCosmosChains.forEach { chain ->
+            testnetChains.forEach { chain ->
                 totalSum = totalSum.add(chain.allValue(false))
             }
 
@@ -364,10 +399,7 @@ class DashboardFragment : Fragment() {
         binding?.apply {
             refresher.setOnRefreshListener {
                 baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .any { !it.fetched } || account.sortedDisplayCosmosLines()
-                            .any { !it.fetched }
-                    ) {
+                    if (account.sortedDisplayChains().any { !it.fetched }) {
                         refresher.isRefreshing = false
 
                     } else {
@@ -375,11 +407,8 @@ class DashboardFragment : Fragment() {
                         walletViewModel.price(BaseData.currencyName().lowercase())
 
                         lifecycleScope.launch(Dispatchers.IO) {
-                            account.sortedDisplayEvmLines().forEach { line ->
-                                line.fetched = false
-                            }
-                            account.sortedDisplayCosmosLines().forEach { line ->
-                                line.fetched = false
+                            account.sortedDisplayChains().forEach { chain ->
+                                chain.fetched = false
                             }
                             withContext(Dispatchers.Main) {
                                 updateViewWithLoadedData(account)
@@ -402,25 +431,25 @@ class DashboardFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchEvmChains.clear()
-                    searchCosmosChains.clear()
+                    searchMainnetChains.clear()
+                    searchTestnetChains.clear()
 
                     if (StringUtils.isEmpty(newText)) {
-                        searchEvmChains.addAll(toDisplayEvmChains)
-                        searchCosmosChains.addAll(toDisplayCosmosChains)
+                        searchMainnetChains.addAll(mainnetChains)
+                        searchTestnetChains.addAll(testnetChains)
 
                     } else {
                         newText?.let { searchTxt ->
-                            searchEvmChains.addAll(toDisplayEvmChains.filter { chain ->
+                            searchMainnetChains.addAll(mainnetChains.filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
 
-                            searchCosmosChains.addAll(toDisplayCosmosChains.filter { chain ->
+                            searchTestnetChains.addAll(testnetChains.filter { chain ->
                                 chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
-                    if (searchEvmChains.isEmpty() && searchCosmosChains.isEmpty()) {
+                    if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {
@@ -451,8 +480,23 @@ class DashboardFragment : Fragment() {
             walletViewModel.price(BaseData.currencyName().lowercase())
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.initAccount()
-                baseAccount?.sortedDisplayCosmosLines()?.forEach { line ->
-                    line.fetched = false
+                baseAccount?.sortedDisplayChains()?.forEach { chain ->
+                    chain.fetched = false
+                }
+                withContext(Dispatchers.Main) {
+                    initData(baseAccount)
+                    updateViewWithLoadedData(baseAccount)
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.displayTestnetResult.observe(viewLifecycleOwner) {
+            ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
+            walletViewModel.price(BaseData.currencyName().lowercase())
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.initAccount()
+                baseAccount?.sortedDisplayChains()?.forEach { chain ->
+                    chain.fetched = false
                 }
                 withContext(Dispatchers.Main) {
                     initData(baseAccount)
@@ -491,14 +535,10 @@ class DashboardFragment : Fragment() {
         ApplicationViewModel.shared.walletEditResult.observe(viewLifecycleOwner) { response ->
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.let { account ->
-                    if (Prefs.getDisplayEvmChains(account) == response.first && Prefs.getDisplayChains(
-                            account
-                        ) == response.second
-                    ) {
+                    if (Prefs.getDisplayChains(account) == response) {
                         return@launch
                     }
-                    Prefs.setDisplayEvmChains(account, response.first)
-                    Prefs.setDisplayChains(account, response.second)
+                    Prefs.setDisplayChains(account, response)
                     account.sortLine()
                     initDisplayData(account)
 
@@ -508,7 +548,6 @@ class DashboardFragment : Fragment() {
                         initRecyclerView()
                         updateTotalValue()
                         updateSearchView()
-                        PushManager.syncAddresses(Prefs.fcmToken)
                     }
                 }
             }

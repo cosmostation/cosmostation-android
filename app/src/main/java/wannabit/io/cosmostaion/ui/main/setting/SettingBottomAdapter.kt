@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
@@ -22,7 +21,7 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointViewHolder
 
 class SettingBottomAdapter(
     val context: Context,
-    private val fromChain: CosmosLine?,
+    private val fromChain: BaseChain?,
     private val settingType: SettingType,
     val listener: EndpointListener?
 ) : ListAdapter<Any, RecyclerView.ViewHolder>(SettingDiffCallback()) {
@@ -119,7 +118,7 @@ class SettingBottomAdapter(
             SettingType.END_POINT_EVM.ordinal -> {
                 val endPoint = currentList[position] as JsonObject
                 if (holder is EndPointViewHolder) {
-                    holder.evmBind(fromChain as EthereumLine, endPoint, listener)
+                    holder.evmBind(fromChain, endPoint, listener)
                 }
             }
 

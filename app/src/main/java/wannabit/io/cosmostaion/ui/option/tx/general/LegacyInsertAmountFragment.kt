@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -24,7 +24,7 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentInsertAmountBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: CosmosLine
+    private lateinit var fromChain: BaseChain
     private var oktTokenInfo: OktToken? = null
     private var availableAmount = ""
     private var existAmount = ""
@@ -34,14 +34,14 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            fromChain: CosmosLine,
+            fromChain: BaseChain,
             oktTokenInfo: OktToken?,
             availableAmount: String,
             existAmount: String,
             listener: AmountSelectListener
         ): LegacyInsertAmountFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putParcelable("oktTokenInfo", oktTokenInfo)
                 putString("availableAmount", availableAmount)
                 putString("existAmount", existAmount)
@@ -85,13 +85,13 @@ class LegacyInsertAmountFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
-                        "fromChain", CosmosLine::class.java
+                    getParcelable(
+                        "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getParcelable("oktTokenInfo", OktToken::class.java)?.let { oktTokenInfo = it }
 
                 } else {
-                    (getSerializable("fromChain") as? CosmosLine)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getParcelable("oktTokenInfo") as? OktToken)?.let {

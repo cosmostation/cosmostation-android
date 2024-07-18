@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.ItemAssetBinding
 
-class FeeAssetAdapter(private val fromChain: CosmosLine) :
+class FeeAssetAdapter(private val fromChain: BaseChain) :
     ListAdapter<FeeData, AssetViewHolder>(FeeAssetDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null

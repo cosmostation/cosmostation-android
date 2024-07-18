@@ -6,11 +6,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.kava.hard.v1beta1.HardProto
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_LEND_IMG_URL
+import wannabit.io.cosmostaion.chain.evmClass.KAVA_LEND_IMG_URL
+import wannabit.io.cosmostaion.chain.kavaOraclePrice
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.kavaOraclePrice
 import wannabit.io.cosmostaion.databinding.ItemLendBinding
 import java.math.BigDecimal
 import java.math.RoundingMode

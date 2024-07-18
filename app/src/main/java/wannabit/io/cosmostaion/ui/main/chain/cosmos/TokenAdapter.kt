@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 
 class TokenAdapter(
-    val line: CosmosLine
+    val chain: BaseChain
 ) : ListAdapter<Token, TokenViewHolder>(TokenDiffCallback()) {
 
-    private var onItemClickListener: ((CosmosLine, String) -> Unit)? = null
+    private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TokenViewHolder {
         val binding =
@@ -22,11 +22,11 @@ class TokenAdapter(
 
     override fun onBindViewHolder(holder: TokenViewHolder, position: Int) {
         val token = currentList[position]
-        holder.bind(line, token, currentList.size, position)
+        holder.bind(chain, token, currentList.size, position)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(line, token.address)
+                it(chain, token.address)
             }
         }
     }
@@ -42,7 +42,7 @@ class TokenAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (CosmosLine, String) -> Unit) {
+    fun setOnItemClickListener(listener: (BaseChain, String) -> Unit) {
         onItemClickListener = listener
     }
 }

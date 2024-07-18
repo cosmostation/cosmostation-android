@@ -5,9 +5,8 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
@@ -15,31 +14,31 @@ import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
 class DashboardAdapter(
     val context: Context,
-    private val displayEvmLines: MutableList<EthereumLine>,
-    private val displayCosmosLines: MutableList<CosmosLine>,
+    private val displayMainnetChains: MutableList<BaseChain>,
+    private val displayTestnetChains: MutableList<BaseChain>,
     val listener: NodeDownListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_ETHEREUM_HEADER = 0
-        const val VIEW_TYPE_ETHEREUM_ITEM = 1
-        const val VIEW_TYPE_COSMOS_HEADER = 2
-        const val VIEW_TYPE_COSMOS_ITEM = 3
+        const val VIEW_TYPE_MAINNET_HEADER = 0
+        const val VIEW_TYPE_MAINNET_ITEM = 1
+        const val VIEW_TYPE_TESTNET_HEADER = 2
+        const val VIEW_TYPE_TESTNET_ITEM = 3
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_ETHEREUM_HEADER, VIEW_TYPE_COSMOS_HEADER -> {
+            VIEW_TYPE_MAINNET_HEADER, VIEW_TYPE_TESTNET_HEADER -> {
                 val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 DashboardHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_ETHEREUM_ITEM, VIEW_TYPE_COSMOS_ITEM -> {
+            VIEW_TYPE_MAINNET_ITEM, VIEW_TYPE_TESTNET_ITEM -> {
                 val binding =
                     ItemDashBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                DashboardViewHolder(context, binding)
+                DashboardViewHolder(parent.context, binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -53,22 +52,26 @@ class DashboardAdapter(
             }
 
             is DashboardViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_ETHEREUM_ITEM) {
-                    val line = displayEvmLines[position - 1]
-                    holder.evmBind(line)
+                if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
+                    val chain = displayMainnetChains[position - 1]
+                    if (Prefs.style == 0) {
+                        holder.bind(chain)
+                    } else {
+                        holder.proBind(chain)
+                    }
 
                     holder.itemView.setOnClickListener {
-                        listener.nodeDown(line)
+                        listener.nodeDown(chain)
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (line.fetched) {
+                        if (chain.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = if (line.supportCosmos) {
-                                QrEvmDialog(context, line)
+                            val customDialog = if (chain.isCosmos() && chain.supportEvm) {
+                                QrEvmDialog(context, chain)
                             } else {
-                                QrDialog(context, line, null)
+                                QrDialog(context, chain)
                             }
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
@@ -90,21 +93,25 @@ class DashboardAdapter(
                     }
 
                 } else {
-                    val line = if (displayEvmLines.isNotEmpty()) {
-                        displayCosmosLines[position - (displayEvmLines.size + 2)]
+                    val testnet = displayTestnetChains[position - (displayMainnetChains.size + 2)]
+                    if (Prefs.style == 0) {
+                        holder.testnetBind(testnet)
                     } else {
-                        displayCosmosLines[position - 1]
+                        holder.testnetProBind(testnet)
                     }
-                    holder.bind(line)
                     holder.itemView.setOnClickListener {
-                        listener.nodeDown(line)
+                        listener.nodeDown(testnet)
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (line.fetched) {
+                        if (testnet.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = QrDialog(context, null, line)
+                            val customDialog = if (testnet.isCosmos() && testnet.supportEvm) {
+                                QrEvmDialog(context, testnet)
+                            } else {
+                                QrDialog(context, testnet)
+                            }
 
                             if (scaleX == 1.0f && scaleY == 1.0f) {
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
@@ -129,22 +136,22 @@ class DashboardAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (displayEvmLines.isNotEmpty()) {
-            if (position == 0) VIEW_TYPE_ETHEREUM_HEADER
-            else if (position < displayEvmLines.size + 1) VIEW_TYPE_ETHEREUM_ITEM
-            else if (position < displayEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
-            else VIEW_TYPE_COSMOS_ITEM
+        return if (displayTestnetChains.isNotEmpty()) {
+            if (position == 0) VIEW_TYPE_MAINNET_HEADER
+            else if (position < displayMainnetChains.size + 1) VIEW_TYPE_MAINNET_ITEM
+            else if (position < displayMainnetChains.size + 2) VIEW_TYPE_TESTNET_HEADER
+            else VIEW_TYPE_TESTNET_ITEM
         } else {
-            if (position == 0) VIEW_TYPE_COSMOS_HEADER
-            else VIEW_TYPE_COSMOS_ITEM
+            if (position == 0) VIEW_TYPE_MAINNET_HEADER
+            else VIEW_TYPE_MAINNET_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return if (displayEvmLines.isNotEmpty()) {
-            displayEvmLines.size + displayCosmosLines.size + 2
+        return if (displayTestnetChains.isNotEmpty()) {
+            displayMainnetChains.size + displayTestnetChains.size + 2
         } else {
-            displayCosmosLines.size + 1
+            displayMainnetChains.size + 1
         }
     }
 
@@ -154,19 +161,19 @@ class DashboardAdapter(
 
         fun bind(position: Int) {
             binding.apply {
-                if (getItemViewType(position) == VIEW_TYPE_ETHEREUM_HEADER) {
-                    headerTitle.text = context.getString(R.string.str_ethereum_class)
-                    headerCnt.text = displayEvmLines.size.toString()
+                if (getItemViewType(position) == VIEW_TYPE_MAINNET_HEADER) {
+                    headerTitle.text = "Mainnet"
+                    headerCnt.text = displayMainnetChains.size.toString()
 
                 } else {
-                    headerTitle.text = context.getString(R.string.str_cosmos_class)
-                    headerCnt.text = displayCosmosLines.size.toString()
+                    headerTitle.text = "Testnet"
+                    headerCnt.text = displayTestnetChains.size.toString()
                 }
             }
         }
     }
 
     interface NodeDownListener {
-        fun nodeDown(line: CosmosLine)
+        fun nodeDown(chain: BaseChain)
     }
 }

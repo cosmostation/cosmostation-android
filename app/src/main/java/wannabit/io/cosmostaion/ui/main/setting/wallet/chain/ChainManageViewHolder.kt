@@ -3,52 +3,72 @@ package wannabit.io.cosmostaion.ui.main.setting.wallet.chain
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
     private val binding: ItemChainManageBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun evmBind(line: EthereumLine) {
+    fun bind(chain: BaseChain) {
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
 
-            chainImg.setImageResource(line.logo)
-            chainName.text = line.name.uppercase()
-
-            if (line.supportCosmos) {
+            if (chain.name == "OKT") {
                 grpcLayout.visibility = View.VISIBLE
                 rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
-                if (line is ChainOktEvm) {
-                    grpcEndpointType.text = "LCD"
-                    grpcEndpoint.text = line.lcdUrl
-                } else {
-                    grpcEndpointType.text = "GRPC"
-                    grpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
-                }
+                grpcEndpointType.text = "LCD"
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                grpcEndpoint.text = chain.lcdFetcher()!!.getLcd().replace("https://", "")
+
+            } else if (chain.isEvmCosmos()) {
+                grpcLayout.visibility = View.VISIBLE
+                rpcEndpointType.text = "EVM RPC"
+                grpcEndpointType.text = "GRPC"
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                grpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
+
+            } else if (chain.isCosmos()) {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "GRPC"
+                rpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
 
             } else {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = line.getEvmRpc().replace("https://", "")
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
             }
         }
     }
 
-    fun bind(line: CosmosLine) {
+    fun testnetBind(chain: BaseChain) {
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
+            chainImg.setImageResource(chain.logo)
+            chainName.text = chain.name.uppercase()
 
-            chainImg.setImageResource(line.logo)
-            chainName.text = line.name.uppercase()
+            if (chain.isEvmCosmos()) {
+                grpcLayout.visibility = View.VISIBLE
+                rpcEndpointType.text = "EVM RPC"
+                grpcEndpointType.text = "GRPC"
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                grpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
 
-            grpcLayout.visibility = View.GONE
-            rpcEndpointType.text = "GRPC"
-            rpcEndpoint.text = line.getGrpc().first + " : " + line.getGrpc().second
+            } else {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "GRPC"
+                rpcEndpoint.text =
+                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                        ?.getGrpc()?.second
+            }
         }
     }
 }

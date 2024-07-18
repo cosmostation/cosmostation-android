@@ -21,6 +21,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
+import com.cosmos.tx.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
@@ -29,7 +30,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -60,6 +61,8 @@ class AllChainClaimFragment : BaseTxFragment() {
 
     private var valueAbleRewards: MutableList<ClaimAllModel> = mutableListOf()
 
+    private var txTip: TxProto.Tip? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -87,27 +90,12 @@ class AllChainClaimFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayEvmLines()
-                            .none { !it.fetched } && account.sortedDisplayCosmosLines()
-                            .none { !it.fetched }
-                    ) {
-                        for (evmChain in account.sortedDisplayEvmLines()
-                            .filter { it.supportCosmos }) {
-                            val valueAbleReward = evmChain.valueAbleRewards()
-                            val txFee = evmChain.getInitPayableFee(requireContext())
-                            if (valueAbleReward.isNotEmpty() && txFee != null) {
-                                valueAbleRewards.add(
-                                    ClaimAllModel(
-                                        evmChain, valueAbleReward
-                                    )
-                                )
-                            }
-                        }
-
-                        for (chain in account.sortedDisplayCosmosLines()) {
-                            val valueAbleReward = chain.valueAbleRewards()
+                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                        for (chain in account.sortedDisplayChains()
+                            .filter { !it.isTestnet && it.supportCosmosGrpc }) {
+                            val valueAbleReward = chain.grpcFetcher?.valueAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
-                            if (valueAbleReward.isNotEmpty() && txFee != null) {
+                            if (valueAbleReward?.isNotEmpty() == true && txFee != null) {
                                 valueAbleRewards.add(
                                     ClaimAllModel(
                                         chain, valueAbleReward
@@ -190,21 +178,21 @@ class AllChainClaimFragment : BaseTxFragment() {
             for (i in 0 until valueAbleRewards.size) {
                 if (isAdded) {
                     activity?.let {
-                        if (!valueAbleRewards[i].cosmosLine.isGasSimulable()) {
+                        if (!valueAbleRewards[i].baseChain.isGasSimulable()) {
                             valueAbleRewards[i].fee =
-                                valueAbleRewards[i].cosmosLine.getInitPayableFee(it)
+                                valueAbleRewards[i].baseChain.getInitPayableFee(it)
 
                         } else {
                             val valueAbleReward = valueAbleRewards[i]
-                            var txFee = valueAbleReward.cosmosLine.getInitPayableFee(it)
+                            var txFee = valueAbleReward.baseChain.getInitPayableFee(it)
                             simulateClaimTx(
-                                valueAbleReward.cosmosLine, valueAbleReward.rewards
+                                valueAbleReward.baseChain, valueAbleReward.rewards
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
                                     val txGasLimit =
-                                        (toGas.toDouble() * valueAbleReward.cosmosLine.gasMultiply()).toLong()
+                                        (toGas.toDouble() * valueAbleReward.baseChain.gasMultiply()).toLong()
                                             .toBigDecimal()
-                                    valueAbleReward.cosmosLine.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
+                                    valueAbleReward.baseChain.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
                                         feeData.denom == txFee?.getAmount(0)?.denom
                                     }?.let { gasRate ->
                                         val feeCoinAmount = gasRate.gasRate?.multiply(txGasLimit)
@@ -247,12 +235,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 dismiss()
                 BaseData.baseAccount?.let { account ->
-                    for (evmChain in account.sortedDisplayEvmLines()) {
-                        evmChain.fetched = false
-                        initDisplayData(account)
-                    }
-
-                    for (chain in account.sortedDisplayCosmosLines()) {
+                    for (chain in account.sortedDisplayChains()) {
                         chain.fetched = false
                         initDisplayData(account)
                     }
@@ -274,7 +257,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 for (i in 0 until valueAbleRewards.size) {
                     val valueAbleReward = valueAbleRewards[i]
                     broadCastClaimTx(valueAbleReward) {
-                        val channel = getChannel(valueAbleReward.cosmosLine)
+                        val channel = getChannel(valueAbleReward.baseChain)
                         checkTx(i, channel, it?.txResponse)
                     }
                 }
@@ -296,7 +279,7 @@ class AllChainClaimFragment : BaseTxFragment() {
     }
 
     private fun simulateClaimTx(
-        chain: CosmosLine,
+        chain: BaseChain,
         claimableRewards: MutableList<DelegationDelegatorReward?>,
         onComplete: (String?) -> Unit
     ) {
@@ -310,6 +293,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                         loadAuth(channel, chain.address),
                         claimableRewards,
                         chain.getInitPayableFee(it),
+                        txTip,
                         "",
                         chain
                     )
@@ -328,15 +312,16 @@ class AllChainClaimFragment : BaseTxFragment() {
         valueAbleReward: ClaimAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val channel = getChannel(valueAbleReward.cosmosLine)
+            val channel = getChannel(valueAbleReward.baseChain)
             val txStub =
                 ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val broadcastTx = Signer.genClaimRewardsBroadcast(
-                loadAuth(channel, valueAbleReward.cosmosLine.address),
+                loadAuth(channel, valueAbleReward.baseChain.address),
                 valueAbleReward.rewards,
                 valueAbleReward.fee,
+                txTip,
                 "",
-                valueAbleReward.cosmosLine
+                valueAbleReward.baseChain
             )
             try {
                 onComplete(txStub.broadcastTx(broadcastTx))
@@ -391,45 +376,19 @@ class AllChainClaimFragment : BaseTxFragment() {
     private fun initDisplayData(baseAccount: BaseAccount) {
         baseAccount.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                if (type == BaseAccountType.MNEMONIC) {
-                    for (line in sortedDisplayEvmLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
+                for (chain in sortedDisplayChains()) {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-                        }
-                    }
-
-                    for (line in sortedDisplayCosmosLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithSeed(seed, line.setParentPath, lastHDPath)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, false)
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        if (chain.publicKey == null) {
+                            chain.setInfoWithPrivateKey(privateKey)
                         }
                     }
 
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    for (line in sortedDisplayEvmLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadEvmChainData(line, id, false)
-                        }
-                    }
-
-                    for (line in sortedDisplayCosmosLines()) {
-                        if (line.address?.isEmpty() == true) {
-                            line.setInfoWithPrivateKey(privateKey)
-
-                        }
-                        if (!line.fetched) {
-                            ApplicationViewModel.shared.loadChainData(line, id, false)
-                        }
+                    if (!chain.fetched) {
+                        ApplicationViewModel.shared.loadChainData(chain, id, false)
                     }
                 }
             }
@@ -443,7 +402,7 @@ class AllChainClaimFragment : BaseTxFragment() {
 }
 
 data class ClaimAllModel(
-    val cosmosLine: CosmosLine,
+    val baseChain: BaseChain,
     val rewards: MutableList<DelegationDelegatorReward?>,
     var fee: Fee? = null,
     var isBusy: Boolean = true,

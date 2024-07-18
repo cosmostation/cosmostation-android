@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kava.swap.v1beta1.QueryProto
 import com.kava.swap.v1beta1.QueryProto.PoolResponse
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemPoolBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class PoolListAdapter(
     val context: Context,
-    private val selectChain: CosmosLine,
+    private val selectChain: BaseChain,
     private val swapMyList: MutableList<PoolResponse>,
     private val swapOtherList: MutableList<PoolResponse>,
     private val swapMyDeposit: MutableList<QueryProto.DepositResponse>?,

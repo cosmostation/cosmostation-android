@@ -17,7 +17,6 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -59,8 +58,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             listener: AddressListener
         ): TransferAddressFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
-                putSerializable("toChain", toChain)
+                putParcelable("fromChain", fromChain)
+                putParcelable("toChain", toChain)
                 putString("existAddress", existAddress)
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -101,10 +100,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
+                    getParcelable(
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
-                    getSerializable(
+                    getParcelable(
                         "toChain", BaseChain::class.java
                     )?.let { toChain = it }
                     getSerializable(
@@ -112,10 +111,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                     )?.let { sendAssetType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? BaseChain)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
-                    (getSerializable("toChain") as? BaseChain)?.let {
+                    (getParcelable("toChain") as? BaseChain)?.let {
                         toChain = it
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {
@@ -143,10 +142,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             }
 
             btnAddressBook.setOnClickListener {
+                val address = fromChain.address.ifEmpty {
+                    fromChain.evmAddress
+                }
                 handleOneClickWithDelay(
                     AddressBookFragment.newInstance(fromChain,
                         toChain,
-                        fromChain.address,
+                        address,
                         sendAssetType,
                         object : AddressBookSelectListener {
                             override fun select(address: String, memo: String) {
@@ -199,7 +201,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                         if (BaseUtils.isValidBechAddress(
-                                toChain as CosmosLine, address
+                                toChain, address
                             )
                         ) {
                             addressListener?.selectAddress(
@@ -209,11 +211,9 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        toChain.accountPrefix?.let { prefix ->
-                            txViewModel.icnsAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
-                            )
-                        }
+                        txViewModel.icnsAddress(
+                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
+                        )
 
                     } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                         if (BaseKey.isValidEthAddress(address)) {
@@ -224,7 +224,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        if (BaseUtils.isValidBechAddress((toChain as CosmosLine), address)) {
+                        if (BaseUtils.isValidBechAddress(toChain, address)) {
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
@@ -232,11 +232,9 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                        toChain.accountPrefix?.let { prefix ->
-                            txViewModel.icnsAddress(
-                                toChain as CosmosLine, addressTxt.text.toString().trim(), prefix
-                            )
-                        }
+                        txViewModel.icnsAddress(
+                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
+                        )
                     }
                 }
             }

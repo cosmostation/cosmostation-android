@@ -9,8 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.allCosmosLines
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.AddressBook
@@ -49,7 +48,7 @@ class AddressBookViewHolder(
                     accountName.text = account?.name
                     accountAddress.text = refAddress.dpAddress
 
-                    allCosmosLines().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
+                    allChains().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
                         if (!chain.isDefault) {
                             chainBadge.visibility = View.VISIBLE
                             chainBadge.text = context.getString(R.string.str_legacy)
@@ -61,13 +60,16 @@ class AddressBookViewHolder(
                             )
                             when (chain.tag) {
                                 "okt996_Keccak" -> {
-                                    chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                                    chainTypeBadge.text =
+                                        context.getString(R.string.str_ethsecp256k1)
                                     chainTypeBadge.visibility = View.VISIBLE
                                 }
+
                                 "okt996_Secp" -> {
                                     chainTypeBadge.text = context.getString(R.string.str_secp256k1)
                                     chainTypeBadge.visibility = View.VISIBLE
                                 }
+
                                 else -> {
                                     chainTypeBadge.visibility = View.GONE
                                 }

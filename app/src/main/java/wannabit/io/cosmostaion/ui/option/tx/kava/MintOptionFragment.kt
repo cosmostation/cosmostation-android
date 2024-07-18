@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentMintOptionBinding
 import wannabit.io.cosmostaion.ui.tx.info.kava.LendClickListener
@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionType
 import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionType
 
 class MintOptionFragment(
-    val selectedChain: CosmosLine,
+    val selectedChain: BaseChain,
     private val mintType: String?,
     private val denom: String?,
     private val mintClickListener: MintClickListener?,

@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -16,11 +16,11 @@ class RewardViewHolder(
     private val binding: ItemRewardBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(line: CosmosLine, rewardCoin: Coin) {
+    fun bind(chain: BaseChain, rewardCoin: Coin) {
         binding.apply {
             rewardView.setBackgroundResource(R.drawable.item_bg)
 
-            BaseData.getAsset(line.apiName, rewardCoin.denom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, rewardCoin.denom)?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 

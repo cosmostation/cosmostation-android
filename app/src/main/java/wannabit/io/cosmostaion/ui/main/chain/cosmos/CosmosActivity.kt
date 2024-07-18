@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
@@ -35,34 +36,23 @@ class CosmosActivity : BaseActivity() {
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
         if (savedInstanceState == null) {
-            var selectedChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("selectedChain", CosmosLine::class.java)
+            val selectedChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("selectedChain", BaseChain::class.java)
             } else {
-                (intent.getParcelableExtra("selectedChain")) as? CosmosLine
+                (intent.getParcelableExtra("selectedChain")) as? BaseChain
             }
 
-            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
+            BaseData.baseAccount?.allChains?.firstOrNull {
                 it.tag == selectedChain?.tag
             }?.let {
-                selectedChain = it
                 supportFragmentManager.beginTransaction().replace(
-                    R.id.fragment_container,
-                    CosmosDetailFragment.newInstance(selectedChain as CosmosLine)
+                    R.id.fragment_container, CosmosDetailFragment.newInstance(it)
                 ).commitAllowingStateLoss()
-
-            } ?: run {
-                BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
-                    it.tag == selectedChain?.tag
-                }?.let { chain ->
-                    selectedChain = chain
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.fragment_container, CosmosDetailFragment.newInstance(chain)
-                    ).commitAllowingStateLoss()
-                }
+                initChainImage(it)
             }
-            selectedChain?.let { initChainImage(it) }
             initViewModel()
         }
+        setUpBg()
     }
 
     private fun initViewModel() {
@@ -77,7 +67,7 @@ class CosmosActivity : BaseActivity() {
             ViewModelProvider(this, proposalViewModelProviderFactory)[ProposalViewModel::class.java]
     }
 
-    private fun initChainImage(chain: CosmosLine) {
+    private fun initChainImage(chain: BaseChain) {
         try {
             binding.chainLogo.apply {
                 val width = resources.displayMetrics.widthPixels
@@ -107,6 +97,12 @@ class CosmosActivity : BaseActivity() {
 
         } catch (e: NoSuchElementException) {
             binding.chainLogo.visibility = View.GONE
+        }
+    }
+
+    private fun setUpBg() {
+        ApplicationViewModel.shared.changeBgResult.observe(this) {
+            binding.parentLayout.setBackgroundResource(Prefs.background)
         }
     }
 

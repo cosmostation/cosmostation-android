@@ -8,23 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.formatTxTime
+import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
+import wannabit.io.cosmostaion.databinding.FragmentEvmAboutBinding
 import java.util.Locale
 
 class EvmAboutFragment : Fragment() {
 
-    private var _binding: FragmentAboutBinding? = null
+    private var _binding: FragmentEvmAboutBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedEvmChain: EthereumLine
+    private lateinit var selectedEvmChain: BaseChain
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedEvmChain: EthereumLine): EvmAboutFragment {
+        fun newInstance(selectedEvmChain: BaseChain): EvmAboutFragment {
             val args = Bundle().apply {
                 putParcelable("selectedEvmChain", selectedEvmChain)
             }
@@ -37,7 +40,7 @@ class EvmAboutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentEvmAboutBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -50,15 +53,17 @@ class EvmAboutFragment : Fragment() {
 
     private fun initView() {
         binding.apply {
-            descriptionView.setBackgroundResource(R.drawable.item_bg)
-            informationTitle.visibility = View.GONE
-            informationView.visibility = View.GONE
+            listOf(descriptionView, informationView).forEach {
+                it.setBackgroundResource(
+                    R.drawable.item_bg
+                )
+            }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
+                arguments?.getParcelable("selectedEvmChain", BaseChain::class.java)
                     ?.let { selectedEvmChain = it }
             } else {
-                (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
+                (arguments?.getParcelable("selectedEvmChain") as? BaseChain)?.let {
                     selectedEvmChain = it
                 }
             }
@@ -72,6 +77,28 @@ class EvmAboutFragment : Fragment() {
                 } else {
                     chainDescription.text = it?.getAsJsonObject("description")?.get("ja")?.asString
                 }
+
+                val originTime = it?.getAsJsonPrimitive("origin_genesis_time")?.asString ?: ""
+                initialTime.text = if (originTime.isEmpty()) {
+                    ""
+                } else {
+                    formatTxTime(
+                        requireContext(), originTime
+                    )
+                }
+
+                val chainIdEvm = it?.getAsJsonPrimitive("chain_id_evm") ?: JsonPrimitive("")
+                chainIdEvmInfo.text = chainIdEvm.asString.hexToBigDecimal().toString()
+
+                val coinForGas = it?.getAsJsonPrimitive("symbol") ?: JsonPrimitive("")
+                coinForGasInfo.text = coinForGas.asString
+
+                chainNetwork.text = if (selectedEvmChain.isTestnet) {
+                    getString(R.string.str_testnet)
+                } else {
+                    getString(R.string.str_mainnet)
+                }
+
             }
         }
     }

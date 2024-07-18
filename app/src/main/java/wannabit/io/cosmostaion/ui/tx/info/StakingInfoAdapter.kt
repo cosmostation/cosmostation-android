@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
 class StakingInfoAdapter(
-    val selectedChain: CosmosLine,
+    val selectedChain: BaseChain,
     private val rewardAddress: String?,
     private val validators: MutableList<StakingProto.Validator>,
     private val delegations: MutableList<StakingProto.DelegationResponse>,
@@ -67,9 +67,17 @@ class StakingInfoAdapter(
                         position
                     }
                     val delegation = delegations[delegationPosition]
-                    validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
-                        holder.bind(selectedChain, validator, delegation, delegations.size, delegationPosition, listener)
-                    }
+                    validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                        ?.let { validator ->
+                            holder.bind(
+                                selectedChain,
+                                validator,
+                                delegation,
+                                delegations.size,
+                                delegationPosition,
+                                listener
+                            )
+                        }
                 }
             }
 
@@ -81,9 +89,17 @@ class StakingInfoAdapter(
                         position - delegations.size
                     }
                     val entry = unBondings[unStakingPosition]
-                    validators.firstOrNull { it.operatorAddress == entry.validatorAddress }?.let { validator ->
-                        holder.bind(selectedChain, validator, entry, unBondings.size, unStakingPosition, listener)
-                    }
+                    validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                        ?.let { validator ->
+                            holder.bind(
+                                selectedChain,
+                                validator,
+                                entry,
+                                unBondings.size,
+                                unStakingPosition,
+                                listener
+                            )
+                        }
                 }
             }
         }

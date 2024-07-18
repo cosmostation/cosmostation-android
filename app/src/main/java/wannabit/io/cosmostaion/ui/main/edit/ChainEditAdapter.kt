@@ -3,38 +3,37 @@ package wannabit.io.cosmostaion.ui.main.edit
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class ChainEditAdapter(
     val account: BaseAccount,
-    private val allEvmLines: MutableList<EthereumLine>,
-    private val displayEvmChains: MutableList<String>,
-    private val allCosmosLines: MutableList<CosmosLine>,
-    private val displayChains: MutableList<String>,
+    private val mainnetChains: MutableList<BaseChain>,
+    private val testnetChains: MutableList<BaseChain>,
+    private val selectedChains: MutableList<String>,
     private var listener: SelectListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_EVM_HEADER = 0
-        const val VIEW_TYPE_EVM_ITEM = 1
-        const val VIEW_TYPE_COSMOS_HEADER = 2
-        const val VIEW_TYPE_COSMOS_ITEM = 3
+        const val VIEW_TYPE_MAINNET_HEADER = 0
+        const val VIEW_TYPE_MAINNET_ITEM = 1
+        const val VIEW_TYPE_TESTNET_HEADER = 2
+        const val VIEW_TYPE_TESTNET_ITEM = 3
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_EVM_HEADER, VIEW_TYPE_COSMOS_HEADER -> {
+            VIEW_TYPE_MAINNET_HEADER, VIEW_TYPE_TESTNET_HEADER -> {
                 val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 EditHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_EVM_ITEM, VIEW_TYPE_COSMOS_ITEM -> {
+            VIEW_TYPE_MAINNET_ITEM, VIEW_TYPE_TESTNET_ITEM -> {
                 val binding =
                     ItemEditBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ChainEditViewHolder(parent.context, binding)
@@ -51,27 +50,37 @@ class ChainEditAdapter(
             }
 
             is ChainEditViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
-                    val evmChain = allEvmLines[position - 1]
-                    holder.evmBind(account, evmChain, displayEvmChains, listener)
+                if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
+                    val mainnetChain = mainnetChains[position - 1]
+                    holder.bind(account, mainnetChain, selectedChains, listener)
 
                 } else {
-                    val line = allCosmosLines[position - (allEvmLines.size + 2)]
-                    holder.bind(account, line, displayChains, listener)
+                    val testnetChain = testnetChains[position - (mainnetChains.size + 2)]
+                    holder.testnetBind(account, testnetChain, selectedChains, listener)
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_EVM_HEADER
-        else if (position < allEvmLines.size + 1) VIEW_TYPE_EVM_ITEM
-        else if (position < allEvmLines.size + 2) VIEW_TYPE_COSMOS_HEADER
-        else VIEW_TYPE_COSMOS_ITEM
+        return if (testnetChains.isNotEmpty()) {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else if (position < mainnetChains.size + 1) DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+            else if (position < mainnetChains.size + 2) DashboardAdapter.VIEW_TYPE_TESTNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_TESTNET_ITEM
+
+        } else {
+            if (position == 0) DashboardAdapter.VIEW_TYPE_MAINNET_HEADER
+            else DashboardAdapter.VIEW_TYPE_MAINNET_ITEM
+        }
     }
 
     override fun getItemCount(): Int {
-        return allEvmLines.size + allCosmosLines.size + 2
+        return if (testnetChains.isNotEmpty()) {
+            mainnetChains.size + testnetChains.size + 2
+        } else {
+            mainnetChains.size + 1
+        }
     }
 
     inner class EditHeaderViewHolder(
@@ -80,20 +89,18 @@ class ChainEditAdapter(
 
         fun bind(viewType: Int) {
             binding.apply {
-                if (viewType == VIEW_TYPE_EVM_HEADER) {
-                    headerTitle.text = "Evm class"
-                    headerCnt.text = allEvmLines.size.toString()
+                if (viewType == VIEW_TYPE_MAINNET_HEADER) {
+                    headerTitle.text = "Mainnet"
+                    headerCnt.text = mainnetChains.size.toString()
                 } else {
-                    headerTitle.text = "Cosmos class"
-                    headerCnt.text = allCosmosLines.size.toString()
+                    headerTitle.text = "Testnet"
+                    headerCnt.text = testnetChains.size.toString()
                 }
             }
         }
     }
 
     interface SelectListener {
-        fun evmSelect(displayEvmChains: MutableList<String>)
-
         fun select(displayChains: MutableList<String>)
     }
 }

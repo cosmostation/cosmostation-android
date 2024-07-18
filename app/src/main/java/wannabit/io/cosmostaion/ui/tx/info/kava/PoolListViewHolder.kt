@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.kava.swap.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -17,7 +17,7 @@ class PoolListViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindMyPool(
-        selectChain: CosmosLine,
+        selectChain: BaseChain,
         pool: QueryProto.PoolResponse?,
         deposit: QueryProto.DepositResponse?,
         listener: PoolListAdapter.ClickListener
@@ -73,7 +73,7 @@ class PoolListViewHolder(
     }
 
     fun bindOtherPool(
-        selectChain: CosmosLine,
+        selectChain: BaseChain,
         pool: QueryProto.PoolResponse?,
         listener: PoolListAdapter.ClickListener
     ) {

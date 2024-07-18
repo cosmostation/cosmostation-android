@@ -5,167 +5,85 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/chain_name"
+        android:id="@+id/account_name"
         style="@style/font_sb_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_40"
+        android:layout_marginTop="@dimen/space_20"
         android:textAllCaps="true"
         android:textColor="@color/color_base01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/btn_filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_36"
-        android:layout_marginEnd="@dimen/space_20"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/icon_address_change"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_layout"
+        app:layout_constraintTop_toBottomOf="@+id/account_name" />
 
     <LinearLayout
-        android:id="@+id/account_path_layout"
+        android:id="@+id/btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_6"
-        android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chain_name">
-
-        <TextView
-            android:id="@+id/account_path"
-            style="@style/font_sm_12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textColor="@color/color_base02" />
-
-        <TextView
-            android:id="@+id/chain_badge"
-            style="@style/font_sm_8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_4"
-            android:background="@drawable/round_box_deprecated"
-            android:paddingHorizontal="@dimen/space_6"
-            android:paddingVertical="@dimen/space_2"
-            android:textAllCaps="true"
-            android:textColor="@color/color_base02" />
-
-        <TextView
-            android:id="@+id/chain_type_badge"
-            style="@style/font_sm_8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_2"
-            android:background="@drawable/round_box_deprecated"
-            android:paddingHorizontal="@dimen/space_6"
-            android:paddingVertical="@dimen/space_2"
-            android:textAllCaps="false"
-            android:textColor="@color/color_base02" />
-
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/qr_box_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_4"
-        android:padding="@dimen/space_16"
-        android:src="@drawable/icon_qr_box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_path_layout" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/qr_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/qr_box_img"
-        app:layout_constraintEnd_toEndOf="@+id/qr_box_img"
-        app:layout_constraintStart_toStartOf="@+id/qr_box_img"
-        app:layout_constraintTop_toTopOf="@+id/qr_box_img">
-
-        <ImageView
-            android:id="@+id/qr_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/chain_img"
-            android:layout_width="@dimen/space_64"
-            android:layout_height="@dimen/space_64"
-            android:layout_gravity="center" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/address_title"
-        style="@style/font_sb_12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_24"
-        android:text="@string/str_address"
-        android:textColor="@color/color_base01"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/qr_box_img" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/address_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_8"
-        app:cardElevation="0dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_title">
-
-        <TextView
-            android:id="@+id/address"
-            style="@style/font_sm_12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_base01" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/copy_msg"
-        style="@style/font_sm_12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"
-        android:gravity="center"
-        android:text="@string/str_msg_copy"
-        android:textColor="@color/color_base02"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address_view" />
-
-    <Button
-        android:id="@+id/btn_share"
-        style="@style/font_sb_16"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_54"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_12"
-        android:background="@drawable/button_common_bg"
-        android:text="@string/str_share_address"
-        android:textAllCaps="false"
-        android:textColor="@color/color_base01"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_share"
+            style="@style/font_sb_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:background="@drawable/button_common_bg"
+            android:text="@string/str_share_address"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_eth_share"
+            style="@style/font_sb_14"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_8"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_common_bg"
+            android:ellipsize="middle"
+            android:text="@string/str_share_evm_address2"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_cosmos_share"
+            style="@style/font_sb_14"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginStart="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_16"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_common_bg"
+            android:ellipsize="middle"
+            android:text="@string/str_share_cosmos_address2"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

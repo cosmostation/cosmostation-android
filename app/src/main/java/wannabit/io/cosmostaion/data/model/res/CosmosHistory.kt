@@ -9,8 +9,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.common.toHex
@@ -727,9 +726,7 @@ data class CosmosHistory(
         return c.getString(R.string.tx_unknown)
     }
 
-    fun getDpCoin(line: CosmosLine): MutableList<CoinProto.Coin> {
-        val evmChain = line as? EthereumLine
-
+    fun getDpCoin(chain: BaseChain): MutableList<CoinProto.Coin> {
         val result = mutableListOf<CoinProto.Coin>()
         val json = Gson().toJson(data?.logs)
         val jsonArray = Gson().fromJson(json, JsonArray::class.java)
@@ -774,7 +771,7 @@ data class CosmosHistory(
                                     }
                             }
                     }
-                    return sortedCoins(line, result)
+                    return sortedCoins(chain, result)
                 }
 
                 var allSend = true
@@ -801,7 +798,7 @@ data class CosmosHistory(
                         if (msgType != null) {
                             val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
                             msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
-                                if (line.address == senderAddr) {
+                                if (chain.address == senderAddr) {
                                     val amount =
                                         msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
                                     totalAmount = totalAmount.add(amount)
@@ -811,7 +808,7 @@ data class CosmosHistory(
                             }
 
                             msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                                if (line.address == receiverAddr) {
+                                if (chain.address == receiverAddr) {
                                     val amount =
                                         msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
                                     totalAmount = totalAmount.add(amount)
@@ -824,7 +821,7 @@ data class CosmosHistory(
                     val value = CoinProto.Coin.newBuilder().setDenom(denom)
                         .setAmount(totalAmount.toString()).build()
                     result.add(value)
-                    return sortedCoins(line, result)
+                    return sortedCoins(chain, result)
                 }
 
                 var ibcReceived = false
@@ -851,7 +848,7 @@ data class CosmosHistory(
                         log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
                             ?.let { event ->
                                 event.asJsonObject["attributes"].asJsonArray.forEach { attribute ->
-                                    if (attribute.asJsonObject["value"].asString == line.address) {
+                                    if (attribute.asJsonObject["value"].asString == chain.address) {
                                         event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }
                                             ?.let { attributeFiltered ->
                                                 attributeFiltered.asJsonObject["value"].asString?.let { rawAmount ->
@@ -863,8 +860,8 @@ data class CosmosHistory(
                                                             val denom: String =
                                                                 rawCoin.substring(m.end())
                                                             val coin = CoinProto.Coin.newBuilder()
-                                                                .setDenom(denom)
-                                                                .setAmount(amount).build()
+                                                                .setDenom(denom).setAmount(amount)
+                                                                .build()
                                                             result.add(coin)
                                                         }
                                                     }
@@ -874,7 +871,7 @@ data class CosmosHistory(
                                 }
                             }
                     }
-                    return sortedCoins(line, result)
+                    return sortedCoins(chain, result)
                 }
             }
         }
@@ -908,7 +905,7 @@ data class CosmosHistory(
                                 result.add(rawCoin)
                             }
                     }
-                    return sortedCoins(line, result)
+                    return sortedCoins(chain, result)
                 }
             }
         }
@@ -998,7 +995,7 @@ data class CosmosHistory(
 
             } else if (msgType.contains("bank") && msgType.contains("MsgMultiSend")) {
                 for (input in msgValue["inputs"].asJsonArray) {
-                    if (!input.isJsonNull && line.address.equals(input.asJsonObject["address"].asString)) {
+                    if (!input.isJsonNull && chain.address == input.asJsonObject["address"].asString) {
                         val coin = CoinProto.Coin.newBuilder()
                             .setDenom(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
                             .setAmount(input.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
@@ -1009,7 +1006,7 @@ data class CosmosHistory(
                 }
 
                 for (output in msgValue["outputs"].asJsonArray) {
-                    if (!output.isJsonNull && line.address.equals(output.asJsonObject["address"].asString)) {
+                    if (!output.isJsonNull && chain.address == output.asJsonObject["address"].asString) {
                         val coin = CoinProto.Coin.newBuilder()
                             .setDenom(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["denom"].asString)
                             .setAmount(output.asJsonObject["coins"].asJsonArray[0].asJsonObject["amount"].asString)
@@ -1028,10 +1025,10 @@ data class CosmosHistory(
                         null
                     }
                     if (data == null && amount.isNotEmpty() && amount != "0") {
-                        val denom = if (evmChain?.tag == "kava60") {
+                        val denom = if (chain.tag == "kava60") {
                             "akava"
                         } else {
-                            evmChain?.stakeDenom ?: ""
+                            chain.stakeDenom
                         }
                         val value =
                             CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
@@ -1040,15 +1037,13 @@ data class CosmosHistory(
                 }
 
             } else {
-                return sortedCoins(line, result)
+                return sortedCoins(chain, result)
             }
         }
-        return sortedCoins(line, result)
+        return sortedCoins(chain, result)
     }
 
-    fun getDpToken(line: CosmosLine): Pair<Token, BigDecimal>? {
-        val evmChain = line as? EthereumLine
-
+    fun getDpToken(chain: BaseChain): Pair<Token, BigDecimal>? {
         getMsgs()?.get(0)?.let { firstMsg ->
             firstMsg.asJsonObject["@type"].asString?.let { msgType ->
                 val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")]
@@ -1063,9 +1058,10 @@ data class CosmosHistory(
                             null
                         }
                         if (amount != null) {
-                            line.tokens.firstOrNull { it.address == contractAddress }?.let { cw20 ->
-                                return Pair(cw20, amount.toBigDecimal())
-                            }
+                            chain.grpcFetcher?.tokens?.firstOrNull { it.address == contractAddress }
+                                ?.let { cw20 ->
+                                    return Pair(cw20, amount.toBigDecimal())
+                                }
                         } else {
                             return null
                         }
@@ -1082,7 +1078,7 @@ data class CosmosHistory(
                             val hexData = Base64.decode(data).toHex()
                             val contractAddress = dataValue.asJsonObject["to"].asString
                             if (hexData.startsWith("a9059cbb")) {
-                                evmChain?.evmTokens?.firstOrNull { it.address == contractAddress }
+                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address == contractAddress }
                                     ?.let { erc20 ->
                                         return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
                                     }
@@ -1126,7 +1122,7 @@ data class CosmosHistory(
     }
 
     private fun sortedCoins(
-        line: CosmosLine, inputs: MutableList<CoinProto.Coin>?
+        chain: BaseChain, inputs: MutableList<CoinProto.Coin>?
     ): MutableList<CoinProto.Coin> {
         var sorted = mutableListOf<CoinProto.Coin>()
 
@@ -1148,7 +1144,7 @@ data class CosmosHistory(
         }
 
         sorted.sortWith { coin1, coin2 ->
-            if (coin1.denom == line.stakeDenom && coin2.denom != line.stakeDenom) {
+            if (coin1.denom == chain.stakeDenom && coin2.denom != chain.stakeDenom) {
                 -1
             } else {
                 0

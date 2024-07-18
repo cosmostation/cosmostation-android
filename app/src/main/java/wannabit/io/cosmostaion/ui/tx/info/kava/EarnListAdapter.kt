@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto.Coin
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemEarnBinding
 import wannabit.io.cosmostaion.databinding.ItemEarnStatusBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class EarnListAdapter(
-    val context: Context, private val selectedChain: CosmosLine?
+    val context: Context, private val selectedChain: BaseChain?
 ) : ListAdapter<Coin, RecyclerView.ViewHolder>(EarnListDiffCallback()) {
 
     companion object {

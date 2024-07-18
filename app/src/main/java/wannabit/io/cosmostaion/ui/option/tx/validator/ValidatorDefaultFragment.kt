@@ -10,11 +10,11 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ValidatorDefaultFragment(
-    private val selectedChain: CosmosLine,
+    private val selectedChain: BaseChain,
     private val fromValidator: StakingProto.Validator?,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
@@ -45,7 +45,8 @@ class ValidatorDefaultFragment(
             selectTitle.text = getString(R.string.title_select_validator)
             searchBar.visibility = View.VISIBLE
             searchView.queryHint = getString(R.string.str_search_validator)
-            searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator })
+            selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                ?.let { searchValidators.addAll(it) }
 
             initRecyclerView()
         }
@@ -78,12 +79,16 @@ class ValidatorDefaultFragment(
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
                     if (StringUtils.isEmpty(newText)) {
-                        searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator })
+                        selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                            ?.let { searchValidators.addAll(it) }
                     } else {
                         newText?.let { searchTxt ->
-                            searchValidators.addAll(selectedChain.cosmosValidators.filterNot { it == fromValidator }.filter { validator ->
-                                validator.description.moniker.contains(searchTxt, ignoreCase = true)
-                            })
+                            selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                                ?.filter { validator ->
+                                    validator.description.moniker.contains(
+                                        searchTxt, ignoreCase = true
+                                    )
+                                }?.let { searchValidators.addAll(it) }
                         }
                     }
                     validatorDefaultAdapter.notifyDataSetChanged()

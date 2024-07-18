@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
@@ -35,7 +34,7 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
             listener: AssetSelectListener
         ): FeeAssetFragment {
             val args = Bundle().apply {
-                putSerializable("fromChain", fromChain)
+                putParcelable("fromChain", fromChain)
                 putParcelableArrayList("feeDatas", ArrayList(feeDatas))
                 putSerializable("sendAssetType", sendAssetType)
             }
@@ -66,7 +65,7 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
             selectTitle.text = getString(R.string.title_fee_select)
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    getSerializable(
+                    getParcelable(
                         "fromChain", BaseChain::class.java
                     )?.let { fromChain = it }
                     getSerializable(
@@ -74,7 +73,7 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
                     )?.let { sendAssetType = it }
 
                 } else {
-                    (getSerializable("fromChain") as? BaseChain)?.let {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
                         fromChain = it
                     }
                     (getSerializable("sendAssetType") as? SendAssetType)?.let {
@@ -83,11 +82,17 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
                 }
                 feeDatas = getParcelableArrayList("feeDatas")
             }
-            feeAssetAdapter = FeeAssetAdapter(fromChain as CosmosLine)
+
+            val filteredFeeDatas = feeDatas?.mapNotNull { feeData ->
+                feeData.denom?.let {
+                    BaseData.getAsset(fromChain.apiName, it)?.let { feeData }
+                }
+            }?.toMutableList()
+            feeAssetAdapter = FeeAssetAdapter(fromChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = feeAssetAdapter
-            feeAssetAdapter.submitList(feeDatas)
+            feeAssetAdapter.submitList(filteredFeeDatas)
 
             feeAssetAdapter.setOnItemClickListener {
                 assetSelectListener?.select(it)

@@ -6,18 +6,30 @@
 
     <TextView
         android:id="@+id/header_title"
+        style="@style/font_sb_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_20"
-        style="@style/font_sb_12"
         android:textColor="@color/color_base01" />
 
     <TextView
         android:id="@+id/header_cnt"
+        style="@style/font_sb_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/font_sb_12"
-        android:textColor="@color/color_base02"
         android:layout_marginLeft="@dimen/space_3"
-        android:layout_toRightOf="@+id/header_title"/>
+        android:layout_toRightOf="@+id/header_title"
+        android:textColor="@color/color_base02" />
+
+    <TextView
+        android:id="@+id/header_msg"
+        style="@style/font_sm_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/space_20"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:text="@string/str_header_msg"
+        android:textColor="@color/color_base02" />
 </RelativeLayout>

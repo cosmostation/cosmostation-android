@@ -25,16 +25,16 @@ import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
 import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
 import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.debtAmount
+import wannabit.io.cosmostaion.chain.liquidationRatioAmount
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
-import wannabit.io.cosmostaion.common.debtAmount
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getChannel
-import wannabit.io.cosmostaion.common.liquidationRatioAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -60,7 +60,7 @@ class MintActionFragment : BaseTxFragment() {
     private var _binding: FragmentMintActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private lateinit var mintActionType: MintActionType
     private lateinit var collateralParam: CollateralParam
     private lateinit var myCdp: CDPResponse
@@ -68,6 +68,7 @@ class MintActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var collateralAsset: Asset? = null
@@ -82,7 +83,7 @@ class MintActionFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: CosmosLine,
+            selectedChain: BaseChain,
             mintActionType: MintActionType,
             collateralParam: CollateralParam?,
             myCdp: CDPResponse?
@@ -121,7 +122,7 @@ class MintActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", CosmosLine::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -138,7 +139,7 @@ class MintActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? CosmosLine)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getSerializable("mintActionType") as? MintActionType)?.let {
@@ -170,10 +171,11 @@ class MintActionFragment : BaseTxFragment() {
                             mintActionTitle.text = getString(R.string.title_deposit_collateral)
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
-                            val balanceAmount = selectedChain.balanceAmount(collateralParam.denom)
+                            val balanceAmount =
+                                selectedChain.grpcFetcher?.balanceAmount(collateralParam.denom)
                             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                collateralAvailableAmount = balanceAmount.subtract(feeAmount)
+                                collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
                             }
                             collateralAvailableAmount = balanceAmount
                         }
@@ -218,7 +220,8 @@ class MintActionFragment : BaseTxFragment() {
                             mintActionTitle.text = getString(R.string.title_repay_usdx)
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
-                            principalAvailableAmount = selectedChain.balanceAmount("usdx")
+                            principalAvailableAmount =
+                                selectedChain.grpcFetcher?.balanceAmount("usdx")
                         }
                     }
                 }
@@ -480,6 +483,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindDepositMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -491,6 +495,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindWithdrawMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -502,6 +507,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindBorrowMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -513,6 +519,7 @@ class MintActionFragment : BaseTxFragment() {
                             selectedChain.address,
                             onBindRepayMsg(),
                             txFee,
+                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -543,6 +550,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindDepositMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -562,6 +570,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindWithdrawMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -581,6 +590,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindBorrowMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -600,6 +610,7 @@ class MintActionFragment : BaseTxFragment() {
                         selectedChain.address,
                         onBindRepayMsg(),
                         txFee,
+                        txTip,
                         txMemo,
                         selectedChain
                     )

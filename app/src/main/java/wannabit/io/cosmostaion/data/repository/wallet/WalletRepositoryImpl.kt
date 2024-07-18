@@ -5,6 +5,7 @@ import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
 import com.cosmos.base.query.v1beta1.PaginationProto
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsRequest
 import com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse
 import com.cosmos.staking.v1beta1.QueryGrpc.newBlockingStub
@@ -13,6 +14,7 @@ import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsRequest
 import com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse
 import com.cosmos.staking.v1beta1.StakingProto
+import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -32,14 +34,12 @@ import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VAULT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
@@ -57,12 +57,7 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.OktAccountResponse
-import wannabit.io.cosmostaion.data.model.res.OktDepositedResponse
-import wannabit.io.cosmostaion.data.model.res.OktTokenResponse
-import wannabit.io.cosmostaion.data.model.res.OktWithdrawResponse
 import wannabit.io.cosmostaion.data.model.res.Price
-import wannabit.io.cosmostaion.data.model.res.PushStatus
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -101,12 +96,6 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun pushStatus(fcmToken: String): NetworkResult<Response<PushStatus>> {
-        return safeApiCall(Dispatchers.IO) {
-            walletApi.pushStatus(fcmToken)
-        }
-    }
-
     override suspend fun asset(): NetworkResult<AssetResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.asset()
@@ -119,57 +108,58 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun token(line: CosmosLine): NetworkResult<MutableList<Token>> {
+    override suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            if (line.supportCw20) {
-                mintscanApi.cw20token(line.apiName)
+            if (chain.supportCw20) {
+                mintscanApi.cw20token(chain.apiName)
+            } else if (chain.supportEvm) {
+                mintscanApi.erc20token(chain.apiName)
             } else {
-                mintscanApi.erc20token(line.apiName)
+                mutableListOf()
             }
         }
     }
 
     override suspend fun auth(
-        managedChannel: ManagedChannel, line: CosmosLine
+        managedChannel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryProto.QueryAccountResponse?> {
         val stub = com.cosmos.auth.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(line.address).build()
+        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.account(request)
         }
     }
 
     override suspend fun balance(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryAllBalancesResponse?> {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(line.address)
-                .build()
+        val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)
+            .setAddress(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.allBalances(request)
         }
     }
 
     override suspend fun delegation(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(line.address).build()
+            QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorDelegations(request)
         }
     }
 
     override suspend fun unBonding(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegatorUnbondingDelegationsResponse> {
         val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(line.address)
+            QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(chain.address)
                 .build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorUnbondingDelegations(request)
@@ -177,12 +167,12 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun reward(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QueryDelegationTotalRewardsResponse> {
         val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
-            QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(line.address)
+            QueryDelegationTotalRewardsRequest.newBuilder().setDelegatorAddress(chain.address)
                 .build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegationTotalRewards(request)
@@ -190,15 +180,31 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun rewardAddress(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<String> {
         val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val request =
             com.cosmos.distribution.v1beta1.QueryProto.QueryDelegatorWithdrawAddressRequest.newBuilder()
-                .setDelegatorAddress(line.address).build()
+                .setDelegatorAddress(chain.address).build()
         return safeApiCall(Dispatchers.IO) {
             stub.delegatorWithdrawAddress(request).withdrawAddress
+        }
+    }
+
+    override suspend fun baseFee(
+        channel: ManagedChannel, chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.DecCoin>>? {
+        return if (chain.supportFeeMarket() == true) {
+            val stub = com.feemarket.feemarket.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.feemarket.feemarket.v1.QueryProto.GasPricesRequest.newBuilder().build()
+            safeApiCall(Dispatchers.IO) {
+                stub.gasPrices(request).pricesList
+            }
+        } else {
+            null
         }
     }
 
@@ -245,16 +251,16 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw20Balance(
-        channel: ManagedChannel, line: CosmosLine, token: Token
+        channel: ManagedChannel, chain: BaseChain, token: Token
     ) {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val req = Cw20Balance(line.address)
+        val req = Cw20Balance(chain.address)
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(token.address).setQueryData(queryData).build()
+        val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.address)
+            .setQueryData(queryData).build()
 
         try {
             stub.smartContractState(request)?.let { response ->
@@ -266,31 +272,17 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun erc20Balance(line: CosmosLine, token: Token) {
-        val web3j = if (line is EthereumLine) {
-            line.web3j
-        } else {
-            Web3j.build(HttpService(line.rpcUrl))
-        }
-        val ethAddress = if (line is EthereumLine) {
-            if (line.supportCosmos) {
-                ByteUtils.convertBech32ToEvm(line.address)
-            } else {
-                line.address.toString()
-            }
-        } else {
-            ByteUtils.convertBech32ToEvm(line.address)
-        }
+    override suspend fun erc20Balance(chain: BaseChain, token: Token) {
         val params: MutableList<Type<*>> = ArrayList()
-        params.add(Address(ethAddress))
+        params.add(Address(chain.evmAddress))
 
         try {
             val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
             val function = Function("balanceOf", params, returnTypes)
 
             val txData = FunctionEncoder.encode(function)
-            val response = web3j?.ethCall(
-                Transaction.createEthCallTransaction(ethAddress, token.address, txData),
+            val response = chain.web3j?.ethCall(
+                Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
@@ -306,16 +298,17 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun vestingData(
-        channel: ManagedChannel, line: CosmosLine
+        channel: ManagedChannel, chain: BaseChain
     ): NetworkResult<QuerySmartContractStateResponse> {
-        val req = AllocationReq(Allocation(line.address))
+        val req = AllocationReq(Allocation(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
-            .setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS).setQueryData(queryData).build()
+        val request =
+            QuerySmartContractStateRequest.newBuilder().setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS)
+                .setQueryData(queryData).build()
 
         return safeApiCall(Dispatchers.IO) {
             stub.smartContractState(request)
@@ -324,18 +317,18 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun vaultDeposit(
         channel: ManagedChannel,
-        line: ChainNeutron,
+        chain: BaseChain,
     ): NetworkResult<String?> {
-        val req = VotingPowerReq(VotingPower(line.address))
+        val req = VotingPowerReq(VotingPower(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(8, TimeUnit.SECONDS)
-        val request =
-            com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(
-                NEUTRON_VAULT_ADDRESS
-            ).setQueryData(queryData).build()
+        val request = QuerySmartContractStateRequest.newBuilder().setAddress(
+            chain.getChainListParam()
+                ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
+        ).setQueryData(queryData).build()
 
         return safeApiCall(Dispatchers.IO) {
             stub.smartContractState(request)?.let { response ->
@@ -345,45 +338,41 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun oktAccountInfo(line: CosmosLine): NetworkResult<OktAccountResponse?> {
+    override suspend fun oktAccountInfo(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktAccountInfo(line.address)
+            oktApi.oktAccountInfo(chain.address)
         }
     }
 
-    override suspend fun oktDeposit(line: CosmosLine): NetworkResult<OktDepositedResponse?> {
+    override suspend fun oktDeposit(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktDepositInfo(line.address)
+            oktApi.oktDepositInfo(chain.address)
         }
     }
 
-    override suspend fun oktWithdraw(line: CosmosLine): NetworkResult<OktWithdrawResponse?> {
+    override suspend fun oktWithdraw(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktWithdrawInfo(line.address)
+            oktApi.oktWithdrawInfo(chain.address)
         }
     }
 
-    override suspend fun oktToken(line: CosmosLine): NetworkResult<OktTokenResponse?> {
+    override suspend fun oktToken(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
             oktApi.oktTokens()
         }
     }
 
-    override suspend fun evmToken(evmLine: EthereumLine): NetworkResult<MutableList<Token>> {
+    override suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanApi.erc20token(evmLine.apiName)
+            mintscanApi.erc20token(chain.apiName)
         }
     }
 
-    override suspend fun evmBalance(evmLine: EthereumLine): NetworkResult<String> {
+    override suspend fun evmBalance(chain: BaseChain): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
-            val web3j = Web3j.build(HttpService(evmLine.getEvmRpc()))
-            val evmAddress = if (evmLine.supportCosmos) {
-                ByteUtils.convertBech32ToEvm(evmLine.address)
-            } else {
-                evmLine.address
-            }
-            val balance = web3j.ethGetBalance(evmAddress, DefaultBlockParameterName.LATEST).send()
+            val web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
+            val balance =
+                web3j.ethGetBalance(chain.evmAddress, DefaultBlockParameterName.LATEST).send()
             balance.balance.toString()
         }
     }
@@ -395,17 +384,15 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenIds(
-        channel: ManagedChannel,
-        line: CosmosLine,
-        list: JsonObject
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?> {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(line.address))
+        val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+        val request = QuerySmartContractStateRequest.newBuilder()
             .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
             .build()
         return safeApiCall(Dispatchers.IO) {
@@ -421,10 +408,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenInfo(
-        channel: ManagedChannel,
-        line: CosmosLine,
-        list: JsonObject,
-        tokenId: String
+        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?> {
         val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -432,7 +416,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateRequest.newBuilder()
+        val request = QuerySmartContractStateRequest.newBuilder()
             .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
             .build()
         return safeApiCall(Dispatchers.IO) {
@@ -443,12 +427,16 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenDetail(
-        line: CosmosLine,
-        contractAddress: String,
-        tokenId: String
+        chain: BaseChain, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.cw721Detail(line.apiName, contractAddress, tokenId)
+            mintscanJsonApi.cw721Detail(chain.apiName, contractAddress, tokenId)
+        }
+    }
+
+    override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            ecoApi.ecoSystemInfo(chain)
         }
     }
 }

@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.base.v1beta1.CoinProto.Coin
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemRewardBinding
 
 class RewardAdapter(
-    private val selectedChain: CosmosLine
+    private val selectedChain: BaseChain
 ) : ListAdapter<Coin, RewardViewHolder>(RewardDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RewardViewHolder {

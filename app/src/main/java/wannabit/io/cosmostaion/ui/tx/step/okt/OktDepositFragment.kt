@@ -13,11 +13,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -44,7 +47,7 @@ class OktDepositFragment : BaseTxFragment() {
     private var _binding: FragmentOktDepositBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainOkt996Keccak
+    private lateinit var selectedChain: BaseChain
 
     private var oktTokenInfo: OktToken? = null
 
@@ -59,7 +62,7 @@ class OktDepositFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine): OktDepositFragment {
+        fun newInstance(selectedChain: BaseChain): OktDepositFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
@@ -88,11 +91,11 @@ class OktDepositFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", ChainOkt996Keccak::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? ChainOkt996Keccak)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
             }
@@ -101,30 +104,53 @@ class OktDepositFragment : BaseTxFragment() {
                 oktDepositView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
 
-            selectedChain.oktTokenInfo?.data?.firstOrNull { it.symbol == selectedChain.stakeDenom }
-                ?.let { tokenInfo ->
-                    oktTokenInfo = tokenInfo
-                    val originalSymbol = tokenInfo.original_symbol
-                    tokenImg.setTokenImg(selectedChain.assetImg(originalSymbol))
-                    tokenName.text = originalSymbol.uppercase()
+            when (selectedChain) {
+                is ChainOkt996Keccak -> initData(
+                    selectedChain, (selectedChain as ChainOkt996Keccak).oktFetcher
+                )
 
-                    val available = selectedChain.lcdBalanceAmount(selectedChain.stakeDenom)
-                    availableAmount = if (available > gasFee) {
-                        available.subtract(gasFee)
-                    } else {
-                        BigDecimal.ZERO
+                is ChainOktEvm -> initData(selectedChain, (selectedChain as ChainOktEvm).oktFetcher)
+            }
+        }
+    }
+
+    private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
+        binding.apply {
+            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
+                ?.let { tokenInfo ->
+                    oktTokenInfo = Gson().fromJson(tokenInfo, OktToken::class.java)
+                    oktTokenInfo?.let {
+                        tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
+                        tokenName.text = it.original_symbol.uppercase()
+
+                        val available = oktFetcher.lcdBalanceAmount(selectedChain.stakeDenom)
+                        availableAmount = if (gasFee < available) {
+                            available.subtract(gasFee)
+                        } else {
+                            BigDecimal.ZERO
+                        }
                     }
                 }
         }
     }
 
     private fun initFee() {
-        binding.apply {
-            selectedChain.stakeDenom?.let { stakeDenom ->
-                feeTokenImg.setTokenImg(selectedChain.assetImg(stakeDenom))
-                feeToken.text = stakeDenom.uppercase()
+        when (selectedChain) {
+            is ChainOkt996Keccak -> initFeeData(
+                selectedChain, (selectedChain as ChainOkt996Keccak).oktFetcher
+            )
 
-                selectedChain.oktDepositedInfo?.validatorAddress?.size?.let { existCnt ->
+            is ChainOktEvm -> initFeeData(selectedChain, (selectedChain as ChainOktEvm).oktFetcher)
+        }
+    }
+
+    private fun initFeeData(chain: BaseChain, oktFetcher: OktFetcher?) {
+        binding.apply {
+            feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
+            feeToken.text = chain.stakeDenom.uppercase()
+
+            oktFetcher?.lcdOktDeposits?.get("validator_address")?.asJsonArray?.size()
+                ?.let { existCnt ->
                     gasAmount = BigDecimal(BASE_GAS_AMOUNT)
                     gasFee = BigDecimal(OKT_BASE_FEE)
                     if (existCnt > 10) {
@@ -134,12 +160,11 @@ class OktDepositFragment : BaseTxFragment() {
                     }
                 }
 
-                val price = BaseData.getPrice(OKT_GECKO_ID)
-                val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
-                feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
-                feeDenom.text = stakeDenom.uppercase()
-                feeValue.text = formatAssetValue(value)
-            }
+            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
+            feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
+            feeDenom.text = chain.stakeDenom.uppercase()
+            feeValue.text = formatAssetValue(value)
         }
     }
 
@@ -249,16 +274,12 @@ class OktDepositFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                selectedChain.stakeDenom?.let { stakeDenom ->
-                    val depositCoin = LCoin(stakeDenom, toDepositAmount)
-                    val gasCoin = LCoin(stakeDenom, gasFee.toString())
-                    val fee = LFee(gasAmount.toString(), mutableListOf(gasCoin))
+                val depositCoin = LCoin(selectedChain.stakeDenom, toDepositAmount)
+                val gasCoin = LCoin(selectedChain.stakeDenom, gasFee.toString())
+                val fee = LFee(gasAmount.toString(), mutableListOf(gasCoin))
 
-                    selectedChain.address?.let { address ->
-                        val oktDepositMsg = Signer.oktDepositMsg(address, depositCoin)
-                        txViewModel.broadcastOktTx(oktDepositMsg, fee, txMemo, selectedChain)
-                    }
-                }
+                val oktDepositMsg = Signer.oktDepositMsg(selectedChain.address, depositCoin)
+                txViewModel.broadcastOktTx(oktDepositMsg, fee, txMemo, selectedChain)
             }
         }
 

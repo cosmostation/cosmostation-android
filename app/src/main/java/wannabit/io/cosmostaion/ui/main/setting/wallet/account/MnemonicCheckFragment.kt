@@ -67,26 +67,16 @@ class MnemonicCheckFragment : Fragment() {
                     account = it
                 }
             }
-            listOf(accountNameView, recycler).forEach {
-                it.setBackgroundResource(
-                    R.drawable.item_bg
-                )
-            }
+            recycler.setBackgroundResource(R.drawable.item_bg)
 
             account.apply {
                 accountName.text = name
-                if (lastHDPath != "0") {
-                    lastHdPath.visibility = View.VISIBLE
-                    lastHdPath.text = "Last HD Path : $lastHDPath"
-                } else {
-                    lastHdPath.visibility = View.GONE
-                }
+                accountPath.text = "Last HD Path : $lastHDPath"
 
                 CryptoHelper.doDecryptData(
                     CosmostationConstants.ENCRYPT_MNEMONIC_KEY + uuid, resource, spec
                 )?.let {
                     wordList = BaseKey.getMnemonicWords(Utils.hexToBytes(it))
-                    phraseCnt.text = getString(R.string.str_phrase_cnt, wordList.size.toString())
 
                     mnemonicAdapter = MnemonicAdapter(requireContext())
                     recycler.setHasFixedSize(true)

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.addisonelliott.segmentedbutton.SegmentedButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btn_title"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/space_32"
+    android:layout_weight="1"
+    app:borderColor="@color/color_base05"
+    app:selectedTextColor="@color/color_base01"
+    app:textColor="@color/color_base01"
+    app:textSize="@dimen/text_size_12"
+    android:fontFamily="@font/spoqa_han_sans_neo_bold"
+    app:rounded="true"/>

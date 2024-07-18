@@ -38,7 +38,10 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
 
     private val mViewModelStore = ViewModelStore()
     lateinit var applicationViewModel: ApplicationViewModel
-    private var appStatus: AppStatus? = null
+    var appStatus: AppStatus? = null
+
+    var isInBackground: Boolean = true
+        private set
 
     override fun getViewModelStore(): ViewModelStore {
         return mViewModelStore
@@ -70,6 +73,8 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
             R.drawable.bg_02,
             R.drawable.bg_03,
             R.drawable.bg_04,
+            R.drawable.bg_05,
+            R.drawable.bg_06,
         )
 
         val randomIndex = (Math.random() * imageArray.size).toInt()

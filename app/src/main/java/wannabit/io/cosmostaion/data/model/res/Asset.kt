@@ -15,6 +15,7 @@ data class Asset(
     val chain: String?,
     val denom: String?,
     val type: String?,
+    val origin_chain: String?,
     val origin_denom: String?,
     val symbol: String?,
     val decimals: Int?,

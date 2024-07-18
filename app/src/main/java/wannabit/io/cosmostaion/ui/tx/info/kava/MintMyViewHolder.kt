@@ -8,14 +8,14 @@ import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_MINT_IMG_URL
-import wannabit.io.cosmostaion.common.UsdxLTV
-import wannabit.io.cosmostaion.common.collateralUSDXAmount
-import wannabit.io.cosmostaion.common.debtUsdxValue
+import wannabit.io.cosmostaion.chain.UsdxLTV
+import wannabit.io.cosmostaion.chain.collateralUSDXAmount
+import wannabit.io.cosmostaion.chain.debtUsdxValue
+import wannabit.io.cosmostaion.chain.evmClass.KAVA_MINT_IMG_URL
+import wannabit.io.cosmostaion.chain.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.liquidationPrice
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.kavaOraclePrice
-import wannabit.io.cosmostaion.common.liquidationPrice
 import wannabit.io.cosmostaion.databinding.ItemMyMintBinding
 import java.math.RoundingMode
 

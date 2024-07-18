@@ -5,17 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.staking.v1beta1.StakingProto
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
 
 class ValidatorAdapter(
-    private val selectedChain: CosmosLine
+    private val selectedChain: BaseChain
 ) : ListAdapter<StakingProto.Validator, ValidatorViewHolder>(ValidatorDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValidatorViewHolder {
-        val binding = ItemValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemValidatorBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ValidatorViewHolder(binding)
     }
 
@@ -32,11 +33,17 @@ class ValidatorAdapter(
 
     private class ValidatorDiffCallback : DiffUtil.ItemCallback<StakingProto.Validator>() {
 
-        override fun areItemsTheSame(oldItem: StakingProto.Validator, newItem: StakingProto.Validator): Boolean {
+        override fun areItemsTheSame(
+            oldItem: StakingProto.Validator,
+            newItem: StakingProto.Validator
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: StakingProto.Validator, newItem: StakingProto.Validator): Boolean {
+        override fun areContentsTheSame(
+            oldItem: StakingProto.Validator,
+            newItem: StakingProto.Validator
+        ): Boolean {
             return oldItem == newItem
         }
     }

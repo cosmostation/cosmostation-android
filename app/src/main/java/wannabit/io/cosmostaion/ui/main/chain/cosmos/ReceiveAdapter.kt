@@ -4,8 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
@@ -13,7 +12,7 @@ import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
 class ReceiveAdapter(
     val context: Context,
     private val account: BaseAccount,
-    private val selectedChain: CosmosLine
+    private val selectedChain: BaseChain
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -50,8 +49,7 @@ class ReceiveAdapter(
 
             is ReceiveViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
-                    holder.evmBind(account, selectedChain as EthereumLine)
-
+                    holder.evmBind(account, selectedChain)
                 } else {
                     holder.bind(account, selectedChain)
                 }
@@ -60,7 +58,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (selectedChain is EthereumLine) {
+        return if (selectedChain.supportEvm) {
             when (position) {
                 0 -> VIEW_TYPE_EVM_HEADER
                 1 -> VIEW_TYPE_EVM_ITEM
@@ -76,7 +74,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (selectedChain is EthereumLine) {
+        return if (selectedChain.supportEvm) {
             4
         } else {
             2
@@ -89,10 +87,15 @@ class ReceiveAdapter(
 
         fun bind(position: Int) {
             binding.apply {
-                if (getItemViewType(position) == VIEW_TYPE_EVM_HEADER) {
-                    headerTitle.text = "My address (EVM Style)"
+                if (itemCount == 4) {
+                    if (getItemViewType(position) == VIEW_TYPE_EVM_HEADER) {
+                        headerTitle.text = "My address (EVM Style)"
+                    } else {
+                        headerTitle.text = "My address (COSMOS Style)"
+                    }
+
                 } else {
-                    headerTitle.text = "My address (COSMOS Style)"
+                    headerTitle.text = "My address"
                 }
             }
         }

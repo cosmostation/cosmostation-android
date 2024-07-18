@@ -20,9 +20,6 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
@@ -85,36 +82,20 @@ class TransferTxResultActivity : BaseActivity() {
     private fun initView() {
         binding.apply {
             btnConfirm.updateButtonView(true)
-            BaseData.baseAccount?.sortedDisplayCosmosLines()?.firstOrNull {
+            BaseData.baseAccount?.sortedDisplayChains()?.firstOrNull {
                 it.tag == intent.getStringExtra(
                     "fromChainTag"
                 ).toString()
             }?.let { fromChainWithTag ->
                 fromChain = fromChainWithTag
-
-            } ?: run {
-                BaseData.baseAccount?.sortedDisplayEvmLines()?.firstOrNull {
-                    it.tag == intent.getStringExtra("fromChainTag").toString()
-                }
-            }?.let { fromChainWithTag ->
-                fromChain = fromChainWithTag
             }
 
-            BaseData.baseAccount?.allCosmosLineChains?.firstOrNull {
+            BaseData.baseAccount?.allChains?.firstOrNull {
                 it.tag == intent.getStringExtra(
                     "toChainTag"
                 ).toString()
             }?.let { toChainWithTag ->
                 toChain = toChainWithTag
-
-            } ?: run {
-                BaseData.baseAccount?.allEvmLineChains?.firstOrNull {
-                    it.tag == intent.getStringExtra(
-                        "toChainTag"
-                    ).toString()
-                }?.let { toChainWithTag ->
-                    toChain = toChainWithTag
-                }
             }
 
             isSuccess = intent.getBooleanExtra("isSuccess", false)
@@ -180,44 +161,25 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain as EthereumLine, txHash)
+                    historyToMintscan(fromChain, txHash)
                 } else {
-                    historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
+                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
                 }
             }
 
             viewFailMintscan.setOnClickListener {
                 if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain as EthereumLine, txHash)
+                    historyToMintscan(fromChain, txHash)
                 } else {
-                    historyToMintscan(fromChain as CosmosLine, txResponse?.txResponse?.txhash)
+                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
                 }
             }
 
             btnConfirm.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (transferStyle == TransferStyle.WEB3_STYLE) {
-                        if (fromChain is ChainOkt996Keccak) {
-                            ApplicationViewModel.shared.loadChainData(
-                                fromChain as CosmosLine, account.id, false
-                            )
-                        } else {
-                            ApplicationViewModel.shared.loadEvmChainData(
-                                fromChain as EthereumLine, account.id, false
-                            )
-                        }
-
-                    } else {
-                        if (fromChain is EthereumLine) {
-                            ApplicationViewModel.shared.loadEvmChainData(
-                                fromChain as EthereumLine, account.id, false
-                            )
-                        } else {
-                            ApplicationViewModel.shared.loadChainData(
-                                fromChain as CosmosLine, account.id, false
-                            )
-                        }
-                    }
+                    ApplicationViewModel.shared.loadChainData(
+                        fromChain, account.id, false
+                    )
                 }
                 finish()
             }
@@ -226,7 +188,7 @@ class TransferTxResultActivity : BaseActivity() {
 
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            (fromChain as CosmosLine).apply {
+            fromChain.apply {
                 val stub = ServiceGrpc.newStub(getChannel(this))
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
@@ -262,12 +224,11 @@ class TransferTxResultActivity : BaseActivity() {
 
     private fun loadEvmTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val web3j = if (fromChain is ChainOkt996Keccak) {
-                Web3j.build(HttpService((fromChain as ChainOkt996Keccak).rpcUrl))
-            } else {
-                Web3j.build(HttpService((fromChain as EthereumLine).getEvmRpc()))
-            }
-
+            val web3j = Web3j.build(
+                HttpService(
+                    fromChain.evmRpcFetcher?.getEvmRpc() ?: fromChain.evmRpcURL
+                )
+            )
             try {
                 val receiptTx = web3j.ethGetTransactionReceipt(txHash).send()
                 if (receiptTx.transactionReceipt.isPresent) {

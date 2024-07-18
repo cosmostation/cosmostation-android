@@ -3,8 +3,12 @@ package wannabit.io.cosmostaion.ui.main.dapp
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -17,6 +21,8 @@ import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.TxProto
@@ -27,29 +33,26 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import com.google.protobuf.util.JsonFormat
-import com.trustwallet.walletconnect.WCClient
-import com.trustwallet.walletconnect.models.WCAccount
-import com.trustwallet.walletconnect.models.WCPeerMeta
-import com.trustwallet.walletconnect.models.WCSignTransaction
-import com.trustwallet.walletconnect.models.session.WCSession
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
 import com.walletconnect.sign.client.SignInterface
 import com.walletconnect.util.bytesToHex
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
-import okhttp3.OkHttpClient
-import org.apache.commons.lang3.StringUtils
 import org.bouncycastle.util.Strings
 import org.json.JSONArray
 import org.json.JSONObject
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.core.DefaultBlockParameterName
+import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allCosmosLines
-import wannabit.io.cosmostaion.chain.allEvmLines
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -57,17 +60,22 @@ import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.cosmos.Signer
-import wannabit.io.cosmostaion.data.model.req.BroadcastReq
-import wannabit.io.cosmostaion.data.model.req.LFee
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
+import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
+import wannabit.io.cosmostaion.data.model.req.EthCall
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.PubKey
 import wannabit.io.cosmostaion.data.model.req.Signature
-import wannabit.io.cosmostaion.data.model.req.StdTxValue
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
-import wannabit.io.cosmostaion.ui.main.dapp.option.DappUrlDialog
-import wannabit.io.cosmostaion.ui.main.dapp.option.WcSignFragment
+import wannabit.io.cosmostaion.ui.main.dapp.option.PopUpCosmosSignFragment
+import wannabit.io.cosmostaion.ui.main.dapp.option.PopUpEvmSignFragment
 import java.io.BufferedReader
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -78,44 +86,76 @@ class DappActivity : BaseActivity() {
 
     private lateinit var binding: ActivityDappBinding
 
-    private var selectedChain: CosmosLine? = null
+    private var allChains: MutableList<BaseChain>? = mutableListOf()
+
+    private var selectChain: BaseChain? = null
+    private var selectEvmChain: BaseChain? = null
+    private var rpcUrl: String? = null
+    private var web3j: Web3j? = null
     private var wcUrl: String? = ""
 
-    private var wcVersion = 1
     private var walletConnectURI: String? = null
     private var currentV2PairingUri: String? = null
 
-    private var wcV1Client: WCClient? = null
-    private var wcV1Session: WCSession? = null
+    private var dAppType: DAppType? = null
 
     private var processingRequestID: Long? = null
+
+    private var currentEvmChainId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDappBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        allChains = initAllKeyData()
         setUpDappView()
+    }
+
+    private suspend fun initData() {
+        if (BaseData.baseAccount == null && BaseData.getLastAccount() != null) {
+            BaseData.baseAccount = BaseData.getLastAccount()
+        }
+        if (BaseData.chainParam == null) {
+            loadParam()
+        }
+        if (BaseData.assets?.isEmpty() == true) {
+            loadAsset()
+        }
+    }
+
+    private fun initAllKeyData(): MutableList<BaseChain> {
+        val result = allChains()
+        lifecycleScope.launch(Dispatchers.IO) {
+            initData()
+            BaseData.baseAccount?.let { account ->
+                account.apply {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            }
+                        }
+
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithPrivateKey(privateKey)
+                            }
+                        }
+                    }
+                }
+            }
+            withContext(Dispatchers.Main) {
+                binding.accountName.text = BaseData.baseAccount?.name
+            }
+        }
+        return result
     }
 
     private fun setUpDappView() {
         binding.apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            dappClose.setOnClickListener { finish() }
-            dappRefresh.setOnClickListener { dappWebView.reload() }
-            wcPeer.setOnClickListener {
-                DappUrlDialog.newInstance(binding.dappWebView.url ?: "",
-                    object : DappUrlDialog.UrlListener {
-                        override fun input(url: String) {
-                            if (StringUtils.isNotEmpty(binding.dappWebView.url) && binding.dappWebView.url != url) {
-                                wcUrl = url
-                                binding.dappWebView.loadUrl(url)
-                            }
-                        }
-
-                    }).show(supportFragmentManager, "dialog")
-            }
-
+            setUpBarFunction()
             dappWebView.apply {
                 settings.apply {
                     javaScriptEnabled = true
@@ -128,195 +168,124 @@ class DappActivity : BaseActivity() {
                 }
             }
 
-            intent.data?.let { data ->
-                data.query?.let { query ->
-                    wcUrl = query
-                    dappWebView.visibility = View.VISIBLE
-                    dappWebView.loadUrl(query)
-                    dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
-                    WebStorage.getInstance().deleteAllData()
+            dappWebView.visibility = View.VISIBLE
+            dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
+            WebStorage.getInstance().deleteAllData()
+            setDAppUrl()
+        }
+    }
+
+    private fun setDAppUrl() {
+        binding.apply {
+            val filterIntentUri = Uri.parse(intent.getStringExtra("dappUrl").toString()) ?: null
+            if (filterIntentUri.toString() != "null") {
+                if (filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_INTERNAL || filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_EXTERNAL) {
+                    wcUrl = filterIntentUri.query
+                    dappWebView.loadUrl(filterIntentUri.query.toString())
+                } else {
+                    dAppType = DAppType.DEEPLINK_WC2
+                    connectWalletConnect(filterIntentUri?.query)
+                }
+
+            } else {
+                wcUrl = intent.getStringExtra("dapp") ?: ""
+                dappWebView.loadUrl(intent.getStringExtra("dapp") ?: "")
+            }
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (BaseData.getInjectWarn()) {
+                InjectWarnFragment().show(
+                    supportFragmentManager, InjectWarnFragment::class.java.name
+                )
+            }
+        }, 1000)
+    }
+
+    private fun setUpBarFunction() {
+        binding.apply {
+            btnBack.setOnClickListener {
+                if (dappWebView.canGoBack()) {
+                    dappWebView.goBack()
+                } else {
+                    if (!BaseData.isBackGround) {
+                        BaseData.appSchemeUrl = ""
+                    }
+                    finish()
+                    emitCloseToWeb()
                 }
             }
+            btnNext.colorFilter = PorterDuffColorFilter(
+                ContextCompat.getColor(
+                    this@DappActivity, R.color.color_base03
+                ), PorterDuff.Mode.SRC_IN
+            )
+            btnNext.isClickable = false
+            btnNext.setOnClickListener {
+                dappWebView.goForward()
+            }
 
-            setSupportActionBar(toolBar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+            btnClose.setOnClickListener {
+                if (!BaseData.isBackGround) {
+                    BaseData.appSchemeUrl = ""
+                }
+                finish()
+                emitCloseToWeb()
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra("dappUrl")?.let {
+            Uri.parse(it)?.let { data ->
+                if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
+                    return
+                }
+
+                if (WC_URL_SCHEME_HOST_WC == data.host) {
+                    walletConnectURI = if (data.query?.startsWith("uri=") == true) {
+                        data.query?.replace("uri=", "")
+                    } else {
+                        data.query
+                    }
+                    if (walletConnectURI == null || walletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
+                    connectWalletConnect(walletConnectURI)
+
+                } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
+                    data.query?.let { url -> binding.dappWebView.loadUrl(url) }
+                }
+            }
         }
     }
 
     private fun isSessionConnected(): Boolean {
-        if (wcV1Session != null && wcV1Client != null && wcV1Client?.session != null && wcV1Client?.isConnected == true) {
-            return true
-        }
         if (walletConnectURI != null && currentV2PairingUri == walletConnectURI) {
             return true
         }
         return false
     }
 
+    private fun initInjectScript(view: WebView?) {
+        try {
+            val inputStream = assets.open("injectScript.js")
+            inputStream.bufferedReader().use(BufferedReader::readText)
+        } catch (e: Exception) {
+            null
+        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
+    }
+
     private fun connectWalletConnect(url: String?) {
         if (isSessionConnected()) return
         url?.let {
-            binding.loadingLayer.visibility = View.VISIBLE
             walletConnectURI = url
             if (url.contains("@2")) {
                 connectWalletConnectV2(url)
-            } else {
-                connectWalletConnectV1(url)
             }
         }
-    }
-
-    private fun connectWalletConnectV1(url: String) {
-        val meta = WCPeerMeta(
-            getString(R.string.str_wc_peer_name),
-            getString(R.string.str_wc_peer_url),
-            getString(R.string.str_wc_peer_desc),
-            listOf()
-        )
-        wcV1Session = WCSession.from(url)
-        val client = OkHttpClient.Builder().pingInterval(30, TimeUnit.SECONDS).build()
-        wcV1Client = WCClient(GsonBuilder(), client).apply {
-            onSessionRequest = processSessionRequest
-            onGetAccounts = processGetAccounts
-            onDisconnect = processDisconnect
-            onSignTransaction = processSignTrust
-            wcV1Session?.let { session -> connect(session, meta) }
-        }
-    }
-
-    private val processSessionRequest = { _: Long, wcPeerMeta: WCPeerMeta ->
-        runOnUiThread {
-            binding.loadingLayer.apply {
-                postDelayed({ visibility = View.GONE }, 2500)
-            }
-            makeToast(R.string.str_wc_connected)
-
-            BaseData.baseAccount?.let { account ->
-                account.allCosmosLineChains.firstOrNull { it.name.lowercase() == wcPeerMeta.name.lowercase() && it.tag == "kava459" }
-                    ?.let { chain ->
-                        selectedChain = chain
-                        selectedChain?.fetchFilteredChain()
-
-                        chain.address?.let { address ->
-                            wcV1Client?.approveSession(listOf(address), 1)
-                        } ?: run {
-                            wcV1Client?.approveSession(listOf(), 1)
-                        }
-                    }
-            }
-        }
-    }
-
-    private val processGetAccounts: (Long) -> Unit = { id: Long ->
-        selectedChain?.address?.let { address ->
-            wcV1Client?.approveRequest(id, listOf(WCAccount(459, address)))
-        }
-    }
-
-    private val processDisconnect = { _: Int, _: String? ->
-        runOnUiThread {
-            makeToast(R.string.str_wc_not_connected)
-            wcV1Client = null
-        }
-    }
-
-    private val processSignTrust = { id: Long, (_, transaction): WCSignTransaction ->
-        runOnUiThread {
-            val signBundle = signBundle(
-                id, wcUrl, transaction
-            )
-            showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                override fun sign(id: Long, data: String) {
-                    approveTrustRequest(
-                        id, transaction
-                    )
-                }
-
-                override fun cancel(id: Long) {
-                    wcV1Client?.rejectRequest(id, getString(R.string.str_cancel))
-                }
-            })
-        }
-    }
-
-    private fun convertKavaTx(txString: String): JSONObject {
-        val jsonTx = JSONObject(txString)
-
-        return JSONObject().apply {
-            put("chain_id", jsonTx.get("chainId"))
-            put("account_number", jsonTx.get("accountNumber"))
-
-            val msgs = JSONArray().apply {
-                val messageArray = jsonTx.getJSONArray("messages")
-                for (i in 0 until messageArray.length()) {
-                    val rawMessage = messageArray.getJSONObject(i).getJSONObject("rawJsonMessage")
-                    put(JSONObject().apply {
-                        put("type", rawMessage.getString("type"))
-                        put("value", JSONObject(rawMessage.getString("value")))
-                    })
-                }
-            }
-            put("msgs", msgs)
-
-            val fee = jsonTx.getJSONObject("fee")
-            val amounts = fee.getJSONArray("amounts")
-            val kavaFee = JSONObject().apply {
-                put("gas", fee.getString("gas"))
-                put("amount", amounts)
-            }
-            put("fee", kavaFee)
-
-            put("sequence", jsonTx.get("sequence"))
-            put("memo", jsonTx.get("memo"))
-        }
-    }
-
-    private fun approveTrustRequest(id: Long, wcSignTransaction: String) {
-        try {
-            val kavaTx = convertKavaTx(wcSignTransaction)
-            val broadcastReq = getTrustSignDoc(kavaTx)
-            val result = GsonBuilder().disableHtmlEscaping().create().toJson(broadcastReq)
-            wcV1Client?.approveRequest(id, result)
-            makeToast(R.string.str_wc_request_responsed)
-
-        } catch (e: Exception) {
-            wcV1Client?.rejectRequest(id, "Signing error.")
-            makeToast(R.string.str_unknown_error)
-        }
-    }
-
-    private fun getTrustSignDoc(tx: JSONObject): BroadcastReq {
-        val mapper = ObjectMapper().apply {
-            configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
-        }
-
-        val sortedTx = mapper.writeValueAsString(
-            mapper.readValue(tx.toString(), TreeMap::class.java)
-        )
-        val signatureTx =
-            Signer.signature(selectedChain, sortedTx.toByteArray(StandardCharsets.UTF_8))
-        val pubKey = PubKey(
-            pubKeyType(),
-            Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
-                .replace("\n", "")
-        )
-        val signatures = mutableListOf(
-            Signature(
-                pubKey, signatureTx, null, null
-            )
-        )
-        val fee = Gson().fromJson(tx.getJSONObject("fee").toString(), LFee::class.java)
-
-        val value = StdTxValue(
-            null, fee, signatures, tx.getString("memo")
-        )
-        return BroadcastReq(
-            "block", value
-        )
     }
 
     private fun connectWalletConnectV2(url: String) {
-        wcVersion = 2
         currentV2PairingUri = walletConnectURI
         val pairingParams = Core.Params.Pair(url)
         CoreClient.Pairing.pair(pairingParams) {
@@ -338,51 +307,56 @@ class DappActivity : BaseActivity() {
                 val sessionNamespaces = mutableMapOf<String, Sign.Model.Namespace.Session>()
 
                 runOnUiThread {
-                    val methods = sessionProposal.requiredNamespaces.values.flatMap { it.methods }
-                    val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
+                    if (dAppType == DAppType.DEEPLINK_WC2) {
+                        binding.dappWebView.loadUrl(sessionProposal.url)
+                        wcUrl = sessionProposal.url
+                        val rejectParams = Sign.Params.Reject(sessionProposal.proposerPublicKey, "")
+                        SignClient.rejectSession(rejectParams) {}
+                        CoreClient.Pairing.getPairings().forEach { pair ->
+                            CoreClient.Pairing.disconnect(pair.topic)
+                        }
+                        dAppType = DAppType.INTERNAL_URL
 
-                    sessionProposal.requiredNamespaces.values.flatMap { it.chains }.map { chain ->
-                        val chainId = chain.split(":")[1]
-                        val chainName = chain.split(":")[0]
+                    } else {
+                        val methods =
+                            sessionProposal.requiredNamespaces.values.flatMap { it.methods }
+                        val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
 
-                        BaseData.baseAccount?.let { account ->
-                            account.allEvmLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                                ?.let { line ->
-                                    selectedChain = line
+                        sessionProposal.requiredNamespaces.values.flatMap { it.chains }
+                            .map { chain ->
+                                val chainId = chain.split(":")[1]
+                                val chainName = chain.split(":")[0]
 
-                                }
-                                ?: account.allCosmosLineChains.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
+                                allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                                     ?.let { line ->
-                                        selectedChain = line
+                                        selectChain = line
+                                        sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
+                                            accounts = listOf("$chain:${line.address}"),
+                                            methods = methods,
+                                            events = events,
+                                            extensions = null
+                                        )
+                                        val approveProposal = Sign.Params.Approve(
+                                            proposerPublicKey = sessionProposal.proposerPublicKey,
+                                            namespaces = sessionNamespaces
+                                        )
+
+                                        binding.loadingLayer.apply {
+                                            postDelayed({
+                                                visibility = View.GONE
+                                            }, 2500)
+                                        }
+
+                                        SignClient.approveSession(approveProposal) { error ->
+                                            Log.e("WCV2", error.throwable.stackTraceToString())
+                                        }
 
                                     } ?: run {
                                     binding.loadingLayer.visibility = View.GONE
                                     makeToast(getString(R.string.error_not_support, chainId))
-                                    return@let
+                                    return@runOnUiThread
                                 }
-
-                            selectedChain?.fetchFilteredChain()
-                            sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                accounts = listOf("$chain:${selectedChain?.address}"),
-                                methods = methods,
-                                events = events,
-                                extensions = null
-                            )
-                            val approveProposal = Sign.Params.Approve(
-                                proposerPublicKey = sessionProposal.proposerPublicKey,
-                                namespaces = sessionNamespaces
-                            )
-
-                            binding.loadingLayer.apply {
-                                postDelayed({
-                                    visibility = View.GONE
-                                }, 2500)
                             }
-
-                            SignClient.approveSession(approveProposal) { error ->
-                                Log.e("WCV2", error.throwable.stackTraceToString())
-                            }
-                        }
                     }
                 }
             }
@@ -407,10 +381,10 @@ class DappActivity : BaseActivity() {
             sessionRequest.request.apply {
                 when (method) {
                     "cosmos_getAccounts" -> {
-                        val v2Accounts = selectedChain?.address?.let { address ->
+                        val v2Accounts = selectChain?.address?.let { address ->
                             val toV2Account = V2Account(
                                 "secp256k1",
-                                Base64.encodeToString(selectedChain?.publicKey, Base64.NO_WRAP),
+                                Base64.encodeToString(selectChain?.publicKey, Base64.NO_WRAP),
                                 address
                             )
                             listOf(toV2Account)
@@ -438,29 +412,31 @@ class DappActivity : BaseActivity() {
                     }
 
                     "cosmos_signDirect" -> {
-                        val signBundle = signBundle(id, wcUrl, params)
-                        showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                            override fun sign(id: Long, data: String) {
-                                approveSignDirectV2Request(id, data, sessionRequest)
-                            }
+                        val signBundle = signBundle(id, params, "sign_direct")
+                        showSignDialog(signBundle,
+                            object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    approveSignDirectV2Request(id, data, sessionRequest)
+                                }
 
-                            override fun cancel(id: Long) {
-                                cancelV2SignRequest(id, sessionRequest)
-                            }
-                        })
+                                override fun cancel(id: Long) {
+                                    cancelV2SignRequest(id, sessionRequest)
+                                }
+                            })
                     }
 
                     "cosmos_signAmino" -> {
-                        val signBundle = signBundle(id, wcUrl, params)
-                        showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                            override fun sign(id: Long, data: String) {
-                                approveSignAminoV2Request(id, data, sessionRequest)
-                            }
+                        val signBundle = signBundle(id, params, "sign_amino")
+                        showSignDialog(signBundle,
+                            object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    approveSignAminoV2Request(id, data, sessionRequest)
+                                }
 
-                            override fun cancel(id: Long) {
-                                cancelV2SignRequest(id, sessionRequest)
-                            }
-                        })
+                                override fun cancel(id: Long) {
+                                    cancelV2SignRequest(id, sessionRequest)
+                                }
+                            })
                     }
                 }
             }
@@ -487,10 +463,10 @@ class DappActivity : BaseActivity() {
                 )
             ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-            val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
+            val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -535,10 +511,10 @@ class DappActivity : BaseActivity() {
                 mapper.readValue(signDocJson.toString(), TreeMap::class.java)
             )
             val signatureTx =
-                Signer.signature(selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8))
+                Signer.signature(selectChain, signDoc.toByteArray(StandardCharsets.UTF_8))
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -586,59 +562,43 @@ class DappActivity : BaseActivity() {
         makeToast(R.string.str_cancel)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        intent.data?.let { data ->
-            if (data.scheme != WC_URL_SCHEME_COSMOSTATION) {
-                return
-            }
-
-            if (WC_URL_SCHEME_HOST_WC == data.host) {
-                walletConnectURI = if (data.query?.startsWith("uri=") == true) {
-                    data.query?.replace("uri=", "")
-                } else {
-                    data.query
-                }
-                if (walletConnectURI == null || walletConnectURI?.startsWith("wc") == false || isSessionConnected()) return
-                binding.loadingLayer.visibility = View.VISIBLE
-                connectWalletConnect(walletConnectURI)
-
-            } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
-                data.query?.let { url -> binding.dappWebView.loadUrl(url) }
-            }
-        }
-    }
-
     override fun onDestroy() {
-        if (wcVersion == 1) {
-            wcV1Client?.let {
-                if (it.isConnected) {
-                    it.killSession()
-                } else {
-                    it.disconnect()
-                }
-            }
-        } else {
-            val pairingList = CoreClient.Pairing.getPairings()
-            pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
-        }
+        val pairingList = CoreClient.Pairing.getPairings()
+        pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         super.onDestroy()
+        binding.apply {
+            dappWebView.removeJavascriptInterface("station")
+        }
     }
 
-    private fun signBundle(id: Long, url: String?, data: String): Bundle {
+    private fun signBundle(id: Long, data: String, method: String? = ""): Bundle {
         val bundle = Bundle()
         bundle.putString("data", data)
-        bundle.putString("url", url)
         bundle.putLong("id", id)
+        bundle.putString("method", method)
         return bundle
     }
 
-    private fun showSignDialog(bundle: Bundle, signListener: WcSignFragment.WcSignRawDataListener) {
+    private fun showSignDialog(
+        bundle: Bundle, signListener: PopUpCosmosSignFragment.WcSignRawDataListener
+    ) {
         bundle.getString("data")?.let { data ->
-            WcSignFragment(
-                selectedChain, bundle.getLong("id"), data, bundle.getString("url"), signListener
+            PopUpCosmosSignFragment(
+                allChains, selectChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
-                supportFragmentManager, WcSignFragment::class.java.name
+                supportFragmentManager, PopUpCosmosSignFragment::class.java.name
+            )
+        }
+    }
+
+    private fun showEvmSignDialog(
+        bundle: Bundle, signListener: PopUpEvmSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpEvmSignFragment(
+                selectEvmChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
+            ).show(
+                supportFragmentManager, PopUpEvmSignFragment::class.java.name
             )
         }
     }
@@ -647,12 +607,29 @@ class DappActivity : BaseActivity() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
 
-            binding.wcPeer.text = Uri.parse(url).host
-            loadInjectScript(view)
+            binding.dappUrl.text = Uri.parse(url).host
+            initInjectScript(view)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+
+            if (view?.canGoForward() == true) {
+                binding.btnNext.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        this@DappActivity, R.color.color_base01
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                binding.btnNext.isClickable = true
+
+            } else {
+                binding.btnNext.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        this@DappActivity, R.color.color_base03
+                    ), PorterDuff.Mode.SRC_IN
+                )
+                binding.btnNext.isClickable = false
+            }
         }
 
         override fun shouldOverrideUrlLoading(
@@ -783,15 +760,6 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun loadInjectScript(view: WebView?) {
-        try {
-            val inputStream = assets.open("injectScript.js")
-            inputStream.bufferedReader().use(BufferedReader::readText)
-        } catch (e: Exception) {
-            null
-        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
-    }
-
     fun processRequest(message: String) {
         var isCosmostation = false
         try {
@@ -800,90 +768,133 @@ class DappActivity : BaseActivity() {
                 return
             }
             isCosmostation = true
-            val messageId = requestJson.getLong("messageId")
+            val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-
-            val evmSupportIds =
-                allEvmLines().filter { it.supportCosmos }.map { it.chainIdCosmos }.distinct()
-             val cosmosSupportIds = allCosmosLines().filter { it.chainIdCosmos.isNotEmpty() }.map { it.chainIdCosmos }.distinct()
-            val supportChainIds = evmSupportIds.union(cosmosSupportIds)
-
-            val evmSupportNames =
-                allEvmLines().filter { it.supportCosmos }.map { it.name.lowercase() }.distinct()
-            val cosmosSupportNames = allCosmosLines().map { it.name.lowercase() }.distinct()
-            val supportChainNames = evmSupportNames.union(cosmosSupportNames)
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     val params = messageJson.getJSONObject("params")
                     val chainId = params.getString("chainName")
-                    appToWebResult(messageJson, makeAppToWebAccount(chainId), messageId)
+
+                    val accountJson = JSONObject()
+                    accountJson.put("isKeystone", false)
+                    accountJson.put("isEthermint", selectChain?.supportEvm)
+                    accountJson.put("isLedger", false)
+                    BaseData.baseAccount?.let { account ->
+                        selectChain = selectedChain(allChains, chainId)
+                        accountJson.put("address", selectChain?.address)
+                        accountJson.put("name", account.name)
+                        accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                    }
+                    appToWebResult(messageJson, accountJson, messageId)
                 }
 
                 "cos_supportedChainIds" -> {
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainIds))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                    val supportChainIds =
+                        allChains?.filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainIds))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
+
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
-                "cos_supportedChainNames", "ten_supportedChainNames" -> {
-                    val dataJson = JSONObject()
-                    dataJson.put("official", JSONArray(supportChainNames))
-                    dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                    appToWebResult(messageJson, dataJson, messageId)
+                "cos_supportedChainNames" -> {
+                    val supportChainNames = allChains?.filter {
+                        it.supportCosmosGrpc && it.chainDappName()?.isNotEmpty() == true
+                    }?.map { it.name.lowercase() }?.distinct()
+                    if (supportChainNames?.isNotEmpty() == true) {
+                        val dataJson = JSONObject()
+                        dataJson.put("official", JSONArray(supportChainNames))
+                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                        appToWebResult(messageJson, dataJson, messageId)
+
+                    } else {
+                        appToWebError("Error")
+                    }
                 }
 
-                "cos_activatedChainIds" -> {
+                "cos_disconnect" -> {
                     appToWebResult(
-                        messageJson, JSONArray(supportChainIds), messageId
+                        messageJson, null, messageId
                     )
                 }
 
-                "cos_activatedChainNames" -> {
-                    appToWebResult(
-                        messageJson, JSONArray(supportChainNames), messageId
-                    )
+                "cos_addChain" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val supportChainIds =
+                        allChains?.filter { !it.isTestnet && it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                            ?.map { it.chainIdCosmos }?.distinct()
+                    if (supportChainIds?.contains(params.getString("chainId")) == true) {
+                        appToWebResult(
+                            messageJson, true, messageId
+                        )
+                    } else {
+                        appToWebError(
+                            messageJson, getString(R.string.error_not_support_chain), messageId
+                        )
+                    }
                 }
 
-                "cos_addChain", "cos_disconnect" -> {
-                    appToWebResult(
-                        messageJson, true, messageId
-                    )
+                "cos_signMessage" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle = signBundle(0, params.toString(), "sign_message")
+                    showSignDialog(signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignMessageRequest(messageJson, messageId, data)
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
                 }
 
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
-                    val signBundle = signBundle(0, wcUrl, params.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            approveSignAminoInjectRequest(messageJson, messageId, data)
-                        }
+                    val signBundle = signBundle(0, params.toString(), "sign_amino")
+                    showSignDialog(signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignAminoInjectRequest(messageJson, messageId, data)
+                            }
 
-                        override fun cancel(id: Long) {
-                            appToWebError("Canceled", messageId)
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
                 }
 
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
-                    val doc = params.getJSONObject("doc")
-                    val signBundle = signBundle(0, wcUrl, doc.toString())
-                    showSignDialog(signBundle, object : WcSignFragment.WcSignRawDataListener {
-                        override fun sign(id: Long, data: String) {
-                            approveSignDirectInjectRequest(messageJson, messageId, data)
-                        }
+                    val signBundle = signBundle(0, params.toString(), "sign_direct")
+                    showSignDialog(signBundle,
+                        object : PopUpCosmosSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveSignDirectInjectRequest(messageJson, messageId, data)
+                            }
 
-                        override fun cancel(id: Long) {
-                            appToWebError("Canceled", messageId)
-                        }
-                    })
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson, messageId, "Reject"
+                                )
+                            }
+                        })
                 }
 
                 "cos_sendTransaction" -> {
                     try {
-                        selectedChain?.let { line ->
+                        selectChain?.let { chain ->
                             val params = messageJson.getJSONObject("params")
                             val txBytes = params.getString("txBytes")
                             val mode = params.getInt("mode")
@@ -891,7 +902,7 @@ class DappActivity : BaseActivity() {
                                 BroadcastTxRequest.newBuilder().setModeValue(mode).setTxBytes(
                                     ByteString.copyFrom(Base64.decode(txBytes, Base64.DEFAULT))
                                 ).build()
-                            val txStub = ServiceGrpc.newBlockingStub(getChannel(line))
+                            val txStub = ServiceGrpc.newBlockingStub(getChannel(chain))
                                 .withDeadlineAfter(8L, TimeUnit.SECONDS)
                             val response = txStub.broadcastTx(request)
                             appToWebResult(
@@ -903,23 +914,412 @@ class DappActivity : BaseActivity() {
                         }
 
                     } catch (e: Exception) {
-                        appToWebError("Unknown", messageId)
+                        appToWebError(
+                            messageJson, messageId, "Not implemented"
+                        )
+                    }
+                }
+
+                // evm method
+                "eth_requestAccounts", "wallet_requestPermissions" -> {
+                    val address = allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
+                    appToWebResult(
+                        messageJson, JSONArray(listOf(address)), messageId
+                    )
+                }
+
+                "wallet_switchEthereumChain" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm }?.distinct()
+                        val chainId = (messageJson.getJSONArray("params")
+                            .get(0) as JSONObject).getString("chainId")
+
+                        if (evmChainIds?.contains(chainId) == true) {
+                            currentEvmChainId = chainId
+                            selectEvmChain =
+                                allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
+                            appToWebResult(messageJson, JSONObject.NULL, messageId)
+                            emitToWeb(chainId)
+
+                            val chainNetwork =
+                                allChains?.firstOrNull { it.chainIdEvm == chainId }?.name
+                            withContext(Dispatchers.Main) {
+                                makeToast("Connected to $chainNetwork network")
+                            }
+
+                        } else {
+                            appToWebError(
+                                messageJson, messageId, getString(R.string.error_not_support_chain)
+                            )
+
+                            withContext(Dispatchers.Main) {
+                                makeToast(getString(R.string.error_not_support_chain))
+                            }
+                        }
+                    }
+                }
+
+                "eth_chainId" -> {
+                    if (currentEvmChainId == null) {
+                        currentEvmChainId = "0x1"
+                    }
+                    selectEvmChain =
+                        allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
+                    rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
+                    web3j = Web3j.build(HttpService(rpcUrl))
+                    appToWebResult(messageJson, currentEvmChainId, messageId)
+                }
+
+                "eth_accounts" -> {
+                    if (selectEvmChain?.evmAddress?.isNotEmpty() == true) {
+                        appToWebResult(
+                            messageJson, JSONArray(listOf(selectEvmChain?.evmAddress)), messageId
+                        )
+
+                    } else {
+                        appToWebResult(
+                            messageJson, JSONArray(listOf("")), messageId
+                        )
+                    }
+                }
+
+                "eth_estimateGas" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+                        val param = params.getJSONObject(0)
+
+                        rpcUrl?.let {
+                            val ethGasRequest = try {
+                                JsonRpcRequest(
+                                    method = "eth_estimateGas", params = listOf(
+                                        EstimateGasParamsWithValue(
+                                            param.getString("from") ?: null,
+                                            param.getString("to"),
+                                            param.getString("data"),
+                                            param.getString("value")
+                                        )
+                                    )
+                                )
+
+                            } catch (e: Exception) {
+                                JsonRpcRequest(
+                                    method = "eth_estimateGas", params = listOf(
+                                        EstimateGasParams(
+                                            param.getString("from") ?: null,
+                                            param.getString("to"),
+                                            param.getString("data")
+                                        )
+                                    )
+                                )
+                            }
+
+                            val ethGasResponse = jsonRpcResponse(it, ethGasRequest)
+                            val gasJsonObject = Gson().fromJson(
+                                ethGasResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    gasJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_blockNumber" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        rpcUrl?.let {
+                            val ethBlockNumberRequest = JsonRpcRequest(
+                                method = "eth_blockNumber", params = listOf()
+                            )
+
+                            val ethBlockNumberResponse = jsonRpcResponse(it, ethBlockNumberRequest)
+                            val ethBlockNumberJsonObject = Gson().fromJson(
+                                ethBlockNumberResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethBlockNumberJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_getBlockByNumber" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethGetBlockNumberRequest = JsonRpcRequest(
+                            method = "eth_getBlockByNumber", params = listOf(params[0], params[1])
+                        )
+                        rpcUrl?.let {
+                            val ethGetBlockNumberResponse =
+                                jsonRpcResponse(it, ethGetBlockNumberRequest)
+                            val getBlockNumberJsonObject = Gson().fromJson(
+                                ethGetBlockNumberResponse.body?.string(), JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, getBlockNumberJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_gasPrice" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        rpcUrl?.let {
+                            val ethGasPriceRequest = JsonRpcRequest(
+                                method = "eth_gasPrice", params = listOf()
+                            )
+
+                            val ethGasPriceResponse = jsonRpcResponse(it, ethGasPriceRequest)
+                            val ethGasPriceJsonObject = Gson().fromJson(
+                                ethGasPriceResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethGasPriceJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_maxPriorityFeePerGas" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        rpcUrl?.let {
+                            val ethMaxFeePerGasRequest = JsonRpcRequest(
+                                method = "eth_maxPriorityFeePerGas", params = listOf()
+                            )
+
+                            val ethMaxFeePerGasResponse =
+                                jsonRpcResponse(it, ethMaxFeePerGasRequest)
+                            val ethMaxFeePerGasJsonObject = Gson().fromJson(
+                                ethMaxFeePerGasResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    ethMaxFeePerGasJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_call" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+                        val param = params.getJSONObject(0)
+
+                        rpcUrl?.let {
+                            val ethCallRequest = JsonRpcRequest(
+                                method = "eth_call", params = listOf(
+                                    EthCall(
+                                        null, param.getString("to"), param.getString("data")
+                                    ), DefaultBlockParameterName.LATEST
+                                )
+                            )
+
+                            val ethCallResponse = jsonRpcResponse(it, ethCallRequest)
+                            val callJsonObject = Gson().fromJson(
+                                ethCallResponse.body?.string(), JsonObject::class.java
+                            )
+
+                            try {
+                                appToWebResult(
+                                    messageJson,
+                                    callJsonObject.asJsonObject["result"].asString,
+                                    messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "personal_sign" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle = signBundle(0, params.toString(), "personal_sign")
+                    showEvmSignDialog(
+                        signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                appToWebResult(
+                                    messageJson, data, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Permit rejected.")
+                            }
+                        })
+                }
+
+                "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
+                    val params = messageJson.getJSONArray("params")
+                    if (params.get(0).toString()
+                            .lowercase() != selectEvmChain?.evmAddress?.lowercase()
+                    ) {
+                        appToWebError(messageJson, messageId, "Wrong address")
+                        return
+                    }
+                    val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
+                    showEvmSignDialog(signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                appToWebResult(
+                                    messageJson, data, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Transaction rejected.")
+                            }
+                        })
+                }
+
+                // sign method
+                "eth_sendTransaction" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
+                    showEvmSignDialog(signBundle,
+                        object : PopUpEvmSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    val ethSendTransaction =
+                                        web3j?.ethSendRawTransaction(data)?.send()
+                                    appToWebResult(
+                                        messageJson, ethSendTransaction?.transactionHash, messageId
+                                    )
+                                }
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Transaction rejected.")
+                            }
+                        })
+                }
+
+                // result method
+                "eth_getTransactionReceipt" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethReceiptRequest = JsonRpcRequest(
+                            method = "eth_getTransactionReceipt",
+                            params = listOf(params.getString(0))
+                        )
+                        rpcUrl?.let {
+                            val ethReceiptResponse = jsonRpcResponse(it, ethReceiptRequest)
+                            val receiptJsonObject = Gson().fromJson(
+                                ethReceiptResponse.body?.string(), JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, receiptJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
+                    }
+                }
+
+                "eth_getTransactionByHash" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+
+                        val ethByHashRequest = JsonRpcRequest(
+                            method = "eth_getTransactionByHash",
+                            params = listOf(params.getString(0))
+                        )
+                        rpcUrl?.let {
+                            val ethByHashResponse = jsonRpcResponse(it, ethByHashRequest)
+                            val byHashJsonObject = Gson().fromJson(
+                                ethByHashResponse.body?.string(), JsonObject::class.java
+                            )
+                            try {
+                                appToWebObjectResult(
+                                    messageJson, byHashJsonObject, messageId
+                                )
+                            } catch (e: Exception) {
+                                appToWebError(messageJson, messageId, "JSON-RPC error")
+                            }
+                        }
                     }
                 }
 
                 else -> {
-                    appToWebError("Not implemented", messageId)
+                    appToWebError(messageJson, messageId, "Not implemented")
                 }
             }
+
         } catch (e: Exception) {
             if (isCosmostation) {
-                appToWebError(e.message, 0L)
+                appToWebError(e.message)
             }
         }
     }
 
+    private fun approveSignMessageRequest(
+        messageJson: JSONObject, messageId: String, signatureData: String
+    ) {
+        val request = Request(msgs = emptyList())
+        request.updateMsgData(signatureData, selectChain?.address)
+
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+        val signDoc = mapper.writeValueAsString(
+            mapper.readValue(request.toJson(), TreeMap::class.java)
+        )
+
+        val signatureTx = Signer.signature(
+            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+        )
+        val pubKey = PubKey(
+            pubKeyType(), Strings.fromByteArray(
+                Base64.encode(
+                    selectChain?.publicKey, Base64.DEFAULT
+                )
+            ).replace("\n", "")
+        )
+
+        val signed = JSONObject()
+        signed.put("signature", signatureTx)
+        signed.put(
+            "pub_key", JSONObject(Gson().toJson(pubKey))
+        )
+        appToWebResult(messageJson, signed, messageId)
+    }
+
     private fun approveSignAminoInjectRequest(
-        messageJson: JSONObject, messageId: Long, transactionData: String
+        messageJson: JSONObject, messageId: String, transactionData: String
     ) {
         val signDocJson = Gson().fromJson(transactionData, JsonObject::class.java)
 
@@ -928,16 +1328,18 @@ class DappActivity : BaseActivity() {
         val signDoc = mapper.writeValueAsString(
             mapper.readValue(signDocJson.toString(), TreeMap::class.java)
         )
+
         val signatureTx = Signer.signature(
-            selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
         )
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectedChain?.publicKey, Base64.DEFAULT
+                    selectChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
+
         val signed = JSONObject()
         signed.put("signature", signatureTx)
         signed.put(
@@ -948,7 +1350,7 @@ class DappActivity : BaseActivity() {
     }
 
     private fun approveSignDirectInjectRequest(
-        messageJson: JSONObject, messageId: Long, transactionData: String
+        messageJson: JSONObject, messageId: String, transactionData: String
     ) {
         val transactionJson = Gson().fromJson(transactionData, JsonObject::class.java)
         val chainId = transactionJson["chain_id"].asString
@@ -965,11 +1367,11 @@ class DappActivity : BaseActivity() {
             )
         ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-        val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
+        val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectedChain?.publicKey, Base64.DEFAULT
+                    selectChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -980,24 +1382,40 @@ class DappActivity : BaseActivity() {
         appToWebResult(messageJson, signed, messageId)
     }
 
-    private fun makeAppToWebAccount(chainId: String): JSONObject {
-        val accountJson = JSONObject()
-        accountJson.put("isKeystone", false)
-        accountJson.put("isEthermint", false)
-        accountJson.put("isLedger", false)
-        BaseData.baseAccount?.let { account ->
-            selectedChain = selectChain(account.allEvmLineChains, chainId)
-                ?: selectChain(account.allCosmosLineChains, chainId)
-
-            selectedChain?.fetchFilteredChain()
-            accountJson.put("address", selectedChain?.address)
-            accountJson.put("name", account.name)
-            accountJson.put("publicKey", selectedChain?.publicKey?.bytesToHex())
+    // chain changed
+    private fun emitToWeb(chainId: String) {
+        val responseJson = JSONObject().apply {
+            put("result", chainId)
         }
-        return accountJson
+        val postMessageJson = JSONObject().apply {
+            put("message", responseJson)
+            put("type", "chainChanged")
+            put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
     }
 
-    private fun appToWebResult(messageJson: JSONObject, resultJson: Any, messageId: Long) {
+    private fun emitCloseToWeb() {
+        val responseJson = JSONObject().apply {
+            put("result", JSONArray())
+        }
+        val postMessageJson = JSONObject().apply {
+            put("message", responseJson)
+            put("type", "accountsChanged")
+            put("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
+    private fun appToWebResult(messageJson: JSONObject, resultJson: Any?, messageId: String) {
         val responseJson = JSONObject().apply {
             put("result", resultJson)
         }
@@ -1014,13 +1432,56 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    private fun appToWebError(error: String?, messageId: Long) {
+    private fun appToWebObjectResult(
+        messageJson: JSONObject, resultJson: JsonObject, messageId: String
+    ) {
+        val responseJson = JsonObject().apply {
+            addProperty("jsonrpc", "2.0")
+            add("result", resultJson.asJsonObject["result"])
+        }
+        val postMessageJson = JsonObject().apply {
+            add("message", Gson().fromJson(messageJson.toString(), JsonObject::class.java))
+            add("response", responseJson)
+            addProperty("messageId", messageId)
+            addProperty("isCosmostation", true)
+        }
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format("window.postMessage(%s);", postMessageJson.toString()), null
+            )
+        }
+    }
+
+    private fun appToWebError(error: String?) {
         val responseJson = JSONObject()
         responseJson.put("error", error)
         val postMessageJson = JSONObject()
         postMessageJson.put("response", responseJson)
         postMessageJson.put("isCosmostation", true)
-        postMessageJson.put("messageId", messageId)
+        postMessageJson.put("messageId", "0")
+        runOnUiThread {
+            binding.dappWebView.evaluateJavascript(
+                String.format(
+                    "window.postMessage(%s);", postMessageJson.toString()
+                ), null
+            )
+        }
+    }
+
+    private fun appToWebError(messageJson: JSONObject, messageId: String, message: String) {
+        val responseJson = JSONObject().apply {
+            val errorJson = JSONObject().apply {
+                put("code", 4001)
+                put("message", message)
+            }
+            put("error", errorJson)
+        }
+        val postMessageJson = JSONObject().apply {
+            put("message", messageJson)
+            put("response", responseJson)
+            put("isCosmostation", true)
+            put("messageId", messageId)
+        }
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(
                 String.format(
@@ -1031,33 +1492,22 @@ class DappActivity : BaseActivity() {
     }
 
     private fun pubKeyType(): String {
-        return when (selectedChain) {
-            is ChainInjective -> INJECTIVE_KEY_TYPE_PUBLIC
-            is EthereumLine -> ETHERMINT_KEY_TYPE_PUBLIC
-            else -> COSMOS_KEY_TYPE_PUBLIC
+        return if (selectChain is ChainInjective) {
+            INJECTIVE_KEY_TYPE_PUBLIC
+        } else if (selectChain?.supportEvm == true) {
+            ETHERMINT_KEY_TYPE_PUBLIC
+        } else {
+            COSMOS_KEY_TYPE_PUBLIC
         }
     }
 
-    fun selectChain(classChains: List<CosmosLine>, chainId: String?): CosmosLine? {
-        return classChains.firstOrNull { chain ->
-            (chain.chainIdCosmos.equals(chainId, ignoreCase = true)
-                    || chain.name.equals(chainId, ignoreCase = true))
-                    && chain.isDefault
-        }
-    }
-
-    private fun CosmosLine.fetchFilteredChain() {
-        BaseData.baseAccount?.apply {
-            if (type == BaseAccountType.MNEMONIC) {
-                if (address?.isEmpty() == true) {
-                    setInfoWithSeed(seed, setParentPath, lastHDPath)
-                }
-
-            } else if (type == BaseAccountType.PRIVATE_KEY) {
-                if (address?.isEmpty() == true) {
-                    setInfoWithPrivateKey(privateKey)
-                }
-            }
+    private fun selectedChain(
+        classChains: MutableList<BaseChain>?, chainId: String?
+    ): BaseChain? {
+        return classChains?.firstOrNull { chain ->
+            (chain.chainIdCosmos.equals(chainId, ignoreCase = true) || chain.name.equals(
+                chainId, ignoreCase = true
+            )) && chain.isDefault
         }
     }
 
@@ -1105,5 +1555,75 @@ class DappActivity : BaseActivity() {
             signDoc = txMsg
             signature = sig
         }
+    }
+
+    private suspend fun loadParam() {
+        when (val response = safeApiCall { RetrofitInstance.mintscanJsonApi.param() }) {
+            is NetworkResult.Success -> {
+                BaseData.chainParam = response.data
+            }
+
+            is NetworkResult.Error -> {}
+        }
+    }
+
+    private suspend fun loadAsset() {
+        when (val response = safeApiCall { RetrofitInstance.mintscanApi.asset() }) {
+            is NetworkResult.Success -> {
+                BaseData.assets = response.data.assets
+            }
+
+            is NetworkResult.Error -> {}
+        }
+    }
+}
+
+enum class DAppType {
+    INTERNAL_URL, DEEPLINK_WC2
+}
+
+class Fee(
+    val amount: List<Any> = emptyList(), val gas: String = "0"
+)
+
+class MsgSignDataValue(
+    var data: String, var signer: String?
+)
+
+class Msg(
+    val type: String = "sign/MsgSignData", var value: MsgSignDataValue
+)
+
+class Request(
+    val account_number: String = "0",
+    val chain_id: String = "",
+    val fee: Fee = Fee(),
+    val memo: String = "",
+    var msgs: List<Msg>,
+    val sequence: String = "0"
+) {
+    init {
+        msgs = listOf(
+            Msg(
+                value = MsgSignDataValue(
+                    data = "defaultData", signer = "defaultSigner"
+                )
+            )
+        )
+    }
+
+    fun updateMsgData(data: String, signer: String?) {
+        msgs = listOf(
+            Msg(
+                value = MsgSignDataValue(
+                    data = data, signer = signer
+                )
+            )
+        )
+    }
+
+    fun toJson(): String {
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        return gson.toJson(this)
     }
 }

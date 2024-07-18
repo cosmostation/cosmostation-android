@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.KavaFetcher
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepository
 import java.util.concurrent.TimeUnit
@@ -135,8 +136,8 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
         }
 
 
-    private val _lendingData = MutableLiveData<LendingData?>()
-    val lendingData: LiveData<LendingData?> get() = _lendingData
+    private val _lendingData = MutableLiveData<KavaFetcher.LendingData?>()
+    val lendingData: LiveData<KavaFetcher.LendingData?> get() = _lendingData
     fun lendingData(managedChannel: ManagedChannel, address: String?) =
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -209,7 +210,7 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
                                 }
                             }
                             _lendingData.postValue(
-                                LendingData(
+                                KavaFetcher.LendingData(
                                     lendingParam,
                                     lendingRates,
                                     lendingTotalDeposits,
@@ -239,8 +240,8 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
             }
         }
 
-    private val _swapData = MutableLiveData<SwapData?>()
-    val swapData: LiveData<SwapData?> get() = _swapData
+    private val _swapData = MutableLiveData<KavaFetcher.SwapData?>()
+    val swapData: LiveData<KavaFetcher.SwapData?> get() = _swapData
     fun swapData(managedChannel: ManagedChannel, address: String?) =
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -267,7 +268,7 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
                                     response.data.depositsList?.let { swapMyDeposits = it }
                                 }
                             }
-                            _swapData.postValue(SwapData(swapPools, swapMyDeposits))
+                            _swapData.postValue(KavaFetcher.SwapData(swapPools, swapMyDeposits))
                         }
 
                         is NetworkResult.Error -> {
@@ -315,18 +316,3 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
             }
         }
 }
-
-data class LendingData(
-    var lendingParam: HardProto.Params?,
-    val lendingRates: MutableList<MoneyMarketInterestRate>?,
-    val lendingTotalDeposits: MutableList<CoinProto.Coin>?,
-    val lendingTotalBorrows: MutableList<CoinProto.Coin>?,
-    val lendingMyDeposits: MutableList<com.kava.hard.v1beta1.QueryProto.DepositResponse>?,
-    val lendingMyBorrows: MutableList<com.kava.hard.v1beta1.QueryProto.BorrowResponse>?,
-    val lendingReserve: MutableList<CoinProto.Coin>?
-)
-
-data class SwapData(
-    var swapPools: MutableList<com.kava.swap.v1beta1.QueryProto.PoolResponse>?,
-    var swapMyDeposits: MutableList<com.kava.swap.v1beta1.QueryProto.DepositResponse>?
-)

@@ -14,9 +14,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -165,37 +165,17 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
-    var pushStatusResult = SingleLiveEvent<Boolean>()
-    fun pushStatus(fcmToken: String) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.pushStatus(fcmToken)) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        pushStatusResult.postValue(data.body()?.subscribe)
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
     fun loadGrpcStakeData(
-        line: CosmosLine
+        chain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (line.cosmosValidators.size > 0) {
+        if (chain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
             return@launch
         }
         val tempValidators = mutableListOf<StakingProto.Validator>()
-
-        val channel = getChannel(line)
+        val channel = getChannel(chain)
         try {
             val loadBondedDeferred = async { walletRepository.bondedValidator(channel) }
             val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
@@ -240,7 +220,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     else -> 0
                 }
             }
-            line.cosmosValidators = dataTempValidators
+            chain.grpcFetcher?.cosmosValidators = dataTempValidators
 
         } finally {
             channel.shutdown()
@@ -257,52 +237,82 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private var _balanceResult = MutableLiveData<String>()
     val balanceResult: LiveData<String> get() = _balanceResult
 
-    fun evmBalance(line: EthereumLine) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = walletRepository.evmBalance(line)) {
-            is NetworkResult.Success -> {
-                line.evmBalance = response.data.toBigDecimal()
-                line.web3j = Web3j.build(HttpService(line.getEvmRpc()))
-                line.fetched = true
-                if (line.fetched) {
-                    withContext(Dispatchers.Main) {
-                        _balanceResult.value = line.tag
+    fun evmBalance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        chain.evmRpcFetcher()?.let {
+            when (val response = walletRepository.evmBalance(chain)) {
+                is NetworkResult.Success -> {
+                    chain.evmRpcFetcher?.evmBalance = response.data.toBigDecimal()
+                    chain.web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
+                    chain.fetched = true
+                    if (chain.fetched) {
+                        withContext(Dispatchers.Main) {
+                            _balanceResult.value = chain.tag
+                        }
                     }
                 }
-            }
 
-            is NetworkResult.Error -> {
-                line.evmBalance = BigDecimal.ZERO
-                line.web3j = null
-                line.fetched = true
-                if (line.fetched) {
-                    withContext(Dispatchers.Main) {
-                        _balanceResult.value = line.tag
+                is NetworkResult.Error -> {
+                    chain.evmRpcFetcher?.evmBalance = BigDecimal.ZERO
+                    chain.web3j = null
+                    chain.fetched = true
+                    if (chain.fetched) {
+                        withContext(Dispatchers.Main) {
+                            _balanceResult.value = chain.tag
+                        }
                     }
                 }
             }
         }
     }
 
-    fun balance(line: CosmosLine) = viewModelScope.launch(Dispatchers.IO) {
-        when (line) {
-            is ChainOkt996Keccak -> {
-                when (val response = walletRepository.oktAccountInfo(line)) {
-                    is NetworkResult.Success -> {
-                        line.oktLcdAccountInfo = response.data
-                        line.fetched = true
-                        if (line.fetched) {
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = line.tag
+    fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        when (chain) {
+            is ChainOktEvm -> {
+                chain.lcdFetcher()?.let {
+                    when (val response = walletRepository.oktAccountInfo(chain)) {
+                        is NetworkResult.Success -> {
+                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
                     }
+                }
+            }
 
-                    is NetworkResult.Error -> {
-                        line.oktLcdAccountInfo = null
-                        line.fetched = true
-                        if (line.fetched) {
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = line.tag
+            is ChainOkt996Keccak -> {
+                chain.lcdFetcher()?.let {
+                    when (val response = walletRepository.oktAccountInfo(chain)) {
+                        is NetworkResult.Success -> {
+                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+
+                        is NetworkResult.Error -> {
+                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
                     }
@@ -310,26 +320,30 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             else -> {
-                val channel = getChannel(line)
-                when (val response = walletRepository.balance(channel, line)) {
-                    is NetworkResult.Success -> {
-                        response.data?.balancesList?.let {
-                            line.cosmosBalances = it
-                            line.fetched = true
-                            if (line.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = line.tag
+                chain.grpcFetcher()?.let {
+                    val channel = getChannel(chain)
+                    when (val response = walletRepository.balance(channel, chain)) {
+                        is NetworkResult.Success -> {
+                            response.data?.balancesList?.let {
+                                chain.grpcFetcher?.cosmosBalances = it
+                                chain.fetched = true
+                                if (chain.fetched) {
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    is NetworkResult.Error -> {
-                        line.cosmosBalances = null
-                        line.fetched = true
-                        if (line.fetched) {
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = line.tag
+                        is NetworkResult.Error -> {
+                            chain.grpcFetcher?.cosmosBalances = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            } else {
+
                             }
                         }
                     }
@@ -372,66 +386,81 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     var cw721ModelResult = SingleLiveEvent<String>()
-    fun cw721AllTokens(line: CosmosLine, list: JsonObject) =
-        viewModelScope.launch(Dispatchers.IO) {
-            val channel = getChannel(line)
+    fun cw721AllTokens(chain: BaseChain, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
+        val channel = getChannel(chain)
+        when (val response = walletRepository.cw721TokenIds(channel, chain, list)) {
+            is NetworkResult.Success -> {
+                response.data?.let { tokenIds ->
+                    if (tokenIds.size() > 0) {
+                        val jobs =
+                            tokenIds.asJsonObject["tokens"].asJsonArray.map { tokenIdElement ->
+                                async {
+                                    val tokenId = tokenIdElement.asString
+                                    when (val tokenInfo = walletRepository.cw721TokenInfo(
+                                        channel, chain, list, tokenId
+                                    )) {
+                                        is NetworkResult.Success -> {
+                                            when (val tokenDetail =
+                                                walletRepository.cw721TokenDetail(
+                                                    chain,
+                                                    list.asJsonObject["contractAddress"].asString,
+                                                    tokenId
+                                                )) {
+                                                is NetworkResult.Success -> {
+                                                    Cw721TokenModel(
+                                                        tokenId, tokenInfo.data, tokenDetail.data
+                                                    )
+                                                }
 
-            when (val response = walletRepository.cw721TokenIds(channel, line, list)) {
-                is NetworkResult.Success -> {
-                    response.data?.let { tokenIds ->
-                        if (tokenIds.size() > 0) {
-                            val jobs =
-                                tokenIds.asJsonObject["tokens"].asJsonArray.map { tokenIdElement ->
-                                    async {
-                                        val tokenId = tokenIdElement.asString
-                                        when (val tokenInfo = walletRepository.cw721TokenInfo(
-                                            channel, line, list, tokenId
-                                        )) {
-                                            is NetworkResult.Success -> {
-                                                when (val tokenDetail =
-                                                    walletRepository.cw721TokenDetail(
-                                                        line,
-                                                        list.asJsonObject["contractAddress"].asString,
-                                                        tokenId
-                                                    )) {
-                                                    is NetworkResult.Success -> {
-                                                        Cw721TokenModel(
-                                                            tokenId,
-                                                            tokenInfo.data,
-                                                            tokenDetail.data
-                                                        )
-                                                    }
-
-                                                    is NetworkResult.Error -> {
-                                                        Cw721TokenModel(
-                                                            tokenId,
-                                                            tokenInfo.data,
-                                                            null
-                                                        )
-                                                    }
+                                                is NetworkResult.Error -> {
+                                                    Cw721TokenModel(
+                                                        tokenId, tokenInfo.data, null
+                                                    )
                                                 }
                                             }
+                                        }
 
-                                            is NetworkResult.Error -> {
-                                                null
-                                            }
+                                        is NetworkResult.Error -> {
+                                            null
                                         }
                                     }
                                 }
-                            val tokens = jobs.awaitAll().filterNotNull()
-                            if (tokens.isNotEmpty()) {
-                                line.cw721Models.add(Cw721Model(list, tokens.toMutableList()))
                             }
-                            cw721ModelResult.postValue(line.tag)
-                        } else {
-                            cw721ModelResult.postValue(line.tag)
+                        val tokens = jobs.awaitAll().filterNotNull()
+                        if (tokens.isNotEmpty()) {
+                            chain.grpcFetcher?.cw721Models?.add(
+                                Cw721Model(
+                                    list, tokens.toMutableList()
+                                )
+                            )
                         }
+                        cw721ModelResult.postValue(chain.tag)
+                    } else {
+                        cw721ModelResult.postValue(chain.tag)
                     }
                 }
+            }
 
-                is NetworkResult.Error -> {
-                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                }
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
+    }
+
+    private val _ecoSystemErrorMessage = MutableLiveData<String>()
+    val ecoSystemErrorMessage: LiveData<String> get() = _ecoSystemErrorMessage
+
+    private var _ecoSystemListResult = MutableLiveData<MutableList<JsonObject>?>()
+    val ecoSystemListResult: LiveData<MutableList<JsonObject>?> get() = _ecoSystemListResult
+    fun ecoSystemList(chain: String) = CoroutineScope(Dispatchers.IO).launch {
+        when (val response = walletRepository.ecoSystem(chain)) {
+            is NetworkResult.Success -> {
+                _ecoSystemListResult.postValue(response.data)
+            }
+
+            is NetworkResult.Error -> {
+                _ecoSystemErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
 }

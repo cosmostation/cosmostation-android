@@ -6,6 +6,8 @@
     <string name="str_share_address">住所共有です</string>
     <string name="str_share_evm_address">Evm スタイルのアドレスを\n共有する</string>
     <string name="str_share_cosmos_address">Cosmos スタイルのアドレス\nを共有する</string>
+    <string name="str_share_evm_address2">Evm スタイルのアドレスを 共有する</string>
+    <string name="str_share_cosmos_address2">Cosmos スタイルのアドレス を共有する</string>
     <string name="str_address">アドレス</string>
     <string name="str_ethereum_address">イーサリアムのアドレスです</string>
     <string name="str_confirm">確認</string>
@@ -30,7 +32,7 @@
     <string name="str_reward_address">利息を受ける住所</string>
     <string name="str_my_staking">私のステーキング</string>
     <string name="str_my_unstaking">私のステーキング解除</string>
-    <string name="str_voting_period">完成した提案書</string>
+    <string name="str_voting_period">投票期間の提案</string>
     <string name="str_vote_proposals">提案</string>
     <string name="str_add_custom_chain">カスタムチェーンの追加</string>
     <string name="str_max_available">最大委任可能量 : </string>
@@ -42,6 +44,7 @@
     <string name="str_low">低</string>
     <string name="str_average">平</string>
     <string name="str_high">高</string>
+    <string name="str_origin">起源</string>
     <string name="str_send">申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
@@ -110,6 +113,24 @@
     <string name="str_style">スタイル</string>
     <string name="str_simple">シンプル</string>
     <string name="str_pro">プロ</string>
+    <string name="str_permit_request">Permit 要求</string>
+    <string name="str_tx_request">Tx 要求</string>
+    <string name="str_introduction">チェーンの説明</string>
+    <string name="str_chain_information">チェーン情報</string>
+    <string name="str_initial_time">最初の稼働日</string>
+    <string name="str_chain_id">チェーン ID</string>
+    <string name="str_chain_id_cosmos">チェーン ID (cosmos形式)</string>
+    <string name="str_chain_id_evm">チェーン ID (evm形式)</string>
+    <string name="str_coin_for_gas">ガス用コイン</string>
+    <string name="str_network">通信網</string>
+    <string name="str_staking_information">ステーキング情報</string>
+    <string name="str_staking_asset">ステーキングコイン</string>
+    <string name="str_unstake_period">ステーキ解除期間</string>
+    <string name="str_inflation">インフレーション</string>
+    <string name="str_est_apr">予想収益率</string>
+    <string name="str_mainnet">メインネット</string>
+    <string name="str_testnet">テストネット</string>
+    <string name="str_dev">開発モード</string>
 
 
     //title
@@ -123,6 +144,7 @@
     <string name="title_add_account">アカウントを追加</string>
     <string name="title_import_qr">QRスキャンでアカウントをインポート</string>
     <string name="title_legacy_enabled">レガシーアドレスの有効化</string>
+    <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
     <string name="title_address_book">連絡先の管理</string>
     <string name="title_general">一般</string>
@@ -132,9 +154,6 @@
     <string name="title_notification">通知</string>
     <string name="title_using_bio">指紋を使用します</string>
     <string name="title_support">サポート</string>
-    <string name="title_twitter">X(Twitter)</string>
-    <string name="title_telegram">テレグラム</string>
-    <string name="title_youtube">Youtube</string>
     <string name="title_about">アプリ情報です</string>
     <string name="title_term">利用規約</string>
     <string name="title_privacy">個人情報処理方針</string>
@@ -237,12 +256,14 @@
     <string name="title_select_style">Select style</string>
     <string name="title_delist">サポートの終了</string>
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
+    <string name="title_support_inject">インジェクションをサポート</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
     <string name="str_msg_no_history">取引履歴がありません。</string>
     <string name="str_msg_no_token">トークンがありません。</string>
     <string name="str_msg_copy">カードをタップしてコピーします。</string>
+    <string name="str_msg_copy2">コピーするにはボックスをタップしてください</string>
     <string name="str_msg_mnemonic_copy">コピー用のニーモニックフレーズボックスをタップ</string>
     <string name="str_msg_private_copy">クリップボードにコピーしました</string>
     <string name="str_msg_address_copied">クリップボードにコピーしました</string>
@@ -307,6 +328,14 @@
     <string name="str_delist_msg">選択したチェーンはモバイルウォレットから廃止されます。 他のウォレットや将来のカスタム チェーン サービスによってサポートされる可能性があります。</string>
     <string name="str_legacy_path_msg">選択したレガシー パス上のアカウントは終了されます。 アセットをパブリック パスに移動することを強くお勧めします。</string>
     <string name="str_deposit_caution_msg">%1$s ネットワーク資産のみ転送可能</string>
+    <string name="str_reward_address_change_msg">このアドレスはリワード資産を受け取るためのアドレスです。\n<u><b>報酬の住所を変更するにはここをタップしてください。</b></u> (お勧めしません)</string>
+    <string name="str_already_reward_address_changed_msg">すでにリワードアドレスを変更しました。</string>
+    <string name="str_header_msg">長押しでコピーします</string>
+    <string name="str_affect_danger_msg">あなたの資産に影響を与えます</string>
+    <string name="str_affect_safe_msg">あなたの資産に影響を与えません</string>
+    <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
+    <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
+    <string name="str_fee_tip_msg">Feeとtipは財布ではなくチェー ンに支払われます</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -345,7 +374,9 @@
     <string name="error_useless_end_point">使用できません。</string>
     <string name="error_no_bonding_no_vote">代表団が足りないため投票できません。</string>
     <string name="error_not_support_vote">投票機能をサポートしていません。</string>
+    <string name="error_not_support_chain">モバイルでサポートされていないチェーン。</string>
     <string name="error_bera_vote_one_proposal">投票できるのは 1 つの BeraChain のみです。</string>
+    <string name="error_not_support_dapp">%1$s はモバイルインジェクションをサポートしていません。</string>
 
 
     <string name="tx_unknown">不明</string>

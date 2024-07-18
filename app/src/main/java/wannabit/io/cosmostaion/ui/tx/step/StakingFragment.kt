@@ -22,8 +22,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
-import wannabit.io.cosmostaion.common.BaseConstant
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -31,10 +30,12 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getChannel
+import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentStakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -42,6 +43,8 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.option.tx.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.AssetSelectListener
+import wannabit.io.cosmostaion.ui.option.tx.general.BaseFeeAssetFragment
+import wannabit.io.cosmostaion.ui.option.tx.general.BaseFeeAssetSelectListener
 import wannabit.io.cosmostaion.ui.option.tx.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoFragment
 import wannabit.io.cosmostaion.ui.option.tx.general.MemoListener
@@ -57,12 +60,13 @@ class StakingFragment : BaseTxFragment() {
     private var _binding: FragmentStakingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: CosmosLine
+    private lateinit var selectedChain: BaseChain
     private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
+    private var txTip: TxProto.Tip? = null
 
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
@@ -73,7 +77,7 @@ class StakingFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: CosmosLine, toValidator: Validator?): StakingFragment {
+        fun newInstance(selectedChain: BaseChain, toValidator: Validator?): StakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("toValidator", toValidator)
@@ -96,7 +100,6 @@ class StakingFragment : BaseTxFragment() {
 
         initView()
         initFee()
-        updateFeeView()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -105,11 +108,11 @@ class StakingFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", CosmosLine::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 toValidator = arguments?.getSerializable("toValidator", Validator::class.java)
             } else {
-                (arguments?.getParcelable("selectedChain") as? CosmosLine)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 toValidator = arguments?.getSerializable("toValidator") as? Validator?
@@ -123,11 +126,11 @@ class StakingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.cosmosValidators.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.cosmosValidators[0]
+                    toValidator = selectedChain.grpcFetcher?.cosmosValidators?.get(0)
                 }
             }
             updateValidatorView()
@@ -136,7 +139,6 @@ class StakingFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
-            feeInfos = selectedChain.getFeeInfos(requireContext())
             feeSegment.setSelectedBackground(
                 ContextCompat.getColor(
                     requireContext(), R.color.color_accent_purple
@@ -148,19 +150,47 @@ class StakingFragment : BaseTxFragment() {
                 )
             )
 
-            for (i in feeInfos.indices) {
-                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                feeSegment.addView(
-                    segmentView.root,
-                    i,
-                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+            if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                val tipTitle = listOf(
+                    "No Tip", "20% Tip", "50% Tip", "100% Tip"
                 )
-                segmentView.btnTitle.text = feeInfos[i].title
+                for (i in tipTitle.indices) {
+                    val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                    feeSegment.addView(
+                        segmentView.root,
+                        i,
+                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                    )
+                    segmentView.btnTitle.text = tipTitle[i]
+                }
+                feeSegment.setPosition(selectedFeeInfo, false)
+                val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                val gasAmount = selectedChain.getFeeBaseGasAmount().toBigDecimal()
+                val feeDenom = baseFee?.denom
+                val feeAmount =
+                    baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasAmount.toLong()).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount.toString())
+                        .build()
+                ).build()
+
+            } else {
+                feeInfos = selectedChain.getFeeInfos(requireContext())
+                for (i in feeInfos.indices) {
+                    val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                    feeSegment.addView(
+                        segmentView.root,
+                        i,
+                        LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                    )
+                    segmentView.btnTitle.text = feeInfos[i].title
+                }
+                feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
+                selectedFeeInfo = selectedChain.getFeeBasePosition()
+                txFee = selectedChain.getInitFee(requireContext())
             }
-            feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
-            selectedFeeInfo = selectedChain.getFeeBasePosition()
-            txFee = selectedChain.getInitFee(requireContext())
         }
+        updateFeeView()
     }
 
     private fun updateValidatorView() {
@@ -192,22 +222,20 @@ class StakingFragment : BaseTxFragment() {
                 CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
                     .build()
 
-            selectedChain.stakeDenom?.let { denom ->
-                BaseData.getAsset(selectedChain.apiName, denom)?.let { asset ->
-                    asset.decimals?.let { decimal ->
-                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                            .setScale(decimal, RoundingMode.DOWN)
-                        delegateAmountMsg.visibility = View.GONE
-                        delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                        delegateAmount.setTextColor(
-                            ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
-                            )
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                asset.decimals?.let { decimal ->
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                        .setScale(decimal, RoundingMode.DOWN)
+                    delegateAmountMsg.visibility = View.GONE
+                    delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                    delegateAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
                         )
-                        delegateDenom.visibility = View.VISIBLE
-                        delegateDenom.text = asset.symbol
-                        delegateDenom.setTextColor(asset.assetColor())
-                    }
+                    )
+                    delegateDenom.visibility = View.VISIBLE
+                    delegateDenom.text = asset.symbol
+                    delegateDenom.setTextColor(asset.assetColor())
                 }
             }
             txSimulate()
@@ -251,21 +279,21 @@ class StakingFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.stakeDenom?.let { denom ->
-                    val balanceAmount = selectedChain.balanceAmount(denom)
-                    val vestingAmount = selectedChain.vestingAmount(denom)
+                val balanceAmount =
+                    selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+                val vestingAmount =
+                    selectedChain.grpcFetcher?.vestingAmount(selectedChain.stakeDenom)
 
-                    txFee?.let {
-                        availableAmount = if (it.getAmount(0).denom == denom) {
-                            val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                            if (feeAmount > balanceAmount) {
-                                BigDecimal.ZERO
-                            } else {
-                                balanceAmount.add(vestingAmount).subtract(feeAmount)
-                            }
+                txFee?.let {
+                    availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
+                        val feeAmount = it.getAmount(0).amount.toBigDecimal()
+                        if (feeAmount > balanceAmount) {
+                            BigDecimal.ZERO
                         } else {
-                            balanceAmount.add(vestingAmount)
+                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
                         }
+                    } else {
+                        balanceAmount?.add(vestingAmount)
                     }
                 }
             }
@@ -281,7 +309,7 @@ class StakingFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.cosmosValidators.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -293,11 +321,9 @@ class StakingFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(TxType.DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let { denom ->
-                            BaseData.getAsset(
-                                selectedChain.apiName, denom
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.stakeDenom
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)
@@ -317,35 +343,87 @@ class StakingFragment : BaseTxFragment() {
             }
 
             feeTokenLayout.setOnClickListener {
-                handleOneClickWithDelay(
-                    AssetFragment.newInstance(selectedChain,
-                        feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
-                        object : AssetSelectListener {
-                            override fun select(denom: String) {
-                                selectedChain.getDefaultFeeCoins(requireContext())
-                                    .firstOrNull { it.denom == denom }?.let { feeCoin ->
-                                        val updateFeeCoin =
-                                            CoinProto.Coin.newBuilder().setDenom(denom)
-                                                .setAmount(feeCoin.amount).build()
+                txFee?.let { fee ->
+                    if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                        handleOneClickWithDelay(
+                            BaseFeeAssetFragment(selectedChain,
+                                selectedChain.grpcFetcher?.cosmosBaseFees,
+                                object : BaseFeeAssetSelectListener {
+                                    override fun select(denom: String) {
+                                        selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                            ?.let { baseFee ->
+                                                val feeAmount = baseFee.getdAmount()
+                                                    .multiply(fee.gasLimit.toBigDecimal())
+                                                    ?.setScale(0, RoundingMode.DOWN)
+                                                val updateFeeCoin =
+                                                    CoinProto.Coin.newBuilder().setDenom(denom)
+                                                        .setAmount(feeAmount.toString()).build()
+                                                txFee = TxProto.Fee.newBuilder()
+                                                    .setGasLimit(fee.gasLimit)
+                                                    .addAmount(updateFeeCoin).build()
+                                                txFee = Signer.setFee(selectedFeeInfo, txFee)
 
-                                        val updateTxFee = TxProto.Fee.newBuilder()
-                                            .setGasLimit(BaseConstant.BASE_GAS_AMOUNT.toLong())
-                                            .addAmount(updateFeeCoin).build()
-
-                                        txFee = updateTxFee
-                                        updateFeeView()
-                                        txSimulate()
+                                                updateFeeView()
+                                                txSimulate()
+                                            }
                                     }
-                            }
-                        })
-                )
+                                })
+                        )
+
+                    } else {
+                        handleOneClickWithDelay(
+                            AssetFragment.newInstance(selectedChain,
+                                feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
+                                object : AssetSelectListener {
+                                    override fun select(denom: String) {
+                                        feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
+                                            ?.let { feeCoin ->
+                                                val gasAmount = selectedChain.getFeeBaseGasAmount()
+                                                    .toBigDecimal()
+                                                val updateFeeCoin =
+                                                    CoinProto.Coin.newBuilder().setDenom(denom)
+                                                        .setAmount(
+                                                            feeCoin.gasRate?.multiply(
+                                                                gasAmount
+                                                            )?.setScale(0, RoundingMode.UP)
+                                                                .toString()
+                                                        ).build()
+
+                                                txFee = TxProto.Fee.newBuilder().setGasLimit(
+                                                    selectedChain.getFeeBaseGasAmount()
+                                                ).addAmount(updateFeeCoin).build()
+
+                                                updateFeeView()
+                                                txSimulate()
+                                            }
+                                    }
+                                })
+                        )
+                    }
+                }
             }
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = selectedChain.getBaseFee(
-                    requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
-                )
+                txFee = if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                        it.denom == txFee?.getAmount(0)?.denom
+                    }
+                    val gasAmount = txFee?.gasLimit?.toBigDecimal()
+                    val feeDenom = baseFee?.denom
+                    val feeAmount =
+                        baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+                    txFee = TxProto.Fee.newBuilder().setGasLimit(gasAmount!!.toLong()).addAmount(
+                        CoinProto.Coin.newBuilder().setDenom(feeDenom)
+                            .setAmount(feeAmount.toString()).build()
+                    ).build()
+                    Signer.setFee(selectedFeeInfo, txFee)
+
+                } else {
+                    selectedChain.getBaseFee(
+                        requireContext(), selectedFeeInfo, txFee?.getAmount(0)?.denom
+                    )
+                }
                 updateFeeView()
                 txSimulate()
             }
@@ -384,6 +462,7 @@ class StakingFragment : BaseTxFragment() {
                     selectedChain.address,
                     onBindDelegate(),
                     txFee,
+                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -401,7 +480,13 @@ class StakingFragment : BaseTxFragment() {
             btnStake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulateDelegate(
-                getChannel(selectedChain), selectedChain.address, onBindDelegate(), txFee, txMemo, selectedChain
+                getChannel(selectedChain),
+                selectedChain.address,
+                onBindDelegate(),
+                txFee,
+                txTip,
+                txMemo,
+                selectedChain
             )
         }
     }
@@ -420,20 +505,36 @@ class StakingFragment : BaseTxFragment() {
 
     private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
         txFee?.let { fee ->
-            val selectedFeeData =
-                feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
-            val gasRate = selectedFeeData?.gasRate
-
             gasInfo?.let { info ->
                 val gasLimit =
                     (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                        it.denom == fee.getAmount(
+                            0
+                        ).denom
+                    }?.let { baseFee ->
+                        val feeCoinAmount =
+                            baseFee.getdAmount().multiply(gasLimit).setScale(0, RoundingMode.UP)
+                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                            .setAmount(feeCoinAmount.toString()).build()
+                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                            .addAmount(feeCoin).build()
+                        txFee = Signer.setFee(selectedFeeInfo, txFee)
+                    }
 
-                val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                    .setAmount(feeCoinAmount.toString()).build()
+                } else {
+                    val selectedFeeData =
+                        feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
+                    val gasRate = selectedFeeData?.gasRate
 
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                    .build()
+                    val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(feeCoinAmount.toString()).build()
+                    txFee =
+                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            .build()
+                }
             }
         }
         updateFeeView()

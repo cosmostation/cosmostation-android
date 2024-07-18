@@ -3,11 +3,9 @@ package wannabit.io.cosmostaion.ui.tx.info
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.CosmosLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.databinding.ItemProposalBinding
@@ -15,13 +13,13 @@ import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
 class ProposalListAdapter(
     val context: Context,
-    val selectedChain: CosmosLine,
+    val selectedChain: BaseChain,
     val votingPeriods: MutableList<CosmosProposal>,
     val etcPeriods: MutableList<CosmosProposal>,
     private val myVotes: MutableList<VoteData>,
     private val toVoteList: MutableList<String>?,
     var listener: CheckListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_VOTING_HEADER = 0

@@ -40,13 +40,18 @@
                 <TextView
                     android:id="@+id/account_name"
                     style="@style/font_sb_16"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_4"
                     android:layout_gravity="center_vertical"
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:textColor="@color/color_base01" />
+
+                <ImageView
+                    android:id="@+id/btn_random"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_32" />
 
             </LinearLayout>
 

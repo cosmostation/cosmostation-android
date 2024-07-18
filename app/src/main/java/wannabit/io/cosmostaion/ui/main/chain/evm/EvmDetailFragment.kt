@@ -16,11 +16,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
+import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
@@ -31,11 +32,11 @@ class EvmDetailFragment : Fragment() {
 
     private lateinit var detailPagerAdapter: DetailPagerAdapter
 
-    private lateinit var selectedEvmChain: EthereumLine
+    private lateinit var selectedEvmChain: BaseChain
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedEvmChain: EthereumLine): EvmDetailFragment {
+        fun newInstance(selectedEvmChain: BaseChain): EvmDetailFragment {
             val args = Bundle().apply {
                 putParcelable("selectedEvmChain", selectedEvmChain)
             }
@@ -65,17 +66,17 @@ class EvmDetailFragment : Fragment() {
     private fun initData() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedEvmChain", EthereumLine::class.java)
+                arguments?.getParcelable("selectedEvmChain", BaseChain::class.java)
                     ?.let { selectedEvmChain = it }
             } else {
-                (arguments?.getParcelable("selectedEvmChain") as? EthereumLine)?.let {
+                (arguments?.getParcelable("selectedEvmChain") as? BaseChain)?.let {
                     selectedEvmChain = it
                 }
             }
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
-                accountAddress.text = selectedEvmChain.address
+                accountAddress.text = selectedEvmChain.evmAddress
 
                 if (Prefs.hideValue) {
                     accountValue.text = "✱✱✱✱✱"
@@ -135,10 +136,10 @@ class EvmDetailFragment : Fragment() {
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = when (position) {
-                    0 -> getString(R.string.title_asset)
-                    1 -> getString(R.string.title_receive)
-                    2 -> getString(R.string.title_history)
+                tab.text = when {
+                    position == 0 -> "Assets"
+                    position == 1 -> "Receive"
+                    selectedEvmChain.isEcosystem() && position == 2 -> "Ecosystem"
                     else -> "About"
                 }
             }.attach()
@@ -147,6 +148,15 @@ class EvmDetailFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
+                    when (tab?.text.toString()) {
+                        "Assets" -> {
+                            btnAddToken.visibility = View.VISIBLE
+                        }
+
+                        else -> {
+                            btnAddToken.visibility = View.GONE
+                        }
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -160,6 +170,15 @@ class EvmDetailFragment : Fragment() {
         binding.apply {
             btnBack.setOnClickListener {
                 requireActivity().onBackPressed()
+            }
+
+            accountName.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
+            btnRandom.setOnClickListener {
+                CosmostationApp.instance.setRandomBackgroundImage()
+                ApplicationViewModel.shared.changeBg(Prefs.background)
             }
 
             var isClickable = true
@@ -215,15 +234,18 @@ class EvmDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedEvmChain: EthereumLine
+        fragmentActivity: FragmentActivity, selectedEvmChain: BaseChain
     ) : FragmentStateAdapter(fragmentActivity) {
         private val fragments = mutableListOf<Fragment>()
 
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
             fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
-            fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
+
+            if (selectedEvmChain.isEcosystem()) {
+                fragments.add(2, EvmEcoSystemFragment.newInstance(selectedEvmChain))
+            }
         }
 
         override fun getItemCount(): Int {

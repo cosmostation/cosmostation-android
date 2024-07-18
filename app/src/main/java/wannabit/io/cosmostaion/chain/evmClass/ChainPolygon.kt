@@ -6,11 +6,11 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.EthereumLine
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainPolygon : EthereumLine(), Parcelable {
+class ChainPolygon : BaseChain(), Parcelable {
 
     override var name: String = "Polygon"
     override var tag: String = "polygon60"
@@ -18,6 +18,7 @@ class ChainPolygon : EthereumLine(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_swipe_polygon
     override var apiName: String = "polygon"
 
+    override var supportEvm: Boolean = true
     override var coinSymbol: String = "MATIC"
     override var coinGeckoId: String = "matic-network"
     override var coinLogo: Int = R.drawable.token_matic
@@ -28,5 +29,5 @@ class ChainPolygon : EthereumLine(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var rpcUrl: String = "https://polygon-rpc.com"
+    override var evmRpcURL: String = "https://polygon-rpc.com"
 }

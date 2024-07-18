@@ -1,10 +1,14 @@
 package wannabit.io.cosmostaion.data.api
 
 import com.google.gson.JsonObject
+import retrofit2.Call
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import wannabit.io.cosmostaion.data.model.req.PushSyncReq
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
@@ -15,6 +19,10 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
+
+    @POST("v10/notification")
+    fun syncPush(@Body status: PushSyncReq?): Call<Void>
+
     @GET("v10/utils/market/prices")
     suspend fun price(@Query("currency") currency: String): List<Price>
 
@@ -58,4 +66,7 @@ interface MintscanApi {
     suspend fun oktHistory(
         @Query("device") device: String?, @Query("address") address: String?, @Query("limit") limit: String?
     ): Response<OktHistoryResponse>
+
+    @GET("{chain}/eco_list.json")
+    suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
 }

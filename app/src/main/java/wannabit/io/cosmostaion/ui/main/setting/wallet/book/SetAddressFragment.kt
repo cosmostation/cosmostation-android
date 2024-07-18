@@ -12,8 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.EthereumLine
-import wannabit.io.cosmostaion.chain.allIbcChains
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -46,7 +45,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         ): SetAddressFragment {
             val args = Bundle().apply {
                 putParcelable("addressBook", addressBook)
-                putSerializable("toChain", toChain)
+                putParcelable("toChain", toChain)
                 putString("recipientAddress", recipientAddress)
                 putString("memo", memo)
                 putSerializable("addressBookType", addressBookType)
@@ -77,7 +76,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     getParcelable("addressBook", AddressBook::class.java)?.let { addressBook = it }
-                    getSerializable("toChain", BaseChain::class.java)?.let { toChain = it }
+                    getParcelable("toChain", BaseChain::class.java)?.let { toChain = it }
                     getSerializable(
                         "addressBookType", AddressBookType::class.java
                     )?.let { addressBookType = it }
@@ -86,7 +85,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     (getParcelable("addressBook") as? AddressBook)?.let {
                         addressBook = it
                     }
-                    (getSerializable("toChain") as? BaseChain)?.let {
+                    (getParcelable("toChain") as? BaseChain)?.let {
                         toChain = it
                     }
                     (getSerializable("addressBookType") as? AddressBookType)?.let {
@@ -170,7 +169,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 memoLayout.visibility = View.GONE
 
             } else {
-                allIbcChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
+                allChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
                     ?.let { chain ->
                         if (BaseUtils.isValidBechAddress(chain, addressInput)) {
                             memoLayout.visibility = View.VISIBLE
@@ -188,7 +187,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 ) {
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?, start: Int, before: Int, count: Int
+                ) {
                     updateView()
                 }
 
@@ -264,7 +265,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             return true
 
         } else {
-            allIbcChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
                 ?.let { chain ->
                     if (BaseUtils.isValidBechAddress(chain, address)) {
                         return true
@@ -279,9 +280,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             return null
         }
         if (BaseKey.isValidEthAddress(address)) {
-            return EthereumLine()
+            return BaseChain()
         } else {
-            allIbcChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
                 ?.let { chain ->
                     return chain
                 }
