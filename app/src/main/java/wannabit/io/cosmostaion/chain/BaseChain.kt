@@ -377,6 +377,10 @@ open class BaseChain : Parcelable {
         return false
     }
 
+    fun txTimeout(): Long {
+        return getChainListParam()?.get("tx_timeout_add")?.asLong ?: 30
+    }
+
     fun getChainParam(): JsonObject? {
         return try {
             return BaseData.chainParam?.getAsJsonObject(apiName)

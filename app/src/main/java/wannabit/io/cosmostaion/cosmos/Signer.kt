@@ -1131,7 +1131,7 @@ object Signer {
         selectedChain: BaseChain?
     ): BroadcastTxRequest? {
         val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height)
+        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
         val signerInfo = grpcSignerInfo(auth, selectedChain)
         val authInfo = grpcAuthInfo(signerInfo, fee, tip)
         val broadcastTx = grpcBroadcastTx(auth, txBody, authInfo, selectedChain)
@@ -1149,7 +1149,7 @@ object Signer {
         selectedChain: BaseChain?
     ): SimulateRequest? {
         val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height)
+        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
         val signerInfo = grpcSimulInfo(auth)
         val authInfo = grpcAuthInfo(signerInfo, fee, tip)
         val simulateTx = grpcSimulTx(txBody, authInfo)
@@ -1168,12 +1168,14 @@ object Signer {
         return 0
     }
 
-    private fun grpcTxBody(msgsAny: List<Any>?, memo: String, height: Long): TxBody? {
+    private fun grpcTxBody(
+        msgsAny: List<Any>?, memo: String, height: Long, chain: BaseChain?
+    ): TxBody? {
         val builder = TxBody.newBuilder()
         msgsAny?.forEach { msg ->
             builder.addMessages(msg)
         }
-        return builder.setMemo(memo).setTimeoutHeight(height + 30).build()
+        return builder.setMemo(memo).setTimeoutHeight(height + chain!!.txTimeout()).build()
     }
 
     private fun grpcSignerInfo(
