@@ -56,6 +56,7 @@ class MainActivity : BaseActivity() {
 
     private fun showPushData() {
         intent.apply {
+            if (getStringExtra("push_txhash")?.isEmpty() == true) { return }
             if (getIntExtra("push_type", -1).toString() == "0") {
                 getStringExtra("push_txhash")?.let { txHash ->
                     getStringExtra("push_network")?.let { network ->
