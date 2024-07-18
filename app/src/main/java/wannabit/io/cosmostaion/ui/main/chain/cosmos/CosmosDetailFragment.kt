@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,8 +121,6 @@ class CosmosDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("Test1234 : ", selectedChain.toString())
-        Log.e("Test1234 : ", ::selectedChain.isInitialized.toString())
         if (!::selectedChain.isInitialized) {
             Intent(requireContext(), IntroActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

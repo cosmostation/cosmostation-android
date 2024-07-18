@@ -498,7 +498,7 @@ class SettingFragment : Fragment() {
                 ApplicationViewModel.shared.displayLegacy(Prefs.displayLegacy)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    if (waitingDialog?.isAdded == false) {
+                    if (waitingDialog?.isAdded == true) {
                         waitingDialog?.dismissAllowingStateLoss()
                     }
                 }, 1000)
