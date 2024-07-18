@@ -426,6 +426,8 @@ class CosmosDetailFragment : Fragment() {
             fabSend.setOnClickListener {
                 val sendAssetType = if (selectedChain.isEvmCosmos()) {
                     SendAssetType.COSMOS_EVM_COIN
+                } else if (selectedChain is ChainOktEvm) {
+                    SendAssetType.ONLY_EVM_COIN
                 } else {
                     SendAssetType.ONLY_COSMOS_COIN
                 }
