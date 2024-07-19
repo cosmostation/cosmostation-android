@@ -10,7 +10,7 @@
         android:layout_width="@dimen/space_40"
         android:layout_height="@dimen/space_4"
         android:layout_marginTop="@dimen/space_20"
-        android:background="@color/color_base04"
+        android:background="@drawable/round_view"
         android:layout_centerHorizontal="true"/>
 
     <androidx.cardview.widget.CardView

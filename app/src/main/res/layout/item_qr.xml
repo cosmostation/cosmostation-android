@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_8"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,11 +20,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_20"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -36,24 +36,17 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:layout_marginEnd="@dimen/space_2"
-                    android:src="@drawable/icon_caution_circle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/receive_title"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:src="@drawable/icon_caution_circle" />
 
                 <TextView
                     android:id="@+id/receive_title"
                     style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textColor="@color/color_caution"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/color_caution" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/qr_box_img"
@@ -117,7 +110,7 @@
 
                 <TextView
                     android:id="@+id/account_path"
-                    style="@style/font_sm_12"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"

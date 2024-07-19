@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/account_name"
-        style="@style/font_sb_14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_20"
-        android:textAllCaps="true"
-        android:textColor="@color/color_base01"
+        android:background="@drawable/round_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,8 +19,9 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_16"
         app:layout_constraintBottom_toTopOf="@+id/btn_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_name" />
+        app:layout_constraintTop_toBottomOf="@+id/top_view" />
 
     <LinearLayout
         android:id="@+id/btn_layout"
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_54"
             android:layout_marginHorizontal="@dimen/space_12"
-            android:layout_marginBottom="@dimen/space_12"
+            android:layout_marginVertical="@dimen/space_12"
             android:background="@drawable/button_common_bg"
             android:text="@string/str_share_address"
             android:textAllCaps="false"
@@ -53,9 +53,9 @@
             style="@style/font_sb_14"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_54"
+            android:layout_marginVertical="@dimen/space_12"
             android:layout_marginStart="@dimen/space_16"
             android:layout_marginEnd="@dimen/space_8"
-            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@drawable/button_common_bg"
             android:ellipsize="middle"
@@ -71,9 +71,9 @@
             style="@style/font_sb_14"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_54"
+            android:layout_marginVertical="@dimen/space_12"
             android:layout_marginStart="@dimen/space_8"
             android:layout_marginEnd="@dimen/space_16"
-            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:background="@drawable/button_common_bg"
             android:ellipsize="middle"
