@@ -24,6 +24,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/title"
+                style="@style/font_sb_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/top_view"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_16"
+                android:text="@string/title_amount"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+            <View
+                android:id="@+id/title_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/color_base05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_layout"
                 style="@style/TextInputLayout"
@@ -36,7 +61,7 @@
                 app:endIconTint="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_view">
+                app:layout_constraintTop_toBottomOf="@+id/title_view">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/amount_txt"

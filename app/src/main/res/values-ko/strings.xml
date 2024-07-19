@@ -134,6 +134,7 @@
     <string name="title_private_account">개인키 계정</string>
     <string name="title_wallet">지갑</string>
     <string name="title_account">계정 관리</string>
+    <string name="title_amount">수량</string>
     <string name="title_add_account">계정 추가</string>
     <string name="title_import_qr">QR로 계정 추가</string>
     <string name="title_legacy_enabled">레거시 주소 활성화</string>

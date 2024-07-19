@@ -140,6 +140,7 @@
     <string name="title_private_account">秘密鍵アカウント</string>
     <string name="title_wallet">ウォーレット</string>
     <string name="title_account">Account</string>
+    <string name="title_amount">数量</string>
     <string name="title_account_name">アカウント名</string>
     <string name="title_add_account">アカウントを追加</string>
     <string name="title_import_qr">QRスキャンでアカウントをインポート</string>

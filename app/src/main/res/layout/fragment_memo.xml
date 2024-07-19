@@ -37,6 +37,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/top_view" />
 
+            <View
+                android:id="@+id/title_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/color_base05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_layout"
                 style="@style/TextInputLayout"
@@ -47,7 +59,7 @@
                 app:errorTextColor="@color/color_red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title">
+                app:layout_constraintTop_toBottomOf="@+id/title_view">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/memo_txt"

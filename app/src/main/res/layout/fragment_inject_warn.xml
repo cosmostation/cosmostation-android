@@ -44,10 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_14"
         android:gravity="center"
         android:text="@string/str_support_injection_msg"
-        android:textColor="@color/color_base01"
+        android:textColor="@color/color_base02"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <LinearLayout
