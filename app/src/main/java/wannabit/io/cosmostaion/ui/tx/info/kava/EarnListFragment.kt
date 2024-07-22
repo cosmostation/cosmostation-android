@@ -121,7 +121,7 @@ class EarnListFragment : Fragment() {
 
             earnListAdapter.setOnItemClickListener { deposit ->
                 val valOpAddress = deposit.denom.replace("bkava-", "")
-                selectedChain?.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
+                selectedChain?.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                     ?.let { toValidator ->
                         EarnOptionFragment.newInstance(toValidator, deposit, earnClickAction).show(
                             requireActivity().supportFragmentManager,

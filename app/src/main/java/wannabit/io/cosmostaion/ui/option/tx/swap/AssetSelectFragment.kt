@@ -122,10 +122,10 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
                 swapAssets?.forEach { asset ->
                     asset.denom?.let { denom ->
-                        selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
+                        selectedChain.cosmosFetcher?.balanceValue(denom)?.let { value ->
                             assetValues[denom] = value
                         }
-                        selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount ->
+                        selectedChain.cosmosFetcher?.balanceAmount(denom)?.let { amount ->
                             assetAmounts[denom] = amount
                         }
                     }
@@ -183,10 +183,10 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
                         filteredAssets?.forEach { asset ->
                             asset.denom?.let { denom ->
-                                selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
+                                selectedChain.cosmosFetcher?.balanceValue(denom)?.let { value ->
                                     assetValues[denom] = value
                                 }
-                                selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount->
+                                selectedChain.cosmosFetcher?.balanceAmount(denom)?.let { amount->
                                     assetAmounts[denom] = amount
                                 }
                             }

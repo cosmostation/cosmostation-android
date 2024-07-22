@@ -93,7 +93,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                     if (account.sortedDisplayChains().none { !it.fetched }) {
                         for (chain in account.sortedDisplayChains()
                             .filter { !it.isTestnet && it.supportCosmosGrpc }) {
-                            val valueAbleReward = chain.grpcFetcher?.valueAbleRewards()
+                            val valueAbleReward = chain.cosmosFetcher?.valueAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward?.isNotEmpty() == true && txFee != null) {
                                 valueAbleRewards.add(

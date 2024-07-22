@@ -157,7 +157,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
             if (chain.isEvmCosmos()) {
-                if (chain.grpcFetcher?.cosmosBalances == null) {
+                if (chain.cosmosFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
                     return
                 }
@@ -204,8 +204,8 @@ class DashboardFragment : Fragment() {
                     }
 
                     else -> {
-                        chain.grpcFetcher?.let {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                        chain.cosmosFetcher?.let {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
                                 nodeDownPopup()
                                 return
                             }

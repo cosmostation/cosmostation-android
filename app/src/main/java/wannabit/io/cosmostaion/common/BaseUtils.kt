@@ -16,7 +16,7 @@ import java.util.regex.Pattern
 
 object BaseUtils {
     fun onParseVestingAccount(chain: BaseChain) {
-        val authInfo = chain.grpcFetcher?.cosmosAuth
+        val authInfo = chain.cosmosFetcher?.cosmosAuth
         var denom = ""
         var dpBalance = BigDecimal.ZERO
         var dpVesting = BigDecimal.ZERO
@@ -25,7 +25,7 @@ object BaseUtils {
         var delegatedVesting = BigDecimal.ZERO
 
         authInfo?.let { auth ->
-            chain.grpcFetcher?.cosmosBalances?.let { cosmosBalances ->
+            chain.cosmosFetcher?.cosmosBalances?.let { cosmosBalances ->
                 if (auth.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
                     val vestingAccount = VestingProto.PeriodicVestingAccount.parseFrom(auth.value)
 
@@ -60,7 +60,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            chain.grpcFetcher?.cosmosVestings?.add(vestingCoin)
+                            chain.cosmosFetcher?.cosmosVestings?.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -71,7 +71,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                chain.grpcFetcher?.cosmosBalances = tempBalances
+                                chain.cosmosFetcher?.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -120,7 +120,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            chain.grpcFetcher?.cosmosVestings?.add(vestingCoin)
+                            chain.cosmosFetcher?.cosmosVestings?.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -131,7 +131,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                chain.grpcFetcher?.cosmosBalances = tempBalances
+                                chain.cosmosFetcher?.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -172,7 +172,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            chain.grpcFetcher?.cosmosVestings?.add(vestingCoin)
+                            chain.cosmosFetcher?.cosmosVestings?.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -183,7 +183,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                chain.grpcFetcher?.cosmosBalances = tempBalances
+                                chain.cosmosFetcher?.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -227,7 +227,7 @@ object BaseUtils {
                         if (dpVesting > BigDecimal.ZERO) {
                             val vestingCoin = CoinProto.Coin.newBuilder().setDenom(denom)
                                 .setAmount(dpVesting.toPlainString()).build()
-                            chain.grpcFetcher?.cosmosVestings?.add(vestingCoin)
+                            chain.cosmosFetcher?.cosmosVestings?.add(vestingCoin)
                             var replace = -1
                             for (i in 0 until cosmosBalances.size) {
                                 if (cosmosBalances[i].denom == denom) {
@@ -238,7 +238,7 @@ object BaseUtils {
                                 val tempBalances = cosmosBalances.toMutableList()
                                 tempBalances[replace] = CoinProto.Coin.newBuilder().setDenom(denom)
                                     .setAmount(dpBalance.toPlainString()).build()
-                                chain.grpcFetcher?.cosmosBalances = tempBalances
+                                chain.cosmosFetcher?.cosmosBalances = tempBalances
                             }
                         }
                     }
@@ -285,7 +285,7 @@ object BaseUtils {
         return result
     }
 
-    private fun onParsePeriodicRemainVestingAmountByDenom(
+    fun onParsePeriodicRemainVestingAmountByDenom(
         vestingAccount: VestingProto.PeriodicVestingAccount, denom: String
     ): BigDecimal {
         var result = BigDecimal.ZERO
@@ -320,7 +320,7 @@ object BaseUtils {
         return result
     }
 
-    private fun onParseStridePeriodicRemainVestingsAmountByDenom(
+    fun onParseStridePeriodicRemainVestingsAmountByDenom(
         vestingAccount: StridePeriodicVestingAccount, denom: String
     ): BigDecimal {
         var result = BigDecimal.ZERO

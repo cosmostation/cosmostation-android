@@ -29,14 +29,14 @@ class ChainManageViewHolder(
                 grpcEndpointType.text = "GRPC"
                 rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
                 grpcEndpoint.text =
-                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                    chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                         ?.getGrpc()?.second
 
             } else if (chain.isCosmos()) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "GRPC"
                 rpcEndpoint.text =
-                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                    chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                         ?.getGrpc()?.second
 
             } else {
@@ -59,14 +59,14 @@ class ChainManageViewHolder(
                 grpcEndpointType.text = "GRPC"
                 rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
                 grpcEndpoint.text =
-                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                    chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                         ?.getGrpc()?.second
 
             } else {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "GRPC"
                 rpcEndpoint.text =
-                    chain.grpcFetcher()?.getGrpc()?.first + " : " + chain.grpcFetcher()
+                    chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                         ?.getGrpc()?.second
             }
         }

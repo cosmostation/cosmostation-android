@@ -271,7 +271,7 @@ class LendListFragment : Fragment() {
 
         denom?.let {
             var reserveAmount = BigDecimal.ZERO
-            val moduleAmount = selectedChain.grpcFetcher?.balanceAmount(denom)
+            val moduleAmount = selectedChain.cosmosFetcher?.balanceAmount(denom)
             lendReserve?.forEach { reserve ->
                 if (reserve.denom == denom) {
                     reserveAmount = reserve.amount.toBigDecimal()

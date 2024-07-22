@@ -141,7 +141,7 @@ class TokenFragment : Fragment() {
                         }
 
                     } else {
-                        selectedChain.grpcFetcher?.let { grpc ->
+                        selectedChain.cosmosFetcher?.let { grpc ->
                             grpc.tokens.forEach { token ->
                                 if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
                                     tokens.add(token)

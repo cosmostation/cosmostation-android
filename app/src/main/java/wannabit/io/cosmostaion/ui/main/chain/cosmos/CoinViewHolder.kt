@@ -64,7 +64,7 @@ class CoinViewHolder(
 
                         coinAmount.text = formatAmount(amount.toPlainString(), 6)
                         coinAmountValue.text =
-                            chain.grpcFetcher?.denomValue(coin.denom)?.let { formatAssetValue(it) }
+                            chain.cosmosFetcher?.denomValue(coin.denom)?.let { formatAssetValue(it) }
                     }
                 }
             }

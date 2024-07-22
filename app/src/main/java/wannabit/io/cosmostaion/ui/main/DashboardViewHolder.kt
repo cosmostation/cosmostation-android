@@ -140,7 +140,7 @@ class DashboardViewHolder(
                             }
 
                         } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 assetCnt.visibility = View.GONE
@@ -158,7 +158,7 @@ class DashboardViewHolder(
                             }
 
                         } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 assetCnt.visibility = View.GONE
@@ -181,7 +181,7 @@ class DashboardViewHolder(
                         chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             .toString() + " Coins"
                     } else {
-                        (chain.grpcFetcher?.cosmosBalances?.count {
+                        (chain.cosmosFetcher?.cosmosBalances?.count {
                             BaseData.getAsset(
                                 chain.apiName, it.denom
                             ) != null
@@ -190,7 +190,7 @@ class DashboardViewHolder(
 
                     if (chain.supportCw20) {
                         val tokenCnt =
-                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                         if (tokenCnt == 0) {
                             assetCnt.text = coinCntString
                         } else {
@@ -297,14 +297,14 @@ class DashboardViewHolder(
                 skeletonAssetCnt.visibility = View.GONE
 
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
                         return
                     }
 
-                } else if (chain.grpcFetcher?.cosmosBalances == null) {
+                } else if (chain.cosmosFetcher?.cosmosBalances == null) {
                     respondLayout.visibility = View.VISIBLE
                     chainValue.visibility = View.GONE
                     assetCnt.visibility = View.GONE
@@ -313,7 +313,7 @@ class DashboardViewHolder(
                 respondLayout.visibility = View.GONE
                 chainValue.visibility = View.VISIBLE
 
-                val coinCntString = (chain.grpcFetcher?.cosmosBalances?.count {
+                val coinCntString = (chain.cosmosFetcher?.cosmosBalances?.count {
                     BaseData.getAsset(
                         chain.apiName, it.denom
                     ) != null
@@ -321,7 +321,7 @@ class DashboardViewHolder(
 
                 if (chain.supportCw20) {
                     val tokenCnt =
-                        chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                        chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                     if (tokenCnt == 0) {
                         assetCnt.text = coinCntString
                     } else {
@@ -406,7 +406,7 @@ class DashboardViewHolder(
                             }
 
                         } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 return
@@ -422,7 +422,7 @@ class DashboardViewHolder(
                             }
 
                         } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 return
@@ -482,14 +482,14 @@ class DashboardViewHolder(
                 skeletonAssetCnt.visibility = View.GONE
 
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return
                     }
 
                 } else {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return

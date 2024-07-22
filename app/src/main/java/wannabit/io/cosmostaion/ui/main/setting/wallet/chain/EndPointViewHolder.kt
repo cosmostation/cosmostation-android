@@ -88,7 +88,7 @@ class EndPointViewHolder(
             val host = endpoint.get("url").asString.split(":")[0].trim()
             val port =
                 endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            checkImg.goneOrVisible(fromChain?.grpcFetcher()?.getGrpc()?.first != host)
+            checkImg.goneOrVisible(fromChain?.cosmosFetcher()?.getGrpc()?.first != host)
 
             CoroutineScope(Dispatchers.IO).launch {
                 val channel = getChannel(host, port)

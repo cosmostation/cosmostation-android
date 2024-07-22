@@ -5,14 +5,14 @@ import wannabit.io.cosmostaion.data.model.res.VestingData
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class NeutronFetcher(chain: BaseChain) : FetcherGrpc(chain) {
+class NeutronFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null
 
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
         return if (denom == chain.stakeDenom) {
-            chain.grpcFetcher?.balanceValue(denom, isUsd)?.add(neutronVestingValue(isUsd))
+            chain.cosmosFetcher?.balanceValue(denom, isUsd)?.add(neutronVestingValue(isUsd))
                 ?.add(neutronDepositedValue(isUsd))
         } else {
             balanceValue(denom, isUsd)
@@ -20,12 +20,11 @@ class NeutronFetcher(chain: BaseChain) : FetcherGrpc(chain) {
     }
 
     override fun allStakingDenomAmount(): BigDecimal {
-        return chain.grpcFetcher?.balanceAmount(chain.stakeDenom)?.add(neutronVestingAmount())
+        return chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)?.add(neutronVestingAmount())
             ?.add(neutronDeposited) ?: BigDecimal.ZERO
     }
-
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return chain.grpcFetcher?.balanceValueSum(isUsd)?.add(neutronVestingValue(isUsd))
+        return chain.cosmosFetcher?.balanceValueSum(isUsd)?.add(neutronVestingValue(isUsd))
             ?.add(neutronDepositedValue(isUsd)) ?: BigDecimal.ZERO
     }
 

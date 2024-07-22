@@ -133,11 +133,11 @@ class DepositEarningFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.grpcFetcher?.cosmosValidators?.get(0)
+                    toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
                 }
             }
             updateValidatorView()
@@ -258,9 +258,9 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 val balanceAmount =
-                    selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
                 val vestingAmount =
-                    selectedChain.grpcFetcher?.vestingAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
 
                 txFee?.let {
                     availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
@@ -288,7 +288,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -300,11 +300,9 @@ class DepositEarningFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(TxType.EARN_DEPOSIT,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let { denom ->
-                            BaseData.getAsset(
-                                selectedChain.apiName, denom
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.stakeDenom
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)

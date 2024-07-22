@@ -32,7 +32,7 @@ class ValidatorViewHolder(
 
                 BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                     asset.decimals?.let { decimal ->
-                        chain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.let { delegation ->
+                        chain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.let { delegation ->
                             val stakingAmount = delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
                             stakedAmount.text = formatAmount(stakingAmount.toPlainString(), decimal)
                         }

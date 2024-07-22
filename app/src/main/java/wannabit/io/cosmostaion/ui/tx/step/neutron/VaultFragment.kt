@@ -154,7 +154,7 @@ class VaultFragment : BaseTxFragment() {
                 )
             )
 
-            if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+            if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                 val tipTitle = listOf(
                     "No Tip", "20% Tip", "50% Tip", "100% Tip"
                 )
@@ -168,7 +168,7 @@ class VaultFragment : BaseTxFragment() {
                     segmentView.btnTitle.text = tipTitle[i]
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
-                val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.get(0)
                 val gasAmount = selectedChain.getFeeBaseGasAmount().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
@@ -260,7 +260,7 @@ class VaultFragment : BaseTxFragment() {
 
                     availableAmount = if (vaultType == VaultType.DEPOSIT) {
                         val balanceAmount =
-                            selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+                            selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
                         if (fee.denom == selectedChain.stakeDenom) {
                             if (amount > balanceAmount) {
                                 BigDecimal.ZERO
@@ -308,13 +308,13 @@ class VaultFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 txFee?.let { fee ->
-                    if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
                             BaseFeeAssetFragment(selectedChain,
-                                selectedChain.grpcFetcher?.cosmosBaseFees,
+                                selectedChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
-                                        selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                        selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
                                             ?.let { baseFee ->
                                                 val feeAmount = baseFee.getdAmount()
                                                     .multiply(fee.gasLimit.toBigDecimal())
@@ -369,8 +369,8 @@ class VaultFragment : BaseTxFragment() {
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                txFee = if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == txFee?.getAmount(0)?.denom
                     }
                     val gasAmount = txFee?.gasLimit?.toBigDecimal()
@@ -476,8 +476,8 @@ class VaultFragment : BaseTxFragment() {
             gasInfo?.let { info ->
                 val gasLimit =
                     (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
                             0
                         ).denom

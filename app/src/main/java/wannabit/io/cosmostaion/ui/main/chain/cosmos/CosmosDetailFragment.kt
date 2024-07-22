@@ -471,7 +471,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabStake.setOnClickListener {
-                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
 
                 } else {
@@ -482,12 +482,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabClaimReward.setOnClickListener {
-                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
-                    if (selectedChain.grpcFetcher?.rewardAllCoins()?.isEmpty() == true) {
+                if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.grpcFetcher?.claimableRewards()?.isEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.claimableRewards()?.isEmpty() == true) {
                         requireContext().showToast(view, R.string.error_wasting_fee, false)
                         return@setOnClickListener
                     }
@@ -497,7 +497,7 @@ class CosmosDetailFragment : Fragment() {
                     }
                     handleOneClickWithDelay(
                         null, ClaimRewardFragment.newInstance(
-                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                            selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
                         )
                     )
 
@@ -509,12 +509,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabCompounding.setOnClickListener {
-                if ((selectedChain.grpcFetcher?.cosmosValidators?.size ?: 0) > 0) {
-                    if (selectedChain.grpcFetcher?.claimableRewards()?.size == 0) {
+                if ((selectedChain.cosmosFetcher?.cosmosValidators?.size ?: 0) > 0) {
+                    if (selectedChain.cosmosFetcher?.claimableRewards()?.size == 0) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.grpcFetcher?.rewardAddress != selectedChain.address) {
+                    if (selectedChain.cosmosFetcher?.rewardAddress != selectedChain.address) {
                         requireContext().showToast(
                             view, R.string.error_reward_address_changed_msg, false
                         )
@@ -526,7 +526,7 @@ class CosmosDetailFragment : Fragment() {
                     }
                     handleOneClickWithDelay(
                         null, CompoundingFragment.newInstance(
-                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                            selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
                         )
                     )
 

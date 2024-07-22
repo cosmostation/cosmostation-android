@@ -152,7 +152,7 @@ class CreateMintFragment : BaseTxFragment() {
                 principalTokenName.text = asset.symbol?.uppercase()
             }
 
-            val balanceAmount = selectedChain.grpcFetcher?.balanceAmount(collateralParam.denom)
+            val balanceAmount = selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                 collateralAvailableAmount = balanceAmount?.subtract(feeAmount)

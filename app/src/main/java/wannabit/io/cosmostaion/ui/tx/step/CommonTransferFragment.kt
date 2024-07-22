@@ -207,7 +207,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                     } else {
                         toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                        availableAmount = fromChain.grpcFetcher?.balanceAmount(toSendDenom)
+                        availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                         if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
                             cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
                                 var totalFeeAmount = feeAmount
@@ -231,7 +231,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = fromChain.grpcFetcher?.balanceAmount(toSendDenom)
+                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
 
                     if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
                         cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
@@ -254,7 +254,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
-                    fromChain.grpcFetcher?.let { grpc ->
+                    fromChain.cosmosFetcher?.let { grpc ->
                         grpc.tokens.firstOrNull { it.address == toSendDenom }?.let { token ->
                             toSendToken = token
                         }
@@ -342,7 +342,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         feeSegment.visibility = View.VISIBLE
                         evmFeeSegment.visibility = View.GONE
 
-                        if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                        if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             val tipTitle = listOf(
                                 "No Tip", "20% Tip", "50% Tip", "100% Tip"
                             )
@@ -356,7 +356,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 segmentView.btnTitle.text = tipTitle[i]
                             }
                             feeSegment.setPosition(selectedFeePosition, false)
-                            val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                            val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
                             val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
                             val feeDenom = baseFee?.denom
                             val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
@@ -495,7 +495,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 } else {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = fromChain.grpcFetcher?.balanceAmount(toSendDenom)
+                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                     if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
                         val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
                         availableAmount = availableAmount.subtract(feeAmount)
@@ -716,13 +716,13 @@ class CommonTransferFragment : BaseTxFragment() {
             feeTokenLayout.setOnClickListener {
                 cosmosTxFee?.let { fee ->
                     if (transferStyle == TransferStyle.COSMOS_STYLE) {
-                        if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                        if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             handleOneClickWithDelay(
                                 BaseFeeAssetFragment(fromChain,
-                                    fromChain.grpcFetcher?.cosmosBaseFees,
+                                    fromChain.cosmosFetcher?.cosmosBaseFees,
                                     object : BaseFeeAssetSelectListener {
                                         override fun select(denom: String) {
-                                            fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                            fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
                                                 ?.let { baseFee ->
                                                     val feeAmount = baseFee.getdAmount()
                                                         .multiply(fee.gasLimit.toBigDecimal())
@@ -787,8 +787,8 @@ class CommonTransferFragment : BaseTxFragment() {
                 if (transferStyle == TransferStyle.COSMOS_STYLE) {
                     fromChain.apply {
                         cosmosTxFee =
-                            if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                                val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                            if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                                val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                     it.denom == cosmosTxFee?.getAmount(0)?.denom
                                 }
                                 val gasAmount = cosmosTxFee?.gasLimit?.toBigDecimal()
@@ -941,8 +941,8 @@ class CommonTransferFragment : BaseTxFragment() {
                     gasInfo?.let { info ->
                         val gasLimit =
                             (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
-                        if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                            fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                        if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                            fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
                                     0
                                 ).denom
@@ -1185,13 +1185,13 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun getRecipientChannel(): ManagedChannel? {
         return ManagedChannelBuilder.forAddress(
-            toChain.grpcFetcher()!!.getGrpc().first, toChain.grpcFetcher()!!.getGrpc().second
+            toChain.cosmosFetcher()!!.getGrpc().first, toChain.cosmosFetcher()!!.getGrpc().second
         ).useTransportSecurity().build()
     }
 
     private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {
         val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
-        val msToken = fromChain.grpcFetcher?.tokens?.firstOrNull { it.address == denom }
+        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.address == denom }
 
         BaseData.assets?.forEach { asset ->
             if (msAsset != null) {

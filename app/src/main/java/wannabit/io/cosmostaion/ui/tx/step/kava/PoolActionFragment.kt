@@ -189,13 +189,13 @@ class PoolActionFragment : BaseTxFragment() {
                                 val poolCoin1Amount = swapPool.getCoins(0).amount
                                 val poolCoin2Amount = swapPool.getCoins(1).amount
                                 var availableCoin1Amount =
-                                    selectedChain.grpcFetcher?.balanceAmount(swapPool.getCoins(0).denom)
+                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(0).denom)
                                 if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
                                     val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                     availableCoin1Amount = availableCoin1Amount?.subtract(feeAmount)
                                 }
                                 val availableCoin2Amount =
-                                    selectedChain.grpcFetcher?.balanceAmount(swapPool.getCoins(1).denom)
+                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(1).denom)
 
                                 swapRate = poolCoin1Amount.toBigDecimal().divide(
                                     poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN

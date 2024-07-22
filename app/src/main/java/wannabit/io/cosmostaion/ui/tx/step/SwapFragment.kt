@@ -230,7 +230,7 @@ class SwapFragment : BaseTxFragment() {
                         inputToken.text = asset.symbol
                     }
 
-                    inputLine.grpcFetcher?.balanceAmount(inputDenom)?.let { inputBalance ->
+                    inputLine.cosmosFetcher?.balanceAmount(inputDenom)?.let { inputBalance ->
                         if (txFee?.getAmount(0)?.denom == inputDenom) {
                             txFee?.getAmount(0)?.amount?.toBigDecimal()?.let { txFeeAmount ->
                                 availableAmount = if (txFeeAmount >= inputBalance) {
@@ -261,7 +261,7 @@ class SwapFragment : BaseTxFragment() {
                                 outputToken.text = asset.symbol
                             }
 
-                            val outputBalance = outPutLine.grpcFetcher?.balanceAmount(outputDenom)
+                            val outputBalance = outPutLine.cosmosFetcher?.balanceAmount(outputDenom)
                             val outputDpAmount =
                                 outputBalance?.movePointLeft(outputAsset?.decimals ?: 6)
                                     ?.setScale(outputAsset?.decimals ?: 6, RoundingMode.DOWN)
@@ -342,15 +342,15 @@ class SwapFragment : BaseTxFragment() {
 
             skipDataJob = lifecycleScope.launch(Dispatchers.IO) {
                 inputCosmosChain?.let { chain ->
-                    chain.grpcFetcher()?.let {
+                    chain.cosmosFetcher()?.let {
                         try {
                             val channel = getChannel(chain)
                             val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
                             val loadInputBalanceDeferred =
                                 async { loadBalance(channel, chain.address) }
 
-                            chain.grpcFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
-                            chain.grpcFetcher?.cosmosBalances =
+                            chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                            chain.cosmosFetcher?.cosmosBalances =
                                 loadInputBalanceDeferred.await().balancesList
                             BaseUtils.onParseVestingAccount(chain)
                         } catch (e: Exception) {
@@ -362,15 +362,15 @@ class SwapFragment : BaseTxFragment() {
                 }
 
                 outputCosmosChain?.let { chain ->
-                    chain.grpcFetcher()?.let {
+                    chain.cosmosFetcher()?.let {
                         try {
                             val channel = getChannel(chain)
                             val loadOutputAuthDeferred = async { loadAuth(channel, chain.address) }
                             val loadOutputBalanceDeferred =
                                 async { loadBalance(channel, chain.address) }
 
-                            chain.grpcFetcher?.cosmosAuth = loadOutputAuthDeferred.await()?.account
-                            chain.grpcFetcher?.cosmosBalances =
+                            chain.cosmosFetcher?.cosmosAuth = loadOutputAuthDeferred.await()?.account
+                            chain.cosmosFetcher?.cosmosBalances =
                                 loadOutputBalanceDeferred.await().balancesList
                             BaseUtils.onParseVestingAccount(chain)
                         } catch (e: Exception) {
@@ -693,7 +693,7 @@ class SwapFragment : BaseTxFragment() {
                                                 skipChains.firstOrNull { it.chainIdCosmos == chainId }
                                             inputAssets.clear()
                                             inputCosmosChain?.let { chain ->
-                                                chain.grpcFetcher()?.let {
+                                                chain.cosmosFetcher()?.let {
                                                     try {
                                                         skipAssets?.getAsJsonObject("chain_to_assets_map")
                                                             ?.getAsJsonObject(chain.chainIdCosmos)
@@ -721,9 +721,9 @@ class SwapFragment : BaseTxFragment() {
                                                             )
                                                         }
 
-                                                        chain.grpcFetcher?.cosmosAuth =
+                                                        chain.cosmosFetcher?.cosmosAuth =
                                                             loadInputAuthDeferred.await()?.account
-                                                        chain.grpcFetcher?.cosmosBalances =
+                                                        chain.cosmosFetcher?.cosmosBalances =
                                                             loadInputBalanceDeferred.await().balancesList
                                                         BaseUtils.onParseVestingAccount(chain)
                                                     } catch (e: Exception) {
@@ -749,7 +749,7 @@ class SwapFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     AssetSelectFragment.newInstance(inputCosmosChain,
                         inputAssets,
-                        inputCosmosChain?.grpcFetcher?.cosmosBalances,
+                        inputCosmosChain?.cosmosFetcher?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
                             override fun select(denom: String) {
@@ -794,7 +794,7 @@ class SwapFragment : BaseTxFragment() {
                                                 skipChains.firstOrNull { it.chainIdCosmos == chainId }
                                             outputAssets.clear()
                                             outputCosmosChain?.let { chain ->
-                                                chain.grpcFetcher()?.let {
+                                                chain.cosmosFetcher()?.let {
                                                     try {
                                                         skipAssets?.getAsJsonObject("chain_to_assets_map")
                                                             ?.getAsJsonObject(chain.chainIdCosmos)
@@ -822,9 +822,9 @@ class SwapFragment : BaseTxFragment() {
                                                             )
                                                         }
 
-                                                        chain.grpcFetcher?.cosmosAuth =
+                                                        chain.cosmosFetcher?.cosmosAuth =
                                                             loadOutputAuthDeferred.await()?.account
-                                                        chain.grpcFetcher?.cosmosBalances =
+                                                        chain.cosmosFetcher?.cosmosBalances =
                                                             loadOutputBalanceDeferred.await().balancesList
                                                         BaseUtils.onParseVestingAccount(chain)
                                                     } catch (e: Exception) {
@@ -850,7 +850,7 @@ class SwapFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     AssetSelectFragment.newInstance(outputCosmosChain,
                         outputAssets,
-                        outputCosmosChain?.grpcFetcher?.cosmosBalances,
+                        outputCosmosChain?.cosmosFetcher?.cosmosBalances,
                         AssetSelectType.SWAP_OUTPUT,
                         object : AssetListener {
                             override fun select(denom: String) {

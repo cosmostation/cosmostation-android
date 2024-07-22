@@ -157,7 +157,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             claimRewardsLayout.setOnClickListener {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.grpcFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
                         if (claimableReward.rewardCount > 0) {
                             claimableRewards.add(claimableReward)
@@ -179,12 +179,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             compoundingLayout.setOnClickListener {
-                if (selectedChain.grpcFetcher?.rewardAddress != selectedChain.address) {
+                if (selectedChain.cosmosFetcher?.rewardAddress != selectedChain.address) {
                     requireContext().makeToast(R.string.error_reward_address_changed_msg)
                     return@setOnClickListener
                 }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.grpcFetcher?.claimableRewards()
+                selectedChain.cosmosFetcher?.claimableRewards()
                     ?.firstOrNull { it?.validatorAddress == validator?.operatorAddress }
                     ?.let { claimableReward ->
                         if (claimableReward.rewardCount > 0) {

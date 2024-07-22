@@ -39,9 +39,9 @@ class ValidatorFragment(
             selectTitle.text = getString(R.string.title_select_validator)
 
             val validators: MutableList<Validator> = mutableListOf()
-            val delegations = selectedChain.grpcFetcher?.cosmosDelegations
+            val delegations = selectedChain.cosmosFetcher?.cosmosDelegations
             delegations?.forEach { delegation ->
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }?.let { validator ->
                     validators.add(validator)
                 }
             }

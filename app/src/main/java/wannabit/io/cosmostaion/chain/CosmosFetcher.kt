@@ -1,38 +1,48 @@
 package wannabit.io.cosmostaion.chain
 
+import android.util.Log
+import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
+import com.cosmos.staking.v1beta1.StakingProto.DelegationResponse
+import com.cosmos.staking.v1beta1.StakingProto.UnbondingDelegation
+import com.cosmos.vesting.v1beta1.VestingProto
+import com.desmos.profiles.v3.ModelsProfileProto
+import com.ethermint.types.v1.AccountProto
 import com.google.gson.JsonObject
+import com.google.protobuf.Any
+import com.google.protobuf.Timestamp
+import io.grpc.ManagedChannel
+import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-open class FetcherGrpc(chain: BaseChain) {
+open class CosmosFetcher(private val chain: BaseChain) {
 
-    var chain: BaseChain
+    var cosmosLcdAuth: JsonObject? = null
+    var cosmosAuth: Any? = null
 
-    var rewardAddress: String? = ""
-    var cosmosAuth: com.google.protobuf.Any? = null
-    var cosmosValidators = mutableListOf<StakingProto.Validator>()
+    var cosmosAccountNumber: Long? = null
+    var cosmosSequence: Long? = null
     var cosmosBalances: MutableList<CoinProto.Coin>? = null
     var cosmosVestings = mutableListOf<CoinProto.Coin>()
-    var cosmosDelegations = mutableListOf<StakingProto.DelegationResponse>()
-    var cosmosUnbondings = mutableListOf<StakingProto.UnbondingDelegation>()
+    var cosmosDelegations = mutableListOf<DelegationResponse>()
+    var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
     var cosmosRewards = mutableListOf<DistributionProto.DelegationDelegatorReward>()
+    var rewardAddress: String? = ""
+    var cosmosValidators = mutableListOf<StakingProto.Validator>()
     var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
     var cw721s = mutableListOf<JsonObject>()
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
-
-    init {
-        this.chain = chain
-    }
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal? {
         return if (denom == chain.stakeDenom) {
@@ -185,9 +195,11 @@ open class FetcherGrpc(chain: BaseChain) {
     }
 
     private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+        Log.e("Test1234 : ", chain.apiName + " : " + denom)
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
+            Log.e("Test1234 : ", amount.toString())
             asset.decimals?.let { decimal ->
                 return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
@@ -213,6 +225,7 @@ open class FetcherGrpc(chain: BaseChain) {
     fun rewardAllCoins(): List<CoinProto.Coin> {
         val result: MutableList<CoinProto.Coin> = mutableListOf()
         cosmosRewards.forEach { reward ->
+            Log.e("Test1245 : ", reward.toString())
             reward.rewardList.forEach { coin ->
                 val calAmount =
                     coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
@@ -233,7 +246,6 @@ open class FetcherGrpc(chain: BaseChain) {
 
     fun claimableRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
         val result = mutableListOf<DistributionProto.DelegationDelegatorReward?>()
-
         cosmosRewards.forEach { reward ->
             run loop@{
                 for (i in 0 until reward.rewardCount) {
@@ -255,7 +267,6 @@ open class FetcherGrpc(chain: BaseChain) {
 
     fun valueAbleRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
         val result: MutableList<DistributionProto.DelegationDelegatorReward?> = mutableListOf()
-
         cosmosRewards.forEach { reward ->
             var eachRewardValue = BigDecimal.ZERO
             for (i in 0 until reward.rewardCount) {
@@ -302,6 +313,10 @@ open class FetcherGrpc(chain: BaseChain) {
             ?.add(rewardAmountSum(chain.stakeDenom))
     }
 
+    fun getLcd(): String {
+        return chain.lcdUrl
+    }
+
     fun getGrpc(): Pair<String, Int> {
         val endPoint = Prefs.getGrpcEndpoint(chain)
         if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
@@ -311,4 +326,191 @@ open class FetcherGrpc(chain: BaseChain) {
         }
         return Pair(chain.grpcHost, chain.grpcPort)
     }
+
+    fun getChannel(): ManagedChannel? {
+        return if (getGrpc().first.isEmpty()) {
+            null
+        } else {
+            ManagedChannelBuilder.forAddress(
+                getGrpc().first, getGrpc().second
+            ).useTransportSecurity().build()
+        }
+    }
+}
+
+fun JsonObject.balance(): MutableList<CoinProto.Coin> {
+    val result = mutableListOf<CoinProto.Coin>()
+    this["balances"].asJsonArray.forEach { balance ->
+        val coin = CoinProto.Coin.newBuilder().setDenom(balance.asJsonObject["denom"].asString)
+            .setAmount(balance.asJsonObject["amount"].asString).build()
+        result.add(coin)
+    }
+    return result
+}
+
+fun JsonObject.delegations(): MutableList<DelegationResponse> {
+    val result = mutableListOf<DelegationResponse>()
+    for (i in 0 until this["delegation_responses"].asJsonArray.size()) {
+        val delegation = this["delegation_responses"].asJsonArray[i]
+        val staking = StakingProto.Delegation.newBuilder()
+            .setDelegatorAddress(delegation.asJsonObject["delegation"].asJsonObject["delegator_address"].asString)
+            .setValidatorAddress(delegation.asJsonObject["delegation"].asJsonObject["validator_address"].asString)
+            .setShares(delegation.asJsonObject["delegation"].asJsonObject["shares"].asString)
+            .build()
+
+        val balance = CoinProto.Coin.newBuilder()
+            .setDenom(delegation.asJsonObject["balance"].asJsonObject["denom"].asString)
+            .setAmount(delegation.asJsonObject["balance"].asJsonObject["amount"].asString).build()
+
+        val delegationResponse =
+            DelegationResponse.newBuilder().setDelegation(staking).setBalance(balance).build()
+        result.add(delegationResponse)
+    }
+    return result
+}
+
+fun JsonObject.unDelegations(): MutableList<UnbondingDelegation> {
+    val result = mutableListOf<UnbondingDelegation>()
+    for (i in 0 until this["unbonding_responses"].asJsonArray.size()) {
+        val unBonding = this["unbonding_responses"].asJsonArray[i]
+        val entries = mutableListOf<StakingProto.UnbondingDelegationEntry>()
+        for (j in 0 until unBonding.asJsonObject["entries"].asJsonArray.size()) {
+            val entry = unBonding.asJsonObject["entries"].asJsonArray[i]
+            entry.asJsonObject["completion_time"].asString?.let { date ->
+                val dpTime = dateToLong("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSX", date)
+                val time = Timestamp.newBuilder().setSeconds(dpTime).build()
+                val tempEntry = StakingProto.UnbondingDelegationEntry.newBuilder()
+                    .setBalance(entry.asJsonObject["balance"].asString).setCompletionTime(time)
+                    .build()
+                entries.add(tempEntry)
+            }
+        }
+        val unBondingResponse = UnbondingDelegation.newBuilder()
+            .setDelegatorAddress(unBonding.asJsonObject["delegator_address"].asString)
+            .setValidatorAddress(unBonding.asJsonObject["validator_address"].asString)
+            .addAllEntries(entries).build()
+        result.add(unBondingResponse)
+    }
+    return result
+}
+
+fun JsonObject.rewards(): MutableList<DistributionProto.DelegationDelegatorReward> {
+    val result = mutableListOf<DistributionProto.DelegationDelegatorReward>()
+    for (i in 0 until this["rewards"].asJsonArray.size()) {
+        val reward = this["rewards"].asJsonArray[i]
+        val coins = mutableListOf<CoinProto.DecCoin>()
+        reward.asJsonObject["reward"].asJsonArray.forEach { rewardCoin ->
+            val balance =
+                CoinProto.DecCoin.newBuilder().setDenom(rewardCoin.asJsonObject["denom"].asString)
+                    .setAmount(
+                        rewardCoin.asJsonObject["amount"].asString.toBigDecimal().movePointRight(18)
+                            .setScale(0, RoundingMode.DOWN).toString()
+                    ).build()
+            coins.add(balance)
+        }
+        val rewardResponse = DistributionProto.DelegationDelegatorReward.newBuilder()
+            .setValidatorAddress(reward.asJsonObject["validator_address"].asString)
+            .addAllReward(coins).build()
+        result.add(rewardResponse)
+    }
+    return result
+}
+
+fun JsonObject.rewardAddress(): String {
+    return this.asJsonObject["withdraw_address"].asString
+}
+
+fun JsonObject.feeMarket(): MutableList<CoinProto.DecCoin> {
+    val result = mutableListOf<CoinProto.DecCoin>()
+    this["prices"].asJsonArray.forEach { coin ->
+        val feeMakretCoin =
+            CoinProto.DecCoin.newBuilder().setDenom(coin.asJsonObject["denom"].asString).setAmount(
+                coin.asJsonObject["amount"].asString.toBigDecimal().movePointRight(18)
+                    .setScale(18, RoundingMode.DOWN).toString()
+            ).build()
+        result.add(feeMakretCoin)
+    }
+    return result
+}
+
+fun JsonObject.accountNumber(): Long {
+    return getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("base_vesting_account")?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
+            "base_account"
+        )?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("base_vesting_account")
+            ?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
+            "account"
+        )?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
+            "account"
+        )?.getAsJsonObject("account_number")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: 0L
+}
+
+fun JsonObject.sequence(): Long {
+    return getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("base_vesting_account")?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("base_account")?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("base_vesting_account")
+            ?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("account_number")
+            ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull() ?: 0L
+}
+
+fun Any.accountInfos(): Triple<String, Long, Long> {
+    var rawAccount = this
+    if (rawAccount.typeUrl?.contains(ModelsProfileProto.Profile.getDescriptor().fullName) == true) {
+        rawAccount = ModelsProfileProto.Profile.parseFrom(value).account
+    }
+
+    if (rawAccount.typeUrl.contains(AuthProto.BaseAccount.getDescriptor().fullName)) {
+        AuthProto.BaseAccount.parseFrom(rawAccount.value)?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+    } else if (rawAccount.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
+        VestingProto.PeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(VestingProto.ContinuousVestingAccount.getDescriptor().fullName)) {
+        VestingProto.ContinuousVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(VestingProto.DelayedVestingAccount.getDescriptor().fullName)) {
+        VestingProto.DelayedVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(com.stride.vesting.VestingProto.StridePeriodicVestingAccount.getDescriptor().fullName)) {
+        com.stride.vesting.VestingProto.StridePeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
+        com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
+        com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
+        AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else {
+        return Triple("", -1, -1)
+    }
+    return Triple("", -1, -1)
 }

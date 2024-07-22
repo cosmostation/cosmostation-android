@@ -172,7 +172,7 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             val balanceAmount =
-                                selectedChain.grpcFetcher?.balanceAmount(collateralParam.denom)
+                                selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
                             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
@@ -221,7 +221,7 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             principalAvailableAmount =
-                                selectedChain.grpcFetcher?.balanceAmount("usdx")
+                                selectedChain.cosmosFetcher?.balanceAmount("usdx")
                         }
                     }
                 }

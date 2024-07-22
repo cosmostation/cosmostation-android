@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cosmos.bank.v1beta1.QueryProto
 import com.cosmos.base.v1beta1.CoinProto
+import com.cosmos.distribution.v1beta1.DistributionProto
+import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
@@ -25,7 +27,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
@@ -105,15 +106,15 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            grpcFetcher()?.let { grpcFetcher ->
+            cosmosFetcher()?.let {
                 if (supportCw20 || supportEvm) {
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
-                            grpcFetcher.tokens = response.data
+                            cosmosFetcher?.tokens = response.data
                             if (supportNft) {
                                 when (val infoResponse = walletRepository.cw721Info(apiName)) {
                                     is NetworkResult.Success -> {
-                                        grpcFetcher.cw721s = infoResponse.data
+                                        cosmosFetcher?.cw721s = infoResponse.data
                                     }
 
                                     is NetworkResult.Error -> {
@@ -131,7 +132,7 @@ class ApplicationViewModel(
                 } else if (supportNft) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
-                            grpcFetcher.cw721s = response.data
+                            cosmosFetcher?.cw721s = response.data
                         }
 
                         is NetworkResult.Error -> {
@@ -147,7 +148,7 @@ class ApplicationViewModel(
                 if (supportEvm) {
                     loadEvmChainData(this, baseAccountId, isEdit)
                 }
-                if (supportCosmosGrpc) {
+                if (isCosmos()) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
                 }
             }
@@ -168,10 +169,9 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            val channel = getChannel(this)
-            when (val response = walletRepository.auth(channel, this)) {
+            val channel = chain.cosmosFetcher?.getChannel()
+            when (walletRepository.auth(channel, this)) {
                 is NetworkResult.Success -> {
-                    grpcFetcher?.cosmosAuth = response.data?.account
                     loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
                 }
 
@@ -189,38 +189,40 @@ class ApplicationViewModel(
                         when (result) {
                             is NetworkResult.Success -> {
                                 when (result.data) {
-                                    is QueryProto.QueryAllBalancesResponse -> {
-                                        result.data.balancesList?.let {
-                                            grpcFetcher?.cosmosBalances = it
+                                    is MutableList<*> -> {
+                                        if (result.data.all { it is CoinProto.Coin }) {
+                                            cosmosFetcher?.cosmosBalances =
+                                                result.data as MutableList<CoinProto.Coin>
+
+                                        } else if (result.data.all { it is CoinProto.DecCoin }) {
+                                            cosmosFetcher?.cosmosBaseFees?.clear()
+                                            (result.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                if (BaseData.getAsset(
+                                                        apiName, baseFee.denom
+                                                    ) != null
+                                                ) {
+                                                    cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                                                }
+                                            }
+                                            cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                    -1
+                                                } else {
+                                                    0
+                                                }
+                                            }
                                         }
                                     }
 
                                     is String -> {
-                                        grpcFetcher?.rewardAddress = result.data
+                                        cosmosFetcher?.rewardAddress = result.data
                                     }
 
-                                    is MutableList<*> -> {
-                                        (result.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                            if (BaseData.getAsset(
-                                                    apiName, baseFee.denom
-                                                ) != null
-                                            ) {
-                                                grpcFetcher?.cosmosBaseFees?.add(baseFee)
-                                            }
-                                        }
-                                        grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                -1
-                                            } else {
-                                                0
-                                            }
-                                        }
-                                    }
                                 }
                             }
 
                             is NetworkResult.Error -> {
-                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                                _chainDataErrorMessage.postValue("error type : ${result.errorType}  error message : ${result.errorMessage}")
                             }
 
                             else -> {}
@@ -254,7 +256,7 @@ class ApplicationViewModel(
     }
 
     private fun loadGrpcMoreData(
-        channel: ManagedChannel, id: Long, chain: BaseChain, isEdit: Boolean
+        channel: ManagedChannel?, id: Long, chain: BaseChain, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             try {
@@ -281,53 +283,51 @@ class ApplicationViewModel(
                         when (response) {
                             is NetworkResult.Success -> {
                                 when (response.data) {
-                                    is QueryProto.QueryAllBalancesResponse -> {
-                                        response.data.balancesList?.let {
-                                            grpcFetcher?.cosmosBalances = it
-                                        }
-                                    }
+                                    is MutableList<*> -> {
+                                        if (response.data.all { it is CoinProto.Coin }) {
+                                            cosmosFetcher?.cosmosBalances =
+                                                response.data as MutableList<CoinProto.Coin>
 
-                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorDelegationsResponse -> {
-                                        grpcFetcher?.cosmosDelegations?.clear()
-                                        response.data.delegationResponsesList.forEach { delegation ->
-                                            if (delegation.balance.amount != "0") {
-                                                grpcFetcher?.cosmosDelegations?.add(delegation)
+                                        } else if (response.data.all { it is StakingProto.DelegationResponse }) {
+                                            cosmosFetcher?.cosmosDelegations?.clear()
+                                            (response.data as MutableList<StakingProto.DelegationResponse>).forEach { delegation ->
+                                                if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                                    cosmosFetcher?.cosmosDelegations?.add(delegation)
+                                                }
                                             }
-                                        }
-                                    }
 
-                                    is com.cosmos.staking.v1beta1.QueryProto.QueryDelegatorUnbondingDelegationsResponse -> {
-                                        response.data.unbondingResponsesList?.let {
-                                            grpcFetcher?.cosmosUnbondings = it
-                                        }
-                                    }
+                                        } else if (response.data.all { it is StakingProto.UnbondingDelegation }) {
+                                            cosmosFetcher?.cosmosUnbondings?.clear()
+                                            cosmosFetcher?.cosmosUnbondings =
+                                                response.data as MutableList<StakingProto.UnbondingDelegation>
 
-                                    is com.cosmos.distribution.v1beta1.QueryProto.QueryDelegationTotalRewardsResponse -> {
-                                        response.data.rewardsList?.let {
-                                            grpcFetcher?.cosmosRewards = it
+                                        } else if (response.data.all { it is DistributionProto.DelegationDelegatorReward }) {
+                                            cosmosFetcher?.cosmosRewards?.clear()
+                                            cosmosFetcher?.cosmosRewards =
+                                                response.data as MutableList<DistributionProto.DelegationDelegatorReward>
+
+                                        } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                            cosmosFetcher?.cosmosBaseFees?.clear()
+                                            (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                if (BaseData.getAsset(
+                                                        apiName, baseFee.denom
+                                                    ) != null
+                                                ) {
+                                                    cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                                                }
+                                            }
+                                            cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                    -1
+                                                } else {
+                                                    0
+                                                }
+                                            }
                                         }
                                     }
 
                                     is String -> {
-                                        grpcFetcher?.rewardAddress = response.data
-                                    }
-
-                                    is MutableList<*> -> {
-                                        (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                            if (BaseData.getAsset(
-                                                    apiName, baseFee.denom
-                                                ) != null
-                                            ) {
-                                                grpcFetcher?.cosmosBaseFees?.add(baseFee)
-                                            }
-                                        }
-                                        grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                -1
-                                            } else {
-                                                0
-                                            }
-                                        }
+                                        cosmosFetcher?.rewardAddress = response.data
                                     }
                                 }
                             }
@@ -364,13 +364,13 @@ class ApplicationViewModel(
                                     when (response.data) {
                                         is QueryProto.QueryAllBalancesResponse -> {
                                             response.data.balancesList?.let {
-                                                grpcFetcher?.cosmosBalances = it
+                                                cosmosFetcher?.cosmosBalances = it
                                             }
                                         }
 
                                         is MutableList<*> -> {
                                             if (response.data.all { it is Token }) {
-                                                grpcFetcher?.tokens =
+                                                cosmosFetcher?.tokens =
                                                     response.data as MutableList<Token>
 
                                             } else if (response.data.all { it is CoinProto.DecCoin }) {
@@ -379,10 +379,10 @@ class ApplicationViewModel(
                                                             apiName, baseFee.denom
                                                         ) != null
                                                     ) {
-                                                        grpcFetcher?.cosmosBaseFees?.add(baseFee)
+                                                        cosmosFetcher?.cosmosBaseFees?.add(baseFee)
                                                     }
                                                 }
-                                                grpcFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
                                                     if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
                                                         -1
                                                     } else {
@@ -427,11 +427,11 @@ class ApplicationViewModel(
                         if (this is ChainNeutron) {
                             neutronFetcher?.allAssetValue(true).toString()
                         } else {
-                            grpcFetcher?.allAssetValue(true).toString()
+                            cosmosFetcher?.allAssetValue(true).toString()
                         },
-                        grpcFetcher?.allStakingDenomAmount().toString(),
+                        cosmosFetcher?.allStakingDenomAmount().toString(),
                         "0",
-                        grpcFetcher?.cosmosBalances?.count {
+                        cosmosFetcher?.cosmosBalances?.count {
                             BaseData.getAsset(
                                 apiName, it.denom
                             ) != null
@@ -448,7 +448,7 @@ class ApplicationViewModel(
                     }
 
                     if (supportCw20) {
-                        val tokenBalanceDeferredList = grpcFetcher?.tokens?.map { token ->
+                        val tokenBalanceDeferredList = cosmosFetcher?.tokens?.map { token ->
                             async { walletRepository.cw20Balance(channel, chain, token) }
                         }
 
@@ -457,10 +457,10 @@ class ApplicationViewModel(
                             id,
                             tag,
                             address,
-                            ByteUtils.convertBech32ToEvm(address),
+                            evmAddress,
                             "0",
                             "0",
-                            grpcFetcher?.allTokenValue(true)?.toPlainString(),
+                            cosmosFetcher?.allTokenValue(true)?.toPlainString(),
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
@@ -477,9 +477,9 @@ class ApplicationViewModel(
                 }
 
             } finally {
-                channel.shutdown()
+                channel?.shutdown()
                 try {
-                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                    if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
                         channel.shutdownNow()
                     }
                 } catch (e: InterruptedException) {
@@ -555,7 +555,7 @@ class ApplicationViewModel(
                             "0",
                             "0",
                             evmRpcFetcher.allTokenValue(true).toPlainString(),
-                            grpcFetcher?.cosmosBalances?.count {
+                            cosmosFetcher?.cosmosBalances?.count {
                                 BaseData.getAsset(
                                     apiName, it.denom
                                 ) != null

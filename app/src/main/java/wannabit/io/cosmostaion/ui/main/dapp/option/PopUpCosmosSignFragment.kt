@@ -151,15 +151,15 @@ class PopUpCosmosSignFragment(
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
                 if (method == "sign_direct") {
-                    chain.grpcFetcher()?.let {
+                    chain.cosmosFetcher()?.let {
                         try {
                             val channel = getChannel(chain)
                             val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
                             val loadInputBalanceDeferred =
                                 async { loadBalance(channel, chain.address) }
 
-                            chain.grpcFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
-                            chain.grpcFetcher?.cosmosBalances =
+                            chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                            chain.cosmosFetcher?.cosmosBalances =
                                 loadInputBalanceDeferred.await().balancesList
                             BaseUtils.onParseVestingAccount(chain)
                         } catch (e: Exception) {

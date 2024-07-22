@@ -90,7 +90,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                     if (account.sortedDisplayChains().none { !it.fetched }) {
                         account.sortedDisplayChains()
                             .filter { !it.isTestnet && it.supportCosmosGrpc }.forEach { chain ->
-                                val compoundAble = chain.grpcFetcher?.compoundAbleRewards()
+                                val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()
                                 val txFee = chain.getInitPayableFee(requireContext())
                                 if (compoundAble?.isNotEmpty() == true && txFee != null) {
                                     compoundAbleRewards.add(

@@ -111,7 +111,7 @@ class ChainEditViewHolder(
                                             }
 
                                         } else {
-                                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                                 respondLayout.visibility = View.VISIBLE
                                                 chainValue.visibility = View.GONE
                                                 assetCnt.visibility = View.GONE
@@ -129,7 +129,7 @@ class ChainEditViewHolder(
                                             }
 
                                         } else {
-                                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                                            if (chain.cosmosFetcher?.cosmosBalances == null) {
                                                 respondLayout.visibility = View.VISIBLE
                                                 chainValue.visibility = View.GONE
                                                 assetCnt.visibility = View.GONE
@@ -155,7 +155,7 @@ class ChainEditViewHolder(
                                             "coins"
                                         )?.asJsonArray?.size().toString() + " Coins"
                                     } else {
-                                        (chain.grpcFetcher?.cosmosBalances?.count {
+                                        (chain.cosmosFetcher?.cosmosBalances?.count {
                                             BaseData.getAsset(
                                                 chain.apiName, it.denom
                                             ) != null
@@ -164,7 +164,7 @@ class ChainEditViewHolder(
 
                                     if (chain.supportCw20) {
                                         val tokenCnt =
-                                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                         if (tokenCnt == 0) {
                                             assetCnt.text = coinCntString
                                         } else {
@@ -251,7 +251,7 @@ class ChainEditViewHolder(
                                 skeletonAssetCnt.visibility = View.GONE
 
                                 if (chain.isEvmCosmos()) {
-                                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
                                         assetCnt.visibility = View.GONE
@@ -259,7 +259,7 @@ class ChainEditViewHolder(
                                     }
 
                                 } else {
-                                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
                                         assetCnt.visibility = View.GONE
@@ -271,7 +271,7 @@ class ChainEditViewHolder(
                                     val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                     if (chain.supportCw20) {
                                         val tokenCnt =
-                                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                                         if (tokenCnt == 0) {
                                             assetCnt.text = coinCntString
                                         } else {

@@ -110,7 +110,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                             .filter { !it.isTestnet && it.isDefault && tag != "finschia438" }
                             .forEach { chain ->
                                 val delegated =
-                                    chain.grpcFetcher?.delegationAmountSum() ?: BigDecimal.ZERO
+                                    chain.cosmosFetcher?.delegationAmountSum() ?: BigDecimal.ZERO
                                 val voteThreshold = chain.voteThreshold()
                                 val txFee = chain.getInitPayableFee(requireContext())
                                 if (delegated > voteThreshold && txFee != null) {

@@ -147,7 +147,7 @@ class NftTransferFragment(
                 )
             )
 
-            if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+            if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                 val tipTitle = listOf(
                     "No Tip", "20% Tip", "50% Tip", "100% Tip"
                 )
@@ -161,7 +161,7 @@ class NftTransferFragment(
                     segmentView.btnTitle.text = tipTitle[i]
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
-                val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
                 val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
@@ -282,13 +282,13 @@ class NftTransferFragment(
 
             feeTokenLayout.setOnClickListener {
                 txFee?.let { fee ->
-                    if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
                             BaseFeeAssetFragment(fromChain,
-                                fromChain.grpcFetcher?.cosmosBaseFees,
+                                fromChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
-                                        fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                        fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
                                             ?.let { baseFee ->
                                                 val feeAmount = baseFee.getdAmount()
                                                     .multiply(fee.gasLimit.toBigDecimal())
@@ -343,8 +343,8 @@ class NftTransferFragment(
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                txFee = if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == txFee?.getAmount(0)?.denom
                     }
                     val gasAmount = txFee?.gasLimit?.toBigDecimal()
@@ -445,8 +445,8 @@ class NftTransferFragment(
             gasInfo?.let { info ->
                 val gasLimit =
                     (info.gasUsed.toDouble() * fromChain.gasMultiply()).toLong().toBigDecimal()
-                if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
                             0
                         ).denom

@@ -129,19 +129,19 @@ class ReDelegateFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (fromValidator != null) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull {
-                    it.operatorAddress == selectedChain.grpcFetcher?.cosmosDelegations?.get(
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
+                    it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
                         0
                     )?.delegation?.validatorAddress
                 }
             }
 
             val cosmostation =
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
             toValidator = if (fromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
             } else {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
             }
             updateFromValidatorView()
             updateToValidatorView()
@@ -161,7 +161,7 @@ class ReDelegateFragment : BaseTxFragment() {
                 )
             )
 
-            if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+            if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                 val tipTitle = listOf(
                     "No Tip", "20% Tip", "50% Tip", "100% Tip"
                 )
@@ -175,7 +175,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     segmentView.btnTitle.text = tipTitle[i]
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
-                val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.get(0)
                 val gasAmount = selectedChain.getFeeBaseGasAmount().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
@@ -214,7 +214,7 @@ class ReDelegateFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val staked =
-                        selectedChain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
+                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
                     staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), decimal)
                     }
@@ -304,7 +304,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }
                     ?.let {
                         availableAmount = it.balance.amount.toBigDecimal()
                     }
@@ -320,14 +320,14 @@ class ReDelegateFragment : BaseTxFragment() {
                         override fun select(validatorAddress: String) {
                             if (fromValidator?.operatorAddress != validatorAddress) {
                                 fromValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateFeeView()
                                 updateFromValidatorView()
                             }
 
                             if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
                                 updateToValidatorView()
                             }
                         }
@@ -343,7 +343,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateToValidatorView()
                             }
                         })
@@ -379,13 +379,13 @@ class ReDelegateFragment : BaseTxFragment() {
 
             feeTokenLayout.setOnClickListener {
                 txFee?.let { fee ->
-                    if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
                             BaseFeeAssetFragment(selectedChain,
-                                selectedChain.grpcFetcher?.cosmosBaseFees,
+                                selectedChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
-                                        selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                        selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
                                             ?.let { baseFee ->
                                                 val feeAmount = baseFee.getdAmount()
                                                     .multiply(fee.gasLimit.toBigDecimal())
@@ -440,8 +440,8 @@ class ReDelegateFragment : BaseTxFragment() {
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    val baseFee = selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                txFee = if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == txFee?.getAmount(0)?.denom
                     }
                     val gasAmount = txFee?.gasLimit?.toBigDecimal()
@@ -543,8 +543,8 @@ class ReDelegateFragment : BaseTxFragment() {
             gasInfo?.let { info ->
                 val gasLimit =
                     (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
-                if (selectedChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    selectedChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
                             0
                         ).denom

@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosFetcher
 import wannabit.io.cosmostaion.chain.NeutronFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 
@@ -33,12 +34,20 @@ open class ChainNeutron : BaseChain(), Parcelable {
     override var accountPrefix: String = "neutron"
     override var grpcHost: String = "grpc-neutron.cosmostation.io"
 
-    override fun grpcFetcher(): NeutronFetcher? {
-        super.grpcFetcher()
-        if (neutronFetcher == null) {
-            neutronFetcher = NeutronFetcher(this)
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (!isCosmos()) return null
+        if (cosmosFetcher == null) {
+            cosmosFetcher = NeutronFetcher(this)
         }
-        return neutronFetcher
+        return cosmosFetcher
+    }
+
+    fun neutronFetcher(): NeutronFetcher? {
+        if (!isCosmos()) return null
+        if (cosmosFetcher == null) {
+            cosmosFetcher = NeutronFetcher(this)
+        }
+        return cosmosFetcher as NeutronFetcher
     }
 }
 

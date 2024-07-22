@@ -74,10 +74,10 @@ class StakeInfoFragment : Fragment() {
             }
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val rewardAddress = selectedChain.grpcFetcher?.rewardAddress ?: ""
-                var delegations = selectedChain.grpcFetcher?.cosmosDelegations ?: mutableListOf()
-                val validators = selectedChain.grpcFetcher?.cosmosValidators ?: mutableListOf()
-                val unBondings = selectedChain.grpcFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                val rewardAddress = selectedChain.cosmosFetcher?.rewardAddress ?: ""
+                var delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                val validators = selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
+                val unBondings = selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
                     unBonding.entriesList.map { entry ->
                         UnBondingEntry(unBonding.validatorAddress, entry)
                     }

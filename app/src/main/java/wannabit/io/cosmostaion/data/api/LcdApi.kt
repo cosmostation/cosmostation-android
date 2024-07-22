@@ -1,14 +1,43 @@
 package wannabit.io.cosmostaion.data.api
 
 import com.google.gson.JsonObject
+import com.google.protobuf.ByteString
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 
 interface LcdApi {
+    @GET("cosmos/auth/v1beta1/accounts/{address}")
+    suspend fun lcdAuthInfo(@Path("address") address: String?): JsonObject
+
+    @GET("cosmos/bank/v1beta1/balances/{address}")
+    suspend fun lcdBalanceInfo(
+        @Path("address") address: String?,
+        @Query("pagination.limit") limit: String
+    ): JsonObject
+
+    @GET("cosmos/staking/v1beta1/delegations/{address}")
+    suspend fun lcdDelegationInfo(@Path("address") address: String?): JsonObject
+
+    @GET("cosmos/staking/v1beta1/delegators/{address}/unbonding_delegations")
+    suspend fun lcdUnBondingInfo(@Path("address") address: String?): JsonObject
+
+    @GET("cosmos/distribution/v1beta1/delegators/{address}/rewards")
+    suspend fun lcdRewardInfo(@Path("address") address: String?): JsonObject
+
+    @GET("cosmos/distribution/v1beta1/delegators/{address}/withdraw_address")
+    suspend fun lcdRewardAddressInfo(@Path("address") address: String?): JsonObject
+
+    @GET("feemarket/v1/gas_prices")
+    suspend fun lcdFeeMarketInfo(): JsonObject
+
+    @GET("cosmwasm/wasm/v1/contract/{address}/smart/{query_data}")
+    suspend fun lcdContractInfo(@Path("address") address: String?, @Path("query_data") queryData: String): JsonObject
+
     @GET("auth/accounts/{address}")
     suspend fun oktAccountInfo(@Path("address") address: String?): JsonObject
 

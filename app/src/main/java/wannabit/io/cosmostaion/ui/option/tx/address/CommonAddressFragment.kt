@@ -168,7 +168,7 @@ class CommonAddressFragment : BottomSheetDialogFragment() {
                     }
 
                     if (addressType == AddressType.REWARD_ADDRESS) {
-                        if (fromChain.grpcFetcher?.rewardAddress.equals(address, true)) {
+                        if (fromChain.cosmosFetcher?.rewardAddress.equals(address, true)) {
                             requireContext().makeToast(R.string.error_same_reward_address)
                             return@setOnClickListener
                         }

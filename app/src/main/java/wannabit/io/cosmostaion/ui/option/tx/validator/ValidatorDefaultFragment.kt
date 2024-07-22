@@ -45,7 +45,7 @@ class ValidatorDefaultFragment(
             selectTitle.text = getString(R.string.title_select_validator)
             searchBar.visibility = View.VISIBLE
             searchView.queryHint = getString(R.string.str_search_validator)
-            selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                 ?.let { searchValidators.addAll(it) }
 
             initRecyclerView()
@@ -79,11 +79,11 @@ class ValidatorDefaultFragment(
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
                     if (StringUtils.isEmpty(newText)) {
-                        selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                        selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                             ?.let { searchValidators.addAll(it) }
                     } else {
                         newText?.let { searchTxt ->
-                            selectedChain.grpcFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                                 ?.filter { validator ->
                                     validator.description.moniker.contains(
                                         searchTxt, ignoreCase = true

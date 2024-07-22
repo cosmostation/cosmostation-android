@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
@@ -73,6 +74,13 @@ object RetrofitInstance {
             .baseUrl(CosmostationConstants.ECO_SYSTEM_URL).build()
     }
 
+    private fun lcdRetrofit(chain: BaseChain): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.lcdUrl).build()
+    }
+
     val walletApi: WalletApi by lazy {
         walletRetrofit.create(WalletApi::class.java)
     }
@@ -83,6 +91,10 @@ object RetrofitInstance {
 
     val mintscanJsonApi: MintscanApi by lazy {
         mintScanJsonRetrofit.create(MintscanApi::class.java)
+    }
+
+    fun lcdApi(chain: BaseChain): LcdApi {
+        return lcdRetrofit(chain).create(LcdApi::class.java)
     }
 
     val oktApi: LcdApi by lazy {

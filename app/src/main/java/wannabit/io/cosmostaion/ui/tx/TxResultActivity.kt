@@ -159,7 +159,7 @@ class TxResultActivity : BaseActivity() {
                     }
 
                     TxResultType.NFT -> {
-                        selectedChain?.grpcFetcher?.cw721Fetched = false
+                        selectedChain?.cosmosFetcher?.cw721Fetched = false
                         finish()
                     }
 

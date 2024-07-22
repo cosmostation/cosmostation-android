@@ -58,31 +58,31 @@ class CoinCosmosLineViewHolder(
                             }
 
                             asset.decimals?.let { decimal ->
-                                val availableAmount = chain.grpcFetcher?.balanceAmount(stakeDenom)
+                                val availableAmount = chain.cosmosFetcher?.balanceAmount(stakeDenom)
                                     ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
-                                val vestingAmount = chain.grpcFetcher?.vestingAmount(stakeDenom)
+                                val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
                                     ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
                                 val stakedAmount =
-                                    chain.grpcFetcher?.delegationAmountSum()?.movePointLeft(decimal)
+                                    chain.cosmosFetcher?.delegationAmountSum()?.movePointLeft(decimal)
                                         ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
                                 val unStakingAmount =
-                                    chain.grpcFetcher?.unbondingAmountSum()?.movePointLeft(decimal)
+                                    chain.cosmosFetcher?.unbondingAmountSum()?.movePointLeft(decimal)
                                         ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-                                val rewardAmount = chain.grpcFetcher?.rewardAmountSum(stakeDenom)
+                                val rewardAmount = chain.cosmosFetcher?.rewardAmountSum(stakeDenom)
                                     ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
 
                                 vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
                                 unstakingLayout.goneOrVisible(unStakingAmount?.compareTo(BigDecimal.ZERO) == 0)
                                 rewardLayout.visibleOrGone(
-                                    chain.grpcFetcher?.rewardAllCoins()?.isNotEmpty() == true
+                                    chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true
                                 )
 
-                                if (chain.grpcFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
+                                if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
                                     rewardTitle.text =
-                                        context.getString(R.string.str_reward) + if (chain.grpcFetcher?.rewardOtherDenoms()!! > 0) " +${chain.grpcFetcher?.rewardOtherDenoms()}" else ""
+                                        context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
                                 }
 
                                 with(Prefs) {
@@ -123,7 +123,7 @@ class CoinCosmosLineViewHolder(
                                         6
                                     )
                                     totalValue.text = if (hideValue) "" else formatAssetValue(
-                                        chain.grpcFetcher?.denomValue(stakeDenom) ?: BigDecimal.ZERO
+                                        chain.cosmosFetcher?.denomValue(stakeDenom) ?: BigDecimal.ZERO
                                     )
                                 }
                             }
@@ -152,7 +152,7 @@ class CoinCosmosLineViewHolder(
                 }
 
                 asset.decimals?.let { decimal ->
-                    val availableAmount = chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                    val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
                         ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
                     chain.neutronFetcher?.neutronVestingAmount()?.let { neutronVestingAmount ->
                         val vestingAmount = neutronVestingAmount.movePointLeft(decimal)

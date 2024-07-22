@@ -77,7 +77,7 @@ class WalletSelectViewHolder(
                 val cnt: Int
                 skeletonChainValue.visibility = View.GONE
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
                         chainDenom.visibility = View.GONE
@@ -105,7 +105,7 @@ class WalletSelectViewHolder(
                         }
 
                     } else {
-                        if (chain.grpcFetcher?.cosmosBalances == null) {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
                             respondLayout.visibility = View.VISIBLE
                             chainBalance.visibility = View.GONE
                             chainDenom.visibility = View.GONE
@@ -152,14 +152,14 @@ class WalletSelectViewHolder(
 
                 if (chain.isEvmCosmos()) {
                     BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                        val availableAmount = chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                        val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
                             ?.movePointLeft(asset.decimals ?: 6)
                         chainBalance.text =
                             formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                         chainDenom.text = asset.symbol
                         chainDenom.setTextColor(asset.assetColor())
                     }
-                    cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                    cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
                         BaseData.getAsset(
                             chain.apiName, it.denom
                         ) != null
@@ -184,14 +184,14 @@ class WalletSelectViewHolder(
                         else -> {
                             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                                 val availableAmount =
-                                    chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                                    chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
                                         ?.movePointLeft(asset.decimals ?: 6)
                                 chainBalance.text =
                                     formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                                 chainDenom.text = asset.symbol
                                 chainDenom.setTextColor(asset.assetColor())
                             }
-                            cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                            cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
                                 BaseData.getAsset(
                                     chain.apiName, it.denom
                                 ) != null
@@ -259,7 +259,7 @@ class WalletSelectViewHolder(
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
                         chainDenom.visibility = View.GONE
@@ -268,7 +268,7 @@ class WalletSelectViewHolder(
                     }
 
                 } else if (chain.isCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
                         chainDenom.visibility = View.GONE
@@ -285,14 +285,14 @@ class WalletSelectViewHolder(
 
                 BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                     val availableAmount =
-                        chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
+                        chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
                             ?.movePointLeft(asset.decimals ?: 6)
                     chainBalance.text =
                         formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                     chainDenom.text = asset.symbol
                     chainDenom.setTextColor(asset.assetColor())
                 }
-                val cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                val cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
                     BaseData.getAsset(
                         chain.apiName, it.denom
                     ) != null

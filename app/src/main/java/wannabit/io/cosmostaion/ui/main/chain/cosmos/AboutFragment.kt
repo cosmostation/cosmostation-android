@@ -169,7 +169,7 @@ class AboutFragment : Fragment() {
                 }
 
                 if (selectedChain.supportStaking) {
-                    if (selectedChain.address == selectedChain.grpcFetcher?.rewardAddress) {
+                    if (selectedChain.address == selectedChain.cosmosFetcher?.rewardAddress) {
                         cautionImg.visibility = View.GONE
                         rewardAddressWarnMsg.visibility = View.GONE
                     } else {
@@ -185,7 +185,7 @@ class AboutFragment : Fragment() {
                             )
                         )
                     }
-                    rewardAddress.text = selectedChain.grpcFetcher?.rewardAddress
+                    rewardAddress.text = selectedChain.cosmosFetcher?.rewardAddress
 
                 } else {
                     rewardView.visibility = View.GONE
@@ -202,7 +202,7 @@ class AboutFragment : Fragment() {
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address", selectedChain.grpcFetcher?.rewardAddress
+                    "address", selectedChain.cosmosFetcher?.rewardAddress
                 )
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_address_copied)

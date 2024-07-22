@@ -171,7 +171,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun loadGrpcStakeData(
         chain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (chain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
+        if (chain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
             return@launch
         }
         val tempValidators = mutableListOf<StakingProto.Validator>()
@@ -220,7 +220,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     else -> 0
                 }
             }
-            chain.grpcFetcher?.cosmosValidators = dataTempValidators
+            chain.cosmosFetcher?.cosmosValidators = dataTempValidators
 
         } finally {
             channel.shutdown()
@@ -320,30 +320,26 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             else -> {
-                chain.grpcFetcher()?.let {
-                    val channel = getChannel(chain)
+                chain.cosmosFetcher()?.let { cosmosFetcher ->
+                    val channel = cosmosFetcher.getChannel()
                     when (val response = walletRepository.balance(channel, chain)) {
                         is NetworkResult.Success -> {
-                            response.data?.balancesList?.let {
-                                chain.grpcFetcher?.cosmosBalances = it
-                                chain.fetched = true
-                                if (chain.fetched) {
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            chain.grpcFetcher?.cosmosBalances = null
+                            chain.cosmosFetcher?.cosmosBalances = response.data
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }
-                            } else {
+                            }
+                        }
 
+                        is NetworkResult.Error -> {
+                            chain.cosmosFetcher?.cosmosBalances = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
                     }
@@ -428,7 +424,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
                         val tokens = jobs.awaitAll().filterNotNull()
                         if (tokens.isNotEmpty()) {
-                            chain.grpcFetcher?.cw721Models?.add(
+                            chain.cosmosFetcher?.cw721Models?.add(
                                 Cw721Model(
                                     list, tokens.toMutableList()
                                 )

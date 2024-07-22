@@ -60,7 +60,7 @@ class TokenViewHolder(
 
                         coinAmount.text = formatAmount(amount.toPlainString(), 6)
                         if (chain.supportCw20) {
-                            chain.grpcFetcher?.let {
+                            chain.cosmosFetcher?.let {
                                 coinAmountValue.text =
                                     formatAssetValue(it.tokenValue(token.address))
                             }

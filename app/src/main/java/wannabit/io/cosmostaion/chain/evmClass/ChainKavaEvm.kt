@@ -7,7 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.FetcherGrpc
+import wannabit.io.cosmostaion.chain.CosmosFetcher
 import wannabit.io.cosmostaion.chain.KavaFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -40,12 +40,20 @@ class ChainKavaEvm : BaseChain(), Parcelable {
     override var addressLogo: Int = R.drawable.icon_kava_address
     override var evmRpcURL: String = "https://rpc-kava-evm.cosmostation.io"
 
-    override fun grpcFetcher(): FetcherGrpc? {
-        super.grpcFetcher()
-        if (kavaFetcher == null) {
-            kavaFetcher = KavaFetcher(this)
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (!isCosmos()) return null
+        if (cosmosFetcher == null) {
+            cosmosFetcher = KavaFetcher(this)
         }
-        return kavaFetcher
+        return cosmosFetcher
+    }
+
+    fun kavaFetcher(): KavaFetcher? {
+        if (!isCosmos()) return null
+        if (cosmosFetcher == null) {
+            cosmosFetcher = KavaFetcher(this)
+        }
+        return cosmosFetcher as KavaFetcher
     }
 }
 
