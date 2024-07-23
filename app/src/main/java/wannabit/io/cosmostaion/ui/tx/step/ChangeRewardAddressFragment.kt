@@ -14,11 +14,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -60,7 +59,6 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var existedAddress = ""
     private var txMemo = ""
@@ -391,12 +389,10 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadChangeRewardAddress(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindChangeRewardAddress(),
+                txViewModel.broadcast(
+                    selectedChain.cosmosFetcher?.getChannel(),
+                    onBindChangeRewardAddressMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -413,12 +409,10 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
             }
             btnChangeRewardAddress.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateChangeRewardAddress(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindChangeRewardAddress(),
+            txViewModel.simulate(
+                selectedChain.cosmosFetcher?.getChannel(),
+                onBindChangeRewardAddressMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -426,8 +420,8 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            // updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -437,11 +431,11 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
@@ -481,26 +475,30 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindChangeRewardAddress(): MsgSetWithdrawAddress? {
-        return MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(selectedChain.address)
-            .setWithdrawAddress(existedAddress).build()
+    private fun onBindChangeRewardAddressMsg(): MutableList<Any> {
+        val msgSetWithdrawAddress =
+            MsgSetWithdrawAddress.newBuilder().setDelegatorAddress(selectedChain.address)
+                .setWithdrawAddress(existedAddress).build()
+        return Signer.changeRewardAddress(msgSetWithdrawAddress)
     }
 
     override fun onDestroyView() {

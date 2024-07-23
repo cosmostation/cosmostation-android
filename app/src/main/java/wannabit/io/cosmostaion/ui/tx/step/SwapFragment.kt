@@ -20,13 +20,13 @@ import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
-import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse
 import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
+import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
@@ -38,7 +38,11 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.accountInfos
+import wannabit.io.cosmostaion.chain.accountNumber
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.balance
+import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -51,6 +55,8 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.updateToggleButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.Affiliate
 import wannabit.io.cosmostaion.data.model.req.SkipMsgReq
 import wannabit.io.cosmostaion.data.model.req.SkipRouteReq
@@ -115,7 +121,6 @@ class SwapFragment : BaseTxFragment() {
     private var route: SkipRouteResponse? = null
     private var toMsg: SkipMsgResponse? = null
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var isClickable = true
 
@@ -344,15 +349,12 @@ class SwapFragment : BaseTxFragment() {
                 inputCosmosChain?.let { chain ->
                     chain.cosmosFetcher()?.let {
                         try {
-                            val channel = getChannel(chain)
-                            val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
-                            val loadInputBalanceDeferred =
-                                async { loadBalance(channel, chain.address) }
+                            val channel = chain.cosmosFetcher()?.getChannel()
+                            loadAuth(channel, chain)
+                            val loadInputBalanceDeferred = async { loadBalance(channel, chain) }
 
-                            chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
-                            chain.cosmosFetcher?.cosmosBalances =
-                                loadInputBalanceDeferred.await().balancesList
-                            BaseUtils.onParseVestingAccount(chain)
+                            chain.cosmosFetcher?.cosmosBalances = loadInputBalanceDeferred.await()
+//                            BaseUtils.onParseVestingAccount(chain)
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)
@@ -365,13 +367,10 @@ class SwapFragment : BaseTxFragment() {
                     chain.cosmosFetcher()?.let {
                         try {
                             val channel = getChannel(chain)
-                            val loadOutputAuthDeferred = async { loadAuth(channel, chain.address) }
-                            val loadOutputBalanceDeferred =
-                                async { loadBalance(channel, chain.address) }
+                            loadAuth(channel, chain)
+                            val loadOutputBalanceDeferred = async { loadBalance(channel, chain) }
 
-                            chain.cosmosFetcher?.cosmosAuth = loadOutputAuthDeferred.await()?.account
-                            chain.cosmosFetcher?.cosmosBalances =
-                                loadOutputBalanceDeferred.await().balancesList
+                            chain.cosmosFetcher?.cosmosBalances = loadOutputBalanceDeferred.await()
                             BaseUtils.onParseVestingAccount(chain)
                         } catch (e: Exception) {
                             if (isAdded) {
@@ -576,11 +575,12 @@ class SwapFragment : BaseTxFragment() {
 
                 if (skipMsg.msg_type_url == "/ibc.applications.transfer.v1.MsgTransfer") {
                     skipTxViewModel.simulateSkipIbcSend(
-                        getChannel(chain), chain.address, bindIbcSend(innerMsg), txFee, txTip, "", chain
+                        chain.cosmosFetcher?.getChannel(), bindIbcSend(innerMsg), txFee, "", chain
                     )
+
                 } else if (skipMsg.msg_type_url == "/cosmwasm.wasm.v1.MsgExecuteContract") {
-                    skipTxViewModel.simulateWasm(
-                        getChannel(chain), chain.address, bindWasm(innerMsg), txFee, txTip, "", chain
+                    txViewModel.simulate(
+                        chain.cosmosFetcher?.getChannel(), onBindWasm(innerMsg), txFee, "", chain
                     )
                 }
             }
@@ -588,41 +588,41 @@ class SwapFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-//        skipTxViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-//            binding.apply {
-//                inputCosmosChain?.let { chain ->
-//                    txFee?.let { fee ->
-//                        val gasLimit = (gasInfo.gasUsed.toDouble() * chain.gasMultiply()).toLong()
-//                            .toBigDecimal()
-//                        val baseFeePosition = chain.getFeeBasePosition()
-//                        val gasRate =
-//                            chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
-//                                it.denom == fee.getAmount(0)?.denom
-//                            }
-//                        val feeCoinAmount =
-//                            gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-//
-//                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
-//                            .setAmount(feeCoinAmount.toString()).build()
-//                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-//                            .addAmount(feeCoin).build()
-//
-//                        BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
-//                            feeAsset.decimals?.let { decimal ->
-//                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
-//                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-//                                        txFeeAmount.text =
-//                                            formatAmount(amount.toPlainString(), decimal)
-//                                        txFeeDenom.text = feeAsset.symbol
-//                                    }
-//                            }
-//                        }
-//                        btnToggle.updateToggleButtonView(true)
-//                        btnSwap.updateButtonView(true)
-//                    }
-//                }
-//            }
-//        }
+        skipTxViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            binding.apply {
+                inputCosmosChain?.let { chain ->
+                    txFee?.let { fee ->
+                        val gasLimit =
+                            (gasUsed.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                        val baseFeePosition = chain.getFeeBasePosition()
+                        val gasRate =
+                            chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
+                                it.denom == fee.getAmount(0)?.denom
+                            }
+                        val feeCoinAmount =
+                            gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+
+                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
+                            .setAmount(feeCoinAmount.toString()).build()
+                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                            .addAmount(feeCoin).build()
+
+                        BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
+                            feeAsset.decimals?.let { decimal ->
+                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
+                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                        txFeeAmount.text =
+                                            formatAmount(amount.toPlainString(), decimal)
+                                        txFeeDenom.text = feeAsset.symbol
+                                    }
+                            }
+                        }
+                        btnToggle.updateToggleButtonView(true)
+                        btnSwap.updateButtonView(true)
+                    }
+                }
+            }
+        }
 
         skipTxViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             binding.apply {
@@ -647,8 +647,8 @@ class SwapFragment : BaseTxFragment() {
             .setToken(sendCoin).setMemo(innerMsg.optString("memo", "")).build()
     }
 
-    private fun bindWasm(innerMsg: JSONObject): MutableList<MsgExecuteContract?> {
-        val result: MutableList<MsgExecuteContract?> = mutableListOf()
+    private fun onBindWasm(innerMsg: JSONObject): MutableList<Any> {
+        val wasmMsgs: MutableList<MsgExecuteContract?> = mutableListOf()
         val jsonDataMsg = ByteString.copyFromUtf8(innerMsg.getJSONObject("msg").toString())
         val fundCoin = CoinProto.Coin.newBuilder()
             .setDenom(innerMsg.getJSONArray("funds").getJSONObject(0).getString("denom"))
@@ -658,9 +658,8 @@ class SwapFragment : BaseTxFragment() {
             MsgExecuteContract.newBuilder().setSender(innerMsg.getString("sender"))
                 .setContract(innerMsg.getString("contract")).setMsg(jsonDataMsg).addFunds(fundCoin)
                 .build()
-        result.add(msgExecuteContract)
-
-        return result
+        wasmMsgs.add(msgExecuteContract)
+        return Signer.wasmMsg(wasmMsgs)
     }
 
     private fun setUpClickAction() {
@@ -679,8 +678,7 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(
-                        skipChains,
+                    ChainFragment.newInstance(skipChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -709,23 +707,18 @@ class SwapFragment : BaseTxFragment() {
                                                         inputAssetSelected =
                                                             inputAssets.firstOrNull { it.denom == chain.stakeDenom }
 
-                                                        val channel = getChannel(chain)
-                                                        val loadInputAuthDeferred = async {
-                                                            loadAuth(
-                                                                channel, chain.address
-                                                            )
-                                                        }
+                                                        val channel =
+                                                            chain.cosmosFetcher?.getChannel()
+                                                        loadAuth(channel, chain)
                                                         val loadInputBalanceDeferred = async {
                                                             loadBalance(
-                                                                channel, chain.address
+                                                                channel, chain
                                                             )
                                                         }
 
-                                                        chain.cosmosFetcher?.cosmosAuth =
-                                                            loadInputAuthDeferred.await()?.account
                                                         chain.cosmosFetcher?.cosmosBalances =
-                                                            loadInputBalanceDeferred.await().balancesList
-                                                        BaseUtils.onParseVestingAccount(chain)
+                                                            loadInputBalanceDeferred.await()
+//                                                        BaseUtils.onParseVestingAccount(chain)
                                                     } catch (e: Exception) {
                                                         activity?.makeToast(R.string.str_unknown_error)
                                                     }
@@ -781,7 +774,8 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(skipChains,
+                    ChainFragment.newInstance(
+                        skipChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainId: String) {
@@ -810,23 +804,17 @@ class SwapFragment : BaseTxFragment() {
                                                         outputAssetSelected =
                                                             outputAssets.firstOrNull { it.denom == chain.stakeDenom }
 
-                                                        val channel = getChannel(chain)
-                                                        val loadOutputAuthDeferred = async {
-                                                            loadAuth(
-                                                                channel, chain.address
-                                                            )
-                                                        }
+                                                        val channel = chain.cosmosFetcher?.getChannel()
+                                                        loadAuth(channel, chain)
                                                         val loadOutputBalanceDeferred = async {
                                                             loadBalance(
-                                                                channel, chain.address
+                                                                channel, chain
                                                             )
                                                         }
 
-                                                        chain.cosmosFetcher?.cosmosAuth =
-                                                            loadOutputAuthDeferred.await()?.account
                                                         chain.cosmosFetcher?.cosmosBalances =
-                                                            loadOutputBalanceDeferred.await().balancesList
-                                                        BaseUtils.onParseVestingAccount(chain)
+                                                            loadOutputBalanceDeferred.await()
+//                                                        BaseUtils.onParseVestingAccount(chain)
                                                     } catch (e: Exception) {
                                                         activity?.makeToast(R.string.str_unknown_error)
                                                     }
@@ -839,7 +827,6 @@ class SwapFragment : BaseTxFragment() {
                                         }
                                     }
                                 } catch (e: Exception) {
-
                                 }
                             }
                         })
@@ -923,13 +910,21 @@ class SwapFragment : BaseTxFragment() {
                         when (skipMsg.msg_type_url) {
                             "/ibc.applications.transfer.v1.MsgTransfer" -> {
                                 skipTxViewModel.broadcastSkipIbcSend(
-                                    getChannel(chain), bindIbcSend(innerMsg), txFee, txTip, "", chain
+                                    chain.cosmosFetcher?.getChannel(),
+                                    bindIbcSend(innerMsg),
+                                    txFee,
+                                    "",
+                                    chain
                                 )
                             }
 
                             "/cosmwasm.wasm.v1.MsgExecuteContract" -> {
-                                skipTxViewModel.broadcastWasm(
-                                    getChannel(chain), bindWasm(innerMsg), txFee, txTip, "", chain
+                                skipTxViewModel.broadcast(
+                                    chain.cosmosFetcher?.getChannel(),
+                                    onBindWasm(innerMsg),
+                                    txFee,
+                                    "",
+                                    chain
                                 )
                             }
 
@@ -1025,45 +1020,61 @@ class SwapFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        skipTxViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        skipTxViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("txResultType", TxResultType.SKIP.toString())
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", inputCosmosChain?.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("txResultType", TxResultType.SKIP.toString())
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", inputCosmosChain?.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun loadAuth(
-        managedChannel: ManagedChannel, address: String?
-    ): QueryProto.QueryAccountResponse? {
-        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
-        return try {
-            stub.account(request)
-        } catch (e: Exception) {
-            null
+    private suspend fun loadAuth(
+        managedChannel: ManagedChannel?, chain: BaseChain
+    ) {
+        return if (chain.supportCosmosGrpc) {
+            val stub =
+                QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val request =
+                QueryProto.QueryAccountRequest.newBuilder().setAddress(chain.address).build()
+            chain.cosmosFetcher()?.cosmosAuth = stub.account(request).account
+            chain.cosmosFetcher()?.cosmosAccountNumber =
+                stub.account(request).account.accountInfos().second
+            chain.cosmosFetcher()?.cosmosSequence =
+                stub.account(request).account.accountInfos().third
+
+        } else {
+            val response = RetrofitInstance.lcdApi(chain)
+                .lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
+            chain.cosmosFetcher()?.cosmosLcdAuth = response
+            chain.cosmosFetcher()?.cosmosAccountNumber = response.accountNumber()
+            chain.cosmosFetcher()?.cosmosSequence = response.sequence()
         }
     }
 
-    private fun loadBalance(
-        managedChannel: ManagedChannel, address: String?
-    ): QueryAllBalancesResponse {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
-        val stub = newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val request =
-            QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(address)
-                .build()
-        return stub.allBalances(request)
+    private suspend fun loadBalance(
+        channel: ManagedChannel?, chain: BaseChain
+    ): MutableList<CoinProto.Coin> {
+        return if (chain.supportCosmosGrpc) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
+            val stub = newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)
+                .setAddress(chain.address).build()
+            stub.allBalances(request).balancesList
+        } else {
+            RetrofitInstance.lcdApi(chain).lcdBalanceInfo(chain.address, "2000").balance()
+        }
     }
 
     override fun onDestroyView() {

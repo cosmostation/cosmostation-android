@@ -3,16 +3,13 @@ package wannabit.io.cosmostaion.data.repository.tx
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
-import com.cosmos.bank.v1beta1.TxProto
+import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
-import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
-import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmos.tx.v1beta1.TxProto.Tip
-import com.cosmwasm.wasm.v1.QueryGrpc.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -1256,16 +1253,15 @@ class TxRepositoryImpl : TxRepository {
         return Pair("", "")
     }
 
-    override suspend fun broadcastSendTx(
+    override suspend fun broadcastTx(
         managedChannel: ManagedChannel?,
-        msgSend: TxProto.MsgSend?,
+        msgs: MutableList<com.google.protobuf.Any>,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
         selectedChain: BaseChain
     ): TxResponse? {
         return try {
-            val broadcastTx = Signer.genSendBroadcast(msgSend, fee, tip, memo, selectedChain)
+            val broadcastTx = Signer.genBroadcast(msgs, fee, memo, selectedChain)
             if (selectedChain.supportCosmosGrpc) {
                 val txStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -1290,16 +1286,15 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun simulateSendTx(
+    override suspend fun simulateTx(
         managedChannel: ManagedChannel?,
-        msgSend: TxProto.MsgSend?,
+        msgs: MutableList<com.google.protobuf.Any>,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
         selectedChain: BaseChain
     ): String {
         return try {
-            val simulateTx = Signer.genSendSimulate(msgSend, fee, tip, memo, selectedChain)
+            val simulateTx = Signer.genSimulate(msgs, fee, memo, selectedChain)
             if (selectedChain.supportCosmosGrpc) {
                 val simulStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -1310,7 +1305,6 @@ class TxRepositoryImpl : TxRepository {
                     RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
                 response["gas_info"].asJsonObject["gas_used"].asString
             }
-
         } catch (e: Exception) {
             e.message.toString()
         }
@@ -1330,21 +1324,34 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun broadcastIbcSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
         selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
+    ): TxResponse? {
         return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val broadcastTx =
-                Signer.genIbcSendBroadcast(account, msgTransfer, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
+                Signer.genIbcSendBroadcast(msgTransfer, fee, memo, selectedChain)
+            if (selectedChain.supportCosmosGrpc) {
+                val txStub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                txStub.broadcastTx(broadcastTx).txResponse
 
-        } catch (_: Exception) {
+            } else {
+                val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
+                val mode = BroadcastMode.BROADCAST_MODE_SYNC.number
+                val response = RetrofitInstance.lcdApi(selectedChain)
+                    .lcdBroadcastTx(BroadcastTxReq(mode, txByte))
+                if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
+                    val result = response["tx_response"].asJsonObject
+                    TxResponse.newBuilder().setTxhash(result["txhash"].asString)
+                        .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString).build()
+                } else {
+                    null
+                }
+            }
+
+        } catch (e: Exception) {
             null
         }
     }
@@ -1353,15 +1360,24 @@ class TxRepositoryImpl : TxRepository {
         managedChannel: ManagedChannel?,
         msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
         selectedChain: BaseChain
     ): Any? {
         return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genIbcSendSimulate(msgTransfer, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
+            val simulateTx = Signer.genIbcSendSimulate(msgTransfer, fee, memo, selectedChain)
+            if (selectedChain.supportCosmosGrpc) {
+                val simulStub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
+            } else {
+                val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
+                val response =
+                    RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
+                val gasInfo = AbciProto.GasInfo.newBuilder()
+                    .setGasUsed(response["gas_info"].asJsonObject["gas_used"].asString.toLong())
+                    .build()
+                ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo).build()
+            }
 
         } catch (e: Exception) {
             e.message.toString()
@@ -1403,350 +1419,6 @@ class TxRepositoryImpl : TxRepository {
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val simulateTx =
                 Signer.genWasmSimulate(account, msgWasms, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genDelegateBroadcast(account, msgDelegate, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDelegate: com.cosmos.staking.v1beta1.TxProto.MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genDelegateSimulate(account, msgDelegate, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastUnDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genUnDelegateBroadcast(account, msgUnDelegate, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateUnDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgUnDelegate: com.cosmos.staking.v1beta1.TxProto.MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genUnDelegateSimulate(account, msgUnDelegate, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastReDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genReDelegateBroadcast(account, msgReDelegate, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateReDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgReDelegate: com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genReDelegateSimulate(account, msgReDelegate, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastCancelUnbondingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genCancelUnbondingBroadcast(
-                account, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
-            )
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateCancelUnbondingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genCancelUnbondingSimulate(
-                account, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
-            )
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastGetRewardsTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genClaimRewardsBroadcast(account, rewards, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateGetRewardsTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genClaimRewardsSimulate(account, rewards, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastCompoundingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genCompoundingBroadcast(
-                account, rewards, stakingDenom, fee, tip, memo, selectedChain
-            )
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateCompoundingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genCompoundingSimulate(
-                account, rewards, stakingDenom, fee, tip, memo, selectedChain
-            )
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastChangeRewardAddressTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genChangeRewardAddressBroadcast(
-                account, msgSetWithdrawAddress, fee, tip, memo, selectedChain
-            )
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateChangeRewardAddressTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSetWithdrawAddress: com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genChangeRewardAddressSimulate(
-                account, msgSetWithdrawAddress, fee, tip, memo, selectedChain
-            )
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastVoteTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgVotes: MutableList<MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genVoteBroadcast(account, msgVotes, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateVoteTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgVotes: MutableList<MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genVoteSimulate(account, msgVotes, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {

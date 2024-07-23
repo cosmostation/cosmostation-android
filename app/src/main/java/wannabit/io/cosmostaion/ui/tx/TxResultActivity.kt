@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.ServiceGrpc.newStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import io.grpc.stub.StreamObserver
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
@@ -181,22 +183,58 @@ class TxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
-                val stub = newStub(getChannel(chain))
-                val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
+                if (chain.supportCosmosGrpc) {
+                    val stub = newStub(getChannel(chain))
+                    val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
-                stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
-                    override fun onNext(value: ServiceProto.GetTxResponse?) {
-                        txResponse = value
+                    stub.getTx(request, object : StreamObserver<ServiceProto.GetTxResponse> {
+                        override fun onNext(value: ServiceProto.GetTxResponse?) {
+                            txResponse = value
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                updateView()
+                            }, 0)
+                        }
+
+                        override fun onError(t: Throwable?) {
+                            fetchCnt -= 1
+                            if (isSuccess && fetchCnt > 0) {
+                                getChannel(chain).shutdown()
+                                getChannel(chain).awaitTermination(6L, TimeUnit.SECONDS)
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    loadHistoryTx()
+                                }, 6000)
+
+                            } else {
+                                runOnUiThread {
+                                    showMoreWait()
+                                }
+                            }
+                        }
+
+                        override fun onCompleted() {}
+                    })
+
+                } else {
+                    val response = RetrofitInstance.lcdApi(chain).lcdTxInfo(txHash)
+                    if (response.isSuccessful && response.body()
+                            ?.get("tx_response")?.isJsonNull == false && response.body()
+                            ?.get("tx_response")?.asJsonObject?.isJsonNull == false
+                    ) {
+                        val result = response.body()?.get("tx_response")?.asJsonObject
+                        val txResultResponse = AbciProto.TxResponse.newBuilder()
+                            .setTxhash(result?.get("txhash")?.asString)
+                            .setCode(result?.get("code")?.asInt ?: 0)
+                            .setRawLog(result?.get("raw_log")?.asString).build()
+                        txResponse =
+                            ServiceProto.GetTxResponse.newBuilder().setTxResponse(txResultResponse)
+                                .build()
                         Handler(Looper.getMainLooper()).postDelayed({
                             updateView()
                         }, 0)
-                    }
 
-                    override fun onError(t: Throwable?) {
+                    } else {
                         fetchCnt -= 1
                         if (isSuccess && fetchCnt > 0) {
-                            getChannel(chain).shutdown()
-                            getChannel(chain).awaitTermination(6L, TimeUnit.SECONDS)
                             Handler(Looper.getMainLooper()).postDelayed({
                                 loadHistoryTx()
                             }, 6000)
@@ -207,9 +245,7 @@ class TxResultActivity : BaseActivity() {
                             }
                         }
                     }
-
-                    override fun onCompleted() {}
-                })
+                }
             }
         }
     }

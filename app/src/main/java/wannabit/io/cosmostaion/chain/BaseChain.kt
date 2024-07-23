@@ -11,9 +11,13 @@ import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLcdArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLcdAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -424,7 +428,7 @@ open class BaseChain : Parcelable {
 
 fun allChains(): MutableList<BaseChain> {
     var chains = mutableListOf<BaseChain>()
-//    chains.add(ChainCosmos())
+    chains.add(ChainCosmos())
 //    chains.add(ChainAkash())
 //    chains.add(ChainAltheaEvm())
 //    chains.add(ChainAlthea118())
@@ -433,7 +437,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLcdArchway())
 //    chains.add(ChainAvalanche())
 //    chains.add(ChainAssetMantle())
-//    chains.add(ChainAxelar())
+    chains.add(ChainAxelar())
+    chains.add(ChainLcdAxelar())
 //    chains.add(ChainBand())
 //    chains.add(ChainBase())
 //    chains.add(ChainBitcanna())
@@ -483,7 +488,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainOkt996Secp())
 //    chains.add(ChainOmniflix())
 //    chains.add(ChainOnomy())
-//    chains.add(ChainOsmosis())
+    chains.add(ChainOsmosis())
 //    chains.add(ChainOptimism())
 //    chains.add(ChainPassage())
 //    chains.add(ChainPersistence118())

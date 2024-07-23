@@ -14,14 +14,13 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
-import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -66,7 +64,6 @@ class UnStakingFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var toCoin: Coin? = null
     private var txMemo = ""
@@ -169,8 +166,7 @@ class UnStakingFragment : BaseTxFragment() {
                 val feeAmount =
                     baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
                 txFee = TxProto.Fee.newBuilder().setGasLimit(gasAmount.toLong()).addAmount(
-                    Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount.toString())
-                        .build()
+                    Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount.toString()).build()
                 ).build()
 
             } else {
@@ -371,13 +367,11 @@ class UnStakingFragment : BaseTxFragment() {
                                                 val gasAmount = selectedChain.getFeeBaseGasAmount()
                                                     .toBigDecimal()
                                                 val updateFeeCoin =
-                                                    Coin.newBuilder().setDenom(denom)
-                                                        .setAmount(
-                                                            feeCoin.gasRate?.multiply(
-                                                                gasAmount
-                                                            )?.setScale(0, RoundingMode.UP)
-                                                                .toString()
-                                                        ).build()
+                                                    Coin.newBuilder().setDenom(denom).setAmount(
+                                                        feeCoin.gasRate?.multiply(
+                                                            gasAmount
+                                                        )?.setScale(0, RoundingMode.UP).toString()
+                                                    ).build()
 
                                                 txFee = TxProto.Fee.newBuilder().setGasLimit(
                                                     selectedChain.getFeeBaseGasAmount()
@@ -404,8 +398,7 @@ class UnStakingFragment : BaseTxFragment() {
                     val feeAmount =
                         baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
                     txFee = TxProto.Fee.newBuilder().setGasLimit(gasAmount!!.toLong()).addAmount(
-                        Coin.newBuilder().setDenom(feeDenom)
-                            .setAmount(feeAmount.toString()).build()
+                        Coin.newBuilder().setDenom(feeDenom).setAmount(feeAmount.toString()).build()
                     ).build()
                     Signer.setFee(selectedFeeInfo, txFee)
 
@@ -447,12 +440,10 @@ class UnStakingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadUnDelegate(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindUnDelegate(),
+                txViewModel.broadcast(
+                    selectedChain.cosmosFetcher?.getChannel(),
+                    onBindUnDelegateMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -469,12 +460,10 @@ class UnStakingFragment : BaseTxFragment() {
             }
             backdropLayout.visibility = View.VISIBLE
             btnUnstake.updateButtonView(false)
-            txViewModel.simulateUnDelegate(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindUnDelegate(),
+            txViewModel.simulate(
+                selectedChain.cosmosFetcher?.getChannel(),
+                onBindUnDelegateMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -482,8 +471,8 @@ class UnStakingFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            // updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -493,11 +482,11 @@ class UnStakingFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
@@ -537,26 +526,29 @@ class UnStakingFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindUnDelegate(): MsgUndelegate {
-        return MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+    private fun onBindUnDelegateMsg(): MutableList<Any> {
+        val msgUnDelegate = MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
             .setValidatorAddress(validator?.operatorAddress).setAmount(toCoin).build()
+        return Signer.unDelegateMsg(msgUnDelegate)
     }
 
     override fun onDestroyView() {

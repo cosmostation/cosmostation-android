@@ -284,43 +284,45 @@ class ApplicationViewModel(
                             is NetworkResult.Success -> {
                                 when (response.data) {
                                     is MutableList<*> -> {
-                                        if (response.data.all { it is CoinProto.Coin }) {
-                                            cosmosFetcher?.cosmosBalances =
-                                                response.data as MutableList<CoinProto.Coin>
+                                        if (response.data.isEmpty()) {
+                                            mutableListOf<CoinProto.Coin>()
+                                        } else {
+                                            if (response.data.all { it is CoinProto.Coin }) {
+                                                cosmosFetcher?.cosmosBalances =
+                                                    response.data as MutableList<CoinProto.Coin>
 
-                                        } else if (response.data.all { it is StakingProto.DelegationResponse }) {
-                                            cosmosFetcher?.cosmosDelegations?.clear()
-                                            (response.data as MutableList<StakingProto.DelegationResponse>).forEach { delegation ->
-                                                if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                                    cosmosFetcher?.cosmosDelegations?.add(delegation)
+                                            } else if (response.data.all { it is StakingProto.DelegationResponse }) {
+                                                cosmosFetcher?.cosmosDelegations?.clear()
+                                                (response.data as MutableList<StakingProto.DelegationResponse>).forEach { delegation ->
+                                                    if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                                        cosmosFetcher?.cosmosDelegations?.add(delegation)
+                                                    }
                                                 }
-                                            }
 
-                                        } else if (response.data.all { it is StakingProto.UnbondingDelegation }) {
-                                            cosmosFetcher?.cosmosUnbondings?.clear()
-                                            cosmosFetcher?.cosmosUnbondings =
-                                                response.data as MutableList<StakingProto.UnbondingDelegation>
+                                            } else if (response.data.all { it is StakingProto.UnbondingDelegation }) {
+                                                cosmosFetcher?.cosmosUnbondings =
+                                                    response.data as MutableList<StakingProto.UnbondingDelegation>
 
-                                        } else if (response.data.all { it is DistributionProto.DelegationDelegatorReward }) {
-                                            cosmosFetcher?.cosmosRewards?.clear()
-                                            cosmosFetcher?.cosmosRewards =
-                                                response.data as MutableList<DistributionProto.DelegationDelegatorReward>
+                                            } else if (response.data.all { it is DistributionProto.DelegationDelegatorReward }) {
+                                                cosmosFetcher?.cosmosRewards =
+                                                    response.data as MutableList<DistributionProto.DelegationDelegatorReward>
 
-                                        } else if (response.data.all { it is CoinProto.DecCoin }) {
-                                            cosmosFetcher?.cosmosBaseFees?.clear()
-                                            (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                                if (BaseData.getAsset(
-                                                        apiName, baseFee.denom
-                                                    ) != null
-                                                ) {
-                                                    cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                                            } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                cosmosFetcher?.cosmosBaseFees?.clear()
+                                                (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                    if (BaseData.getAsset(
+                                                            apiName, baseFee.denom
+                                                        ) != null
+                                                    ) {
+                                                        cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                                                    }
                                                 }
-                                            }
-                                            cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                                if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                    -1
-                                                } else {
-                                                    0
+                                                cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                    if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                        -1
+                                                    } else {
+                                                        0
+                                                    }
                                                 }
                                             }
                                         }

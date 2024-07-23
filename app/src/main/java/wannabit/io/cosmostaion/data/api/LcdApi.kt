@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.api
 
 import com.google.gson.JsonObject
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -57,6 +56,12 @@ interface LcdApi {
 
     @GET("/blocks/latest")
     suspend fun lcdOldLastHeightInfo(): JsonObject
+
+    @GET("ibc/core/channel/v1/channels/{channel}/ports/{port}/client_state")
+    suspend fun lcdIbcClientInfo(
+        @Path("channel") channel: String?,
+        @Path("port") port: String?
+    ): JsonObject
 
     @POST("/cosmos/tx/v1beta1/simulate")
     @Headers("Content-Type: application/json")

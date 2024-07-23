@@ -14,11 +14,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -59,7 +58,6 @@ class CancelUnBondingFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -364,12 +362,10 @@ class CancelUnBondingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadCancelUnBonding(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindCancelUnBonding(),
+                txViewModel.broadcast(
+                    selectedChain.cosmosFetcher?.getChannel(),
+                    onBindCancelUnBondingMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -383,12 +379,10 @@ class CancelUnBondingFragment : BaseTxFragment() {
             }
             btnCancelUnstake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateCancelUnBonding(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindCancelUnBonding(),
+            txViewModel.simulate(
+                selectedChain.cosmosFetcher?.getChannel(),
+                onBindCancelUnBondingMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -396,8 +390,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            // updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -411,11 +405,11 @@ class CancelUnBondingFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
@@ -454,27 +448,31 @@ class CancelUnBondingFragment : BaseTxFragment() {
         binding.btnCancelUnstake.updateButtonView(isSuccess)
     }
 
-    private fun onBindCancelUnBonding(): MsgCancelUnbondingDelegation? {
+    private fun onBindCancelUnBondingMsg(): MutableList<Any> {
         val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
             .setAmount(unBondingEntry.entry?.balance).build()
-        return MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
-            .setValidatorAddress(unBondingEntry.validatorAddress)
-            .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin).build()
+        val msgCancelUnbondingDelegation =
+            MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
+                .setValidatorAddress(unBondingEntry.validatorAddress)
+                .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin).build()
+        return Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }

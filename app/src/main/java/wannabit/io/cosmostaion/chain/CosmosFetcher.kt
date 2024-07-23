@@ -14,6 +14,9 @@ import com.ethermint.types.v1.AccountProto
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.Timestamp
+import com.ibc.core.channel.v1.QueryGrpc
+import com.ibc.core.channel.v1.QueryProto.QueryChannelClientStateRequest
+import com.ibc.lightclients.tendermint.v1.TendermintProto
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
@@ -21,6 +24,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.Cw721Model
+import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -346,11 +350,29 @@ open class CosmosFetcher(private val chain: BaseChain) {
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height
         } else {
-            return if (chain is ChainGravityBridge) {
+            if (chain is ChainGravityBridge) {
                 RetrofitInstance.lcdApi(chain).lcdOldLastHeightInfo().lastHeight()
             } else {
                 RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
             }
+        }
+    }
+
+    suspend fun ibcClient(assetPath: AssetPath?): Long {
+        return if (chain.supportCosmosGrpc) {
+            val ibcClientStub = QueryGrpc.newBlockingStub(getChannel())
+                .withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val ibcClientRequest =
+                QueryChannelClientStateRequest.newBuilder()
+                    .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
+            val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+            val lastHeight =
+                TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+            return lastHeight.revisionNumber
+
+        } else {
+            RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.channel, assetPath?.port)
+                .revisionNumber()
         }
     }
 }
@@ -486,6 +508,10 @@ fun JsonObject.validators(status: StakingProto.BondStatus): MutableList<StakingP
 
 fun JsonObject.lastHeight(): Long {
     return this["block"].asJsonObject["header"].asJsonObject["height"].asString.toLong()
+}
+
+fun JsonObject.revisionNumber(): Long {
+    return this["identified_client_state"].asJsonObject["client_state"].asJsonObject["latest_height"].asJsonObject["revision_number"].asString.toLong()
 }
 
 fun JsonObject.accountNumber(): Long {

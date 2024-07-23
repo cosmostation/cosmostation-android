@@ -289,20 +289,20 @@ class AllChainClaimFragment : BaseTxFragment() {
                     val channel = getChannel(chain)
                     val simulateStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-                    val simulateTx = Signer.genClaimRewardsSimulate(
-                        loadAuth(channel, chain.address),
-                        claimableRewards,
-                        chain.getInitPayableFee(it),
-                        txTip,
-                        "",
-                        chain
-                    )
-                    try {
-                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-                        onComplete(gasUsed.toString())
-                    } catch (e: Exception) {
-
-                    }
+//                    val simulateTx = Signer.genClaimRewardsSimulate(
+//                        loadAuth(channel, chain.address),
+//                        claimableRewards,
+//                        chain.getInitPayableFee(it),
+//                        txTip,
+//                        "",
+//                        chain
+//                    )
+//                    try {
+//                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
+//                        onComplete(gasUsed.toString())
+//                    } catch (e: Exception) {
+//
+//                    }
                 }
             }
         }
@@ -315,19 +315,19 @@ class AllChainClaimFragment : BaseTxFragment() {
             val channel = getChannel(valueAbleReward.baseChain)
             val txStub =
                 ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genClaimRewardsBroadcast(
-                loadAuth(channel, valueAbleReward.baseChain.address),
-                valueAbleReward.rewards,
-                valueAbleReward.fee,
-                txTip,
-                "",
-                valueAbleReward.baseChain
-            )
-            try {
-                onComplete(txStub.broadcastTx(broadcastTx))
-            } catch (e: Exception) {
-
-            }
+//            val broadcastTx = Signer.genClaimRewardsBroadcast(
+//                loadAuth(channel, valueAbleReward.baseChain.address),
+//                valueAbleReward.rewards,
+//                valueAbleReward.fee,
+//                txTip,
+//                "",
+//                valueAbleReward.baseChain
+//            )
+//            try {
+//                onComplete(txStub.broadcastTx(broadcastTx))
+//            } catch (e: Exception) {
+//
+//            }
         }
     }
 
