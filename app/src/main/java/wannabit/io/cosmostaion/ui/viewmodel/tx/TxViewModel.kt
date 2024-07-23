@@ -14,8 +14,8 @@ import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
-import com.cosmos.tx.v1beta1.ServiceProto.SimulateResponse
-import com.cosmos.tx.v1beta1.TxProto.*
+import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.Tip
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.ibc.core.channel.v1.QueryGrpc
@@ -310,53 +310,53 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()
 
-    val simulate = SingleLiveEvent<AbciProto.GasInfo>()
+    val simulate = SingleLiveEvent<String>()
 
     fun broadcastSend(
         managedChannel: ManagedChannel?,
-        address: String?,
         msgSend: MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastSendTx(
-                managedChannel, it, msgSend, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
+        txRepository.auth(managedChannel, selectedChain).let {
+            txRepository.broadcastSendTx(
+                managedChannel, msgSend, fee, tip, memo, selectedChain
+            )?.let { response ->
+                broadcastTx.postValue(response)
+
+            } ?: run {
+                errorMessage.postValue("Tx error")
+            }
         }
     }
 
     fun simulateSend(
         managedChannel: ManagedChannel?,
-        address: String?,
         msgSend: MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateSendTx(
-                    managedChannel, it, msgSend, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateSendTx(
-                    managedChannel, it, msgSend, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
+        try {
+            txRepository.auth(managedChannel, selectedChain)
+            val response = txRepository.simulateSendTx(
+                managedChannel, msgSend, fee, tip, memo, selectedChain
+            )
+            simulate.postValue(response)
+        } catch (e: Exception) {
+            val errorResponse = txRepository.simulateSendTx(
+                managedChannel, msgSend, fee, tip, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse)
         }
     }
 
     fun broadcastIbcSend(
         managedChannel: ManagedChannel?,
+        account: com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse?,
         recipientChannel: ManagedChannel?,
         toAddress: String?,
         assetPath: AssetPath?,
@@ -365,9 +365,9 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, selectedChain?.address)?.let {
+        txRepository.auth(managedChannel, selectedChain).let {
             try {
                 val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
                     .withDeadlineAfter(8L, TimeUnit.SECONDS)
@@ -394,7 +394,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                     .setToken(sendCoin).build()
 
                 val response = txRepository.broadcastIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
+                    managedChannel, account, msgTransfer, fee, tip, memo, selectedChain
                 )
                 broadcastTx.postValue(response?.txResponse)
             } catch (e: Exception) {
@@ -414,48 +414,46 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, fromAddress)?.let {
-            try {
-                val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
-                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
-                val blockRequest = GetLatestBlockRequest.newBuilder().build()
-                val lastBlock = blockStub.getLatestBlock(blockRequest)
-
-                val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel)
-                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
-                val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
-                    .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
-                val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
-                val lastHeight =
-                    TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
-                val height =
-                    ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber)
-                        .setRevisionHeight(lastBlock.block.header.height + 200)
-
-                val sendCoin =
-                    Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
-
-                val msgTransfer =
-                    MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress)
-                        .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
-                        .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
-
-                val response = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
-                )
-                when (response) {
-                    is SimulateResponse -> simulate.postValue(response.gasInfo)
-                    is String -> errorMessage.postValue(response as? String)
-                    else -> errorMessage.postValue("Unknown Error")
-                }
-            } catch (e: Exception) {
-                errorMessage.postValue("Unknown Error")
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, selectedChain).let {
+//            try {
+//                val blockStub = ServiceGrpc.newBlockingStub(recipientChannel)
+//                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
+//                val blockRequest = GetLatestBlockRequest.newBuilder().build()
+//                val lastBlock = blockStub.getLatestBlock(blockRequest)
+//
+//                val ibcClientStub = QueryGrpc.newBlockingStub(managedChannel)
+//                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
+//                val ibcClientRequest = QueryProto.QueryChannelClientStateRequest.newBuilder()
+//                    .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
+//                val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
+//                val lastHeight =
+//                    TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
+//                val height =
+//                    ClientProto.Height.newBuilder().setRevisionNumber(lastHeight.revisionNumber)
+//                        .setRevisionHeight(lastBlock.block.header.height + 200)
+//
+//                val sendCoin =
+//                    Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
+//
+//                val msgTransfer =
+//                    MsgTransfer.newBuilder().setSender(fromAddress).setReceiver(toAddress)
+//                        .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
+//                        .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
+//
+//                val response = txRepository.simulateIbcSendTx(
+//                    managedChannel, msgTransfer, fee, tip, memo, selectedChain
+//                )
+//                when (response) {
+//                    is SimulateResponse -> simulate.postValue(response.gasInfo)
+//                    is String -> errorMessage.postValue(response as? String)
+//                    else -> errorMessage.postValue("Unknown Error")
+//                }
+//            } catch (e: Exception) {
+//                errorMessage.postValue("Unknown Error")
+//            }
+//        }
     }
 
     fun broadDelegate(
@@ -467,12 +465,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastDelegateTx(
-                managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastDelegateTx(
+//                managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateDelegate(
@@ -484,21 +482,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateDelegateTx(
-                    managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateDelegateTx(
-                    managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateDelegateTx(
+//                    managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateDelegateTx(
+//                    managedChannel, it, msgDelegate, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadUnDelegate(
@@ -510,12 +508,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastUnDelegateTx(
-                managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastUnDelegateTx(
+//                managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateUnDelegate(
@@ -527,21 +525,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateUnDelegateTx(
-                    managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateUnDelegateTx(
-                    managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateUnDelegateTx(
+//                    managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateUnDelegateTx(
+//                    managedChannel, it, msgUnDelegate, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadReDelegate(
@@ -553,12 +551,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastReDelegateTx(
-                managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastReDelegateTx(
+//                managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateReDelegate(
@@ -570,21 +568,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateReDelegateTx(
-                    managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateReDelegateTx(
-                    managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateReDelegateTx(
+//                    managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateReDelegateTx(
+//                    managedChannel, it, msgReDelegate, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadCancelUnBonding(
@@ -596,12 +594,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastCancelUnbondingTx(
-                managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastCancelUnbondingTx(
+//                managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateCancelUnBonding(
@@ -613,21 +611,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateCancelUnbondingTx(
-                    managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateCancelUnbondingTx(
-                    managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateCancelUnbondingTx(
+//                    managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateCancelUnbondingTx(
+//                    managedChannel, it, msgCancelUnbondingDelegation, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadGetRewards(
@@ -639,12 +637,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastGetRewardsTx(
-                managedChannel, it, rewards, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastGetRewardsTx(
+//                managedChannel, it, rewards, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateGetRewards(
@@ -656,21 +654,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateGetRewardsTx(
-                    managedChannel, it, rewards, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateGetRewardsTx(
-                    managedChannel, it, rewards, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateGetRewardsTx(
+//                    managedChannel, it, rewards, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateGetRewardsTx(
+//                    managedChannel, it, rewards, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadCompounding(
@@ -683,12 +681,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastCompoundingTx(
-                managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastCompoundingTx(
+//                managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateCompounding(
@@ -701,21 +699,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateCompoundingTx(
-                    managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateCompoundingTx(
-                    managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateCompoundingTx(
+//                    managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateCompoundingTx(
+//                    managedChannel, it, rewards, stakingDenom, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadChangeRewardAddress(
@@ -727,12 +725,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastChangeRewardAddressTx(
-                managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastChangeRewardAddressTx(
+//                managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateChangeRewardAddress(
@@ -744,21 +742,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateChangeRewardAddressTx(
-                    managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateChangeRewardAddressTx(
-                    managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateChangeRewardAddressTx(
+//                    managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateChangeRewardAddressTx(
+//                    managedChannel, it, msgSetWithdrawAddress, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadVote(
@@ -770,12 +768,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastVoteTx(
-                managedChannel, it, msgVotes, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastVoteTx(
+//                managedChannel, it, msgVotes, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateVote(
@@ -787,21 +785,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateVoteTx(
-                    managedChannel, it, msgVotes, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateVoteTx(
-                    managedChannel, it, msgVotes, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateVoteTx(
+//                    managedChannel, it, msgVotes, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateVoteTx(
+//                    managedChannel, it, msgVotes, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadcastWasm(
@@ -812,12 +810,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, selectedChain?.address)?.let {
-            val response = txRepository.broadcastWasmTx(
-                managedChannel, it, msgWasms, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, selectedChain?.address)?.let {
+//            val response = txRepository.broadcastWasmTx(
+//                managedChannel, it, msgWasms, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateWasm(
@@ -829,21 +827,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateWasmTx(
-                    managedChannel, it, msgWasms, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateWasmTx(
-                    managedChannel, it, msgWasms, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateWasmTx(
+//                    managedChannel, it, msgWasms, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateWasmTx(
+//                    managedChannel, it, msgWasms, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadClaimIncentive(
@@ -855,12 +853,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastClaimIncentiveTx(
-                managedChannel, it, incentive, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastClaimIncentiveTx(
+//                managedChannel, it, incentive, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateClaimIncentive(
@@ -872,21 +870,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateClaimIncentiveTx(
-                    managedChannel, it, incentive, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateClaimIncentiveTx(
-                    managedChannel, it, incentive, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateClaimIncentiveTx(
+//                    managedChannel, it, incentive, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateClaimIncentiveTx(
+//                    managedChannel, it, incentive, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadMintCreate(
@@ -898,12 +896,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastMintCreateTx(
-                managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastMintCreateTx(
+//                managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateMintCreate(
@@ -915,21 +913,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateMintCreateTx(
-                    managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateMintCreateTx(
-                    managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateMintCreateTx(
+//                    managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateMintCreateTx(
+//                    managedChannel, it, msgCreateCDP, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadMintDeposit(
@@ -941,12 +939,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastMintDepositTx(
-                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastMintDepositTx(
+//                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateMintDeposit(
@@ -958,21 +956,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateMintDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateMintDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateMintDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateMintDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadMintWithdraw(
@@ -984,12 +982,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastMintWithdrawTx(
-                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastMintWithdrawTx(
+//                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateMintWithdraw(
@@ -1001,21 +999,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateMintWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateMintWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateMintWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateMintWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadMintBorrow(
@@ -1027,12 +1025,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastMintBorrowTx(
-                managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastMintBorrowTx(
+//                managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateMintBorrow(
@@ -1044,21 +1042,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateMintBorrowTx(
-                    managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateMintBorrowTx(
-                    managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateMintBorrowTx(
+//                    managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateMintBorrowTx(
+//                    managedChannel, it, msgDrawDebt, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadMintRepay(
@@ -1070,12 +1068,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastMintRepayTx(
-                managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastMintRepayTx(
+//                managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateMintRepay(
@@ -1087,21 +1085,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateMintRepayTx(
-                    managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateMintRepayTx(
-                    managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateMintRepayTx(
+//                    managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateMintRepayTx(
+//                    managedChannel, it, msgRepayDebt, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadLendDeposit(
@@ -1113,12 +1111,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastLendDepositTx(
-                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastLendDepositTx(
+//                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateLendDeposit(
@@ -1130,21 +1128,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateLendDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateLendDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateLendDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateLendDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadLendWithdraw(
@@ -1156,12 +1154,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastLendWithdrawTx(
-                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastLendWithdrawTx(
+//                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateLendWithdraw(
@@ -1173,21 +1171,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateLendWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateLendWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateLendWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateLendWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadLendBorrow(
@@ -1199,12 +1197,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastLendBorrowTx(
-                managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastLendBorrowTx(
+//                managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateLendBorrow(
@@ -1216,21 +1214,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateLendBorrowTx(
-                    managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateLendBorrowTx(
-                    managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateLendBorrowTx(
+//                    managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateLendBorrowTx(
+//                    managedChannel, it, msgBorrow, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadLendRepay(
@@ -1242,12 +1240,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastLendRepayTx(
-                managedChannel, it, msgRepay, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastLendRepayTx(
+//                managedChannel, it, msgRepay, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateLendRepay(
@@ -1259,21 +1257,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateLendRepayTx(
-                    managedChannel, it, msgRepay, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateLendRepayTx(
-                    managedChannel, it, msgRepay, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateLendRepayTx(
+//                    managedChannel, it, msgRepay, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateLendRepayTx(
+//                    managedChannel, it, msgRepay, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadPoolDeposit(
@@ -1285,12 +1283,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastPoolDepositTx(
-                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastPoolDepositTx(
+//                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulatePoolDeposit(
@@ -1302,21 +1300,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulatePoolDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulatePoolDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulatePoolDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulatePoolDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadPoolWithdraw(
@@ -1328,12 +1326,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastPoolWithdrawTx(
-                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastPoolWithdrawTx(
+//                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulatePoolWithdraw(
@@ -1345,21 +1343,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulatePoolWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulatePoolWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulatePoolWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulatePoolWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadEarnDeposit(
@@ -1371,12 +1369,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastEarnDepositTx(
-                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastEarnDepositTx(
+//                managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateEarnDeposit(
@@ -1388,21 +1386,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateEarnDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateEarnDepositTx(
-                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateEarnDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateEarnDepositTx(
+//                    managedChannel, it, msgDeposit, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     fun broadEarnWithdraw(
@@ -1414,12 +1412,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            val response = txRepository.broadcastEarnWithdrawTx(
-                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            val response = txRepository.broadcastEarnWithdrawTx(
+//                managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateEarnWithdraw(
@@ -1431,21 +1429,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, address)?.let {
-            try {
-                val response = txRepository.simulateEarnWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateEarnWithdrawTx(
-                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, address)?.let {
+//            try {
+//                val response = txRepository.simulateEarnWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateEarnWithdrawTx(
+//                    managedChannel, it, msgWithdraw, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 
     val broadcastOktTx = SingleLiveEvent<LegacyRes?>()
@@ -1463,12 +1461,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, selectedChain?.address)?.let {
-            val response = txRepository.broadcastIbcSendTx(
-                managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
-            )
-            broadcastTx.postValue(response?.txResponse)
-        }
+//        txRepository.auth(managedChannel, selectedChain?.address)?.let {
+//            val response = txRepository.broadcastIbcSendTx(
+//                managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
+//            )
+//            broadcastTx.postValue(response?.txResponse)
+//        }
     }
 
     fun simulateSkipIbcSend(
@@ -1480,20 +1478,20 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         memo: String,
         selectedChain: BaseChain?
     ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, fromAddress)?.let {
-            try {
-                val response = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
-                ) as SimulateResponse
-                simulate.postValue(response.gasInfo)
-            } catch (e: Exception) {
-                val errorResponse = txRepository.simulateIbcSendTx(
-                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
-                ) as String
-                errorMessage.postValue(errorResponse)
-            }
-        } ?: run {
-            errorMessage.postValue("No key account")
-        }
+//        txRepository.auth(managedChannel, fromAddress)?.let {
+//            try {
+//                val response = txRepository.simulateIbcSendTx(
+//                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
+//                ) as SimulateResponse
+//                simulate.postValue(response.gasInfo)
+//            } catch (e: Exception) {
+//                val errorResponse = txRepository.simulateIbcSendTx(
+//                    managedChannel, it, msgTransfer, fee, tip, memo, selectedChain
+//                ) as String
+//                errorMessage.postValue(errorResponse)
+//            }
+//        } ?: run {
+//            errorMessage.postValue("No key account")
+//        }
     }
 }

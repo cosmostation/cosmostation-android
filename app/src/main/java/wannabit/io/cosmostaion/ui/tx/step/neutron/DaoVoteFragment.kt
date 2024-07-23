@@ -451,7 +451,7 @@ class DaoVoteFragment : BaseTxFragment() {
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+            // updateFeeViewWithSimulate(gasInfo)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->

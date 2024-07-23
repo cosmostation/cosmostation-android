@@ -16,7 +16,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
@@ -886,8 +885,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                         } else {
                             txViewModel.simulateSend(
-                                getChannel(this),
-                                address,
+                                fromChain.cosmosFetcher?.getChannel(),
                                 onBindSend(),
                                 cosmosTxFee,
                                 txTip,
@@ -934,13 +932,12 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         if (transferStyle == TransferStyle.COSMOS_STYLE) {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
-                    gasInfo?.let { info ->
-                        val gasLimit =
-                            (info.gasUsed.toDouble() * gasMultiply()).toLong().toBigDecimal()
+                    gasUsed?.toLong()?.let { gas ->
+                        val gasLimit = (gas.toDouble() * gasMultiply()).toLong().toBigDecimal()
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
@@ -1052,8 +1049,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                             } else {
                                 txViewModel.broadcastSend(
-                                    getChannel(this),
-                                    this.address,
+                                    cosmosFetcher?.getChannel(),
                                     onBindSend(),
                                     cosmosTxFee,
                                     txTip,
@@ -1074,18 +1070,18 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
 
                             } else {
-                                txViewModel.broadcastIbcSend(
-                                    getChannel(this),
-                                    getRecipientChannel(),
-                                    toAddress,
-                                    assetPath,
-                                    toSendDenom,
-                                    toSendAmount,
-                                    cosmosTxFee,
-                                    txTip,
-                                    txMemo,
-                                    this
-                                )
+//                                txViewModel.broadcastIbcSend(
+//                                    getChannel(this),
+//                                    getRecipientChannel(),
+//                                    toAddress,
+//                                    assetPath,
+//                                    toSendDenom,
+//                                    toSendAmount,
+//                                    cosmosTxFee,
+//                                    txTip,
+//                                    txMemo,
+//                                    this
+//                                )
                             }
                         }
                     }
@@ -1094,8 +1090,8 @@ class CommonTransferFragment : BaseTxFragment() {
         }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.simulateEvmSend.observe(viewLifecycleOwner) { response ->

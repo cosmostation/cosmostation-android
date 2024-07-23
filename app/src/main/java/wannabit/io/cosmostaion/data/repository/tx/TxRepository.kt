@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.data.repository.tx
 
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
+import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.gov.v1beta1.TxProto
@@ -10,7 +11,8 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
-import com.cosmos.tx.v1beta1.TxProto.*
+import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.Tip
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
@@ -44,7 +46,7 @@ interface TxRepository {
         managedChannel: ManagedChannel?, userInput: String?
     ): String?
 
-    suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse?
+    suspend fun auth(managedChannel: ManagedChannel?, chain: BaseChain)
 
     suspend fun broadcastEvmSendTx(
         web3j: Web3j, hexValue: String
@@ -115,23 +117,21 @@ interface TxRepository {
 
     suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
+        selectedChain: BaseChain
+    ): AbciProto.TxResponse?
 
     suspend fun simulateSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgSend: MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): Any?
+        selectedChain: BaseChain
+    ): String
 
     suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
@@ -144,17 +144,16 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateIbcSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastWasmTx(
@@ -164,7 +163,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateWasmTx(
@@ -174,7 +173,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastDelegateTx(
@@ -184,7 +183,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateDelegateTx(
@@ -194,7 +193,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastUnDelegateTx(
@@ -204,7 +203,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateUnDelegateTx(
@@ -214,7 +213,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastReDelegateTx(
@@ -224,7 +223,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateReDelegateTx(
@@ -234,7 +233,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastCancelUnbondingTx(
@@ -244,7 +243,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateCancelUnbondingTx(
@@ -254,7 +253,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastGetRewardsTx(
@@ -264,7 +263,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateGetRewardsTx(
@@ -274,7 +273,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastCompoundingTx(
@@ -285,7 +284,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateCompoundingTx(
@@ -296,7 +295,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastChangeRewardAddressTx(
@@ -306,7 +305,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateChangeRewardAddressTx(
@@ -316,7 +315,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastVoteTx(
@@ -326,7 +325,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateVoteTx(
@@ -336,7 +335,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastClaimIncentiveTx(
@@ -346,7 +345,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateClaimIncentiveTx(
@@ -356,7 +355,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastMintCreateTx(
@@ -366,7 +365,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateMintCreateTx(
@@ -376,7 +375,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastMintDepositTx(
@@ -386,7 +385,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateMintDepositTx(
@@ -396,7 +395,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastMintWithdrawTx(
@@ -406,7 +405,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateMintWithdrawTx(
@@ -416,7 +415,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastMintBorrowTx(
@@ -426,7 +425,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateMintBorrowTx(
@@ -436,7 +435,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastMintRepayTx(
@@ -446,7 +445,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateMintRepayTx(
@@ -456,7 +455,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastLendDepositTx(
@@ -466,7 +465,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateLendDepositTx(
@@ -476,7 +475,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastLendWithdrawTx(
@@ -486,7 +485,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateLendWithdrawTx(
@@ -496,7 +495,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastLendBorrowTx(
@@ -506,7 +505,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateLendBorrowTx(
@@ -516,7 +515,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastLendRepayTx(
@@ -526,7 +525,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateLendRepayTx(
@@ -536,7 +535,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastPoolDepositTx(
@@ -546,7 +545,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolDepositTx(
@@ -556,7 +555,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastPoolWithdrawTx(
@@ -566,7 +565,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulatePoolWithdrawTx(
@@ -576,7 +575,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastEarnDepositTx(
@@ -586,7 +585,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnDepositTx(
@@ -596,7 +595,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 
     suspend fun broadcastEarnWithdrawTx(
@@ -606,7 +605,7 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxResponse?
 
     suspend fun simulateEarnWithdrawTx(
@@ -616,6 +615,6 @@ interface TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 }

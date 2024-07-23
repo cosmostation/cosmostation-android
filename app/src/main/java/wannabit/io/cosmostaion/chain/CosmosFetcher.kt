@@ -1,7 +1,8 @@
 package wannabit.io.cosmostaion.chain
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.AuthProto
+import com.cosmos.base.tendermint.v1beta1.QueryProto
+import com.cosmos.base.tendermint.v1beta1.ServiceGrpc
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
@@ -15,13 +16,16 @@ import com.google.protobuf.Any
 import com.google.protobuf.Timestamp
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.concurrent.TimeUnit
 
 open class CosmosFetcher(private val chain: BaseChain) {
 
@@ -195,11 +199,9 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
-        Log.e("Test1234 : ", chain.apiName + " : " + denom)
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
-            Log.e("Test1234 : ", amount.toString())
             asset.decimals?.let { decimal ->
                 return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
             }
@@ -225,7 +227,6 @@ open class CosmosFetcher(private val chain: BaseChain) {
     fun rewardAllCoins(): List<CoinProto.Coin> {
         val result: MutableList<CoinProto.Coin> = mutableListOf()
         cosmosRewards.forEach { reward ->
-            Log.e("Test1245 : ", reward.toString())
             reward.rewardList.forEach { coin ->
                 val calAmount =
                     coin.amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
@@ -336,6 +337,22 @@ open class CosmosFetcher(private val chain: BaseChain) {
             ).useTransportSecurity().build()
         }
     }
+
+    suspend fun lastHeight(): Long {
+        return if (chain.supportCosmosGrpc) {
+            val blockStub =
+                ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
+            val lastBlock = blockStub.getLatestBlock(blockRequest)
+            lastBlock.block.header.height
+        } else {
+            return if (chain is ChainGravityBridge) {
+                RetrofitInstance.lcdApi(chain).lcdOldLastHeightInfo().lastHeight()
+            } else {
+                RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
+            }
+        }
+    }
 }
 
 fun JsonObject.balance(): MutableList<CoinProto.Coin> {
@@ -431,6 +448,44 @@ fun JsonObject.feeMarket(): MutableList<CoinProto.DecCoin> {
         result.add(feeMakretCoin)
     }
     return result
+}
+
+fun JsonObject.validators(status: StakingProto.BondStatus): MutableList<StakingProto.Validator> {
+    val result = mutableListOf<StakingProto.Validator>()
+    this["validators"].asJsonArray.forEach { validator ->
+        val description = StakingProto.Description.newBuilder()
+            .setMoniker(validator.asJsonObject["description"].asJsonObject["moniker"].asString)
+            .setIdentity(validator.asJsonObject["description"].asJsonObject["identity"].asString)
+            .setWebsite(validator.asJsonObject["description"].asJsonObject["website"].asString)
+            .setSecurityContact(validator.asJsonObject["description"].asJsonObject["security_contact"].asString)
+            .setDetails(validator.asJsonObject["description"].asJsonObject["details"].asString)
+            .build()
+
+        val commissionRate = StakingProto.CommissionRates.newBuilder().setRate(
+            validator.asJsonObject["commission"].asJsonObject["commission_rates"].asJsonObject["rate"].asString.toBigDecimal()
+                .movePointRight(18).setScale(0, RoundingMode.DOWN).toString()
+        ).setMaxRate(
+            validator.asJsonObject["commission"].asJsonObject["commission_rates"].asJsonObject["max_rate"].asString.toBigDecimal()
+                .movePointRight(18).setScale(0, RoundingMode.DOWN).toString()
+        ).setMaxChangeRate(
+            validator.asJsonObject["commission"].asJsonObject["commission_rates"].asJsonObject["max_change_rate"].asString.toBigDecimal()
+                .movePointRight(18).setScale(0, RoundingMode.DOWN).toString()
+        )
+        val commission =
+            StakingProto.Commission.newBuilder().setCommissionRates(commissionRate).build()
+
+        val validatorResponse = StakingProto.Validator.newBuilder()
+            .setOperatorAddress(validator.asJsonObject["operator_address"].asString)
+            .setJailed(validator.asJsonObject["jailed"].asBoolean)
+            .setTokens(validator.asJsonObject["tokens"].asString).setStatus(status)
+            .setDescription(description).setCommission(commission).build()
+        result.add(validatorResponse)
+    }
+    return result
+}
+
+fun JsonObject.lastHeight(): Long {
+    return this["block"].asJsonObject["header"].asJsonObject["height"].asString.toLong()
 }
 
 fun JsonObject.accountNumber(): Long {

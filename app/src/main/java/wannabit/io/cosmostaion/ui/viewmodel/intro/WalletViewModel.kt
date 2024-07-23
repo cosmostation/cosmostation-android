@@ -175,11 +175,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             return@launch
         }
         val tempValidators = mutableListOf<StakingProto.Validator>()
-        val channel = getChannel(chain)
+        val channel = chain.cosmosFetcher?.getChannel()
         try {
-            val loadBondedDeferred = async { walletRepository.bondedValidator(channel) }
-            val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
-            val loadUnBondingDeferred = async { walletRepository.unBondingValidator(channel) }
+            val loadBondedDeferred = async { walletRepository.bondedValidator(channel, chain) }
+            val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel, chain) }
+            val loadUnBondingDeferred =
+                async { walletRepository.unBondingValidator(channel, chain) }
 
             val bondedValidatorsResult = loadBondedDeferred.await()
             if (bondedValidatorsResult is NetworkResult.Success) {
@@ -223,9 +224,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             chain.cosmosFetcher?.cosmosValidators = dataTempValidators
 
         } finally {
-            channel.shutdown()
+            channel?.shutdown()
             try {
-                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
                     channel.shutdownNow()
                 }
             } catch (e: InterruptedException) {
@@ -383,7 +384,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     var cw721ModelResult = SingleLiveEvent<String>()
     fun cw721AllTokens(chain: BaseChain, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
-        val channel = getChannel(chain)
+        val channel = chain.cosmosFetcher?.getChannel()
         when (val response = walletRepository.cw721TokenIds(channel, chain, list)) {
             is NetworkResult.Success -> {
                 response.data?.let { tokenIds ->

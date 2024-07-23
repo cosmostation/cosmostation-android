@@ -97,26 +97,16 @@ import java.util.concurrent.TimeUnit
 
 object Signer {
 
-    fun genSendBroadcast(
-        auth: QueryAccountResponse?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genSendBroadcast(
+        msgSend: MsgSend?, fee: Fee?, tip: Tip?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, sendMsg(msgSend), fee, tip, memo, selectedChain)
+        return signBroadcastTx(sendMsg(msgSend), fee, tip, memo, selectedChain)
     }
 
-    fun genSendSimulate(
-        auth: QueryAccountResponse?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genSendSimulate(
+        msgSend: MsgSend?, fee: Fee?, tip: Tip?, memo: String, selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, sendMsg(msgSend), fee, tip, memo, selectedChain)
+        return signSimulTx(sendMsg(msgSend), fee, tip, memo, selectedChain)
     }
 
     private fun sendMsg(msgSend: MsgSend?): MutableList<Any> {
@@ -128,26 +118,21 @@ object Signer {
         return msgAnys
     }
 
-    fun genIbcSendBroadcast(
+    suspend fun genIbcSendBroadcast(
         auth: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
+        return signBroadcastTx(ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
     }
 
-    fun genIbcSendSimulate(
-        auth: QueryAccountResponse?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genIbcSendSimulate(
+        msgTransfer: MsgTransfer?, fee: Fee?, tip: Tip?, memo: String, selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
+        return signSimulTx(ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
     }
 
     private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
@@ -159,26 +144,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genWasmBroadcast(
+    suspend fun genWasmBroadcast(
         auth: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, wasmMsg(msgWasms), fee, tip, memo, selectedChain)
+        return signBroadcastTx(wasmMsg(msgWasms), fee, tip, memo, selectedChain)
     }
 
-    fun genWasmSimulate(
+    suspend fun genWasmSimulate(
         auth: QueryAccountResponse?,
         msgWasms: MutableList<MsgExecuteContract?>?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, wasmMsg(msgWasms), fee, tip, memo, selectedChain)
+        return signSimulTx(wasmMsg(msgWasms), fee, tip, memo, selectedChain)
     }
 
     private fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {
@@ -192,26 +177,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genDelegateBroadcast(
+    suspend fun genDelegateBroadcast(
         auth: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
+        return signBroadcastTx(delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
     }
 
-    fun genDelegateSimulate(
+    suspend fun genDelegateSimulate(
         auth: QueryAccountResponse?,
         msgDelegate: MsgDelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
+        return signSimulTx(delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
     }
 
     private fun delegateMsg(msgDelegate: MsgDelegate?): MutableList<Any> {
@@ -223,26 +208,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genUnDelegateBroadcast(
+    suspend fun genUnDelegateBroadcast(
         auth: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
+        return signBroadcastTx(unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
     }
 
-    fun genUnDelegateSimulate(
+    suspend fun genUnDelegateSimulate(
         auth: QueryAccountResponse?,
         msgUnDelegate: MsgUndelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
+        return signSimulTx(unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
     }
 
     private fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
@@ -254,26 +239,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genReDelegateBroadcast(
+    suspend fun genReDelegateBroadcast(
         auth: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
+        return signBroadcastTx(reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
     }
 
-    fun genReDelegateSimulate(
+    suspend fun genReDelegateSimulate(
         auth: QueryAccountResponse?,
         msgReDelegate: MsgBeginRedelegate?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
+        return signSimulTx(reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
     }
 
     private fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
@@ -285,29 +270,29 @@ object Signer {
         return msgAnys
     }
 
-    fun genCancelUnbondingBroadcast(
+    suspend fun genCancelUnbondingBroadcast(
         auth: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
         return signBroadcastTx(
-            auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
+            cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
         )
     }
 
-    fun genCancelUnbondingSimulate(
+    suspend fun genCancelUnbondingSimulate(
         auth: QueryAccountResponse?,
         msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
         return signSimulTx(
-            auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
+            cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
         )
     }
 
@@ -320,29 +305,29 @@ object Signer {
         return msgAnys
     }
 
-    fun genClaimRewardsBroadcast(
+    suspend fun genClaimRewardsBroadcast(
         auth: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
         return signBroadcastTx(
-            auth, claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
+            claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
         )
     }
 
-    fun genClaimRewardsSimulate(
+    suspend fun genClaimRewardsSimulate(
         auth: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
         return signSimulTx(
-            auth, claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
+            claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
         )
     }
 
@@ -362,31 +347,31 @@ object Signer {
         return msgAnys
     }
 
-    fun genCompoundingBroadcast(
+    suspend fun genCompoundingBroadcast(
         auth: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
         return signBroadcastTx(
-            auth, compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
+            compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
         )
     }
 
-    fun genCompoundingSimulate(
+    suspend fun genCompoundingSimulate(
         auth: QueryAccountResponse?,
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
         return signSimulTx(
-            auth, compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
+            compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
         )
     }
 
@@ -420,29 +405,29 @@ object Signer {
         return msgAnys
     }
 
-    fun genChangeRewardAddressBroadcast(
+    suspend fun genChangeRewardAddressBroadcast(
         auth: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
         return signBroadcastTx(
-            auth, changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
+            changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
         )
     }
 
-    fun genChangeRewardAddressSimulate(
+    suspend fun genChangeRewardAddressSimulate(
         auth: QueryAccountResponse?,
         msgSetWithdrawAddress: MsgSetWithdrawAddress?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
         return signSimulTx(
-            auth, changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
+            changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
         )
     }
 
@@ -455,26 +440,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genVoteBroadcast(
+    suspend fun genVoteBroadcast(
         auth: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, voteMsg(msgVotes), fee, tip, memo, selectedChain)
+        return signBroadcastTx(voteMsg(msgVotes), fee, tip, memo, selectedChain)
     }
 
-    fun genVoteSimulate(
+    suspend fun genVoteSimulate(
         auth: QueryAccountResponse?,
         msgVotes: MutableList<TxProto.MsgVote?>?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, voteMsg(msgVotes), fee, tip, memo, selectedChain)
+        return signSimulTx(voteMsg(msgVotes), fee, tip, memo, selectedChain)
     }
 
     private fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
@@ -487,28 +472,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genClaimIncentiveBroadcast(
+    suspend fun genClaimIncentiveBroadcast(
         auth: QueryAccountResponse?,
         incentive: QueryRewardsResponse,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain
-        )
+        return signBroadcastTx(claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain)
     }
 
-    fun genClaimIncentiveSimulate(
+    suspend fun genClaimIncentiveSimulate(
         auth: QueryAccountResponse?,
         incentive: QueryRewardsResponse,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain)
+        return signSimulTx(claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain)
     }
 
     private fun claimIncentiveMsg(
@@ -586,26 +569,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintCreateBroadcast(
+    suspend fun genMintCreateBroadcast(
         auth: QueryAccountResponse?,
         msgCreateMint: MsgCreateCDP?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
+        return signBroadcastTx(mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
     }
 
-    fun genMintCreateSimulate(
+    suspend fun genMintCreateSimulate(
         auth: QueryAccountResponse?,
         msgCreateMint: MsgCreateCDP?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
+        return signSimulTx(mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
     }
 
     private fun mintCreateMsg(msgCreateMint: MsgCreateCDP?): MutableList<Any> {
@@ -617,26 +600,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintDepositBroadcast(
+    suspend fun genMintDepositBroadcast(
         auth: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signBroadcastTx(mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
-    fun genMintDepositSimulate(
+    suspend fun genMintDepositSimulate(
         auth: QueryAccountResponse?,
         msgDeposit: MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signSimulTx(mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
     private fun mintDepositMsg(msgDeposit: MsgDeposit?): MutableList<Any> {
@@ -648,26 +631,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintWithdrawBroadcast(
+    suspend fun genMintWithdrawBroadcast(
         auth: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signBroadcastTx(mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
-    fun genMintWithdrawSimulate(
+    suspend fun genMintWithdrawSimulate(
         auth: QueryAccountResponse?,
         msgWithdraw: MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signSimulTx(mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
     private fun mintWithdrawMsg(msgWithdraw: MsgWithdraw?): MutableList<Any> {
@@ -679,26 +662,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintBorrowBroadcast(
+    suspend fun genMintBorrowBroadcast(
         auth: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
+        return signBroadcastTx(mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
     }
 
-    fun genMintBorrowSimulate(
+    suspend fun genMintBorrowSimulate(
         auth: QueryAccountResponse?,
         msgDrawDebt: MsgDrawDebt?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
+        return signSimulTx(mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
     }
 
     private fun mintBorrowMsg(msgDrawDebt: MsgDrawDebt?): MutableList<Any> {
@@ -710,26 +693,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintRepayBroadcast(
+    suspend fun genMintRepayBroadcast(
         auth: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
+        return signBroadcastTx(mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
     }
 
-    fun genMintRepaySimulate(
+    suspend fun genMintRepaySimulate(
         auth: QueryAccountResponse?,
         msgRepayDebt: MsgRepayDebt?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
+        return signSimulTx(mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
     }
 
     private fun mintRepayMsg(msgRepayDebt: MsgRepayDebt?): MutableList<Any> {
@@ -741,26 +724,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendDepositBroadcast(
+    suspend fun genLendDepositBroadcast(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signBroadcastTx(lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
-    fun genLendDepositSimulate(
+    suspend fun genLendDepositSimulate(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signSimulTx(lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
     private fun lendDepositMsg(msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
@@ -772,26 +755,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendWithdrawBroadcast(
+    suspend fun genLendWithdrawBroadcast(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signBroadcastTx(lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
-    fun genLendWithdrawSimulate(
+    suspend fun genLendWithdrawSimulate(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signSimulTx(lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
     private fun lendWithdrawMsg(msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
@@ -803,26 +786,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendBorrowBroadcast(
+    suspend fun genLendBorrowBroadcast(
         auth: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
+        return signBroadcastTx(lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
     }
 
-    fun genLendBorrowSimulate(
+    suspend fun genLendBorrowSimulate(
         auth: QueryAccountResponse?,
         msgBorrow: MsgBorrow?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
+        return signSimulTx(lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
     }
 
     private fun lendBorrowMsg(msgBorrow: MsgBorrow?): MutableList<Any> {
@@ -834,26 +817,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendRepayBroadcast(
+    suspend fun genLendRepayBroadcast(
         auth: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
+        return signBroadcastTx(lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
     }
 
-    fun genLendRepaySimulate(
+    suspend fun genLendRepaySimulate(
         auth: QueryAccountResponse?,
         msgRepay: MsgRepay?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
+        return signSimulTx(lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
     }
 
     private fun lendRepayMsg(msgRepay: MsgRepay?): MutableList<Any> {
@@ -865,26 +848,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genPoolDepositBroadcast(
+    suspend fun genPoolDepositBroadcast(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signBroadcastTx(poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
-    fun genPoolDepositSimulate(
+    suspend fun genPoolDepositSimulate(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signSimulTx(poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
     private fun poolDepositMsg(msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
@@ -896,26 +879,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genPoolWithdrawBroadcast(
+    suspend fun genPoolWithdrawBroadcast(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signBroadcastTx(poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
-    fun genPoolWithdrawSimulate(
+    suspend fun genPoolWithdrawSimulate(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signSimulTx(poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
     private fun poolWithdrawMsg(msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
@@ -927,26 +910,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genEarnDepositBroadcast(
+    suspend fun genEarnDepositBroadcast(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signBroadcastTx(earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
-    fun genEarnDepositSimulate(
+    suspend fun genEarnDepositSimulate(
         auth: QueryAccountResponse?,
         msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
+        return signSimulTx(earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
     }
 
     private fun earnDepositMsg(msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?): MutableList<Any> {
@@ -958,26 +941,26 @@ object Signer {
         return msgAnys
     }
 
-    fun genEarnWithdrawBroadcast(
+    suspend fun genEarnWithdrawBroadcast(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signBroadcastTx(earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
-    fun genEarnWithdrawSimulate(
+    suspend fun genEarnWithdrawSimulate(
         auth: QueryAccountResponse?,
         msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
+        return signSimulTx(earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
     }
 
     private fun earnWithdrawMsg(msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?): MutableList<Any> {
@@ -1122,50 +1105,40 @@ object Signer {
         return Triple("", -1, -1)
     }
 
-    private fun signBroadcastTx(
-        auth: QueryAccountResponse?,
-        msgAnys: List<Any>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    private suspend fun signBroadcastTx(
+        msgAnys: List<Any>?, fee: Fee?, tip: Tip?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
-        val signerInfo = grpcSignerInfo(auth, selectedChain)
-        val authInfo = grpcAuthInfo(signerInfo, fee, tip)
-        val broadcastTx = grpcBroadcastTx(auth, txBody, authInfo, selectedChain)
-        return BroadcastTxRequest.newBuilder()
-            .setModeValue(BroadcastMode.BROADCAST_MODE_SYNC.number)
-            .setTxBytes(broadcastTx?.toByteString()).build()
-    }
-
-    private fun signSimulTx(
-        auth: QueryAccountResponse?,
-        msgAnys: List<Any>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
-        val signerInfo = grpcSimulInfo(auth)
-        val authInfo = grpcAuthInfo(signerInfo, fee, tip)
-        val simulateTx = grpcSimulTx(txBody, authInfo)
-        return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
-    }
-
-    private fun grpcLatestHeight(selectedChain: BaseChain?): Long {
-        selectedChain?.let { line ->
-            val channel = getChannel(line)
-            val blockStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
-            val lastBlock = blockStub.getLatestBlock(blockRequest)
-            return lastBlock.block.header.height
+        selectedChain.cosmosFetcher()?.lastHeight()?.let { height ->
+            val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
+            val signerInfo = grpcSignerInfo(selectedChain)
+            val authInfo = grpcAuthInfo(signerInfo, fee, tip)
+            val broadcastTx = grpcBroadcastTx(txBody, authInfo, selectedChain)
+            return BroadcastTxRequest.newBuilder()
+                .setModeValue(BroadcastMode.BROADCAST_MODE_SYNC.number)
+                .setTxBytes(broadcastTx?.toByteString()).build()
         }
-        return 0
+        return null
+    }
+
+    private suspend fun signSimulTx(
+        msgAnys: List<Any>?, fee: Fee?, tip: Tip?, memo: String, selectedChain: BaseChain
+    ): SimulateRequest? {
+        selectedChain.cosmosFetcher()?.lastHeight()?.let { height ->
+            val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
+            val signerInfo = grpcSimulInfo(selectedChain)
+            val authInfo = grpcAuthInfo(signerInfo, fee, tip)
+            val simulateTx = grpcSimulTx(txBody, authInfo)
+            return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+        }
+        return null
+    }
+
+    private fun grpcLatestHeight(chain: BaseChain): Long {
+        val channel = getChannel(chain)
+        val blockStub = ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
+        val lastBlock = blockStub.getLatestBlock(blockRequest)
+        return lastBlock.block.header.height
     }
 
     private fun grpcTxBody(
@@ -1179,37 +1152,34 @@ object Signer {
     }
 
     private fun grpcSignerInfo(
-        auth: QueryAccountResponse?, selectedChain: BaseChain?
+        chain: BaseChain?
     ): SignerInfo? {
-        ECKey.fromPrivate(selectedChain?.privateKey)?.let {
-            val pubKey = generateGrpcPubKeyFromPriv(selectedChain, it.privateKeyAsHex)
+        ECKey.fromPrivate(chain?.privateKey)?.let {
+            val pubKey = generateGrpcPubKeyFromPriv(chain, it.privateKeyAsHex)
             val singleMode =
                 ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
             val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
             return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-                .setSequence(parseAuthGrpc(auth).third).build()
+                .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
         }
         return null
     }
 
-    private fun grpcSimulInfo(auth: QueryAccountResponse?): SignerInfo {
+    private fun grpcSimulInfo(chain: BaseChain?): SignerInfo {
         val singleMode =
             ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
         val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
-        var pubKey: Any? = null
-        auth?.let {
-            pubKey = if (it.account.typeUrl.contains("/ethermint")) {
-                Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
-            } else if (it.account.typeUrl.contains("/injective")) {
-                Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
-            } else if (it.account.typeUrl.contains("/artela")) {
-                Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
-            } else {
-                Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
-            }
+        val pubKey = if (chain is ChainInjective) {
+            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
+        } else if (chain is ChainArtelaTestnet) {
+            Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
+        } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
+        } else {
+            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
         }
         return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-            .setSequence(parseAuthGrpc(auth).third).build()
+            .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
     }
 
     private fun grpcAuthInfo(signerInfo: SignerInfo?, fee: Fee?, tip: Tip?): AuthInfo? {
@@ -1227,14 +1197,14 @@ object Signer {
     }
 
     private fun grpcBroadcastTx(
-        auth: QueryAccountResponse?, txBody: TxBody?, authInfo: AuthInfo?, selectedChain: BaseChain?
+        txBody: TxBody?, authInfo: AuthInfo?, chain: BaseChain?
     ): TxRaw? {
         val signDoc = SignDoc.newBuilder().setBodyBytes(txBody?.toByteString())
-            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainIdCosmos)
+            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(chain?.chainIdCosmos)
             .setAccountNumber(
-                parseAuthGrpc(auth).second
+                chain?.cosmosFetcher()?.cosmosAccountNumber!!
             ).build()
-        val sigByte = grpcByteSignature(selectedChain, signDoc.toByteArray())
+        val sigByte = grpcByteSignature(chain, signDoc.toByteArray())
         return TxRaw.newBuilder().setBodyBytes(txBody?.toByteString())
             .setAuthInfoBytes(authInfo?.toByteString()).addSignatures(ByteString.copyFrom(sigByte))
             .build()

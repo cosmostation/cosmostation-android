@@ -64,15 +64,15 @@ interface WalletRepository {
     ): NetworkResult<MutableList<CoinProto.DecCoin>>?
 
     suspend fun bondedValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>>
 
     suspend fun unBondedValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>>
 
     suspend fun unBondingValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>>
 
     suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>>
@@ -117,11 +117,11 @@ interface WalletRepository {
     suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
 
     suspend fun cw721TokenIds(
-        channel: ManagedChannel, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenInfo(
-        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenDetail(

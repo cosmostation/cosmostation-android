@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.chain.rewardAddress
 import wannabit.io.cosmostaion.chain.rewards
 import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.chain.unDelegations
+import wannabit.io.cosmostaion.chain.validators
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
@@ -270,38 +271,59 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun bondedValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
-        return safeApiCall(Dispatchers.IO) {
-            stub.validators(request).validatorsList
+        return if (chain.supportCosmosGrpc) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdBondedValidatorInfo()
+                    .validators(StakingProto.BondStatus.BOND_STATUS_BONDED)
+            }
         }
     }
 
     override suspend fun unBondedValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
-        return safeApiCall(Dispatchers.IO) {
-            stub.validators(request).validatorsList
+        return if (chain.supportCosmosGrpc) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdUnBondedValidatorInfo()
+                    .validators(StakingProto.BondStatus.BOND_STATUS_UNBONDED)
+            }
         }
     }
 
     override suspend fun unBondingValidator(
-        channel: ManagedChannel
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-        val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-            .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
-        return safeApiCall(Dispatchers.IO) {
-            stub.validators(request).validatorsList
+        return if (chain.supportCosmosGrpc) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdUnBondingValidatorInfo()
+                    .validators(StakingProto.BondStatus.BOND_STATUS_UNBONDING)
+            }
         }
     }
 
@@ -456,44 +478,74 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenIds(
-        channel: ManagedChannel, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
     ): NetworkResult<JsonObject?> {
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = QuerySmartContractStateRequest.newBuilder()
-            .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
-            .build()
-        return safeApiCall(Dispatchers.IO) {
-            stub.smartContractState(request)?.let { response ->
-                val tokenIds = Gson().fromJson(response.data.toStringUtf8(), JsonObject::class.java)
-                if (tokenIds.asJsonObject["tokens"].asJsonArray.size() > 0) {
-                    tokenIds
-                } else {
-                    JsonObject()
+        if (chain.supportCosmosGrpc) {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = QuerySmartContractStateRequest.newBuilder()
+                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .build()
+            return safeApiCall {
+                stub.smartContractState(request)?.let { response ->
+                    val tokenIds =
+                        Gson().fromJson(response.data.toStringUtf8(), JsonObject::class.java)
+                    if (tokenIds.asJsonObject["tokens"].asJsonArray.size() > 0) {
+                        tokenIds
+                    } else {
+                        JsonObject()
+                    }
+                }
+            }
+
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            lcdApi(chain).lcdContractInfo(
+                list.asJsonObject["contractAddress"].asString, queryDataBase64
+            ).let { response ->
+                return safeApiCall {
+                    val tokens = response["data"].asJsonObject["tokens"].asJsonArray
+                    if (tokens.size() > 0) {
+                        response["data"].asJsonObject
+                    } else {
+                        JsonObject()
+                    }
                 }
             }
         }
     }
 
     override suspend fun cw721TokenInfo(
-        channel: ManagedChannel, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
     ): NetworkResult<JsonObject?> {
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
         val req = StarCw721TokenInfoReq(NftInfo(tokenId))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val request = QuerySmartContractStateRequest.newBuilder()
-            .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
-            .build()
-        return safeApiCall(Dispatchers.IO) {
-            stub.smartContractState(request)?.let { response ->
-                Gson().fromJson(response.data.toStringUtf8(), JsonObject::class.java)
+        if (chain.supportCosmosGrpc) {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = QuerySmartContractStateRequest.newBuilder()
+                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .build()
+            return safeApiCall(Dispatchers.IO) {
+                stub.smartContractState(request)?.let { response ->
+                    Gson().fromJson(response.data.toStringUtf8(), JsonObject::class.java)
+                }
+            }
+
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            lcdApi(chain).lcdContractInfo(
+                list.asJsonObject["contractAddress"].asString, queryDataBase64
+            ).let { response ->
+                return safeApiCall {
+                    response.asJsonObject["data"].asJsonObject
+                }
             }
         }
     }

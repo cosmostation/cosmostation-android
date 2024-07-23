@@ -595,7 +595,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         }
     }
 
-    private fun simulateVoteTx(
+    private suspend fun simulateVoteTx(
         chain: BaseChain, toVotes: MutableList<MsgVote?>?
     ): SimulateResponse? {
         val channel = getChannel(chain)

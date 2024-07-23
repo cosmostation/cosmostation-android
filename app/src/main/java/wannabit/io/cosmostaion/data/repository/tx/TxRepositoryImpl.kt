@@ -1,13 +1,18 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
 import com.cosmos.auth.v1beta1.QueryGrpc
+import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto
+import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
-import com.cosmos.tx.v1beta1.TxProto.*
+import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
+import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.cosmos.tx.v1beta1.TxProto.Tip
+import com.cosmwasm.wasm.v1.QueryGrpc.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -24,6 +29,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.bitcoinj.core.ECKey
+import org.bouncycastle.util.encoders.Base64
 import org.json.JSONObject
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
@@ -41,6 +47,9 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.accountInfos
+import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -48,6 +57,7 @@ import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -56,6 +66,7 @@ import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
 import wannabit.io.cosmostaion.data.model.req.NSStargazeInfoReq
 import wannabit.io.cosmostaion.data.model.req.ResolveRecord
+import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
@@ -128,15 +139,24 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun auth(
-        managedChannel: ManagedChannel?, address: String?
-    ): QueryAccountResponse? {
-        return try {
-            val authStub = QueryGrpc.newBlockingStub(managedChannel)
-            val request = com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest.newBuilder()
-                .setAddress(address).build()
-            authStub.account(request)
-        } catch (e: Exception) {
-            null
+        managedChannel: ManagedChannel?, chain: BaseChain
+    ) {
+        return if (chain.supportCosmosGrpc) {
+            val stub = QueryGrpc.newBlockingStub(managedChannel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = QueryAccountRequest.newBuilder().setAddress(chain.address).build()
+            chain.cosmosFetcher()?.cosmosAuth = stub.account(request).account
+            chain.cosmosFetcher()?.cosmosAccountNumber =
+                stub.account(request).account.accountInfos().second
+            chain.cosmosFetcher()?.cosmosSequence =
+                stub.account(request).account.accountInfos().third
+
+        } else {
+            val response = RetrofitInstance.lcdApi(chain)
+                .lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
+            chain.cosmosFetcher()?.cosmosLcdAuth = response
+            chain.cosmosFetcher()?.cosmosAccountNumber = response.accountNumber()
+            chain.cosmosFetcher()?.cosmosSequence = response.sequence()
         }
     }
 
@@ -290,13 +310,16 @@ class TxRepositoryImpl : TxRepository {
                             } else {
                                 suggestTipValue[selectedFeeInfo]
                             }
-                        baseFee = if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                                500000000L)) {
-                            BigInteger.valueOf(500000000L)
+                        baseFee =
+                            if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
+                                    500000000L
+                                )
+                            ) {
+                                BigInteger.valueOf(500000000L)
 
-                        } else {
-                            suggestBaseFee[selectedFeeInfo]
-                        }
+                            } else {
+                                suggestBaseFee[selectedFeeInfo]
+                            }
                         evmGas = baseFee!!.toLong() + tip.toLong()
                     }
 
@@ -374,7 +397,6 @@ class TxRepositoryImpl : TxRepository {
         } catch (e: Exception) {
             Pair("", "")
         }
-        return Pair("", "")
     }
 
     override suspend fun broadcastEvmDelegateTx(web3j: Web3j, hexValue: String): String? {
@@ -1236,18 +1258,32 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun broadcastSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgSend: TxProto.MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): ServiceProto.BroadcastTxResponse? {
+        selectedChain: BaseChain
+    ): TxResponse? {
         return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genSendBroadcast(account, msgSend, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
+            val broadcastTx = Signer.genSendBroadcast(msgSend, fee, tip, memo, selectedChain)
+            if (selectedChain.supportCosmosGrpc) {
+                val txStub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                txStub.broadcastTx(broadcastTx).txResponse
+
+            } else {
+                val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
+                val mode = BroadcastMode.BROADCAST_MODE_SYNC.number
+                val response = RetrofitInstance.lcdApi(selectedChain)
+                    .lcdBroadcastTx(BroadcastTxReq(mode, txByte))
+                if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
+                    val result = response["tx_response"].asJsonObject
+                    TxResponse.newBuilder().setTxhash(result["txhash"].asString)
+                        .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString).build()
+                } else {
+                    null
+                }
+            }
 
         } catch (e: Exception) {
             null
@@ -1256,18 +1292,24 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun simulateSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgSend: TxProto.MsgSend?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): Any? {
+        selectedChain: BaseChain
+    ): String {
         return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genSendSimulate(account, msgSend, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
+            val simulateTx = Signer.genSendSimulate(msgSend, fee, tip, memo, selectedChain)
+            if (selectedChain.supportCosmosGrpc) {
+                val simulStub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
+            } else {
+                val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
+                val response =
+                    RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
+                response["gas_info"].asJsonObject["gas_used"].asString
+            }
 
         } catch (e: Exception) {
             e.message.toString()
@@ -1293,7 +1335,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1309,18 +1351,16 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun simulateIbcSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgTransfer: com.ibc.applications.transfer.v1.TxProto.MsgTransfer?,
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genIbcSendSimulate(account, msgTransfer, fee, tip, memo, selectedChain)
+            val simulateTx = Signer.genIbcSendSimulate(msgTransfer, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1335,12 +1375,13 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genWasmBroadcast(account, msgWasms, fee, tip, memo, selectedChain)
+            val broadcastTx =
+                Signer.genWasmBroadcast(account, msgWasms, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1355,12 +1396,13 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genWasmSimulate(account, msgWasms, fee, tip, memo, selectedChain)
+            val simulateTx =
+                Signer.genWasmSimulate(account, msgWasms, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1375,7 +1417,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1396,7 +1438,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1417,7 +1459,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1438,7 +1480,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1459,7 +1501,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1480,7 +1522,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1501,7 +1543,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1523,7 +1565,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1545,7 +1587,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1566,7 +1608,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1588,7 +1630,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1611,7 +1653,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1633,7 +1675,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1655,7 +1697,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1677,12 +1719,13 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx = Signer.genVoteBroadcast(account, msgVotes, fee, tip, memo, selectedChain)
+            val broadcastTx =
+                Signer.genVoteBroadcast(account, msgVotes, fee, tip, memo, selectedChain)
             txStub.broadcastTx(broadcastTx)
 
         } catch (_: Exception) {
@@ -1697,12 +1740,13 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
                 newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx = Signer.genVoteSimulate(account, msgVotes, fee, tip, memo, selectedChain)
+            val simulateTx =
+                Signer.genVoteSimulate(account, msgVotes, fee, tip, memo, selectedChain)
             simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
@@ -1717,7 +1761,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1738,7 +1782,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1759,7 +1803,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1780,7 +1824,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1801,7 +1845,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1822,7 +1866,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1843,7 +1887,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1864,7 +1908,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1885,7 +1929,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1906,7 +1950,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1927,7 +1971,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1948,7 +1992,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -1969,7 +2013,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -1990,7 +2034,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2011,7 +2055,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2032,7 +2076,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2053,7 +2097,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2074,7 +2118,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2095,7 +2139,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2116,7 +2160,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2137,7 +2181,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2158,7 +2202,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2179,7 +2223,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2200,7 +2244,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2221,7 +2265,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2242,7 +2286,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
@@ -2263,7 +2307,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): ServiceProto.BroadcastTxResponse? {
         return try {
             val txStub =
@@ -2284,7 +2328,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any? {
         return try {
             val simulStub =
