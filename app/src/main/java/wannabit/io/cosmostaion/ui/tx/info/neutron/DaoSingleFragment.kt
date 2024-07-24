@@ -96,7 +96,7 @@ class DaoSingleFragment : Fragment() {
             ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
             ?.get(0)?.asJsonObject?.get("address")?.asString?.let { contAddress ->
                 proposalViewModel.daoProposals(
-                    getChannel(selectedChain), contAddress, NEUTRON_SINGLE_MODULE
+                    selectedChain, contAddress, NEUTRON_SINGLE_MODULE
                 )
             }
         setUpProposalData()

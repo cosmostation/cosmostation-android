@@ -14,14 +14,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
-import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
-import com.cosmos.tx.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
@@ -29,12 +27,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.accountInfos
+import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
+import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -60,8 +64,6 @@ class AllChainClaimFragment : BaseTxFragment() {
     private lateinit var allChainClaimAdapter: AllChainClaimAdapter
 
     private var valueAbleRewards: MutableList<ClaimAllModel> = mutableListOf()
-
-    private var txTip: TxProto.Tip? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -92,7 +94,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { !it.fetched }) {
                         for (chain in account.sortedDisplayChains()
-                            .filter { !it.isTestnet && it.supportCosmosGrpc }) {
+                            .filter { !it.isTestnet && it.isCosmos() }) {
                             val valueAbleReward = chain.cosmosFetcher?.valueAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward?.isNotEmpty() == true && txFee != null) {
@@ -257,16 +259,15 @@ class AllChainClaimFragment : BaseTxFragment() {
                 for (i in 0 until valueAbleRewards.size) {
                     val valueAbleReward = valueAbleRewards[i]
                     broadCastClaimTx(valueAbleReward) {
-                        val channel = getChannel(valueAbleReward.baseChain)
-                        checkTx(i, channel, it?.txResponse)
+                        checkTx(i, valueAbleReward.baseChain, it)
                     }
                 }
             }
         }
 
-    private fun checkTx(index: Int, managedChannel: ManagedChannel, txResponse: TxResponse?) {
+    private fun checkTx(index: Int, chain: BaseChain, txResponse: TxResponse?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            loadTx(managedChannel, txResponse?.txhash) { response ->
+            loadTx(chain, txResponse?.txhash) { response ->
                 valueAbleRewards[index].txResponse = response
                 lifecycleScope.launch(Dispatchers.Main) {
                     allChainClaimAdapter.notifyItemChanged(index)
@@ -286,90 +287,151 @@ class AllChainClaimFragment : BaseTxFragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             if (isAdded) {
                 activity?.let {
-                    val channel = getChannel(chain)
-                    val simulateStub =
-                        ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-//                    val simulateTx = Signer.genClaimRewardsSimulate(
-//                        loadAuth(channel, chain.address),
-//                        claimableRewards,
-//                        chain.getInitPayableFee(it),
-//                        txTip,
-//                        "",
-//                        chain
-//                    )
-//                    try {
-//                        val gasUsed = simulateStub.simulate(simulateTx).gasInfo.gasUsed
-//                        onComplete(gasUsed.toString())
-//                    } catch (e: Exception) {
-//
-//                    }
+                    val simulateTx = Signer.genSimulate(
+                        Signer.claimStakingRewardMsg(chain, claimableRewards),
+                        chain.getInitPayableFee(it),
+                        "",
+                        chain
+                    )
+                    val gasUsed = if (chain.supportCosmosGrpc) {
+                        chain.cosmosFetcher()?.getChannel()?.let { channel ->
+                            loadAuth(channel, chain)
+                            val simulStub =
+                                ServiceGrpc.newBlockingStub(channel)
+                                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
+                            simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
+                        }
+
+                    } else {
+                        val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
+                        val response =
+                            RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
+                        response["gas_info"].asJsonObject["gas_used"].asString
+                    }
+                    onComplete(gasUsed)
                 }
             }
         }
     }
 
     private fun broadCastClaimTx(
-        valueAbleReward: ClaimAllModel, onComplete: (ServiceProto.BroadcastTxResponse?) -> Unit
+        valueAbleReward: ClaimAllModel, onComplete: (TxResponse?) -> Unit
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val channel = getChannel(valueAbleReward.baseChain)
-            val txStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-//            val broadcastTx = Signer.genClaimRewardsBroadcast(
-//                loadAuth(channel, valueAbleReward.baseChain.address),
-//                valueAbleReward.rewards,
-//                valueAbleReward.fee,
-//                txTip,
-//                "",
-//                valueAbleReward.baseChain
-//            )
-//            try {
-//                onComplete(txStub.broadcastTx(broadcastTx))
-//            } catch (e: Exception) {
-//
-//            }
+            val chain = valueAbleReward.baseChain
+            val txFee = valueAbleReward.fee
+            val broadcastTx = Signer.genBroadcast(
+                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards),
+                txFee,
+                "",
+                chain
+            )
+
+            val txResponse = if (chain.supportCosmosGrpc) {
+                val channel = chain.cosmosFetcher?.getChannel()
+                val txStub =
+                    ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                txStub.broadcastTx(broadcastTx).txResponse
+
+            } else {
+                val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
+                val mode = ServiceProto.BroadcastMode.BROADCAST_MODE_SYNC.number
+                val response =
+                    RetrofitInstance.lcdApi(chain).lcdBroadcastTx(BroadcastTxReq(mode, txByte))
+                if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
+                    val result = response["tx_response"].asJsonObject
+                    TxResponse.newBuilder().setTxhash(result["txhash"].asString)
+                        .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString)
+                        .build()
+                } else {
+                    null
+                }
+            }
+
+            try {
+                onComplete(txResponse)
+            } catch (_: Exception) {
+
+            }
         }
     }
 
-    private fun loadAuth(
-        managedChannel: ManagedChannel, address: String?
-    ): QueryAccountResponse? {
-        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val request = QueryProto.QueryAccountRequest.newBuilder().setAddress(address).build()
-        return try {
-            stub.account(request)
-        } catch (e: Exception) {
-            null
+    private suspend fun loadAuth(
+        managedChannel: ManagedChannel, chain: BaseChain
+    ) {
+        return if (chain.supportCosmosGrpc) {
+            val stub =
+                QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val request =
+                QueryProto.QueryAccountRequest.newBuilder().setAddress(chain.address).build()
+            chain.cosmosFetcher()?.cosmosAuth = stub.account(request).account
+            chain.cosmosFetcher()?.cosmosAccountNumber =
+                stub.account(request).account.accountInfos().second
+            chain.cosmosFetcher()?.cosmosSequence =
+                stub.account(request).account.accountInfos().third
+
+        } else {
+            val response = RetrofitInstance.lcdApi(chain)
+                .lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
+            chain.cosmosFetcher()?.cosmosLcdAuth = response
+            chain.cosmosFetcher()?.cosmosAccountNumber = response.accountNumber()
+            chain.cosmosFetcher()?.cosmosSequence = response.sequence()
         }
     }
 
     private suspend fun loadTx(
-        managedChannel: ManagedChannel, txHash: String?, onComplete: (GetTxResponse?) -> Unit
+        chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            val stub = ServiceGrpc.newStub(managedChannel)
-            val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
+            if (chain.supportCosmosGrpc) {
+                val channel = chain.cosmosFetcher?.getChannel()
+                val stub = ServiceGrpc.newStub(channel)
+                val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
-            val response = withContext(Dispatchers.IO) {
-                suspendCoroutine { continuation ->
-                    val observer = object : StreamObserver<GetTxResponse> {
-                        override fun onNext(value: GetTxResponse?) {
-                            continuation.resume(value)
+                val response = withContext(Dispatchers.IO) {
+                    suspendCoroutine { continuation ->
+                        val observer = object : StreamObserver<GetTxResponse> {
+                            override fun onNext(value: GetTxResponse?) {
+                                continuation.resume(value)
+                            }
+
+                            override fun onError(t: Throwable?) {
+                                continuation.resumeWithException(
+                                    t ?: RuntimeException("Unknown error")
+                                )
+                            }
+
+                            override fun onCompleted() {}
                         }
-
-                        override fun onError(t: Throwable?) {
-                            continuation.resumeWithException(t ?: RuntimeException("Unknown error"))
-                        }
-
-                        override fun onCompleted() {}
+                        stub.getTx(request, observer)
                     }
-                    stub.getTx(request, observer)
+                }
+                onComplete(response)
+
+            } else {
+                val response = RetrofitInstance.lcdApi(chain).lcdTxInfo(txHash)
+                if (response.isSuccessful && response.body()
+                        ?.get("tx_response")?.isJsonNull == false && response.body()
+                        ?.get("tx_response")?.asJsonObject?.isJsonNull == false
+                ) {
+                    val result = response.body()?.get("tx_response")?.asJsonObject
+                    val txResultResponse =
+                        TxResponse.newBuilder().setTxhash(result?.get("txhash")?.asString)
+                            .setCode(result?.get("code")?.asInt ?: 0)
+                            .setRawLog(result?.get("raw_log")?.asString).build()
+                    val txResponse =
+                        GetTxResponse.newBuilder().setTxResponse(txResultResponse).build()
+                    onComplete(txResponse)
+
+                } else {
+                    delay(3000)
+                    loadTx(chain, txHash, onComplete)
                 }
             }
-            onComplete(response)
+
         } catch (e: Throwable) {
             delay(3000)
-            loadTx(managedChannel, txHash, onComplete)
+            loadTx(chain, txHash, onComplete)
         }
     }
 

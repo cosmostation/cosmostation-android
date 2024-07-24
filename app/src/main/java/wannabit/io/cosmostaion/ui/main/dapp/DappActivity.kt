@@ -59,7 +59,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -902,7 +901,7 @@ class DappActivity : BaseActivity() {
                                 BroadcastTxRequest.newBuilder().setModeValue(mode).setTxBytes(
                                     ByteString.copyFrom(Base64.decode(txBytes, Base64.DEFAULT))
                                 ).build()
-                            val txStub = ServiceGrpc.newBlockingStub(getChannel(chain))
+                            val txStub = ServiceGrpc.newBlockingStub(chain.cosmosFetcher()?.getChannel())
                                 .withDeadlineAfter(8L, TimeUnit.SECONDS)
                             val response = txStub.broadcastTx(request)
                             appToWebResult(

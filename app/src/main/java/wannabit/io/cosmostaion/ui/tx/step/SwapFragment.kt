@@ -48,7 +48,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -354,7 +353,7 @@ class SwapFragment : BaseTxFragment() {
                             val loadInputBalanceDeferred = async { loadBalance(channel, chain) }
 
                             chain.cosmosFetcher?.cosmosBalances = loadInputBalanceDeferred.await()
-//                            BaseUtils.onParseVestingAccount(chain)
+                            BaseUtils.onParseVesting(chain)
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)
@@ -366,12 +365,12 @@ class SwapFragment : BaseTxFragment() {
                 outputCosmosChain?.let { chain ->
                     chain.cosmosFetcher()?.let {
                         try {
-                            val channel = getChannel(chain)
+                            val channel = chain.cosmosFetcher()?.getChannel()
                             loadAuth(channel, chain)
                             val loadOutputBalanceDeferred = async { loadBalance(channel, chain) }
 
                             chain.cosmosFetcher?.cosmosBalances = loadOutputBalanceDeferred.await()
-                            BaseUtils.onParseVestingAccount(chain)
+                            BaseUtils.onParseVesting(chain)
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)
@@ -718,7 +717,7 @@ class SwapFragment : BaseTxFragment() {
 
                                                         chain.cosmosFetcher?.cosmosBalances =
                                                             loadInputBalanceDeferred.await()
-//                                                        BaseUtils.onParseVestingAccount(chain)
+                                                        BaseUtils.onParseVesting(chain)
                                                     } catch (e: Exception) {
                                                         activity?.makeToast(R.string.str_unknown_error)
                                                     }
@@ -814,7 +813,7 @@ class SwapFragment : BaseTxFragment() {
 
                                                         chain.cosmosFetcher?.cosmosBalances =
                                                             loadOutputBalanceDeferred.await()
-//                                                        BaseUtils.onParseVestingAccount(chain)
+                                                        BaseUtils.onParseVesting(chain)
                                                     } catch (e: Exception) {
                                                         activity?.makeToast(R.string.str_unknown_error)
                                                     }
@@ -826,8 +825,7 @@ class SwapFragment : BaseTxFragment() {
                                             }
                                         }
                                     }
-                                } catch (e: Exception) {
-                                }
+                                } catch (_: Exception) { }
                             }
                         })
                 )

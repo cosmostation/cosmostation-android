@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq

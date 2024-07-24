@@ -10,16 +10,8 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLcdArchway
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLcdAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
-import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
-import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -387,8 +379,9 @@ open class BaseChain : Parcelable {
 
     fun allValue(isUsd: Boolean?): BigDecimal {
         if (isEvmCosmos()) {
-            val allValue = cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
-                ?: BigDecimal.ZERO
+            val allValue =
+                cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
+                    ?: BigDecimal.ZERO
             evmRpcFetcher?.let { evmRpc ->
                 return allValue.add(evmRpc.allTokenValue(isUsd))
             }
@@ -408,13 +401,9 @@ open class BaseChain : Parcelable {
                         ?.add(evmRpcFetcher?.allTokenValue(isUsd)) ?: BigDecimal.ZERO
                 }
 
-                is ChainNeutron -> {
-                    return neutronFetcher?.allAssetValue(isUsd)
-                        ?.add(cosmosFetcher?.allTokenValue(isUsd)) ?: BigDecimal.ZERO
-                }
-
                 else -> {
-                    return cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
+                    return cosmosFetcher?.allAssetValue(isUsd)
+                        ?.add(cosmosFetcher?.allTokenValue(isUsd))
                         ?: BigDecimal.ZERO
                 }
             }
@@ -428,17 +417,17 @@ open class BaseChain : Parcelable {
 
 fun allChains(): MutableList<BaseChain> {
     var chains = mutableListOf<BaseChain>()
-    chains.add(ChainCosmos())
+//    chains.add(ChainCosmos())
 //    chains.add(ChainAkash())
 //    chains.add(ChainAltheaEvm())
 //    chains.add(ChainAlthea118())
 //    chains.add(ChainArbitrum())
-    chains.add(ChainArchway())
-    chains.add(ChainLcdArchway())
+//    chains.add(ChainArchway())
+//    chains.add(ChainLcdArchway())
 //    chains.add(ChainAvalanche())
 //    chains.add(ChainAssetMantle())
-    chains.add(ChainAxelar())
-    chains.add(ChainLcdAxelar())
+//    chains.add(ChainAxelar())
+//    chains.add(ChainLcdAxelar())
 //    chains.add(ChainBand())
 //    chains.add(ChainBase())
 //    chains.add(ChainBitcanna())
@@ -455,8 +444,8 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainDesmos())
 //    chains.add(ChainDydx())
 //    chains.add(ChainDymensionEvm())
-    chains.add(ChainEthereum())
-    chains.add(ChainEvmosEvm())
+//    chains.add(ChainEthereum())
+//    chains.add(ChainEvmosEvm())
 //    chains.add(ChainFetchAi())
 //    chains.add(ChainFetchAi60Old())
 //    chains.add(ChainFetchAi60Secp())
@@ -470,6 +459,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainJuno())
 //    chains.add(ChainKavaEvm())
 //    chains.add(ChainKava459())
+//    chains.add(ChainLcdKava459())
 //    chains.add(ChainKava118())
 //    chains.add(ChainKi())
 //    chains.add(ChainKyve())
@@ -479,7 +469,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainLum118())
 //    chains.add(ChainMars())
 //    chains.add(ChainMedibloc())
-//    chains.add(ChainNeutron())
+    chains.add(ChainNeutron())
 //    chains.add(ChainNibiru())
 //    chains.add(ChainNoble())
 //    chains.add(ChainNyx())
@@ -488,7 +478,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainOkt996Secp())
 //    chains.add(ChainOmniflix())
 //    chains.add(ChainOnomy())
-    chains.add(ChainOsmosis())
+//    chains.add(ChainOsmosis())
 //    chains.add(ChainOptimism())
 //    chains.add(ChainPassage())
 //    chains.add(ChainPersistence118())

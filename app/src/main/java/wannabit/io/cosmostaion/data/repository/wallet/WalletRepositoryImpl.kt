@@ -395,39 +395,62 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun vestingData(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<QuerySmartContractStateResponse> {
+        val contractAddress = chain.getChainListParam()
+            ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
         val req = AllocationReq(Allocation(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            QuerySmartContractStateRequest.newBuilder().setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS)
-                .setQueryData(queryData).build()
+        return if (chain.supportCosmosGrpc) {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                QuerySmartContractStateRequest.newBuilder()
+                    .setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS)
+                    .setQueryData(queryData).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.smartContractState(request)
+            }
 
-        return safeApiCall(Dispatchers.IO) {
-            stub.smartContractState(request)
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
+                    val data = response["data"].asJsonObject
+                    QuerySmartContractStateResponse.newBuilder()
+                        .setData(ByteString.copyFromUtf8(Gson().toJson(data))).build()
+                }
+            }
         }
     }
 
     override suspend fun vaultDeposit(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<String?> {
+        val contractAddress = chain.getChainListParam()
+            ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
         val req = VotingPowerReq(VotingPower(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(8, TimeUnit.SECONDS)
-        val request = QuerySmartContractStateRequest.newBuilder().setAddress(
-            chain.getChainListParam()
-                ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
-        ).setQueryData(queryData).build()
-
-        return safeApiCall(Dispatchers.IO) {
-            stub.smartContractState(request)?.let { response ->
-                val json = JSONObject(response.data.toStringUtf8())
-                json.getString("power")
+        return if (chain.supportCosmosGrpc) {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(8, TimeUnit.SECONDS)
+            val request = QuerySmartContractStateRequest.newBuilder().setAddress(
+                contractAddress
+            ).setQueryData(queryData).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.smartContractState(request)?.let { response ->
+                    val json = JSONObject(response.data.toStringUtf8())
+                    json.getString("power")
+                }
+            }
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
+                    response["data"].asJsonObject["power"].asString
+                }
             }
         }
     }

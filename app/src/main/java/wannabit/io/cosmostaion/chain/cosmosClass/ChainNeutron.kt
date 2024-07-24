@@ -14,8 +14,6 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 open class ChainNeutron : BaseChain(), Parcelable {
 
-    var neutronFetcher: NeutronFetcher? = null
-
     override var name: String = "Neutron"
     override var tag: String = "neutron118"
     override var logo: Int = R.drawable.chain_neutron
@@ -27,15 +25,15 @@ open class ChainNeutron : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var supportCosmosLcd: Boolean = true
     override var supportCw20: Boolean = true
     override var stakeDenom: String = "untrn"
     override var supportStaking = false
     override var accountPrefix: String = "neutron"
-    override var grpcHost: String = "grpc-neutron.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-neutron.cosmostation.io/"
+//    override var grpcHost: String = "grpc-neutron.cosmostation.io"
 
     override fun cosmosFetcher(): CosmosFetcher? {
-        if (!isCosmos()) return null
         if (cosmosFetcher == null) {
             cosmosFetcher = NeutronFetcher(this)
         }
@@ -43,11 +41,10 @@ open class ChainNeutron : BaseChain(), Parcelable {
     }
 
     fun neutronFetcher(): NeutronFetcher? {
-        if (!isCosmos()) return null
         if (cosmosFetcher == null) {
             cosmosFetcher = NeutronFetcher(this)
         }
-        return cosmosFetcher as NeutronFetcher
+        return cosmosFetcher as? NeutronFetcher
     }
 }
 

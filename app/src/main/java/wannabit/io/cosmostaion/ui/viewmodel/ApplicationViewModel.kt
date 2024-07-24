@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.cosmos.bank.v1beta1.QueryProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
@@ -295,7 +294,9 @@ class ApplicationViewModel(
                                                 cosmosFetcher?.cosmosDelegations?.clear()
                                                 (response.data as MutableList<StakingProto.DelegationResponse>).forEach { delegation ->
                                                     if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                                        cosmosFetcher?.cosmosDelegations?.add(delegation)
+                                                        cosmosFetcher?.cosmosDelegations?.add(
+                                                            delegation
+                                                        )
                                                     }
                                                 }
 
@@ -364,45 +365,49 @@ class ApplicationViewModel(
                             when (response) {
                                 is NetworkResult.Success -> {
                                     when (response.data) {
-                                        is QueryProto.QueryAllBalancesResponse -> {
-                                            response.data.balancesList?.let {
-                                                cosmosFetcher?.cosmosBalances = it
-                                            }
-                                        }
-
                                         is MutableList<*> -> {
-                                            if (response.data.all { it is Token }) {
-                                                cosmosFetcher?.tokens =
-                                                    response.data as MutableList<Token>
+                                            if (response.data.isEmpty()) {
+                                                mutableListOf<CoinProto.Coin>()
+                                            } else {
+                                                if (response.data.all { it is Token }) {
+                                                    cosmosFetcher?.tokens =
+                                                        response.data as MutableList<Token>
 
-                                            } else if (response.data.all { it is CoinProto.DecCoin }) {
-                                                (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                                    if (BaseData.getAsset(
-                                                            apiName, baseFee.denom
-                                                        ) != null
-                                                    ) {
-                                                        cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                                                } else if (response.data.all { it is CoinProto.Coin }) {
+                                                    cosmosFetcher?.cosmosBalances =
+                                                        response.data as MutableList<CoinProto.Coin>
+
+                                                } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                    (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                        if (BaseData.getAsset(
+                                                                apiName, baseFee.denom
+                                                            ) != null
+                                                        ) {
+                                                            cosmosFetcher?.cosmosBaseFees?.add(
+                                                                baseFee
+                                                            )
+                                                        }
                                                     }
-                                                }
-                                                cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                                    if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                        -1
-                                                    } else {
-                                                        0
+                                                    cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                            -1
+                                                        } else {
+                                                            0
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
 
                                         is com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse -> {
-                                            neutronFetcher?.neutronVesting = Gson().fromJson(
+                                            neutronFetcher()?.neutronVesting = Gson().fromJson(
                                                 response.data.data.toStringUtf8(),
                                                 VestingData::class.java
                                             )
                                         }
 
                                         else -> {
-                                            neutronFetcher?.neutronDeposited =
+                                            neutronFetcher()?.neutronDeposited =
                                                 response.data.toString().toBigDecimal()
                                         }
                                     }
@@ -418,19 +423,15 @@ class ApplicationViewModel(
                     }
                 }
 
-                BaseUtils.onParseVestingAccount(this)
+                BaseUtils.onParseVesting(this)
                 fetched = true
                 if (fetched) {
                     val refAddress = RefAddress(
                         id,
                         tag,
                         address,
-                        ByteUtils.convertBech32ToEvm(address),
-                        if (this is ChainNeutron) {
-                            neutronFetcher?.allAssetValue(true).toString()
-                        } else {
-                            cosmosFetcher?.allAssetValue(true).toString()
-                        },
+                        evmAddress,
+                        cosmosFetcher?.allAssetValue(true).toString(),
                         cosmosFetcher?.allStakingDenomAmount().toString(),
                         "0",
                         cosmosFetcher?.cosmosBalances?.count {

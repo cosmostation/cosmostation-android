@@ -96,7 +96,7 @@ class DaoMultipleFragment : Fragment() {
             ?.get(0)?.asJsonObject?.getAsJsonArray("proposal_modules")
             ?.get(1)?.asJsonObject?.get("address")?.asString?.let { contAddress ->
                 proposalViewModel.daoProposals(
-                    getChannel(selectedChain), contAddress, NEUTRON_MULTI_MODULE
+                    selectedChain, contAddress, NEUTRON_MULTI_MODULE
                 )
             }
 

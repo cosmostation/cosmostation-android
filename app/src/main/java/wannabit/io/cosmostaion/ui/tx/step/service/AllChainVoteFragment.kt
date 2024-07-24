@@ -509,7 +509,6 @@ class AllChainVoteFragment : BaseTxFragment() {
         gasUsed: String
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            gasUsed.toLong()
             voteAllModel.basechain?.let { chain ->
                 val gasLimit =
                     (gasUsed.toLong().toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
@@ -572,9 +571,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                         val voteAllModel = allDisplayLiveInfo[i]
                         broadCastVoteTx(voteAllModel) {
                             voteAllModel.basechain?.let { chain ->
-                                chain.cosmosFetcher?.getChannel()?.let { channel ->
-                                    checkTx(voteAllModel, channel, it)
-                                }
+                                checkTx(voteAllModel, chain, it)
                             }
                         }
                     }
@@ -589,9 +586,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                         val voteAllModel = toDisplayInfos[i]
                         broadCastVoteTx(voteAllModel) {
                             voteAllModel.basechain?.let { chain ->
-                                chain.cosmosFetcher?.getChannel()?.let { channel ->
-                                    checkTx(voteAllModel, channel, it)
-                                }
+                                checkTx(voteAllModel, chain, it)
                             }
                         }
                     }
@@ -603,26 +598,25 @@ class AllChainVoteFragment : BaseTxFragment() {
     private suspend fun simulateVoteTx(
         chain: BaseChain, toVotes: MutableList<MsgVote?>?
     ): String? {
-        chain.cosmosFetcher()?.getChannel()?.let { channel ->
-            return try {
-                val simulateTx = Signer.genSimulate(
-                    Signer.voteMsg(toVotes), chain.getInitPayableFee(requireContext()), "", chain
-                )
-                if (chain.supportCosmosGrpc) {
+        return try {
+            val simulateTx = Signer.genSimulate(
+                Signer.voteMsg(toVotes), chain.getInitPayableFee(requireContext()), "", chain
+            )
+            if (chain.supportCosmosGrpc) {
+                chain.cosmosFetcher()?.getChannel()?.let { channel ->
+                    loadAuth(channel, chain)
                     val simulStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
                     simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
-                } else {
-                    val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
-                    val response =
-                        RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
-                    response["gas_info"].asJsonObject["gas_used"].asString
                 }
-            } catch (e: Exception) {
-                e.message
+            } else {
+                val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
+                val response = RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
+                response["gas_info"].asJsonObject["gas_used"].asString
             }
+        } catch (e: Exception) {
+            e.message
         }
-        return null
     }
 
     private fun broadCastVoteTx(
@@ -632,10 +626,10 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 val toVotes = voteAllModel.toVotes
                 val txFee = voteAllModel.txFee
-                val channel = chain.cosmosFetcher?.getChannel()
-
                 val broadcastTx = Signer.genBroadcast(Signer.voteMsg(toVotes), txFee, "", chain)
+
                 val txResponse = if (chain.supportCosmosGrpc) {
+                    val channel = chain.cosmosFetcher?.getChannel()
                     val txStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
                     txStub.broadcastTx(broadcastTx).txResponse
@@ -657,7 +651,7 @@ class AllChainVoteFragment : BaseTxFragment() {
 
                 try {
                     onComplete(txResponse)
-                } catch (e: Exception) {
+                } catch (_: Exception) {
 
                 }
             }
@@ -665,10 +659,10 @@ class AllChainVoteFragment : BaseTxFragment() {
     }
 
     private fun checkTx(
-        voteAllModel: VoteAllModel, managedChannel: ManagedChannel, txResponse: TxResponse?
+        voteAllModel: VoteAllModel, chain: BaseChain, txResponse: TxResponse?
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            loadTx(managedChannel, txResponse?.txhash) { response ->
+            loadTx(chain, txResponse?.txhash) { response ->
                 voteAllModel.isBusy = false
                 voteAllModel.txResponse = response
                 lifecycleScope.launch(Dispatchers.Main) {
@@ -717,32 +711,58 @@ class AllChainVoteFragment : BaseTxFragment() {
     }
 
     private suspend fun loadTx(
-        managedChannel: ManagedChannel, txHash: String?, onComplete: (GetTxResponse?) -> Unit
+        chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            val stub = ServiceGrpc.newStub(managedChannel)
-            val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
+            if (chain.supportCosmosGrpc) {
+                val channel = chain.cosmosFetcher?.getChannel()
+                val stub = ServiceGrpc.newStub(channel)
+                val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
-            val response = withContext(Dispatchers.IO) {
-                suspendCoroutine { continuation ->
-                    val observer = object : StreamObserver<GetTxResponse> {
-                        override fun onNext(value: GetTxResponse?) {
-                            continuation.resume(value)
+                val response = withContext(Dispatchers.IO) {
+                    suspendCoroutine { continuation ->
+                        val observer = object : StreamObserver<GetTxResponse> {
+                            override fun onNext(value: GetTxResponse?) {
+                                continuation.resume(value)
+                            }
+
+                            override fun onError(t: Throwable?) {
+                                continuation.resumeWithException(
+                                    t ?: RuntimeException("Unknown error")
+                                )
+                            }
+
+                            override fun onCompleted() {}
                         }
-
-                        override fun onError(t: Throwable?) {
-                            continuation.resumeWithException(t ?: RuntimeException("Unknown error"))
-                        }
-
-                        override fun onCompleted() {}
+                        stub.getTx(request, observer)
                     }
-                    stub.getTx(request, observer)
+                }
+                onComplete(response)
+
+            } else {
+                val response = RetrofitInstance.lcdApi(chain).lcdTxInfo(txHash)
+                if (response.isSuccessful && response.body()
+                        ?.get("tx_response")?.isJsonNull == false && response.body()
+                        ?.get("tx_response")?.asJsonObject?.isJsonNull == false
+                ) {
+                    val result = response.body()?.get("tx_response")?.asJsonObject
+                    val txResultResponse =
+                        TxResponse.newBuilder().setTxhash(result?.get("txhash")?.asString)
+                            .setCode(result?.get("code")?.asInt ?: 0)
+                            .setRawLog(result?.get("raw_log")?.asString).build()
+                    val txResponse =
+                        GetTxResponse.newBuilder().setTxResponse(txResultResponse).build()
+                    onComplete(txResponse)
+
+                } else {
+                    delay(3000)
+                    loadTx(chain, txHash, onComplete)
                 }
             }
-            onComplete(response)
-        } catch (e: Throwable) {
+
+        } catch (e: Exception) {
             delay(3000)
-            loadTx(managedChannel, txHash, onComplete)
+            loadTx(chain, txHash, onComplete)
         }
     }
 

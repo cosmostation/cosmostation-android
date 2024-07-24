@@ -14,12 +14,12 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
+import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -68,7 +67,6 @@ class VaultFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var availableAmount = BigDecimal.ZERO
@@ -271,7 +269,7 @@ class VaultFragment : BaseTxFragment() {
                             balanceAmount
                         }
                     } else {
-                        selectedChain.neutronFetcher?.neutronDeposited
+                        selectedChain.neutronFetcher()?.neutronDeposited
                     }
                 }
             }
@@ -426,11 +424,10 @@ class VaultFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadcastWasm(
-                    getChannel(selectedChain),
+                txViewModel.broadcast(
+                    selectedChain.cosmosFetcher?.getChannel(),
                     onBindWasmVaultMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -447,12 +444,10 @@ class VaultFragment : BaseTxFragment() {
         binding.apply {
             btnConfirm.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateWasm(
-                getChannel(selectedChain),
-                selectedChain.address,
+            txViewModel.simulate(
+                selectedChain.cosmosFetcher?.getChannel(),
                 onBindWasmVaultMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -460,8 +455,8 @@ class VaultFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            // updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -471,11 +466,11 @@ class VaultFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
@@ -515,48 +510,50 @@ class VaultFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindWasmVaultMsg(): MutableList<MsgExecuteContract?> {
-        val result: MutableList<MsgExecuteContract?> = mutableListOf()
+    private fun onBindWasmVaultMsg(): MutableList<Any> {
+        val wasmMsgs: MutableList<MsgExecuteContract?> = mutableListOf()
         if (vaultType == VaultType.DEPOSIT) {
             val req = BondReq(Bond())
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
-            result.add(
+            wasmMsgs.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
                     selectedChain.getChainListParam()?.getAsJsonArray("vaults")
                         ?.get(0)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).addFunds(toCoin).build()
             )
-            return result
+            return Signer.wasmMsg(wasmMsgs)
 
         } else {
             val req = UnbondReq(Unbond(toCoin?.amount))
             val jsonData = Gson().toJson(req)
             val msg = ByteString.copyFromUtf8(jsonData)
-            result.add(
+            wasmMsgs.add(
                 MsgExecuteContract.newBuilder().setSender(selectedChain.address).setContract(
                     selectedChain.getChainListParam()?.getAsJsonArray("vaults")
                         ?.get(0)?.asJsonObject?.get("address")?.asString
                 ).setMsg(msg).build()
             )
-            return result
+            return Signer.wasmMsg(wasmMsgs)
         }
     }
 

@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.AssetPath
@@ -53,12 +52,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 is ChainStargaze -> {
                     val osIcnsDeferred = async {
                         txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+                            ChainOsmosis().cosmosFetcher()?.getChannel(), userInput, prefix
                         )
                     }
                     val starIcnsDeferred = async {
                         txRepository.sgIcnsAddress(
-                            getChannel(ChainStargaze()), userInput
+                            ChainStargaze().cosmosFetcher()?.getChannel(), userInput
                         )
                     }
                     val responses = awaitAll(osIcnsDeferred, starIcnsDeferred)
@@ -84,12 +83,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 is ChainArchway -> {
                     val osIcnsDeferred = async {
                         txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+                            ChainOsmosis().cosmosFetcher()?.getChannel(), userInput, prefix
                         )
                     }
                     val archIcnsDeferred = async {
                         txRepository.archIcnsAddress(
-                            getChannel(ChainArchway()), userInput
+                            ChainArchway().cosmosFetcher()?.getChannel(), userInput
                         )
                     }
 
@@ -116,7 +115,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 else -> {
                     val osIcnsDeferred = async {
                         txRepository.osIcnsAddress(
-                            getChannel(ChainOsmosis()), userInput, prefix
+                            ChainOsmosis().cosmosFetcher()?.getChannel(), userInput, prefix
                         )
                     }
                     val response = osIcnsDeferred.await()

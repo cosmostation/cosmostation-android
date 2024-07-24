@@ -161,7 +161,7 @@ class PopUpCosmosSignFragment(
                             chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
                             chain.cosmosFetcher?.cosmosBalances =
                                 loadInputBalanceDeferred.await().balancesList
-                            BaseUtils.onParseVestingAccount(chain)
+                            BaseUtils.onParseVesting(chain)
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)

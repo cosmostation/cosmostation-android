@@ -6,8 +6,6 @@ import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
-import com.cosmos.base.tendermint.v1beta1.QueryProto
-import com.cosmos.base.tendermint.v1beta1.ServiceGrpc
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -79,7 +77,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_DEPOSIT
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -955,14 +952,6 @@ object Signer {
         return null
     }
 
-    private fun grpcLatestHeight(chain: BaseChain): Long {
-        val channel = getChannel(chain)
-        val blockStub = ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
-        val lastBlock = blockStub.getLatestBlock(blockRequest)
-        return lastBlock.block.header.height
-    }
-
     private fun grpcTxBody(
         msgsAny: List<Any>?, memo: String, height: Long, chain: BaseChain?
     ): TxBody? {
@@ -1221,7 +1210,7 @@ object Signer {
     fun dAppSimulateGas(
         selectedChain: BaseChain, txBody: TxBody, authInfo: AuthInfo?
     ): AbciProto.GasInfo {
-        val channel = getChannel(selectedChain)
+        val channel = selectedChain.cosmosFetcher()?.getChannel()
         val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
             .withDeadlineAfter(8L, TimeUnit.SECONDS)
         val simulateTx = grpcSimulTx(txBody, authInfo)

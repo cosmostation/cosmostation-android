@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -193,7 +192,8 @@ class TransferTxResultActivity : BaseActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             fromChain.apply {
                 if (supportCosmosGrpc) {
-                    val stub = ServiceGrpc.newStub(fromChain.cosmosFetcher?.getChannel())
+                    val channel = fromChain.cosmosFetcher?.getChannel()
+                    val stub = ServiceGrpc.newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 
                     stub.getTx(request, object : StreamObserver<GetTxResponse> {
@@ -207,8 +207,8 @@ class TransferTxResultActivity : BaseActivity() {
                         override fun onError(t: Throwable?) {
                             fetchCnt -= 1
                             if (isSuccess && fetchCnt > 0) {
-                                getChannel(this@apply).shutdown()
-                                getChannel(this@apply).awaitTermination(6L, TimeUnit.SECONDS)
+                                channel?.shutdown()
+                                channel?.awaitTermination(6L, TimeUnit.SECONDS)
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     loadHistoryTx()
                                 }, 6000)

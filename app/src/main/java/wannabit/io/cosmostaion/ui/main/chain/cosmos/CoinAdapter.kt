@@ -85,9 +85,7 @@ class CoinAdapter(
 
                         } else {
                             onItemClickListener?.let {
-                                selectedChain.stakeDenom?.let { stakeDenom ->
-                                    it(selectedChain, stakeDenom, position)
-                                }
+                                it(selectedChain, selectedChain.stakeDenom, position)
                             }
                             true
                         }
