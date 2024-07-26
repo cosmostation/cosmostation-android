@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import org.bouncycastle.util.encoders.Base64
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.ProposalList
@@ -43,7 +44,7 @@ class ProposalRepositoryImpl : ProposalRepository {
         val req = ProposalListReq(ProposalList())
         val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
 
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(8, TimeUnit.SECONDS)
             val request =
                 QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(contAddress)

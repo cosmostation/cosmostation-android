@@ -92,7 +92,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { !it.fetched }) {
-                        account.sortedDisplayChains().filter { !it.isTestnet && it.isCosmos() }
+                        account.sortedDisplayChains().filter { !it.isTestnet && it.supportCosmos() }
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()
                                 val txFee = chain.getInitPayableFee(requireContext())
@@ -319,7 +319,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                         chain
                     )
 
-                    val gasUsed = if (chain.supportCosmosGrpc) {
+                    val gasUsed = if (chain.supportCosmos()) {
                         chain.cosmosFetcher()?.getChannel()?.let { channel ->
                             loadAuth(channel, chain)
                             val simulStub = ServiceGrpc.newBlockingStub(channel)
@@ -349,7 +349,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                 Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards), txFee, "", chain
             )
 
-            val txResponse = if (chain.supportCosmosGrpc) {
+            val txResponse = if (chain.supportCosmos()) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val txStub =
                     ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
@@ -380,7 +380,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
     private suspend fun loadAuth(
         managedChannel: ManagedChannel, chain: BaseChain
     ) {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.supportCosmos()) {
             val stub =
                 QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request =
@@ -404,7 +404,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (ServiceProto.GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmosGrpc) {
+            if (chain.supportCosmos()) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

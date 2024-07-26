@@ -16,6 +16,7 @@ import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentMintListBinding
@@ -31,7 +32,7 @@ class MintListFragment : Fragment() {
     private var _binding: FragmentMintListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
@@ -80,7 +81,7 @@ class MintListFragment : Fragment() {
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.apply {
-                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", ChainKavaEvm::class.java)?.let { selectedChain = it }
                 getSerializable(
                     "priceFeed", QueryProto.QueryPricesResponse::class.java
                 )?.let { priceFeed = it }
@@ -88,7 +89,7 @@ class MintListFragment : Fragment() {
 
         } else {
             arguments?.apply {
-                (getParcelable("selectedChain") as? BaseChain)?.let {
+                (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                     selectedChain = it
                 }
                 (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {

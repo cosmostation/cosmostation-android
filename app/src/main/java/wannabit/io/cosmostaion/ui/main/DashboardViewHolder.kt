@@ -67,7 +67,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -76,7 +76,7 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 chainAddress.text = chain.address
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -91,8 +91,8 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.isCosmos()) {
-                if (chain is ChainOkt996Keccak || chain is ChainOktEvm) {
+            if (chain.supportCosmos()) {
+                if (chain is ChainOktEvm) {
                     chainPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
                     BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
                         chainPriceStatus.priceChangeStatusColor(lastUpDown)
@@ -121,50 +121,48 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
-                if (chain.isEth()) {
+                if (chain.isEvmCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else if (chain.supportCosmos()) {
+                    if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else {
                     if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
                         return
-                    }
-
-                } else {
-                    if (chain.supportEvm) {
-                        if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
-
-                    } else {
-                        if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
                     }
                 }
                 respondLayout.visibility = View.GONE
@@ -173,12 +171,12 @@ class DashboardViewHolder(
 
                 if (chain is ChainOkt996Keccak) {
                     assetCnt.text =
-                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             .toString() + " Coins"
 
-                } else if (chain.isCosmos()) {
+                } else if (chain.supportCosmos()) {
                     val coinCntString = if (chain is ChainOktEvm) {
-                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             .toString() + " Coins"
                     } else {
                         (chain.cosmosFetcher?.cosmosBalances?.count {
@@ -267,7 +265,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos()) {
+            if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -389,45 +387,43 @@ class DashboardViewHolder(
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
 
-                if (chain.isEth()) {
+                if (chain.isEvmCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else if (chain.supportCosmos()) {
+                    if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else {
                     if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return
-                    }
-
-                } else {
-                    if (chain.supportEvm) {
-                        if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-                        }
-
-                    } else {
-                        if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-                        }
                     }
                 }
                 respondLayout.visibility = View.GONE

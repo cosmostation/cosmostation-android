@@ -790,7 +790,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainIds" -> {
                     val supportChainIds =
-                        allChains?.filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                        allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
                             ?.map { it.chainIdCosmos }?.distinct()
                     if (supportChainIds?.isNotEmpty() == true) {
                         val dataJson = JSONObject()
@@ -805,7 +805,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainNames" -> {
                     val supportChainNames = allChains?.filter {
-                        it.supportCosmosGrpc && it.chainDappName()?.isNotEmpty() == true
+                        it.supportCosmos() && it.chainDappName()?.isNotEmpty() == true
                     }?.map { it.name.lowercase() }?.distinct()
                     if (supportChainNames?.isNotEmpty() == true) {
                         val dataJson = JSONObject()
@@ -827,7 +827,7 @@ class DappActivity : BaseActivity() {
                 "cos_addChain" -> {
                     val params = messageJson.getJSONObject("params")
                     val supportChainIds =
-                        allChains?.filter { !it.isTestnet && it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                        allChains?.filter { !it.isTestnet && it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
                             ?.map { it.chainIdCosmos }?.distinct()
                     if (supportChainIds?.contains(params.getString("chainId")) == true) {
                         appToWebResult(

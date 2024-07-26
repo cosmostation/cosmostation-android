@@ -165,7 +165,7 @@ class SwapFragment : BaseTxFragment() {
         val result = mutableListOf<BaseChain>()
         BaseData.baseAccount?.let { account ->
             account.apply {
-                allChains().filter { it.isDefault && it.supportCosmosGrpc && !it.isTestnet }
+                allChains().filter { it.isDefault && it.supportCosmos() && !it.isTestnet }
                     .forEach { chain ->
                         result.add(chain)
                     }
@@ -1041,7 +1041,7 @@ class SwapFragment : BaseTxFragment() {
     private suspend fun loadAuth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.supportCosmos()) {
             val stub =
                 QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request =
@@ -1064,7 +1064,7 @@ class SwapFragment : BaseTxFragment() {
     private suspend fun loadBalance(
         channel: ManagedChannel?, chain: BaseChain
     ): MutableList<CoinProto.Coin> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.supportCosmos()) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)

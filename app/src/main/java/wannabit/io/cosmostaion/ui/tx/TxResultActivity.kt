@@ -20,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
@@ -86,7 +85,7 @@ class TxResultActivity : BaseActivity() {
             )
 
             btnConfirm.updateButtonView(true)
-            if (selectedChain is ChainOkt996Keccak || selectedChain is ChainOktEvm) {
+            if (selectedChain is ChainOktEvm) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -138,7 +137,7 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
+                if (selectedChain is ChainOktEvm) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -146,7 +145,7 @@ class TxResultActivity : BaseActivity() {
             }
 
             viewFailMintscan.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
+                if (selectedChain is ChainOktEvm) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -182,7 +181,7 @@ class TxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
-                if (chain.supportCosmosGrpc) {
+                if (chain.supportCosmos()) {
                     val channel = chain.cosmosFetcher?.getChannel()
                     val stub = newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

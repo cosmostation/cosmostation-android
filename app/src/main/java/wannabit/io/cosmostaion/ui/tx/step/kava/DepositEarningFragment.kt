@@ -14,15 +14,16 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -30,11 +31,11 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentDepositEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -58,13 +59,12 @@ class DepositEarningFragment : BaseTxFragment() {
     private var _binding: FragmentDepositEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var toCoin: CoinProto.Coin? = null
     private var txMemo = ""
@@ -110,7 +110,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", BaseChain::class.java)?.let {
+                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator", Validator::class.java)
@@ -118,7 +118,7 @@ class DepositEarningFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? BaseChain)?.let {
+                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator") as? Validator
@@ -133,11 +133,11 @@ class DepositEarningFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.kavaFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
+                    toValidator = selectedChain.kavaFetcher?.cosmosValidators?.get(0)
                 }
             }
             updateValidatorView()
@@ -258,9 +258,9 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 val balanceAmount =
-                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
+                    selectedChain.kavaFetcher?.balanceAmount(selectedChain.stakeDenom)
                 val vestingAmount =
-                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
+                    selectedChain.kavaFetcher?.vestingAmount(selectedChain.stakeDenom)
 
                 txFee?.let {
                     availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
@@ -288,7 +288,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.kavaFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -382,12 +382,10 @@ class DepositEarningFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadEarnDeposit(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindEarnDeposit(),
+                txViewModel.broadcast(
+                    selectedChain.kavaFetcher?.getChannel(),
+                    onBindEarnDepositMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -404,12 +402,10 @@ class DepositEarningFragment : BaseTxFragment() {
             }
             btnDepositLiquidity.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateEarnDeposit(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindEarnDeposit(),
+            txViewModel.simulate(
+                selectedChain.kavaFetcher?.getChannel(),
+                onBindEarnDepositMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -417,8 +413,8 @@ class DepositEarningFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            // updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -428,15 +424,15 @@ class DepositEarningFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
@@ -456,26 +452,30 @@ class DepositEarningFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindEarnDeposit(): MsgDelegateMintDeposit? {
-        return MsgDelegateMintDeposit.newBuilder().setDepositor(selectedChain.address)
-            .setValidator(toValidator?.operatorAddress).setAmount(toCoin).build()
+    private fun onBindEarnDepositMsg(): MutableList<Any> {
+        val msgDelegateMintDeposit =
+            MsgDelegateMintDeposit.newBuilder().setDepositor(selectedChain.address)
+                .setValidator(toValidator?.operatorAddress).setAmount(toCoin).build()
+        return Signer.earnDepositMsg(msgDelegateMintDeposit)
     }
 
     override fun onDestroyView() {

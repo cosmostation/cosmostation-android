@@ -424,7 +424,7 @@ class CosmosDetailFragment : Fragment() {
     private fun setFabMenuClickAction() {
         binding.apply {
             fabSend.setOnClickListener {
-                val sendAssetType = if (selectedChain.isEvmCosmos()) {
+                val sendAssetType = if (selectedChain.supportCosmos() && selectedChain.supportEvm) {
                     SendAssetType.COSMOS_EVM_COIN
                 } else if (selectedChain is ChainOktEvm) {
                     SendAssetType.ONLY_EVM_COIN
@@ -567,13 +567,13 @@ class CosmosDetailFragment : Fragment() {
 
             fabWithdraw.setOnClickListener {
                 if (selectedChain is ChainOkt996Keccak) {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
 
                 } else {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
@@ -586,13 +586,13 @@ class CosmosDetailFragment : Fragment() {
 
             fabSelectValidator.setOnClickListener {
                 if (selectedChain is ChainOkt996Keccak) {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
 
                 } else {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }

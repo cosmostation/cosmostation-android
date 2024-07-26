@@ -2,24 +2,16 @@ package wannabit.io.cosmostaion.data.repository.tx
 
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
-import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.TxProto.Fee
-import com.cosmos.tx.v1beta1.TxProto.Tip
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
-import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
-import com.kava.cdp.v1beta1.TxProto.MsgDeposit
-import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
-import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
-import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
-import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -44,6 +36,7 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount
 import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
 import wannabit.io.cosmostaion.chain.sequence
@@ -138,7 +131,7 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = QueryGrpc.newBlockingStub(managedChannel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QueryAccountRequest.newBuilder().setAddress(chain.address).build()
@@ -1262,7 +1255,7 @@ class TxRepositoryImpl : TxRepository {
     ): TxResponse? {
         return try {
             val broadcastTx = Signer.genBroadcast(msgs, fee, memo, selectedChain)
-            if (selectedChain.supportCosmosGrpc) {
+            if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
                 val txStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
                 txStub.broadcastTx(broadcastTx).txResponse
@@ -1295,7 +1288,7 @@ class TxRepositoryImpl : TxRepository {
     ): String {
         return try {
             val simulateTx = Signer.genSimulate(msgs, fee, memo, selectedChain)
-            if (selectedChain.supportCosmosGrpc) {
+            if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
                 val simulStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
                 simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
@@ -1330,9 +1323,8 @@ class TxRepositoryImpl : TxRepository {
         selectedChain: BaseChain
     ): TxResponse? {
         return try {
-            val broadcastTx =
-                Signer.genIbcSendBroadcast(msgTransfer, fee, memo, selectedChain)
-            if (selectedChain.supportCosmosGrpc) {
+            val broadcastTx = Signer.genIbcSendBroadcast(msgTransfer, fee, memo, selectedChain)
+            if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
                 val txStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
                 txStub.broadcastTx(broadcastTx).txResponse
@@ -1365,7 +1357,7 @@ class TxRepositoryImpl : TxRepository {
     ): Any? {
         return try {
             val simulateTx = Signer.genIbcSendSimulate(msgTransfer, fee, memo, selectedChain)
-            if (selectedChain.supportCosmosGrpc) {
+            if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
                 val simulStub =
                     newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
                 simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
@@ -1378,636 +1370,6 @@ class TxRepositoryImpl : TxRepository {
                     .build()
                 ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo).build()
             }
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastWasmTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genWasmBroadcast(account, msgWasms, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateWasmTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWasms: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genWasmSimulate(account, msgWasms, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastClaimIncentiveTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        incentive: QueryProto.QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genClaimIncentiveBroadcast(account, incentive, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateClaimIncentiveTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        incentive: QueryProto.QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genClaimIncentiveSimulate(account, incentive, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastMintCreateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genMintCreateBroadcast(account, msgCreateCDP, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateMintCreateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genMintCreateSimulate(account, msgCreateCDP, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastMintDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genMintDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateMintDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genMintDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastMintWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genMintWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateMintWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genMintWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastMintBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genMintBorrowBroadcast(account, msgDrawDebt, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateMintBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genMintBorrowSimulate(account, msgDrawDebt, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastMintRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genMintRepayBroadcast(account, msgRepayDebt, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateMintRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genMintRepaySimulate(account, msgRepayDebt, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastLendDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genLendDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateLendDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genLendDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastLendWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genLendWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateLendWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genLendWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastLendBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genLendBorrowBroadcast(account, msgBorrow, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateLendBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgBorrow: com.kava.hard.v1beta1.TxProto.MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genLendBorrowSimulate(account, msgBorrow, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastLendRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genLendRepayBroadcast(account, msgRepay, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateLendRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepay: com.kava.hard.v1beta1.TxProto.MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genLendRepaySimulate(account, msgRepay, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastPoolDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genPoolDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulatePoolDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genPoolDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastPoolWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genPoolWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulatePoolWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genPoolWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastEarnDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genEarnDepositBroadcast(account, msgDeposit, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateEarnDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genEarnDepositSimulate(account, msgDeposit, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
-
-        } catch (e: Exception) {
-            e.message.toString()
-        }
-    }
-
-    override suspend fun broadcastEarnWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): ServiceProto.BroadcastTxResponse? {
-        return try {
-            val txStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val broadcastTx =
-                Signer.genEarnWithdrawBroadcast(account, msgWithdraw, fee, tip, memo, selectedChain)
-            txStub.broadcastTx(broadcastTx)
-
-        } catch (_: Exception) {
-            null
-        }
-    }
-
-    override suspend fun simulateEarnWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain
-    ): Any? {
-        return try {
-            val simulStub =
-                newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val simulateTx =
-                Signer.genEarnWithdrawSimulate(account, msgWithdraw, fee, tip, memo, selectedChain)
-            simulStub.simulate(simulateTx)
 
         } catch (e: Exception) {
             e.message.toString()

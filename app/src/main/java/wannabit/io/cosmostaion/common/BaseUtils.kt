@@ -7,6 +7,7 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.stride.vesting.VestingProto.StridePeriodicVestingAccount
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -17,7 +18,7 @@ import java.util.regex.Pattern
 object BaseUtils {
 
     fun onParseVesting(chain: BaseChain) {
-        if (chain.supportCosmosGrpc) {
+        if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             onParseVestingAccount(chain)
         } else {
             onParseLcdVestingAccount(chain)

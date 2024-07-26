@@ -60,7 +60,7 @@ class ChainEditViewHolder(
             chainValue.visibility = View.GONE
             assetCnt.visibility = View.GONE
 
-            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+            if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -69,7 +69,7 @@ class ChainEditViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 chainAddress.text = chain.address
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -92,7 +92,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.isEth()) {
+                                if (!chain.supportCosmos()) {
                                     if (chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
@@ -103,7 +103,7 @@ class ChainEditViewHolder(
                                 } else {
                                     if (chain.supportEvm) {
                                         if (chain is ChainOktEvm) {
-                                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
                                                 respondLayout.visibility = View.VISIBLE
                                                 chainValue.visibility = View.GONE
                                                 assetCnt.visibility = View.GONE
@@ -121,7 +121,7 @@ class ChainEditViewHolder(
 
                                     } else {
                                         if (chain is ChainOkt996Keccak) {
-                                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
                                                 respondLayout.visibility = View.VISIBLE
                                                 chainValue.visibility = View.GONE
                                                 assetCnt.visibility = View.GONE
@@ -145,13 +145,13 @@ class ChainEditViewHolder(
                                 chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
                                 if (chain is ChainOkt996Keccak) {
                                     assetCnt.text =
-                                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
+                                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
                                             "coins"
                                         )?.asJsonArray?.size().toString() + " Coins"
 
-                                } else if (chain.isCosmos()) {
+                                } else if (chain.supportCosmos()) {
                                     val coinCntString = if (chain is ChainOktEvm) {
-                                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
+                                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
                                             "coins"
                                         )?.asJsonArray?.size().toString() + " Coins"
                                     } else {
@@ -225,7 +225,7 @@ class ChainEditViewHolder(
             chainName.text = chain.name.uppercase()
             chainLegacy.visibleOrGone(!chain.isDefault)
 
-            if (chain.isEvmCosmos()) {
+            if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -250,7 +250,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.isEvmCosmos()) {
+                                if (chain.supportCosmos() && chain.supportEvm) {
                                     if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
@@ -267,7 +267,7 @@ class ChainEditViewHolder(
                                     }
                                 }
 
-                                if (chain.isCosmos()) {
+                                if (chain.supportCosmos()) {
                                     val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                     if (chain.supportCw20) {
                                         val tokenCnt =

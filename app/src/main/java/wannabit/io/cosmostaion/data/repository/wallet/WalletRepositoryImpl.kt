@@ -34,6 +34,7 @@ import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
 import wannabit.io.cosmostaion.chain.balance
@@ -132,7 +133,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<Unit> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmos.auth.v1beta1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
@@ -159,7 +160,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun balance(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.Coin>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
             val stub =
                 QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
@@ -178,7 +179,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun delegation(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<DelegationResponse>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
                 QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(chain.address)
@@ -196,7 +197,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun unBonding(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.UnbondingDelegation>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QueryDelegatorUnbondingDelegationsRequest.newBuilder()
                 .setDelegatorAddr(chain.address).build()
@@ -213,7 +214,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun reward(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<DistributionProto.DelegationDelegatorReward>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
@@ -232,7 +233,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun rewardAddress(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<String> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmos.distribution.v1beta1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
@@ -254,7 +255,7 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.supportFeeMarket() == false) {
             return null
         }
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.feemarket.feemarket.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
@@ -273,7 +274,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun bondedValidator(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
@@ -292,7 +293,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun unBondedValidator(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
@@ -311,7 +312,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun unBondingValidator(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
@@ -340,7 +341,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        if (chain.supportCosmosGrpc) {
+        if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.address)
@@ -401,7 +402,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request =
@@ -433,7 +434,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(8, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder().setAddress(
@@ -507,7 +508,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        if (chain.supportCosmosGrpc) {
+        if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()
@@ -549,7 +550,7 @@ class WalletRepositoryImpl : WalletRepository {
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
 
-        if (chain.supportCosmosGrpc) {
+        if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()

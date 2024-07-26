@@ -191,7 +191,7 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             fromChain.apply {
-                if (supportCosmosGrpc) {
+                if (supportCosmos()) {
                     val channel = fromChain.cosmosFetcher?.getChannel()
                     val stub = ServiceGrpc.newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

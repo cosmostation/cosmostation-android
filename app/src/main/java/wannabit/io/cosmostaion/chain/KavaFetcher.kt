@@ -24,8 +24,7 @@ class KavaFetcher(chain: BaseChain) : CosmosFetcher(chain) {
     )
 
     data class SwapData(
-        var swapPools: MutableList<PoolResponse>?,
-        var swapMyDeposits: MutableList<DepositResponse>?
+        var swapPools: MutableList<PoolResponse>?, var swapMyDeposits: MutableList<DepositResponse>?
     )
 }
 

@@ -376,7 +376,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
             }
             updateFeeView()
-            if (!fromChain.supportCosmosGrpc) {
+            if (!fromChain.supportCosmos()) {
                 btnFee.visibility = View.GONE
             }
         }
@@ -1140,7 +1140,7 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun addRecipientChainIfNotExists(apiName: String?) {
-        allChains().filter { !it.isTestnet && it.supportCosmosGrpc }
+        allChains().filter { !it.isTestnet && it.supportCosmos() }
             .firstOrNull { it.apiName == apiName }?.let { sendAble ->
                 if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
                     recipientAbleChains.add(sendAble)

@@ -46,7 +46,7 @@ class QrDialog(
         binding.apply {
             BaseData.baseAccount?.let { account ->
                 selectedChain?.let { chain ->
-                    if (chain.isCosmos()) {
+                    if (chain.supportCosmos()) {
                         chainName.text = chain.name
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.address
@@ -112,7 +112,7 @@ class QrDialog(
             addressView.setOnClickListener {
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = if (selectedChain?.isCosmos() == true) {
+                val clip = if (selectedChain?.supportCosmos() == true) {
                     ClipData.newPlainText("address", selectedChain.address)
                 } else {
                     ClipData.newPlainText("address", selectedChain?.evmAddress)
@@ -124,7 +124,7 @@ class QrDialog(
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                val address = if (selectedChain?.isCosmos() == true) {
+                val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
                 } else {
                     selectedChain?.evmAddress

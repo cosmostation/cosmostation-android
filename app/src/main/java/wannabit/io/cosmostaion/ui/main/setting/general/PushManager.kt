@@ -67,7 +67,7 @@ object PushManager {
         withContext(Dispatchers.IO) {
             val pushAccounts: MutableList<PushAccount> = mutableListOf()
             initAllKeyData(account).filter { !it.isTestnet }.forEach { chain ->
-                if (chain.isCosmos()) {
+                if (chain.supportCosmos()) {
                     val pushAccount = PushAccount(chain.apiName, chain.address)
                     pushAccounts.add(pushAccount)
                 } else if (chain.supportEvm) {

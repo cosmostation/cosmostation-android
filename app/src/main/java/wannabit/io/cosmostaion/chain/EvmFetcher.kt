@@ -7,7 +7,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class FetcherEvmRpc(chain: BaseChain) {
+class EvmFetcher(chain: BaseChain) {
 
     var chain: BaseChain
 

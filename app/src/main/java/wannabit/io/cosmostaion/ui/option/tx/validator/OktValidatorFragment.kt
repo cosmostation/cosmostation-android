@@ -56,10 +56,7 @@ class OktValidatorFragment(
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = oktValidatorAdapter
-            when (selectedChain) {
-                is ChainOkt996Keccak -> oktValidatorAdapter.submitList(selectedChain.oktFetcher?.lcdValidatorInfo)
-                is ChainOktEvm -> oktValidatorAdapter.submitList(selectedChain.oktFetcher?.lcdValidatorInfo)
-            }
+            oktValidatorAdapter.submitList((selectedChain as ChainOktEvm).oktFetcher?.oktValidatorInfo)
             updateView()
         }
     }
@@ -71,7 +68,7 @@ class OktValidatorFragment(
     private fun setClickData(oktFetcher: OktFetcher?) {
         binding.apply {
             oktValidatorAdapter.setOnItemClickListener { position ->
-                oktFetcher?.lcdValidatorInfo?.get(position)?.let { selectValidator ->
+                oktFetcher?.oktValidatorInfo?.get(position)?.let { selectValidator ->
                     if (tempValidators.map { it["operator_address"].asString }
                             .contains(selectValidator["operator_address"].asString)) {
                         if (tempValidators.size <= 1) {

@@ -91,7 +91,7 @@ class CoinFragment : Fragment() {
                 val sendAssetType = if (position == 0) {
                     if (chain is ChainOktEvm) {
                         SendAssetType.ONLY_EVM_COIN
-                    } else if (chain.supportEvm && chain.isCosmos()) {
+                    } else if (chain.supportEvm && chain.supportCosmos()) {
                         SendAssetType.COSMOS_EVM_COIN
                     } else {
                         SendAssetType.ONLY_COSMOS_COIN
@@ -121,36 +121,8 @@ class CoinFragment : Fragment() {
         bridgeCoins.clear()
 
         when (selectedChain) {
-            is ChainOkt996Keccak -> {
-                (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
-                    "coins"
-                )?.asJsonArray?.forEach { balance ->
-                    if (balance.asJsonObject["denom"].asString == selectedChain.stakeDenom) {
-                        stakeCoins.add(
-                            Coin(
-                                balance.asJsonObject["denom"].asString,
-                                balance.asJsonObject["amount"].asString,
-                                CoinType.STAKE
-                            )
-                        )
-                    } else {
-                        nativeCoins.add(
-                            Coin(
-                                balance.asJsonObject["denom"].asString,
-                                balance.asJsonObject["amount"].asString,
-                                CoinType.ETC
-                            )
-                        )
-                    }
-                }
-                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
-                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
-                }
-                nativeCoins.sortBy { it.denom }
-            }
-
             is ChainOktEvm -> {
-                (selectedChain as ChainOktEvm).oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get(
+                (selectedChain as ChainOktEvm).oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
                     "coins"
                 )?.asJsonArray?.forEach { balance ->
                     if (balance.asJsonObject["denom"].asString == selectedChain.stakeDenom) {

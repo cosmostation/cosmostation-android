@@ -25,16 +25,13 @@ class CoinEtcViewHolder(
             headerTitle.text = context.getString(R.string.str_kip10_coins)
             headerCnt.text = cnt.toString()
 
-            when (chain) {
-                is ChainOkt996Keccak -> updateTokenInfo(coin, chain.oktFetcher)
-                is ChainOktEvm -> updateTokenInfo(coin, chain.oktFetcher)
-            }
+            updateTokenInfo(coin, (chain as ChainOktEvm).oktFetcher)
         }
     }
 
     private fun updateTokenInfo(coin: Coin, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == coin.denom }
+            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == coin.denom }
                 ?.let { token ->
                     tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(token.asJsonObject["original_symbol"].asString))
                     tokenName.text = token.asJsonObject["original_symbol"].asString.uppercase()
@@ -44,7 +41,7 @@ class CoinEtcViewHolder(
                         tokenAmount.text = "✱✱✱✱"
                         tokenAmount.textSize = 10f
                     } else {
-                        val availableAmount = oktFetcher.lcdBalanceAmount(coin.denom)
+                        val availableAmount = oktFetcher.oktBalanceAmount(coin.denom)
                         tokenAmount.text = formatAmount(availableAmount.toString(), 18)
                         tokenAmount.textSize = 14f
                     }

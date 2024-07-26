@@ -111,7 +111,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { !it.fetched }) {
                         account.sortedDisplayChains()
-                            .filter { !it.isTestnet && it.isDefault && tag != "finschia438" }
+                            .filter { it.supportCosmos() && !it.isTestnet && it.isDefault && tag != "finschia438" }
                             .forEach { chain ->
                                 val delegated =
                                     chain.cosmosFetcher?.delegationAmountSum() ?: BigDecimal.ZERO
@@ -602,7 +602,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             val simulateTx = Signer.genSimulate(
                 Signer.voteMsg(toVotes), chain.getInitPayableFee(requireContext()), "", chain
             )
-            if (chain.supportCosmosGrpc) {
+            if (chain.supportCosmos()) {
                 chain.cosmosFetcher()?.getChannel()?.let { channel ->
                     loadAuth(channel, chain)
                     val simulStub =
@@ -628,7 +628,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 val txFee = voteAllModel.txFee
                 val broadcastTx = Signer.genBroadcast(Signer.voteMsg(toVotes), txFee, "", chain)
 
-                val txResponse = if (chain.supportCosmosGrpc) {
+                val txResponse = if (chain.supportCosmos()) {
                     val channel = chain.cosmosFetcher?.getChannel()
                     val txStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
@@ -690,7 +690,7 @@ class AllChainVoteFragment : BaseTxFragment() {
     private suspend fun loadAuth(
         managedChannel: ManagedChannel, chain: BaseChain
     ) {
-        return if (chain.supportCosmosGrpc) {
+        return if (chain.supportCosmos()) {
             val stub =
                 QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request =
@@ -714,7 +714,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmosGrpc) {
+            if (chain.supportCosmos()) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

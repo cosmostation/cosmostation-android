@@ -108,7 +108,7 @@ class PopUpCosmosSignFragment(
                 txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
             val chainId = chainIdJson.asString
 
-            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                 ?.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                 ?.let { chain ->
                     selectedChain = chain
@@ -468,7 +468,7 @@ class PopUpCosmosSignFragment(
             val chainId =
                 txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                     .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                     ?.let { chain ->
                         chain.getFeeInfos(requireContext())
@@ -510,7 +510,7 @@ class PopUpCosmosSignFragment(
 
         val chainId = doc["chain_id"].asString
         BaseData.baseAccount?.let { account ->
-            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                 .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }?.let { chain ->
                     selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)

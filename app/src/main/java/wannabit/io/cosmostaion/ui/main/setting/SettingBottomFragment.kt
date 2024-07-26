@@ -189,7 +189,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 }
 
                 SettingType.END_POINT_COSMOS -> {
-                    if (fromChain?.isEvmCosmos() == true) {
+                    if (fromChain?.supportCosmos() == true && fromChain?.supportEvm == true) {
                         selectTitle.text = getString(R.string.title_select_end_point)
                         segmentView.visibility = View.VISIBLE
 

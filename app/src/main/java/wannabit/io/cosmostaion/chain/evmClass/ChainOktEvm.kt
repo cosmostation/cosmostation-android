@@ -7,13 +7,13 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.FetcherLcd
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.OktFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @Parcelize
-class ChainOktEvm : BaseChain(), Parcelable {
+open class ChainOktEvm : BaseChain(), Parcelable {
 
     var oktFetcher: OktFetcher? = null
 
@@ -23,7 +23,7 @@ class ChainOktEvm : BaseChain(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_evm_swipe_okt
     override var apiName: String = "okc"
 
-    override var supportCosmosLcd: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "okt"
     override var accountPrefix: String = "ex"
     override var supportStaking = false
@@ -41,7 +41,7 @@ class ChainOktEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override fun lcdFetcher(): FetcherLcd? {
+    fun oktFetcher(): OktFetcher? {
         if (oktFetcher == null) {
             oktFetcher = OktFetcher(this)
         }

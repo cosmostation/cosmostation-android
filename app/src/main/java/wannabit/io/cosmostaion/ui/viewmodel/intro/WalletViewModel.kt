@@ -15,7 +15,6 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -268,10 +267,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
         when (chain) {
             is ChainOktEvm -> {
-                chain.lcdFetcher()?.let {
+                chain.oktFetcher()?.let {
                     when (val response = walletRepository.oktAccountInfo(chain)) {
                         is NetworkResult.Success -> {
-                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.oktFetcher?.oktAccountInfo = response.data
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {
@@ -281,33 +280,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         }
 
                         is NetworkResult.Error -> {
-                            chain.oktFetcher?.lcdAccountInfo = null
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            is ChainOkt996Keccak -> {
-                chain.lcdFetcher()?.let {
-                    when (val response = walletRepository.oktAccountInfo(chain)) {
-                        is NetworkResult.Success -> {
-                            chain.oktFetcher?.lcdAccountInfo = response.data
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.oktFetcher?.oktAccountInfo = null
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {

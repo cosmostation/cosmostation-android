@@ -30,10 +30,6 @@ class CoinCosmosLineViewHolder(
 
     fun bind(context: Context, chain: BaseChain) {
         when (chain) {
-            is ChainOkt996Keccak -> {
-                bindOkt(chain)
-            }
-
             is ChainOktEvm -> {
                 bindOkt(chain)
             }
@@ -229,10 +225,9 @@ class CoinCosmosLineViewHolder(
                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
             }
 
-            val availableAmount =
-                oktFetcher?.lcdBalanceAmount(chain.stakeDenom) ?: BigDecimal.ZERO
-            val depositAmount = oktFetcher?.lcdOktDepositAmount() ?: BigDecimal.ZERO
-            val withdrawAmount = oktFetcher?.lcdOktWithdrawAmount() ?: BigDecimal.ZERO
+            val availableAmount = oktFetcher?.oktBalanceAmount(chain.stakeDenom) ?: BigDecimal.ZERO
+            val depositAmount = oktFetcher?.oktDepositAmount() ?: BigDecimal.ZERO
+            val withdrawAmount = oktFetcher?.oktWithdrawAmount() ?: BigDecimal.ZERO
             if (BigDecimal.ZERO < withdrawAmount) {
                 stakedLayout.visibility = View.VISIBLE
             } else {

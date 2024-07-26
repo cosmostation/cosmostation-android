@@ -103,7 +103,7 @@ class AboutFragment : Fragment() {
 
                 val chainIdCosmos = it.getAsJsonPrimitive("chain_id_cosmos") ?: JsonPrimitive("")
                 val chainIdEvm = it.getAsJsonPrimitive("chain_id_evm") ?: JsonPrimitive("")
-                if (selectedChain.isCosmos() && selectedChain.supportEvm) {
+                if (selectedChain.supportCosmos() && selectedChain.supportEvm) {
                     chainIdCosmosInfo.visibility = View.VISIBLE
                     chainIdEvmInfo.visibility = View.VISIBLE
                     chainIdCosmosTitle.text = getString(R.string.str_chain_id_cosmos)
@@ -113,7 +113,7 @@ class AboutFragment : Fragment() {
                 } else {
                     chainIdCosmosLayout.visibility = View.VISIBLE
                     chainIdEvmLayout.visibility = View.GONE
-                    if (selectedChain.isCosmos()) {
+                    if (selectedChain.supportCosmos()) {
                         chainIdCosmosInfo.text = chainIdCosmos.asString
                     } else {
                         chainIdCosmosInfo.text = chainIdEvm.asString

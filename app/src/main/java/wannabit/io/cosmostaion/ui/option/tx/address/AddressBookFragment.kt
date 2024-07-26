@@ -123,7 +123,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (fromChain.supportCosmosGrpc) {
+                                if (fromChain.supportCosmos()) {
                                     if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
@@ -150,7 +150,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (fromChain.supportCosmosGrpc) {
+                                if (fromChain.supportCosmos()) {
                                     if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )

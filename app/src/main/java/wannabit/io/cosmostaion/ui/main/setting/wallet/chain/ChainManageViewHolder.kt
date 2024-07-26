@@ -21,9 +21,9 @@ class ChainManageViewHolder(
                 rpcEndpointType.text = "EVM RPC"
                 grpcEndpointType.text = "LCD"
                 rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                grpcEndpoint.text = chain.lcdFetcher()!!.getLcd().replace("https://", "")
+                grpcEndpoint.text = chain.lcdUrl.replace("https://", "")
 
-            } else if (chain.isEvmCosmos()) {
+            } else if (chain.supportCosmos() && chain.supportEvm) {
                 grpcLayout.visibility = View.VISIBLE
                 rpcEndpointType.text = "EVM RPC"
                 grpcEndpointType.text = "GRPC"
@@ -32,7 +32,7 @@ class ChainManageViewHolder(
                     chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                         ?.getGrpc()?.second
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "GRPC"
                 rpcEndpoint.text =
@@ -53,7 +53,7 @@ class ChainManageViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.isEvmCosmos()) {
+            if (chain.supportCosmos() && chain.supportEvm) {
                 grpcLayout.visibility = View.VISIBLE
                 rpcEndpointType.text = "EVM RPC"
                 grpcEndpointType.text = "GRPC"

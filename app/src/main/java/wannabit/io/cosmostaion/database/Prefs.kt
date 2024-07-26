@@ -9,6 +9,7 @@ import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -45,6 +46,7 @@ object Prefs {
     private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
     private const val INJECT_WARN = "PRE_INJECT_WARN"
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
+    private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
 
 
     private val preference =
@@ -246,6 +248,25 @@ object Prefs {
             }
         }
         return null
+    }
+
+    fun setCosmosEndpoint(chain: BaseChain, endpoint: CosmosEndPointType) {
+        val key = ENDPOINT_TYPE + " : " + chain.name
+        preference.edit().putString(key, endpoint.name).apply()
+    }
+
+    fun getEndpointType(chain: BaseChain): CosmosEndPointType? {
+        return when (preference.getString(ENDPOINT_TYPE + ":" + chain.name, "")) {
+            CosmosEndPointType.USE_GRPC.name -> {
+                CosmosEndPointType.USE_GRPC
+            }
+            CosmosEndPointType.USE_LCD.name -> {
+                CosmosEndPointType.USE_LCD
+            }
+            else -> {
+                chain.cosmosEndPointType
+            }
+        }
     }
 
     fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {

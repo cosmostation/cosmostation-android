@@ -57,7 +57,7 @@ class QrCodAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (selectedChain.supportEvm) {
-            if (selectedChain.isCosmos()) {
+            if (selectedChain.supportCosmos()) {
                 when (position) {
                     0 -> VIEW_TYPE_EVM_HEADER
                     1 -> VIEW_TYPE_EVM_ITEM
@@ -81,7 +81,7 @@ class QrCodAdapter(
 
     override fun getItemCount(): Int {
         return if (selectedChain.supportEvm) {
-            if (selectedChain.isCosmos()) {
+            if (selectedChain.supportCosmos()) {
                 4
             } else {
                 2

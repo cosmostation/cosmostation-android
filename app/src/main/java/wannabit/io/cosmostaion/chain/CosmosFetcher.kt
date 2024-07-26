@@ -343,7 +343,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     suspend fun lastHeight(): Long {
-        return if (chain.supportCosmosGrpc) {
+        return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val blockStub =
                 ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
@@ -359,7 +359,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     suspend fun ibcClient(assetPath: AssetPath?): Long {
-        return if (chain.supportCosmosGrpc) {
+        return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val ibcClientStub = QueryGrpc.newBlockingStub(getChannel())
                 .withDeadlineAfter(8L, TimeUnit.SECONDS)
             val ibcClientRequest =
@@ -374,6 +374,10 @@ open class CosmosFetcher(private val chain: BaseChain) {
             RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.channel, assetPath?.port)
                 .revisionNumber()
         }
+    }
+
+    fun endPointType(chain: BaseChain): CosmosEndPointType? {
+        return Prefs.getEndpointType(chain)
     }
 }
 

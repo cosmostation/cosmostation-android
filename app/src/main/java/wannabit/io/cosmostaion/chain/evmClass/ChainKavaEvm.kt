@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.CosmosFetcher
 import wannabit.io.cosmostaion.chain.KavaFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
@@ -28,7 +29,7 @@ class ChainKavaEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ukava"
     override var accountPrefix: String = "kava"
     override var grpcHost: String = "grpc-kava.cosmostation.io"
@@ -41,7 +42,6 @@ class ChainKavaEvm : BaseChain(), Parcelable {
     override var evmRpcURL: String = "https://rpc-kava-evm.cosmostation.io"
 
     override fun cosmosFetcher(): CosmosFetcher? {
-        if (!isCosmos()) return null
         if (cosmosFetcher == null) {
             cosmosFetcher = KavaFetcher(this)
         }
@@ -49,7 +49,6 @@ class ChainKavaEvm : BaseChain(), Parcelable {
     }
 
     fun kavaFetcher(): KavaFetcher? {
-        if (!isCosmos()) return null
         if (cosmosFetcher == null) {
             cosmosFetcher = KavaFetcher(this)
         }
