@@ -27,11 +27,6 @@ object RetrofitInstance {
 
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-    private val walletRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
-            .client(okHttpClient).baseUrl(CosmostationConstants.WALLET_API_URL).build()
-    }
-
     private val mintScanRetrofit: Retrofit by lazy {
         Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
@@ -79,10 +74,6 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
             .baseUrl(chain.cosmosFetcher()?.getLcd() ?: chain.lcdUrl).build()
-    }
-
-    val walletApi: WalletApi by lazy {
-        walletRetrofit.create(WalletApi::class.java)
     }
 
     val mintscanApi: MintscanApi by lazy {

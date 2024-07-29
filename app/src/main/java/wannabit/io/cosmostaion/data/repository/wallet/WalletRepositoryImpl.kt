@@ -53,7 +53,6 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.walletApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -90,7 +89,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun version(): NetworkResult<Response<AppVersion>> {
         return safeApiCall(Dispatchers.IO) {
-            walletApi.version()
+            mintscanApi.version()
         }
     }
 
@@ -330,7 +329,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun moonPay(data: MoonPayReq): NetworkResult<Response<MoonPay>> {
         return safeApiCall(Dispatchers.IO) {
-            walletApi.moonPay(data)
+            mintscanApi.moonPay(data)
         }
     }
 
