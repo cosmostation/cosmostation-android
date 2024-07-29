@@ -47,10 +47,7 @@ import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
@@ -423,53 +420,6 @@ class CosmosDetailFragment : Fragment() {
 
     private fun setFabMenuClickAction() {
         binding.apply {
-            fabSend.setOnClickListener {
-                val sendAssetType = if (selectedChain.supportCosmos() && selectedChain.supportEvm) {
-                    SendAssetType.COSMOS_EVM_COIN
-                } else if (selectedChain is ChainOktEvm) {
-                    SendAssetType.ONLY_EVM_COIN
-                } else {
-                    SendAssetType.ONLY_COSMOS_COIN
-                }
-
-                if (selectedChain.isBankLocked()) {
-                    requireContext().showToast(view, R.string.error_tranfer_disabled, false)
-                    return@setOnClickListener
-                }
-
-                if (selectedChain is ChainOkt996Keccak) {
-                    handleOneClickWithDelay(
-                        null,
-                        LegacyTransferFragment.newInstance(selectedChain, selectedChain.stakeDenom)
-                    )
-                } else {
-                    handleOneClickWithDelay(
-                        null, CommonTransferFragment.newInstance(
-                            selectedChain, selectedChain.stakeDenom, sendAssetType
-                        )
-                    )
-                }
-            }
-
-            fabReceive.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
-                    handleOneClickWithDelay(
-                        null, QrCodeFragment.newInstance(selectedChain)
-                    )
-                } else {
-                    if (selectedChain.supportEvm) {
-                        handleOneClickWithDelay(
-                            null, QrCodeEvmFragment.newInstance(selectedChain)
-                        )
-
-                    } else {
-                        handleOneClickWithDelay(
-                            null, QrCodeFragment.newInstance(selectedChain)
-                        )
-                    }
-                }
-            }
-
             fabStake.setOnClickListener {
                 if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)

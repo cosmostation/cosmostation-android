@@ -185,11 +185,11 @@
     <string name="title_amount">Amount</string>
     <string name="title_mnemonic_account">Mnemonic account</string>
     <string name="title_private_account">Private key account</string>
-    <string name="title_governance" translatable="false">Governance</string>
+    <string name="title_governance" translatable="false">Vote</string>
     <string name="title_reward_claim" translatable="false">Claim reward</string>
-    <string name="title_stake" translatable="false">Stake</string>
-    <string name="title_compounding_all" translatable="false">Compounding all</string>
-    <string name="title_claim_reward_all" translatable="false">Claim reward all</string>
+    <string name="title_stake" translatable="false">Manage stake</string>
+    <string name="title_compounding_all" translatable="false">Compound all</string>
+    <string name="title_claim_reward_all" translatable="false">Claim all</string>
     <string name="title_wallet">Wallet</string>
     <string name="title_account">Account</string>
     <string name="title_account_name">Account name</string>

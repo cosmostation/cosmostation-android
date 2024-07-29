@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -89,6 +90,7 @@ class StakingInfoAdapter(
                         position - delegations.size
                     }
                     val entry = unBondings[unStakingPosition]
+                    Log.e("test1234 : ", entry.toString())
                     validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
                         ?.let { validator ->
                             holder.bind(
@@ -107,7 +109,6 @@ class StakingInfoAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val isRewardAddress = rewardAddress != selectedChain.address
-
         return when {
             isRewardAddress && position == 0 -> VIEW_TYPE_REWARD_ADDRESS
             isRewardAddress && position < delegations.size + 1 -> VIEW_TYPE_STAKING
@@ -119,7 +120,6 @@ class StakingInfoAdapter(
     override fun getItemCount(): Int {
         return if (rewardAddress != selectedChain.address) {
             delegations.size + unBondings.size + 1
-
         } else {
             delegations.size + unBondings.size
         }
