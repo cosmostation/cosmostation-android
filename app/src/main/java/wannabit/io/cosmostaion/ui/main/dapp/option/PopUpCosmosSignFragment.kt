@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -151,20 +150,23 @@ class PopUpCosmosSignFragment(
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
                 if (method == "sign_direct") {
-                    chain.cosmosFetcher()?.let {
+                    chain.cosmosFetcher()?.let { fetcher ->
                         try {
-                            val channel = getChannel(chain)
-                            val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
-                            val loadInputBalanceDeferred =
-                                async { loadBalance(channel, chain.address) }
+                            fetcher.getChannel()?.let { channel ->
+                                val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+                                val loadInputBalanceDeferred =
+                                    async { loadBalance(channel, chain.address) }
 
-                            chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
-                            chain.cosmosFetcher?.cosmosBalances =
-                                loadInputBalanceDeferred.await().balancesList
-                            BaseUtils.onParseVesting(chain)
+                                chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                                chain.cosmosFetcher?.cosmosBalances =
+                                    loadInputBalanceDeferred.await().balancesList
+                                BaseUtils.onParseVesting(chain)
+                            }
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)
+                            } else {
+                                return@launch
                             }
                         }
                     }

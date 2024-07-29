@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus

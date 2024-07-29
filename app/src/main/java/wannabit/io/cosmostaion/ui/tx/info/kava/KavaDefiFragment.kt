@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentKavaDefiBinding

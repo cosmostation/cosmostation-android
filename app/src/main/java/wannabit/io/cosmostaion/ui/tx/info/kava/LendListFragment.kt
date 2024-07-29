@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.chain.hardMoneyMarket
 import wannabit.io.cosmostaion.chain.kavaOraclePrice
 import wannabit.io.cosmostaion.chain.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentLendListBinding
@@ -111,7 +110,7 @@ class LendListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.lendingData(getChannel(selectedChain), selectedChain.address)
+        selectedChain.cosmosFetcher?.getChannel()?.let { kavaViewModel.lendingData(it, selectedChain.address) }
     }
 
     private fun setUpLendingDataObserve() {

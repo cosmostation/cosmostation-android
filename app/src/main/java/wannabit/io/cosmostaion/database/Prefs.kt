@@ -43,6 +43,7 @@ object Prefs {
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+    private const val LCD_ENDPOINT = "PRE_LCD_ENDPOINT"
     private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
     private const val INJECT_WARN = "PRE_INJECT_WARN"
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
@@ -250,8 +251,8 @@ object Prefs {
         return null
     }
 
-    fun setCosmosEndpoint(chain: BaseChain, endpoint: CosmosEndPointType) {
-        val key = ENDPOINT_TYPE + " : " + chain.name
+    fun setEndpointType(chain: BaseChain?, endpoint: CosmosEndPointType) {
+        val key = ENDPOINT_TYPE + ":" + chain?.name
         preference.edit().putString(key, endpoint.name).apply()
     }
 
@@ -285,5 +286,14 @@ object Prefs {
 
     fun getEvmRpcEndpoint(chain: BaseChain): String? {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
+    }
+
+    fun setLcdEndpoint(chain: BaseChain?, endpoint: String) {
+        val key = LCD_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getLcdEndpoint(chain: BaseChain): String {
+        return preference.getString(LCD_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 }

@@ -17,7 +17,6 @@ import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentMintListBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
@@ -105,14 +104,14 @@ class MintListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.mintParam(getChannel(selectedChain))
+        selectedChain.cosmosFetcher?.getChannel()?.let { kavaViewModel.mintParam(it) }
     }
 
     private fun setUpMintParamObserve() {
         kavaViewModel.mintParamResult.observe(viewLifecycleOwner) { response ->
             response?.let { params ->
                 mintParam = params.params
-                kavaViewModel.myCdp(getChannel(selectedChain), selectedChain.address)
+                selectedChain.cosmosFetcher?.getChannel()?.let { kavaViewModel.myCdp(it, selectedChain.address) }
             }
         }
     }

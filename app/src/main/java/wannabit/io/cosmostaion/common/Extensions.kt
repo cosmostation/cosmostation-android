@@ -32,8 +32,6 @@ import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.squareup.picasso.Picasso
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -584,13 +582,6 @@ fun dpToPx(context: Context, dp: Int): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics
     ).toInt()
-}
-
-fun getChannel(selectedChain: BaseChain): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(
-        selectedChain.cosmosFetcher()!!.getGrpc().first,
-        selectedChain.cosmosFetcher()!!.getGrpc().second
-    ).useTransportSecurity().build()
 }
 
 fun ByteArray.toHex(): String {

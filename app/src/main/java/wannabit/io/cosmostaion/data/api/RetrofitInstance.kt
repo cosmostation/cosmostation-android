@@ -78,7 +78,7 @@ object RetrofitInstance {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(chain.lcdUrl).build()
+            .baseUrl(chain.cosmosFetcher()?.getLcd() ?: chain.lcdUrl).build()
     }
 
     val walletApi: WalletApi by lazy {

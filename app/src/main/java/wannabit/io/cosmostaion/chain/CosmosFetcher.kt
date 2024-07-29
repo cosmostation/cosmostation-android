@@ -319,7 +319,17 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun getLcd(): String {
-        return chain.lcdUrl
+        var url: String
+        val endpoint = Prefs.getLcdEndpoint(chain)
+        url = if (endpoint != "") {
+            endpoint
+        } else {
+            chain.lcdUrl
+        }
+        if (!url.endsWith("/")) {
+            url += "/"
+        }
+        return url
     }
 
     fun getGrpc(): Pair<String, Int> {

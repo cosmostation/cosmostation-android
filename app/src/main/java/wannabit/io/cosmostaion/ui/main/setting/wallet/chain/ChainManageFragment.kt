@@ -87,8 +87,11 @@ class ChainManageFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            if (chain is ChainOktEvm) return
-            val settingType = if (chain.supportCosmos() && chain.supportEvm) {
+            if (chain is ChainOktEvm) {
+                isClickable = true
+                return
+            }
+            val settingType = if (chain.isEvmCosmos()) {
                 SettingType.END_POINT_COSMOS
             } else if (chain.supportCosmos()) {
                 SettingType.END_POINT_COSMOS

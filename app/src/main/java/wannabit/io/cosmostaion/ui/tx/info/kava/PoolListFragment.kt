@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.usdxAmount
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentPoolListBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.PoolOptionFragment
@@ -91,7 +90,7 @@ class PoolListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        kavaViewModel.swapData(getChannel(selectedChain), selectedChain.address)
+        selectedChain.cosmosFetcher?.getChannel()?.let { kavaViewModel.swapData(it, selectedChain.address) }
     }
 
     private fun setUpSwapDataObserve() {
