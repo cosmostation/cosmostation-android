@@ -10,6 +10,8 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
@@ -479,6 +481,8 @@ open class BaseChain : Parcelable {
 fun allChains(): MutableList<BaseChain> {
     var chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
+    chains.add(ChainAgoric564())
+    chains.add(ChainAgoric118())
     chains.add(ChainAkash())
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
