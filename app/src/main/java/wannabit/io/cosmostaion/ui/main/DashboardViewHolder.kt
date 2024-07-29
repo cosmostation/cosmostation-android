@@ -47,7 +47,6 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
 
             dashView.heightInDp(114)
@@ -359,7 +358,6 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
             handler.removeCallbacks(starEvmAddressAnimation)
 

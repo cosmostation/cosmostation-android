@@ -28,5 +28,6 @@ class ChainFetchAi60Secp : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "afet"
     override var accountPrefix: String = "fetch"
+    override var grpcHost: String = "grpc-fetchai.cosmostation.io"
     override var lcdUrl: String = "https://lcd-fetchai.cosmostation.io/"
 }
