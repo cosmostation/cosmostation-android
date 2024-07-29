@@ -28,4 +28,5 @@ class ChainRegen : BaseChain(), Parcelable {
     override var stakeDenom: String = "uregen"
     override var accountPrefix: String = "regen"
     override var grpcHost: String = "grpc-regen.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-regen.cosmostation.io/"
 }

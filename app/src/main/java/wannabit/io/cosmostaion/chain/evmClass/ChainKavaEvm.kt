@@ -33,6 +33,7 @@ class ChainKavaEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "ukava"
     override var accountPrefix: String = "kava"
     override var grpcHost: String = "grpc-kava.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-kava.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "KAVA"

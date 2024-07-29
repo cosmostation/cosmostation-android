@@ -28,6 +28,7 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "adym"
     override var accountPrefix: String = "dym"
     override var grpcHost: String = "grpc-dymension.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-dymension.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "DYM"

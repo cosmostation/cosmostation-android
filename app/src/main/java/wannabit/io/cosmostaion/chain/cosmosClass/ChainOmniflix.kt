@@ -28,4 +28,5 @@ class ChainOmniflix : BaseChain(), Parcelable {
     override var stakeDenom: String = "uflix"
     override var accountPrefix: String = "omniflix"
     override var grpcHost: String = "grpc-omniflix.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-omniflix.cosmostation.io/"
 }

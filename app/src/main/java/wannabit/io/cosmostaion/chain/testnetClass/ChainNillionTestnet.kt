@@ -28,4 +28,5 @@ class ChainNillionTestnet : BaseChain(), Parcelable {
     override var stakeDenom: String = "unil"
     override var accountPrefix: String = "nillion"
     override var grpcHost: String = "grpc-office-nillion.cosmostation.io"
+    override var lcdUrl: String = "https://testnet-nillion-api.lavenderfive.com/"
 }

@@ -28,4 +28,5 @@ class ChainMars : BaseChain(), Parcelable {
     override var stakeDenom: String = "umars"
     override var accountPrefix: String = "mars"
     override var grpcHost: String = "grpc-mars-protocol.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-mars-protocol.cosmostation.io/"
 }

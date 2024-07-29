@@ -28,4 +28,5 @@ class ChainUx : BaseChain(), Parcelable {
     override var stakeDenom: String = "uumee"
     override var accountPrefix: String = "umee"
     override var grpcHost: String = "grpc-umee.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-umee.cosmostation.io/"
 }

@@ -28,4 +28,5 @@ class ChainPassage : BaseChain(), Parcelable {
     override var stakeDenom: String = "upasg"
     override var accountPrefix: String = "pasg"
     override var grpcHost: String = "grpc-passage.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-passage.cosmostation.io/"
 }

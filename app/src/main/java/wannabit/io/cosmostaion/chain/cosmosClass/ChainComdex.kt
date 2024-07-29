@@ -28,4 +28,5 @@ class ChainComdex : BaseChain(), Parcelable {
     override var stakeDenom: String = "ucmdx"
     override var accountPrefix: String = "comdex"
     override var grpcHost: String = "grpc-comdex.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-comdex.cosmostation.io/"
 }

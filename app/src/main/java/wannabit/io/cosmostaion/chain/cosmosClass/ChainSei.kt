@@ -28,4 +28,5 @@ class ChainSei : BaseChain(), Parcelable {
     override var stakeDenom: String = "usei"
     override var accountPrefix: String = "sei"
     override var grpcHost: String = "grpc-sei.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-sei.cosmostation.io/"
 }

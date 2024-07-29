@@ -28,4 +28,5 @@ class ChainCryptoorg : BaseChain(), Parcelable {
     override var stakeDenom: String = "basecro"
     override var accountPrefix: String = "cro"
     override var grpcHost: String = "grpc-crypto-org.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-crypto-org.cosmostation.io/"
 }

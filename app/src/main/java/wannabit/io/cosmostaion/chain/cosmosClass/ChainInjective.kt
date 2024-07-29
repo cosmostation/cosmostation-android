@@ -28,4 +28,5 @@ class ChainInjective : BaseChain(), Parcelable {
     override var stakeDenom: String = "inj"
     override var accountPrefix: String = "inj"
     override var grpcHost: String = "grpc-injective.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-injective.cosmostation.io/"
 }

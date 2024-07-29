@@ -28,4 +28,5 @@ class ChainProvenance : BaseChain(), Parcelable {
     override var stakeDenom: String = "nhash"
     override var accountPrefix: String = "pb"
     override var grpcHost: String = "grpc-provenance.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-provenance.cosmostation.io/"
 }

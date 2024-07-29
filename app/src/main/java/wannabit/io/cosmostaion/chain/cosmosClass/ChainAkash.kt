@@ -28,4 +28,5 @@ class ChainAkash : BaseChain(), Parcelable {
     override var stakeDenom: String = "uakt"
     override var accountPrefix: String = "akash"
     override var grpcHost: String = "grpc-akash.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-akash.cosmostation.io/"
 }

@@ -28,4 +28,5 @@ class ChainChihuahua : BaseChain(), Parcelable {
     override var stakeDenom: String = "uhuahua"
     override var accountPrefix: String = "chihuahua"
     override var grpcHost: String = "grpc-chihuahua.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-chihuahua.cosmostation.io/"
 }

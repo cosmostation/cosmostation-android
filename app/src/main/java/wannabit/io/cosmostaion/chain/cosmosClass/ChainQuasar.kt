@@ -28,4 +28,5 @@ class ChainQuasar : BaseChain(), Parcelable {
     override var stakeDenom: String = "uqsr"
     override var accountPrefix: String = "quasar"
     override var grpcHost: String = "grpc-quasar.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-quasar.cosmostation.io/"
 }

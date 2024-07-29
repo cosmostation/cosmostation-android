@@ -28,6 +28,7 @@ class ChainAltheaEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "aalthea"
     override var accountPrefix: String = "althea"
     override var grpcHost: String = "grpc-althea.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-althea.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ALTHEA"

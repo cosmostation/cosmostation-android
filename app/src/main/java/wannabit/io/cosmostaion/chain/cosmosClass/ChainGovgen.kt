@@ -28,4 +28,5 @@ class ChainGovgen : BaseChain(), Parcelable {
     override var stakeDenom: String = "ugovgen"
     override var accountPrefix: String = "govgen"
     override var grpcHost: String = "grpc-govgen.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-govgen.cosmostation.io/"
 }

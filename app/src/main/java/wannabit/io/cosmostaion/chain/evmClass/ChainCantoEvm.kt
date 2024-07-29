@@ -28,6 +28,7 @@ class ChainCantoEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "acanto"
     override var accountPrefix: String = "canto"
     override var grpcHost: String = "grpc-canto.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-canto.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "CANTO"

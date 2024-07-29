@@ -28,4 +28,5 @@ class ChainNibiru : BaseChain(), Parcelable {
     override var stakeDenom: String = "unibi"
     override var accountPrefix: String = "nibi"
     override var grpcHost: String = "grpc-nibiru.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-nibiru.cosmostation.io/"
 }

@@ -28,4 +28,5 @@ class ChainCudos : BaseChain(), Parcelable {
     override var stakeDenom: String = "acudos"
     override var accountPrefix: String = "cudos"
     override var grpcHost: String = "grpc-cudos.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-cudos.cosmostation.io/"
 }

@@ -28,4 +28,5 @@ class ChainMedibloc : BaseChain(), Parcelable {
     override var stakeDenom: String = "umed"
     override var accountPrefix: String = "panacea"
     override var grpcHost: String = "grpc-medibloc.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-medibloc.cosmostation.io/"
 }

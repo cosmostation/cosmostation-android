@@ -28,4 +28,5 @@ class ChainSaga : BaseChain(), Parcelable {
     override var stakeDenom: String = "usaga"
     override var accountPrefix: String = "saga"
     override var grpcHost: String = "grpc-saga.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-saga.cosmostation.io/"
 }

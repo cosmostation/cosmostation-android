@@ -28,6 +28,7 @@ class ChainArtelaTestnet : BaseChain(), Parcelable {
     override var stakeDenom: String = "uart"
     override var accountPrefix: String = "art"
     override var grpcHost: String = "grpc-office-artela.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-office.cosmostation.io/artela-testnet/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ART"

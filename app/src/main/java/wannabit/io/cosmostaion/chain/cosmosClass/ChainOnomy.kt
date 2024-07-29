@@ -28,4 +28,5 @@ class ChainOnomy : BaseChain(), Parcelable {
     override var stakeDenom: String = "anom"
     override var accountPrefix: String = "onomy"
     override var grpcHost: String = "grpc-onomy-protocol.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-onomy-protocol.cosmostation.io/"
 }

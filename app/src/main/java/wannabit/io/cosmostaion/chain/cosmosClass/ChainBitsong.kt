@@ -28,4 +28,5 @@ class ChainBitsong : BaseChain(), Parcelable {
     override var stakeDenom: String = "ubtsg"
     override var accountPrefix: String = "bitsong"
     override var grpcHost: String = "grpc-bitsong.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-bitsong.cosmostation.io/"
 }

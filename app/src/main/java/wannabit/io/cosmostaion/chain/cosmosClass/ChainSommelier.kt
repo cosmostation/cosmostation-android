@@ -28,4 +28,5 @@ class ChainSommelier : BaseChain(), Parcelable {
     override var stakeDenom: String = "usomm"
     override var accountPrefix: String = "somm"
     override var grpcHost: String = "grpc-sommelier.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-sommelier.cosmostation.io/"
 }

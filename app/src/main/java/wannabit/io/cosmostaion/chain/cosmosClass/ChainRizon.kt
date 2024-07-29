@@ -28,4 +28,5 @@ class ChainRizon : BaseChain(), Parcelable {
     override var stakeDenom: String = "uatolo"
     override var accountPrefix: String = "rizon"
     override var grpcHost: String = "grpc-rizon.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-rizon.cosmostation.io/"
 }

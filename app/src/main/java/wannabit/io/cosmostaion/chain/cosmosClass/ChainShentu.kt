@@ -28,4 +28,5 @@ class ChainShentu : BaseChain(), Parcelable {
     override var stakeDenom: String = "uctk"
     override var accountPrefix: String = "shentu"
     override var grpcHost: String = "grpc-shentu.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-shentu.cosmostation.io/"
 }

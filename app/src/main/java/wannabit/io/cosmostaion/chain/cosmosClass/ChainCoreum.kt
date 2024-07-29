@@ -28,4 +28,5 @@ class ChainCoreum : BaseChain(), Parcelable {
     override var stakeDenom: String = "ucore"
     override var accountPrefix: String = "core"
     override var grpcHost: String = "grpc-coreum.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-coreum.cosmostation.io/"
 }

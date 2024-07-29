@@ -28,4 +28,5 @@ class ChainGravityBridge : BaseChain(), Parcelable {
     override var stakeDenom: String = "ugraviton"
     override var accountPrefix: String = "gravity"
     override var grpcHost: String = "grpc-gravity-bridge.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-gravity-bridge.cosmostation.io/"
 }

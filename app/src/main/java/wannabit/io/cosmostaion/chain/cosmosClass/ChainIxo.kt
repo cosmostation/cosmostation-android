@@ -28,4 +28,5 @@ class ChainIxo : BaseChain(), Parcelable {
     override var stakeDenom: String = "uixo"
     override var accountPrefix: String = "ixo"
     override var grpcHost: String = "grpc-ixo.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-ixo.cosmostation.io/"
 }

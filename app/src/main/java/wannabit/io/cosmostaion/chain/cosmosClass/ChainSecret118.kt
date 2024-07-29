@@ -29,4 +29,5 @@ class ChainSecret118 : BaseChain(), Parcelable {
     override var stakeDenom: String = "uscrt"
     override var accountPrefix: String = "secret"
     override var grpcHost: String = "grpc-secret.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-secret.cosmostation.io/"
 }

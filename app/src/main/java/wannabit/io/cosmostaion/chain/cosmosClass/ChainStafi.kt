@@ -28,4 +28,5 @@ class ChainStafi : BaseChain(), Parcelable {
     override var stakeDenom: String = "ufis"
     override var accountPrefix: String = "stafi"
     override var grpcHost: String = "grpc-stafi.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-stafi.cosmostation.io/"
 }

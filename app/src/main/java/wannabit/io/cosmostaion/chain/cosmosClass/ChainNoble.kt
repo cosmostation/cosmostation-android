@@ -28,4 +28,5 @@ class ChainNoble : BaseChain(), Parcelable {
     override var stakeDenom: String = "ustake"
     override var accountPrefix: String = "noble"
     override var grpcHost: String = "grpc-noble.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-noble.cosmostation.io/"
 }

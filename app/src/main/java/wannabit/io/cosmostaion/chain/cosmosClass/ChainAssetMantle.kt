@@ -28,4 +28,5 @@ class ChainAssetMantle : BaseChain(), Parcelable {
     override var stakeDenom: String = "umntl"
     override var accountPrefix: String = "mantle"
     override var grpcHost: String = "grpc-asset-mantle.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-asset-mantle.cosmostation.io/"
 }

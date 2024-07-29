@@ -28,4 +28,5 @@ class ChainLava : BaseChain(), Parcelable {
     override var stakeDenom: String = "ulava"
     override var accountPrefix: String = "lava@"
     override var grpcHost: String = "grpc-lava.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-lava.cosmostation.io/"
 }

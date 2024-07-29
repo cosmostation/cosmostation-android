@@ -29,4 +29,5 @@ class ChainStargaze : BaseChain(), Parcelable {
     override var stakeDenom: String = "ustars"
     override var accountPrefix: String = "stars"
     override var grpcHost: String = "grpc-stargaze.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-stargaze.cosmostation.io/"
 }

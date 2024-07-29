@@ -28,4 +28,5 @@ class ChainKyve : BaseChain(), Parcelable {
     override var stakeDenom: String = "ukyve"
     override var accountPrefix: String = "kyve"
     override var grpcHost: String = "grpc-kyve.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-kyve.cosmostation.io/"
 }

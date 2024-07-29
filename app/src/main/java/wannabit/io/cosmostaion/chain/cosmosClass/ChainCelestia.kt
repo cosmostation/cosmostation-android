@@ -28,4 +28,5 @@ class ChainCelestia : BaseChain(), Parcelable {
     override var stakeDenom: String = "utia"
     override var accountPrefix: String = "celestia"
     override var grpcHost: String = "grpc-celestia.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-celestia.cosmostation.io/"
 }

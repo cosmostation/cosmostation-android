@@ -28,4 +28,5 @@ class ChainNyx : BaseChain(), Parcelable {
     override var stakeDenom: String = "unyx"
     override var accountPrefix: String = "n"
     override var grpcHost: String = "grpc-nyx.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-nyx.cosmostation.io/"
 }

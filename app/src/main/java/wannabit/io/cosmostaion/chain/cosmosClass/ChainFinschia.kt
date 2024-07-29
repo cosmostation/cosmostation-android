@@ -28,4 +28,5 @@ class ChainFinschia : BaseChain(), Parcelable {
     override var stakeDenom: String = "cony"
     override var accountPrefix: String = "link"
     override var grpcHost: String = "grpc-finschia.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-finschia.cosmostation.io/"
 }

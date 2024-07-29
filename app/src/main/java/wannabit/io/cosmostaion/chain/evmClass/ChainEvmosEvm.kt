@@ -28,6 +28,7 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "aevmos"
     override var accountPrefix: String = "evmos"
     override var grpcHost: String = "grpc-evmos.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-evmos.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "EVMOS"

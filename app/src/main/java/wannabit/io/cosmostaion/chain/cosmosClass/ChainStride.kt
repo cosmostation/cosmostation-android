@@ -28,4 +28,5 @@ class ChainStride : BaseChain(), Parcelable {
     override var stakeDenom: String = "ustrd"
     override var accountPrefix: String = "stride"
     override var grpcHost: String = "grpc-stride.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-stride.cosmostation.io/"
 }

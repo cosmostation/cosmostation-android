@@ -28,4 +28,5 @@ class ChainPersistence118 : BaseChain(), Parcelable {
     override var stakeDenom: String = "uxprt"
     override var accountPrefix: String = "persistence"
     override var grpcHost: String = "grpc-persistence.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-persistence.cosmostation.io/"
 }

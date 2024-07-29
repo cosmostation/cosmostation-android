@@ -28,4 +28,5 @@ class ChainSentinel : BaseChain(), Parcelable {
     override var stakeDenom: String = "udvpn"
     override var accountPrefix: String = "sent"
     override var grpcHost: String = "grpc-sentinel.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-sentinel.cosmostation.io/"
 }

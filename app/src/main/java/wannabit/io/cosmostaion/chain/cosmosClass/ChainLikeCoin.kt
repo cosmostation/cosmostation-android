@@ -28,4 +28,5 @@ class ChainLikeCoin : BaseChain(), Parcelable {
     override var stakeDenom: String = "nanolike"
     override var accountPrefix: String = "like"
     override var grpcHost: String = "grpc-likecoin.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-likecoin.cosmostation.io/"
 }

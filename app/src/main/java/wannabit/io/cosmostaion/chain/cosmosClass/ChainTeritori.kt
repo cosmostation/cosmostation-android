@@ -28,4 +28,5 @@ class ChainTeritori : BaseChain(), Parcelable {
     override var stakeDenom: String = "utori"
     override var accountPrefix: String = "tori"
     override var grpcHost: String = "grpc-teritori.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-teritori.cosmostation.io/"
 }

@@ -30,4 +30,5 @@ class ChainArchway : BaseChain(), Parcelable {
     override var stakeDenom: String = "aarch"
     override var accountPrefix: String = "archway"
     override var grpcHost: String = "grpc-archway.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-archway.cosmostation.io/"
 }

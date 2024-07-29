@@ -29,4 +29,5 @@ class ChainJuno : BaseChain(), Parcelable {
     override var stakeDenom: String = "ujuno"
     override var accountPrefix: String = "juno"
     override var grpcHost: String = "grpc-juno.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-juno.cosmostation.io/"
 }

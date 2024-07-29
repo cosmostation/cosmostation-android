@@ -28,4 +28,5 @@ class ChainNeutronTestnet : ChainNeutron(), Parcelable {
     override var stakeDenom: String = "untrn"
     override var accountPrefix: String = "neutron"
     override var grpcHost: String = "grpc-office-neutron.cosmostation.io"
+    override var lcdUrl: String = "https://rest-falcron.pion-1.ntrn.tech/"
 }

@@ -28,4 +28,5 @@ class ChainBand : BaseChain(), Parcelable {
     override var stakeDenom: String = "uband"
     override var accountPrefix: String = "band"
     override var grpcHost: String = "grpc-band.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-band.cosmostation.io/"
 }

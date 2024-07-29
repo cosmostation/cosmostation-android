@@ -28,6 +28,7 @@ class ChainXplaEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "axpla"
     override var accountPrefix: String = "xpla"
     override var grpcHost: String = "grpc-xpla.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-xpla.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "XPLA"

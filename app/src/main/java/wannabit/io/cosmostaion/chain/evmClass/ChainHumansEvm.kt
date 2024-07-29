@@ -28,6 +28,7 @@ class ChainHumansEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "aheart"
     override var accountPrefix: String = "human"
     override var grpcHost: String = "grpc-humans.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-humans.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "HEART"

@@ -29,4 +29,5 @@ class ChainKi : BaseChain(), Parcelable {
     override var stakeDenom: String = "uxki"
     override var accountPrefix: String = "ki"
     override var grpcHost: String = "grpc-ki-chain.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-ki-chain.cosmostation.io/"
 }

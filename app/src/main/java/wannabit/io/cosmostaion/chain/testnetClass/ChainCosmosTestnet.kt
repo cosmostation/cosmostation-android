@@ -28,4 +28,5 @@ class ChainCosmosTestnet : BaseChain(), Parcelable {
     override var stakeDenom: String = "uatom"
     override var accountPrefix: String = "cosmos"
     override var grpcHost: String = "grpc-office.cosmostation.io"
+    override var lcdUrl: String = "https://rest.sentry-01.theta-testnet.polypore.xyz/"
 }
