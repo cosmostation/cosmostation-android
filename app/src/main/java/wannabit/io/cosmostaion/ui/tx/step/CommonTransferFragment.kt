@@ -390,14 +390,8 @@ class CommonTransferFragment : BaseTxFragment() {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
-                        if (fromChain.isTestnet) {
-                            if (asset.origin_chain == fromChain.apiName) {
-                                addRecipientChainIfNotExists(asset.chain)
-                            }
-                        } else {
-                            addRecipientChainIfNotExists(asset.chain)
-                        }
+                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
+                        addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
