@@ -53,16 +53,9 @@ class DashboardViewHolder(
             proLayout.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
-
-            listOf(
-                chainBadge, chainCw20Badge, chainErc20Badge, chainNftBadge, chainDappBadge
-            ).forEach { it.visibility = View.GONE }
-
+            chainBadge.visibility = View.GONE
             chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainSideCw20Badge.visibleOrGone(chain.supportCw20)
-            chainSideErc20Badge.visibleOrGone(chain.supportEvm)
-            chainSideNftBadge.visibleOrGone(chain.supportNft)
-            chainSideDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
+
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
@@ -246,21 +239,8 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             assetCnt.visibility = View.VISIBLE
-
-            listOf(
-                chainBadge,
-                chainCw20Badge,
-                chainErc20Badge,
-                chainNftBadge,
-                chainDappBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
-
+            chainBadge.visibility = View.GONE
             chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainSideCw20Badge.visibleOrGone(chain.supportCw20)
-            chainSideErc20Badge.visibleOrGone(chain.supportEvm)
-            chainSideNftBadge.visibleOrGone(chain.supportNft)
-            chainSideDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
@@ -367,20 +347,8 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-
             chainBadge.visibleOrGone(!chain.isDefault)
-            chainCw20Badge.visibleOrGone(chain.supportCw20)
-            chainErc20Badge.visibleOrGone(chain.supportEvm)
-            chainNftBadge.visibleOrGone(chain.supportNft)
-            chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
-
-            listOf(
-                chainSideBadge,
-                chainSideCw20Badge,
-                chainSideErc20Badge,
-                chainSideNftBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
+            chainSideBadge.visibility = View.GONE
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
@@ -456,20 +424,8 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-
             chainBadge.visibleOrGone(!chain.isDefault)
-            chainCw20Badge.visibleOrGone(chain.supportCw20)
-            chainErc20Badge.visibleOrGone(chain.supportEvm)
-            chainNftBadge.visibleOrGone(chain.supportNft)
-            chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
-
-            listOf(
-                chainSideBadge,
-                chainSideCw20Badge,
-                chainSideErc20Badge,
-                chainSideNftBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
+            chainSideBadge.visibility = View.GONE
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE

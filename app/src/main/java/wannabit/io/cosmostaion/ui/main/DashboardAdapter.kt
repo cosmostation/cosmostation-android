@@ -68,7 +68,7 @@ class DashboardAdapter(
                         if (chain.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = if (chain.supportCosmos() && chain.supportEvm) {
+                            val customDialog = if (chain.isEvmCosmos()) {
                                 QrEvmDialog(context, chain)
                             } else {
                                 QrDialog(context, chain)
@@ -107,7 +107,7 @@ class DashboardAdapter(
                         if (testnet.fetched) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = if (testnet.supportCosmos() && testnet.supportEvm) {
+                            val customDialog = if (testnet.isEvmCosmos()) {
                                 QrEvmDialog(context, testnet)
                             } else {
                                 QrDialog(context, testnet)

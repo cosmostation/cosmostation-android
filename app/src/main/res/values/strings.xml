@@ -9,7 +9,7 @@
     <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
-    <string name="str_legacy" translatable="false">Legacy</string>
+    <string name="str_old" translatable="false">OLD</string>
     <string name="str_ethsecp256k1" translatable="false">ethsecp256k1</string>
     <string name="str_keccak256" translatable="false">keccak256</string>
     <string name="str_secp256k1" translatable="false">secp256k1</string>
@@ -195,7 +195,7 @@
     <string name="title_account_name">Account name</string>
     <string name="title_add_account">Add account</string>
     <string name="title_import_qr">Import account with QR scan</string>
-    <string name="title_legacy_enabled">Enable legacy addresses</string>
+    <string name="title_legacy_enabled">Enable old addresses</string>
     <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
     <string name="title_address_book">Address book</string>

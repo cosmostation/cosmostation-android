@@ -90,7 +90,7 @@
                     android:letterSpacing="-0.05"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:text="@string/str_legacy"
+                    android:text="@string/str_old"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"

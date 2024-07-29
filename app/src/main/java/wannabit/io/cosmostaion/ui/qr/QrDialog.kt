@@ -53,7 +53,7 @@ class QrDialog(
                         accountPath.text = chain.getHDPath(account.lastHDPath)
 
                         if (!chain.isDefault) {
-                            chainBadge.text = context.getString(R.string.str_legacy)
+                            chainBadge.text = context.getString(R.string.str_old)
                             when (selectedChain.tag) {
                                 "okt996_Keccak" -> {
                                     chainTypeBadge.text =

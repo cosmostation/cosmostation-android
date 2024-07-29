@@ -144,7 +144,7 @@
     <string name="title_account_name">アカウント名</string>
     <string name="title_add_account">アカウントを追加</string>
     <string name="title_import_qr">QRスキャンでアカウントをインポート</string>
-    <string name="title_legacy_enabled">レガシーアドレスの有効化</string>
+    <string name="title_legacy_enabled">旧住所の活性化</string>
     <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
     <string name="title_address_book">連絡先の管理</string>
