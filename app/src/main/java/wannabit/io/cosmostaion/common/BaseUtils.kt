@@ -26,6 +26,7 @@ object BaseUtils {
     }
 
     private fun onParseVestingAccount(chain: BaseChain) {
+        chain.cosmosFetcher?.cosmosVestings?.clear()
         val authInfo = chain.cosmosFetcher?.cosmosAuth
         var denom = ""
         var dpBalance = BigDecimal.ZERO
@@ -90,6 +91,7 @@ object BaseUtils {
                     val vestingAccount = VestingProto.ContinuousVestingAccount.parseFrom(auth.value)
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         dpBalance = coin.amount.toBigDecimal()
 
                         vestingAccount.baseVestingAccount.originalVestingList.forEach { vesting ->
@@ -150,6 +152,7 @@ object BaseUtils {
                     val vestingAccount = VestingProto.DelayedVestingAccount.parseFrom(auth.value)
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         dpBalance = coin.amount.toBigDecimal()
 
                         vestingAccount.baseVestingAccount.originalVestingList.forEach { vesting ->
@@ -202,6 +205,7 @@ object BaseUtils {
                     val vestingAccount = StridePeriodicVestingAccount.parseFrom(auth.value)
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         var delegatedFree = BigDecimal.ZERO
                         dpBalance = coin.amount.toBigDecimal()
 
@@ -258,6 +262,7 @@ object BaseUtils {
     }
 
     private fun onParseLcdVestingAccount(chain: BaseChain) {
+        chain.cosmosFetcher?.cosmosVestings?.clear()
         val authInfo = chain.cosmosFetcher?.cosmosLcdAuth
         var denom = ""
         var dpBalance = BigDecimal.ZERO
@@ -322,6 +327,7 @@ object BaseUtils {
                     val vestingAccount = auth["base_vesting_account"].asJsonObject
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         dpBalance = coin.amount.toBigDecimal()
 
                         vestingAccount["original_vesting"].asJsonArray.forEach { vesting ->
@@ -384,6 +390,7 @@ object BaseUtils {
                     val vestingAccount = auth["base_vesting_account"].asJsonObject
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         dpBalance = coin.amount.toBigDecimal()
 
                         vestingAccount["original_vesting"].asJsonArray.forEach { vesting ->
@@ -438,6 +445,7 @@ object BaseUtils {
                     val vestingAccount = auth["base_vesting_account"].asJsonObject
 
                     cosmosBalances.forEach { coin ->
+                        denom = coin.denom
                         var delegatedFree = BigDecimal.ZERO
                         dpBalance = coin.amount.toBigDecimal()
 
