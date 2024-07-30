@@ -106,6 +106,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.hexToString
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -155,6 +156,19 @@ open class BaseChain : Parcelable {
     var evmRpcFetcher: EvmFetcher? = null
 
     open var fetched = false
+
+    fun chainIdEvmDecimal(): String {
+        return chainIdEvm.hexToString()
+    }
+
+    fun chainIdForSwap(): String {
+        if (supportCosmos()) {
+            return chainIdCosmos
+        } else if (supportEvm) {
+            return chainIdEvm
+        }
+        return ""
+    }
 
     fun getHDPath(lastPath: String): String {
         return accountKeyType.hdPath.replace("X", lastPath)
@@ -349,6 +363,12 @@ open class BaseChain : Parcelable {
             (getChainListParam()?.get("evm_fee")?.asJsonObject?.get("simul_gas_multiply")?.asDouble?.toBigDecimal()
                 ?.multiply(BigDecimal(10)))?.toBigInteger()
         }
+    }
+
+    fun skipAffiliate(): String {
+        return BaseData.chainParam?.get("cosmos")?.asJsonObject?.get("params")?.asJsonObject?.get("chainlist_params")?.asJsonObject?.get(
+            "skipAffiliate"
+        )?.asString ?: "50"
     }
 
     fun isTxFeePayable(c: Context): Boolean {

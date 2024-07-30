@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.option.tx.swap
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,10 +9,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.ItemAssetSelectBinding
+import wannabit.io.cosmostaion.ui.tx.step.TargetAsset
 
 class AssetSelectAdapter(
     private val selectedChain: BaseChain?, private val balances: MutableList<CoinProto.Coin>?
-) : ListAdapter<Asset, AssetSelectViewHolder>(AssetDiffCallback()) {
+) : ListAdapter<TargetAsset, AssetSelectViewHolder>(AssetDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
@@ -27,18 +29,19 @@ class AssetSelectAdapter(
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                asset.denom?.let { denom -> it(denom) }
+                it(asset.denom)
             }
         }
     }
 
-    private class AssetDiffCallback : DiffUtil.ItemCallback<Asset>() {
+    private class AssetDiffCallback : DiffUtil.ItemCallback<TargetAsset>() {
 
-        override fun areItemsTheSame(oldItem: Asset, newItem: Asset): Boolean {
+        override fun areItemsTheSame(oldItem: TargetAsset, newItem: TargetAsset): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Asset, newItem: Asset): Boolean {
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: TargetAsset, newItem: TargetAsset): Boolean {
             return oldItem == newItem
         }
     }

@@ -126,7 +126,7 @@ object Signer {
         return signSimulTx(ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
 
-    private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
+    fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer")

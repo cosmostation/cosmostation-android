@@ -413,40 +413,4 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
             broadcastOktTx.postValue(response)
         }
-
-    fun broadcastSkipIbcSend(
-        managedChannel: ManagedChannel?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: BaseChain
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        txRepository.auth(managedChannel, selectedChain)
-        val response = txRepository.broadcastIbcSendTx(
-            managedChannel, msgTransfer, fee, memo, selectedChain
-        )
-        broadcast.postValue(response)
-    }
-
-    fun simulateSkipIbcSend(
-        managedChannel: ManagedChannel?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        memo: String,
-        selectedChain: BaseChain
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            txRepository.auth(managedChannel, selectedChain)
-            val response = txRepository.simulateIbcSendTx(
-                managedChannel, msgTransfer, fee, memo, selectedChain
-            ) as ServiceProto.SimulateResponse
-            simulate.postValue(response.gasInfo.gasUsed.toString())
-
-        } catch (e: Exception) {
-            val errorResponse = txRepository.simulateIbcSendTx(
-                managedChannel, msgTransfer, fee, memo, selectedChain
-            ) as String
-            errorMessage.postValue(errorResponse)
-        }
-    }
 }

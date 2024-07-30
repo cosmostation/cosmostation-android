@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.data.repository.skip
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.SkipMsgReq
@@ -20,9 +21,9 @@ class SkipRepositoryImpl : SkipRepository {
         }
     }
 
-    override suspend fun skipAssets(): NetworkResult<JsonObject> {
+    override suspend fun skipAssets(chain: BaseChain?): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.skipApi.skipAssets()
+            RetrofitInstance.skipApi.skipAssets(chain?.chainIdForSwap())
         }
     }
 

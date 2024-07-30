@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -90,7 +89,6 @@ class StakingInfoAdapter(
                         position - delegations.size
                     }
                     val entry = unBondings[unStakingPosition]
-                    Log.e("test1234 : ", entry.toString())
                     validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
                         ?.let { validator ->
                             holder.bind(

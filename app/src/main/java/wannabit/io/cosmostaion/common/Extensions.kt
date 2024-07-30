@@ -222,6 +222,15 @@ fun String.hexToBigDecimal(): BigDecimal {
     return BigDecimal(BigInteger(hex, 16))
 }
 
+fun String.hexToString(): String {
+    if (this.isEmpty()) return "0"
+    return if (this.startsWith("0x")) {
+        BigInteger(this.removePrefix("0x"), 16).toString()
+    } else {
+        BigInteger(this, 16).toString()
+    }
+}
+
 fun formatCurrentTimeToYear(): String {
     val locale = Locale.getDefault()
     val date = Calendar.getInstance()

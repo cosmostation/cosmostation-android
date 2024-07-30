@@ -6,10 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.req.SkipMsgReq
 import wannabit.io.cosmostaion.data.model.req.SkipRouteReq
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -18,7 +17,6 @@ import wannabit.io.cosmostaion.data.model.res.SkipErrorResponse
 import wannabit.io.cosmostaion.data.model.res.SkipMsgResponse
 import wannabit.io.cosmostaion.data.model.res.SkipRouteResponse
 import wannabit.io.cosmostaion.data.repository.skip.SkipRepository
-import wannabit.io.cosmostaion.database.Prefs
 
 class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
 
@@ -28,40 +26,54 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
 
     private var _skipDataResult = MutableLiveData<SkipData?>()
     val skipDataResult: LiveData<SkipData?> get() = _skipDataResult
-    fun loadData() = CoroutineScope(Dispatchers.IO).launch {
-        val sChains: SkipChainResponse?
-        val sAssets: JsonObject?
-        if (BaseData.needSwapInfoUpdate()) {
-            sChains = skipChains()
-            sAssets = skipAssets()
+//    fun loadData() = CoroutineScope(Dispatchers.IO).launch {
+//        val sChains: SkipChainResponse?
+//        val sAssets: JsonObject?
+//        if (BaseData.needSwapInfoUpdate()) {
+//            sChains = skipChains()
+//            sAssets = skipAssets()
+//
+//            if (sChains != null && sAssets != null) {
+//                BaseData.setLastSwapInfoTime()
+//                Prefs.skipChainInfo = sChains
+//                Prefs.skipAssetInfo = sAssets
+//            }
+//
+//        } else {
+//            sChains = Prefs.skipChainInfo
+//            sAssets = Prefs.skipAssetInfo
+//        }
+//        _skipDataResult.postValue(SkipData(sChains, sAssets))
+//    }
 
-            if (sChains != null && sAssets != null) {
-                BaseData.setLastSwapInfoTime()
-                Prefs.skipChainInfo = sChains
-                Prefs.skipAssetInfo = sAssets
-            }
-
-        } else {
-            sChains = Prefs.skipChainInfo
-            sAssets = Prefs.skipAssetInfo
-        }
-        _skipDataResult.postValue(SkipData(sChains, sAssets))
-    }
-
-    private suspend fun skipChains(): SkipChainResponse? {
-        return when (val response = skipRepository.skipChains()) {
+    private var _skipChainsResult = MutableLiveData<SkipChainResponse?>()
+    val skipChainsResult: LiveData<SkipChainResponse?> get() = _skipChainsResult
+    fun skipChains() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = skipRepository.skipChains()) {
             is NetworkResult.Success -> {
-                response.data
+                _skipChainsResult.postValue(response.data)
             }
 
             is NetworkResult.Error -> {
-                null
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }
 
-    private suspend fun skipAssets(): JsonObject? {
-        return when (val response = skipRepository.skipAssets()) {
+//    private suspend fun skipChains(): SkipChainResponse? {
+//        return when (val response = skipRepository.skipChains()) {
+//            is NetworkResult.Success -> {
+//                response.data
+//            }
+//
+//            is NetworkResult.Error -> {
+//                null
+//            }
+//        }
+//    }
+
+    suspend fun skipAssets(chain: BaseChain?): JsonObject? {
+        return when (val response = skipRepository.skipAssets(chain)) {
             is NetworkResult.Success -> {
                 response.data
             }
