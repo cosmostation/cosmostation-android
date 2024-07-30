@@ -9,6 +9,7 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -380,7 +381,7 @@ class SwapFragment : BaseTxFragment() {
         }
 
         skipViewModel.skipMsgResult.observe(viewLifecycleOwner) { response ->
-            binding.apply {`
+            binding.apply {
                 if (response.msgs.size == 1) {
                     val dpSlippage = BigDecimal("100").subtract(skipSlippage.toBigDecimal())
                     val dpOutputAmount =

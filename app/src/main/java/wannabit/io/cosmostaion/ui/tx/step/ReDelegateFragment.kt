@@ -161,7 +161,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
             if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                 val tipTitle = listOf(
-                    "No Tip", "20% Tip", "50% Tip", "100% Tip"
+                    "Default", "Fast", "Faster", "Instant"
                 )
                 for (i in tipTitle.indices) {
                     val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
