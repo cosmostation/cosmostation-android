@@ -2,8 +2,10 @@ package wannabit.io.cosmostaion.common
 
 import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -48,6 +50,14 @@ object BaseData {
 
     fun getAsset(chainName: String, denom: String): Asset? {
         return assets?.firstOrNull { asset -> asset.chain == chainName && asset.denom?.lowercase() == denom.lowercase() }
+    }
+
+    fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
+        return if (chain.supportCw20) {
+            chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+        } else {
+            chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+        }
     }
 
     fun getLastAccount(): BaseAccount? {

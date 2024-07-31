@@ -99,7 +99,10 @@ class StakingInfoAdapter(
                                 unStakingPosition,
                                 listener
                             )
-                        }
+
+                        } ?: run {
+                        holder.notBind()
+                    }
                 }
             }
         }

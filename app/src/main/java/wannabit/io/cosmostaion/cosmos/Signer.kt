@@ -516,59 +516,6 @@ object Signer {
         return sigData
     }
 
-    private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
-        var rawAccount = auth?.account
-        if (rawAccount?.typeUrl?.contains(Profile.getDescriptor().fullName) == true) {
-            rawAccount = Profile.parseFrom(auth?.account?.value).account
-        }
-
-        rawAccount?.let {
-            if (it.typeUrl.contains(AuthProto.BaseAccount.getDescriptor().fullName)) {
-                AuthProto.BaseAccount.parseFrom(rawAccount.value)?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-            } else if (rawAccount.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
-                VestingProto.PeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(VestingProto.ContinuousVestingAccount.getDescriptor().fullName)) {
-                VestingProto.ContinuousVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(VestingProto.DelayedVestingAccount.getDescriptor().fullName)) {
-                VestingProto.DelayedVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.stride.vesting.VestingProto.StridePeriodicVestingAccount.getDescriptor().fullName)) {
-                com.stride.vesting.VestingProto.StridePeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
-                com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
-                com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
-                AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else {
-                return Triple("", -1, -1)
-            }
-        }
-        return Triple("", -1, -1)
-    }
-
     private suspend fun signBroadcastTx(
         msgAnys: List<Any>?, fee: Fee?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {

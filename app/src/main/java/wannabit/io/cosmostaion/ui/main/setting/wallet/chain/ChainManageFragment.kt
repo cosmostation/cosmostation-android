@@ -139,7 +139,7 @@ class ChainManageFragment : Fragment() {
                             })
 
                             searchTestnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
+                                chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
                             })
                         }
                     }

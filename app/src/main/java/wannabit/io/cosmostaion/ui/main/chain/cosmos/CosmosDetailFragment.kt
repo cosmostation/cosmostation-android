@@ -238,12 +238,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             val supportToken = selectedChain.supportCw20 || selectedChain.supportEvm
+            btnAddToken.visibleOrGone(supportToken)
             val supportNft = selectedChain.supportNft
 
             val tableTitles = mutableListOf<String>()
-            tableTitles.add("Coins")
+            tableTitles.add("Crypto")
 
-            if (supportToken) tableTitles.add("Tokens")
             if (supportNft) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
@@ -270,7 +270,7 @@ class CosmosDetailFragment : Fragment() {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
                     when (tab?.text.toString()) {
-                        "Tokens" -> {
+                        "Crypto" -> {
                             btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
                             btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_GITHUB
@@ -603,8 +603,7 @@ class CosmosDetailFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (tabTitles[position]) {
-                "Coins" -> CoinFragment.newInstance(selectedChain)
-                "Tokens" -> TokenFragment.newInstance(selectedChain)
+                "Crypto" -> CoinFragment.newInstance(selectedChain)
                 "NFTs" -> NftFragment.newInstance(selectedChain)
                 "Receive" -> ReceiveFragment.newInstance(selectedChain)
                 "History" -> HistoryFragment.newInstance(selectedChain)

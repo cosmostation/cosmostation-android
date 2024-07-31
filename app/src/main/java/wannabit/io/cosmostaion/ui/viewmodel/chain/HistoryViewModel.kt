@@ -65,11 +65,15 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                     response.data.let { data ->
                         if (data.isSuccessful) {
                             val result: MutableList<Pair<String, TransactionList>> = mutableListOf()
-                            data.body()?.data?.get(0)?.transactionLists?.forEach { history ->
-                                history.transactionTime.let {
-                                    val headerDate = dpTimeToYear(it.toLong())
-                                    result.add(Pair(headerDate, history))
+                            if (data.body()?.data?.isNotEmpty() == true) {
+                                data.body()?.data?.get(0)?.transactionLists?.forEach { history ->
+                                    history.transactionTime.let {
+                                        val headerDate = dpTimeToYear(it.toLong())
+                                        result.add(Pair(headerDate, history))
+                                    }
                                 }
+                            } else {
+                                _errorMessage.postValue("Error")
                             }
                             _oktHistoryResult.postValue(result)
                         } else {
