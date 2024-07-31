@@ -182,7 +182,7 @@ class TxResultActivity : BaseActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
                 if (chain.supportCosmos()) {
-                    val channel = chain.cosmosFetcher?.getChannel()
+                    val channel = chain.cosmosFetcher()?.getChannel()
                     val stub = newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
 

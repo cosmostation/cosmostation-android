@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -321,7 +322,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         try {
             txRepository.auth(managedChannel, selectedChain)
             val response = txRepository.simulateTx(managedChannel, msgs, fee, memo, selectedChain)
-            simulate.postValue(response)
+            if (response.toDoubleOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
 
         } catch (e: Exception) {
             val errorResponse = txRepository.simulateTx(
