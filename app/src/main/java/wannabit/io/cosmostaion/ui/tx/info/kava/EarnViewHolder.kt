@@ -19,7 +19,7 @@ class EarnViewHolder(
         binding.apply {
             earningView.setBackgroundResource(R.drawable.item_bg)
             val valOpAddress = deposit.denom.replace("bkava-", "")
-            selectedChain?.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
+            selectedChain?.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                 ?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
                     moniker.text = validator.description.moniker

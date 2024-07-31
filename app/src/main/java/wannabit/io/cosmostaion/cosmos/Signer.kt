@@ -6,8 +6,6 @@ import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
-import com.cosmos.base.tendermint.v1beta1.QueryProto
-import com.cosmos.base.tendermint.v1beta1.ServiceGrpc
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -27,7 +25,6 @@ import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.cosmos.tx.v1beta1.TxProto.ModeInfo
 import com.cosmos.tx.v1beta1.TxProto.SignDoc
 import com.cosmos.tx.v1beta1.TxProto.SignerInfo
-import com.cosmos.tx.v1beta1.TxProto.Tip
 import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmos.vesting.v1beta1.VestingProto
@@ -79,7 +76,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_DEPOSIT
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -97,29 +93,19 @@ import java.util.concurrent.TimeUnit
 
 object Signer {
 
-    fun genSendBroadcast(
-        auth: QueryAccountResponse?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genBroadcast(
+        msgs: MutableList<Any>, fee: Fee?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, sendMsg(msgSend), fee, tip, memo, selectedChain)
+        return signBroadcastTx(msgs, fee, memo, selectedChain)
     }
 
-    fun genSendSimulate(
-        auth: QueryAccountResponse?,
-        msgSend: MsgSend?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genSimulate(
+        msgs: MutableList<Any>, fee: Fee?, memo: String, selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, sendMsg(msgSend), fee, tip, memo, selectedChain)
+        return signSimulTx(msgs, fee, memo, selectedChain)
     }
 
-    private fun sendMsg(msgSend: MsgSend?): MutableList<Any> {
+    fun sendMsg(msgSend: MsgSend?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.bank.v1beta1.MsgSend")
@@ -128,29 +114,19 @@ object Signer {
         return msgAnys
     }
 
-    fun genIbcSendBroadcast(
-        auth: QueryAccountResponse?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genIbcSendBroadcast(
+        msgTransfer: MsgTransfer?, fee: Fee?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
+        return signBroadcastTx(ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
 
-    fun genIbcSendSimulate(
-        auth: QueryAccountResponse?,
-        msgTransfer: MsgTransfer?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    suspend fun genIbcSendSimulate(
+        msgTransfer: MsgTransfer?, fee: Fee?, memo: String, selectedChain: BaseChain
     ): SimulateRequest? {
-        return signSimulTx(auth, ibcSendMsg(msgTransfer), fee, tip, memo, selectedChain)
+        return signSimulTx(ibcSendMsg(msgTransfer), fee, memo, selectedChain)
     }
 
-    private fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
+    fun ibcSendMsg(msgTransfer: MsgTransfer?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/ibc.applications.transfer.v1.MsgTransfer")
@@ -159,29 +135,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genWasmBroadcast(
-        auth: QueryAccountResponse?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, wasmMsg(msgWasms), fee, tip, memo, selectedChain)
-    }
-
-    fun genWasmSimulate(
-        auth: QueryAccountResponse?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, wasmMsg(msgWasms), fee, tip, memo, selectedChain)
-    }
-
-    private fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {
+    fun wasmMsg(msgWasms: MutableList<MsgExecuteContract?>?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgWasms?.forEach { msgWasm ->
             msgAnys.add(
@@ -192,29 +146,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genDelegateBroadcast(
-        auth: QueryAccountResponse?,
-        msgDelegate: MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
-    }
-
-    fun genDelegateSimulate(
-        auth: QueryAccountResponse?,
-        msgDelegate: MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, delegateMsg(msgDelegate), fee, tip, memo, selectedChain)
-    }
-
-    private fun delegateMsg(msgDelegate: MsgDelegate?): MutableList<Any> {
+    fun delegateMsg(msgDelegate: MsgDelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
@@ -223,29 +155,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genUnDelegateBroadcast(
-        auth: QueryAccountResponse?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
-    }
-
-    fun genUnDelegateSimulate(
-        auth: QueryAccountResponse?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, unDelegateMsg(msgUnDelegate), fee, tip, memo, selectedChain)
-    }
-
-    private fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
+    fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgUndelegate")
@@ -254,29 +164,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genReDelegateBroadcast(
-        auth: QueryAccountResponse?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
-    }
-
-    fun genReDelegateSimulate(
-        auth: QueryAccountResponse?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, reDelegateMsg(msgReDelegate), fee, tip, memo, selectedChain)
-    }
-
-    private fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
+    fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgBeginRedelegate")
@@ -285,33 +173,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genCancelUnbondingBroadcast(
-        auth: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
-        )
-    }
-
-    fun genCancelUnbondingSimulate(
-        auth: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(
-            auth, cancelUnbondingMsg(msgCancelUnbondingDelegation), fee, tip, memo, selectedChain
-        )
-    }
-
-    private fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
+    fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation")
@@ -320,40 +182,14 @@ object Signer {
         return msgAnys
     }
 
-    fun genClaimRewardsBroadcast(
-        auth: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
-        )
-    }
-
-    fun genClaimRewardsSimulate(
-        auth: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(
-            auth, claimStakingRewardMsg(auth, rewards), fee, tip, memo, selectedChain
-        )
-    }
-
-    private fun claimStakingRewardMsg(
-        auth: QueryAccountResponse?, rewards: MutableList<DelegationDelegatorReward?>
+    fun claimStakingRewardMsg(
+        selectedChain: BaseChain, rewards: MutableList<DelegationDelegatorReward?>
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         rewards.forEach { reward ->
-            val claimMsg = MsgWithdrawDelegatorReward.newBuilder()
-                .setDelegatorAddress(parseAuthGrpc(auth).first)
-                .setValidatorAddress(reward?.validatorAddress).build()
+            val claimMsg =
+                MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(reward?.validatorAddress).build()
             val anyMsg = Any.newBuilder()
                 .setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
                 .setValue(claimMsg.toByteString()).build()
@@ -362,44 +198,16 @@ object Signer {
         return msgAnys
     }
 
-    fun genCompoundingBroadcast(
-        auth: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
-        )
-    }
-
-    fun genCompoundingSimulate(
-        auth: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(
-            auth, compoundingMsg(auth, rewards, stakingDenom), fee, tip, memo, selectedChain
-        )
-    }
-
-    private fun compoundingMsg(
-        auth: QueryAccountResponse?,
+    fun compoundingMsg(
+        selectedChain: BaseChain,
         rewards: MutableList<DelegationDelegatorReward?>,
         stakingDenom: String?
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         rewards.forEach { reward ->
-            val claimMsg = MsgWithdrawDelegatorReward.newBuilder()
-                .setDelegatorAddress(parseAuthGrpc(auth).first)
-                .setValidatorAddress(reward?.validatorAddress).build()
+            val claimMsg =
+                MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(reward?.validatorAddress).build()
             val anyMsg = Any.newBuilder()
                 .setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
                 .setValue(claimMsg.toByteString()).build()
@@ -410,9 +218,8 @@ object Signer {
                 rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
                     ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
             )
-            val delegateMsg =
-                MsgDelegate.newBuilder().setDelegatorAddress(parseAuthGrpc(auth).first)
-                    .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin).build()
+            val delegateMsg = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+                .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin).build()
             val deleAnyMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
                 .setValue(delegateMsg.toByteString()).build()
             msgAnys.add(deleAnyMsg)
@@ -420,33 +227,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genChangeRewardAddressBroadcast(
-        auth: QueryAccountResponse?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
-        )
-    }
-
-    fun genChangeRewardAddressSimulate(
-        auth: QueryAccountResponse?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(
-            auth, changeRewardAddress(msgSetWithdrawAddress), fee, tip, memo, selectedChain
-        )
-    }
-
-    private fun changeRewardAddress(msgSetWithdrawAddress: MsgSetWithdrawAddress?): MutableList<Any> {
+    fun changeRewardAddress(msgSetWithdrawAddress: MsgSetWithdrawAddress?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress")
@@ -455,29 +236,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genVoteBroadcast(
-        auth: QueryAccountResponse?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, voteMsg(msgVotes), fee, tip, memo, selectedChain)
-    }
-
-    fun genVoteSimulate(
-        auth: QueryAccountResponse?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, voteMsg(msgVotes), fee, tip, memo, selectedChain)
-    }
-
-    private fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
+    fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgVotes?.forEach { msgVote ->
             val anyMsg = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote")
@@ -487,39 +246,14 @@ object Signer {
         return msgAnys
     }
 
-    fun genClaimIncentiveBroadcast(
-        auth: QueryAccountResponse?,
-        incentive: QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(
-            auth, claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain
-        )
-    }
-
-    fun genClaimIncentiveSimulate(
-        auth: QueryAccountResponse?,
-        incentive: QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, claimIncentiveMsg(auth, incentive), fee, tip, memo, selectedChain)
-    }
-
-    private fun claimIncentiveMsg(
-        auth: QueryAccountResponse?, incentive: QueryRewardsResponse
+    fun claimIncentiveMsg(
+        chain: BaseChain, incentive: QueryRewardsResponse
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
 
         if (incentive.hasUsdxMinting()) {
-            val mintMsg =
-                MsgClaimUSDXMintingReward.newBuilder().setSender(parseAuthGrpc(auth).first)
-                    .setMultiplierName("large").build()
+            val mintMsg = MsgClaimUSDXMintingReward.newBuilder().setSender(chain.address)
+                .setMultiplierName("large").build()
             val anyMsg =
                 Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimUSDXMintingReward")
                     .setValue(mintMsg.toByteString()).build()
@@ -533,7 +267,7 @@ object Signer {
                     Selection.newBuilder().setDenom(denom).setMultiplierName("large").build()
                 )
             }
-            val hardMsg = MsgClaimHardReward.newBuilder().setSender(parseAuthGrpc(auth).first)
+            val hardMsg = MsgClaimHardReward.newBuilder().setSender(chain.address)
                 .addAllDenomsToClaim(denomToClaims).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimHardReward")
                 .setValue(hardMsg.toByteString()).build()
@@ -547,9 +281,8 @@ object Signer {
                     Selection.newBuilder().setDenom(denom).setMultiplierName("large").build()
                 )
             }
-            val delegateMsg =
-                MsgClaimDelegatorReward.newBuilder().setSender(parseAuthGrpc(auth).first)
-                    .addAllDenomsToClaim(denomToClaims).build()
+            val delegateMsg = MsgClaimDelegatorReward.newBuilder().setSender(chain.address)
+                .addAllDenomsToClaim(denomToClaims).build()
             val anyMsg =
                 Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimDelegatorReward")
                     .setValue(delegateMsg.toByteString()).build()
@@ -563,7 +296,7 @@ object Signer {
                     Selection.newBuilder().setDenom(denom).setMultiplierName("large").build()
                 )
             }
-            val swapMsg = MsgClaimSwapReward.newBuilder().setSender(parseAuthGrpc(auth).first)
+            val swapMsg = MsgClaimSwapReward.newBuilder().setSender(chain.address)
                 .addAllDenomsToClaim(denomToClaims).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimSwapReward")
                 .setValue(swapMsg.toByteString()).build()
@@ -577,7 +310,7 @@ object Signer {
                     Selection.newBuilder().setDenom(denom).setMultiplierName("large").build()
                 )
             }
-            val earnMsg = MsgClaimEarnReward.newBuilder().setSender(parseAuthGrpc(auth).first)
+            val earnMsg = MsgClaimEarnReward.newBuilder().setSender(chain.address)
                 .addAllDenomsToClaim(denomToClaims).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/kava.incentive.v1beta1.MsgClaimEarnReward")
                 .setValue(earnMsg.toByteString()).build()
@@ -586,29 +319,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintCreateBroadcast(
-        auth: QueryAccountResponse?,
-        msgCreateMint: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
-    }
-
-    fun genMintCreateSimulate(
-        auth: QueryAccountResponse?,
-        msgCreateMint: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, mintCreateMsg(msgCreateMint), fee, tip, memo, selectedChain)
-    }
-
-    private fun mintCreateMsg(msgCreateMint: MsgCreateCDP?): MutableList<Any> {
+    fun mintCreateMsg(msgCreateMint: MsgCreateCDP?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgCreateCDP")
@@ -617,29 +328,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintDepositBroadcast(
-        auth: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    fun genMintDepositSimulate(
-        auth: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, mintDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    private fun mintDepositMsg(msgDeposit: MsgDeposit?): MutableList<Any> {
+    fun mintDepositMsg(msgDeposit: MsgDeposit?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDeposit")
@@ -648,29 +337,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintWithdrawBroadcast(
-        auth: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    fun genMintWithdrawSimulate(
-        auth: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, mintWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    private fun mintWithdrawMsg(msgWithdraw: MsgWithdraw?): MutableList<Any> {
+    fun mintWithdrawMsg(msgWithdraw: MsgWithdraw?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgWithdraw")
@@ -679,29 +346,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintBorrowBroadcast(
-        auth: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
-    }
-
-    fun genMintBorrowSimulate(
-        auth: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, mintBorrowMsg(msgDrawDebt), fee, tip, memo, selectedChain)
-    }
-
-    private fun mintBorrowMsg(msgDrawDebt: MsgDrawDebt?): MutableList<Any> {
+    fun mintBorrowMsg(msgDrawDebt: MsgDrawDebt?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgDrawDebt")
@@ -710,29 +355,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genMintRepayBroadcast(
-        auth: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
-    }
-
-    fun genMintRepaySimulate(
-        auth: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, mintRepayMsg(msgRepayDebt), fee, tip, memo, selectedChain)
-    }
-
-    private fun mintRepayMsg(msgRepayDebt: MsgRepayDebt?): MutableList<Any> {
+    fun mintRepayMsg(msgRepayDebt: MsgRepayDebt?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.cdp.v1beta1.MsgRepayDebt")
@@ -741,29 +364,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendDepositBroadcast(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    fun genLendDepositSimulate(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, lendDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    private fun lendDepositMsg(msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
+    fun lendDepositMsg(msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgDeposit")
@@ -772,29 +373,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendWithdrawBroadcast(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    fun genLendWithdrawSimulate(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, lendWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    private fun lendWithdrawMsg(msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
+    fun lendWithdrawMsg(msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgWithdraw")
@@ -803,29 +382,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendBorrowBroadcast(
-        auth: QueryAccountResponse?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
-    }
-
-    fun genLendBorrowSimulate(
-        auth: QueryAccountResponse?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, lendBorrowMsg(msgBorrow), fee, tip, memo, selectedChain)
-    }
-
-    private fun lendBorrowMsg(msgBorrow: MsgBorrow?): MutableList<Any> {
+    fun lendBorrowMsg(msgBorrow: MsgBorrow?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgBorrow")
@@ -834,29 +391,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genLendRepayBroadcast(
-        auth: QueryAccountResponse?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
-    }
-
-    fun genLendRepaySimulate(
-        auth: QueryAccountResponse?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, lendRepayMsg(msgRepay), fee, tip, memo, selectedChain)
-    }
-
-    private fun lendRepayMsg(msgRepay: MsgRepay?): MutableList<Any> {
+    fun lendRepayMsg(msgRepay: MsgRepay?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.hard.v1beta1.MsgRepay")
@@ -865,29 +400,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genPoolDepositBroadcast(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    fun genPoolDepositSimulate(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, poolDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    private fun poolDepositMsg(msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
+    fun poolDepositMsg(msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgDeposit")
@@ -896,29 +409,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genPoolWithdrawBroadcast(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    fun genPoolWithdrawSimulate(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, poolWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    private fun poolWithdrawMsg(msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
+    fun poolWithdrawMsg(msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.swap.v1beta1.MsgWithdraw")
@@ -927,29 +418,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genEarnDepositBroadcast(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    fun genEarnDepositSimulate(
-        auth: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, earnDepositMsg(msgDeposit), fee, tip, memo, selectedChain)
-    }
-
-    private fun earnDepositMsg(msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?): MutableList<Any> {
+    fun earnDepositMsg(msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.router.v1beta1.MsgDelegateMintDeposit")
@@ -958,29 +427,7 @@ object Signer {
         return msgAnys
     }
 
-    fun genEarnWithdrawBroadcast(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxRequest? {
-        return signBroadcastTx(auth, earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    fun genEarnWithdrawSimulate(
-        auth: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        return signSimulTx(auth, earnWithdrawMsg(msgWithdraw), fee, tip, memo, selectedChain)
-    }
-
-    private fun earnWithdrawMsg(msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?): MutableList<Any> {
+    fun earnWithdrawMsg(msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.router.v1beta1.MsgWithdrawBurn")
@@ -1069,103 +516,32 @@ object Signer {
         return sigData
     }
 
-    private fun parseAuthGrpc(auth: QueryAccountResponse?): Triple<String, Long, Long> {
-        var rawAccount = auth?.account
-        if (rawAccount?.typeUrl?.contains(Profile.getDescriptor().fullName) == true) {
-            rawAccount = Profile.parseFrom(auth?.account?.value).account
-        }
-
-        rawAccount?.let {
-            if (it.typeUrl.contains(AuthProto.BaseAccount.getDescriptor().fullName)) {
-                AuthProto.BaseAccount.parseFrom(rawAccount.value)?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-            } else if (rawAccount.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
-                VestingProto.PeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(VestingProto.ContinuousVestingAccount.getDescriptor().fullName)) {
-                VestingProto.ContinuousVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(VestingProto.DelayedVestingAccount.getDescriptor().fullName)) {
-                VestingProto.DelayedVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.stride.vesting.VestingProto.StridePeriodicVestingAccount.getDescriptor().fullName)) {
-                com.stride.vesting.VestingProto.StridePeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
-                com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
-                com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else if (rawAccount.typeUrl.contains(AccountProto.EthAccount.getDescriptor().fullName)) {
-                AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-                    return Triple(account.address, account.accountNumber, account.sequence)
-                }
-
-            } else {
-                return Triple("", -1, -1)
-            }
-        }
-        return Triple("", -1, -1)
-    }
-
-    private fun signBroadcastTx(
-        auth: QueryAccountResponse?,
-        msgAnys: List<Any>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+    private suspend fun signBroadcastTx(
+        msgAnys: List<Any>?, fee: Fee?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
-        val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
-        val signerInfo = grpcSignerInfo(auth, selectedChain)
-        val authInfo = grpcAuthInfo(signerInfo, fee, tip)
-        val broadcastTx = grpcBroadcastTx(auth, txBody, authInfo, selectedChain)
-        return BroadcastTxRequest.newBuilder()
-            .setModeValue(BroadcastMode.BROADCAST_MODE_SYNC.number)
-            .setTxBytes(broadcastTx?.toByteString()).build()
-    }
-
-    private fun signSimulTx(
-        auth: QueryAccountResponse?,
-        msgAnys: List<Any>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): SimulateRequest? {
-        val height = grpcLatestHeight(selectedChain)
-        val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
-        val signerInfo = grpcSimulInfo(auth)
-        val authInfo = grpcAuthInfo(signerInfo, fee, tip)
-        val simulateTx = grpcSimulTx(txBody, authInfo)
-        return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
-    }
-
-    private fun grpcLatestHeight(selectedChain: BaseChain?): Long {
-        selectedChain?.let { line ->
-            val channel = getChannel(line)
-            val blockStub =
-                ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
-            val lastBlock = blockStub.getLatestBlock(blockRequest)
-            return lastBlock.block.header.height
+        selectedChain.cosmosFetcher()?.lastHeight()?.let { height ->
+            val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
+            val signerInfo = grpcSignerInfo(selectedChain)
+            val authInfo = grpcAuthInfo(signerInfo, fee)
+            val broadcastTx = grpcBroadcastTx(txBody, authInfo, selectedChain)
+            return BroadcastTxRequest.newBuilder()
+                .setModeValue(BroadcastMode.BROADCAST_MODE_SYNC.number)
+                .setTxBytes(broadcastTx?.toByteString()).build()
         }
-        return 0
+        return null
+    }
+
+    private suspend fun signSimulTx(
+        msgAnys: List<Any>?, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): SimulateRequest? {
+        selectedChain.cosmosFetcher()?.lastHeight()?.let { height ->
+            val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
+            val signerInfo = grpcSimulInfo(selectedChain)
+            val authInfo = grpcAuthInfo(signerInfo, fee)
+            val simulateTx = grpcSimulTx(txBody, authInfo)
+            return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
+        }
+        return null
     }
 
     private fun grpcTxBody(
@@ -1179,62 +555,55 @@ object Signer {
     }
 
     private fun grpcSignerInfo(
-        auth: QueryAccountResponse?, selectedChain: BaseChain?
+        chain: BaseChain?
     ): SignerInfo? {
-        ECKey.fromPrivate(selectedChain?.privateKey)?.let {
-            val pubKey = generateGrpcPubKeyFromPriv(selectedChain, it.privateKeyAsHex)
+        ECKey.fromPrivate(chain?.privateKey)?.let {
+            val pubKey = generateGrpcPubKeyFromPriv(chain, it.privateKeyAsHex)
             val singleMode =
                 ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
             val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
             return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-                .setSequence(parseAuthGrpc(auth).third).build()
+                .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
         }
         return null
     }
 
-    private fun grpcSimulInfo(auth: QueryAccountResponse?): SignerInfo {
+    private fun grpcSimulInfo(chain: BaseChain?): SignerInfo {
         val singleMode =
             ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
         val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
-        var pubKey: Any? = null
-        auth?.let {
-            pubKey = if (it.account.typeUrl.contains("/ethermint")) {
-                Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
-            } else if (it.account.typeUrl.contains("/injective")) {
-                Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
-            } else if (it.account.typeUrl.contains("/artela")) {
-                Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
-            } else {
-                Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
-            }
+        val pubKey = if (chain is ChainInjective) {
+            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
+        } else if (chain is ChainArtelaTestnet) {
+            Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
+        } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
+        } else {
+            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
         }
         return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-            .setSequence(parseAuthGrpc(auth).third).build()
+            .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
     }
 
-    private fun grpcAuthInfo(signerInfo: SignerInfo?, fee: Fee?, tip: Tip?): AuthInfo? {
+    private fun grpcAuthInfo(signerInfo: SignerInfo?, fee: Fee?): AuthInfo? {
         fee?.getAmount(0)?.let {
             val feeCoin =
                 CoinProto.Coin.newBuilder().setAmount(it.amount).setDenom(it.denom).build()
             val txFee = Fee.newBuilder().addAmount(feeCoin).setGasLimit(fee.gasLimit).build()
-            return if (tip == null) {
-                AuthInfo.newBuilder().setFee(txFee).addSignerInfos(signerInfo).build()
-            } else {
-                AuthInfo.newBuilder().setFee(txFee).addSignerInfos(signerInfo).setTip(tip).build()
-            }
+            return AuthInfo.newBuilder().setFee(txFee).addSignerInfos(signerInfo).build()
         }
         return null
     }
 
     private fun grpcBroadcastTx(
-        auth: QueryAccountResponse?, txBody: TxBody?, authInfo: AuthInfo?, selectedChain: BaseChain?
+        txBody: TxBody?, authInfo: AuthInfo?, chain: BaseChain?
     ): TxRaw? {
         val signDoc = SignDoc.newBuilder().setBodyBytes(txBody?.toByteString())
-            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(selectedChain?.chainIdCosmos)
+            .setAuthInfoBytes(authInfo?.toByteString()).setChainId(chain?.chainIdCosmos)
             .setAccountNumber(
-                parseAuthGrpc(auth).second
+                chain?.cosmosFetcher()?.cosmosAccountNumber!!
             ).build()
-        val sigByte = grpcByteSignature(selectedChain, signDoc.toByteArray())
+        val sigByte = grpcByteSignature(chain, signDoc.toByteArray())
         return TxRaw.newBuilder().setBodyBytes(txBody?.toByteString())
             .setAuthInfoBytes(authInfo?.toByteString()).addSignatures(ByteString.copyFrom(sigByte))
             .build()
@@ -1256,8 +625,8 @@ object Signer {
         (selectedChain as ChainOkt996Secp).apply {
             val toSign = genToSignMsg(
                 chainIdCosmos,
-                selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
+                selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
                 msgs,
                 fee,
                 memo
@@ -1269,8 +638,8 @@ object Signer {
             val signature = Signature(
                 pubKey,
                 sig,
-                selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
+                selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
             )
             val signatures = mutableListOf<Signature>()
             signatures.add(signature)
@@ -1285,15 +654,20 @@ object Signer {
         msgs: MutableList<Msg>, fee: LFee, memo: String?, selectedChain: BaseChain
     ): BroadcastReq? {
         when (selectedChain) {
-            is ChainOktEvm -> {
+            is ChainOkt996Secp -> {
+                return broadcast(msgs, fee, memo, selectedChain)
+            }
+
+            is ChainOkt996Keccak -> {
                 val toSign = genToSignMsg(
                     selectedChain.chainIdCosmos,
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
                     msgs,
                     fee,
                     memo
                 )
+
                 val sig = ethermintSignature(selectedChain, toSign.toSignByte())
                 val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
                     ETHERMINT_KEY_TYPE_PUBLIC,
@@ -1302,8 +676,8 @@ object Signer {
                 val signature = Signature(
                     pubKey,
                     sig,
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString()
                 )
                 val signatures = mutableListOf<Signature>()
                 signatures.add(signature)
@@ -1312,20 +686,15 @@ object Signer {
                 return BroadcastReq("sync", signedTx.value)
             }
 
-            is ChainOkt996Secp -> {
-                return broadcast(msgs, fee, memo, selectedChain)
-            }
-
-            is ChainOkt996Keccak -> {
+            is ChainOktEvm -> {
                 val toSign = genToSignMsg(
                     selectedChain.chainIdCosmos,
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
                     msgs,
                     fee,
                     memo
                 )
-
                 val sig = ethermintSignature(selectedChain, toSign.toSignByte())
                 val pubKey = wannabit.io.cosmostaion.data.model.req.PubKey(
                     ETHERMINT_KEY_TYPE_PUBLIC,
@@ -1334,8 +703,8 @@ object Signer {
                 val signature = Signature(
                     pubKey,
                     sig,
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
-                    selectedChain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString()
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("account_number")?.asLong.toString(),
+                    selectedChain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("sequence")?.asLong.toString(),
                 )
                 val signatures = mutableListOf<Signature>()
                 signatures.add(signature)
@@ -1433,7 +802,7 @@ object Signer {
     fun dAppSimulateGas(
         selectedChain: BaseChain, txBody: TxBody, authInfo: AuthInfo?
     ): AbciProto.GasInfo {
-        val channel = getChannel(selectedChain)
+        val channel = selectedChain.cosmosFetcher()?.getChannel()
         val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
             .withDeadlineAfter(8L, TimeUnit.SECONDS)
         val simulateTx = grpcSimulTx(txBody, authInfo)

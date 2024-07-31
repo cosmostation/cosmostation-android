@@ -8,10 +8,13 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.PushSyncReq
+import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
@@ -19,6 +22,12 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
+
+    @GET("v10/app/version/android")
+    suspend fun version(): Response<AppVersion>
+
+    @POST("v10/app/keys/moonpay")
+    suspend fun moonPay(@Body data: MoonPayReq): Response<MoonPay>
 
     @POST("v10/notification")
     fun syncPush(@Body status: PushSyncReq?): Call<Void>

@@ -125,19 +125,19 @@ class EvmReDelegateFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (fromValidator != null) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull {
-                    it.operatorAddress == selectedChain.grpcFetcher?.cosmosDelegations?.get(
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
+                    it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
                         0
                     )?.delegation?.validatorAddress
                 }
             }
 
             val cosmostation =
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
             toValidator = if (fromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
             } else {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
             }
             updateFromValidatorView()
             updateToValidatorView()
@@ -195,7 +195,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val staked =
-                        selectedChain.grpcFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
+                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
                     availableAmount = staked?.toBigDecimal()
                     staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), decimal)
@@ -273,14 +273,14 @@ class EvmReDelegateFragment : BaseTxFragment() {
                         override fun select(validatorAddress: String) {
                             if (fromValidator?.operatorAddress != validatorAddress) {
                                 fromValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateFeeView()
                                 updateFromValidatorView()
                             }
 
                             if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
                                 updateToValidatorView()
                             }
                         }
@@ -295,7 +295,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateToValidatorView()
                             }
                         })

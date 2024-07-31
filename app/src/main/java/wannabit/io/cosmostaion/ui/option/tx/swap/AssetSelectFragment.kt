@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.ui.tx.step.TargetAsset
 import java.math.BigDecimal
 
 interface AssetListener {
@@ -29,19 +30,19 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
-    private var swapAssets: MutableList<Asset>? = mutableListOf()
+    private var swapAssets: MutableList<TargetAsset>? = mutableListOf()
     private var swapBalance: MutableList<CoinProto.Coin>? = mutableListOf()
     private lateinit var assetSelectType: AssetSelectType
 
     private lateinit var assetSelectAdapter: AssetSelectAdapter
 
-    private var searchAssets: MutableList<Asset> = mutableListOf()
+    private var searchAssets: MutableList<TargetAsset> = mutableListOf()
 
     companion object {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain?,
-            swapAssets: MutableList<Asset>?,
+            swapAssets: MutableList<TargetAsset>?,
             swapBalance: MutableList<CoinProto.Coin>?,
             assetSelectType: AssetSelectType,
             listener: AssetListener
@@ -109,39 +110,8 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 selectTitle.text = getString(R.string.title_select_output_asset)
                 searchView.queryHint = getString(R.string.title_select_output_asset)
             }
-            sorting()
-        }
-    }
-
-    private fun sorting() {
-        binding.apply {
-            loading.visibility = View.VISIBLE
-            lifecycleScope.launch(Dispatchers.Default) {
-                val assetValues = mutableMapOf<String, BigDecimal>()
-                val assetAmounts = mutableMapOf<String, BigDecimal>()
-
-                swapAssets?.forEach { asset ->
-                    asset.denom?.let { denom ->
-                        selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
-                            assetValues[denom] = value
-                        }
-                        selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount ->
-                            assetAmounts[denom] = amount
-                        }
-                    }
-                }
-
-                val sortedAssets = swapAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
-                    .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
-                    .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
-                    .thenBy { it.symbol })
-                sortedAssets?.let { searchAssets.addAll(it) }
-
-                withContext(Dispatchers.Main) {
-                    loading.visibility = View.GONE
-                    initRecyclerView()
-                }
-            }
+            searchAssets = swapAssets!!
+            initRecyclerView()
         }
     }
 
@@ -182,18 +152,16 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                         val assetAmounts = mutableMapOf<String, BigDecimal>()
 
                         filteredAssets?.forEach { asset ->
-                            asset.denom?.let { denom ->
-                                selectedChain.grpcFetcher?.balanceValue(denom)?.let { value ->
-                                    assetValues[denom] = value
-                                }
-                                selectedChain.grpcFetcher?.balanceAmount(denom)?.let { amount->
-                                    assetAmounts[denom] = amount
-                                }
+                            selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
+                                assetValues[asset.denom] = value
+                            }
+                            selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount->
+                                assetAmounts[asset.denom] = amount
                             }
                         }
 
                         val sortedAssets =
-                            filteredAssets?.sortedWith(compareBy<Asset> { it.symbol != "ATOM" }
+                            filteredAssets?.sortedWith(compareBy<TargetAsset> { it.denom != "ATOM" }
                                 .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
                                 .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
                                 .thenBy { it.symbol })

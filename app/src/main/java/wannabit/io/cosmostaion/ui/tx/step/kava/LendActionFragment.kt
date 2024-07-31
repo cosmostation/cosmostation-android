@@ -14,10 +14,10 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import com.kava.hard.v1beta1.HardProto
 import com.kava.hard.v1beta1.TxProto.MsgBorrow
 import com.kava.hard.v1beta1.TxProto.MsgDeposit
@@ -25,16 +25,17 @@ import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.hard.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentLendActionBinding
@@ -57,7 +58,7 @@ class LendActionFragment : BaseTxFragment() {
     private var _binding: FragmentLendActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private lateinit var lendActionType: LendActionType
     private lateinit var lendMyDeposits: MutableList<CoinProto.Coin>
     private lateinit var lendMyBorrows: MutableList<CoinProto.Coin>
@@ -67,7 +68,6 @@ class LendActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var msAsset: Asset? = null
@@ -122,7 +122,7 @@ class LendActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", BaseChain::class.java)?.let {
+                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -135,7 +135,7 @@ class LendActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? BaseChain)?.let {
+                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                         selectedChain = it
                     }
                     (getSerializable("lendActionType") as? LendActionType)?.let {
@@ -177,7 +177,7 @@ class LendActionFragment : BaseTxFragment() {
                             lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
                             btnLend.text = getString(R.string.str_deposit)
                             val balanceAmount =
-                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
+                                selectedChain.kavaFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 availableAmount = balanceAmount?.subtract(feeAmount)
@@ -212,7 +212,7 @@ class LendActionFragment : BaseTxFragment() {
                                 .setScale(0, RoundingMode.DOWN)
 
                             var balanceAmount =
-                                selectedChain.grpcFetcher?.balanceAmount(market.denom)
+                                selectedChain.kavaFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 balanceAmount = balanceAmount?.subtract(feeAmount)
@@ -461,48 +461,40 @@ class LendActionFragment : BaseTxFragment() {
 
                 when (lendActionType) {
                     LendActionType.DEPOSIT -> {
-                        txViewModel.broadLendDeposit(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindDepositMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
                     }
 
                     LendActionType.WITHDRAW -> {
-                        txViewModel.broadLendWithdraw(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindWithdrawMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
                     }
 
                     LendActionType.BORROW -> {
-                        txViewModel.broadLendBorrow(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindBorrowMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
                     }
 
                     LendActionType.REPAY -> {
-                        txViewModel.broadLendRepay(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindRepayMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -527,48 +519,40 @@ class LendActionFragment : BaseTxFragment() {
 
             when (lendActionType) {
                 LendActionType.DEPOSIT -> {
-                    txViewModel.simulateLendDeposit(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindDepositMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
                 }
 
                 LendActionType.WITHDRAW -> {
-                    txViewModel.simulateLendWithdraw(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindWithdrawMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
                 }
 
                 LendActionType.BORROW -> {
-                    txViewModel.simulateLendBorrow(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindBorrowMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
                 }
 
                 LendActionType.REPAY -> {
-                    txViewModel.simulateLendRepay(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindRepayMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -577,41 +561,48 @@ class LendActionFragment : BaseTxFragment() {
         }
     }
 
-    private fun onBindDepositMsg(): MsgDeposit? {
+    private fun onBindDepositMsg(): MutableList<Any> {
         val depositCoin =
             CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
-        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).addAmount(depositCoin)
-            .build()
+        val msgDeposit =
+            MsgDeposit.newBuilder().setDepositor(selectedChain.address).addAmount(depositCoin)
+                .build()
+        return Signer.lendDepositMsg(msgDeposit)
     }
 
-    private fun onBindWithdrawMsg(): MsgWithdraw? {
+    private fun onBindWithdrawMsg(): MutableList<Any> {
         val withdrawCoin =
             CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
-        return MsgWithdraw.newBuilder().setDepositor(selectedChain.address).addAmount(withdrawCoin)
-            .build()
+        val msgWithdraw =
+            MsgWithdraw.newBuilder().setDepositor(selectedChain.address).addAmount(withdrawCoin)
+                .build()
+        return Signer.lendWithdrawMsg(msgWithdraw)
     }
 
-    private fun onBindBorrowMsg(): MsgBorrow? {
+    private fun onBindBorrowMsg(): MutableList<Any> {
         val borrowCoin =
             CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
-        return MsgBorrow.newBuilder().setBorrower(selectedChain.address).addAmount(borrowCoin)
-            .build()
+        val msgBorrow =
+            MsgBorrow.newBuilder().setBorrower(selectedChain.address).addAmount(borrowCoin).build()
+        return Signer.lendBorrowMsg(msgBorrow)
     }
 
-    private fun onBindRepayMsg(): MsgRepay? {
+    private fun onBindRepayMsg(): MutableList<Any> {
         val repayCoin =
             CoinProto.Coin.newBuilder().setDenom(lendMoneyMarket.denom).setAmount(toLendAmount)
                 .build()
-        return MsgRepay.newBuilder().setSender(selectedChain.address)
-            .setOwner(selectedChain.address).addAmount(repayCoin).build()
+        val msgRepay =
+            MsgRepay.newBuilder().setSender(selectedChain.address).setOwner(selectedChain.address)
+                .addAmount(repayCoin).build()
+        return Signer.lendRepayMsg(msgRepay)
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -621,15 +612,15 @@ class LendActionFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
@@ -649,18 +640,20 @@ class LendActionFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }

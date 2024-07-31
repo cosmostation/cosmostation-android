@@ -61,10 +61,10 @@ class NftFragment : Fragment() {
         refreshData()
         setUpObserve()
 
-        if (selectedChain.grpcFetcher?.cw721Fetched == false) {
+        if (selectedChain.cosmosFetcher?.cw721Fetched == false) {
             fetchData()
         } else {
-            updateView(selectedChain.grpcFetcher?.cw721Models)
+            updateView(selectedChain.cosmosFetcher?.cw721Models)
         }
     }
 
@@ -86,10 +86,10 @@ class NftFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (selectedChain.grpcFetcher?.cw721Fetched == false) {
+        if (selectedChain.cosmosFetcher?.cw721Fetched == false) {
             fetchData()
         } else {
-            updateView(selectedChain.grpcFetcher?.cw721Models)
+            updateView(selectedChain.cosmosFetcher?.cw721Models)
         }
     }
 
@@ -153,9 +153,9 @@ class NftFragment : Fragment() {
             return
         }
         isBusy = true
-        selectedChain.grpcFetcher?.cw721Fetched = false
-        selectedChain.grpcFetcher?.cw721Models?.clear()
-        selectedChain.grpcFetcher?.cw721s?.asSequence()?.concurrentForEach { list ->
+        selectedChain.cosmosFetcher?.cw721Fetched = false
+        selectedChain.cosmosFetcher?.cw721Models?.clear()
+        selectedChain.cosmosFetcher?.cw721s?.asSequence()?.concurrentForEach { list ->
             walletViewModel.cw721AllTokens(selectedChain, list)
         }
     }
@@ -163,13 +163,13 @@ class NftFragment : Fragment() {
     private fun setUpObserve() {
         walletViewModel.cw721ModelResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                selectedChain.grpcFetcher?.cw721Fetched = true
-                selectedChain.grpcFetcher?.cw721Models?.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
-                selectedChain.grpcFetcher?.cw721Models?.forEach { cw721Model ->
+                selectedChain.cosmosFetcher?.cw721Fetched = true
+                selectedChain.cosmosFetcher?.cw721Models?.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
+                selectedChain.cosmosFetcher?.cw721Models?.forEach { cw721Model ->
                     cw721Model.sortId()
                 }
                 isBusy = false
-                updateView(selectedChain.grpcFetcher?.cw721Models)
+                updateView(selectedChain.cosmosFetcher?.cw721Models)
             }
         }
     }

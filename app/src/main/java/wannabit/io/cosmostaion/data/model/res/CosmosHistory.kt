@@ -1058,7 +1058,7 @@ data class CosmosHistory(
                             null
                         }
                         if (amount != null) {
-                            chain.grpcFetcher?.tokens?.firstOrNull { it.address == contractAddress }
+                            chain.cosmosFetcher?.tokens?.firstOrNull { it.address == contractAddress }
                                 ?.let { cw20 ->
                                     return Pair(cw20, amount.toBigDecimal())
                                 }

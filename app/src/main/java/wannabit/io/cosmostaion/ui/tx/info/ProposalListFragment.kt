@@ -228,7 +228,7 @@ class ProposalListFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                val delegated = selectedChain.grpcFetcher?.delegationAmountSum()
+                val delegated = selectedChain.cosmosFetcher?.delegationAmountSum()
                 val voteThreshold = selectedChain.voteThreshold()
                 if (voteThreshold != null) {
                     if (voteThreshold >= delegated) {

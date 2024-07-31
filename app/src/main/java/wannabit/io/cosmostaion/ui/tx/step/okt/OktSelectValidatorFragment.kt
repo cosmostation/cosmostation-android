@@ -123,9 +123,9 @@ class OktSelectValidatorFragment : BaseTxFragment() {
 
     private fun initData(oktFetcher: OktFetcher?) {
         binding.apply {
-            val allValidators = oktFetcher?.lcdValidatorInfo
+            val allValidators = oktFetcher?.oktValidatorInfo
             val myValidatorAddress =
-                oktFetcher?.lcdOktDeposits?.get("validator_address")?.asJsonArray?.map { it }
+                oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.map { it }
             allValidators?.forEach { validatorInfo ->
                 myValidatorAddress?.forEach {
                     if (it.asString == validatorInfo["operator_address"].asString) {
@@ -152,7 +152,7 @@ class OktSelectValidatorFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             feeToken.text = chain.stakeDenom.uppercase()
 
-            oktFetcher?.lcdOktDeposits?.get("validator_address")?.asJsonArray?.size()
+            oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
                 ?.let { existCnt ->
                     val noCnt = myValidators.size
                     val max = if (existCnt >= noCnt) existCnt else noCnt

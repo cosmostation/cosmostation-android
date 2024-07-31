@@ -47,27 +47,19 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
 
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
-
-            listOf(
-                chainBadge, chainCw20Badge, chainErc20Badge, chainNftBadge, chainDappBadge
-            ).forEach { it.visibility = View.GONE }
-
+            chainBadge.visibility = View.GONE
             chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainSideCw20Badge.visibleOrGone(chain.supportCw20)
-            chainSideErc20Badge.visibleOrGone(chain.supportEvm)
-            chainSideNftBadge.visibleOrGone(chain.supportNft)
-            chainSideDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
+
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -76,7 +68,7 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 chainAddress.text = chain.address
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -91,8 +83,8 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.isCosmos()) {
-                if (chain is ChainOkt996Keccak || chain is ChainOktEvm) {
+            if (chain.supportCosmos()) {
+                if (chain is ChainOktEvm) {
                     chainPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
                     BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
                         chainPriceStatus.priceChangeStatusColor(lastUpDown)
@@ -121,50 +113,48 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
-                if (chain.isEth()) {
+                if (chain.isEvmCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else if (chain.supportCosmos()) {
+                    if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else {
                     if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
                         return
-                    }
-
-                } else {
-                    if (chain.supportEvm) {
-                        if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
-
-                    } else {
-                        if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
                     }
                 }
                 respondLayout.visibility = View.GONE
@@ -173,15 +163,15 @@ class DashboardViewHolder(
 
                 if (chain is ChainOkt996Keccak) {
                     assetCnt.text =
-                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             .toString() + " Coins"
 
-                } else if (chain.isCosmos()) {
+                } else if (chain.supportCosmos()) {
                     val coinCntString = if (chain is ChainOktEvm) {
-                        chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             .toString() + " Coins"
                     } else {
-                        (chain.grpcFetcher?.cosmosBalances?.count {
+                        (chain.cosmosFetcher?.cosmosBalances?.count {
                             BaseData.getAsset(
                                 chain.apiName, it.denom
                             ) != null
@@ -190,7 +180,7 @@ class DashboardViewHolder(
 
                     if (chain.supportCw20) {
                         val tokenCnt =
-                            chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                         if (tokenCnt == 0) {
                             assetCnt.text = coinCntString
                         } else {
@@ -249,25 +239,12 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             assetCnt.visibility = View.VISIBLE
-
-            listOf(
-                chainBadge,
-                chainCw20Badge,
-                chainErc20Badge,
-                chainNftBadge,
-                chainDappBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
-
+            chainBadge.visibility = View.GONE
             chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainSideCw20Badge.visibleOrGone(chain.supportCw20)
-            chainSideErc20Badge.visibleOrGone(chain.supportEvm)
-            chainSideNftBadge.visibleOrGone(chain.supportNft)
-            chainSideDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos()) {
+            if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -297,14 +274,14 @@ class DashboardViewHolder(
                 skeletonAssetCnt.visibility = View.GONE
 
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         assetCnt.visibility = View.GONE
                         return
                     }
 
-                } else if (chain.grpcFetcher?.cosmosBalances == null) {
+                } else if (chain.cosmosFetcher?.cosmosBalances == null) {
                     respondLayout.visibility = View.VISIBLE
                     chainValue.visibility = View.GONE
                     assetCnt.visibility = View.GONE
@@ -313,7 +290,7 @@ class DashboardViewHolder(
                 respondLayout.visibility = View.GONE
                 chainValue.visibility = View.VISIBLE
 
-                val coinCntString = (chain.grpcFetcher?.cosmosBalances?.count {
+                val coinCntString = (chain.cosmosFetcher?.cosmosBalances?.count {
                     BaseData.getAsset(
                         chain.apiName, it.denom
                     ) != null
@@ -321,7 +298,7 @@ class DashboardViewHolder(
 
                 if (chain.supportCw20) {
                     val tokenCnt =
-                        chain.grpcFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                        chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
                     if (tokenCnt == 0) {
                         assetCnt.text = coinCntString
                     } else {
@@ -361,7 +338,6 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainSwipeImg.setImageResource(chain.swipeLogo)
             chainName.text = chain.name.uppercase()
             handler.removeCallbacks(starEvmAddressAnimation)
 
@@ -371,63 +347,49 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-
             chainBadge.visibleOrGone(!chain.isDefault)
-            chainCw20Badge.visibleOrGone(chain.supportCw20)
-            chainErc20Badge.visibleOrGone(chain.supportEvm)
-            chainNftBadge.visibleOrGone(chain.supportNft)
-            chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
-
-            listOf(
-                chainSideBadge,
-                chainSideCw20Badge,
-                chainSideErc20Badge,
-                chainSideNftBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
+            chainSideBadge.visibility = View.GONE
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
 
-                if (chain.isEth()) {
+                if (chain.isEvmCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else if (chain.supportCosmos()) {
+                    if (chain is ChainOkt996Keccak) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+
+                    } else {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+                    }
+
+                } else {
                     if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return
-                    }
-
-                } else {
-                    if (chain.supportEvm) {
-                        if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-                        }
-
-                    } else {
-                        if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                return
-                            }
-                        }
                     }
                 }
                 respondLayout.visibility = View.GONE
@@ -462,34 +424,22 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-
             chainBadge.visibleOrGone(!chain.isDefault)
-            chainCw20Badge.visibleOrGone(chain.supportCw20)
-            chainErc20Badge.visibleOrGone(chain.supportEvm)
-            chainNftBadge.visibleOrGone(chain.supportNft)
-            chainDappBadge.visibleOrGone(chain.isDefault && chain.isEcosystem())
-
-            listOf(
-                chainSideBadge,
-                chainSideCw20Badge,
-                chainSideErc20Badge,
-                chainSideNftBadge,
-                chainSideDappBadge
-            ).forEach { it.visibility = View.GONE }
+            chainSideBadge.visibility = View.GONE
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
                 if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null || chain.web3j == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return
                     }
 
                 } else {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
                         return

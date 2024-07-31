@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <View
         android:id="@+id/view"
@@ -40,9 +40,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_base01"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ibc_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_2"
+            android:background="@drawable/round_box_dapp"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:text="IBC"
+            android:textAllCaps="true"
+            android:layout_marginStart="@dimen/space_4"
+            app:layout_constraintTop_toTopOf="@id/token_name"
+            app:layout_constraintBottom_toBottomOf="@+id/token_name"
+            app:layout_constraintStart_toEndOf="@+id/token_name"
+            android:textColor="@color/color_base01"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/token_description"
+            style="@style/font_sm_12"
+            android:layout_width="@dimen/space_150"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
+            android:maxLines="1"
+            android:textColor="@color/color_base02"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/token_name" />
 
         <TextView
             android:id="@+id/token_balance"
@@ -50,14 +79,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_base01"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/token_value"
             style="@style/font_sb_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5"
             android:textColor="@color/color_base02"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

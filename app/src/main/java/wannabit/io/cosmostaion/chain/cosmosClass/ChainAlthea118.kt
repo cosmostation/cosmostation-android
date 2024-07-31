@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
@@ -16,6 +17,7 @@ class ChainAlthea118 : BaseChain(), Parcelable {
     override var tag: String = "althea118"
     override var logo: Int = R.drawable.chain_althea
     override var swipeLogo: Int = R.drawable.chain_swipe_althea
+    override var isDefault: Boolean = false
     override var apiName: String = "althea"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
@@ -23,8 +25,9 @@ class ChainAlthea118 : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aalthea"
     override var accountPrefix: String = "althea"
     override var grpcHost: String = "grpc-althea.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-althea.cosmostation.io/"
 }

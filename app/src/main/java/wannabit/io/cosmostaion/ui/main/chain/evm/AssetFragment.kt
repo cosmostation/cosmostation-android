@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +15,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
@@ -38,8 +41,11 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     private lateinit var assetAdapter: AssetAdapter
 
     private lateinit var selectedEvmChain: BaseChain
+    private var ethCoins = mutableListOf<BaseChain>()
+    private var searchEthCoins = mutableListOf<BaseChain>()
     private var allErc20Tokens = mutableListOf<Token>()
     private var displayErc20Tokens = mutableListOf<Token>()
+    private var searchDisplayErc20Tokens = mutableListOf<Token>()
 
     private var isClickable = true
 
@@ -69,6 +75,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
         sortAssets()
         refreshData()
         observeViewModels()
+        initSearchView()
     }
 
     private fun initData() {
@@ -85,10 +92,15 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     private fun sortAssets() {
         val evmTokens = mutableListOf<Token>()
         evmTokens.clear()
+        ethCoins.clear()
+        searchEthCoins.clear()
         allErc20Tokens.clear()
         displayErc20Tokens.clear()
+        searchDisplayErc20Tokens.clear()
 
         lifecycleScope.launch(Dispatchers.IO) {
+            ethCoins.add(selectedEvmChain)
+            searchEthCoins.addAll(ethCoins)
             selectedEvmChain.evmRpcFetcher?.evmTokens?.let { evmTokens.addAll(it) }
             evmTokens.sortBy { it.symbol.lowercase() }
 
@@ -145,16 +157,17 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                     }
                 }
             }
+            searchDisplayErc20Tokens.addAll(displayErc20Tokens)
 
             withContext(Dispatchers.Main) {
                 allErc20Tokens.addAll(evmTokens)
-                initRecyclerView(displayErc20Tokens)
+                initRecyclerView()
             }
         }
     }
 
-    private fun initRecyclerView(evmTokens: MutableList<Token>) {
-        assetAdapter = AssetAdapter(selectedEvmChain, evmTokens)
+    private fun initRecyclerView() {
+        assetAdapter = AssetAdapter(selectedEvmChain, searchEthCoins, searchDisplayErc20Tokens)
         binding.recycler.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
@@ -208,6 +221,49 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             if (selectedEvmChain.tag == it) {
                 sortAssets()
             }
+        }
+    }
+
+    private fun initSearchView() {
+        binding.apply {
+            searchBar.visibleOrGone(searchEthCoins.size + searchDisplayErc20Tokens.size > 15)
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchEthCoins.clear()
+                    searchDisplayErc20Tokens.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchEthCoins.addAll(ethCoins)
+                        searchDisplayErc20Tokens.addAll(displayErc20Tokens)
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchEthCoins.addAll(ethCoins.filter { coin ->
+                                coin.coinSymbol.contains(searchTxt, true)
+                            })
+
+                            searchDisplayErc20Tokens.addAll(displayErc20Tokens.filter { token ->
+                                token.symbol.contains(searchTxt, true)
+                            })
+                        }
+                    }
+                    if (searchEthCoins.isEmpty() && searchDisplayErc20Tokens.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        assetAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
         }
     }
 

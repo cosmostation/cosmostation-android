@@ -72,7 +72,7 @@ class ReceiveViewHolder(
                         context, R.color.color_base02
                     )
                 )
-                chainBadge.text = context.getString(R.string.str_legacy)
+                chainBadge.text = context.getString(R.string.str_old)
                 when (selectChain.tag) {
                     "okt996_Keccak" -> {
                         chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)

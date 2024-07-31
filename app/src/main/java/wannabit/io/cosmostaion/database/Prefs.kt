@@ -9,6 +9,7 @@ import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -42,9 +43,11 @@ object Prefs {
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
+    private const val LCD_ENDPOINT = "PRE_LCD_ENDPOINT"
     private const val FCM_SYNC_TIME = "PRE_FCM_SYNC_TIME"
     private const val INJECT_WARN = "PRE_INJECT_WARN"
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
+    private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
 
 
     private val preference =
@@ -248,6 +251,25 @@ object Prefs {
         return null
     }
 
+    fun setEndpointType(chain: BaseChain?, endpoint: CosmosEndPointType) {
+        val key = ENDPOINT_TYPE + ":" + chain?.name
+        preference.edit().putString(key, endpoint.name).apply()
+    }
+
+    fun getEndpointType(chain: BaseChain): CosmosEndPointType? {
+        return when (preference.getString(ENDPOINT_TYPE + ":" + chain.name, "")) {
+            CosmosEndPointType.USE_GRPC.name -> {
+                CosmosEndPointType.USE_GRPC
+            }
+            CosmosEndPointType.USE_LCD.name -> {
+                CosmosEndPointType.USE_LCD
+            }
+            else -> {
+                chain.cosmosEndPointType
+            }
+        }
+    }
+
     fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = GRPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
@@ -264,5 +286,14 @@ object Prefs {
 
     fun getEvmRpcEndpoint(chain: BaseChain): String? {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
+    }
+
+    fun setLcdEndpoint(chain: BaseChain?, endpoint: String) {
+        val key = LCD_ENDPOINT + ":" + chain?.name
+        preference.edit().putString(key, endpoint).apply()
+    }
+
+    fun getLcdEndpoint(chain: BaseChain): String {
+        return preference.getString(LCD_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 }

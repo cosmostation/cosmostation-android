@@ -156,8 +156,19 @@ class DashboardFragment : Fragment() {
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
-            if (chain.isEvmCosmos()) {
-                if (chain.grpcFetcher?.cosmosBalances == null) {
+            if (chain is ChainOkt996Keccak) {
+                if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                    nodeDownPopup()
+                    return
+                }
+                Intent(requireContext(), CosmosActivity::class.java).apply {
+                    putExtra("selectedChain", chain as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
+
+            } else if (chain.supportCosmos() && chain.supportEvm) {
+                if (chain.cosmosFetcher?.cosmosBalances == null) {
                     nodeDownPopup()
                     return
                 }
@@ -172,11 +183,11 @@ class DashboardFragment : Fragment() {
                 }
                 requireActivity().toMoveAnimation()
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 when (chain) {
                     is ChainOktEvm -> {
                         chain.oktFetcher?.let {
-                            if (it.lcdAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                            if (it.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
                                 nodeDownPopup()
                                 return
                             }
@@ -186,26 +197,11 @@ class DashboardFragment : Fragment() {
                             }
                             requireActivity().toMoveAnimation()
                         }
-                    }
-
-                    is ChainOkt996Keccak -> {
-                        chain.oktFetcher?.let {
-                            if (it.lcdAccountInfo?.isJsonNull == true) {
-                                nodeDownPopup()
-                                return
-                            }
-                            Intent(requireContext(), CosmosActivity::class.java).apply {
-                                putExtra("selectedChain", chain as Parcelable)
-                                startActivity(this)
-                            }
-                            requireActivity().toMoveAnimation()
-                        }
-
                     }
 
                     else -> {
-                        chain.grpcFetcher?.let {
-                            if (chain.grpcFetcher?.cosmosBalances == null) {
+                        chain.cosmosFetcher?.let {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
                                 nodeDownPopup()
                                 return
                             }
@@ -244,7 +240,7 @@ class DashboardFragment : Fragment() {
                                 chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                             }
                             if (Prefs.style == 1) {
-                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
                                     withContext(Dispatchers.Main) {
                                         updateRowData(chain.tag)
                                     }
@@ -266,7 +262,7 @@ class DashboardFragment : Fragment() {
                                 chain.setInfoWithPrivateKey(privateKey)
                             }
                             if (Prefs.style == 1) {
-                                if (chain.isEth() && chain.evmAddress.isNotEmpty()) {
+                                if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
                                     withContext(Dispatchers.Main) {
                                         updateRowData(chain.tag)
                                     }

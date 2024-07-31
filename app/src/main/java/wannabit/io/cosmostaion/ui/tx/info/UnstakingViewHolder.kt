@@ -14,13 +14,16 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
 class UnstakingViewHolder(
-    val context: Context,
-    private val binding: ItemUnstakingInfoBinding
+    val context: Context, private val binding: ItemUnstakingInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        chain: BaseChain, validator: Validator, entry: UnBondingEntry,
-        cnt: Int, position: Int, listener: StakingInfoAdapter.ClickListener
+        chain: BaseChain,
+        validator: Validator,
+        entry: UnBondingEntry,
+        cnt: Int,
+        position: Int,
+        listener: StakingInfoAdapter.ClickListener
     ) {
         binding.apply {
             unstakingView.setBackgroundResource(R.drawable.item_bg)
@@ -47,6 +50,13 @@ class UnstakingViewHolder(
                     }
                 }
             }
+        }
+    }
+
+    fun notBind() {
+        binding.apply {
+            unstakingView.setBackgroundResource(R.drawable.item_bg)
+            moniker.text = "Unknown"
         }
     }
 }

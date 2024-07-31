@@ -1,26 +1,8 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
-import com.cosmos.bank.v1beta1.TxProto.MsgSend
-import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
-import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
-import com.cosmos.gov.v1beta1.TxProto
-import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
-import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
-import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
-import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
-import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxResponse
-import com.cosmos.tx.v1beta1.TxProto.*
-import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
+import com.cosmos.base.abci.v1beta1.AbciProto
+import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
-import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
-import com.kava.cdp.v1beta1.TxProto.MsgDeposit
-import com.kava.cdp.v1beta1.TxProto.MsgDrawDebt
-import com.kava.cdp.v1beta1.TxProto.MsgRepayDebt
-import com.kava.cdp.v1beta1.TxProto.MsgWithdraw
-import com.kava.hard.v1beta1.TxProto.MsgBorrow
-import com.kava.hard.v1beta1.TxProto.MsgRepay
-import com.kava.incentive.v1beta1.QueryProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -44,7 +26,7 @@ interface TxRepository {
         managedChannel: ManagedChannel?, userInput: String?
     ): String?
 
-    suspend fun auth(managedChannel: ManagedChannel?, address: String?): QueryAccountResponse?
+    suspend fun auth(managedChannel: ManagedChannel?, chain: BaseChain)
 
     suspend fun broadcastEvmSendTx(
         web3j: Web3j, hexValue: String
@@ -113,25 +95,21 @@ interface TxRepository {
         proposalId: Long, proposalOption: Long, selectedChain: BaseChain, selectedFeeInfo: Int
     ): Pair<String?, String?>
 
-    suspend fun broadcastSendTx(
+    suspend fun broadcastTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSend: MsgSend?,
+        msgs: MutableList<com.google.protobuf.Any>,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
+        selectedChain: BaseChain
+    ): AbciProto.TxResponse?
 
-    suspend fun simulateSendTx(
+    suspend fun simulateTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSend: MsgSend?,
+        msgs: MutableList<com.google.protobuf.Any>,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): Any?
+        selectedChain: BaseChain
+    ): String
 
     suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
@@ -139,483 +117,17 @@ interface TxRepository {
 
     suspend fun broadcastIbcSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
+        selectedChain: BaseChain
+    ): AbciProto.TxResponse?
 
     suspend fun simulateIbcSendTx(
         managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
         msgTransfer: MsgTransfer?,
         fee: Fee?,
-        tip: Tip?,
         memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastWasmTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateWasmTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWasms: MutableList<MsgExecuteContract?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDelegate: MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDelegate: MsgDelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastUnDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateUnDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgUnDelegate: MsgUndelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastReDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateReDelegateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgReDelegate: MsgBeginRedelegate?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastCancelUnbondingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateCancelUnbondingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastGetRewardsTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateGetRewardsTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastCompoundingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateCompoundingTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastChangeRewardAddressTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateChangeRewardAddressTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgSetWithdrawAddress: MsgSetWithdrawAddress?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastVoteTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateVoteTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgVotes: MutableList<TxProto.MsgVote?>?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastClaimIncentiveTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        incentive: QueryProto.QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateClaimIncentiveTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        incentive: QueryProto.QueryRewardsResponse,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastMintCreateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateMintCreateTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgCreateCDP: MsgCreateCDP?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastMintDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateMintDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastMintWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateMintWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastMintBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateMintBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDrawDebt: MsgDrawDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastMintRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateMintRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepayDebt: MsgRepayDebt?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastLendDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateLendDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.hard.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastLendWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateLendWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.hard.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastLendBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateLendBorrowTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgBorrow: MsgBorrow?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastLendRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateLendRepayTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgRepay: MsgRepay?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastPoolDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulatePoolDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.swap.v1beta1.TxProto.MsgDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastPoolWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulatePoolWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.swap.v1beta1.TxProto.MsgWithdraw?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastEarnDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateEarnDepositTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgDeposit: com.kava.router.v1beta1.TxProto.MsgDelegateMintDeposit?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): Any?
-
-    suspend fun broadcastEarnWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
-    ): BroadcastTxResponse?
-
-    suspend fun simulateEarnWithdrawTx(
-        managedChannel: ManagedChannel?,
-        account: QueryAccountResponse?,
-        msgWithdraw: com.kava.router.v1beta1.TxProto.MsgWithdrawBurn?,
-        fee: Fee?,
-        tip: Tip?,
-        memo: String,
-        selectedChain: BaseChain?
+        selectedChain: BaseChain
     ): Any?
 }

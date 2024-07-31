@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -108,7 +107,7 @@ class PopUpCosmosSignFragment(
                 txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
             val chainId = chainIdJson.asString
 
-            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                 ?.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                 ?.let { chain ->
                     selectedChain = chain
@@ -151,20 +150,23 @@ class PopUpCosmosSignFragment(
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
                 if (method == "sign_direct") {
-                    chain.grpcFetcher()?.let {
+                    chain.cosmosFetcher()?.let { fetcher ->
                         try {
-                            val channel = getChannel(chain)
-                            val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
-                            val loadInputBalanceDeferred =
-                                async { loadBalance(channel, chain.address) }
+                            fetcher.getChannel()?.let { channel ->
+                                val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+                                val loadInputBalanceDeferred =
+                                    async { loadBalance(channel, chain.address) }
 
-                            chain.grpcFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
-                            chain.grpcFetcher?.cosmosBalances =
-                                loadInputBalanceDeferred.await().balancesList
-                            BaseUtils.onParseVestingAccount(chain)
+                                chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                                chain.cosmosFetcher?.cosmosBalances =
+                                    loadInputBalanceDeferred.await().balancesList
+                                BaseUtils.onParseVesting(chain)
+                            }
                         } catch (e: Exception) {
                             if (isAdded) {
                                 activity?.makeToast(R.string.str_unknown_error)
+                            } else {
+                                return@launch
                             }
                         }
                     }
@@ -468,7 +470,7 @@ class PopUpCosmosSignFragment(
             val chainId =
                 txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                     .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                     ?.let { chain ->
                         chain.getFeeInfos(requireContext())
@@ -510,7 +512,7 @@ class PopUpCosmosSignFragment(
 
         val chainId = doc["chain_id"].asString
         BaseData.baseAccount?.let { account ->
-            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmosGrpc }
+            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                 .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }?.let { chain ->
                     selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)

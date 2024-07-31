@@ -11,33 +11,17 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Coin
-import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
+import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import java.math.RoundingMode
 
 class CoinViewHolder(
-    val context: Context, private val binding: ItemCosmosLineTokenBinding
+    val context: Context, private val binding: ItemCosmosTokenBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(chain: BaseChain, coin: Coin, position: Int, cnt: Int) {
+    fun bind(chain: BaseChain, coin: Coin) {
         binding.apply {
-            headerLayout.visibleOrGone(position == 0)
-            headerCnt.text = cnt.toString()
-            if (position == 0) {
-                when (coin.type) {
-                    CoinType.NATIVE -> headerTitle.text =
-                        context.getString(R.string.str_native_coins)
-
-                    CoinType.IBC -> headerTitle.text = context.getString(R.string.str_ibc_coins)
-                    CoinType.BRIDGE -> headerTitle.text =
-                        context.getString(R.string.str_bridge_coins)
-
-                    else -> headerTitle.text = context.getString(R.string.str_unknown_coins)
-                }
-            }
             coinView.setBackgroundResource(R.drawable.item_bg)
 
             BaseData.getAsset(chain.apiName, coin.denom)?.let { asset ->
@@ -63,8 +47,8 @@ class CoinViewHolder(
                         hideValue.visibility = View.GONE
 
                         coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                        coinAmountValue.text =
-                            chain.grpcFetcher?.denomValue(coin.denom)?.let { formatAssetValue(it) }
+                        coinAmountValue.text = chain.cosmosFetcher?.denomValue(coin.denom)
+                            ?.let { formatAssetValue(it) }
                     }
                 }
             }

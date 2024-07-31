@@ -97,8 +97,8 @@ data class BaseAccount(
     }
 
     fun updateAllValue() {
-        sortedDisplayChains().forEach { line ->
-            line.allValue(false)
+        sortedDisplayChains().forEach { chain ->
+            chain.allValue(false)
         }
     }
 

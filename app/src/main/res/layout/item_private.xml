@@ -65,7 +65,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"
-                    android:text="@string/str_legacy"
+                    android:text="@string/str_old"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/chain_name"
                     app:layout_constraintTop_toTopOf="parent" />

@@ -72,73 +72,9 @@
                     android:background="@drawable/round_box_deprecated"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
+                    android:text="@string/str_old"
                     android:textAllCaps="true"
-                    android:text="@string/str_legacy"
                     android:textColor="@color/color_base02"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_side_cw20_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_toRightOf="@+id/chain_side_badge"
-                    android:background="@drawable/round_box_cw20"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="CW20"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_side_erc20_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_toRightOf="@+id/chain_side_cw20_badge"
-                    android:background="@drawable/round_box_erc20"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="ERC20"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_side_nft_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_toRightOf="@+id/chain_side_erc20_badge"
-                    android:background="@drawable/round_box_nft"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="NFT"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_side_dapp_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_3"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_toRightOf="@+id/chain_side_nft_badge"
-                    android:background="@drawable/round_box_dapp"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="DAPP"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
                     android:visibility="gone" />
 
                 <TextView
@@ -176,76 +112,9 @@
                     android:background="@drawable/round_box_deprecated"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:text="@string/str_legacy"
+                    android:text="@string/str_old"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_cw20_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:layout_toRightOf="@+id/chain_badge"
-                    android:background="@drawable/round_box_cw20"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="CW20"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_erc20_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:layout_toRightOf="@+id/chain_cw20_badge"
-                    android:background="@drawable/round_box_erc20"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="ERC20"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_nft_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
-                    android:layout_toRightOf="@id/chain_erc20_badge"
-                    android:background="@drawable/round_box_nft"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="NFT"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_dapp_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_toRightOf="@id/chain_nft_badge"
-                    android:background="@drawable/round_box_dapp"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="DAPP"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base01"
                     android:visibility="gone" />
 
             </RelativeLayout>

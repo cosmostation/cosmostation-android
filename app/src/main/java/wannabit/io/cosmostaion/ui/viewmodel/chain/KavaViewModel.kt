@@ -22,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.KavaFetcher
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepository
@@ -34,10 +35,10 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
 
     private var _incentiveResult = MutableLiveData<QueryProto.QueryRewardsResponse?>()
     val incentiveResult: LiveData<QueryProto.QueryRewardsResponse?> get() = _incentiveResult
-    fun incentive(managedChannel: ManagedChannel, address: String?) =
-        viewModelScope.launch(Dispatchers.IO) {
+    fun incentive(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        chain.cosmosFetcher?.getChannel()?.let { channel ->
             try {
-                when (val response = kavaRepository.incentive(managedChannel, address)) {
+                when (val response = kavaRepository.incentive(channel, chain.address)) {
                     is NetworkResult.Success -> {
                         _incentiveResult.postValue(response.data)
                     }
@@ -48,16 +49,17 @@ class KavaViewModel(private val kavaRepository: KavaRepository) : ViewModel() {
                 }
 
             } finally {
-                managedChannel.shutdown()
+                channel.shutdown()
                 try {
-                    if (!managedChannel.awaitTermination(5, TimeUnit.SECONDS)) {
-                        managedChannel.shutdownNow()
+                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                        channel.shutdownNow()
                     }
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
             }
         }
+    }
 
     private var _priceFeedResult = MutableLiveData<QueryPricesResponse?>()
     val priceFeedResult: LiveData<QueryPricesResponse?> get() = _priceFeedResult

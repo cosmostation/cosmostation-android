@@ -15,12 +15,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -29,7 +30,6 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -68,7 +68,6 @@ class NftTransferFragment(
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var toAddress = ""
     private var txMemo = ""
@@ -147,9 +146,9 @@ class NftTransferFragment(
                 )
             )
 
-            if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+            if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                 val tipTitle = listOf(
-                    "No Tip", "20% Tip", "50% Tip", "100% Tip"
+                    "Default", "Fast", "Faster", "Instant"
                 )
                 for (i in tipTitle.indices) {
                     val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
@@ -161,7 +160,7 @@ class NftTransferFragment(
                     segmentView.btnTitle.text = tipTitle[i]
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
-                val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.get(0)
+                val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
                 val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
@@ -248,8 +247,7 @@ class NftTransferFragment(
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -282,13 +280,13 @@ class NftTransferFragment(
 
             feeTokenLayout.setOnClickListener {
                 txFee?.let { fee ->
-                    if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
                             BaseFeeAssetFragment(fromChain,
-                                fromChain.grpcFetcher?.cosmosBaseFees,
+                                fromChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
-                                        fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
+                                        fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull { it.denom == denom }
                                             ?.let { baseFee ->
                                                 val feeAmount = baseFee.getdAmount()
                                                     .multiply(fee.gasLimit.toBigDecimal())
@@ -316,8 +314,8 @@ class NftTransferFragment(
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = fromChain.getFeeBaseGasAmount()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    fromChain.getFeeBaseGasAmount().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -343,8 +341,8 @@ class NftTransferFragment(
 
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeeInfo = position
-                txFee = if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    val baseFee = fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+                txFee = if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == txFee?.getAmount(0)?.denom
                     }
                     val gasAmount = txFee?.gasLimit?.toBigDecimal()
@@ -395,11 +393,10 @@ class NftTransferFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadcastWasm(
-                    getChannel(fromChain),
-                    onBindWasmNftSend(),
+                txViewModel.broadcast(
+                    fromChain.cosmosFetcher?.getChannel(),
+                    onBindWasmNftSendMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     fromChain
                 )
@@ -416,12 +413,10 @@ class NftTransferFragment(
             }
             btnNftSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateWasm(
-                getChannel(fromChain),
-                fromChain.address,
-                onBindWasmNftSend(),
+            txViewModel.simulate(
+                fromChain.cosmosFetcher?.getChannel(),
+                onBindWasmNftSendMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 fromChain
             )
@@ -429,8 +424,8 @@ class NftTransferFragment(
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -440,13 +435,12 @@ class NftTransferFragment(
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
-            gasInfo?.let { info ->
-                val gasLimit =
-                    (info.gasUsed.toDouble() * fromChain.gasMultiply()).toLong().toBigDecimal()
-                if (fromChain.grpcFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                    fromChain.grpcFetcher?.cosmosBaseFees?.firstOrNull {
+            gasUsed?.toLong()?.let { gas ->
+                val gasLimit = (gas.toDouble() * fromChain.gasMultiply()).toLong().toBigDecimal()
+                if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                    fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
                             0
                         ).denom
@@ -484,41 +478,41 @@ class NftTransferFragment(
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", fromChain.tag)
+                    putExtra("txResultType", TxResultType.NFT.toString())
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", fromChain.tag)
-                putExtra("txResultType", TxResultType.NFT.toString())
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindWasmNftSend(): MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?> {
-        val result: MutableList<com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract?> = mutableListOf()
+    private fun onBindWasmNftSendMsg(): MutableList<Any> {
+        val wasmMsgs = mutableListOf<MsgExecuteContract?>()
         token?.let { tokenModel ->
             info?.let { info ->
                 val wasmSendReq = WasmCw721SendReq(toAddress, tokenModel.tokenId)
                 val jsonData = Gson().toJson(wasmSendReq)
                 val msg = ByteString.copyFromUtf8(jsonData)
-                result.add(
-                    com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract.newBuilder()
-                        .setSender(fromChain.address)
+                wasmMsgs.add(
+                    MsgExecuteContract.newBuilder().setSender(fromChain.address)
                         .setContract(info.asJsonObject["contractAddress"]?.asString).setMsg(msg)
                         .build()
                 )
-                return result
             }
         }
-        return result
+        return Signer.wasmMsg(wasmMsgs)
     }
 
     override fun onDestroyView() {

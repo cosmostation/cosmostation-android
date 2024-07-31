@@ -105,25 +105,19 @@ class OktWithdrawFragment : BaseTxFragment() {
                     R.drawable.cell_bg
                 )
             }
-            when (selectedChain) {
-                is ChainOkt996Keccak -> initData(
-                    selectedChain, (selectedChain as ChainOkt996Keccak).oktFetcher
-                )
-
-                is ChainOktEvm -> initData(selectedChain, (selectedChain as ChainOktEvm).oktFetcher)
-            }
+            initData(selectedChain, (selectedChain as ChainOktEvm).oktFetcher)
         }
     }
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
+            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
                 ?.let { tokenInfo ->
                     oktTokenInfo = Gson().fromJson(tokenInfo, OktToken::class.java)
                     oktTokenInfo?.let {
                         tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
                         tokenName.text = it.original_symbol.uppercase()
-                        availableAmount = oktFetcher?.lcdOktDepositAmount()
+                        availableAmount = oktFetcher.oktDepositAmount()
                     }
                 }
         }
@@ -144,7 +138,7 @@ class OktWithdrawFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             feeToken.text = chain.stakeDenom.uppercase()
 
-            oktFetcher?.lcdOktDeposits?.get("validator_address")?.asJsonArray?.size()
+            oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
                 ?.let { existCnt ->
                     gasAmount = BigDecimal(BaseConstant.BASE_GAS_AMOUNT)
                     gasFee = BigDecimal(OKT_BASE_FEE)

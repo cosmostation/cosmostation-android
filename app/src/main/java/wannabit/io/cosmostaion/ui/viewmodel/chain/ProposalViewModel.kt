@@ -8,6 +8,7 @@ import com.google.gson.Gson
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_MULTI_MODULE
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_OVERRULE_MODULE
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
@@ -76,9 +77,9 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
     private var _daoOverruleProposalsResult = MutableLiveData<MutableList<ProposalData?>>()
     val daoOverruleProposalsResult: LiveData<MutableList<ProposalData?>> get() = _daoOverruleProposalsResult
 
-    fun daoProposals(managedChannel: ManagedChannel, contAddress: String, type: Int) =
+    fun daoProposals(chain: BaseChain, contAddress: String, type: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            when (val response = proposalRepository.daoProposals(managedChannel, contAddress)) {
+            when (val response = proposalRepository.daoProposals(chain, contAddress)) {
                 is NetworkResult.Success -> {
                     when (type) {
                         NEUTRON_SINGLE_MODULE -> {
@@ -87,7 +88,6 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                                     response.data, ResProposalData::class.java
                                 )?.proposals
                             )
-
                         }
 
                         NEUTRON_MULTI_MODULE -> {
@@ -96,7 +96,6 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                                     response.data, ResProposalData::class.java
                                 )?.proposals
                             )
-
                         }
 
                         NEUTRON_OVERRULE_MODULE -> {

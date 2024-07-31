@@ -14,25 +14,26 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import com.kava.swap.v1beta1.QueryProto
 import com.kava.swap.v1beta1.TxProto.MsgDeposit
 import com.kava.swap.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentPoolActionBinding
@@ -57,7 +58,7 @@ class PoolActionFragment : BaseTxFragment() {
     private var _binding: FragmentPoolActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private lateinit var poolActionType: PoolActionType
     private lateinit var swapPool: QueryProto.PoolResponse
     private lateinit var deposit: QueryProto.DepositResponse
@@ -65,7 +66,6 @@ class PoolActionFragment : BaseTxFragment() {
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var pool1Asset: Asset? = null
@@ -121,7 +121,7 @@ class PoolActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", BaseChain::class.java)?.let {
+                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -138,7 +138,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? BaseChain)?.let {
+                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                         selectedChain = it
                     }
                     (getSerializable("poolActionType") as? PoolActionType)?.let {
@@ -189,13 +189,13 @@ class PoolActionFragment : BaseTxFragment() {
                                 val poolCoin1Amount = swapPool.getCoins(0).amount
                                 val poolCoin2Amount = swapPool.getCoins(1).amount
                                 var availableCoin1Amount =
-                                    selectedChain.grpcFetcher?.balanceAmount(swapPool.getCoins(0).denom)
+                                    selectedChain.kavaFetcher?.balanceAmount(swapPool.getCoins(0).denom)
                                 if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
                                     val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                     availableCoin1Amount = availableCoin1Amount?.subtract(feeAmount)
                                 }
                                 val availableCoin2Amount =
-                                    selectedChain.grpcFetcher?.balanceAmount(swapPool.getCoins(1).denom)
+                                    selectedChain.kavaFetcher?.balanceAmount(swapPool.getCoins(1).denom)
 
                                 swapRate = poolCoin1Amount.toBigDecimal().divide(
                                     poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
@@ -473,24 +473,20 @@ class PoolActionFragment : BaseTxFragment() {
 
                 when (poolActionType) {
                     PoolActionType.DEPOSIT -> {
-                        txViewModel.broadPoolDeposit(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindDepositMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
                     }
 
                     PoolActionType.WITHDRAW -> {
-                        txViewModel.broadPoolWithdraw(
-                            getChannel(selectedChain),
-                            selectedChain.address,
+                        txViewModel.broadcast(
+                            selectedChain.kavaFetcher?.getChannel(),
                             onBindWithdrawMsg(),
                             txFee,
-                            txTip,
                             txMemo,
                             selectedChain
                         )
@@ -512,12 +508,10 @@ class PoolActionFragment : BaseTxFragment() {
 
                     btnPool.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulatePoolDeposit(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindDepositMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -532,12 +526,10 @@ class PoolActionFragment : BaseTxFragment() {
                     }
 
                     backdropLayout.visibility = View.VISIBLE
-                    txViewModel.simulatePoolWithdraw(
-                        getChannel(selectedChain),
-                        selectedChain.address,
+                    txViewModel.simulate(
+                        selectedChain.kavaFetcher?.getChannel(),
                         onBindWithdrawMsg(),
                         txFee,
-                        txTip,
                         txMemo,
                         selectedChain
                     )
@@ -546,18 +538,20 @@ class PoolActionFragment : BaseTxFragment() {
         }
     }
 
-    private fun onBindDepositMsg(): MsgDeposit? {
+    private fun onBindDepositMsg(): MutableList<Any> {
         val slippage = "30000000000000000"
         val deadLine = (System.currentTimeMillis() / 1000) + 300
         val depositCoin1 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
             .setAmount(coin1ToAmount).build()
         val depositCoin2 = CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
             .setAmount(coin2ToAmount).build()
-        return MsgDeposit.newBuilder().setDepositor(selectedChain.address).setTokenA(depositCoin1)
-            .setTokenB(depositCoin2).setSlippage(slippage).setDeadline(deadLine).build()
+        val msgDeposit =
+            MsgDeposit.newBuilder().setDepositor(selectedChain.address).setTokenA(depositCoin1)
+                .setTokenB(depositCoin2).setSlippage(slippage).setDeadline(deadLine).build()
+        return Signer.poolDepositMsg(msgDeposit)
     }
 
-    private fun onBindWithdrawMsg(): MsgWithdraw? {
+    private fun onBindWithdrawMsg(): MutableList<Any> {
         val totalShare = swapPool.totalShares.toBigDecimal()
         val padding = BigDecimal("0.97")
         val poolCoin1Amount =
@@ -569,19 +563,21 @@ class PoolActionFragment : BaseTxFragment() {
                 .divide(totalShare, 0, RoundingMode.DOWN).multiply(padding)
                 .setScale(0, RoundingMode.DOWN)
         val deadLine = (System.currentTimeMillis() / 1000) + 300
-        return MsgWithdraw.newBuilder().setFrom(selectedChain.address).setShares(toWithdrawAmount)
-            .setMinTokenA(
-                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
-                    .setAmount(poolCoin1Amount.toPlainString())
-            ).setMinTokenB(
-                CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
-                    .setAmount(poolCoin2Amount.toPlainString())
-            ).setDeadline(deadLine).build()
+        val msgWithdraw =
+            MsgWithdraw.newBuilder().setFrom(selectedChain.address).setShares(toWithdrawAmount)
+                .setMinTokenA(
+                    CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(0).denom)
+                        .setAmount(poolCoin1Amount.toPlainString())
+                ).setMinTokenB(
+                    CoinProto.Coin.newBuilder().setDenom(swapPool.getCoins(1).denom)
+                        .setAmount(poolCoin2Amount.toPlainString())
+                ).setDeadline(deadLine).build()
+        return Signer.poolWithdrawMsg(msgWithdraw)
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -591,21 +587,22 @@ class PoolActionFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
                     .setAmount(feeCoinAmount.toString()).build()
 
-                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin).build()
+                txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                    .build()
             }
         }
         updateFeeView()
@@ -618,18 +615,20 @@ class PoolActionFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }

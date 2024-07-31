@@ -32,8 +32,6 @@ import androidx.fragment.app.FragmentActivity
 import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.squareup.picasso.Picasso
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -222,6 +220,15 @@ fun String.hexToBigDecimal(): BigDecimal {
     }
     val hex = this.removePrefix("0x")
     return BigDecimal(BigInteger(hex, 16))
+}
+
+fun String.hexToString(): String {
+    if (this.isEmpty()) return "0"
+    return if (this.startsWith("0x")) {
+        BigInteger(this.removePrefix("0x"), 16).toString()
+    } else {
+        BigInteger(this, 16).toString()
+    }
 }
 
 fun formatCurrentTimeToYear(): String {
@@ -584,13 +591,6 @@ fun dpToPx(context: Context, dp: Int): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), context.resources.displayMetrics
     ).toInt()
-}
-
-fun getChannel(selectedChain: BaseChain): ManagedChannel {
-    return ManagedChannelBuilder.forAddress(
-        selectedChain.grpcFetcher()!!.getGrpc().first,
-        selectedChain.grpcFetcher()!!.getGrpc().second
-    ).useTransportSecurity().build()
 }
 
 fun ByteArray.toHex(): String {

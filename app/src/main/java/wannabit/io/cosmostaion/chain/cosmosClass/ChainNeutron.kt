@@ -7,13 +7,13 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.CosmosFetcher
 import wannabit.io.cosmostaion.chain.NeutronFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
 open class ChainNeutron : BaseChain(), Parcelable {
-
-    var neutronFetcher: NeutronFetcher? = null
 
     override var name: String = "Neutron"
     override var tag: String = "neutron118"
@@ -26,19 +26,26 @@ open class ChainNeutron : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var supportCw20: Boolean = true
     override var stakeDenom: String = "untrn"
     override var supportStaking = false
     override var accountPrefix: String = "neutron"
     override var grpcHost: String = "grpc-neutron.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-neutron.cosmostation.io/"
 
-    override fun grpcFetcher(): NeutronFetcher? {
-        super.grpcFetcher()
-        if (neutronFetcher == null) {
-            neutronFetcher = NeutronFetcher(this)
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = NeutronFetcher(this)
         }
-        return neutronFetcher
+        return cosmosFetcher
+    }
+
+    fun neutronFetcher(): NeutronFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = NeutronFetcher(this)
+        }
+        return cosmosFetcher as? NeutronFetcher
     }
 }
 

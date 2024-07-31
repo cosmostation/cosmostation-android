@@ -17,7 +17,7 @@ data class SkipRouteResponse(
     val amount_in: String?,
     val amount_out: String?,
     val operations: MutableList<Operation>?,
-    val chain_ids: MutableList<String>?,
+    val required_chain_addresses: MutableList<String>?,
     val swap_venue: SwapVenue?,
     val usd_amount_in: String?,
     val usd_amount_out: String?,
@@ -61,14 +61,35 @@ data class SwapVenue(
 )
 
 data class SkipMsgResponse(
-    val msgs: MutableList<Msg>
+    val msgs: MutableList<Msg>,
+    val txs:MutableList<Txs>
 ) {
     data class Msg(
-        val path: MutableList<String>?,
-        val chain_id: String?,
-        val msg_type_url: String?,
-        val msg: String
-    )
+        val multi_chain_msg: MultiChainMsg
+    ) {
+        data class MultiChainMsg(
+            val path: MutableList<String>?,
+            val chain_id: String?,
+            val msg_type_url: String?,
+            val msg: String
+        )
+    }
+
+    data class Txs(
+        val cosmos_tx: CosmosTx
+    ) {
+        data class CosmosTx(
+            val chain_id: String?,
+            val path: MutableList<String>?,
+            val msgs: MutableList<TxMsg>,
+            val signer_address: String?
+        ) {
+            data class TxMsg(
+                val msg: String?,
+                val msg_type_url: String?
+            )
+        }
+    }
 }
 
 data class SkipErrorResponse(

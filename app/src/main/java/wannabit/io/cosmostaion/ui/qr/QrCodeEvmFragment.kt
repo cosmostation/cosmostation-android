@@ -78,7 +78,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain.isCosmos()) {
+                if (selectedChain.supportCosmos()) {
                     btnEthShare.visibility = View.VISIBLE
                     btnCosmosShare.visibility = View.VISIBLE
                     btnShare.visibility = View.GONE
@@ -87,7 +87,6 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                     btnCosmosShare.visibility = View.GONE
                     btnShare.visibility = View.VISIBLE
                 }
-                accountName.text = account.name
                 qrCodAdapter = QrCodAdapter(account, selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())

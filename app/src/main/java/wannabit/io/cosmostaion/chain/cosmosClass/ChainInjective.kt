@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
@@ -23,8 +24,9 @@ class ChainInjective : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "inj"
     override var accountPrefix: String = "inj"
     override var grpcHost: String = "grpc-injective.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-injective.cosmostation.io/"
 }

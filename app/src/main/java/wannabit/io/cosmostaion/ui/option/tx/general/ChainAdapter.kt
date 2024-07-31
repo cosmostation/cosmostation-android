@@ -18,12 +18,12 @@ class ChainAdapter : ListAdapter<BaseChain, ChainViewHolder>(ChainDiffCallback()
     }
 
     override fun onBindViewHolder(holder: ChainViewHolder, position: Int) {
-        val line = currentList[position]
-        holder.bind(line)
+        val chain = currentList[position]
+        holder.bind(chain)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(line.chainIdCosmos)
+                it(chain.name)
             }
         }
     }

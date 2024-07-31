@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_8">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/edit_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginVertical="@dimen/space_8"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,13 +54,13 @@
 
                 <TextView
                     android:id="@+id/chain_address"
-                    style="@style/font_sb_10"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
                     android:layout_marginTop="@dimen/space_4"
                     android:ellipsize="middle"
                     android:gravity="top"
-                    android:maxWidth="@dimen/space_100"
+                    android:maxWidth="@dimen/space_130"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,13 +68,13 @@
 
                 <TextView
                     android:id="@+id/chain_evm_address"
-                    style="@style/font_sb_10"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
                     android:layout_marginTop="@dimen/space_4"
                     android:ellipsize="middle"
                     android:gravity="top"
-                    android:maxWidth="@dimen/space_100"
+                    android:maxWidth="@dimen/space_130"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
                     android:letterSpacing="-0.05"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:text="@string/str_legacy"
+                    android:text="@string/str_old"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
                     android:visibility="gone"
@@ -178,7 +178,7 @@
 
                 <TextView
                     android:id="@+id/asset_cnt"
-                    style="@style/font_sm_10"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
                     android:layout_marginTop="@dimen/space_3"

@@ -14,22 +14,24 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
+import com.kava.router.v1beta1.TxProto.MsgWithdrawBurn
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentWithdrawEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -51,13 +53,12 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private var _binding: FragmentWithdrawEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private var withdrawCoin: Coin? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
 
     private var toCoin: Coin? = null
     private var txMemo = ""
@@ -103,14 +104,14 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", BaseChain::class.java)?.let {
+                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin", Coin::class.java)
                 }
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? BaseChain)?.let {
+                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin") as? Coin
@@ -308,12 +309,10 @@ class WithdrawEarningFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadEarnWithdraw(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindEarnWithdraw(),
+                txViewModel.broadcast(
+                    selectedChain.kavaFetcher?.getChannel(),
+                    onBindEarnWithdrawMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -327,12 +326,10 @@ class WithdrawEarningFragment : BaseTxFragment() {
             }
             btnWithdrawLiquidity.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateEarnWithdraw(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindEarnWithdraw(),
+            txViewModel.simulate(
+                selectedChain.kavaFetcher?.getChannel(),
+                onBindEarnWithdrawMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -340,9 +337,8 @@ class WithdrawEarningFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            isBroadCastTx(true)
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -352,13 +348,12 @@ class WithdrawEarningFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo) {
+    private fun updateFeeViewWithSimulate(gasUsed: String) {
         txFee?.let { fee ->
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
                 ?.let { gasRate ->
                     val gasLimit =
-                        (gasInfo.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong()
-                            .toBigDecimal()
+                        (gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                     val feeCoinAmount =
                         gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
@@ -370,6 +365,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                 }
         }
         updateFeeView()
+        isBroadCastTx(true)
     }
 
     private fun isBroadCastTx(isSuccess: Boolean) {
@@ -378,27 +374,29 @@ class WithdrawEarningFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindEarnWithdraw(): com.kava.router.v1beta1.TxProto.MsgWithdrawBurn? {
-        return com.kava.router.v1beta1.TxProto.MsgWithdrawBurn.newBuilder()
-            .setFrom(selectedChain.address).setValidator(withdrawCoin?.denom?.replace("bkava-", ""))
-            .setAmount(toCoin).build()
+    private fun onBindEarnWithdrawMsg(): MutableList<Any> {
+        val msgWithdrawBurn = MsgWithdrawBurn.newBuilder().setFrom(selectedChain.address)
+            .setValidator(withdrawCoin?.denom?.replace("bkava-", "")).setAmount(toCoin).build()
+        return Signer.earnWithdrawMsg(msgWithdrawBurn)
     }
 
     override fun onDestroyView() {

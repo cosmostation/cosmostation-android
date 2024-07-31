@@ -87,10 +87,13 @@ class ChainManageFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            if (chain is ChainOktEvm) return
+            if (chain is ChainOktEvm) {
+                isClickable = true
+                return
+            }
             val settingType = if (chain.isEvmCosmos()) {
                 SettingType.END_POINT_COSMOS
-            } else if (chain.supportCosmosGrpc) {
+            } else if (chain.supportCosmos()) {
                 SettingType.END_POINT_COSMOS
             } else {
                 SettingType.END_POINT_EVM
@@ -136,7 +139,7 @@ class ChainManageFragment : Fragment() {
                             })
 
                             searchTestnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
+                                chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
                             })
                         }
                     }

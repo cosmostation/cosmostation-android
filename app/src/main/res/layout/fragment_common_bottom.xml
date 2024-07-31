@@ -21,7 +21,7 @@
         android:layout_width="@dimen/space_40"
         android:layout_height="@dimen/space_4"
         android:layout_marginTop="@dimen/space_20"
-        android:background="@color/color_base04"
+        android:background="@drawable/round_view"
         android:layout_centerHorizontal="true"/>
 
     <TextView
@@ -34,6 +34,16 @@
         android:layout_marginStart="@dimen/space_20"
         android:layout_below="@+id/top_view"
         android:text="@string/title_select_account"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_below="@+id/select_title"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base07"
+        android:visibility="visible"/>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/search_bar"

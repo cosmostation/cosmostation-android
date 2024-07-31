@@ -184,7 +184,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.isEvmCosmos() || chain.isCosmos()) {
+                            if (chain.supportCosmos()) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -204,7 +204,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.isEvmCosmos() || chain.isCosmos()) {
+                            if ((chain.supportEvm && chain.supportCosmos()) || chain.supportCosmos()) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

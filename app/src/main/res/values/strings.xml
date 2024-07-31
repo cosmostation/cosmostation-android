@@ -9,7 +9,7 @@
     <string name="str_ethereum_class" translatable="false">Evm class</string>
     <string name="str_cosmos_class" translatable="false">Cosmos class</string>
     <string name="str_deprecated" translatable="false">Deprecated</string>
-    <string name="str_legacy" translatable="false">Legacy</string>
+    <string name="str_old" translatable="false">OLD</string>
     <string name="str_ethsecp256k1" translatable="false">ethsecp256k1</string>
     <string name="str_keccak256" translatable="false">keccak256</string>
     <string name="str_secp256k1" translatable="false">secp256k1</string>
@@ -132,6 +132,7 @@
     <string name="str_remove_liquidity">Remove liquidity</string>
     <string name="str_search_chain">Search chain</string>
     <string name="str_search_token">Search token</string>
+    <string name="str_search">Search</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
@@ -182,19 +183,20 @@
     <string name="title_history" translatable="false">History</string>
     <string name="title_about">About</string>
     <string name="title_select_account" translatable="false">Select account</string>
+    <string name="title_amount">Amount</string>
     <string name="title_mnemonic_account">Mnemonic account</string>
     <string name="title_private_account">Private key account</string>
-    <string name="title_governance" translatable="false">Governance</string>
+    <string name="title_governance" translatable="false">Vote</string>
     <string name="title_reward_claim" translatable="false">Claim reward</string>
-    <string name="title_stake" translatable="false">Stake</string>
-    <string name="title_compounding_all" translatable="false">Compounding all</string>
-    <string name="title_claim_reward_all" translatable="false">Claim reward all</string>
+    <string name="title_stake" translatable="false">Manage stake</string>
+    <string name="title_compounding_all" translatable="false">Compound all</string>
+    <string name="title_claim_reward_all" translatable="false">Claim all</string>
     <string name="title_wallet">Wallet</string>
     <string name="title_account">Account</string>
     <string name="title_account_name">Account name</string>
     <string name="title_add_account">Add account</string>
     <string name="title_import_qr">Import account with QR scan</string>
-    <string name="title_legacy_enabled">Enable legacy addresses</string>
+    <string name="title_legacy_enabled">Enable old addresses</string>
     <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
     <string name="title_address_book">Address book</string>
@@ -409,7 +411,7 @@
     <string name="str_affect_safe_msg">Not affects your assets</string>
     <string name="str_dapp_warn_msg">Only sign this message if you trust the requesting site and fully understand its contents</string>
     <string name="str_support_injection_msg">To enhance user convenience and response speed, we support the injection method (EIP-6963). When using DApps, please select your desktop wallet, etc.\nYou can experience the same user experience as with the desktop extension wallet.\nFor EVM-based DApps, by supporting the EIP-6963 specification, you can enjoy a seamless web3 experience.</string>
-    <string name="str_fee_tip_msg">Fees and tips are pay to the chain,\nnot to wallet</string>
+    <string name="str_fee_tip_msg">Fees and tips are pay to the chain, not to wallet</string>
 
 
     // header

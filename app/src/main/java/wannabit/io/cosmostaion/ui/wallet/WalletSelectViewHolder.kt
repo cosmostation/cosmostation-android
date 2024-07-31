@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.OktFetcher
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -48,7 +47,7 @@ class WalletSelectViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.isEvmCosmos() || chain is ChainOktEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -57,7 +56,7 @@ class WalletSelectViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
-            } else if (chain.isCosmos()) {
+            } else if (chain.supportCosmos()) {
                 chainAddress.text = chain.address
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -76,27 +75,20 @@ class WalletSelectViewHolder(
             if (chain.fetched) {
                 val cnt: Int
                 skeletonChainValue.visibility = View.GONE
-                if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainBalance.visibility = View.GONE
-                        chainDenom.visibility = View.GONE
-                        chainAssetCnt.visibility = View.GONE
-                        return
+
+                selectView.setOnClickListener {
+                    if (selectedTags.contains(chain.tag)) {
+                        selectedTags.removeIf { it == chain.tag }
+                    } else {
+                        selectedTags.add(chain.tag)
                     }
+                    updateView(chain, selectedTags)
+                    selectListener.select(selectedTags)
+                }
 
-                } else if (chain.isCosmos()) {
+                if (chain.supportCosmos()) {
                     if (chain is ChainOktEvm) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainBalance.visibility = View.GONE
-                            chainDenom.visibility = View.GONE
-                            chainAssetCnt.visibility = View.GONE
-                            return
-                        }
-
-                    } else if (chain is ChainOkt996Keccak) {
-                        if (chain.oktFetcher?.lcdAccountInfo?.isJsonNull == true) {
+                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
                             respondLayout.visibility = View.VISIBLE
                             chainBalance.visibility = View.GONE
                             chainDenom.visibility = View.GONE
@@ -105,7 +97,7 @@ class WalletSelectViewHolder(
                         }
 
                     } else {
-                        if (chain.grpcFetcher?.cosmosBalances == null) {
+                        if (chain.cosmosFetcher?.cosmosBalances == null) {
                             respondLayout.visibility = View.VISIBLE
                             chainBalance.visibility = View.GONE
                             chainDenom.visibility = View.GONE
@@ -150,53 +142,28 @@ class WalletSelectViewHolder(
                     chainTypeBadge.visibility = View.GONE
                 }
 
-                if (chain.isEvmCosmos()) {
-                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                        val availableAmount = chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
-                            ?.movePointLeft(asset.decimals ?: 6)
-                        chainBalance.text =
-                            formatAmount(availableAmount.toString(), asset.decimals ?: 6)
-                        chainDenom.text = asset.symbol
-                        chainDenom.setTextColor(asset.assetColor())
-                    }
-                    cnt = (chain.grpcFetcher?.cosmosBalances?.count {
-                        BaseData.getAsset(
-                            chain.apiName, it.denom
-                        ) != null
-                    } ?: 0)
+                if (chain.supportCosmos()) {
+                    if (chain is ChainOktEvm) {
+                        updateOktInfo(chain, chain.oktFetcher)
+                        cnt =
+                            chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                                ?: 0
 
-                } else if (chain.isCosmos()) {
-                    when (chain) {
-                        is ChainOktEvm -> {
-                            updateOktInfo(chain, chain.oktFetcher)
-                            cnt =
-                                chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                                    ?: 0
+                    } else {
+                        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                            val availableAmount =
+                                chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                            chainBalance.text =
+                                formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                            chainDenom.text = asset.symbol
+                            chainDenom.setTextColor(asset.assetColor())
                         }
-
-                        is ChainOkt996Keccak -> {
-                            updateOktInfo(chain, chain.oktFetcher)
-                            cnt =
-                                chain.oktFetcher?.lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                                    ?: 0
-                        }
-
-                        else -> {
-                            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                                val availableAmount =
-                                    chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
-                                        ?.movePointLeft(asset.decimals ?: 6)
-                                chainBalance.text =
-                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
-                                chainDenom.text = asset.symbol
-                                chainDenom.setTextColor(asset.assetColor())
-                            }
-                            cnt = (chain.grpcFetcher?.cosmosBalances?.count {
-                                BaseData.getAsset(
-                                    chain.apiName, it.denom
-                                ) != null
-                            } ?: 0)
-                        }
+                        cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
+                            BaseData.getAsset(
+                                chain.apiName, it.denom
+                            ) != null
+                        } ?: 0)
                     }
 
                 } else {
@@ -215,16 +182,6 @@ class WalletSelectViewHolder(
                     }
                 }
                 chainAssetCnt.text = "$cnt Coins"
-
-                selectView.setOnClickListener {
-                    if (selectedTags.contains(chain.tag)) {
-                        selectedTags.removeIf { it == chain.tag }
-                    } else {
-                        selectedTags.add(chain.tag)
-                    }
-                    updateView(chain, selectedTags)
-                    selectListener.select(selectedTags)
-                }
             }
         }
     }
@@ -258,17 +215,9 @@ class WalletSelectViewHolder(
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
-                if (chain.isEvmCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainBalance.visibility = View.GONE
-                        chainDenom.visibility = View.GONE
-                        chainAssetCnt.visibility = View.GONE
-                        return
-                    }
 
-                } else if (chain.isCosmos()) {
-                    if (chain.grpcFetcher?.cosmosBalances == null) {
+                if (chain.supportCosmos()) {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
                         chainDenom.visibility = View.GONE
@@ -284,15 +233,14 @@ class WalletSelectViewHolder(
                 chainTypeBadge.visibility = View.GONE
 
                 BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                    val availableAmount =
-                        chain.grpcFetcher?.balanceAmount(chain.stakeDenom)
-                            ?.movePointLeft(asset.decimals ?: 6)
+                    val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
+                        ?.movePointLeft(asset.decimals ?: 6)
                     chainBalance.text =
                         formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                     chainDenom.text = asset.symbol
                     chainDenom.setTextColor(asset.assetColor())
                 }
-                val cnt = (chain.grpcFetcher?.cosmosBalances?.count {
+                val cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
                     BaseData.getAsset(
                         chain.apiName, it.denom
                     ) != null
@@ -314,7 +262,7 @@ class WalletSelectViewHolder(
 
     private fun updateOktInfo(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            val availableAmount = oktFetcher?.lcdBalanceAmount(chain.stakeDenom)
+            val availableAmount = oktFetcher?.oktBalanceAmount(chain.stakeDenom)
             chainBalance.text = formatAmount(availableAmount.toString(), 18)
             chainDenom.text = chain.stakeDenom.uppercase()
             chainDenom.setTextColor(Color.parseColor("#ffffff"))

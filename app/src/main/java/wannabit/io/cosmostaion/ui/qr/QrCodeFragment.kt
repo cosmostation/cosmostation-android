@@ -82,7 +82,6 @@ class QrCodeFragment : BottomSheetDialogFragment() {
                 btnCosmosShare.visibility = View.GONE
                 btnShare.visibility = View.VISIBLE
 
-                accountName.text = account.name
                 qrCodAdapter = QrCodAdapter(account, selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())

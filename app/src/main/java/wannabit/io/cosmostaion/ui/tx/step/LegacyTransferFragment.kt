@@ -20,7 +20,6 @@ import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.OktFetcher
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -119,27 +118,20 @@ class LegacyTransferFragment : BaseTxFragment() {
                     R.drawable.cell_bg
                 )
             }
-
-            when (fromChain) {
-                is ChainOkt996Keccak -> initData(
-                    fromChain, (fromChain as ChainOkt996Keccak).oktFetcher
-                )
-
-                is ChainOktEvm -> initData(fromChain, (fromChain as ChainOktEvm).oktFetcher)
-            }
+            initData(fromChain, (fromChain as ChainOktEvm).oktFetcher)
         }
     }
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == toSendDenom }
+            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == toSendDenom }
                 ?.let { tokenInfo ->
                     oktToken = Gson().fromJson(tokenInfo, OktToken::class.java)
                     oktToken?.let {
                         tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
                         tokenName.text = it.original_symbol.uppercase()
 
-                        val available = oktFetcher.lcdBalanceAmount(toSendDenom)
+                        val available = oktFetcher.oktBalanceAmount(toSendDenom)
                         availableAmount = if (toSendDenom == chain.stakeDenom) {
                             if (BigDecimal(OKT_BASE_FEE) < available) {
                                 available.subtract(BigDecimal(OKT_BASE_FEE))

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.Prefs
@@ -97,7 +99,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     )
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, SettingType.LANGUAGE, null)
+                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.LANGUAGE, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -116,7 +118,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     val currencyList = resources.getStringArray(R.array.currency_unit_array)
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, SettingType.CURRENCY, null)
+                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.CURRENCY, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -137,7 +139,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.title_price_change_color)
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, SettingType.PRICE_STATUS, null)
+                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.PRICE_STATUS, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -156,7 +158,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
 
                     settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, SettingType.BUY_CRYPTO, null)
+                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.BUY_CRYPTO, null)
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -172,19 +174,19 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
 
                 SettingType.END_POINT_EVM -> {
                     selectTitle.text = getString(R.string.title_select_end_point_rpc)
-                    settingAdapter = SettingBottomAdapter(
-                        requireContext(), fromChain, SettingType.END_POINT_EVM, endpointClickAction
-                    )
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = settingAdapter
-
                     val rpcEndpoints: MutableList<Any> = ArrayList()
                     fromChain?.getChainListParam()?.getAsJsonArray("evm_rpc_endpoint")?.let {
                         for (jsonElement in it) {
                             rpcEndpoints.add(jsonElement.asJsonObject)
                         }
                     }
+
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(), fromChain, rpcEndpoints, mutableListOf(), SettingType.END_POINT_EVM, endpointClickAction
+                    )
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.adapter = settingAdapter
                     settingAdapter.submitList(rpcEndpoints)
                 }
 
@@ -192,6 +194,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     if (fromChain?.isEvmCosmos() == true) {
                         selectTitle.text = getString(R.string.title_select_end_point)
                         segmentView.visibility = View.VISIBLE
+                        view.visibility = View.GONE
 
                         val recyclerViewLayoutParams =
                             recycler.layoutParams as RelativeLayout.LayoutParams
@@ -202,17 +205,8 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     } else {
                         selectTitle.text = getString(R.string.title_select_end_point_grpc)
                         segmentView.visibility = View.GONE
+                        view.visibility = View.VISIBLE
                     }
-
-                    settingAdapter = SettingBottomAdapter(
-                        requireContext(),
-                        fromChain,
-                        SettingType.END_POINT_COSMOS,
-                        endpointClickAction
-                    )
-                    recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
-                    recycler.adapter = settingAdapter
 
                     val grpcEndpoints: MutableList<Any> = ArrayList()
                     fromChain?.getChainListParam()?.getAsJsonArray("grpc_endpoint")?.let {
@@ -220,7 +214,25 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                             grpcEndpoints.add(jsonElement.asJsonObject)
                         }
                     }
-                    settingAdapter.submitList(grpcEndpoints)
+                    val lcdEndpoints: MutableList<Any> = ArrayList()
+                    fromChain?.getChainListParam()?.getAsJsonArray("lcd_endpoint")?.let {
+                        for (jsonElement in it) {
+                            lcdEndpoints.add(jsonElement.asJsonObject)
+                        }
+                    }
+
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(),
+                        fromChain,
+                        grpcEndpoints,
+                        lcdEndpoints,
+                        SettingType.END_POINT_COSMOS,
+                        endpointClickAction
+                    )
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.adapter = settingAdapter
+                    settingAdapter.submitList(grpcEndpoints + lcdEndpoints)
                 }
             }
         }
@@ -230,6 +242,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
         override fun select(endpoint: String, gapTime: Double?) {
             if (gapTime != null) {
                 Prefs.setGrpcEndpoint(fromChain, endpoint)
+                Prefs.setEndpointType(fromChain, CosmosEndPointType.USE_GRPC)
                 dismiss()
 
                 val bundle = Bundle()
@@ -246,6 +259,23 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
         override fun rpcSelect(endpoint: String, gapTime: Double?) {
             if (gapTime != null) {
                 Prefs.setEvmRpcEndpoint(fromChain, endpoint)
+                dismiss()
+
+                val bundle = Bundle()
+                bundle.putString("endpoint", endpoint)
+                parentFragmentManager.setFragmentResult("endpoint", bundle)
+                dismiss()
+
+            } else {
+                requireActivity().makeToast(R.string.error_useless_end_point)
+                return
+            }
+        }
+
+        override fun lcdSelect(endpoint: String, gapTime: Double?) {
+            if (gapTime != null) {
+                Prefs.setLcdEndpoint(fromChain, endpoint)
+                Prefs.setEndpointType(fromChain, CosmosEndPointType.USE_LCD)
                 dismiss()
 
                 val bundle = Bundle()
@@ -302,42 +332,52 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
             rpcSegment.setOnPositionChangedListener { position ->
                 when (position) {
                     0 -> {
-                        settingAdapter = SettingBottomAdapter(
-                            requireContext(),
-                            fromChain,
-                            SettingType.END_POINT_COSMOS,
-                            endpointClickAction
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = settingAdapter
-
                         val grpcEndpoints: MutableList<Any> = ArrayList()
                         fromChain?.getChainListParam()?.getAsJsonArray("grpc_endpoint")?.let {
                             for (jsonElement in it) {
                                 grpcEndpoints.add(jsonElement.asJsonObject)
                             }
                         }
-                        settingAdapter.submitList(grpcEndpoints)
-                    }
+                        val lcdEndpoints: MutableList<Any> = ArrayList()
+                        fromChain?.getChainListParam()?.getAsJsonArray("lcd_endpoint")?.let {
+                            for (jsonElement in it) {
+                                lcdEndpoints.add(jsonElement.asJsonObject)
+                            }
+                        }
 
-                    else -> {
                         settingAdapter = SettingBottomAdapter(
                             requireContext(),
                             fromChain,
-                            SettingType.END_POINT_EVM,
+                            grpcEndpoints,
+                            lcdEndpoints,
+                            SettingType.END_POINT_COSMOS,
                             endpointClickAction
                         )
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
                         recycler.adapter = settingAdapter
+                        settingAdapter.submitList(grpcEndpoints + lcdEndpoints)
+                    }
 
+                    else -> {
                         val rpcEndpoints: MutableList<Any> = ArrayList()
                         fromChain?.getChainListParam()?.getAsJsonArray("evm_rpc_endpoint")?.let {
                             for (jsonElement in it) {
                                 rpcEndpoints.add(jsonElement.asJsonObject)
                             }
                         }
+
+                        settingAdapter = SettingBottomAdapter(
+                            requireContext(),
+                            fromChain,
+                            rpcEndpoints,
+                            mutableListOf(),
+                            SettingType.END_POINT_EVM,
+                            endpointClickAction
+                        )
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        recycler.adapter = settingAdapter
                         settingAdapter.submitList(rpcEndpoints)
                     }
                 }

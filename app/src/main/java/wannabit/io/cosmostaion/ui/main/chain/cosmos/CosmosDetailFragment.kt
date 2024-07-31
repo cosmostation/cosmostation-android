@@ -47,10 +47,7 @@ import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
@@ -241,12 +238,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             val supportToken = selectedChain.supportCw20 || selectedChain.supportEvm
+            btnAddToken.visibleOrGone(supportToken)
             val supportNft = selectedChain.supportNft
 
             val tableTitles = mutableListOf<String>()
-            tableTitles.add("Coins")
+            tableTitles.add("Crypto")
 
-            if (supportToken) tableTitles.add("Tokens")
             if (supportNft) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
@@ -273,7 +270,7 @@ class CosmosDetailFragment : Fragment() {
                     val position = tab?.position ?: 0
                     viewPager.setCurrentItem(position, false)
                     when (tab?.text.toString()) {
-                        "Tokens" -> {
+                        "Crypto" -> {
                             btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
                             btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_GITHUB
@@ -423,55 +420,8 @@ class CosmosDetailFragment : Fragment() {
 
     private fun setFabMenuClickAction() {
         binding.apply {
-            fabSend.setOnClickListener {
-                val sendAssetType = if (selectedChain.isEvmCosmos()) {
-                    SendAssetType.COSMOS_EVM_COIN
-                } else if (selectedChain is ChainOktEvm) {
-                    SendAssetType.ONLY_EVM_COIN
-                } else {
-                    SendAssetType.ONLY_COSMOS_COIN
-                }
-
-                if (selectedChain.isBankLocked()) {
-                    requireContext().showToast(view, R.string.error_tranfer_disabled, false)
-                    return@setOnClickListener
-                }
-
-                if (selectedChain is ChainOkt996Keccak) {
-                    handleOneClickWithDelay(
-                        null,
-                        LegacyTransferFragment.newInstance(selectedChain, selectedChain.stakeDenom)
-                    )
-                } else {
-                    handleOneClickWithDelay(
-                        null, CommonTransferFragment.newInstance(
-                            selectedChain, selectedChain.stakeDenom, sendAssetType
-                        )
-                    )
-                }
-            }
-
-            fabReceive.setOnClickListener {
-                if (selectedChain is ChainOkt996Keccak) {
-                    handleOneClickWithDelay(
-                        null, QrCodeFragment.newInstance(selectedChain)
-                    )
-                } else {
-                    if (selectedChain.supportEvm) {
-                        handleOneClickWithDelay(
-                            null, QrCodeEvmFragment.newInstance(selectedChain)
-                        )
-
-                    } else {
-                        handleOneClickWithDelay(
-                            null, QrCodeFragment.newInstance(selectedChain)
-                        )
-                    }
-                }
-            }
-
             fabStake.setOnClickListener {
-                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
 
                 } else {
@@ -482,12 +432,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabClaimReward.setOnClickListener {
-                if (selectedChain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
-                    if (selectedChain.grpcFetcher?.rewardAllCoins()?.isEmpty() == true) {
+                if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.grpcFetcher?.claimableRewards()?.isEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.claimableRewards()?.isEmpty() == true) {
                         requireContext().showToast(view, R.string.error_wasting_fee, false)
                         return@setOnClickListener
                     }
@@ -497,7 +447,7 @@ class CosmosDetailFragment : Fragment() {
                     }
                     handleOneClickWithDelay(
                         null, ClaimRewardFragment.newInstance(
-                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                            selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
                         )
                     )
 
@@ -509,12 +459,12 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabCompounding.setOnClickListener {
-                if ((selectedChain.grpcFetcher?.cosmosValidators?.size ?: 0) > 0) {
-                    if (selectedChain.grpcFetcher?.claimableRewards()?.size == 0) {
+                if ((selectedChain.cosmosFetcher?.cosmosValidators?.size ?: 0) > 0) {
+                    if (selectedChain.cosmosFetcher?.claimableRewards()?.size == 0) {
                         requireContext().makeToast(R.string.error_not_reward)
                         return@setOnClickListener
                     }
-                    if (selectedChain.grpcFetcher?.rewardAddress != selectedChain.address) {
+                    if (selectedChain.cosmosFetcher?.rewardAddress != selectedChain.address) {
                         requireContext().showToast(
                             view, R.string.error_reward_address_changed_msg, false
                         )
@@ -526,7 +476,7 @@ class CosmosDetailFragment : Fragment() {
                     }
                     handleOneClickWithDelay(
                         null, CompoundingFragment.newInstance(
-                            selectedChain, selectedChain.grpcFetcher?.claimableRewards()
+                            selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
                         )
                     )
 
@@ -567,13 +517,13 @@ class CosmosDetailFragment : Fragment() {
 
             fabWithdraw.setOnClickListener {
                 if (selectedChain is ChainOkt996Keccak) {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
 
                 } else {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
@@ -586,13 +536,13 @@ class CosmosDetailFragment : Fragment() {
 
             fabSelectValidator.setOnClickListener {
                 if (selectedChain is ChainOkt996Keccak) {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOkt996Keccak).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
 
                 } else {
-                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.lcdOktDepositAmount()) {
+                    if (BigDecimal.ZERO >= (selectedChain as ChainOktEvm).oktFetcher?.oktDepositAmount()) {
                         requireContext().makeToast(R.string.error_no_deposited_asset)
                         return@setOnClickListener
                     }
@@ -653,8 +603,7 @@ class CosmosDetailFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (tabTitles[position]) {
-                "Coins" -> CoinFragment.newInstance(selectedChain)
-                "Tokens" -> TokenFragment.newInstance(selectedChain)
+                "Crypto" -> CoinFragment.newInstance(selectedChain)
                 "NFTs" -> NftFragment.newInstance(selectedChain)
                 "Receive" -> ReceiveFragment.newInstance(selectedChain)
                 "History" -> HistoryFragment.newInstance(selectedChain)

@@ -8,8 +8,7 @@ data class SkipRouteReq(
     val source_asset_chain_id: String?,
     val dest_asset_denom: String?,
     val dest_asset_chain_id: String?,
-    val cumulative_affiliate_fee_bps: String = "100",
-    val client_id: String = "cosmostation_android"
+    val cumulative_affiliate_fee_bps: String? = "50"
 )
 
 data class SkipMsgReq(
@@ -22,8 +21,11 @@ data class SkipMsgReq(
     val dest_asset_denom: String?,
     val dest_asset_chain_id: String?,
     val operations: MutableList<Operation>?,
-    val affiliates: MutableList<Affiliate>?,
-    val client_id: String = "cosmostation_android"
+    val chain_ids_to_affiliates: Map<String, ChainInfo>?
+)
+
+data class ChainInfo(
+    val affiliates: List<Affiliate>
 )
 
 data class Affiliate(

@@ -116,14 +116,14 @@ class OktDepositFragment : BaseTxFragment() {
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.lcdOktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
+            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
                 ?.let { tokenInfo ->
                     oktTokenInfo = Gson().fromJson(tokenInfo, OktToken::class.java)
                     oktTokenInfo?.let {
                         tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
                         tokenName.text = it.original_symbol.uppercase()
 
-                        val available = oktFetcher.lcdBalanceAmount(selectedChain.stakeDenom)
+                        val available = oktFetcher.oktBalanceAmount(selectedChain.stakeDenom)
                         availableAmount = if (gasFee < available) {
                             available.subtract(gasFee)
                         } else {
@@ -149,7 +149,7 @@ class OktDepositFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             feeToken.text = chain.stakeDenom.uppercase()
 
-            oktFetcher?.lcdOktDeposits?.get("validator_address")?.asJsonArray?.size()
+            oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
                 ?.let { existCnt ->
                     gasAmount = BigDecimal(BASE_GAS_AMOUNT)
                     gasFee = BigDecimal(OKT_BASE_FEE)

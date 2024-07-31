@@ -4,35 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/header_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/coin_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/header_title"
-            style="@style/font_sb_12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_20"
-            android:textColor="@color/color_base01" />
-
-        <TextView
-            android:id="@+id/header_cnt"
-            style="@style/font_sb_12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_3"
-            android:layout_toRightOf="@+id/header_title"
-            android:textColor="@color/color_base02" />
-
-    </RelativeLayout>
-
     <androidx.cardview.widget.CardView
         android:id="@+id/coin_view"
         android:layout_width="match_parent"
@@ -44,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_layout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

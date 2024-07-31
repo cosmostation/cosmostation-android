@@ -33,7 +33,7 @@
                 android:layout_height="@dimen/space_4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/space_20"
-                android:background="@color/color_base04"
+                android:background="@drawable/round_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

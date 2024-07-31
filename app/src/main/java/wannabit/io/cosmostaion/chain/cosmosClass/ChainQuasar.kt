@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
@@ -23,8 +24,9 @@ class ChainQuasar : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uqsr"
     override var accountPrefix: String = "quasar"
     override var grpcHost: String = "grpc-quasar.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-quasar.cosmostation.io/"
 }

@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 
 interface ChainSelectListener {
-    fun select(chainId: String)
+    fun select(chainName: String)
 }
 
 class ChainFragment : BottomSheetDialogFragment() {
@@ -89,9 +89,7 @@ class ChainFragment : BottomSheetDialogFragment() {
                         when {
                             o1.tag == "cosmos118" -> -1
                             o2.tag == "cosmos118" -> 1
-                            o1.name < o2.name -> -1
-                            o1.name > o2.name -> 1
-                            else -> 0
+                            else -> o1.name.compareTo(o2.name)
                         }
                     }
                 }
@@ -103,9 +101,7 @@ class ChainFragment : BottomSheetDialogFragment() {
                         when {
                             o1.tag == "cosmos118" -> -1
                             o2.tag == "cosmos118" -> 1
-                            o1.name < o2.name -> -1
-                            o1.name > o2.name -> 1
-                            else -> 0
+                            else -> o1.name.compareTo(o2.name)
                         }
                     }
                 }

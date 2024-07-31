@@ -99,7 +99,10 @@ class StakingInfoAdapter(
                                 unStakingPosition,
                                 listener
                             )
-                        }
+
+                        } ?: run {
+                        holder.notBind()
+                    }
                 }
             }
         }
@@ -107,7 +110,6 @@ class StakingInfoAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val isRewardAddress = rewardAddress != selectedChain.address
-
         return when {
             isRewardAddress && position == 0 -> VIEW_TYPE_REWARD_ADDRESS
             isRewardAddress && position < delegations.size + 1 -> VIEW_TYPE_STAKING
@@ -119,7 +121,6 @@ class StakingInfoAdapter(
     override fun getItemCount(): Int {
         return if (rewardAddress != selectedChain.address) {
             delegations.size + unBondings.size + 1
-
         } else {
             delegations.size + unBondings.size
         }

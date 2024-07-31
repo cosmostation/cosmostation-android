@@ -23,7 +23,7 @@ class AssetViewHolder(
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
-                    chain.grpcFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
+                    chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
                         ?.let { feeCoin ->
                             val amount =
                                 feeCoin.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
@@ -50,7 +50,7 @@ class AssetViewHolder(
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
-                    chain.grpcFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
+                    chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
                         ?.let { feeCoin ->
                             val amount =
                                 feeCoin.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)

@@ -59,7 +59,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -791,7 +790,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainIds" -> {
                     val supportChainIds =
-                        allChains?.filter { it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                        allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
                             ?.map { it.chainIdCosmos }?.distinct()
                     if (supportChainIds?.isNotEmpty() == true) {
                         val dataJson = JSONObject()
@@ -806,7 +805,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainNames" -> {
                     val supportChainNames = allChains?.filter {
-                        it.supportCosmosGrpc && it.chainDappName()?.isNotEmpty() == true
+                        it.supportCosmos() && it.chainDappName()?.isNotEmpty() == true
                     }?.map { it.name.lowercase() }?.distinct()
                     if (supportChainNames?.isNotEmpty() == true) {
                         val dataJson = JSONObject()
@@ -828,7 +827,7 @@ class DappActivity : BaseActivity() {
                 "cos_addChain" -> {
                     val params = messageJson.getJSONObject("params")
                     val supportChainIds =
-                        allChains?.filter { !it.isTestnet && it.supportCosmosGrpc && it.chainIdCosmos.isNotEmpty() }
+                        allChains?.filter { !it.isTestnet && it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
                             ?.map { it.chainIdCosmos }?.distinct()
                     if (supportChainIds?.contains(params.getString("chainId")) == true) {
                         appToWebResult(
@@ -902,7 +901,7 @@ class DappActivity : BaseActivity() {
                                 BroadcastTxRequest.newBuilder().setModeValue(mode).setTxBytes(
                                     ByteString.copyFrom(Base64.decode(txBytes, Base64.DEFAULT))
                                 ).build()
-                            val txStub = ServiceGrpc.newBlockingStub(getChannel(chain))
+                            val txStub = ServiceGrpc.newBlockingStub(chain.cosmosFetcher()?.getChannel())
                                 .withDeadlineAfter(8L, TimeUnit.SECONDS)
                             val response = txStub.broadcastTx(request)
                             appToWebResult(

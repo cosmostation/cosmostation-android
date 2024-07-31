@@ -7,13 +7,13 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.FetcherLcd
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.OktFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @Parcelize
-class ChainOktEvm : BaseChain(), Parcelable {
+open class ChainOktEvm : BaseChain(), Parcelable {
 
     var oktFetcher: OktFetcher? = null
 
@@ -23,7 +23,7 @@ class ChainOktEvm : BaseChain(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_evm_swipe_okt
     override var apiName: String = "okc"
 
-    override var supportCosmosLcd: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "okt"
     override var accountPrefix: String = "ex"
     override var supportStaking = false
@@ -33,7 +33,7 @@ class ChainOktEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "OKT"
     override var coinGeckoId: String = "oec-token"
     override var coinLogo: Int = R.drawable.token_okt
-
+    override var addressLogo: Int = R.drawable.icon_okt_address
     override var evmRpcURL: String = "https://exchainrpc.okex.org"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
@@ -41,7 +41,7 @@ class ChainOktEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override fun lcdFetcher(): FetcherLcd? {
+    fun oktFetcher(): OktFetcher? {
         if (oktFetcher == null) {
             oktFetcher = OktFetcher(this)
         }

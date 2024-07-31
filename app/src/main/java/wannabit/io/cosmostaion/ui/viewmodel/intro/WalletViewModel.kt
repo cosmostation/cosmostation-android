@@ -15,12 +15,10 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.model.Cw721Model
 import wannabit.io.cosmostaion.data.model.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -171,15 +169,16 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun loadGrpcStakeData(
         chain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
-        if (chain.grpcFetcher?.cosmosValidators?.isNotEmpty() == true) {
+        if (chain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
             return@launch
         }
         val tempValidators = mutableListOf<StakingProto.Validator>()
-        val channel = getChannel(chain)
+        val channel = chain.cosmosFetcher?.getChannel()
         try {
-            val loadBondedDeferred = async { walletRepository.bondedValidator(channel) }
-            val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel) }
-            val loadUnBondingDeferred = async { walletRepository.unBondingValidator(channel) }
+            val loadBondedDeferred = async { walletRepository.bondedValidator(channel, chain) }
+            val loadUnBondedDeferred = async { walletRepository.unBondedValidator(channel, chain) }
+            val loadUnBondingDeferred =
+                async { walletRepository.unBondingValidator(channel, chain) }
 
             val bondedValidatorsResult = loadBondedDeferred.await()
             if (bondedValidatorsResult is NetworkResult.Success) {
@@ -220,12 +219,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     else -> 0
                 }
             }
-            chain.grpcFetcher?.cosmosValidators = dataTempValidators
+            chain.cosmosFetcher?.cosmosValidators = dataTempValidators
 
         } finally {
-            channel.shutdown()
+            channel?.shutdown()
             try {
-                if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
                     channel.shutdownNow()
                 }
             } catch (e: InterruptedException) {
@@ -268,10 +267,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
         when (chain) {
             is ChainOktEvm -> {
-                chain.lcdFetcher()?.let {
+                chain.oktFetcher()?.let {
                     when (val response = walletRepository.oktAccountInfo(chain)) {
                         is NetworkResult.Success -> {
-                            chain.oktFetcher?.lcdAccountInfo = response.data
+                            chain.oktFetcher?.oktAccountInfo = response.data
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {
@@ -281,33 +280,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         }
 
                         is NetworkResult.Error -> {
-                            chain.oktFetcher?.lcdAccountInfo = null
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            is ChainOkt996Keccak -> {
-                chain.lcdFetcher()?.let {
-                    when (val response = walletRepository.oktAccountInfo(chain)) {
-                        is NetworkResult.Success -> {
-                            chain.oktFetcher?.lcdAccountInfo = response.data
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            chain.oktFetcher?.lcdAccountInfo = null
+                            chain.oktFetcher?.oktAccountInfo = null
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {
@@ -320,30 +293,26 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             else -> {
-                chain.grpcFetcher()?.let {
-                    val channel = getChannel(chain)
+                chain.cosmosFetcher()?.let { cosmosFetcher ->
+                    val channel = cosmosFetcher.getChannel()
                     when (val response = walletRepository.balance(channel, chain)) {
                         is NetworkResult.Success -> {
-                            response.data?.balancesList?.let {
-                                chain.grpcFetcher?.cosmosBalances = it
-                                chain.fetched = true
-                                if (chain.fetched) {
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
-                                }
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            chain.grpcFetcher?.cosmosBalances = null
+                            chain.cosmosFetcher?.cosmosBalances = response.data
                             chain.fetched = true
                             if (chain.fetched) {
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }
-                            } else {
+                            }
+                        }
 
+                        is NetworkResult.Error -> {
+                            chain.cosmosFetcher?.cosmosBalances = null
+                            chain.fetched = true
+                            if (chain.fetched) {
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
                     }
@@ -387,7 +356,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     var cw721ModelResult = SingleLiveEvent<String>()
     fun cw721AllTokens(chain: BaseChain, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
-        val channel = getChannel(chain)
+        val channel = chain.cosmosFetcher?.getChannel()
         when (val response = walletRepository.cw721TokenIds(channel, chain, list)) {
             is NetworkResult.Success -> {
                 response.data?.let { tokenIds ->
@@ -428,7 +397,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
                         val tokens = jobs.awaitAll().filterNotNull()
                         if (tokens.isNotEmpty()) {
-                            chain.grpcFetcher?.cw721Models?.add(
+                            chain.cosmosFetcher?.cw721Models?.add(
                                 Cw721Model(
                                     list, tokens.toMutableList()
                                 )

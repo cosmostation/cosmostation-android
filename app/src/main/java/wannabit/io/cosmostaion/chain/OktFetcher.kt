@@ -12,22 +12,22 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
+class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
 
-    var lcdAccountInfo: JsonObject? = JsonObject()
-    var lcdOktDeposits: JsonObject? = JsonObject()
-    var lcdOktWithdaws: JsonObject? = JsonObject()
-    var lcdOktTokens: JsonObject? = JsonObject()
-    var lcdValidatorInfo: MutableList<JsonObject> = mutableListOf()
+    var oktAccountInfo: JsonObject? = JsonObject()
+    var oktDeposits: JsonObject? = JsonObject()
+    var oktWithdaws: JsonObject? = JsonObject()
+    var oktTokens: JsonObject? = JsonObject()
+    var oktValidatorInfo: MutableList<JsonObject> = mutableListOf()
 
-    override fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
-        if (lcdValidatorInfo.size > 0) {
+    fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
+        if (oktValidatorInfo.size > 0) {
             return@launch
         }
 
         when (val response = safeApiCall { RetrofitInstance.oktApi.oktValidators() }) {
             is NetworkResult.Success -> {
-                lcdValidatorInfo.clear()
+                oktValidatorInfo.clear()
                 response.data.sortWith { o1, o2 ->
                     when {
                         o1?.get("description")?.asJsonObject?.get("moniker")?.asString == "Cosmostation" -> -1
@@ -38,7 +38,7 @@ class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
                         else -> 0
                     }
                 }
-                lcdValidatorInfo = response.data
+                oktValidatorInfo = response.data
             }
 
             is NetworkResult.Error -> {
@@ -48,7 +48,7 @@ class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
     }
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return lcdBalanceValue(chain.stakeDenom, isUsd).add(lcdOktDepositValue(isUsd))
+        return oktBalanceValue(chain.stakeDenom, isUsd).add(oktDepositValue(isUsd))
             .add(lcdOktWithdrawValue(isUsd))
     }
 
@@ -57,40 +57,40 @@ class OktFetcher(chain: BaseChain) : FetcherLcd(chain) {
 //        return availableAmount > BigDecimal(OKT_BASE_FEE)
 //    }
 
-    override fun lcdBalanceAmount(denom: String?): BigDecimal {
-        lcdAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.firstOrNull { it.asJsonObject["denom"].asString == denom }
+    fun oktBalanceAmount(denom: String?): BigDecimal {
+        oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.firstOrNull { it.asJsonObject["denom"].asString == denom }
             ?.let { balance ->
                 return balance.asJsonObject["amount"].asString.toBigDecimal()
             }
         return BigDecimal.ZERO
     }
 
-    fun lcdBalanceValue(denom: String, isUsd: Boolean?): BigDecimal {
+    private fun oktBalanceValue(denom: String, isUsd: Boolean?): BigDecimal {
         if (denom == chain.stakeDenom) {
-            val amount = lcdBalanceAmount(denom)
+            val amount = oktBalanceAmount(denom)
             val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
             return price.multiply(amount).setScale(6, RoundingMode.DOWN)
         }
         return BigDecimal.ZERO
     }
 
-    fun lcdOktDepositAmount(): BigDecimal {
-        return lcdOktDeposits?.get("tokens")?.asString?.toBigDecimal() ?: BigDecimal.ZERO
+    fun oktDepositAmount(): BigDecimal {
+        return oktDeposits?.get("tokens")?.asString?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    private fun lcdOktDepositValue(isUsd: Boolean? = false): BigDecimal {
+    private fun oktDepositValue(isUsd: Boolean? = false): BigDecimal {
         val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
-        val amount = lcdOktDepositAmount()
+        val amount = oktDepositAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
     }
 
-    fun lcdOktWithdrawAmount(): BigDecimal {
-        return lcdOktWithdaws?.get("quantity")?.asString?.toBigDecimal() ?: BigDecimal.ZERO
+    fun oktWithdrawAmount(): BigDecimal {
+        return oktWithdaws?.get("quantity")?.asString?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
     private fun lcdOktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
         val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
-        val amount = lcdOktWithdrawAmount()
+        val amount = oktWithdrawAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)
     }
 }

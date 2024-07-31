@@ -7,6 +7,7 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
@@ -23,10 +24,11 @@ class ChainArchway : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var supportCw20: Boolean = true
     override var supportNft: Boolean = true
     override var stakeDenom: String = "aarch"
     override var accountPrefix: String = "archway"
     override var grpcHost: String = "grpc-archway.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-archway.cosmostation.io/"
 }

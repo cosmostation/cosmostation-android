@@ -51,7 +51,7 @@ class AddressBookViewHolder(
                     allChains().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
                         if (!chain.isDefault) {
                             chainBadge.visibility = View.VISIBLE
-                            chainBadge.text = context.getString(R.string.str_legacy)
+                            chainBadge.text = context.getString(R.string.str_old)
                             chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
                             chainBadge.setTextColor(
                                 ContextCompat.getColor(

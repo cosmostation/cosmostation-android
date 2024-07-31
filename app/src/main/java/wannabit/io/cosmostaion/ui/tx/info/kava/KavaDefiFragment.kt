@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentKavaDefiBinding
@@ -87,7 +86,7 @@ class KavaDefiFragment : Fragment() {
                 }
             }
 
-            kavaViewModel.priceFeed(getChannel(selectedChain))
+            selectedChain.cosmosFetcher?.getChannel()?.let { kavaViewModel.priceFeed(it) }
 
             loading.visibility = View.VISIBLE
             defiLayout.visibility = View.GONE
@@ -103,7 +102,7 @@ class KavaDefiFragment : Fragment() {
     private fun setUpPriceFeedObserve() {
         kavaViewModel.priceFeedResult.observe(viewLifecycleOwner) { response ->
             priceFeed = response
-            kavaViewModel.incentive(getChannel(selectedChain), selectedChain.address)
+            kavaViewModel.incentive(selectedChain)
         }
     }
 

@@ -14,7 +14,6 @@ import com.cosmos.base.v1beta1.CoinProto.Coin
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEarnListBinding
 import wannabit.io.cosmostaion.ui.option.tx.kava.EarnClickListener
@@ -78,9 +77,7 @@ class EarnListFragment : Fragment() {
         kavaViewModel =
             ViewModelProvider(this, kavaViewModelProviderFactory)[KavaViewModel::class.java]
 
-        selectedChain?.let { chain ->
-            kavaViewModel.myDeposits(getChannel(chain), chain.address)
-        }
+        selectedChain?.cosmosFetcher?.getChannel()?.let { kavaViewModel.myDeposits(it, selectedChain?.address) }
     }
 
     private fun setUpDepositsDataObserve() {
@@ -121,7 +118,7 @@ class EarnListFragment : Fragment() {
 
             earnListAdapter.setOnItemClickListener { deposit ->
                 val valOpAddress = deposit.denom.replace("bkava-", "")
-                selectedChain?.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
+                selectedChain?.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                     ?.let { toValidator ->
                         EarnOptionFragment.newInstance(toValidator, deposit, earnClickAction).show(
                             requireActivity().supportFragmentManager,

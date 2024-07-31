@@ -14,24 +14,25 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import com.kava.incentive.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allIncentiveCoins
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentClaimIncentiveBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -49,13 +50,12 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private var _binding: FragmentClaimIncentiveBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private lateinit var incentive: QueryProto.QueryRewardsResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var isClickable = true
@@ -97,13 +97,13 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", BaseChain::class.java)
+                arguments?.getParcelable("selectedChain", ChainKavaEvm::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable("incentive", QueryProto.QueryRewardsResponse::class.java)
                     ?.let { incentive = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
+                (arguments?.getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("incentive") as? QueryProto.QueryRewardsResponse)?.let {
@@ -312,12 +312,10 @@ class ClaimIncentiveFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadClaimIncentive(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    incentive,
+                txViewModel.broadcast(
+                    selectedChain.kavaFetcher?.getChannel(),
+                    onBindClaimIncentiveMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -331,21 +329,23 @@ class ClaimIncentiveFragment : BaseTxFragment() {
             }
             backdropLayout.visibility = View.VISIBLE
             btnClaimIncentive.updateButtonView(false)
-            txViewModel.simulateClaimIncentive(
-                getChannel(selectedChain),
-                selectedChain.address,
-                incentive,
+            txViewModel.simulate(
+                selectedChain.kavaFetcher?.getChannel(),
+                onBindClaimIncentiveMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
         }
     }
 
+    private fun onBindClaimIncentiveMsg(): MutableList<Any> {
+        return Signer.claimIncentiveMsg(selectedChain, incentive)
+    }
+
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -355,15 +355,15 @@ class ClaimIncentiveFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
@@ -383,18 +383,20 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }

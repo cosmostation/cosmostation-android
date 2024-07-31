@@ -374,7 +374,7 @@
                 style="@style/font_sm_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_16"
+                android:layout_marginEnd="@dimen/space_20"
                 android:text="@string/str_msg_copy2"
                 android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="@+id/reward_title"

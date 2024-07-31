@@ -222,34 +222,6 @@
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:src="@drawable/icon_send"
-            app:fab_colorDisabled="@color/color_base08"
-            app:fab_colorNormal="@color/color_base08"
-            app:fab_colorPressed="@color/color_base08"
-            app:fab_colorRipple="@color/color_base08"
-            app:maxImageSize="@dimen/space_100"
-            fab:fab_label="Send"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab_receive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:src="@drawable/icon_receive"
-            app:fab_colorDisabled="@color/color_base08"
-            app:fab_colorNormal="@color/color_base08"
-            app:fab_colorPressed="@color/color_base08"
-            app:fab_colorRipple="@color/color_base08"
-            app:maxImageSize="@dimen/space_100"
-            fab:fab_label="Receive"
-            fab:fab_size="mini" />
-
-        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab_claim_reward"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

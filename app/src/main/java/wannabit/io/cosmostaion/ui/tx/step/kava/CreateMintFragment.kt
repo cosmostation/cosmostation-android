@@ -14,15 +14,16 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.protobuf.Any
 import com.kava.cdp.v1beta1.GenesisProto
 import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.expectUSDXLTV
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -30,10 +31,10 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.getChannel
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
@@ -56,14 +57,13 @@ class CreateMintFragment : BaseTxFragment() {
     private var _binding: FragmentCreateMintBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: BaseChain
+    private lateinit var selectedChain: ChainKavaEvm
     private lateinit var collateralParam: GenesisProto.CollateralParam
     private lateinit var priceFeed: QueryPricesResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
     private var txFee: TxProto.Fee? = null
-    private var txTip: TxProto.Tip? = null
     private var txMemo = ""
 
     private var collateralAsset: Asset? = null
@@ -114,7 +114,7 @@ class CreateMintFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", BaseChain::class.java)
+                arguments?.getParcelable("selectedChain", ChainKavaEvm::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable(
                     "collateralParam", GenesisProto.CollateralParam::class.java
@@ -124,7 +124,7 @@ class CreateMintFragment : BaseTxFragment() {
                 )?.let { priceFeed = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
+                (arguments?.getParcelable("selectedChain") as? ChainKavaEvm)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("collateralParam") as? GenesisProto.CollateralParam)?.let {
@@ -152,7 +152,7 @@ class CreateMintFragment : BaseTxFragment() {
                 principalTokenName.text = asset.symbol?.uppercase()
             }
 
-            val balanceAmount = selectedChain.grpcFetcher?.balanceAmount(collateralParam.denom)
+            val balanceAmount = selectedChain.kavaFetcher?.balanceAmount(collateralParam.denom)
             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                 collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
@@ -369,12 +369,10 @@ class CreateMintFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.broadMintCreate(
-                    getChannel(selectedChain),
-                    selectedChain.address,
-                    onBindCreateMint(),
+                txViewModel.broadcast(
+                    selectedChain.kavaFetcher?.getChannel(),
+                    onBindCreateMintMsg(),
                     txFee,
-                    txTip,
                     txMemo,
                     selectedChain
                 )
@@ -395,12 +393,10 @@ class CreateMintFragment : BaseTxFragment() {
 
             btnCreateMint.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            txViewModel.simulateMintCreate(
-                getChannel(selectedChain),
-                selectedChain.address,
-                onBindCreateMint(),
+            txViewModel.simulate(
+                selectedChain.kavaFetcher?.getChannel(),
+                onBindCreateMintMsg(),
                 txFee,
-                txTip,
                 txMemo,
                 selectedChain
             )
@@ -408,8 +404,8 @@ class CreateMintFragment : BaseTxFragment() {
     }
 
     private fun setUpSimulate() {
-        txViewModel.simulate.observe(viewLifecycleOwner) { gasInfo ->
-            updateFeeViewWithSimulate(gasInfo)
+        txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
+            updateFeeViewWithSimulate(gasUsed)
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
@@ -419,15 +415,15 @@ class CreateMintFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateFeeViewWithSimulate(gasInfo: AbciProto.GasInfo?) {
+    private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             val selectedFeeData =
                 feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
             val gasRate = selectedFeeData?.gasRate
 
-            gasInfo?.let { info ->
+            gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (info.gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
@@ -447,31 +443,34 @@ class CreateMintFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcastTx.observe(viewLifecycleOwner) { txResponse ->
+        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                if (txResponse.code > 0) {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
+                response?.let { txResponse ->
+                    if (txResponse.code > 0) {
+                        putExtra("isSuccess", false)
+                    } else {
+                        putExtra("isSuccess", true)
+                    }
+                    putExtra("errorMsg", txResponse.rawLog)
+                    putExtra("selectedChain", selectedChain.tag)
+                    val hash = txResponse.txhash
+                    if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
+                    startActivity(this)
                 }
-                putExtra("errorMsg", txResponse.rawLog)
-                putExtra("selectedChain", selectedChain.tag)
-                val hash = txResponse.txhash
-                if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
-                startActivity(this)
             }
             dismiss()
         }
     }
 
-    private fun onBindCreateMint(): MsgCreateCDP? {
+    private fun onBindCreateMintMsg(): MutableList<Any> {
         val collateralCoin = CoinProto.Coin.newBuilder().setDenom(collateralParam.denom)
             .setAmount(toCollateralAmount).build()
         val principalCoin =
             CoinProto.Coin.newBuilder().setDenom("usdx").setAmount(toPrincipalAmount).build()
-        return MsgCreateCDP.newBuilder().setSender(selectedChain.address)
-            .setCollateral(collateralCoin).setPrincipal(principalCoin)
-            .setCollateralType(collateralParam.type).build()
+        val msgCreateCDP =
+            MsgCreateCDP.newBuilder().setSender(selectedChain.address).setCollateral(collateralCoin)
+                .setPrincipal(principalCoin).setCollateralType(collateralParam.type).build()
+        return Signer.mintCreateMsg(msgCreateCDP)
     }
 
     override fun onDestroyView() {

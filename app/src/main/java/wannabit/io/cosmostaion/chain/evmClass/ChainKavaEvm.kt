@@ -7,7 +7,8 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.FetcherGrpc
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.CosmosFetcher
 import wannabit.io.cosmostaion.chain.KavaFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -28,10 +29,11 @@ class ChainKavaEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ukava"
     override var accountPrefix: String = "kava"
     override var grpcHost: String = "grpc-kava.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-kava.cosmostation.io/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "KAVA"
@@ -40,12 +42,18 @@ class ChainKavaEvm : BaseChain(), Parcelable {
     override var addressLogo: Int = R.drawable.icon_kava_address
     override var evmRpcURL: String = "https://rpc-kava-evm.cosmostation.io"
 
-    override fun grpcFetcher(): FetcherGrpc? {
-        super.grpcFetcher()
-        if (kavaFetcher == null) {
-            kavaFetcher = KavaFetcher(this)
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = KavaFetcher(this)
         }
-        return kavaFetcher
+        return cosmosFetcher
+    }
+
+    fun kavaFetcher(): KavaFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = KavaFetcher(this)
+        }
+        return cosmosFetcher as KavaFetcher
     }
 }
 

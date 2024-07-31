@@ -4,9 +4,11 @@ import com.cosmwasm.wasm.v1.QueryGrpc
 import com.cosmwasm.wasm.v1.QueryProto
 import com.google.gson.Gson
 import com.google.protobuf.ByteString
-import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
+import org.bouncycastle.util.encoders.Base64
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.ProposalList
@@ -36,16 +38,29 @@ class ProposalRepositoryImpl : ProposalRepository {
     }
 
     override suspend fun daoProposals(
-        managedChannel: ManagedChannel, contAddress: String?
+        chain: BaseChain, contAddress: String?
     ): NetworkResult<String?> {
-        val stub = QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+        val channel = chain.cosmosFetcher?.getChannel()
         val req = ProposalListReq(ProposalList())
         val queryData = ByteString.copyFromUtf8(Gson().toJson(req))
-        val request = QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(contAddress)
-            .setQueryData(queryData).build()
 
-        return safeApiCall(Dispatchers.IO) {
-            stub.smartContractState(request).data.toStringUtf8()
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = QueryGrpc.newBlockingStub(channel).withDeadlineAfter(8, TimeUnit.SECONDS)
+            val request =
+                QueryProto.QuerySmartContractStateRequest.newBuilder().setAddress(contAddress)
+                    .setQueryData(queryData).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.smartContractState(request).data.toStringUtf8()
+            }
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            safeApiCall(Dispatchers.IO) {
+                RetrofitInstance.lcdApi(chain).lcdContractInfo(contAddress, queryDataBase64)
+                    .let { response ->
+                        ByteString.copyFromUtf8(Gson().toJson(response["data"].asJsonObject))
+                            .toStringUtf8()
+                    }
+            }
         }
     }
 

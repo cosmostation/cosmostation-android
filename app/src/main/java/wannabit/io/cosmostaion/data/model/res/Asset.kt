@@ -42,6 +42,16 @@ data class Asset(
         return null
     }
 
+    fun justBeforeChain(): String? {
+        path?.let {
+            val chainPath = it.split(">")
+            if (chainPath.count() > 1) {
+                return chainPath[chainPath.count() - 2]
+            }
+        }
+        return null
+    }
+
     fun assetImg(): String {
         return CosmostationConstants.CHAIN_BASE_URL + image
     }

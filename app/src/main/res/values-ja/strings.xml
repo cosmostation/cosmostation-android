@@ -98,6 +98,7 @@
     <string name="str_remove_liquidity">Remove liquidity</string>
     <string name="str_search_chain">チェーン検索</string>
     <string name="str_search_token">トークン検索です</string>
+    <string name="str_search">検索</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>
@@ -140,10 +141,11 @@
     <string name="title_private_account">秘密鍵アカウント</string>
     <string name="title_wallet">ウォーレット</string>
     <string name="title_account">Account</string>
+    <string name="title_amount">数量</string>
     <string name="title_account_name">アカウント名</string>
     <string name="title_add_account">アカウントを追加</string>
     <string name="title_import_qr">QRスキャンでアカウントをインポート</string>
-    <string name="title_legacy_enabled">レガシーアドレスの有効化</string>
+    <string name="title_legacy_enabled">旧住所の活性化</string>
     <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
     <string name="title_address_book">連絡先の管理</string>

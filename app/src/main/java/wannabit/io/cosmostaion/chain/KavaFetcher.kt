@@ -11,7 +11,7 @@ import com.kava.swap.v1beta1.QueryProto.PoolResponse
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class KavaFetcher(chain: BaseChain) : FetcherGrpc(chain) {
+class KavaFetcher(chain: BaseChain) : CosmosFetcher(chain) {
 
     data class LendingData(
         var lendingParam: HardProto.Params?,
@@ -24,8 +24,7 @@ class KavaFetcher(chain: BaseChain) : FetcherGrpc(chain) {
     )
 
     data class SwapData(
-        var swapPools: MutableList<PoolResponse>?,
-        var swapMyDeposits: MutableList<DepositResponse>?
+        var swapPools: MutableList<PoolResponse>?, var swapMyDeposits: MutableList<DepositResponse>?
     )
 }
 

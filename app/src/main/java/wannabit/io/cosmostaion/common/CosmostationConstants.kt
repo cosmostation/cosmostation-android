@@ -10,7 +10,6 @@ object CosmostationConstants {
     const val ENCRYPT_PRIVATE_KEY = "PRIVATE_KEY"
     const val ENCRYPT_PASSWORD_KEY = "PASSWORD_KEY"
 
-    const val WALLET_API_URL = "https://api-wallet.cosmostation.io"
     const val MINTSCAN_API_URL = "https://front.api.mintscan.io"
     const val SKIP_API_URL = "https://api.skip.money/"
 

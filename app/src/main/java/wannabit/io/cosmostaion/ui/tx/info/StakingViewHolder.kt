@@ -41,7 +41,7 @@ class StakingViewHolder(
 
             delegationView.setOnLongClickListener { view ->
                 val rewards =
-                    chain.grpcFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
+                    chain.cosmosFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
                 if (rewards?.isNotEmpty() == true) {
                     val scaleX = view.scaleX
                     val scaleY = view.scaleY
@@ -96,7 +96,7 @@ class StakingViewHolder(
                         delegation.balance.amount.toBigDecimal().movePointLeft(decimal)
                     staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
-                    chain.grpcFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
+                    chain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
                         rewards.firstOrNull { it.denom == chain.stakeDenom }
                             ?.let { mainDenomReward ->
                                 val mainDenomRewardAmount =

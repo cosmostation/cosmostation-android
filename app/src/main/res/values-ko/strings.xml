@@ -94,6 +94,7 @@
     <string name="str_remove_liquidity">유동성 출금</string>
     <string name="str_search_chain">체인 검색</string>
     <string name="str_search_token">토큰 검색</string>
+    <string name="str_search">검색</string>
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>
@@ -134,9 +135,10 @@
     <string name="title_private_account">개인키 계정</string>
     <string name="title_wallet">지갑</string>
     <string name="title_account">계정 관리</string>
+    <string name="title_amount">수량</string>
     <string name="title_add_account">계정 추가</string>
     <string name="title_import_qr">QR로 계정 추가</string>
-    <string name="title_legacy_enabled">레거시 주소 활성화</string>
+    <string name="title_legacy_enabled">구 주소 활성화</string>
     <string name="title_testnet_enabled">테스트넷 활성화</string>
     <string name="title_chain">체인 관리</string>
     <string name="title_address_book">주소록 관리</string>

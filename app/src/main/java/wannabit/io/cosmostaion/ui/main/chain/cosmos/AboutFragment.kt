@@ -103,7 +103,7 @@ class AboutFragment : Fragment() {
 
                 val chainIdCosmos = it.getAsJsonPrimitive("chain_id_cosmos") ?: JsonPrimitive("")
                 val chainIdEvm = it.getAsJsonPrimitive("chain_id_evm") ?: JsonPrimitive("")
-                if (selectedChain.isCosmos() && selectedChain.supportEvm) {
+                if (selectedChain.supportCosmos() && selectedChain.supportEvm) {
                     chainIdCosmosInfo.visibility = View.VISIBLE
                     chainIdEvmInfo.visibility = View.VISIBLE
                     chainIdCosmosTitle.text = getString(R.string.str_chain_id_cosmos)
@@ -113,7 +113,7 @@ class AboutFragment : Fragment() {
                 } else {
                     chainIdCosmosLayout.visibility = View.VISIBLE
                     chainIdEvmLayout.visibility = View.GONE
-                    if (selectedChain.isCosmos()) {
+                    if (selectedChain.supportCosmos()) {
                         chainIdCosmosInfo.text = chainIdCosmos.asString
                     } else {
                         chainIdCosmosInfo.text = chainIdEvm.asString
@@ -169,7 +169,7 @@ class AboutFragment : Fragment() {
                 }
 
                 if (selectedChain.supportStaking) {
-                    if (selectedChain.address == selectedChain.grpcFetcher?.rewardAddress) {
+                    if (selectedChain.address == selectedChain.cosmosFetcher?.rewardAddress) {
                         cautionImg.visibility = View.GONE
                         rewardAddressWarnMsg.visibility = View.GONE
                     } else {
@@ -185,7 +185,7 @@ class AboutFragment : Fragment() {
                             )
                         )
                     }
-                    rewardAddress.text = selectedChain.grpcFetcher?.rewardAddress
+                    rewardAddress.text = selectedChain.cosmosFetcher?.rewardAddress
 
                 } else {
                     rewardView.visibility = View.GONE
@@ -202,7 +202,7 @@ class AboutFragment : Fragment() {
                 val clipboard =
                     requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address", selectedChain.grpcFetcher?.rewardAddress
+                    "address", selectedChain.cosmosFetcher?.rewardAddress
                 )
                 clipboard.setPrimaryClip(clip)
                 requireActivity().makeToast(R.string.str_msg_address_copied)

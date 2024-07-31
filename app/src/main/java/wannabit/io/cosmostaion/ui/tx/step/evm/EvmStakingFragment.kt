@@ -122,14 +122,14 @@ class EvmStakingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.grpcFetcher?.cosmosValidators?.get(0)
+                    toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
                 }
             }
-            availableAmount = selectedChain.grpcFetcher?.balanceAmount(selectedChain.stakeDenom)
+            availableAmount = selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
             updateValidatorView()
         }
     }
@@ -249,7 +249,7 @@ class EvmStakingFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.grpcFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })

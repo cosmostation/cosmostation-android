@@ -7,12 +7,13 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
 class ChainNyx : BaseChain(), Parcelable {
 
-    override var name: String = "nyx"
+    override var name: String = "Nyx"
     override var tag: String = "nyx118"
     override var logo: Int = R.drawable.chain_nyx
     override var swipeLogo: Int = R.drawable.chain_swipe_nyx
@@ -23,8 +24,9 @@ class ChainNyx : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var supportCosmosGrpc: Boolean = true
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "unyx"
     override var accountPrefix: String = "n"
     override var grpcHost: String = "grpc-nyx.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-nyx.cosmostation.io/"
 }
