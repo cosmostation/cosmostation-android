@@ -455,7 +455,13 @@ class CoinFragment : Fragment() {
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                initData()
+                if (selectedChain.supportCw20 || selectedChain.supportEvm) {
+                    ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
+                        initData()
+                    }
+                } else {
+                    initData()
+                }
             }
         }
     }
