@@ -129,13 +129,13 @@ class ChainManageFragment : Fragment() {
                     searchTestnetChains.clear()
 
                     if (StringUtils.isEmpty(newText)) {
-                        searchMainnetChains.addAll(allChains().filter { !it.isTestnet })
-                        searchTestnetChains.addAll(allChains().filter { it.isTestnet })
+                        searchMainnetChains.addAll(mainnetChains)
+                        searchTestnetChains.addAll(testnetChains)
 
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet
+                                chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet && chain.isDefault
                             })
 
                             searchTestnetChains.addAll(allChains().filter { chain ->

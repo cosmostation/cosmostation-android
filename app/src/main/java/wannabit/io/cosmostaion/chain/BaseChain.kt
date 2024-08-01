@@ -158,6 +158,8 @@ open class BaseChain : Parcelable {
     open var fetched = false
     open var fetchedState = true
 
+    open var isPrivateAdd = true
+
     fun chainIdEvmDecimal(): String {
         return chainIdEvm.hexToString()
     }

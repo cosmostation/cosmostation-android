@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
@@ -14,6 +15,7 @@ import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
 class DashboardAdapter(
     val context: Context,
+    val baseAccount: BaseAccount?,
     private val displayMainnetChains: MutableList<BaseChain>,
     private val displayTestnetChains: MutableList<BaseChain>,
     val listener: NodeDownListener
@@ -57,7 +59,7 @@ class DashboardAdapter(
                     if (Prefs.style == 0) {
                         holder.bind(chain)
                     } else {
-                        holder.proBind(chain)
+                        holder.proBind(chain, baseAccount)
                     }
 
                     holder.itemView.setOnClickListener {

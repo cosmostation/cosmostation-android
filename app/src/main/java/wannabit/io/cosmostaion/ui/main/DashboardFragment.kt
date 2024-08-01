@@ -145,6 +145,7 @@ class DashboardFragment : Fragment() {
     private fun initRecyclerView() {
         dashAdapter = DashboardAdapter(
             requireContext(),
+            baseAccount,
             searchMainnetChains,
             searchTestnetChains,
             listener = nodeDownCheckAction

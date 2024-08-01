@@ -135,6 +135,7 @@ class EvmDetailFragment : Fragment() {
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 
+            btnAddToken.visibility = View.VISIBLE
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when {
                     position == 0 -> "Assets"

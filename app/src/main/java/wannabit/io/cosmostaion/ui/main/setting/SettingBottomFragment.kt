@@ -214,6 +214,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                             grpcEndpoints.add(jsonElement.asJsonObject)
                         }
                     }
+                    Log.e("Test1234 : ", grpcEndpoints.toString())
                     val lcdEndpoints: MutableList<Any> = ArrayList()
                     fromChain?.getChainListParam()?.getAsJsonArray("lcd_endpoint")?.let {
                         for (jsonElement in it) {

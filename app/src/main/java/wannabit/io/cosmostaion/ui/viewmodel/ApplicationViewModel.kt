@@ -146,7 +146,7 @@ class ApplicationViewModel(
                 if (supportEvm) {
                     loadEvmChainData(this, baseAccountId, isEdit)
                 }
-                if (supportCosmos()) {
+                if (supportCosmos() && this !is ChainOktEvm) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
                 }
             }

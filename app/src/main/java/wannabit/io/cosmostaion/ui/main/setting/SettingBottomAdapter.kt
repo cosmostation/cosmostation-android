@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -157,6 +158,7 @@ class SettingBottomAdapter(
                     SettingType.END_POINT_COSMOS.ordinal -> {
                         if (holder.itemViewType == VIEW_TYPE_GRPC_ITEM) {
                             val grpcEndpoint = grpcEndpoints?.get(position - 1) as JsonObject
+                            Log.e("Test1234 : ", grpcEndpoint.toString())
                             if (holder is EndPointViewHolder) {
                                 holder.bind(fromChain, grpcEndpoint, listener)
                             }
@@ -188,7 +190,11 @@ class SettingBottomAdapter(
         return if (lcdEndpoints.isNotEmpty()) {
             currentList.size + 2
         } else {
-            currentList.size
+            if (grpcEndpoints?.isNotEmpty() == true) {
+                currentList.size + 1
+            } else {
+                currentList.size
+            }
         }
     }
 

@@ -127,7 +127,7 @@ class WalletSelectFragment : Fragment() {
             toAddAccount?.let { account ->
                 account.apply {
                     allChains = allChains()
-                    mainnetChains = allChains.filter { !it.isTestnet }.toMutableList()
+                    mainnetChains = allChains.filter { !it.isTestnet && it.isPrivateAdd }.toMutableList()
                     testnetChains = allChains.filter { it.isTestnet }.toMutableList()
                     withContext(Dispatchers.Main) {
                         updateView()

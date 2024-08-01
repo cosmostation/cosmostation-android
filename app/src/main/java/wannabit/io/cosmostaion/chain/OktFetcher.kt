@@ -49,7 +49,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return oktBalanceValue(chain.stakeDenom, isUsd).add(oktDepositValue(isUsd))
-            .add(lcdOktWithdrawValue(isUsd))
+            .add(oktWithdrawValue(isUsd))
     }
 
 //    override fun isTxFeePayable(c: Context): Boolean {
@@ -88,7 +88,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
         return oktWithdaws?.get("quantity")?.asString?.toBigDecimal() ?: BigDecimal.ZERO
     }
 
-    private fun lcdOktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
+    private fun oktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
         val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
         val amount = oktWithdrawAmount()
         return price.multiply(amount).setScale(6, RoundingMode.DOWN)

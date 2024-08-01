@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 import java.math.BigDecimal
@@ -84,120 +85,116 @@ class ChainEditViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                AppDatabase.getInstance().refAddressDao()
-                    .selectRefAddress(baseAccount.id, chain.tag)?.let { refAddress ->
-                        withContext(Dispatchers.Main) {
-                            if (chain.fetched) {
-                                skeletonChainValue.visibility = View.GONE
-                                skeletonAssetCnt.visibility = View.GONE
+            if (chain.fetched) {
+                skeletonChainValue.visibility = View.GONE
+                skeletonAssetCnt.visibility = View.GONE
 
-                                if (!chain.supportCosmos()) {
-                                    if (chain.web3j == null) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
+                if (!chain.supportCosmos()) {
+                    if (chain.web3j == null) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainValue.visibility = View.GONE
+                        assetCnt.visibility = View.GONE
+                        return
+                    }
 
-                                } else {
-                                    if (chain.supportEvm) {
-                                        if (chain is ChainOktEvm) {
-                                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                                respondLayout.visibility = View.VISIBLE
-                                                chainValue.visibility = View.GONE
-                                                assetCnt.visibility = View.GONE
-                                                return@withContext
-                                            }
+                } else {
+                    if (chain.supportEvm) {
+                        if (chain is ChainOktEvm) {
+                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
 
-                                        } else {
-                                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                                respondLayout.visibility = View.VISIBLE
-                                                chainValue.visibility = View.GONE
-                                                assetCnt.visibility = View.GONE
-                                                return@withContext
-                                            }
-                                        }
+                        } else {
+                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
+                        }
 
-                                    } else {
-                                        if (chain is ChainOkt996Keccak) {
-                                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
-                                                respondLayout.visibility = View.VISIBLE
-                                                chainValue.visibility = View.GONE
-                                                assetCnt.visibility = View.GONE
-                                                return@withContext
-                                            }
+                    } else {
+                        if (chain is ChainOkt996Keccak) {
+                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
+                            }
 
-                                        } else {
-                                            if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                                respondLayout.visibility = View.VISIBLE
-                                                chainValue.visibility = View.GONE
-                                                assetCnt.visibility = View.GONE
-                                                return@withContext
-                                            }
-                                        }
-                                    }
-                                }
-                                respondLayout.visibility = View.GONE
-                                chainValue.visibility = View.VISIBLE
-                                assetCnt.visibility = View.VISIBLE
-
-                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
-                                if (chain is ChainOkt996Keccak) {
-                                    assetCnt.text =
-                                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
-                                            "coins"
-                                        )?.asJsonArray?.size().toString() + " Coins"
-
-                                } else if (chain.supportCosmos()) {
-                                    val coinCntString = if (chain is ChainOktEvm) {
-                                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
-                                            "coins"
-                                        )?.asJsonArray?.size().toString() + " Coins"
-                                    } else {
-                                        (chain.cosmosFetcher?.cosmosBalances?.count {
-                                            BaseData.getAsset(
-                                                chain.apiName, it.denom
-                                            ) != null
-                                        } ?: 0).toString() + " Coins"
-                                    }
-
-                                    if (chain.supportCw20) {
-                                        val tokenCnt =
-                                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                        if (tokenCnt == 0) {
-                                            assetCnt.text = coinCntString
-                                        } else {
-                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                                        }
-
-                                    } else if (chain.supportEvm) {
-                                        val tokenCnt =
-                                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                        if (tokenCnt == 0) {
-                                            assetCnt.text = coinCntString
-                                        } else {
-                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                                        }
-
-                                    } else {
-                                        assetCnt.text = coinCntString
-                                    }
-
-                                } else {
-                                    val coinCnt =
-                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
-                                    val tokenCnt =
-                                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                    if (tokenCnt == 0) {
-                                        assetCnt.text = coinCnt
-                                    } else {
-                                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
-                                    }
-                                }
+                        } else {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                assetCnt.visibility = View.GONE
+                                return
                             }
                         }
                     }
+                }
+                respondLayout.visibility = View.GONE
+                chainValue.visibility = View.VISIBLE
+                assetCnt.visibility = View.VISIBLE
+
+                chainValue.text = formatAssetValue(chain.allValue(true), true)
+                if (chain is ChainOkt996Keccak) {
+                    assetCnt.text =
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
+                            "coins"
+                        )?.asJsonArray?.size().toString() + " Coins"
+
+                } else if (chain.supportCosmos()) {
+                    val coinCntString = if (chain is ChainOktEvm) {
+                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
+                            "coins"
+                        )?.asJsonArray?.size().toString() + " Coins"
+                    } else {
+                        (chain.cosmosFetcher?.cosmosBalances?.count {
+                            BaseData.getAsset(
+                                chain.apiName, it.denom
+                            ) != null
+                        } ?: 0).toString() + " Coins"
+                    }
+
+                    if (chain.supportCw20) {
+                        val tokenCnt =
+                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                        if (tokenCnt == 0) {
+                            assetCnt.text = coinCntString
+                        } else {
+                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                        }
+
+                    } else if (chain.supportEvm) {
+                        val tokenCnt =
+                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                        if (tokenCnt == 0) {
+                            assetCnt.text = coinCntString
+                        } else {
+                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
+                        }
+
+                    } else {
+                        assetCnt.text = coinCntString
+                    }
+
+                } else {
+                    val coinCnt =
+                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
+                    val tokenCnt = if (Prefs.getDisplayErc20s(baseAccount.id, chain.tag) != null) {
+                        Prefs.getDisplayErc20s(baseAccount.id, chain.tag)?.size
+                    } else {
+                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                    }
+                    if (tokenCnt == 0) {
+                        assetCnt.text = coinCnt
+                    } else {
+                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
+                    }
+                }
             }
 
             editView.setOnClickListener {
@@ -250,7 +247,7 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.supportCosmos() && chain.supportEvm) {
+                                if (chain.isEvmCosmos()) {
                                     if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
@@ -302,7 +299,7 @@ class ChainEditViewHolder(
                                         assetCnt.text = "$tokenCnt Tokens, $coinCnt"
                                     }
                                 }
-                                chainValue.text = formatAssetValue(refAddress.lastUsdValue(), true)
+                                chainValue.text = formatAssetValue(chain.allValue(true), true)
                             }
                         }
                     }
