@@ -314,7 +314,7 @@ class CosmosDetailFragment : Fragment() {
     }
 
     private fun showNotice(noticeType: NoticeType) {
-        NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+        NoticeInfoFragment.newInstance(selectedChain, noticeType, null).show(
             requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
         )
     }

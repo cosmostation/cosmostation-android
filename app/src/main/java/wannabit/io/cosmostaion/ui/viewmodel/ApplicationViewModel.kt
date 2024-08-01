@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cosmos.base.v1beta1.CoinProto
-import com.cosmos.distribution.v1beta1.DistributionProto
-import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
@@ -15,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
@@ -171,6 +170,10 @@ class ApplicationViewModel(
             val channel = chain.cosmosFetcher?.getChannel()
             when (walletRepository.auth(channel, this)) {
                 is NetworkResult.Success -> {
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
                     loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
                 }
 
@@ -228,6 +231,13 @@ class ApplicationViewModel(
                         }
                     }
 
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
+                    delay(2000)
+
+                    fetchedState = true
                     fetched = true
                     if (fetched) {
                         val refAddress = RefAddress(
@@ -269,78 +279,68 @@ class ApplicationViewModel(
                         async { walletRepository.rewardAddress(channel, chain) }
                     val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
 
-                    val responses = awaitAll(
-                        loadBalanceDeferred,
-                        loadDelegationDeferred,
-                        loadUnBondingDeferred,
-                        loadRewardDeferred,
-                        loadRewardAddressDeferred,
-                        loadFeeMarketDeferred
-                    )
+                    val balanceResult = loadBalanceDeferred.await()
+                    val delegationResult = loadDelegationDeferred.await()
+                    val unBondingResult = loadUnBondingDeferred.await()
+                    val rewardResult = loadRewardDeferred.await()
+                    val rewardAddressResult = loadRewardAddressDeferred.await()
+                    val feeMarketResult = loadFeeMarketDeferred.await()
 
-                    responses.forEach { response ->
-                        when (response) {
-                            is NetworkResult.Success -> {
-                                when (response.data) {
-                                    is MutableList<*> -> {
-                                        if (response.data.isEmpty()) {
-                                            mutableListOf<CoinProto.Coin>()
-                                        } else {
-                                            if (response.data.all { it is CoinProto.Coin }) {
-                                                cosmosFetcher?.cosmosBalances =
-                                                    response.data as MutableList<CoinProto.Coin>
-
-                                            } else if (response.data.all { it is StakingProto.DelegationResponse }) {
-                                                cosmosFetcher?.cosmosDelegations?.clear()
-                                                (response.data as MutableList<StakingProto.DelegationResponse>).forEach { delegation ->
-                                                    if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                                        cosmosFetcher?.cosmosDelegations?.add(
-                                                            delegation
-                                                        )
-                                                    }
-                                                }
-
-                                            } else if (response.data.all { it is StakingProto.UnbondingDelegation }) {
-                                                cosmosFetcher?.cosmosUnbondings =
-                                                    response.data as MutableList<StakingProto.UnbondingDelegation>
-
-                                            } else if (response.data.all { it is DistributionProto.DelegationDelegatorReward }) {
-                                                cosmosFetcher?.cosmosRewards =
-                                                    response.data as MutableList<DistributionProto.DelegationDelegatorReward>
-
-                                            } else if (response.data.all { it is CoinProto.DecCoin }) {
-                                                cosmosFetcher?.cosmosBaseFees?.clear()
-                                                (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                                    if (BaseData.getAsset(
-                                                            apiName, baseFee.denom
-                                                        ) != null
-                                                    ) {
-                                                        cosmosFetcher?.cosmosBaseFees?.add(baseFee)
-                                                    }
-                                                }
-                                                cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                                    if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                        -1
-                                                    } else {
-                                                        0
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    is String -> {
-                                        cosmosFetcher?.rewardAddress = response.data
-                                    }
-                                }
+                    if (balanceResult is NetworkResult.Success && balanceResult.data is MutableList<*>) {
+                        cosmosFetcher?.cosmosBalances = balanceResult.data
+                    } else if (balanceResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${balanceResult.errorType}  error message : ${balanceResult.errorMessage}")
+                    }
+                    if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
+                        cosmosFetcher?.cosmosDelegations?.clear()
+                        delegationResult.data.forEach { delegation ->
+                            if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                cosmosFetcher?.cosmosDelegations?.add(
+                                    delegation
+                                )
                             }
-
-                            is NetworkResult.Error -> {
-                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                            }
-
-                            else -> {}
                         }
+                    } else if (delegationResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
+                    }
+
+                    if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
+                        cosmosFetcher?.cosmosUnbondings = unBondingResult.data
+                    } else if (unBondingResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
+                    }
+
+                    if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<*>) {
+                        cosmosFetcher?.cosmosRewards = rewardResult.data
+                    } else if (rewardResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${rewardResult.errorType}  error message : ${rewardResult.errorMessage}")
+                    }
+
+                    if (rewardAddressResult is NetworkResult.Success && rewardAddressResult.data is String) {
+                        cosmosFetcher?.rewardAddress = rewardAddressResult.data
+                    } else if (rewardAddressResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${rewardAddressResult.errorType}  error message : ${rewardAddressResult.errorMessage}")
+                    }
+
+                    if (feeMarketResult is NetworkResult.Success && feeMarketResult.data is MutableList<*>) {
+                        cosmosFetcher?.cosmosBaseFees?.clear()
+                        feeMarketResult.data.forEach { baseFee ->
+                            if (BaseData.getAsset(
+                                    apiName, baseFee.denom
+                                ) != null
+                            ) {
+                                cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                            }
+                        }
+                        cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                -1
+                            } else {
+                                0
+                            }
+                        }
+                    } else if (feeMarketResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${feeMarketResult.errorType}  error message : ${feeMarketResult.errorMessage}")
                     }
 
                 } else {
@@ -424,6 +424,7 @@ class ApplicationViewModel(
                 }
 
                 BaseUtils.onParseVesting(this)
+                fetchedState = true
                 fetched = true
                 if (fetched) {
                     val refAddress = RefAddress(
@@ -705,8 +706,7 @@ class ApplicationViewModel(
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             if (this is ChainOkt996Keccak) {
-                val loadAccountInfoDeferred =
-                    async { walletRepository.oktAccountInfo(this@apply) }
+                val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
                 val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
                 val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
                 val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }

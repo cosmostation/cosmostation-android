@@ -106,7 +106,7 @@
     <string name="str_compounding_all">すべてコンパウンディング</string>
     <string name="str_amount">数量</string>
     <string name="str_token_github">Token 情報確認</string>
-    <string name="str_node_down">ノードダウン</string>
+    <string name="str_node_down">ネットワーク障害</string>
     <string name="str_vote_all">全員に投票する</string>
     <string name="str_from_address">送り先の住所</string>
     <string name="str_to_address">受信アドレスです</string>
@@ -132,6 +132,8 @@
     <string name="str_mainnet">メインネット</string>
     <string name="str_testnet">テストネット</string>
     <string name="str_dev">開発モード</string>
+    <string name="str_retry">リトライ</string>
+    <string name="str_change_endpoint">End-Point 変更</string>
 
 
     //title
@@ -318,7 +320,7 @@
     <string name="str_broadcasting_msg">現在、トランザクションは実行中です。\n少々お待ちください</string>
     <string name="str_addressbook_memo_changed_msg">既存のアドレス帳と比べてメモが変わりました。\n新しいメモで更新しますか?</string>
     <string name="str_token_github_msg">すべての資産とトークンに関する情報はコミュニティと協力して開発されています。\n\nトークンが表示されない場合は、以下の GitHub リンクをトークン発行者またはコミュニティに提供してください。\n\nトークンの情報が登録されると、ウォレットやMintScanに自動的に表示されます。\nあなただけでなく、コミュニティ内のすべてのユーザーが一緒に表示して使用できます。</string>
-    <string name="str_node_down_msg">▪ 現在のデバイスのネットワーク状態を確認してください。\n\n▪ 現在使用しているノードに問題がある場合は、[設定 > チェーン管理]から簡単に別のノードに切り替えてサービスを継続してご利用いただけます。\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
+    <string name="str_node_down_msg">▪現在のデバイスのネットワーク状態を確認してください。\n\n▪現在使用しているノードに問題がある場合は、[End-Point 変更]を選択して別のインフラストラクチャを介してそのチェーンにアクセスしてみてください。 （[設定 > チェーン管理]ですべてのチェーンのインフラストラクチャエンドポイントを簡単に切り替えることでサービスを利用できます。）\n\n ▪ すべてのノードが使用できない場合、使用されているチェーンはアップグレード中です。 アップグレードが完了するまでお待ちください。</string>
     <string name="str_hide_voted_proposals_msg">すでに投票された提案をフィルターします。</string>
     <string name="str_live_proposals_msg">ライブ状態のプロポーザルをすべて選択すると投票が可能です。\n後で投票するプロポーザルはスワイプして除外してください。</string>
     <string name="str_all_claim_msg">報酬額と送信手数料額を確認してください。\n今後受け取りたい報酬を除外するにはスワイプしてください。</string>
@@ -337,7 +339,7 @@
     <string name="str_affect_safe_msg">あなたの資産に影響を与えません</string>
     <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
     <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
-    <string name="str_fee_tip_msg">Feeとtipは財布ではなくチェー ンに支払われます</string>
+    <string name="str_fee_tip_msg">Feeはウォレットではなく、チェーンに支払われます</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

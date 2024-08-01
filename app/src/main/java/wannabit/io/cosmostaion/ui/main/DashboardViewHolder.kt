@@ -244,7 +244,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.supportCosmos() && chain.supportEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -350,63 +350,69 @@ class DashboardViewHolder(
             chainBadge.visibleOrGone(!chain.isDefault)
             chainSideBadge.visibility = View.GONE
 
-            if (chain.fetched) {
-                skeletonChainValue.visibility = View.GONE
-
-                if (chain.isEvmCosmos()) {
-                    if (chain is ChainOktEvm) {
-                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            return
-                        }
-
-                    } else {
-                        if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            return
-                        }
-                    }
-
-                } else if (chain.supportCosmos()) {
-                    if (chain is ChainOkt996Keccak) {
-                        if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            return
-                        }
-
-                    } else {
-                        if (chain.cosmosFetcher?.cosmosBalances == null) {
-                            respondLayout.visibility = View.VISIBLE
-                            chainValue.visibility = View.GONE
-                            return
-                        }
-                    }
-
-                } else {
-                    if (chain.web3j == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        return
-                    }
-                }
-                respondLayout.visibility = View.GONE
-                chainValue.visibility = View.VISIBLE
-
-                if (Prefs.hideValue) {
-                    chainValue.text = "✱✱✱✱"
-                    chainValue.textSize = 10f
-                } else {
-                    chainValue.text = formatAssetValue(chain.allValue(false))
-                    chainValue.textSize = 14f
-                }
-
-            } else {
+            if (!chain.fetchedState) {
                 skeletonChainValue.visibility = View.VISIBLE
                 respondLayout.visibility = View.GONE
                 chainValue.visibility = View.GONE
+
+            } else {
+                skeletonChainValue.visibility = View.GONE
+                if (chain.fetched) {
+                    if (chain.isEvmCosmos()) {
+                        if (chain is ChainOktEvm) {
+                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+                        }
+
+                    } else if (chain.supportCosmos()) {
+                        if (chain is ChainOkt996Keccak) {
+                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+
+                        } else {
+                            if (chain.cosmosFetcher?.cosmosBalances == null) {
+                                respondLayout.visibility = View.VISIBLE
+                                chainValue.visibility = View.GONE
+                                return
+                            }
+                        }
+
+                    } else {
+                        if (chain.web3j == null) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            return
+                        }
+                    }
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.VISIBLE
+
+                    if (Prefs.hideValue) {
+                        chainValue.text = "✱✱✱✱"
+                        chainValue.textSize = 10f
+                    } else {
+                        chainValue.text = formatAssetValue(chain.allValue(false))
+                        chainValue.textSize = 14f
+                    }
+
+                } else {
+                    skeletonChainValue.visibility = View.VISIBLE
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.GONE
+                }
             }
         }
     }

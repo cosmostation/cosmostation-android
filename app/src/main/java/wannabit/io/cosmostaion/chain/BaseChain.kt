@@ -156,6 +156,7 @@ open class BaseChain : Parcelable {
     var evmRpcFetcher: EvmFetcher? = null
 
     open var fetched = false
+    open var fetchedState = true
 
     fun chainIdEvmDecimal(): String {
         return chainIdEvm.hexToString()

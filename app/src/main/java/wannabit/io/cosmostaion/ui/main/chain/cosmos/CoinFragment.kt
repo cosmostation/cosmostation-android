@@ -441,7 +441,7 @@ class CoinFragment : Fragment() {
         }
         Handler(Looper.getMainLooper()).postDelayed({
             if (isAdded && isVisible && isResumed) {
-                NoticeInfoFragment.newInstance(selectedChain, noticeType).show(
+                NoticeInfoFragment.newInstance(selectedChain, noticeType, null).show(
                     requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
                 )
             }

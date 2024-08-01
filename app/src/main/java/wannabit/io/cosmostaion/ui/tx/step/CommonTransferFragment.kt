@@ -23,8 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
-import io.grpc.ManagedChannel
-import io.grpc.ManagedChannelBuilder
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
@@ -1154,12 +1152,6 @@ class CommonTransferFragment : BaseTxFragment() {
                 isClickable = true
             }, 300)
         }
-    }
-
-    private fun getRecipientChannel(): ManagedChannel? {
-        return ManagedChannelBuilder.forAddress(
-            toChain.cosmosFetcher()!!.getGrpc().first, toChain.cosmosFetcher()!!.getGrpc().second
-        ).useTransportSecurity().build()
     }
 
     private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {

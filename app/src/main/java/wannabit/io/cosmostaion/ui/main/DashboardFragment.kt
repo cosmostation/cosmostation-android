@@ -4,7 +4,10 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +37,8 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
+import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.option.notice.NodeDownSelectListener
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
@@ -158,7 +163,7 @@ class DashboardFragment : Fragment() {
             if (!chain.fetched) return
             if (chain is ChainOkt996Keccak) {
                 if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
-                    nodeDownPopup()
+                    nodeDownPopup(chain)
                     return
                 }
                 Intent(requireContext(), CosmosActivity::class.java).apply {
@@ -169,12 +174,12 @@ class DashboardFragment : Fragment() {
 
             } else if (chain.supportCosmos() && chain.supportEvm) {
                 if (chain.cosmosFetcher?.cosmosBalances == null) {
-                    nodeDownPopup()
+                    nodeDownPopup(chain)
                     return
                 }
 
                 if (chain.web3j == null) {
-                    nodeDownPopup()
+                    nodeDownPopup(chain)
                     return
                 }
                 Intent(requireContext(), CosmosActivity::class.java).apply {
@@ -188,7 +193,7 @@ class DashboardFragment : Fragment() {
                     is ChainOktEvm -> {
                         chain.oktFetcher?.let {
                             if (it.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                nodeDownPopup()
+                                nodeDownPopup(chain)
                                 return
                             }
                             Intent(requireContext(), CosmosActivity::class.java).apply {
@@ -202,7 +207,7 @@ class DashboardFragment : Fragment() {
                     else -> {
                         chain.cosmosFetcher?.let {
                             if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                nodeDownPopup()
+                                nodeDownPopup(chain)
                                 return
                             }
                             Intent(requireContext(), CosmosActivity::class.java).apply {
@@ -217,7 +222,7 @@ class DashboardFragment : Fragment() {
             } else {
                 chain.evmRpcFetcher?.let {
                     if (chain.web3j == null) {
-                        nodeDownPopup()
+                        nodeDownPopup(chain)
                         return
                     }
                     Intent(requireContext(), EvmActivity::class.java).apply {
@@ -459,8 +464,43 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    private fun nodeDownPopup() {
-        NoticeInfoFragment.newInstance(null, NoticeType.NODE_DOWN_GUIDE).show(
+    private fun nodeDownPopup(chain: BaseChain) {
+        NoticeInfoFragment.newInstance(
+            chain,
+            NoticeType.NODE_DOWN_GUIDE,
+            object : NodeDownSelectListener {
+                override fun select(tag: String?) {
+                    baseAccount?.let { account ->
+                        ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                    }
+                }
+
+                override fun changeEndpoint(tag: String?) {
+                    if (chain is ChainOktEvm) {
+                        return
+                    }
+                    val settingType = if (chain.isEvmCosmos()) {
+                        SettingType.END_POINT_COSMOS
+                    } else if (chain.supportCosmos()) {
+                        SettingType.END_POINT_COSMOS
+                    } else {
+                        SettingType.END_POINT_EVM
+                    }
+
+                    SettingBottomFragment.newInstance(chain, settingType).show(
+                        parentFragmentManager, SettingBottomFragment::class.java.name
+                    )
+
+                    parentFragmentManager.setFragmentResultListener(
+                        "endpoint", this@DashboardFragment
+                    ) { _, _ ->
+                        baseAccount?.let { account ->
+                            ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                        }
+                    }
+                }
+
+            }).show(
             requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
         )
     }

@@ -140,7 +140,7 @@
     <string name="str_compounding_all">Compounding all</string>
     <string name="str_amount">Amount</string>
     <string name="str_token_github">Check token info</string>
-    <string name="str_node_down">Node down</string>
+    <string name="str_node_down">Network failure</string>
     <string name="str_vote_all">Vote all</string>
     <string name="str_eth_style_address" translatable="false">Ethereum style address</string>
     <string name="str_cosmos_style_address" translatable="false">Cosmos style address</string>
@@ -169,6 +169,8 @@
     <string name="str_mainnet">Mainnet</string>
     <string name="str_testnet">Testnet</string>
     <string name="str_dev">Dev mode</string>
+    <string name="str_retry">Retry</string>
+    <string name="str_change_endpoint">Change End-Point</string>
 
 
     //title
@@ -411,7 +413,7 @@
     <string name="str_affect_safe_msg">Not affects your assets</string>
     <string name="str_dapp_warn_msg">Only sign this message if you trust the requesting site and fully understand its contents</string>
     <string name="str_support_injection_msg">To enhance user convenience and response speed, we support the injection method (EIP-6963). When using DApps, please select your desktop wallet, etc.\nYou can experience the same user experience as with the desktop extension wallet.\nFor EVM-based DApps, by supporting the EIP-6963 specification, you can enjoy a seamless web3 experience.</string>
-    <string name="str_fee_tip_msg">Fees and tips are pay to the chain, not to wallet</string>
+    <string name="str_fee_tip_msg">Fees are pay to the chain, not to wallet</string>
 
 
     // header
