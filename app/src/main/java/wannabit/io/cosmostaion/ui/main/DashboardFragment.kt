@@ -4,10 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +22,6 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
@@ -162,7 +158,7 @@ class DashboardFragment : Fragment() {
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
-            if (chain is ChainOkt996Keccak) {
+            if (chain is ChainOktEvm) {
                 if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
                     nodeDownPopup(chain)
                     return
@@ -173,7 +169,7 @@ class DashboardFragment : Fragment() {
                 }
                 requireActivity().toMoveAnimation()
 
-            } else if (chain.supportCosmos() && chain.supportEvm) {
+            } else if (chain.isEvmCosmos()) {
                 if (chain.cosmosFetcher?.cosmosBalances == null) {
                     nodeDownPopup(chain)
                     return
@@ -190,34 +186,16 @@ class DashboardFragment : Fragment() {
                 requireActivity().toMoveAnimation()
 
             } else if (chain.supportCosmos()) {
-                when (chain) {
-                    is ChainOktEvm -> {
-                        chain.oktFetcher?.let {
-                            if (it.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                nodeDownPopup(chain)
-                                return
-                            }
-                            Intent(requireContext(), CosmosActivity::class.java).apply {
-                                putExtra("selectedChain", chain as Parcelable)
-                                startActivity(this)
-                            }
-                            requireActivity().toMoveAnimation()
-                        }
+                chain.cosmosFetcher?.let {
+                    if (chain.cosmosFetcher?.cosmosBalances == null) {
+                        nodeDownPopup(chain)
+                        return
                     }
-
-                    else -> {
-                        chain.cosmosFetcher?.let {
-                            if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                nodeDownPopup(chain)
-                                return
-                            }
-                            Intent(requireContext(), CosmosActivity::class.java).apply {
-                                putExtra("selectedChain", chain as Parcelable)
-                                startActivity(this)
-                            }
-                            requireActivity().toMoveAnimation()
-                        }
+                    Intent(requireContext(), CosmosActivity::class.java).apply {
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
                     }
+                    requireActivity().toMoveAnimation()
                 }
 
             } else {
