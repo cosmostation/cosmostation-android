@@ -59,7 +59,7 @@ class DepositEarningFragment : BaseTxFragment() {
     private var _binding: FragmentDepositEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -110,7 +110,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator", Validator::class.java)
@@ -118,7 +118,7 @@ class DepositEarningFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     toValidator = getSerializable("toValidator") as? Validator
@@ -133,11 +133,11 @@ class DepositEarningFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (toValidator == null) {
-                selectedChain.kavaFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     ?.let { validator ->
                         toValidator = validator
                     } ?: run {
-                    toValidator = selectedChain.kavaFetcher?.cosmosValidators?.get(0)
+                    toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
                 }
             }
             updateValidatorView()
@@ -258,9 +258,9 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 val balanceAmount =
-                    selectedChain.kavaFetcher?.balanceAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
                 val vestingAmount =
-                    selectedChain.kavaFetcher?.vestingAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
 
                 txFee?.let {
                     availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
@@ -288,7 +288,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    selectedChain.kavaFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -383,7 +383,7 @@ class DepositEarningFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
-                    selectedChain.kavaFetcher?.getChannel(),
+                    selectedChain.cosmosFetcher?.getChannel(),
                     onBindEarnDepositMsg(),
                     txFee,
                     txMemo,
@@ -403,7 +403,7 @@ class DepositEarningFragment : BaseTxFragment() {
             btnDepositLiquidity.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
-                selectedChain.kavaFetcher?.getChannel(),
+                selectedChain.cosmosFetcher?.getChannel(),
                 onBindEarnDepositMsg(),
                 txFee,
                 txMemo,

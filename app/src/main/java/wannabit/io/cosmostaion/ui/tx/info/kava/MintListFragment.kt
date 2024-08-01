@@ -31,7 +31,7 @@ class MintListFragment : Fragment() {
     private var _binding: FragmentMintListBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var priceFeed: QueryProto.QueryPricesResponse
 
     private lateinit var kavaViewModel: KavaViewModel
@@ -80,7 +80,7 @@ class MintListFragment : Fragment() {
     private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.apply {
-                getParcelable("selectedChain", ChainKavaEvm::class.java)?.let { selectedChain = it }
+                getParcelable("selectedChain", BaseChain::class.java)?.let { selectedChain = it }
                 getSerializable(
                     "priceFeed", QueryProto.QueryPricesResponse::class.java
                 )?.let { priceFeed = it }
@@ -88,7 +88,7 @@ class MintListFragment : Fragment() {
 
         } else {
             arguments?.apply {
-                (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                (getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (getSerializable("priceFeed") as? QueryProto.QueryPricesResponse)?.let {

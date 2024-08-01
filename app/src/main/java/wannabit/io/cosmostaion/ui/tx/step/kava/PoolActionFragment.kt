@@ -58,7 +58,7 @@ class PoolActionFragment : BaseTxFragment() {
     private var _binding: FragmentPoolActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var poolActionType: PoolActionType
     private lateinit var swapPool: QueryProto.PoolResponse
     private lateinit var deposit: QueryProto.DepositResponse
@@ -121,7 +121,7 @@ class PoolActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -138,7 +138,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getSerializable("poolActionType") as? PoolActionType)?.let {
@@ -189,13 +189,13 @@ class PoolActionFragment : BaseTxFragment() {
                                 val poolCoin1Amount = swapPool.getCoins(0).amount
                                 val poolCoin2Amount = swapPool.getCoins(1).amount
                                 var availableCoin1Amount =
-                                    selectedChain.kavaFetcher?.balanceAmount(swapPool.getCoins(0).denom)
+                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(0).denom)
                                 if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
                                     val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                     availableCoin1Amount = availableCoin1Amount?.subtract(feeAmount)
                                 }
                                 val availableCoin2Amount =
-                                    selectedChain.kavaFetcher?.balanceAmount(swapPool.getCoins(1).denom)
+                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(1).denom)
 
                                 swapRate = poolCoin1Amount.toBigDecimal().divide(
                                     poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
@@ -474,7 +474,7 @@ class PoolActionFragment : BaseTxFragment() {
                 when (poolActionType) {
                     PoolActionType.DEPOSIT -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindDepositMsg(),
                             txFee,
                             txMemo,
@@ -484,7 +484,7 @@ class PoolActionFragment : BaseTxFragment() {
 
                     PoolActionType.WITHDRAW -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindWithdrawMsg(),
                             txFee,
                             txMemo,
@@ -509,7 +509,7 @@ class PoolActionFragment : BaseTxFragment() {
                     btnPool.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindDepositMsg(),
                         txFee,
                         txMemo,
@@ -527,7 +527,7 @@ class PoolActionFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindWithdrawMsg(),
                         txFee,
                         txMemo,

@@ -61,7 +61,7 @@ class MintActionFragment : BaseTxFragment() {
     private var _binding: FragmentMintActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var mintActionType: MintActionType
     private lateinit var collateralParam: CollateralParam
     private lateinit var myCdp: CDPResponse
@@ -122,7 +122,7 @@ class MintActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -139,7 +139,7 @@ class MintActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getSerializable("mintActionType") as? MintActionType)?.let {
@@ -172,7 +172,7 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             val balanceAmount =
-                                selectedChain.kavaFetcher?.balanceAmount(collateralParam.denom)
+                                selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
                             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
@@ -221,7 +221,7 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             principalAvailableAmount =
-                                selectedChain.kavaFetcher?.balanceAmount("usdx")
+                                selectedChain.cosmosFetcher?.balanceAmount("usdx")
                         }
                     }
                 }
@@ -479,7 +479,7 @@ class MintActionFragment : BaseTxFragment() {
                 when (mintActionType) {
                     MintActionType.DEPOSIT -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindDepositMsg(),
                             txFee,
                             txMemo,
@@ -489,7 +489,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.WITHDRAW -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindWithdrawMsg(),
                             txFee,
                             txMemo,
@@ -499,7 +499,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.BORROW -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindBorrowMsg(),
                             txFee,
                             txMemo,
@@ -509,7 +509,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.REPAY -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindRepayMsg(),
                             txFee,
                             txMemo,
@@ -538,7 +538,7 @@ class MintActionFragment : BaseTxFragment() {
                     btnMint.updateButtonView(false)
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindDepositMsg(),
                         txFee,
                         txMemo,
@@ -556,7 +556,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindWithdrawMsg(),
                         txFee,
                         txMemo,
@@ -574,7 +574,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindBorrowMsg(),
                         txFee,
                         txMemo,
@@ -592,7 +592,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     backdropLayout.visibility = View.VISIBLE
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindRepayMsg(),
                         txFee,
                         txMemo,

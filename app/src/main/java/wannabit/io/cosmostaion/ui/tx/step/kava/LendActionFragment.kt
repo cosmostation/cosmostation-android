@@ -25,7 +25,6 @@ import com.kava.hard.v1beta1.TxProto.MsgRepay
 import com.kava.hard.v1beta1.TxProto.MsgWithdraw
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -58,7 +57,7 @@ class LendActionFragment : BaseTxFragment() {
     private var _binding: FragmentLendActionBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var lendActionType: LendActionType
     private lateinit var lendMyDeposits: MutableList<CoinProto.Coin>
     private lateinit var lendMyBorrows: MutableList<CoinProto.Coin>
@@ -122,7 +121,7 @@ class LendActionFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     getSerializable(
@@ -135,7 +134,7 @@ class LendActionFragment : BaseTxFragment() {
 
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     (getSerializable("lendActionType") as? LendActionType)?.let {
@@ -177,7 +176,7 @@ class LendActionFragment : BaseTxFragment() {
                             lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
                             btnLend.text = getString(R.string.str_deposit)
                             val balanceAmount =
-                                selectedChain.kavaFetcher?.balanceAmount(market.denom)
+                                selectedChain.cosmosFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 availableAmount = balanceAmount?.subtract(feeAmount)
@@ -212,7 +211,7 @@ class LendActionFragment : BaseTxFragment() {
                                 .setScale(0, RoundingMode.DOWN)
 
                             var balanceAmount =
-                                selectedChain.kavaFetcher?.balanceAmount(market.denom)
+                                selectedChain.cosmosFetcher?.balanceAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 balanceAmount = balanceAmount?.subtract(feeAmount)
@@ -462,7 +461,7 @@ class LendActionFragment : BaseTxFragment() {
                 when (lendActionType) {
                     LendActionType.DEPOSIT -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindDepositMsg(),
                             txFee,
                             txMemo,
@@ -472,7 +471,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.WITHDRAW -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindWithdrawMsg(),
                             txFee,
                             txMemo,
@@ -482,7 +481,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.BORROW -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindBorrowMsg(),
                             txFee,
                             txMemo,
@@ -492,7 +491,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.REPAY -> {
                         txViewModel.broadcast(
-                            selectedChain.kavaFetcher?.getChannel(),
+                            selectedChain.cosmosFetcher?.getChannel(),
                             onBindRepayMsg(),
                             txFee,
                             txMemo,
@@ -520,7 +519,7 @@ class LendActionFragment : BaseTxFragment() {
             when (lendActionType) {
                 LendActionType.DEPOSIT -> {
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindDepositMsg(),
                         txFee,
                         txMemo,
@@ -530,7 +529,7 @@ class LendActionFragment : BaseTxFragment() {
 
                 LendActionType.WITHDRAW -> {
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindWithdrawMsg(),
                         txFee,
                         txMemo,
@@ -540,7 +539,7 @@ class LendActionFragment : BaseTxFragment() {
 
                 LendActionType.BORROW -> {
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindBorrowMsg(),
                         txFee,
                         txMemo,
@@ -550,7 +549,7 @@ class LendActionFragment : BaseTxFragment() {
 
                 LendActionType.REPAY -> {
                     txViewModel.simulate(
-                        selectedChain.kavaFetcher?.getChannel(),
+                        selectedChain.cosmosFetcher?.getChannel(),
                         onBindRepayMsg(),
                         txFee,
                         txMemo,

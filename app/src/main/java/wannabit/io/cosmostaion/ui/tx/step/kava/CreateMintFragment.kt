@@ -57,7 +57,7 @@ class CreateMintFragment : BaseTxFragment() {
     private var _binding: FragmentCreateMintBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var collateralParam: GenesisProto.CollateralParam
     private lateinit var priceFeed: QueryPricesResponse
 
@@ -114,7 +114,7 @@ class CreateMintFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", ChainKavaEvm::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable(
                     "collateralParam", GenesisProto.CollateralParam::class.java
@@ -124,7 +124,7 @@ class CreateMintFragment : BaseTxFragment() {
                 )?.let { priceFeed = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("collateralParam") as? GenesisProto.CollateralParam)?.let {
@@ -152,7 +152,7 @@ class CreateMintFragment : BaseTxFragment() {
                 principalTokenName.text = asset.symbol?.uppercase()
             }
 
-            val balanceAmount = selectedChain.kavaFetcher?.balanceAmount(collateralParam.denom)
+            val balanceAmount = selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
             if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                 collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
@@ -370,7 +370,7 @@ class CreateMintFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
-                    selectedChain.kavaFetcher?.getChannel(),
+                    selectedChain.cosmosFetcher?.getChannel(),
                     onBindCreateMintMsg(),
                     txFee,
                     txMemo,
@@ -394,7 +394,7 @@ class CreateMintFragment : BaseTxFragment() {
             btnCreateMint.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
-                selectedChain.kavaFetcher?.getChannel(),
+                selectedChain.cosmosFetcher?.getChannel(),
                 onBindCreateMintMsg(),
                 txFee,
                 txMemo,

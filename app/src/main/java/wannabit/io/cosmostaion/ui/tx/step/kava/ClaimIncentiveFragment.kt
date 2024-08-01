@@ -50,7 +50,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private var _binding: FragmentClaimIncentiveBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private lateinit var incentive: QueryProto.QueryRewardsResponse
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -97,13 +97,13 @@ class ClaimIncentiveFragment : BaseTxFragment() {
     private fun initView() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", ChainKavaEvm::class.java)
+                arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 arguments?.getSerializable("incentive", QueryProto.QueryRewardsResponse::class.java)
                     ?.let { incentive = it }
 
             } else {
-                (arguments?.getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 (arguments?.getSerializable("incentive") as? QueryProto.QueryRewardsResponse)?.let {
@@ -313,7 +313,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
-                    selectedChain.kavaFetcher?.getChannel(),
+                    selectedChain.cosmosFetcher?.getChannel(),
                     onBindClaimIncentiveMsg(),
                     txFee,
                     txMemo,
@@ -330,7 +330,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             btnClaimIncentive.updateButtonView(false)
             txViewModel.simulate(
-                selectedChain.kavaFetcher?.getChannel(),
+                selectedChain.cosmosFetcher?.getChannel(),
                 onBindClaimIncentiveMsg(),
                 txFee,
                 txMemo,

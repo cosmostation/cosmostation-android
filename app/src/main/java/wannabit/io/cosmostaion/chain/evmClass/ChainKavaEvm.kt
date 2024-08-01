@@ -16,8 +16,6 @@ import wannabit.io.cosmostaion.common.CosmostationConstants
 @Parcelize
 class ChainKavaEvm : BaseChain(), Parcelable {
 
-    var kavaFetcher: KavaFetcher? = null
-
     override var name: String = "Kava"
     override var tag: String = "kava60"
     override var logo: Int = R.drawable.chain_evm_kava
@@ -47,13 +45,6 @@ class ChainKavaEvm : BaseChain(), Parcelable {
             cosmosFetcher = KavaFetcher(this)
         }
         return cosmosFetcher
-    }
-
-    fun kavaFetcher(): KavaFetcher? {
-        if (cosmosFetcher == null) {
-            cosmosFetcher = KavaFetcher(this)
-        }
-        return cosmosFetcher as KavaFetcher
     }
 }
 

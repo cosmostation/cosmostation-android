@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -226,7 +227,7 @@ class CosmosDetailFragment : Fragment() {
                     fabVault.visibility = View.VISIBLE
                 }
 
-                is ChainKavaEvm, is ChainKava459 -> {
+                is ChainKavaEvm, is ChainKava459, is ChainKava118 -> {
                     fabDefi.visibility = View.VISIBLE
                 }
 

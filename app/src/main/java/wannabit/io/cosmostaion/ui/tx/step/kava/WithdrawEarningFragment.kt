@@ -21,7 +21,6 @@ import com.google.protobuf.Any
 import com.kava.router.v1beta1.TxProto.MsgWithdrawBurn
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -53,7 +52,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private var _binding: FragmentWithdrawEarningBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var selectedChain: ChainKavaEvm
+    private lateinit var selectedChain: BaseChain
     private var withdrawCoin: Coin? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -104,14 +103,14 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.apply {
-                    getParcelable("selectedChain", ChainKavaEvm::class.java)?.let {
+                    getParcelable("selectedChain", BaseChain::class.java)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin", Coin::class.java)
                 }
             } else {
                 arguments?.apply {
-                    (getParcelable("selectedChain") as? ChainKavaEvm)?.let {
+                    (getParcelable("selectedChain") as? BaseChain)?.let {
                         selectedChain = it
                     }
                     withdrawCoin = getSerializable("withdrawCoin") as? Coin
@@ -310,7 +309,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
-                    selectedChain.kavaFetcher?.getChannel(),
+                    selectedChain.cosmosFetcher?.getChannel(),
                     onBindEarnWithdrawMsg(),
                     txFee,
                     txMemo,
@@ -327,7 +326,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
             btnWithdrawLiquidity.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
-                selectedChain.kavaFetcher?.getChannel(),
+                selectedChain.cosmosFetcher?.getChannel(),
                 onBindEarnWithdrawMsg(),
                 txFee,
                 txMemo,
