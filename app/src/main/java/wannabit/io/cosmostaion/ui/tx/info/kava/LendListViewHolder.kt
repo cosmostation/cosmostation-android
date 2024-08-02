@@ -6,11 +6,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.kava.hard.v1beta1.HardProto
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.evmClass.KAVA_LEND_IMG_URL
-import wannabit.io.cosmostaion.chain.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.cosmosClass.KAVA_LEND_IMG_URL
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.kavaOraclePrice
 import wannabit.io.cosmostaion.databinding.ItemLendBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -40,7 +40,7 @@ class LendListViewHolder(
             BaseData.assets?.firstOrNull { it.denom == lendMarket?.denom }?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val lendImgDenom = asset.origin_denom
-                    Picasso.get().load(KAVA_LEND_IMG_URL + "lp" + lendImgDenom + ".png").fit()
+                    Picasso.get().load(KAVA_LEND_IMG_URL + "lp" + lendImgDenom?.replace("/", ":") + ".png").fit()
                         .into(marketImg)
                     val title = lendMarket?.spotMarketId?.replace(":30", "")?.replace(":720", "")
                     marketType.text = title?.uppercase()
