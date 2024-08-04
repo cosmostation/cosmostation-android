@@ -19,7 +19,6 @@ class ChainLum118 : BaseChain(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_swipe_lum
     override var isDefault: Boolean = false
     override var apiName: String = "lum"
-    override var isPrivateAdd: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
