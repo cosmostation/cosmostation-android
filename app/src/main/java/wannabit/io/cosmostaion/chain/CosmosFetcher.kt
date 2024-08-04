@@ -150,7 +150,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     fun delegationAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        cosmosDelegations.forEach { delegation ->
+        for (delegation in cosmosDelegations) {
             delegation.balance?.let {
                 sum = sum.add(delegation.balance?.amount?.toBigDecimal())
             } ?: run {
@@ -355,7 +355,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     suspend fun lastHeight(): Long {
         return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val blockStub =
-                ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(30L, TimeUnit.SECONDS)
             val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height

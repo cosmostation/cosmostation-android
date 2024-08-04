@@ -97,6 +97,11 @@ class ApplicationViewModel(
         _changeBgResult.postValue(bg)
     }
 
+    var serviceTxResult = SingleLiveEvent<Boolean>()
+    fun serviceTx() = viewModelScope.launch(Dispatchers.IO) {
+        serviceTxResult.postValue(true)
+    }
+
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 

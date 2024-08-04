@@ -444,8 +444,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(
-            chain,
+        NoticeInfoFragment.newInstance(chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {
@@ -564,6 +563,18 @@ class DashboardFragment : Fragment() {
                         updateTotalValue()
                         updateSearchView()
                     }
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.serviceTxResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.sortedDisplayChains()?.forEach { chain ->
+                    chain.fetched = false
+                }
+                withContext(Dispatchers.Main) {
+                    initData(baseAccount)
+                    updateViewWithLoadedData(baseAccount)
                 }
             }
         }

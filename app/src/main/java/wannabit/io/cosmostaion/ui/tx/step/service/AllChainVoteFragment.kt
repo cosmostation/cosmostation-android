@@ -487,16 +487,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    account.sortedDisplayChains().forEach {
-                        it.fetched = false
-                    }
-                    account.sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                        ApplicationViewModel.shared.loadChainData(
-                            chain, account.id, false
-                        )
-                    }
-                }
+                ApplicationViewModel.shared.serviceTx()
                 dismiss()
             }
         }
