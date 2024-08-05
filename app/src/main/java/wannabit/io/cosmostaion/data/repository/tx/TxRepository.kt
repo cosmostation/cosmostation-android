@@ -129,5 +129,5 @@ interface TxRepository {
         fee: Fee?,
         memo: String,
         selectedChain: BaseChain
-    ): Any?
+    ): String
 }

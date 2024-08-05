@@ -1308,7 +1308,7 @@ class TxRepositoryImpl : TxRepository {
     ): LegacyRes? {
         return try {
             val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
-            RetrofitInstance.oktTxApi.broadTx(reqBroadCast)
+            RetrofitInstance.lcdApi(selectedChain).broadTx(reqBroadCast)
 
         } catch (_: Exception) {
             null
@@ -1354,7 +1354,7 @@ class TxRepositoryImpl : TxRepository {
         fee: Fee?,
         memo: String,
         selectedChain: BaseChain
-    ): Any? {
+    ): String {
         return try {
             val simulateTx = Signer.genIbcSendSimulate(msgTransfer, fee, memo, selectedChain)
             if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
@@ -1368,7 +1368,7 @@ class TxRepositoryImpl : TxRepository {
                 val gasInfo = AbciProto.GasInfo.newBuilder()
                     .setGasUsed(response["gas_info"].asJsonObject["gas_used"].asString.toLong())
                     .build()
-                ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo).build()
+                ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo).build().gasInfo.gasUsed.toString()
             }
 
         } catch (e: Exception) {

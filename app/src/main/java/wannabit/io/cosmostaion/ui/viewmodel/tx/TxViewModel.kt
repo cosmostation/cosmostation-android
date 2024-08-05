@@ -1,11 +1,9 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
-import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.google.protobuf.Any
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -401,10 +399,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.simulateIbcSendTx(
                 managedChannel, msgTransfer, fee, memo, selectedChain
             )
-            when (response) {
-                is ServiceProto.SimulateResponse -> simulate.postValue(response.gasInfo.gasUsed.toString())
-                is String -> errorMessage.postValue(response as? String)
-                else -> errorMessage.postValue("Unknown Error")
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
             }
 
         } catch (e: Exception) {

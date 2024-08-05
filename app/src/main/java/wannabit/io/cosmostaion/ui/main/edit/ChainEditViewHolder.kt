@@ -61,6 +61,17 @@ class ChainEditViewHolder(
             chainValue.visibility = View.GONE
             assetCnt.visibility = View.GONE
 
+            editView.setOnClickListener {
+                if (chain.tag == "cosmos118") return@setOnClickListener
+                if (displayChains.contains(chain.tag)) {
+                    displayChains.removeIf { it == chain.tag }
+                } else {
+                    displayChains.add(chain.tag)
+                }
+                updateView(chain, displayChains)
+                listener.select(displayChains)
+            }
+
             if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
@@ -196,17 +207,6 @@ class ChainEditViewHolder(
                     }
                 }
             }
-
-            editView.setOnClickListener {
-                if (chain.tag == "cosmos118") return@setOnClickListener
-                if (displayChains.contains(chain.tag)) {
-                    displayChains.removeIf { it == chain.tag }
-                } else {
-                    displayChains.add(chain.tag)
-                }
-                updateView(chain, displayChains)
-                listener.select(displayChains)
-            }
         }
     }
 
@@ -221,6 +221,16 @@ class ChainEditViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
             chainLegacy.visibleOrGone(!chain.isDefault)
+
+            editView.setOnClickListener {
+                if (displayChains.contains(chain.tag)) {
+                    displayChains.removeIf { it == chain.tag }
+                } else {
+                    displayChains.add(chain.tag)
+                }
+                updateView(chain, displayChains)
+                listener.select(displayChains)
+            }
 
             if (chain.supportCosmos() && chain.supportEvm) {
                 chainAddress.text = chain.address
@@ -303,16 +313,6 @@ class ChainEditViewHolder(
                             }
                         }
                     }
-            }
-
-            editView.setOnClickListener {
-                if (displayChains.contains(chain.tag)) {
-                    displayChains.removeIf { it == chain.tag }
-                } else {
-                    displayChains.add(chain.tag)
-                }
-                updateView(chain, displayChains)
-                listener.select(displayChains)
             }
         }
     }

@@ -52,7 +52,6 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.oktApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -404,10 +403,8 @@ class WalletRepositoryImpl : WalletRepository {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request =
-                QuerySmartContractStateRequest.newBuilder()
-                    .setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS)
-                    .setQueryData(queryData).build()
+            val request = QuerySmartContractStateRequest.newBuilder()
+                .setAddress(NEUTRON_VESTING_CONTRACT_ADDRESS).setQueryData(queryData).build()
             safeApiCall(Dispatchers.IO) {
                 stub.smartContractState(request)
             }
@@ -457,25 +454,25 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun oktAccountInfo(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktAccountInfo(chain.address)
+            lcdApi(chain).oktAccountInfo(chain.address)
         }
     }
 
     override suspend fun oktDeposit(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktDepositInfo(chain.address)
+            lcdApi(chain).oktDepositInfo(chain.address)
         }
     }
 
     override suspend fun oktWithdraw(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktWithdrawInfo(chain.address)
+            lcdApi(chain).oktWithdrawInfo(chain.address)
         }
     }
 
     override suspend fun oktToken(chain: BaseChain): NetworkResult<JsonObject?> {
         return safeApiCall(Dispatchers.IO) {
-            oktApi.oktTokens()
+            lcdApi(chain).oktTokens()
         }
     }
 

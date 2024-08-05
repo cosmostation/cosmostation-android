@@ -10,7 +10,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
 
@@ -37,18 +36,6 @@ object RetrofitInstance {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
             .baseUrl(CosmostationConstants.MINTSCAN_API_URL).build()
-    }
-
-    private val oktRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(ChainOkt996Keccak().lcdUrl).build()
-    }
-
-    private val oktTxRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(ChainOkt996Keccak().lcdUrl).build()
     }
 
     private val skipRetrofit: Retrofit by lazy {
@@ -86,14 +73,6 @@ object RetrofitInstance {
 
     fun lcdApi(chain: BaseChain): LcdApi {
         return lcdRetrofit(chain).create(LcdApi::class.java)
-    }
-
-    val oktApi: LcdApi by lazy {
-        oktRetrofit.create(LcdApi::class.java)
-    }
-
-    val oktTxApi: LcdApi by lazy {
-        oktTxRetrofit.create(LcdApi::class.java)
     }
 
     val skipApi: SkipApi by lazy {

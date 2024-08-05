@@ -107,6 +107,8 @@ class CoinFragment : Fragment() {
         searchBridgeCoins.clear()
         tokenCoins.clear()
         searchTokenCoins.clear()
+        etcCoins.clear()
+        searchEtcCoins.clear()
 
         when (selectedChain) {
             is ChainOktEvm -> {

@@ -159,7 +159,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
             if (chain is ChainOktEvm) {
-                if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                if (chain.oktFetcher?.oktAccountInfo == null) {
                     nodeDownPopup(chain)
                     return
                 }

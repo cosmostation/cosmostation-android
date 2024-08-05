@@ -138,16 +138,18 @@ class OktWithdrawFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             feeToken.text = chain.stakeDenom.uppercase()
 
-            oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
-                ?.let { existCnt ->
-                    gasAmount = BigDecimal(BaseConstant.BASE_GAS_AMOUNT)
-                    gasFee = BigDecimal(OKT_BASE_FEE)
-                    if (existCnt > 10) {
-                        val multiplier = if (existCnt > 20) 4 else 3
-                        gasAmount = gasAmount.multiply(BigDecimal(multiplier.toString()))
-                        gasFee = gasFee.multiply(BigDecimal(multiplier.toString()))
+            if (oktFetcher?.oktDeposits?.get("validator_address")?.isJsonNull != true) {
+                oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
+                    ?.let { existCnt ->
+                        gasAmount = BigDecimal(BaseConstant.BASE_GAS_AMOUNT)
+                        gasFee = BigDecimal(OKT_BASE_FEE)
+                        if (existCnt > 10) {
+                            val multiplier = if (existCnt > 20) 4 else 3
+                            gasAmount = gasAmount.multiply(BigDecimal(multiplier.toString()))
+                            gasFee = gasFee.multiply(BigDecimal(multiplier.toString()))
+                        }
                     }
-                }
+            }
 
             val price = BaseData.getPrice(OKT_GECKO_ID)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
