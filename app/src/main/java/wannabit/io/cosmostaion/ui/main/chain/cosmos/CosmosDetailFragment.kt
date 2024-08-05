@@ -272,8 +272,8 @@ class CosmosDetailFragment : Fragment() {
                     viewPager.setCurrentItem(position, false)
                     when (tab?.text.toString()) {
                         "Crypto" -> {
+                            btnAddToken.visibleOrGone(supportToken)
                             btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
-                            btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_GITHUB
                         }
 

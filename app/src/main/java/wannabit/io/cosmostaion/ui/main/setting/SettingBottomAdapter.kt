@@ -187,10 +187,14 @@ class SettingBottomAdapter(
         return if (lcdEndpoints.isNotEmpty()) {
             currentList.size + 2
         } else {
-            if (grpcEndpoints?.isNotEmpty() == true) {
-                currentList.size + 1
-            } else {
+            if (settingType == SettingType.END_POINT_EVM) {
                 currentList.size
+            } else {
+                if (grpcEndpoints?.isNotEmpty() == true) {
+                    currentList.size + 1
+                } else {
+                    currentList.size
+                }
             }
         }
     }

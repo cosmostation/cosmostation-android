@@ -204,7 +204,7 @@ class HistoryFragment : Fragment() {
             allHistoryGroup.addAll(response)
             response?.let { historyGroup ->
                 if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(allHistoryGroup as List<Any>?)
+                    historyAdapter.submitList(allHistoryGroup.toList())
                     searchAfter =
                         allHistoryGroup[allHistoryGroup.size - 1].second.searchAfter.toString()
                     hasMore = historyGroup.size >= BATCH_CNT
@@ -223,7 +223,7 @@ class HistoryFragment : Fragment() {
         historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
             allOktHistoryGroup.addAll(response)
             response?.let {
-                historyAdapter.submitList(allOktHistoryGroup as List<Any>?)
+                historyAdapter.submitList(allOktHistoryGroup.toList())
             }
 
             binding.loading.visibility = View.GONE
