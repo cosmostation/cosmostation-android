@@ -197,7 +197,7 @@ class EvmDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                selectedEvmChain.explorerAccount()?.let { url ->
+                selectedEvmChain.explorerAccount(selectedEvmChain.evmAddress)?.let { url ->
                     startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
 

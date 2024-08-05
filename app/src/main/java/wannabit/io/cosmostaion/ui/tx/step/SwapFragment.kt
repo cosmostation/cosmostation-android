@@ -317,13 +317,7 @@ class SwapFragment : BaseTxFragment() {
                             chain.cosmosFetcher?.cosmosBalances = loadInputBalanceDeferred.await()
                             BaseUtils.onParseVesting(chain)
 
-                        } catch (e: Exception) {
-                            withContext(Dispatchers.Main) {
-                                if (isAdded) {
-                                    activity?.makeToast(R.string.str_unknown_error)
-                                }
-                            }
-                        }
+                        } catch (e: Exception) { }
                     }
                 }
                 outputChain?.let { chain ->
@@ -336,13 +330,7 @@ class SwapFragment : BaseTxFragment() {
                             chain.cosmosFetcher?.cosmosBalances = loadOutputBalanceDeferred.await()
                             BaseUtils.onParseVesting(chain)
 
-                        } catch (e: Exception) {
-                            withContext(Dispatchers.Main) {
-                                if (isAdded) {
-                                    activity?.makeToast(R.string.str_unknown_error)
-                                }
-                            }
-                        }
+                        } catch (e: Exception) { }
                     }
                 }
 
@@ -389,7 +377,7 @@ class SwapFragment : BaseTxFragment() {
                             ?.setScale(0, RoundingMode.DOWN)
                     outputAsset.decimals?.let { outputDecimal ->
                         val dpAmount = dpOutputAmount?.movePointLeft(outputDecimal)
-                            ?.setScale(6, RoundingMode.DOWN)?.toPlainString()
+                            ?.setScale(outputDecimal, RoundingMode.DOWN)?.toPlainString()
                         outputAmount.text = formatAmount(dpAmount.toString(), outputDecimal)
                         slippage.text = "$skipSlippage%"
 
@@ -682,7 +670,6 @@ class SwapFragment : BaseTxFragment() {
 
                                                     } catch (e: Exception) {
                                                         withContext(Dispatchers.Main) {
-                                                            activity?.makeToast(R.string.str_unknown_error)
                                                             loading.visibility = View.GONE
                                                         }
                                                         return@launch
@@ -775,7 +762,6 @@ class SwapFragment : BaseTxFragment() {
 
                                                     } catch (e: Exception) {
                                                         withContext(Dispatchers.Main) {
-                                                            activity?.makeToast(R.string.str_unknown_error)
                                                             loading.visibility = View.GONE
                                                         }
                                                         return@launch

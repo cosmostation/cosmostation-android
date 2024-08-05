@@ -340,7 +340,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                selectedChain.explorerAccount()?.let { url ->
+                selectedChain.explorerAccount(selectedChain.address)?.let { url ->
                     startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
                 } ?: run {

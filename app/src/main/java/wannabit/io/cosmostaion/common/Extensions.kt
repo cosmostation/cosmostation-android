@@ -440,9 +440,9 @@ fun gapTime(finishTime: Long): String {
     result = if (left >= CONSTANT_D) {
         "D-" + left / CONSTANT_D
     } else if (left >= BaseConstant.CONSTANT_H) {
-        (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+        (left / BaseConstant.CONSTANT_H).toString() + " hours left"
     } else if (left >= BaseConstant.CONSTANT_M) {
-        (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+        (left / BaseConstant.CONSTANT_M).toString() + " minutes left"
     } else {
         "0 days"
     }

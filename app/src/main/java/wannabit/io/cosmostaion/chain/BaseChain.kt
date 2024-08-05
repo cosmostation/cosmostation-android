@@ -421,12 +421,10 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("moblie_dapp")?.asBoolean ?: false
     }
 
-    fun explorerAccount(): Uri? {
+    fun explorerAccount(address: String): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
-                address.let {
-                    return Uri.parse(urlString.replace("\${address}", it))
-                }
+                return Uri.parse(urlString.replace("\${address}", address))
             }
         return null
     }

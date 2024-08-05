@@ -94,12 +94,14 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()
                                 val txFee = chain.getInitPayableFee(requireContext())
-                                if (compoundAble?.isNotEmpty() == true && txFee != null) {
-                                    compoundAbleRewards.add(
-                                        ClaimAllModel(
-                                            chain, compoundAble
+                                if (chain.cosmosFetcher?.rewardAddress == chain.address) {
+                                    if (compoundAble?.isNotEmpty() == true && txFee != null) {
+                                        compoundAbleRewards.add(
+                                            ClaimAllModel(
+                                                chain, compoundAble
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
 
