@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -413,9 +414,9 @@ class CommonTransferFragment : BaseTxFragment() {
                     ChainFragment.newInstance(recipientAbleChains,
                         ChainListType.SELECT_TRANSFER,
                         object : ChainSelectListener {
-                            override fun select(chainId: String) {
-                                if (toChain.chainIdCosmos != chainId) {
-                                    recipientAbleChains.firstOrNull { it.chainIdCosmos == chainId }
+                            override fun select(chainName: String) {
+                                if (toChain.name != chainName) {
+                                    recipientAbleChains.firstOrNull { it.name == chainName }
                                         ?.let { chain ->
                                             updateToChain(chain)
                                             updateRecipientAddressView("")

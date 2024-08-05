@@ -40,8 +40,6 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
-import wannabit.io.cosmostaion.database.model.BaseAccount
-import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -235,13 +233,8 @@ class AllChainClaimFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
+                ApplicationViewModel.shared.serviceTx()
                 dismiss()
-                BaseData.baseAccount?.let { account ->
-                    for (chain in account.sortedDisplayChains()) {
-                        chain.fetched = false
-                        initDisplayData(account)
-                    }
-                }
             }
         }
     }
@@ -432,28 +425,6 @@ class AllChainClaimFragment : BaseTxFragment() {
         } catch (e: Throwable) {
             delay(3000)
             loadTx(chain, txHash, onComplete)
-        }
-    }
-
-    private fun initDisplayData(baseAccount: BaseAccount) {
-        baseAccount.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                for (chain in sortedDisplayChains()) {
-                    if (type == BaseAccountType.MNEMONIC) {
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                    } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                    }
-
-                    if (!chain.fetched) {
-                        ApplicationViewModel.shared.loadChainData(chain, id, false)
-                    }
-                }
-            }
         }
     }
 

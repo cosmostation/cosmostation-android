@@ -152,19 +152,21 @@ class OktSelectValidatorFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             feeToken.text = chain.stakeDenom.uppercase()
 
-            oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
-                ?.let { existCnt ->
-                    val noCnt = myValidators.size
-                    val max = if (existCnt >= noCnt) existCnt else noCnt
+            if (oktFetcher?.oktDeposits?.get("validator_address")?.isJsonNull != true) {
+                oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
+                    ?.let { existCnt ->
+                        val noCnt = myValidators.size
+                        val max = if (existCnt >= noCnt) existCnt else noCnt
 
-                    gasAmount = BigDecimal(BaseConstant.BASE_GAS_AMOUNT)
-                    gasFee = BigDecimal(OKT_BASE_FEE)
-                    if (max > 10) {
-                        val multiplier = if (max > 20) 4 else 3
-                        gasAmount = gasAmount.multiply(BigDecimal(multiplier.toString()))
-                        gasFee = gasFee.multiply(BigDecimal(multiplier.toString()))
+                        gasAmount = BigDecimal(BaseConstant.BASE_GAS_AMOUNT)
+                        gasFee = BigDecimal(OKT_BASE_FEE)
+                        if (max > 10) {
+                            val multiplier = if (max > 20) 4 else 3
+                            gasAmount = gasAmount.multiply(BigDecimal(multiplier.toString()))
+                            gasFee = gasFee.multiply(BigDecimal(multiplier.toString()))
+                        }
                     }
-                }
+            }
 
             val price = BaseData.getPrice(OKT_GECKO_ID)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)

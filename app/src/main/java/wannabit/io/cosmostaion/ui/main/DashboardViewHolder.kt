@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -380,7 +381,7 @@ class DashboardViewHolder(
                 if (chain.fetched) {
                     if (chain.isEvmCosmos()) {
                         if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            if (chain.oktFetcher?.oktAccountInfo == null || chain.web3j == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 return
@@ -396,7 +397,7 @@ class DashboardViewHolder(
 
                     } else if (chain.supportCosmos()) {
                         if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
+                            if (chain.oktFetcher?.oktAccountInfo == null) {
                                 respondLayout.visibility = View.VISIBLE
                                 chainValue.visibility = View.GONE
                                 return

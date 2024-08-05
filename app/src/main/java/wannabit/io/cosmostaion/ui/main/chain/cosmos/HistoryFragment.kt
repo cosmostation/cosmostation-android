@@ -169,13 +169,18 @@ class HistoryFragment : Fragment() {
                 )
             }
         }
-        binding.refresher.isRefreshing = false
+        if (binding.refresher.isRefreshing) {
+            binding.recycler.suppressLayout(true)
+        }
     }
 
     private fun scrollView() {
         binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                if (binding.refresher.isRefreshing) {
+                    return
+                }
                 if (historyAdapter.itemCount == 0) {
                     return
                 }
@@ -201,8 +206,10 @@ class HistoryFragment : Fragment() {
 
     private fun checkHistory() {
         historyViewModel.historyResult.observe(viewLifecycleOwner) { response ->
-            allHistoryGroup.addAll(response)
+            binding.refresher.isRefreshing = false
+            binding.recycler.suppressLayout(false)
             response?.let { historyGroup ->
+                allHistoryGroup.addAll(historyGroup)
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(allHistoryGroup as List<Any>?)
                     searchAfter =
@@ -221,6 +228,7 @@ class HistoryFragment : Fragment() {
         }
 
         historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
+            binding.refresher.isRefreshing = false
             allOktHistoryGroup.addAll(response)
             response?.let {
                 historyAdapter.submitList(allOktHistoryGroup as List<Any>?)

@@ -107,6 +107,8 @@ class CoinFragment : Fragment() {
         searchBridgeCoins.clear()
         tokenCoins.clear()
         searchTokenCoins.clear()
+        etcCoins.clear()
+        searchEtcCoins.clear()
 
         when (selectedChain) {
             is ChainOktEvm -> {
@@ -303,7 +305,7 @@ class CoinFragment : Fragment() {
                         return@setOnItemClickListener
                     }
 
-                    if (chain is ChainOkt996Keccak || chain is ChainOktEvm && position != 0) {
+                    if (chain is ChainOkt996Keccak || chain is ChainOktEvm && sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
                         startLegacyTransfer(chain, denom)
                     } else {
                         startTransfer(chain, denom, sendAssetType)

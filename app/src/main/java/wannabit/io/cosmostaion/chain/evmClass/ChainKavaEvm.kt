@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @Parcelize
-class ChainKavaEvm : BaseChain(), Parcelable {
+open class ChainKavaEvm : BaseChain(), Parcelable {
 
     override var name: String = "Kava"
     override var tag: String = "kava60"

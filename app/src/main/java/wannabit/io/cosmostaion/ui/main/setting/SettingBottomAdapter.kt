@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -13,7 +12,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
-import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderViewBinding
 import wannabit.io.cosmostaion.databinding.ItemPriceStyleBinding
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
@@ -158,7 +156,6 @@ class SettingBottomAdapter(
                     SettingType.END_POINT_COSMOS.ordinal -> {
                         if (holder.itemViewType == VIEW_TYPE_GRPC_ITEM) {
                             val grpcEndpoint = grpcEndpoints?.get(position - 1) as JsonObject
-                            Log.e("Test1234 : ", grpcEndpoint.toString())
                             if (holder is EndPointViewHolder) {
                                 holder.bind(fromChain, grpcEndpoint, listener)
                             }
@@ -190,10 +187,14 @@ class SettingBottomAdapter(
         return if (lcdEndpoints.isNotEmpty()) {
             currentList.size + 2
         } else {
-            if (grpcEndpoints?.isNotEmpty() == true) {
-                currentList.size + 1
-            } else {
+            if (settingType == SettingType.END_POINT_EVM) {
                 currentList.size
+            } else {
+                if (grpcEndpoints?.isNotEmpty() == true) {
+                    currentList.size + 1
+                } else {
+                    currentList.size
+                }
             }
         }
     }

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -214,7 +213,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                             grpcEndpoints.add(jsonElement.asJsonObject)
                         }
                     }
-                    Log.e("Test1234 : ", grpcEndpoints.toString())
+
                     val lcdEndpoints: MutableList<Any> = ArrayList()
                     fromChain?.getChainListParam()?.getAsJsonArray("lcd_endpoint")?.let {
                         for (jsonElement in it) {

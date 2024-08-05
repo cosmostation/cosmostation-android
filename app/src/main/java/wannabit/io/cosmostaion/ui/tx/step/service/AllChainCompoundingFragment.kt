@@ -39,8 +39,6 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
-import wannabit.io.cosmostaion.database.model.BaseAccount
-import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAllChainCompoundingBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
@@ -96,12 +94,14 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()
                                 val txFee = chain.getInitPayableFee(requireContext())
-                                if (compoundAble?.isNotEmpty() == true && txFee != null) {
-                                    compoundAbleRewards.add(
-                                        ClaimAllModel(
-                                            chain, compoundAble
+                                if (chain.cosmosFetcher?.rewardAddress == chain.address) {
+                                    if (compoundAble?.isNotEmpty() == true && txFee != null) {
+                                        compoundAbleRewards.add(
+                                            ClaimAllModel(
+                                                chain, compoundAble
+                                            )
                                         )
-                                    )
+                                    }
                                 }
                             }
 
@@ -236,13 +236,8 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
+                ApplicationViewModel.shared.serviceTx()
                 dismiss()
-                BaseData.baseAccount?.let { account ->
-                    for (chain in account.sortedDisplayChains()) {
-                        chain.fetched = false
-                        initDisplayData(account)
-                    }
-                }
             }
         }
     }
@@ -265,28 +260,6 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                 }
             }
         }
-
-    private fun initDisplayData(baseAccount: BaseAccount) {
-        baseAccount.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                for (chain in sortedDisplayChains()) {
-                    if (type == BaseAccountType.MNEMONIC) {
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
-                        }
-                    } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                    }
-
-                    if (!chain.fetched) {
-                        ApplicationViewModel.shared.loadChainData(chain, id, false)
-                    }
-                }
-            }
-        }
-    }
 
     private fun checkTx(
         index: Int, chain: BaseChain, txResponse: AbciProto.TxResponse?
@@ -346,7 +319,10 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             val chain = valueAbleReward.baseChain
             val txFee = valueAbleReward.fee
             val broadcastTx = Signer.genBroadcast(
-                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards), txFee, "", chain
+                Signer.compoundingMsg(
+                    chain, valueAbleReward.rewards, valueAbleReward.baseChain.stakeDenom
+                ), txFee, "", chain
+
             )
 
             val txResponse = if (chain.supportCosmos()) {

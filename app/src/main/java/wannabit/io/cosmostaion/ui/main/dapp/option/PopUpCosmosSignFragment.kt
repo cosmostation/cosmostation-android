@@ -103,9 +103,13 @@ class PopUpCosmosSignFragment(
             val txJsonObject = JsonParser.parseString(data).asJsonObject
             val txJsonSignDoc =
                 txJsonObject.getAsJsonObject("signDoc") ?: txJsonObject.getAsJsonObject("doc")
-            val chainIdJson =
-                txJsonSignDoc["chain_id"] ?: txJsonSignDoc.getAsJsonObject("chainName")
-            val chainId = chainIdJson.asString
+            val chainId = if (txJsonSignDoc != null) {
+                val chainIdJson = txJsonSignDoc.asJsonObject["chain_id"]
+                    ?: txJsonSignDoc.asJsonObject["chainName"]
+                chainIdJson.asString
+            } else {
+                txJsonObject["chainName"].asString ?: txJsonObject["chain_id"].asString
+            }
 
             allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
                 ?.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
@@ -153,11 +157,13 @@ class PopUpCosmosSignFragment(
                     chain.cosmosFetcher()?.let { fetcher ->
                         try {
                             fetcher.getChannel()?.let { channel ->
-                                val loadInputAuthDeferred = async { loadAuth(channel, chain.address) }
+                                val loadInputAuthDeferred =
+                                    async { loadAuth(channel, chain.address) }
                                 val loadInputBalanceDeferred =
                                     async { loadBalance(channel, chain.address) }
 
-                                chain.cosmosFetcher?.cosmosAuth = loadInputAuthDeferred.await()?.account
+                                chain.cosmosFetcher?.cosmosAuth =
+                                    loadInputAuthDeferred.await()?.account
                                 chain.cosmosFetcher?.cosmosBalances =
                                     loadInputBalanceDeferred.await().balancesList
                                 BaseUtils.onParseVesting(chain)
@@ -210,8 +216,7 @@ class PopUpCosmosSignFragment(
                         gasTitle = mutableListOf(
                             getString(R.string.str_fixed)
                         )
-                        val segmentView =
-                            ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                        val segmentView = ItemDappSegmentedFeeBinding.inflate(layoutInflater)
                         feeSegment.addView(
                             segmentView.root,
                             0,
@@ -227,8 +232,7 @@ class PopUpCosmosSignFragment(
                     "sign_direct" -> {
                         feeInfos = chain.getFeeInfos(requireContext())
                         for (i in feeInfos.indices) {
-                            val segmentView =
-                                ItemDappSegmentedFeeBinding.inflate(layoutInflater)
+                            val segmentView = ItemDappSegmentedFeeBinding.inflate(layoutInflater)
                             feeSegment.addView(
                                 segmentView.root, i, LinearLayout.LayoutParams(
                                     0, dpToPx(requireContext(), 32), 1f
@@ -506,7 +510,17 @@ class PopUpCosmosSignFragment(
     private fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
         val doc = txJsonObject["doc"].asJsonObject
         var authInfo = TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
-        authInfo = authInfo.toBuilder().setFee(txFee).build()
+        if (authInfo.fee.payer.isEmpty() || authInfo.fee.payer == null) {
+            authInfo = authInfo.toBuilder().setFee(txFee).build()
+        } else {
+            txFee?.let { fee ->
+                val dpFee = Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(
+                    CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                        .setAmount(fee.getAmount(0).amount)
+                ).setPayer(authInfo.fee.payer).build()
+                authInfo = authInfo.toBuilder().setFee(dpFee).build()
+            }
+        }
         val txBody = TxProto.TxBody.parseFrom(Utils.hexToBytes(doc["body_bytes"].asString))
         val fee = authInfo.fee
 

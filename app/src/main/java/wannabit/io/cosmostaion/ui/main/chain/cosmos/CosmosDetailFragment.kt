@@ -272,8 +272,8 @@ class CosmosDetailFragment : Fragment() {
                     viewPager.setCurrentItem(position, false)
                     when (tab?.text.toString()) {
                         "Crypto" -> {
+                            btnAddToken.visibleOrGone(supportToken)
                             btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
-                            btnAddToken.visibility = View.VISIBLE
                             noticeType = NoticeType.TOKEN_GITHUB
                         }
 
@@ -340,7 +340,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                selectedChain.explorerAccount()?.let { url ->
+                selectedChain.explorerAccount(selectedChain.address)?.let { url ->
                     startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
                 } ?: run {

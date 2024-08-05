@@ -487,16 +487,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    account.sortedDisplayChains().forEach {
-                        it.fetched = false
-                    }
-                    account.sortedDisplayChains().asSequence().concurrentForEach { chain ->
-                        ApplicationViewModel.shared.loadChainData(
-                            chain, account.id, false
-                        )
-                    }
-                }
+                ApplicationViewModel.shared.serviceTx()
                 dismiss()
             }
         }
@@ -510,23 +501,25 @@ class AllChainVoteFragment : BaseTxFragment() {
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             voteAllModel.basechain?.let { chain ->
-                val gasLimit =
-                    (gasUsed.toLong().toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                chain.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
-                    it.denom == txFee?.getAmount(
-                        0
-                    )?.denom
-                }?.let { gasRate ->
-                    val feeCoinAmount =
-                        gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                    val feeCoin = CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
-                        .setAmount(feeCoinAmount.toString()).build()
+                if (gasUsed.toLongOrNull() != null) {
+                    val gasLimit =
+                        (gasUsed.toLong().toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                    chain.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
+                        it.denom == txFee?.getAmount(
+                            0
+                        )?.denom
+                    }?.let { gasRate ->
+                        val feeCoinAmount =
+                            gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
+                            .setAmount(feeCoinAmount.toString()).build()
 
-                    voteAllModel.isBusy = false
-                    voteAllModel.txFee =
-                        TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
-                            .build()
-                    voteAllModel.toVotes = toVotes
+                        voteAllModel.isBusy = false
+                        voteAllModel.txFee =
+                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                                .build()
+                        voteAllModel.toVotes = toVotes
+                    }
                 }
             }
 

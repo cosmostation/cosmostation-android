@@ -370,7 +370,7 @@ class CompoundingFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                txViewModel.simulate(
+                txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
                     onBindCompoundingMsg(),
                     txFee,

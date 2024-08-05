@@ -150,7 +150,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     fun delegationAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        cosmosDelegations.forEach { delegation ->
+        for (delegation in cosmosDelegations) {
             delegation.balance?.let {
                 sum = sum.add(delegation.balance?.amount?.toBigDecimal())
             } ?: run {
@@ -355,7 +355,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     suspend fun lastHeight(): Long {
         return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val blockStub =
-                ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(30L, TimeUnit.SECONDS)
             val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height
@@ -428,7 +428,7 @@ fun JsonObject.unDelegations(): MutableList<UnbondingDelegation> {
         val unBonding = this["unbonding_responses"].asJsonArray[i]
         val entries = mutableListOf<StakingProto.UnbondingDelegationEntry>()
         for (j in 0 until unBonding.asJsonObject["entries"].asJsonArray.size()) {
-            val entry = unBonding.asJsonObject["entries"].asJsonArray[i]
+            val entry = unBonding.asJsonObject["entries"].asJsonArray[j]
             entry.asJsonObject["completion_time"].asString?.let { date ->
                 val dpTime = dateToLong("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSX", date)
                 val time = Timestamp.newBuilder().setSeconds(dpTime).build()

@@ -97,6 +97,11 @@ class ApplicationViewModel(
         _changeBgResult.postValue(bg)
     }
 
+    var serviceTxResult = SingleLiveEvent<Boolean>()
+    fun serviceTx() = viewModelScope.launch(Dispatchers.IO) {
+        serviceTxResult.postValue(true)
+    }
+
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
@@ -532,6 +537,8 @@ class ApplicationViewModel(
 
                             if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                                 it.oktAccountInfo = accountInfoResult.data
+                            } else {
+                                it.oktAccountInfo = null
                             }
 
                             if (depositResult is NetworkResult.Success && depositResult.data is JsonObject) {
@@ -718,7 +725,10 @@ class ApplicationViewModel(
 
                 if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                     oktFetcher()?.oktAccountInfo = accountInfoResult.data
+                } else {
+                    oktFetcher()?.oktAccountInfo = null
                 }
+
                 if (depositResult is NetworkResult.Success && depositResult.data is JsonObject) {
                     oktFetcher()?.oktDeposits = depositResult.data
                 }
@@ -729,6 +739,13 @@ class ApplicationViewModel(
                     oktFetcher()?.oktTokens = tokenResult.data
                 }
 
+                fetchedState = false
+                withContext(Dispatchers.Main) {
+                    fetchedResult.value = tag
+                }
+                delay(2000)
+
+                fetchedState = true
                 fetched = true
                 if (fetched) {
                     if (oktFetcher()?.oktAccountInfo?.isJsonNull != true) {

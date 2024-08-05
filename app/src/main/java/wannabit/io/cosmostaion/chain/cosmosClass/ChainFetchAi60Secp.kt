@@ -19,7 +19,6 @@ class ChainFetchAi60Secp : BaseChain(), Parcelable {
     override var swipeLogo: Int = R.drawable.chain_swipe_fetchai
     override var isDefault: Boolean = false
     override var apiName: String = "fetchai"
-    override var isPrivateAdd: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

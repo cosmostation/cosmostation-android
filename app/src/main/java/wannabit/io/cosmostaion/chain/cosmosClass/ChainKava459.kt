@@ -9,9 +9,10 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 
 @Parcelize
-class ChainKava459 : BaseChain(), Parcelable {
+open class ChainKava459 : ChainKavaEvm(), Parcelable {
 
     override var name: String = "Kava"
     override var tag: String = "kava459"
@@ -30,4 +31,11 @@ class ChainKava459 : BaseChain(), Parcelable {
     override var accountPrefix: String = "kava"
     override var grpcHost: String = "grpc-kava.cosmostation.io"
     override var lcdUrl: String = "https://lcd-kava.cosmostation.io/"
+
+    override var supportEvm: Boolean = false
+    override var coinSymbol: String = ""
+    override var coinGeckoId: String = ""
+    override var coinLogo: Int = -1
+    override var addressLogo: Int = -1
+    override var evmRpcURL: String = ""
 }

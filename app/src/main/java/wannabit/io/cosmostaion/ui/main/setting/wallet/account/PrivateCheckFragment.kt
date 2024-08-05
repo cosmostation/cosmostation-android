@@ -126,8 +126,8 @@ class PrivateCheckFragment : Fragment() {
                 mainnetChains =
                     allChains.filter { !it.isTestnet && it.tag != "okt996_Secp" }.toMutableList()
                 testnetChains = allChains.filter { it.isTestnet }.toMutableList()
-                searchMainnetChains = mainnetChains
-                searchTestnetChains = testnetChains
+                searchMainnetChains.addAll(mainnetChains)
+                searchTestnetChains.addAll(testnetChains)
 
                 withContext(Dispatchers.Main) {
                     updateView()
@@ -191,23 +191,21 @@ class PrivateCheckFragment : Fragment() {
                     searchTestnetChains.clear()
 
                     if (StringUtils.isEmpty(newText)) {
-                        searchMainnetChains.addAll(allChains().filter { !it.isTestnet })
-                        searchTestnetChains.addAll(allChains().filter { it.isTestnet })
+                        searchMainnetChains.addAll(mainnetChains)
+                        searchTestnetChains.addAll(testnetChains)
 
                     } else {
                         newText?.let { searchTxt ->
-                            searchMainnetChains.addAll(allChains().filter { chain ->
+                            searchMainnetChains.addAll(mainnetChains.filter { chain ->
                                 chain.name.contains(
-                                    searchTxt,
-                                    ignoreCase = true
-                                ) && !chain.isTestnet
+                                    searchTxt, ignoreCase = true
+                                )
                             })
 
-                            searchTestnetChains.addAll(allChains().filter { chain ->
+                            searchTestnetChains.addAll(testnetChains.filter { chain ->
                                 chain.name.contains(
-                                    searchTxt,
-                                    ignoreCase = true
-                                ) && !chain.isTestnet
+                                    searchTxt, ignoreCase = true
+                                )
                             })
                         }
                     }

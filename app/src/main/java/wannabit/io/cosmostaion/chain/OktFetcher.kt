@@ -25,7 +25,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
             return@launch
         }
 
-        when (val response = safeApiCall { RetrofitInstance.oktApi.oktValidators() }) {
+        when (val response = safeApiCall { RetrofitInstance.lcdApi(chain).oktValidators() }) {
             is NetworkResult.Success -> {
                 oktValidatorInfo.clear()
                 response.data.sortWith { o1, o2 ->

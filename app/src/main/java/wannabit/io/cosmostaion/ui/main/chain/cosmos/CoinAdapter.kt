@@ -62,8 +62,7 @@ class CoinAdapter(
     }
 
     fun setOktItems(
-        stakeCoins: MutableList<Coin>,
-        etcCoins: MutableList<Coin>
+        stakeCoins: MutableList<Coin>, etcCoins: MutableList<Coin>
     ) {
         val tempList = mutableListOf<ListItem>()
         if (stakeCoins.isNotEmpty()) {
@@ -78,9 +77,7 @@ class CoinAdapter(
     }
 
     fun setOktEvmItems(
-        stakeCoins: MutableList<Coin>,
-        etcCoins: MutableList<Coin>,
-        tokenCoins: MutableList<Coin>
+        stakeCoins: MutableList<Coin>, etcCoins: MutableList<Coin>, tokenCoins: MutableList<Coin>
     ) {
         val tempList = mutableListOf<ListItem>()
         if (stakeCoins.isNotEmpty()) {
@@ -291,18 +288,18 @@ class CoinAdapter(
                     headerCnt.text = bridgeCoins.size.toString()
 
                 } else if (getItemViewType(position) == VIEW_TYPE_ETC_HEADER) {
-                    headerTitle.text = if (chain is ChainOkt996Keccak) {
-                        context.getString(R.string.str_kip10_coins)
-                    } else {
-                        context.getString(R.string.str_kip20_tokens)
-                    }
+                    headerTitle.text = context.getString(R.string.str_native_coins)
                     headerCnt.text = etcCoins.size.toString()
 
                 } else {
                     headerTitle.text = if (selectedChain.supportCw20) {
                         context.getString(R.string.str_contract_tokens)
                     } else {
-                        context.getString(R.string.str_erc20_tokens)
+                        if (selectedChain is ChainOktEvm) {
+                            context.getString(R.string.str_kip20_tokens)
+                        } else {
+                            context.getString(R.string.str_erc20_tokens)
+                        }
                     }
                     headerCnt.text = tokenCoins.size.toString()
                 }
