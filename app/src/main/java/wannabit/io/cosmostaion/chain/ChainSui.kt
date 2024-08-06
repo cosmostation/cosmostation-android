@@ -1,0 +1,43 @@
+package wannabit.io.cosmostaion.chain
+
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseKey
+
+@Parcelize
+class ChainSui : BaseChain(), Parcelable {
+
+    @IgnoredOnParcel
+    var suiFetcher: SuiFetcher? = null
+
+    override var name: String = "Sui"
+    override var tag: String = "suiMainnet"
+    override var logo: Int = R.drawable.chain_sui
+    override var apiName: String = "sui"
+
+    override var accountKeyType = AccountKeyType(PubKeyType.SUI_ED25519, "m/44'/784'/0'/0/X")
+
+    override var stakeDenom: String = SUI_MAIN_DENOM
+    override var coinSymbol: String = "SUI"
+    override var coinGeckoId: String = "sui"
+
+    override var mainUrl: String = "https://sui-mainnet-us-2.cosmostation.io"
+
+    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+        this.privateKey = privateKey
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
+        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType)
+    }
+
+    fun suiFetcher(): SuiFetcher? {
+        if (suiFetcher != null) return suiFetcher
+        suiFetcher = SuiFetcher(this)
+        return suiFetcher
+    }
+
+}
+
+const val SUI_TYPE_COIN = "0x2::coin::Coin"
+const val SUI_MAIN_DENOM = "0x2::sui::SUI"

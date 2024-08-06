@@ -22,7 +22,7 @@ class ChainOkt996Secp : ChainOkt996Keccak(), Parcelable {
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
         evmAddress = ByteUtils.convertBech32ToEvm(address)
     }

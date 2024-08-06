@@ -457,9 +457,7 @@ class DashboardFragment : Fragment() {
                     if (chain is ChainOktEvm) {
                         return
                     }
-                    val settingType = if (chain.isEvmCosmos()) {
-                        SettingType.END_POINT_COSMOS
-                    } else if (chain.supportCosmos()) {
+                    val settingType = if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         SettingType.END_POINT_COSMOS
                     } else {
                         SettingType.END_POINT_EVM

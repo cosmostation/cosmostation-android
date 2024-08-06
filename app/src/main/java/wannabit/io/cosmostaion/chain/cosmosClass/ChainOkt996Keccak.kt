@@ -37,7 +37,7 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         evmAddress =
             BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
         address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)

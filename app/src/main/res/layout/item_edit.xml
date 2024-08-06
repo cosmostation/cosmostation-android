@@ -56,7 +56,7 @@
                     android:id="@+id/chain_address"
                     style="@style/font_sm_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/space_13"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
                     android:ellipsize="middle"
                     android:gravity="top"

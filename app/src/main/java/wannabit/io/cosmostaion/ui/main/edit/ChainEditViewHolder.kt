@@ -72,7 +72,7 @@ class ChainEditViewHolder(
                 listener.select(displayChains)
             }
 
-            if (chain.supportCosmos() && chain.supportEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -88,8 +88,15 @@ class ChainEditViewHolder(
 
                 handler.removeCallbacks(starEvmAddressAnimation)
 
-            } else {
+            } else if (chain.supportEvm) {
                 chainAddress.text = chain.evmAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+
+            } else {
+                chainAddress.text = chain.mainAddress
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
 

@@ -155,6 +155,9 @@ open class BaseChain : Parcelable {
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
 
+    open var mainAddress: String = ""
+    open var mainUrl: String = ""
+
     open var fetched = false
     open var fetchedState = true
 
@@ -176,17 +179,16 @@ open class BaseChain : Parcelable {
     }
 
     fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
-        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
+        privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(privateKey)
     }
 
     open fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address =
                 BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-        } else if (accountKeyType.pubkeyType == PubKeyType.SUI_ED25519) {
 
         } else {
             evmAddress =
@@ -580,6 +582,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStafi())
     chains.add(ChainStargaze())
     chains.add(ChainStride())
+    chains.add(ChainSui())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
     chains.add(ChainUx())

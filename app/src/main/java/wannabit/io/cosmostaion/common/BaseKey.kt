@@ -1,5 +1,11 @@
 package wannabit.io.cosmostaion.common
 
+import net.i2p.crypto.eddsa.EdDSAPrivateKey
+import net.i2p.crypto.eddsa.EdDSAPublicKey
+import net.i2p.crypto.eddsa.Utils
+import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
+import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
+import net.i2p.crypto.eddsa.spec.EdDSAPublicKeySpec
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -8,9 +14,12 @@ import org.bitcoinj.crypto.DeterministicHierarchy
 import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.crypto.MnemonicException.MnemonicLengthException
+import org.bouncycastle.jcajce.provider.digest.Blake2b
+import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.PubKeyType
 import java.security.SecureRandom
 
@@ -48,19 +57,53 @@ object BaseKey {
         return getHDSeed(MnemonicCode().toEntropy(words))
     }
 
-    fun getPrivateKey(
-        seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String
-    ): ByteArray? {
-        val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
-        val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
-            parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath))
-        )
-        return deterministicKey.privKeyBytes
+    private fun getEd25519PrivateKey(seed: ByteArray?, lastPath: String): ByteArray {
+        var pair = ByteUtils.shaking(seed, "ed25519 seed".toByteArray())
+        val components = ChainSui().getHDPath(lastPath).split("/")
+        val nodes = mutableListOf<Int>()
+        for (component in components.subList(1, components.size)) {
+            val index = component.trim('\'').toInt()
+            nodes.add(index)
+        }
+        nodes.forEach {
+            val buffer = ByteArray(size = 4)
+            for (i in 0..3) buffer[i] = ((0x80000000 + it) shr ((3 - i) * 8) and 0xff).toByte()
+            val pathBuffer = ByteArray(size = 1) + pair.first + buffer
+            pair = ByteUtils.shaking(pathBuffer, pair.second)
+        }
+
+        val keySpecs = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
+        val privateKeySpec = EdDSAPrivateKeySpec(pair.first, keySpecs)
+        val privateKey = EdDSAPrivateKey(privateKeySpec)
+        return privateKey.seed
     }
 
-    fun getPubKeyFromPKey(privateKey: ByteArray?): ByteArray? {
-        val ecKey = ECKey.fromPrivate(privateKey)
-        return ecKey.pubKey
+    fun getPrivateKey(
+        pubKeyType: PubKeyType, seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String
+    ): ByteArray? {
+        return if (pubKeyType == PubKeyType.SUI_ED25519) {
+            getEd25519PrivateKey(seed, lastPath)
+        } else {
+            val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
+            val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
+                parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath))
+            )
+            deterministicKey.privKeyBytes
+        }
+    }
+
+    fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
+        return if (pubKeyType == PubKeyType.SUI_ED25519) {
+            val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
+            val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
+            val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
+            val publicKey = EdDSAPublicKey(pubKeySpec)
+            publicKey.abyte
+
+        } else {
+            val ecKey = ECKey.fromPrivate(privateKey)
+            ecKey.pubKey
+        }
     }
 
     fun getAddressFromPubKey(
@@ -80,6 +123,16 @@ object BaseKey {
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
                 result = "0x" + Keys.getAddress(pub).toHex()
+            }
+
+            PubKeyType.SUI_ED25519 -> {
+                pubKey?.let { pub ->
+                    val data = ByteArray(1) + pub
+                    val blake2b = Blake2b.Blake2b256()
+                    blake2b.update(data)
+                    val hex = Utils.bytesToHex(blake2b.digest())
+                    return "0x${hex.substring(0, 64)}"
+                }
             }
 
             else -> return result

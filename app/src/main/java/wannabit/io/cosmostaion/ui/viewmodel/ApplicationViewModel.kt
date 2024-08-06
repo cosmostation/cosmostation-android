@@ -114,25 +114,15 @@ class ApplicationViewModel(
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.tokens = response.data
-                            if (supportNft) {
-                                when (val infoResponse = walletRepository.cw721Info(apiName)) {
-                                    is NetworkResult.Success -> {
-                                        cosmosFetcher?.cw721s = infoResponse.data
-                                    }
-
-                                    is NetworkResult.Error -> {
-                                        _chainDataErrorMessage.postValue("error type : ${infoResponse.errorType}  error message : ${infoResponse.errorMessage}")
-                                    }
-                                }
-                            }
                         }
 
                         is NetworkResult.Error -> {
                             _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                         }
                     }
+                }
 
-                } else if (supportNft) {
+                if (supportNft) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.cw721s = response.data

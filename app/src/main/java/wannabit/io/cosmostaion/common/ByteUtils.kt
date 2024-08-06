@@ -6,6 +6,8 @@ import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
 import java.nio.ByteBuffer
+import javax.crypto.Mac
+import javax.crypto.spec.SecretKeySpec
 
 object ByteUtils {
 
@@ -91,5 +93,13 @@ object ByteUtils {
         val pub = hexStringToByteArray(address.replace("0x", ""))
         val bytes = convertBits(pub, 8, 5, true)
         return Bech32.encode(Bech32.Encoding.BECH32, prefix, bytes)
+    }
+
+    fun shaking(input: ByteArray?, key: ByteArray): Pair<ByteArray, ByteArray> {
+        val mac = Mac.getInstance("HmacSHA512")
+        val secretKeySpec = SecretKeySpec(key, "HmacSHA512")
+        mac.init(secretKeySpec)
+        val result = mac.doFinal(input)
+        return Pair(result.sliceArray(0..31), result.sliceArray(32..63))
     }
 }
