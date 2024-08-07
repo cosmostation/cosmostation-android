@@ -128,7 +128,12 @@ class IntroActivity : AppCompatActivity() {
                             Intent(this@IntroActivity, MainActivity::class.java).apply {
                                 BaseData.isBackGround = true
                                 if (intent.extras != null) {
-                                    putExtra("push_type", intent.extras?.getInt("push_type") ?: -1)
+                                    val pushType = try {
+                                        intent.extras?.getString("push_type")
+                                    } catch (e: Exception) {
+                                        intent.extras?.getInt("push_type").toString()
+                                    }
+                                    putExtra("push_type", pushType)
                                     putExtra("push_txhash", intent.extras?.getString("txhash") ?: "")
                                     putExtra("push_network", intent.extras?.getString("network") ?: "")
                                 }

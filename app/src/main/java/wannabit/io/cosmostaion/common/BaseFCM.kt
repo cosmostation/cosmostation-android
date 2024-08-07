@@ -38,7 +38,13 @@ class BaseFCM : FirebaseMessagingService() {
         intent?.let {
             var url = ""
             it.extras?.let { bundle ->
-                if (bundle.getInt("push_type").toString() == "0") {
+                val pushType = try {
+                    bundle.getString("push_type").toString()
+                } catch (e: Exception) {
+                    bundle.getInt("push_type", -1).toString()
+                }
+
+                if (pushType == "0") {
                     bundle.getString("txhash")?.let { txHash ->
                         bundle.getString("network")?.let { network ->
                             url = CosmostationConstants.EXPLORER_BASE_TX_URL.replace(
@@ -122,44 +128,44 @@ class BaseFCM : FirebaseMessagingService() {
                         .replace("{hash}", txHash)
                 }
             }
-
-            val intent = Intent(this, PushNotificationActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                putExtra("url", url)
-            }
-            val pendingIntent = PendingIntent.getActivity(
-                this, Random(System.currentTimeMillis()).nextInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-
-            val notificationBuilder = NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
-                .setContentTitle(notification.title).setContentText(notification.body)
-                .setLargeIcon(getBitmapFromURL(notification.imageUrl.toString()))
-                .setAutoCancel(true).setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentIntent(pendingIntent)
-
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = NotificationChannel(
-                    PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
-                )
-                notificationManager.createNotificationChannel(channel)
-            }
-
-            Glide.with(this).asBitmap().load(notification.imageUrl)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap, transition: Transition<in Bitmap>?
-                    ) {
-                        notificationBuilder.setStyle(
-                            NotificationCompat.BigPictureStyle().bigPicture(resource)
-                        )
-                        notificationManager.notify(Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build())
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-                })
         }
+
+        val intent = Intent(this, PushNotificationActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            putExtra("url", url)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            this, Random(System.currentTimeMillis()).nextInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notificationBuilder = NotificationCompat.Builder(this, PUSH_CHANNEL_ID)
+            .setContentTitle(notification.title).setContentText(notification.body)
+            .setLargeIcon(getBitmapFromURL(notification.imageUrl.toString()))
+            .setAutoCancel(true).setSmallIcon(R.mipmap.ic_launcher_round)
+            .setContentIntent(pendingIntent)
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        Glide.with(this).asBitmap().load(notification.imageUrl)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap, transition: Transition<in Bitmap>?
+                ) {
+                    notificationBuilder.setStyle(
+                        NotificationCompat.BigPictureStyle().bigPicture(resource)
+                    )
+                    notificationManager.notify(Random(System.currentTimeMillis()).nextInt(), notificationBuilder.build())
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
     }
 
     private fun getBitmapFromURL(src: String): Bitmap? {
