@@ -48,7 +48,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_8"
                     android:textColor="@color/color_base01"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,9 +62,36 @@
                     android:paddingVertical="@dimen/space_2"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/chain_name"
                     app:layout_constraintStart_toEndOf="@+id/chain_name"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/chain_name" />
+
+                <TextView
+                    android:id="@+id/chain_reward_address"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_5"
+                    android:ellipsize="middle"
+                    android:maxWidth="@dimen/space_120"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+
+                <TextView
+                    android:id="@+id/chain_differ"
+                    style="@style/font_sb_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/space_120"
+                    android:text="(Changed)"
+                    android:textColor="@color/color_accent_red"
+                    app:layout_constraintBottom_toBottomOf="@+id/chain_reward_address"
+                    app:layout_constraintStart_toEndOf="@+id/chain_reward_address"
+                    app:layout_constraintTop_toTopOf="@+id/chain_reward_address" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/progress"
@@ -98,7 +124,7 @@
                 android:layout_height="0.6dp"
                 android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_14"
-                android:background="@color/color_base04"
+                android:background="@color/color_base05"
                 app:layout_constraintTop_toBottomOf="@+id/chain_img" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -229,11 +255,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:elevation="0dp"
+        android:visibility="gone"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/delete_layout"
@@ -247,8 +273,8 @@
                 android:id="@+id/not_img"
                 android:layout_width="@dimen/space_24"
                 android:layout_height="@dimen/space_24"
-                android:layout_marginHorizontal="@dimen/space_18"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="@dimen/space_18"
                 android:layout_marginBottom="@dimen/space_20"
                 android:src="@drawable/icon_skip"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -260,9 +286,9 @@
                 style="@style/font_sb_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
                 android:text="Skip"
                 android:textAllCaps="true"
-                android:layout_marginTop="@dimen/space_4"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

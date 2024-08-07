@@ -312,7 +312,7 @@
     <string name="title_not_vote_list">Live proposals</string>
     <string name="title_all_vote_list">Excluding voted proposals</string>
     <string name="title_sunset">Chain sunset</string>
-    <string name="title_compoundingable_chains">CompoundingAble chains</string>
+    <string name="title_compoundingable_chains">Compoundable chains</string>
     <string name="title_send_info">Send detail info</string>
     <string name="title_nft_transfer">Send NFT</string>
     <string name="title_select_style">Select style</string>
