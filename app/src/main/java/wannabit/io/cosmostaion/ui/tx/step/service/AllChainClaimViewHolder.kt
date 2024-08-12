@@ -101,7 +101,7 @@ class AllChainClaimViewHolder(
                 rewardValue.text = formatAssetValue(rewardsValue)
 
                 if (rewardDenoms.size > 1) {
-                    rewardCnt.text = "(+" + (rewardDenoms.size - 1) + ")"
+                    rewardCnt.text = "+" + (rewardDenoms.size - 1)
                 } else {
                     rewardCnt.text = ""
                 }
