@@ -246,6 +246,7 @@
     <string name="title_select_end_point">End-Point 선택</string>
     <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
     <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">End-Point 선택 (Sui RPC)</string>
     <string name="title_edit_token_list">토큰 편집</string>
     <string name="title_not_vote_list">라이브 프로포절</string>
     <string name="title_all_vote_list">내가 투표한 프로포절 제외</string>

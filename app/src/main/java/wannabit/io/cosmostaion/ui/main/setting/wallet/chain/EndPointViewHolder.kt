@@ -94,8 +94,11 @@ class EndPointViewHolder(
             val host = endpoint.get("url").asString.split(":")[0].trim()
             val port =
                 endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            checkImg.visibleOrGone(fromChain?.cosmosFetcher()?.endPointType(fromChain) == CosmosEndPointType.USE_GRPC &&
-                    fromChain.cosmosFetcher()?.getGrpc()?.first == host)
+            checkImg.visibleOrGone(
+                fromChain?.cosmosFetcher()
+                    ?.endPointType(fromChain) == CosmosEndPointType.USE_GRPC &&
+                        fromChain.cosmosFetcher()?.getGrpc()?.first == host
+            )
 
             CoroutineScope(Dispatchers.IO).launch {
                 val channel = getChannel(host, port)
@@ -224,6 +227,16 @@ class EndPointViewHolder(
                     listener?.lcdSelect(endpoint.get("url").asString, gapTime)
                 }
             }
+        }
+    }
+
+    fun suiBind(
+        fromChain: BaseChain?,
+        endpoint: JsonObject,
+        listener: SettingBottomAdapter.EndpointListener?
+    ) {
+        binding.apply {
+
         }
     }
 

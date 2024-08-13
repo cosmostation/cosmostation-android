@@ -250,6 +250,7 @@
     <string name="title_select_end_point">エンドポイントの選択</string>
     <string name="title_select_end_point_grpc">エンドポイントの選択 (gRPC)</string>
     <string name="title_select_end_point_rpc">エンドポイントの選択 (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">エンドポイントの選択 (Sui RPC)</string>
     <string name="title_edit_token_list">トークンの編集</string>
     <string name="title_not_vote_list">ライブプロポーザル</string>
     <string name="title_all_vote_list">私が投票したプロポーザルは除きます</string>

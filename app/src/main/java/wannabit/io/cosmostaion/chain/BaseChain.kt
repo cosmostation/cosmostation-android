@@ -472,7 +472,10 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (this is ChainOkt996Keccak) {
+        if (this is ChainSui) {
+            return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
+
+        } else if (this is ChainOkt996Keccak) {
             return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
         } else if (this is ChainOktEvm) {

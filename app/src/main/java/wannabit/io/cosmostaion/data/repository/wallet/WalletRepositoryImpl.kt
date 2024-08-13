@@ -34,7 +34,9 @@ import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
 import wannabit.io.cosmostaion.chain.balance
@@ -46,6 +48,7 @@ import wannabit.io.cosmostaion.chain.rewards
 import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.chain.unDelegations
 import wannabit.io.cosmostaion.chain.validators
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
@@ -54,6 +57,7 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.NftInfo
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenIdReq
@@ -581,6 +585,141 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             ecoApi.ecoSystemInfo(chain)
+        }
+    }
+
+    override suspend fun suiBalance(
+        fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<JsonObject?> {
+        return try {
+            val suiAllBalanceRequest = JsonRpcRequest(
+                method = "suix_getAllBalances", params = listOf(chain.mainAddress)
+            )
+            val suiAllBalanceResponse = jsonRpcResponse(fetcher.suiRpc(), suiAllBalanceRequest)
+            val suiAllBalanceJsonObject = Gson().fromJson(
+                suiAllBalanceResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                suiAllBalanceJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                null
+            }
+        }
+    }
+
+    override suspend fun suiSystemState(
+        fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<JsonObject> {
+        return try {
+            val suiLatestSuiSystemRequest = JsonRpcRequest(
+                method = "suix_getLatestSuiSystemState", params = listOf()
+            )
+            val suiLatestSuiSystemResponse =
+                jsonRpcResponse(fetcher.suiRpc(), suiLatestSuiSystemRequest)
+            val suiLatestSuiSystemJsonObject = Gson().fromJson(
+                suiLatestSuiSystemResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                suiLatestSuiSystemJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun suiOwnedObject(
+        fetcher: SuiFetcher, chain: ChainSui, cursor: String?
+    ) {
+        val params = if (cursor == null) {
+            listOf(
+                chain.mainAddress, mapOf(
+                    "filter" to null, "options" to mapOf(
+                        "showContent" to true, "showDisplay" to true, "showType" to true
+                    )
+                )
+            )
+        } else {
+            listOf(
+                chain.mainAddress, mapOf(
+                    "filter" to null, "options" to mapOf(
+                        "showContent" to true, "showDisplay" to true, "showType" to true
+                    )
+                ), cursor
+            )
+        }
+
+        try {
+            val suiOwnedObjectRequest = JsonRpcRequest(
+                method = "suix_getOwnedObjects", params = params
+            )
+            val suiOwnedObjectResponse = jsonRpcResponse(fetcher.suiRpc(), suiOwnedObjectRequest)
+            val suiOwnedObjectJsonObject = Gson().fromJson(
+                suiOwnedObjectResponse.body?.string(), JsonObject::class.java
+            )
+            suiOwnedObjectJsonObject["result"].asJsonObject["data"].asJsonArray.forEach { data ->
+                fetcher.suiObjects.add(data.asJsonObject)
+            }
+            if (suiOwnedObjectJsonObject["result"].asJsonObject["hasNextPage"].asBoolean && suiOwnedObjectJsonObject["result"].asJsonObject["nextCursor"].asString != null) {
+                suiOwnedObject(
+                    fetcher,
+                    chain,
+                    suiOwnedObjectJsonObject["result"].asJsonObject["nextCursor"].asString
+                )
+            }
+
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override suspend fun suiStakes(
+        fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<JsonObject> {
+        return try {
+            val suiStakesRequest = JsonRpcRequest(
+                method = "suix_getStakes", params = listOf(chain.mainAddress)
+            )
+            val suiStakesResponse = jsonRpcResponse(fetcher.suiRpc(), suiStakesRequest)
+            val suiStakesJsonObject = Gson().fromJson(
+                suiStakesResponse.body?.string(), JsonObject::class.java
+            )
+            return safeApiCall(Dispatchers.IO) {
+                suiStakesJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun suiCoinMetadata(
+        fetcher: SuiFetcher,
+        chain: ChainSui,
+        coinType: String?
+    ): NetworkResult<JsonObject> {
+        return try {
+            val suiCoinMetadataRequest = JsonRpcRequest(
+                method = "suix_getCoinMetadata", params = listOf(coinType)
+            )
+            val suiCoinMetadataResponse = jsonRpcResponse(fetcher.suiRpc(), suiCoinMetadataRequest)
+            val suiCoinMetadataJsonObject = Gson().fromJson(
+                suiCoinMetadataResponse.body?.string(), JsonObject::class.java
+            )
+            return safeApiCall(Dispatchers.IO) {
+                suiCoinMetadataJsonObject
+            }
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
         }
     }
 }

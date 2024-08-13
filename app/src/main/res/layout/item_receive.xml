@@ -91,7 +91,7 @@
                 android:layout_marginHorizontal="@dimen/space_14"
                 android:layout_marginTop="@dimen/space_20"
                 android:gravity="center"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

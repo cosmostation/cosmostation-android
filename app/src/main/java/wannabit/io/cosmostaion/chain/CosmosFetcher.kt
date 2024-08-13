@@ -111,7 +111,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    open fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (cosmosBalances?.isNotEmpty() == true) {
             cosmosBalances?.forEach { balance ->

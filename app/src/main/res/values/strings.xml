@@ -21,6 +21,8 @@
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
+    <string name="str_total_staked" translatable="false">Total Staked</string>
+    <string name="str_earned" translatable="false">Earned</string>
     <string name="str_today">Today</string>
     <string name="str_next">Next</string>
     <string name="str_share_address">Share address</string>
@@ -308,6 +310,7 @@
     <string name="title_select_end_point">Select End-Point</string>
     <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">Select End-Point (Sui RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
     <string name="title_all_vote_list">Excluding voted proposals</string>

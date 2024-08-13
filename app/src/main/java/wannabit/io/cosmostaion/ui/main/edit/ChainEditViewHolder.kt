@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -107,7 +108,15 @@ class ChainEditViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
 
-                if (!chain.supportCosmos()) {
+                if (chain is ChainSui) {
+                    if (chain.suiFetcher?.suiState == false) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainValue.visibility = View.GONE
+                        assetCnt.visibility = View.GONE
+                        return
+                    }
+
+                } else if (!chain.supportCosmos()) {
                     if (chain.web3j == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainValue.visibility = View.GONE
@@ -158,7 +167,10 @@ class ChainEditViewHolder(
                 assetCnt.visibility = View.VISIBLE
 
                 chainValue.text = formatAssetValue(chain.allValue(true), true)
-                if (chain is ChainOkt996Keccak) {
+                if (chain is ChainSui) {
+                    assetCnt.text = chain.suiFetcher?.suiBalances?.size.toString() + " Coins"
+
+                } else if (chain is ChainOkt996Keccak) {
                     assetCnt.text =
                         chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
                             "coins"

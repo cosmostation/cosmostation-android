@@ -19,9 +19,12 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.suiCoinType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -137,6 +140,8 @@ class ApplicationViewModel(
 
             if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
+            } else if (this is ChainSui) {
+                loadSuiData(baseAccountId, this, isEdit)
             } else {
                 if (supportEvm) {
                     loadEvmChainData(this, baseAccountId, isEdit)
@@ -767,6 +772,206 @@ class ApplicationViewModel(
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
                                 editFetchedResult.postValue(tag)
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+//    private fun loadSuiAllBalance(
+//        chain: BaseChain, isEdit: Boolean
+//    ) = CoroutineScope(Dispatchers.IO).launch {
+//        (chain as ChainSui).suiFetcher()?.let { fetcher ->
+//            chain.apply {
+//                when (val response = walletRepository.suiBalance(fetcher, this)) {
+//                    is NetworkResult.Success -> {
+//                        fetcher.suiBalances?.clear()
+//                        response.data?.get("result")?.asJsonArray?.forEach { balance ->
+//                            val coinType = balance.asJsonObject["coinType"].asString
+//                            val amount =
+//                                balance.asJsonObject["totalBalance"].asString.toBigDecimal()
+//                            fetcher.suiBalances = fetcher.suiBalances ?: mutableListOf()
+//                            fetcher.suiBalances?.add(Pair(coinType, amount))
+//                        }
+//                        fetcher.suiBalances?.sortWith { o1, o2 ->
+//                            when {
+//                                o1.first == SUI_MAIN_DENOM -> -1
+//                                o2.first == SUI_MAIN_DENOM -> 1
+//                                else -> 0
+//                            }
+//                        }
+//                        loadSuiMoreData(fetcher, baseAccountId, chain, isEdit)
+//                    }
+//
+//                    is NetworkResult.Error -> {
+//                        fetchedState = false
+//                        withContext(Dispatchers.Main) {
+//                            fetchedResult.value = tag
+//                        }
+//                        delay(2000)
+//
+//                        fetchedState = true
+//                        fetched = true
+//                        if (fetched) {
+//                            fetcher.suiBalances = null
+//                            withContext(Dispatchers.Main) {
+//                                if (isEdit) {
+//                                    editFetchedResult.value = tag
+//                                } else {
+//                                    fetchedResult.value = tag
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    private fun loadSuiData(
+        id: Long, chain: BaseChain, isEdit: Boolean
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        (chain as ChainSui).suiFetcher()?.let { fetcher ->
+            chain.apply {
+                fetcher.suiSystem = JsonObject()
+                fetcher.suiBalances.clear()
+                fetcher.suiStakedList.clear()
+                fetcher.suiObjects.clear()
+                fetcher.suiValidators.clear()
+                fetcher.suiCoinMeta.clear()
+
+                try {
+                    val loadSystemStateDeferred =
+                        async { walletRepository.suiSystemState(fetcher, this@apply) }
+                    val loadOwnedObjectDeferred =
+                        async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
+                    val loadStakesDeferred =
+                        async { walletRepository.suiStakes(fetcher, this@apply) }
+
+                    val systemStateResult = loadSystemStateDeferred.await()
+                    loadOwnedObjectDeferred.await()
+                    val stakesResult = loadStakesDeferred.await()
+
+                    if (systemStateResult is NetworkResult.Success) {
+                        fetcher.suiSystem = systemStateResult.data
+                        fetcher.suiSystem["result"].asJsonObject["activeValidators"].asJsonArray.forEach { validator ->
+                            fetcher.suiValidators.add(validator.asJsonObject)
+                        }
+                        fetcher.suiValidators.sortWith { o1, o2 ->
+                            when {
+                                o1["name"].asString == "Cosmostation" -> -1
+                                o2["name"].asString == "Cosmostation" -> 1
+                                else -> o2["votingPower"]?.asInt?.compareTo(
+                                    o1["votingPower"]?.asInt ?: 0
+                                ) ?: 0
+                            }
+                        }
+
+                    } else if (systemStateResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
+                    }
+
+                    fetcher.suiObjects.forEach { suiObject ->
+                        val coinType = suiObject["data"].asJsonObject["type"].asString.suiCoinType()
+                        if (coinType != null) {
+                            val fields =
+                                suiObject["data"].asJsonObject["content"].asJsonObject["fields"].asJsonObject
+                            fields?.get("balance")?.let { balance ->
+                                val index =
+                                    fetcher.suiBalances.indexOfFirst { it.first == coinType }
+                                if (index != -1) {
+                                    val alreadyAmount = fetcher.suiBalances[index].second
+                                    val sumAmount =
+                                        alreadyAmount?.add(balance.asString.toBigDecimal())
+                                    fetcher.suiBalances[index] = Pair(coinType, sumAmount)
+
+                                } else {
+                                    val newAmount = balance.asString.toBigDecimal()
+                                    fetcher.suiBalances.add(Pair(coinType, newAmount))
+                                }
+                            }
+                        }
+                    }
+
+                    if (fetcher.suiBalances.none { it.first == SUI_MAIN_DENOM }) {
+                        fetcher.suiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
+                    }
+
+                    if (stakesResult is NetworkResult.Success) {
+                        stakesResult.data["result"].asJsonArray.forEach { stake ->
+                            fetcher.suiStakedList.add(stake.asJsonObject)
+                        }
+
+                    } else if (stakesResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
+                    }
+
+                    async {
+                        val coinMetaDeferred = fetcher.suiBalances.map { (coinType, _) ->
+                            async {
+                                walletRepository.suiCoinMetadata(fetcher, this@apply, coinType)
+                            }
+                        }
+
+                        coinMetaDeferred.forEachIndexed { index, deferred ->
+                            val coinMetadataResult = deferred.await()
+                            if (coinMetadataResult is NetworkResult.Success) {
+                                fetcher.suiBalances[index].first?.let { type ->
+                                    fetcher.suiCoinMeta[type] =
+                                        coinMetadataResult.data["result"].asJsonObject
+                                }
+                            }
+                        }
+                    }.await()
+
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
+                    delay(2000)
+
+                    fetchedState = true
+                    fetched = true
+                    if (fetched) {
+                        fetcher.suiState = true
+                        val refAddress = RefAddress(
+                            id,
+                            tag,
+                            mainAddress,
+                            "",
+                            fetcher.allAssetValue(true).toString(),
+                            fetcher.suiBalanceAmount(SUI_MAIN_DENOM).toString(),
+                            "0",
+                            fetcher.suiBalances.size.toLong()
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedResult.postValue(tag)
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
+                    delay(2000)
+
+                    fetchedState = true
+                    fetched = true
+                    if (fetched) {
+                        fetcher.suiState = false
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }

@@ -139,6 +139,16 @@ fun TextView.hiddenStatus(amount: SpannableString) {
     }
 }
 
+fun TextView.hiddenStatusWithSui(amount: SpannableString) {
+    if (Prefs.hideValue) {
+        text = "✱✱✱✱"
+        textSize = 8f
+    } else {
+        text = amount
+        textSize = 10f
+    }
+}
+
 fun Activity.toMoveAnimation() {
     this.overridePendingTransition(
         R.anim.anim_slide_in_left, R.anim.anim_slide_out_right

@@ -77,7 +77,7 @@ class SettingBottomAdapter(
                         BuyCryptoViewHolder(parent.context, binding)
                     }
 
-                    SettingType.END_POINT_EVM.ordinal, SettingType.END_POINT_COSMOS.ordinal -> {
+                    SettingType.END_POINT_EVM.ordinal, SettingType.END_POINT_COSMOS.ordinal, SettingType.END_POINT_SUI.ordinal -> {
                         val binding = ItemEndpointBinding.inflate(
                             LayoutInflater.from(parent.context), parent, false
                         )
@@ -143,6 +143,13 @@ class SettingBottomAdapter(
                             holder.itemView.setOnClickListener {
                                 onItemClickListener?.let { it(position) }
                             }
+                        }
+                    }
+
+                    SettingType.END_POINT_SUI.ordinal -> {
+                        val endPoint = currentList[position] as JsonObject
+                        if (holder is EndPointViewHolder) {
+                            holder.suiBind(fromChain, endPoint, listener)
                         }
                     }
 
