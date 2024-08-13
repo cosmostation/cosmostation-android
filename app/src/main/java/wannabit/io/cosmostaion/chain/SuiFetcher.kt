@@ -137,6 +137,13 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         return BigDecimal.ZERO
     }
 
+    fun suiAllNfts(): MutableList<JsonObject> {
+        return suiObjects.filter { suiObject ->
+            val types = suiObject["data"].asJsonObject["type"].asString.lowercase()
+            (!types.contains("stakedsui") && !types.contains("coin"))
+        }.toMutableList()
+    }
+
     fun suiRpc(): String {
         return chain.mainUrl
     }
@@ -170,4 +177,24 @@ fun String?.suiCoinSymbol(): String? {
 
 fun JsonObject?.assetImg(): String {
     return this?.get("iconUrl")?.asString ?: ""
+}
+
+fun JsonObject.suiRawNftUrlString(): String? {
+    return try {
+        this["display"].asJsonObject["data"].asJsonObject["image_url"].asString
+    } catch (e: Exception) {
+        null
+    }
+}
+
+fun JsonObject.suiNftUrl(): String? {
+    var urlString: String?
+    suiRawNftUrlString()?.let { url ->
+        if (url.startsWith("ipfs://")) {
+            urlString = url.replace("ipfs://", "https://ipfs.io/ipfs/")
+            return urlString
+        }
+        return url
+    }
+    return null
 }

@@ -121,7 +121,7 @@ class MajorCryptoAdapter(
                 if (suiNativeBalances.isNotEmpty()) {
                     suiBalances.size + suiNativeBalances.size + 1
                 } else {
-                    suiBalances.size + 1
+                    suiBalances.size
                 }
 
             } else {

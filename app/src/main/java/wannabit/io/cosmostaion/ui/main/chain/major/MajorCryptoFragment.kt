@@ -87,7 +87,9 @@ class MajorCryptoFragment : Fragment() {
     private fun sortAssets() {
         lifecycleScope.launch(Dispatchers.IO) {
             suiBalances.clear()
+            searchSuiBalances.clear()
             suiNativeBalances.clear()
+            searchSuiNativeBalances.clear()
 
             (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
                 fetcher.suiBalances.sortWith { o1, o2 ->
@@ -212,7 +214,8 @@ class MajorCryptoFragment : Fragment() {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    selectedChain.fetched = false
+                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
                 }
             }
         }

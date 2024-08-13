@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
@@ -18,6 +19,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
+import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class MajorDetailFragment : Fragment() {
@@ -127,7 +130,54 @@ class MajorDetailFragment : Fragment() {
 
     private fun setUpClickAction() {
         binding.apply {
+            btnBack.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
 
+            accountName.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
+            btnRandom.setOnClickListener {
+                CosmostationApp.instance.setRandomBackgroundImage()
+                ApplicationViewModel.shared.changeBg(Prefs.background)
+            }
+
+            btnAccount.setOnClickListener {
+                selectedChain.explorerAccount(selectedChain.mainAddress)?.let { url ->
+                    startActivity(Intent(Intent.ACTION_VIEW, url))
+                    Prefs.foreToBack = false
+
+                } ?: run {
+                    return@setOnClickListener
+                }
+            }
+
+            accountLayout.setOnClickListener {
+                QrCodeEvmFragment.newInstance(selectedChain).show(
+                    requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                )
+            }
+
+            accountValueLayout.setOnClickListener {
+                QrCodeEvmFragment.newInstance(selectedChain).show(
+                    requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
+                )
+            }
+
+            btnHide.setOnClickListener {
+                Prefs.hideValue = !Prefs.hideValue
+                if (Prefs.hideValue) {
+                    accountValue.text = "✱✱✱✱✱"
+                    accountValue.textSize = 18f
+                    btnHide.setImageResource(R.drawable.icon_hide)
+                } else {
+                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                    accountValue.textSize = 24f
+                    btnHide.setImageResource(R.drawable.icon_not_hide)
+                }
+                ApplicationViewModel.shared.hideValue()
+            }
         }
     }
 

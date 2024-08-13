@@ -14,6 +14,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
@@ -81,6 +82,19 @@ class QrDialog(
                             chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
                         )
 
+                    } else if (selectedChain is ChainSui) {
+                        chainName.text = chain.name
+                        addressView.setBackgroundResource(R.drawable.cell_bg)
+                        address.text = chain.mainAddress
+                        accountPath.text = chain.getHDPath(account.lastHDPath)
+                        chainBadge.visibility = View.GONE
+                        chainTypeBadge.visibility = View.GONE
+                        chainImg.setImageResource(chain.logo)
+
+                        bitmap = barcodeEncoder.encodeBitmap(
+                            chain.mainAddress, BarcodeFormat.QR_CODE, 540, 540, hints
+                        )
+
                         // eth, l2
                     } else {
                         chainName.text = chain.name
@@ -114,6 +128,8 @@ class QrDialog(
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = if (selectedChain?.supportCosmos() == true) {
                     ClipData.newPlainText("address", selectedChain.address)
+                } else if (selectedChain is ChainSui) {
+                    ClipData.newPlainText("address", selectedChain.mainAddress)
                 } else {
                     ClipData.newPlainText("address", selectedChain?.evmAddress)
                 }
@@ -126,6 +142,8 @@ class QrDialog(
                 intent.action = Intent.ACTION_SEND
                 val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
+                } else if (selectedChain is ChainSui) {
+                    selectedChain.mainAddress
                 } else {
                     selectedChain?.evmAddress
                 }

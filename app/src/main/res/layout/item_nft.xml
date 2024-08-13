@@ -21,11 +21,14 @@
     <TextView
         android:id="@+id/nft_title"
         style="@style/font_sb_14"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_base01"
-        android:layout_marginStart="@dimen/space_12"
+        android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_12"
-        app:layout_constraintStart_toStartOf="@id/nft_img"
-        app:layout_constraintBottom_toBottomOf="@+id/nft_img" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="@+id/nft_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/nft_img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

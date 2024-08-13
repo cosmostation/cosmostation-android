@@ -161,6 +161,8 @@ class ApplicationViewModel(
     var editFetchedResult = SingleLiveEvent<String>()
     var editFetchedTokenResult = SingleLiveEvent<String>()
 
+    var refreshFetchedResult = SingleLiveEvent<String>()
+
     var txFetchedResult = SingleLiveEvent<String>()
 
     private fun loadGrpcAuthData(
@@ -566,7 +568,7 @@ class ApplicationViewModel(
                                 BaseData.updateRefAddressesMain(refAddress)
                                 withContext(Dispatchers.Main) {
                                     if (isEdit) {
-                                        editFetchedResult.postValue(tag)
+                                        editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
                                     }
@@ -605,7 +607,7 @@ class ApplicationViewModel(
                                 BaseData.updateRefAddressesMain(refAddress)
                                 withContext(Dispatchers.Main) {
                                     if (isEdit) {
-                                        editFetchedResult.postValue(tag)
+                                        editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
                                     }
@@ -758,7 +760,7 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
-                                editFetchedResult.postValue(tag)
+                                editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
@@ -771,7 +773,7 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
-                                editFetchedResult.postValue(tag)
+                                editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
@@ -832,8 +834,8 @@ class ApplicationViewModel(
 //        }
 //    }
 
-    private fun loadSuiData(
-        id: Long, chain: BaseChain, isEdit: Boolean
+    fun loadSuiData(
+        id: Long, chain: BaseChain, isEdit: Boolean, isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         (chain as ChainSui).suiFetcher()?.let { fetcher ->
             chain.apply {
@@ -951,7 +953,9 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
-                                editFetchedResult.postValue(tag)
+                                editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
@@ -972,6 +976,8 @@ class ApplicationViewModel(
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
                                 editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
