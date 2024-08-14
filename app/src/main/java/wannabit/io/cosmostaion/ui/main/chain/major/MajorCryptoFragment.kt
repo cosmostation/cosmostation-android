@@ -23,6 +23,8 @@ import wannabit.io.cosmostaion.chain.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
@@ -126,16 +128,16 @@ class MajorCryptoFragment : Fragment() {
             majorCryptoAdapter.notifyDataSetChanged()
 
             majorCryptoAdapter.setOnItemClickListener { chain, denom ->
-//                val sendAssetType = if (denom.isNotEmpty()) {
-//                    SendAssetType.ONLY_EVM_ERC20
-//                } else {
-//                    SendAssetType.ONLY_EVM_COIN
-//                }
-//                handleOneClickWithDelay(
-//                    CommonTransferFragment.newInstance(
-//                        evmChain, denom, sendAssetType
-//                    )
-//                )
+                val sendAssetType = if (chain is ChainSui) {
+                    SendAssetType.SUI_COIN
+                } else {
+                    SendAssetType.ONLY_COSMOS_COIN
+                }
+                handleOneClickWithDelay(
+                    CommonTransferFragment.newInstance(
+                        chain, denom, sendAssetType
+                    )
+                )
             }
         }
         binding.refresher.isRefreshing = false

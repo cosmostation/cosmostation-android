@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
@@ -22,6 +23,7 @@ class ChainSui : BaseChain(), Parcelable {
     override var stakeDenom: String = SUI_MAIN_DENOM
     override var coinSymbol: String = "SUI"
     override var coinGeckoId: String = "sui"
+    override var coinLogo: Int = R.drawable.token_sui
 
     override var mainUrl: String = "https://sui-mainnet-us-2.cosmostation.io"
 
@@ -37,7 +39,61 @@ class ChainSui : BaseChain(), Parcelable {
         return suiFetcher
     }
 
+    override fun assetImg(originSymbol: String): String {
+        suiFetcher()?.let { fetcher ->
+            val asset = BaseData.getAsset(apiName, originSymbol)
+            val metaData = fetcher.suiCoinMeta[originSymbol]
+
+            if (asset != null) {
+                return asset.assetImg()
+            } else if (metaData != null) {
+                return metaData.assetImg()
+            }
+        }
+        return ""
+    }
+
+    fun assetSymbol(denom: String): String? {
+        suiFetcher()?.let { fetcher ->
+            val asset = BaseData.getAsset(apiName, denom)
+            val metaData = fetcher.suiCoinMeta[denom]
+
+            if (asset != null) {
+                return asset.symbol
+            } else if (metaData != null) {
+                return metaData["symbol"].asString
+            }
+        }
+        return denom.suiCoinSymbol() ?: "UnKnown"
+    }
+
+    fun assetDecimal(denom: String): Int {
+        suiFetcher()?.let { fetcher ->
+            val asset = BaseData.getAsset(apiName, denom)
+            val metaData = fetcher.suiCoinMeta[denom]
+
+            if (asset != null) {
+                return asset.decimals ?: 9
+            } else if (metaData != null) {
+                return metaData["decimals"]?.asInt ?: 9
+            }
+        }
+        return 9
+    }
+
+    fun assetGeckoId(denom: String): String {
+        BaseData.getAsset(apiName, denom)?.let { asset ->
+            return asset.coinGeckoId ?: ""
+        }
+        return ""
+    }
 }
 
 const val SUI_TYPE_COIN = "0x2::coin::Coin"
 const val SUI_MAIN_DENOM = "0x2::sui::SUI"
+
+const val SUI_MIN_STAKE = "1000000000"
+const val SUI_FEE_SEND = "4000000"
+const val SUI_FEE_STAKE = "50000000"
+const val SUI_FEE_UNSTAKE = "50000000"
+const val SUI_FEE_DEFAULT = "70000000"

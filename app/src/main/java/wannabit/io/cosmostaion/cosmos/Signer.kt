@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.cosmos
 
 import android.util.Base64.DEFAULT
 import android.util.Base64.encode
-import com.cosmos.auth.v1beta1.AuthProto
-import com.cosmos.auth.v1beta1.QueryProto.QueryAccountResponse
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
@@ -27,11 +25,8 @@ import com.cosmos.tx.v1beta1.TxProto.SignDoc
 import com.cosmos.tx.v1beta1.TxProto.SignerInfo
 import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
-import com.cosmos.vesting.v1beta1.VestingProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
-import com.desmos.profiles.v3.ModelsProfileProto.Profile
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
-import com.ethermint.types.v1.AccountProto
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -49,11 +44,19 @@ import com.kava.incentive.v1beta1.TxProto.MsgClaimHardReward
 import com.kava.incentive.v1beta1.TxProto.MsgClaimSwapReward
 import com.kava.incentive.v1beta1.TxProto.MsgClaimUSDXMintingReward
 import com.kava.incentive.v1beta1.TxProto.Selection
+import net.i2p.crypto.eddsa.EdDSAEngine
+import net.i2p.crypto.eddsa.EdDSAPrivateKey
+import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
+import net.i2p.crypto.eddsa.spec.EdDSAParameterSpec
+import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
+import org.bouncycastle.jcajce.provider.digest.Blake2b
 import org.bouncycastle.util.Strings
+import org.bouncycastle.util.encoders.Base64
 import org.bouncycastle.util.encoders.Base64.encode
 import org.bouncycastle.util.encoders.Base64.toBase64String
+import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -76,6 +79,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_DEPOSIT
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -89,6 +93,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.nio.charset.Charset
+import java.security.MessageDigest
 import java.util.concurrent.TimeUnit
 
 object Signer {
@@ -833,5 +838,17 @@ object Signer {
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)
         return String(encode(sigData), Charset.forName("UTF-8"))
+    }
+
+    fun suiSignature(selectedChain: BaseChain, txByte: String): MutableList<String> {
+        val data = byteArrayOf(0, 0, 0) + Base64.decode(txByte)
+        val blake2b = Blake2b.Blake2b256()
+        blake2b.update(data)
+        val spec: EdDSAParameterSpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
+        val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(selectedChain.privateKey?.toHex()), spec)
+        val signature = EdDSAEngine(MessageDigest.getInstance(spec.hashAlgorithm))
+        signature.initSign(EdDSAPrivateKey(privateKeySpec))
+        signature.update(blake2b.digest())
+        return mutableListOf(toBase64String((byteArrayOf(0x00) + signature.sign() + selectedChain.publicKey!!)))
     }
 }

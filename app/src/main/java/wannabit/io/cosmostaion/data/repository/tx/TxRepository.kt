@@ -2,13 +2,16 @@ package wannabit.io.cosmostaion.data.repository.tx
 
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.google.gson.JsonObject
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 
@@ -129,5 +132,48 @@ interface TxRepository {
         fee: Fee?,
         memo: String,
         selectedChain: BaseChain
+    ): String
+
+    suspend fun unSafePaySui(
+        fetcher: SuiFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unSafePay(
+        fetcher: SuiFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun suiDryRun(fetcher: SuiFetcher, txBytes: String): NetworkResult<JsonObject>
+
+    suspend fun suiExecuteTx(fetcher: SuiFetcher, txBytes: String, signatures: MutableList<String>): NetworkResult<JsonObject>
+
+    suspend fun broadcastSuiSend(
+        fetcher: SuiFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateSuiSend(
+        fetcher: SuiFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
     ): String
 }

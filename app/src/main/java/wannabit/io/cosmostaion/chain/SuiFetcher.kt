@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.ui.tx.step.SuiTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -142,6 +143,29 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
             val types = suiObject["data"].asJsonObject["type"].asString.lowercase()
             (!types.contains("stakedsui") && !types.contains("coin"))
         }.toMutableList()
+    }
+
+    fun suiBaseFee(txType: SuiTxType): BigDecimal {
+        when (txType) {
+            SuiTxType.SUI_SEND_COIN, SuiTxType.SUI_SEND_NFT -> {
+                return SUI_FEE_SEND.toBigDecimal()
+            }
+
+            SuiTxType.SUI_STAKE -> {
+                return SUI_FEE_STAKE.toBigDecimal()
+            }
+
+            SuiTxType.SUI_UNSTAKE -> {
+                return SUI_FEE_UNSTAKE.toBigDecimal()
+            }
+
+            else -> return SUI_FEE_DEFAULT.toBigDecimal()
+        }
+    }
+
+    fun hasFee(txType: SuiTxType): Boolean {
+        val suiBalance = suiBalanceAmount(SUI_MAIN_DENOM)
+        return suiBalance?.compareTo(suiBaseFee(txType))!! > 0
     }
 
     fun suiRpc(): String {

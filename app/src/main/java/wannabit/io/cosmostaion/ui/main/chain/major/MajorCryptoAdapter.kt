@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemMajorCryptoBinding
@@ -60,6 +61,12 @@ class MajorCryptoAdapter(
             is MajorCryptoViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAIN_ITEM) {
                     holder.bind(selectedChain)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(selectedChain, SUI_MAIN_DENOM)
+                        }
+                    }
                 }
             }
 
@@ -80,7 +87,9 @@ class MajorCryptoAdapter(
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-//                            it(evmChain, "")
+                            balance.first?.let { denom ->
+                                it(selectedChain, denom)
+                            }
                         }
                     }
                 }

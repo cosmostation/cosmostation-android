@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.ibc.core.client.v1.ClientProto
@@ -15,6 +16,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
@@ -288,6 +290,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val simulate = SingleLiveEvent<String>()
 
+    val suiBroadcast = SingleLiveEvent<JsonObject>()
+
     fun broadcast(
         managedChannel: ManagedChannel?,
         msgs: MutableList<Any>,
@@ -416,4 +420,54 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastOktTx(msgs, fee, memo, selectedChain)
             broadcastOktTx.postValue(response)
         }
+
+    fun suiBroadcast(
+        fetcher: SuiFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastSuiSend(
+                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                suiBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun suiSimulate(
+        fetcher: SuiFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSuiSend(
+                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
 }
