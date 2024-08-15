@@ -128,6 +128,8 @@
     <string name="str_dev">개발 모드</string>
     <string name="str_retry">재시도</string>
     <string name="str_change_endpoint">End-Point 변경</string>
+    <string name="str_current_epoch">현재 에포치</string>
+    <string name="str_next_reward_distribution">다음 보상 분배</string>
 
 
     //title
@@ -338,6 +340,10 @@
     <string name="str_dapp_warn_msg">요청하는 사이트를 신뢰하고 그 내용을 완전히 이해하는 경우에만 이 메세지에 서명하세요</string>
     <string name="str_support_injection_msg">사용자의 편의와 반응속도 개선을 위해 인젝션 방식(EIP-6963)을 지원합니다. 디앱 사용시 데크스탑 지갑 등을 선택하세요.\n데스크탑의 익스텐션 지갑과 동일한 사용자 경험을 느끼실 수 있습니다.\nEVM용 디앱의 경우 EIP-6963 스팩을 지원함으로 편한한 web3 여행을 즐기실 수 있습니다.</string>
     <string name="str_fee_tip_msg">Fee는 지갑이 아닌 체인에 지불됩니다</string>
+    <string name="str_sui_guide_msg0">매 에포치는 <b>24시간</b>마다 시작됩니다</string>
+    <string name="str_sui_guide_msg1">스테이킹을 시작한 경우 현재 에포치(%1$s)가 끝날 때까지 펜딩상태로 유지됩니다(언스테이킹 불가)</string>
+    <string name="str_sui_guide_msg2">다음 에포치(%1$s)가 완료된 후 리워드가 발생하며, 이후 에포치 마다 추가적인 보상이 제공됩니다</string>
+    <string name="str_sui_guide_msg3">보상은 복리로 누적되며, 언스테이킹을 하는 즉시 해당 수량을 모두 사용할 수 있습니다</string>
 
 
     // error

@@ -119,7 +119,10 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         var earned = BigDecimal.ZERO
         suiStakedList.forEach { suiStaked ->
             suiStaked["stakes"].asJsonArray.forEach { stakes ->
-                earned = earned.add(stakes.asJsonObject["estimatedReward"].asLong.toBigDecimal())
+                if (stakes.asJsonObject["estimatedReward"] != null) {
+                    earned =
+                        earned.add(stakes.asJsonObject["estimatedReward"].asLong.toBigDecimal())
+                }
             }
         }
         return earned
@@ -221,4 +224,15 @@ fun JsonObject.suiNftUrl(): String? {
         return url
     }
     return null
+}
+
+fun JsonObject.suiValidatorImg(): String? {
+    if (this["imageUrl"].asString != null) {
+        return this["imageUrl"].asString
+    }
+    return null
+}
+
+fun JsonObject.suiValidatorName(): String {
+    return this["name"].asString ?: ""
 }

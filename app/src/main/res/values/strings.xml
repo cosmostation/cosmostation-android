@@ -173,6 +173,8 @@
     <string name="str_dev">Dev mode</string>
     <string name="str_retry">Retry</string>
     <string name="str_change_endpoint">Change End-Point</string>
+    <string name="str_current_epoch">Current epoch</string>
+    <string name="str_next_reward_distribution">Next reward</string>
 
 
     //title
@@ -417,6 +419,10 @@
     <string name="str_dapp_warn_msg">Only sign this message if you trust the requesting site and fully understand its contents</string>
     <string name="str_support_injection_msg">To enhance user convenience and response speed, we support the injection method (EIP-6963). When using DApps, please select your desktop wallet, etc.\nYou can experience the same user experience as with the desktop extension wallet.\nFor EVM-based DApps, by supporting the EIP-6963 specification, you can enjoy a seamless web3 experience.</string>
     <string name="str_fee_tip_msg">Fees are pay to the chain, not to wallet</string>
+    <string name="str_sui_guide_msg0">Epochs are created every <b>24 hours</b></string>
+    <string name="str_sui_guide_msg1">If you have started staking, it will remain in a \'pending\' state until the current epoch (%1$s) ends</string>
+    <string name="str_sui_guide_msg2">At the end of the next epoch (%1$s), rewards will be distributed. Each subsequent epoch will be repeated</string>
+    <string name="str_sui_guide_msg3">Rewards are compounded and can be used immediately after the start of unstaking</string>
 
 
     // header

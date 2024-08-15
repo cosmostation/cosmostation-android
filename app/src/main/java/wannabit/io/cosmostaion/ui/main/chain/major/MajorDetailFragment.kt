@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +13,19 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakingInfoFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class MajorDetailFragment : Fragment() {
@@ -31,6 +36,8 @@ class MajorDetailFragment : Fragment() {
     private lateinit var detailPagerAdapter: DetailPagerAdapter
 
     private lateinit var selectedChain: BaseChain
+
+    private var isClickable = true
 
     companion object {
         @JvmStatic
@@ -55,10 +62,8 @@ class MajorDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-//        updateTokenValue()
         initTab()
         setUpClickAction()
-//        setUpObserve()
     }
 
     private fun initData() {
@@ -178,6 +183,34 @@ class MajorDetailFragment : Fragment() {
                 }
                 ApplicationViewModel.shared.hideValue()
             }
+
+            fabMenu.setOnMenuButtonClickListener {
+                handleOneClickWithDelay(SuiStakingInfoFragment.newInstance(selectedChain), null)
+            }
+        }
+    }
+
+    private fun handleOneClickWithDelay(
+        fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
+    ) {
+        binding.fabMenu.close(true)
+        if (isClickable) {
+            isClickable = false
+
+            if (fragment != null) {
+                requireActivity().toMoveFragment(
+                    this@MajorDetailFragment, fragment, fragment::class.java.name
+                )
+            } else {
+                bottomSheetDialogFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetDialogFragment::class.java.name
+                )
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
         }
     }
 

@@ -134,6 +134,8 @@
     <string name="str_dev">開発モード</string>
     <string name="str_retry">リトライ</string>
     <string name="str_change_endpoint">End-Point 変更</string>
+    <string name="str_current_epoch">現在 Epoch</string>
+    <string name="str_next_reward_distribution">次の報酬分配</string>
 
 
     //title
@@ -341,6 +343,10 @@
     <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
     <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
     <string name="str_fee_tip_msg">Feeはウォレットではなく、チェーンに支払われます</string>
+    <string name="str_sui_guide_msg0">エポックは <b>24</b> 時間ごとに作成されます。</string>
+    <string name="str_sui_guide_msg1">ステーキングを開始した場合、現在のEpoch(%1$s) が終了するまで「保留」状態のままになります。</string>
+    <string name="str_sui_guide_msg2">次のEpoch (%1$s) の終了時に報酬が分配されます。後続の各エポックは繰り返されます。</string>
+    <string name="str_sui_guide_msg3">報酬は複利で付与され、ステーキング解除開始後すぐに使用できます。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

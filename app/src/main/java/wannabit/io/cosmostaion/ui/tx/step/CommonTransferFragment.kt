@@ -265,6 +265,9 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (fromChain.stakeDenom == toSendDenom) {
                             availableAmount = availableAmount.subtract(suiFeeBudget)
                         }
+                        if (availableAmount <= BigDecimal.ZERO) {
+                            availableAmount = BigDecimal.ZERO
+                        }
                         transferImg.setTokenImg(fromChain.assetImg(toSendDenom))
                         sendTitle.text = getString(
                             R.string.title_asset_send, assetSymbol(toSendDenom)
