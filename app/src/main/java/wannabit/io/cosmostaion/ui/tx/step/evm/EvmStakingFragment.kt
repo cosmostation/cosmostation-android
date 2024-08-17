@@ -245,7 +245,7 @@ class EvmStakingFragment : BaseTxFragment() {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        null,
+                        null, null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

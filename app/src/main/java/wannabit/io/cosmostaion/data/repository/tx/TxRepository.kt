@@ -152,9 +152,19 @@ interface TxRepository {
         gasBudget: String
     ): NetworkResult<String>
 
+    suspend fun unsafeStake(
+        fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unsafeUnStake(
+        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+    ): NetworkResult<String>
+
     suspend fun suiDryRun(fetcher: SuiFetcher, txBytes: String): NetworkResult<JsonObject>
 
-    suspend fun suiExecuteTx(fetcher: SuiFetcher, txBytes: String, signatures: MutableList<String>): NetworkResult<JsonObject>
+    suspend fun suiExecuteTx(
+        fetcher: SuiFetcher, txBytes: String, signatures: MutableList<String>
+    ): NetworkResult<JsonObject>
 
     suspend fun broadcastSuiSend(
         fetcher: SuiFetcher,
@@ -175,5 +185,30 @@ interface TxRepository {
         recipient: MutableList<String>,
         amounts: MutableList<String>,
         gasBudget: String
+    ): String
+
+    suspend fun broadcastSuiStake(
+        fetcher: SuiFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateSuiStake(
+        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ): String
+
+    suspend fun broadcastSuiUnStake(
+        fetcher: SuiFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateSuiUnStake(
+        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): String
 }

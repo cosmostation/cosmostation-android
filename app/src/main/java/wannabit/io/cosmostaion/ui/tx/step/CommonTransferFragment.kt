@@ -703,7 +703,6 @@ class CommonTransferFragment : BaseTxFragment() {
                             feeValue.text = formatAssetValue(value)
                         }
                     }
-
                 }
 
                 TransferStyle.SUI_STYLE -> {
@@ -715,10 +714,9 @@ class CommonTransferFragment : BaseTxFragment() {
                         val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                         val value = price.multiply(dpBudget)
 
-                        feeAmount.text = formatAmount(dpBudget.toPlainString(), 18)
+                        feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
                         feeValue.text = formatAssetValue(value)
                     }
-
                 }
 
                 else -> {

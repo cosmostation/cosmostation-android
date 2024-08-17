@@ -336,7 +336,7 @@ class ReDelegateFragment : BaseTxFragment() {
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        fromValidator,
+                        fromValidator, null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

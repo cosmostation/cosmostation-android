@@ -12,7 +12,7 @@ class SuiStakingInfoAdapter(
     private val selectedChain: BaseChain
 ) : ListAdapter<Pair<String, JsonObject>, SuiStakingInfoViewHolder>(SuiStakingInfoDiffCallback()) {
 
-    private var onItemClickListener: ((String) -> Unit)? = null
+    private var onItemClickListener: ((Pair<String, JsonObject>) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuiStakingInfoViewHolder {
         val binding =
@@ -23,12 +23,12 @@ class SuiStakingInfoAdapter(
     override fun onBindViewHolder(holder: SuiStakingInfoViewHolder, position: Int) {
         val staked = currentList[position]
         holder.bind(selectedChain, staked)
-//
-//        holder.itemView.setOnClickListener {
-//            onItemClickListener?.let {
-//                it(asset.denom)
-//            }
-//        }
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(staked)
+            }
+        }
     }
 
     private class SuiStakingInfoDiffCallback : DiffUtil.ItemCallback<Pair<String, JsonObject>>() {
@@ -46,7 +46,7 @@ class SuiStakingInfoAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (String) -> Unit) {
+    fun setOnItemClickListener(listener: (Pair<String, JsonObject>) -> Unit) {
         onItemClickListener = listener
     }
 }

@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -29,6 +30,9 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.squareup.picasso.Picasso
@@ -186,6 +190,28 @@ fun ImageView.setImg(resourceId: Int) {
 fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
     Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
         .into(this)
+}
+
+fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
+    val imageLoader = ImageLoader.Builder(this.context).componentRegistry {
+        add(SvgDecoder(context))
+    }.build()
+
+    val imageRequest = ImageRequest.Builder(this.context)
+        .crossfade(true)
+        .crossfade(300)
+        .data(imageUrl?.ifBlank { defaultImage })
+        .target(
+            onSuccess = { result ->
+                val bitmap = (result as BitmapDrawable).bitmap
+                this.setImageBitmap(bitmap)
+            },
+            onError = {
+                this.setImageResource(defaultImage)
+            }
+        )
+        .build()
+    imageLoader.enqueue(imageRequest)
 }
 
 fun AppCompatActivity.makeToast(id: Int) {

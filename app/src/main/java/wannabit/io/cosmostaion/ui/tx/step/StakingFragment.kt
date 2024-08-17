@@ -305,6 +305,7 @@ class StakingFragment : BaseTxFragment() {
                     ValidatorDefaultFragment(
                         selectedChain,
                         null,
+                        null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

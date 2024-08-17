@@ -162,6 +162,7 @@ class ApplicationViewModel(
     var editFetchedTokenResult = SingleLiveEvent<String>()
 
     var refreshFetchedResult = SingleLiveEvent<String>()
+    var refreshStakingInfoFetchedResult = SingleLiveEvent<String>()
 
     var txFetchedResult = SingleLiveEvent<String>()
 
@@ -923,8 +924,10 @@ class ApplicationViewModel(
                             val coinMetadataResult = deferred.await()
                             if (coinMetadataResult is NetworkResult.Success) {
                                 fetcher.suiBalances[index].first?.let { type ->
-                                    fetcher.suiCoinMeta[type] =
-                                        coinMetadataResult.data["result"].asJsonObject
+                                    if (coinMetadataResult.data["result"] != null) {
+                                        fetcher.suiCoinMeta[type] =
+                                            coinMetadataResult.data["result"].asJsonObject
+                                    }
                                 }
                             }
                         }
@@ -952,7 +955,9 @@ class ApplicationViewModel(
                         )
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
-                            if (isEdit) {
+                            if (isEdit && isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
+                            } else if (isEdit) {
                                 editFetchedResult.value = tag
                             } else if (isRefresh == true) {
                                 refreshFetchedResult.value = tag
@@ -974,7 +979,9 @@ class ApplicationViewModel(
                     if (fetched) {
                         fetcher.suiState = false
                         withContext(Dispatchers.Main) {
-                            if (isEdit) {
+                            if (isEdit && isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
+                            } else if (isEdit) {
                                 editFetchedResult.value = tag
                             } else if (isRefresh == true) {
                                 refreshFetchedResult.value = tag

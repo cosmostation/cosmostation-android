@@ -386,6 +386,9 @@
     <string name="error_not_support_chain">모바일에서 지원하지 않는 체인 입니다.</string>
     <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
     <string name="error_not_support_dapp">%1$s는 모바일 인젝션을 지원하지 않습니다.</string>
+    <string name="error_not_enough_sui_stake">SUI 코인이 충분하지 않습니다 (1.05 이상가능). \n최소 스테이킹 수량 1\n스테이킹 피 0.05</string>
+    <string name="error_staking_min_sui">1 SUI 이상 부터 스테이킹 가능합니다</string>
+    <string name="error_pending">펜딩 상태입니다. 언스테이킹은 불가능합니다.</string>
 
 
     //header

@@ -388,6 +388,9 @@
     <string name="error_not_support_chain">モバイルでサポートされていないチェーン。</string>
     <string name="error_bera_vote_one_proposal">投票できるのは 1 つの BeraChain のみです。</string>
     <string name="error_not_support_dapp">%1$s はモバイルインジェクションをサポートしていません。</string>
+    <string name="error_not_enough_sui_stake">SUIコインが足りません（1.05以上）。 \n最小ステーキング数量1\nステーキP 0.05</string>
+    <string name="error_staking_min_sui">1 SUI以上からステーキング可能です。</string>
+    <string name="error_pending">保留中の状態です。 アンステーキングはできません。</string>
 
 
     <string name="tx_unknown">不明</string>

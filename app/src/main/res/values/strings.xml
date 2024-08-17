@@ -484,6 +484,9 @@
     <string name="error_not_support_chain">Unsupported chain in mobile</string>
     <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
     <string name="error_not_support_dapp">%1$s does not support mobile injection.</string>
+    <string name="error_not_enough_sui_stake">Not enough SUI coins (1.05 or more is possible). \nMinimum staking amount 1\nStaking fee 0.05</string>
+    <string name="error_staking_min_sui">Staking is possible from 1 SUI or more</string>
+    <string name="error_pending">Pending. UnStaking is not possible.</string>
 
 
     // tx

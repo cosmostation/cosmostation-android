@@ -15,9 +15,17 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.SUI_FEE_STAKE
+import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.SUI_MIN_STAKE
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentSuiStakingInfoBinding
+import wannabit.io.cosmostaion.ui.tx.step.major.SuiStakingFragment
+import wannabit.io.cosmostaion.ui.tx.step.major.SuiUnStakingFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import java.math.BigDecimal
 import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
@@ -105,6 +113,17 @@ class SuiStakingInfoFragment : Fragment() {
                                 emptyStake.visibility = View.GONE
                                 recycler.visibility = View.VISIBLE
                                 suiStakingInfoAdapter.submitList(tempDisplayStakedList)
+
+                                if (::suiStakingInfoAdapter.isInitialized) {
+                                    suiStakingInfoAdapter.setOnItemClickListener { staked ->
+                                        handleOneClickWithDelay(
+                                            SuiUnStakingFragment(
+                                                selectedChain,
+                                                staked
+                                            )
+                                        )
+                                    }
+                                }
                             }
                         }
 
@@ -118,6 +137,13 @@ class SuiStakingInfoFragment : Fragment() {
                                 emptyStake.visibility = View.GONE
                                 recycler.visibility = View.VISIBLE
                                 suiStakingInfoAdapter.submitList(tempDisplayStakedList)
+
+                                if (::suiStakingInfoAdapter.isInitialized) {
+                                    suiStakingInfoAdapter.setOnItemClickListener { _ ->
+                                        requireActivity().makeToast(R.string.error_pending)
+                                        return@setOnItemClickListener
+                                    }
+                                }
                             }
                         }
                     }
@@ -159,6 +185,7 @@ class SuiStakingInfoFragment : Fragment() {
 
     private fun updateView() {
         binding.apply {
+            displayStakedList.clear()
             stakedList.clear()
             (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
                 fetcher.suiStakedList.forEach { suiStaked ->
@@ -189,6 +216,17 @@ class SuiStakingInfoFragment : Fragment() {
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = suiStakingInfoAdapter
                 suiStakingInfoAdapter.submitList(displayStakedList.filter { it.second["status"].asString != "Pending" })
+
+                if (::suiStakingInfoAdapter.isInitialized) {
+                    suiStakingInfoAdapter.setOnItemClickListener { staked ->
+                        handleOneClickWithDelay(
+                            SuiUnStakingFragment(
+                                selectedChain,
+                                staked
+                            )
+                        )
+                    }
+                }
             }
         }
     }
@@ -200,7 +238,7 @@ class SuiStakingInfoFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetched = false
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, true, true)
                 }
             }
         }
@@ -208,6 +246,12 @@ class SuiStakingInfoFragment : Fragment() {
 
     private fun observeViewModels() {
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+            if (selectedChain.fetched) {
+                updateView()
+            }
+        }
+
+        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) {
             if (selectedChain.fetched) {
                 updateView()
             }
@@ -225,7 +269,18 @@ class SuiStakingInfoFragment : Fragment() {
             }
 
             btnStake.setOnClickListener {
-
+                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                    val suiBalance = fetcher.suiBalanceAmount(SUI_MAIN_DENOM) ?: BigDecimal.ZERO
+                    if (suiBalance < SUI_MIN_STAKE.toBigDecimal()
+                            .add(SUI_FEE_STAKE.toBigDecimal())
+                    ) {
+                        requireActivity().showToast(
+                            view, R.string.error_not_enough_sui_stake, false
+                        )
+                        return@setOnClickListener
+                    }
+                }
+                handleOneClickWithDelay(SuiStakingFragment.newInstance(selectedChain))
             }
         }
     }

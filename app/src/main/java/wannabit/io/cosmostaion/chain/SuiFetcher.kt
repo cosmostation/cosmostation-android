@@ -236,3 +236,11 @@ fun JsonObject.suiValidatorImg(): String? {
 fun JsonObject.suiValidatorName(): String {
     return this["name"].asString ?: ""
 }
+
+fun JsonObject.suiValidatorCommission(): BigDecimal {
+    return this["commissionRate"].asString.toBigDecimal().movePointLeft(2).setScale(2, RoundingMode.DOWN)
+}
+
+fun JsonObject.suiValidatorVp(): BigDecimal {
+    return this["stakingPoolSuiBalance"].asString.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
+}

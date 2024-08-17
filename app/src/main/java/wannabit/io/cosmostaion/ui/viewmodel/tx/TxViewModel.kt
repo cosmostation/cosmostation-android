@@ -470,4 +470,87 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             errorMessage.postValue(e.message.toString())
         }
     }
+
+    fun suiStakeBroadcast(
+        fetcher: SuiFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastSuiStake(
+                fetcher, sender, validator, amount, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                suiBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun suiStakeSimulate(
+        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSuiStake(
+                fetcher, sender, amount, validator, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun suiUnStakeBroadcast(
+        fetcher: SuiFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastSuiUnStake(
+                fetcher, sender, objectId, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                suiBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun suiUnStakeSimulate(
+        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSuiUnStake(
+                fetcher, sender, objectId, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
 }

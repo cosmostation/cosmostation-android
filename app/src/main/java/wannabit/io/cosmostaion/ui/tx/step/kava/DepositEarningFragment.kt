@@ -285,6 +285,7 @@ class DepositEarningFragment : BaseTxFragment() {
                     ValidatorDefaultFragment(
                         selectedChain,
                         null,
+                        null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

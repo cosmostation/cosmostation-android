@@ -14,6 +14,7 @@ import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
+import net.i2p.crypto.eddsa.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -62,6 +63,8 @@ import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
 import wannabit.io.cosmostaion.data.model.req.NSStargazeInfoReq
 import wannabit.io.cosmostaion.data.model.req.ResolveRecord
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
+import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
+import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -1443,6 +1446,46 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun unsafeStake(
+        fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val response = RetrofitInstance.suiApi.unSafeStake(
+                SuiStakeReq(
+                    sender, validator, gasBudget, amount, fetcher.suiRpc()
+                )
+            )
+            safeApiCall(Dispatchers.IO) {
+                Base64.toBase64String(Utils.hexToBytes(response))
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun unsafeUnStake(
+        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val response = RetrofitInstance.suiApi.unSafeUnStake(
+                SuiUnStakeReq(
+                    sender, objectId, gasBudget, fetcher.suiRpc()
+                )
+            )
+            safeApiCall(Dispatchers.IO) {
+                Base64.toBase64String(Utils.hexToBytes(response))
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
     override suspend fun suiDryRun(
         fetcher: SuiFetcher, txBytes: String
     ): NetworkResult<JsonObject> {
@@ -1547,6 +1590,133 @@ class TxRepositoryImpl : TxRepository {
                     fetcher, sender, coins, recipient, amounts, gasBudget
                 )
             }
+
+            if (txBytes is NetworkResult.Success) {
+                val response = suiDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    val computationCost =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                    val storageCost =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                    val storageRebate =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                    val gasCost = if (storageCost > storageRebate) {
+                        computationCost.add(storageCost).subtract(storageRebate).multiply(
+                            BigDecimal("1.3")
+                        ).setScale(0, RoundingMode.DOWN)
+                    } else {
+                        computationCost.multiply(
+                            BigDecimal("1.3")
+                        ).setScale(0, RoundingMode.DOWN)
+                    }
+                    return gasCost.toString()
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
+    override suspend fun broadcastSuiStake(
+        fetcher: SuiFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = unsafeStake(fetcher, sender, validator, amount, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = suiDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = suiExecuteTx(
+                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
+    override suspend fun simulateSuiStake(
+        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ): String {
+        try {
+            val txBytes = unsafeStake(fetcher, sender, amount, validator, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val response = suiDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    val computationCost =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                    val storageCost =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                    val storageRebate =
+                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                    val gasCost = if (storageCost > storageRebate) {
+                        computationCost.add(storageCost).subtract(storageRebate).multiply(
+                            BigDecimal("1.3")
+                        ).setScale(0, RoundingMode.DOWN)
+                    } else {
+                        computationCost.multiply(
+                            BigDecimal("1.3")
+                        ).setScale(0, RoundingMode.DOWN)
+                    }
+                    return gasCost.toString()
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
+    override suspend fun broadcastSuiUnStake(
+        fetcher: SuiFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = unsafeUnStake(fetcher, sender, objectId, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = suiDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = suiExecuteTx(
+                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
+    override suspend fun simulateSuiUnStake(
+        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+    ): String {
+        try {
+            val txBytes = unsafeUnStake(fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)

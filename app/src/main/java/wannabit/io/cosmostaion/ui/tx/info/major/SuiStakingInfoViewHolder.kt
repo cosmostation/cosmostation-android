@@ -3,13 +3,13 @@ package wannabit.io.cosmostaion.ui.tx.info.major
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.suiValidatorImg
 import wannabit.io.cosmostaion.chain.suiValidatorName
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemSuiStakingInfoBinding
 import java.math.BigDecimal
@@ -26,8 +26,9 @@ class SuiStakingInfoViewHolder(
             (chain as ChainSui).suiFetcher()?.let { fetcher ->
                 fetcher.suiValidators.firstOrNull { it["suiAddress"].asString == staked.first }
                     ?.let { validator ->
-                        Picasso.get().load(validator.suiValidatorImg())
-                            .error(R.drawable.icon_default_vaildator).into(monikerImg)
+                        monikerImg.setImageFromSvg(
+                            validator.suiValidatorImg(), R.drawable.icon_default_vaildator
+                        )
                         monikerName.text = validator.suiValidatorName()
                     }
 

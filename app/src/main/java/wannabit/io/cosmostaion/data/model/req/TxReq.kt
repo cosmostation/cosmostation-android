@@ -8,3 +8,19 @@ data class BroadcastTxReq(
     val mode: Int,
     val tx_bytes: String
 )
+
+//Sui
+data class SuiStakeReq(
+    val address: String,
+    val validatorAddress: String?,
+    val gas: String,
+    val amount: String,
+    val rpc: String
+)
+
+data class SuiUnStakeReq(
+    val address: String,
+    val objectId: String?,
+    val gas: String,
+    val rpc: String
+)

@@ -11,6 +11,8 @@ import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
+import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
+import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 
 interface LcdApi {
@@ -59,8 +61,7 @@ interface LcdApi {
 
     @GET("ibc/core/channel/v1/channels/{channel}/ports/{port}/client_state")
     suspend fun lcdIbcClientInfo(
-        @Path("channel") channel: String?,
-        @Path("port") port: String?
+        @Path("channel") channel: String?, @Path("port") port: String?
     ): JsonObject
 
     @POST("/cosmos/tx/v1beta1/simulate")
@@ -91,4 +92,12 @@ interface LcdApi {
 
     @POST("txs")
     suspend fun broadTx(@Body data: BroadcastReq?): LegacyRes
+
+
+    //Sui
+    @POST("buildStakingRequest")
+    suspend fun unSafeStake(@Body parameters: SuiStakeReq): String
+
+    @POST("buildUnstakingRequest")
+    suspend fun unSafeUnStake(@Body parameters: SuiUnStakeReq): String
 }
