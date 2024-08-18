@@ -471,6 +471,48 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    fun suiNftSendBroadcast(
+        fetcher: SuiFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastSuiNftSend(
+                fetcher, sender, objectId, recipient, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                suiBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun suiNftSendSimulate(
+        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSuiNftSend(
+                fetcher, sender, objectId, recipient, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
     fun suiStakeBroadcast(
         fetcher: SuiFetcher,
         sender: String,

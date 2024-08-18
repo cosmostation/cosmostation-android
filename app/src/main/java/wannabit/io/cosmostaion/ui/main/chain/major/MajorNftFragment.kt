@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.ui.main.chain.major
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentMajorNftBinding
+import wannabit.io.cosmostaion.ui.tx.step.major.SuiNftTransferFragment
 import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
@@ -104,22 +107,22 @@ class MajorNftFragment : Fragment() {
                 recycler.adapter = majorNftAdapter
                 majorNftAdapter.submitList(suiAllNfts)
 
-//                if (::majorNftAdapter.isInitialized) {
-//                    majorNftAdapter.setOnItemClickListener { line, info, token ->
-//                        if (isClickable) {
-//                            isClickable = false
-//
-//                            NftTransferFragment(line, info, token).show(
-//                                requireActivity().supportFragmentManager,
-//                                NftTransferFragment::class.java.name
-//                            )
-//
-//                            Handler(Looper.getMainLooper()).postDelayed({
-//                                isClickable = true
-//                            }, 300)
-//                        }
-//                    }
-//                }
+                if (::majorNftAdapter.isInitialized) {
+                    majorNftAdapter.setOnItemClickListener { chain, info ->
+                        if (isClickable) {
+                            isClickable = false
+
+                            SuiNftTransferFragment(chain, info).show(
+                                requireActivity().supportFragmentManager,
+                                SuiNftTransferFragment::class.java.name
+                            )
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                isClickable = true
+                            }, 300)
+                        }
+                    }
+                }
             }
         }
     }
@@ -136,6 +139,17 @@ class MajorNftFragment : Fragment() {
 
     private fun setUpObserve() {
         ApplicationViewModel.shared.refreshFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag && selectedChain.fetched) {
+                if (selectedChain is ChainSui) {
+                    (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                        suiAllNfts.addAll(fetcher.suiAllNfts())
+                        updateView()
+                    }
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag && selectedChain.fetched) {
                 if (selectedChain is ChainSui) {
                     (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->

@@ -245,7 +245,7 @@ class SuiStakingInfoFragment : Fragment() {
     }
 
     private fun observeViewModels() {
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
             if (selectedChain.fetched) {
                 updateView()
             }

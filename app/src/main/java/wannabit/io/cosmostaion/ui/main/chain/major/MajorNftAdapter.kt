@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.databinding.ItemNftBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftViewHolder
 
 class MajorNftAdapter(val chain: BaseChain) :
-    ListAdapter<JsonObject, NftViewHolder>(nftDiffCallback()) {
+    ListAdapter<JsonObject, NftViewHolder>(NftDiffCallback()) {
 
     private var onItemClickListener: ((BaseChain, JsonObject?) -> Unit)? = null
 
@@ -22,23 +22,14 @@ class MajorNftAdapter(val chain: BaseChain) :
     override fun onBindViewHolder(holder: NftViewHolder, position: Int) {
         val info = currentList[position]
         holder.suiBind(info)
-//        holder.itemView.setOnClickListener {
-//            onItemClickListener?.let {
-//                val support = info.get("support")?.asBoolean ?: true
-//                if (!support) {
-//                    context.makeToast(
-//                        context.getString(
-//                            R.string.error_not_support_dapp, info["name"].asString ?: ""
-//                        )
-//                    )
-//                    return@setOnClickListener
-//                }
-//                it(info["link"].asString)
-//            }
-//        }
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let {
+                it(chain, info)
+            }
+        }
     }
 
-    private class nftDiffCallback : DiffUtil.ItemCallback<JsonObject>() {
+    private class NftDiffCallback : DiffUtil.ItemCallback<JsonObject>() {
 
         override fun areItemsTheSame(oldItem: JsonObject, newItem: JsonObject): Boolean {
             return oldItem == newItem

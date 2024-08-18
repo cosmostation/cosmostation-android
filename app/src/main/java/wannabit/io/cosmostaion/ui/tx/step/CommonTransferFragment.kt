@@ -274,6 +274,8 @@ class CommonTransferFragment : BaseTxFragment() {
                         )
                     }
                 }
+
+                else -> {}
             }
         }
     }
@@ -659,6 +661,8 @@ class CommonTransferFragment : BaseTxFragment() {
                             sendValue.text = formatAssetValue(value)
                         }
                     }
+
+                     else -> {}
                 }
                 txSimulate()
             }
@@ -1359,6 +1363,6 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT }
 enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }

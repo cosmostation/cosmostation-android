@@ -206,6 +206,8 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         available.text = formatAmount(amount.toString(), assetDecimal)
                     }
                 }
+
+                else -> {}
             }
 
             existAmount.let { toAmount ->

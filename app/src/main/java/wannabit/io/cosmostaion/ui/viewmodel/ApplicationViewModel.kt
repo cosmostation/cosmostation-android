@@ -963,6 +963,7 @@ class ApplicationViewModel(
                                 refreshFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
+                                txFetchedResult.value = tag
                             }
                         }
                     }

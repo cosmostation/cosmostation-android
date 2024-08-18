@@ -245,7 +245,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
 
-                    SendAssetType.SUI_COIN -> {
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
                         AppDatabase.getInstance().refAddressDao().selectAll().forEach { refAddress ->
                             if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
                                 refMajorAddresses.add(refAddress)
@@ -325,7 +325,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             evmRecycler.visibility = View.GONE
                         }
 
-                        SendAssetType.SUI_COIN -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
                             if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE

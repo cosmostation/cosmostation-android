@@ -165,10 +165,13 @@
             <TextView
                 android:id="@+id/nft_id"
                 style="@style/font_sb_14"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_10"
                 android:layout_marginTop="@dimen/space_15"
+                android:maxLines="1"
+                android:ellipsize="middle"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toEndOf="@+id/nft_img"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -176,12 +179,15 @@
             <TextView
                 android:id="@+id/nft_title"
                 style="@style/font_sm_12"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_10"
+                android:layout_marginHorizontal="@dimen/space_10"
                 android:layout_marginTop="@dimen/space_3"
                 android:layout_marginBottom="@dimen/space_15"
+                android:ellipsize="middle"
+                android:maxLines="1"
                 android:textColor="@color/color_base02"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/nft_img"
                 app:layout_constraintTop_toBottomOf="@+id/nft_id" />

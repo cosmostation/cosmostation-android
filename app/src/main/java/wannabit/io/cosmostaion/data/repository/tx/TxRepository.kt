@@ -152,6 +152,10 @@ interface TxRepository {
         gasBudget: String
     ): NetworkResult<String>
 
+    suspend fun unsafeTransferObject(
+        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): NetworkResult<String>
+
     suspend fun unsafeStake(
         fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
     ): NetworkResult<String>
@@ -185,6 +189,19 @@ interface TxRepository {
         recipient: MutableList<String>,
         amounts: MutableList<String>,
         gasBudget: String
+    ): String
+
+    suspend fun broadcastSuiNftSend(
+        fetcher: SuiFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateSuiNftSend(
+        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
     ): String
 
     suspend fun broadcastSuiStake(
