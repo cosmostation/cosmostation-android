@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.ui.password
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
@@ -120,13 +123,18 @@ class AppLockActivity : BaseActivity(), KeyboardListener {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun checkPwObserve() {
         walletViewModel.pwCheckResult.observe(this) { result ->
             if (result == BaseConstant.SUCCESS) {
                 BaseData.setLastTime()
                 cancellationSignal?.cancel()
                 finish()
-                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                if (Build.VERSION.SDK_INT >= 34) {
+                    overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                } else {
+                    overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                }
 
             } else {
                 onUpdateView()
@@ -152,12 +160,17 @@ class AppLockActivity : BaseActivity(), KeyboardListener {
                         super.onAuthenticationHelp(helpMsgId, helpString)
                     }
 
+                    @SuppressLint("WrongConstant")
                     override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
                         cancellationSignal.cancel()
                         setResult(RESULT_OK, intent)
                         finish()
-                        overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                        if (Build.VERSION.SDK_INT >= 34) {
+                            overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                        } else {
+                            overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                        }
                     }
 
                     override fun onAuthenticationFailed() {

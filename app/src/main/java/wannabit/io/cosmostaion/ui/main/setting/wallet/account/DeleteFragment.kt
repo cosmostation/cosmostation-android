@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -74,14 +75,24 @@ class DeleteFragment : BottomSheetDialogFragment() {
         binding.title.text = getString(R.string.str_delete_name, account.name)
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             btnDelete.setOnClickListener {
                 val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
                 deleteAccountResultLauncher.launch(intent)
-                requireActivity().overridePendingTransition(
-                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                )
+                if (Build.VERSION.SDK_INT >= 34) {
+                    requireActivity().overrideActivityTransition(
+                        Activity.OVERRIDE_TRANSITION_OPEN,
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
+                } else {
+                    requireActivity().overridePendingTransition(
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
+                }
             }
         }
     }

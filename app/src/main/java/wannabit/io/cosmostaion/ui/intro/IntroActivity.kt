@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.intro
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -99,6 +100,7 @@ class IntroActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun postProcessAppVersion() = CoroutineScope(Dispatchers.IO).launch {
         if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {
             val account = BaseData.getLastAccount()
@@ -109,7 +111,15 @@ class IntroActivity : AppCompatActivity() {
                 if (CosmostationApp.instance.needShowLockScreen()) {
                     val intent = Intent(this@IntroActivity, AppLockActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    }
 
                 } else {
                     withContext(Dispatchers.Main) {
@@ -119,9 +129,18 @@ class IntroActivity : AppCompatActivity() {
                                 putExtra("dappUrl", BaseData.appSchemeUrl)
                                 addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 startActivity(this)
-                                overridePendingTransition(
-                                    R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                                )
+                                if (Build.VERSION.SDK_INT >= 34) {
+                                    overrideActivityTransition(
+                                        Activity.OVERRIDE_TRANSITION_OPEN,
+                                        R.anim.anim_slide_in_bottom,
+                                        R.anim.anim_fade_out
+                                    )
+                                } else {
+                                    overridePendingTransition(
+                                        R.anim.anim_slide_in_bottom,
+                                        R.anim.anim_fade_out
+                                    )
+                                }
                             }
 
                         } else {
@@ -134,8 +153,14 @@ class IntroActivity : AppCompatActivity() {
                                         intent.extras?.getInt("push_type").toString()
                                     }
                                     putExtra("push_type", pushType)
-                                    putExtra("push_txhash", intent.extras?.getString("txhash") ?: "")
-                                    putExtra("push_network", intent.extras?.getString("network") ?: "")
+                                    putExtra(
+                                        "push_txhash",
+                                        intent.extras?.getString("txhash") ?: ""
+                                    )
+                                    putExtra(
+                                        "push_network",
+                                        intent.extras?.getString("network") ?: ""
+                                    )
                                 }
                                 startActivity(this)
                                 flags =
@@ -249,10 +274,17 @@ class IntroActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun pendingTransition() {
-        overridePendingTransition(
-            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-        )
+        if (Build.VERSION.SDK_INT >= 34) {
+            overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_OPEN,
+                R.anim.anim_slide_in_bottom,
+                R.anim.anim_fade_out
+            )
+        } else {
+            overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+        }
     }
 
     private fun checkAppVersion() {

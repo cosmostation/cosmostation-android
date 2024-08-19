@@ -24,6 +24,8 @@
             android:id="@+id/send_title"
             style="@style/font_sb_16"
             android:layout_width="0dp"
+            android:maxLines="1"
+            android:ellipsize="middle"
             android:layout_marginStart="@dimen/space_8"
             android:layout_height="wrap_content"
             android:layout_weight="1"

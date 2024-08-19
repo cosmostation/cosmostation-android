@@ -1,8 +1,11 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -54,6 +57,7 @@ class MainActivity : BaseActivity() {
         setUpBg()
     }
 
+    @SuppressLint("WrongConstant")
     private fun showPushData() {
         intent.apply {
             if (getStringExtra("push_txhash")?.isEmpty() == true) { return }
@@ -68,10 +72,11 @@ class MainActivity : BaseActivity() {
                             Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
                                 putExtra("url", url)
                                 startActivity(this)
-                                overridePendingTransition(
-                                    R.anim.anim_slide_in_bottom,
-                                    R.anim.anim_fade_out
-                                )
+                                if (Build.VERSION.SDK_INT >= 34) {
+                                    overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                                } else {
+                                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                                }
                             }
                         }, 1000)
                     }

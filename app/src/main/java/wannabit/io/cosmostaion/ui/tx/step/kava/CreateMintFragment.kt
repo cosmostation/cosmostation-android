@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step.kava
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -23,7 +24,6 @@ import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.expectUSDXLTV
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -263,6 +263,7 @@ class CreateMintFragment : BaseTxFragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             collateralAmountView.setOnClickListener {
@@ -343,9 +344,18 @@ class CreateMintFragment : BaseTxFragment() {
             btnCreateMint.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     createMintResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }

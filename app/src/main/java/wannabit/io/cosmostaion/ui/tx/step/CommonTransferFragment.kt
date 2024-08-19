@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -104,7 +105,6 @@ class CommonTransferFragment : BaseTxFragment() {
     private var evmHexValue = ""
 
     private var suiFeeBudget = BigDecimal.ZERO
-    private var suiGasPrice = BigDecimal.ZERO
 
     private var availableAmount = BigDecimal.ZERO
 
@@ -662,7 +662,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
-                     else -> {}
+                    else -> {}
                 }
                 txSimulate()
             }
@@ -744,6 +744,7 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             addressView.setOnClickListener {
@@ -909,9 +910,18 @@ class CommonTransferFragment : BaseTxFragment() {
             btnSend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     sendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }

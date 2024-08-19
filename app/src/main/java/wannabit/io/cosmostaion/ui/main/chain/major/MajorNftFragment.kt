@@ -92,6 +92,7 @@ class MajorNftFragment : Fragment() {
         binding.apply {
             refresher.isRefreshing = false
             loading.visibility = View.GONE
+            binding.recycler.suppressLayout(false)
 
             if (suiAllNfts.isEmpty()) {
                 emptyLayout.visibility = View.VISIBLE
@@ -129,6 +130,9 @@ class MajorNftFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
+            if (binding.refresher.isRefreshing) {
+                binding.recycler.suppressLayout(true)
+            }
             BaseData.baseAccount?.let { account ->
                 suiAllNfts.clear()
                 selectedChain.fetched = false
@@ -153,8 +157,10 @@ class MajorNftFragment : Fragment() {
             if (selectedChain.tag == tag && selectedChain.fetched) {
                 if (selectedChain is ChainSui) {
                     (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                        suiAllNfts.addAll(fetcher.suiAllNfts())
-                        updateView()
+                        if (suiAllNfts.isEmpty()) {
+                            suiAllNfts.addAll(fetcher.suiAllNfts())
+                            updateView()
+                        }
                     }
                 }
             }

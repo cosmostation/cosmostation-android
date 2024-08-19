@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.ui.wallet
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -179,9 +182,18 @@ class CreateMnemonicFragment : Fragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun startToActivity() {
         if (initType == BaseConstant.CONST_NEW_ACCOUNT) {
-            requireActivity().overridePendingTransition(0, 0)
+            if (Build.VERSION.SDK_INT >= 34) {
+                requireActivity().overrideActivityTransition(
+                    Activity.OVERRIDE_TRANSITION_CLOSE,
+                    0,
+                    0
+                )
+            } else {
+                requireActivity().overridePendingTransition(0, 0)
+            }
             requireActivity().finish()
         } else {
             Intent(requireActivity(), MainActivity::class.java).apply {

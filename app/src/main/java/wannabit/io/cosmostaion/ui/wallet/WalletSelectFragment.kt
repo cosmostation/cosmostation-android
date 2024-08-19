@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.wallet
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -344,9 +347,14 @@ class WalletSelectFragment : Fragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun startToActivity() {
         if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT) {
-            requireActivity().overridePendingTransition(0, 0)
+            if (Build.VERSION.SDK_INT >= 34) {
+                requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0)
+            } else {
+                requireActivity().overridePendingTransition(0, 0)
+            }
             requireActivity().finish()
         } else {
             Intent(requireActivity(), MainActivity::class.java).apply {

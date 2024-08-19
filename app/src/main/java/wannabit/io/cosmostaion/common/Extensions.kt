@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.common
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -153,16 +154,30 @@ fun TextView.hiddenStatusWithSui(amount: SpannableString) {
     }
 }
 
+@SuppressLint("WrongConstant")
 fun Activity.toMoveAnimation() {
-    this.overridePendingTransition(
-        R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
-    )
+    if (Build.VERSION.SDK_INT >= 34) {
+        this.overrideActivityTransition(
+            Activity.OVERRIDE_TRANSITION_OPEN,
+            R.anim.anim_slide_in_left,
+            R.anim.anim_slide_out_right
+        )
+    } else {
+        this.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
+    }
 }
 
+@SuppressLint("WrongConstant")
 fun Activity.toMoveBack() {
-    this.overridePendingTransition(
-        R.anim.anim_slide_in_right, R.anim.anim_slide_out_left
-    )
+    if (Build.VERSION.SDK_INT >= 34) {
+        this.overrideActivityTransition(
+            Activity.OVERRIDE_TRANSITION_CLOSE,
+            R.anim.anim_slide_in_right,
+            R.anim.anim_slide_out_left
+        )
+    } else {
+        this.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+    }
 }
 
 fun FragmentActivity.toMoveFragment(

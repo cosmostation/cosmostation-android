@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.importQR
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.budiyev.android.codescanner.CodeScanner
@@ -22,6 +25,7 @@ class ImportBarcodeActivity : AppCompatActivity() {
         setUpClickAction()
     }
 
+    @SuppressLint("WrongConstant")
     private fun initView() {
         codeScanner = CodeScanner(this, binding.barcodeScanner)
         codeScanner.decodeCallback = DecodeCallback {
@@ -30,7 +34,11 @@ class ImportBarcodeActivity : AppCompatActivity() {
                     putExtra("import", it.text)
                     setResult(RESULT_OK, this)
                     finish()
-                    overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                    } else {
+                        overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                    }
                 }
             }
         }
