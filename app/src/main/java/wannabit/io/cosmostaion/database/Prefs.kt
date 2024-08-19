@@ -270,6 +270,11 @@ object Prefs {
         }
     }
 
+    fun removeEndpointType(chain: BaseChain) {
+        val key = ENDPOINT_TYPE + ":" + chain.name
+        preference.edit().remove(key).apply()
+    }
+
     fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = GRPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
@@ -277,6 +282,11 @@ object Prefs {
 
     fun getGrpcEndpoint(chain: BaseChain): String {
         return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
+    }
+
+    fun removeGrpcEndpoint(chain: BaseChain) {
+        val key = GRPC_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
     }
 
     fun setEvmRpcEndpoint(chain: BaseChain?, endpoint: String) {
@@ -288,6 +298,11 @@ object Prefs {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
     }
 
+    fun removeEvmRpcEndpoint(chain: BaseChain) {
+        val key = EVM_RPC_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
+    }
+
     fun setLcdEndpoint(chain: BaseChain?, endpoint: String) {
         val key = LCD_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
@@ -295,5 +310,10 @@ object Prefs {
 
     fun getLcdEndpoint(chain: BaseChain): String {
         return preference.getString(LCD_ENDPOINT + ":" + chain.name, "") ?: ""
+    }
+
+    fun removeLcdEndpoint(chain: BaseChain) {
+        val key = LCD_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
     }
 }

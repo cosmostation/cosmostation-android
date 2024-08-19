@@ -22,7 +22,7 @@
                 android:id="@+id/btn_back"
                 android:layout_width="@dimen/space_28"
                 android:layout_height="@dimen/space_28"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/space_20"
                 android:src="@drawable/icon_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +38,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="@string/title_chain"/>
+
+            <ImageView
+                android:id="@+id/btn_reset"
+                android:layout_width="@dimen/space_28"
+                android:layout_height="@dimen/space_28"
+                android:layout_marginEnd="@dimen/space_20"
+                android:src="@drawable/icon_reset"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
