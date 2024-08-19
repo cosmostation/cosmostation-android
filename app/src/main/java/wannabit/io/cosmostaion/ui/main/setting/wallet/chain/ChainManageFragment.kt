@@ -21,7 +21,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 
 class ChainManageFragment : Fragment() {
 
@@ -190,7 +189,9 @@ class ChainManageFragment : Fragment() {
                         chainManageAdapter.notifyDataSetChanged()
                     }
                 }).show(
-                    requireActivity().supportFragmentManager, ChainEndpointResetFragment::class.java.name)
+                    requireActivity().supportFragmentManager,
+                    ChainEndpointResetFragment::class.java.name
+                )
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     isClickable = true

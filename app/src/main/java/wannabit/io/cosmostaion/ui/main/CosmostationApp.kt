@@ -40,9 +40,6 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     lateinit var applicationViewModel: ApplicationViewModel
     var appStatus: AppStatus? = null
 
-    var isInBackground: Boolean = true
-        private set
-
     override fun getViewModelStore(): ViewModelStore {
         return mViewModelStore
     }
@@ -103,7 +100,7 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
         }
     }
 
-    private fun isReturnedForeground(): Boolean {
+    fun isReturnedForeground(): Boolean {
         return appStatus?.ordinal == AppStatus.RETURNED_TO_FOREGROUND.ordinal
     }
 

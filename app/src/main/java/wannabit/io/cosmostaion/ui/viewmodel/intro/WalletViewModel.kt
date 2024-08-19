@@ -114,6 +114,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         is JsonObject -> {
                             if (!response.data.isJsonNull) {
                                 BaseData.chainParam = response.data
+                                BaseData.setLastParamTime()
                             }
                         }
 

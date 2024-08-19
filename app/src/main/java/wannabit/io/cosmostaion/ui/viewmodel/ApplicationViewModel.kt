@@ -48,6 +48,59 @@ class ApplicationViewModel(
             get() = CosmostationApp.instance.applicationViewModel
     }
 
+    private val _chainDataErrorMessage = MutableLiveData<String>()
+    val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
+
+    fun price(currency: String, force: Boolean? = false) = viewModelScope.launch(Dispatchers.IO) {
+        if (!BaseData.priceUpdateIfNeed() && force == false) {
+            return@launch
+        }
+        when (val response = walletRepository.price(currency)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    BaseData.prices = data
+                    BaseData.setLastPriceTime()
+                    BaseData.baseAccount?.updateAllValue()
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+
+        when (val response = walletRepository.usdPrice()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    BaseData.usdPrices = data
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private val _updateParamResult = MutableLiveData<Boolean>()
+    val updateParamResult: LiveData<Boolean> get() = _updateParamResult
+    fun param() = viewModelScope.launch(Dispatchers.IO) {
+        if (!BaseData.paramUpdateIfNeed()) {
+            return@launch
+        }
+        when (val response = walletRepository.param()) {
+            is NetworkResult.Success -> {
+                BaseData.chainParam = response.data
+                BaseData.setLastParamTime()
+                _updateParamResult.postValue(true)
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
     private var _currentAccountResult = MutableLiveData<Pair<Boolean, BaseAccount?>>()
     val currentAccountResult: LiveData<Pair<Boolean, BaseAccount?>> get() = _currentAccountResult
     fun currentAccount(baseAccount: BaseAccount?, isNew: Boolean) =
@@ -104,9 +157,6 @@ class ApplicationViewModel(
     fun serviceTx() = viewModelScope.launch(Dispatchers.IO) {
         serviceTxResult.postValue(true)
     }
-
-    private val _chainDataErrorMessage = MutableLiveData<String>()
-    val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
     fun loadChainData(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean

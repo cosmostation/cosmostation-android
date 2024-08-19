@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.RoundingMode
 import java.util.Locale
 
@@ -27,6 +29,7 @@ class MajorAboutFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
+    private var chainParam: JsonObject? = JsonObject()
 
     companion object {
         @JvmStatic
@@ -52,6 +55,7 @@ class MajorAboutFragment : Fragment() {
 
         initView()
         setUpClickAction()
+        setUpUpdateData()
     }
 
     private fun initView() {
@@ -73,18 +77,19 @@ class MajorAboutFragment : Fragment() {
                     selectedChain = it
                 }
             }
+            chainParam = selectedChain.getChainParam()
 
             chainName.text = selectedChain.name.uppercase()
-            selectedChain.getChainListParam().let {
+            chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")?.let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
-                    chainDescription.text = it?.getAsJsonObject("description")?.get("ko")?.asString
+                    chainDescription.text = it.getAsJsonObject("description")?.get("ko")?.asString
                 } else if (Prefs.language == BaseUtils.LANGUAGE_ENGLISH || Locale.getDefault().language == "en") {
-                    chainDescription.text = it?.getAsJsonObject("description")?.get("en")?.asString
+                    chainDescription.text = it.getAsJsonObject("description")?.get("en")?.asString
                 } else {
-                    chainDescription.text = it?.getAsJsonObject("description")?.get("ja")?.asString
+                    chainDescription.text = it.getAsJsonObject("description")?.get("ja")?.asString
                 }
 
-                val originTime = it?.getAsJsonPrimitive("origin_genesis_time")?.asString ?: ""
+                val originTime = it.getAsJsonPrimitive("origin_genesis_time")?.asString ?: ""
                 initialTime.text = if (originTime.isEmpty()) {
                     ""
                 } else {
@@ -93,7 +98,7 @@ class MajorAboutFragment : Fragment() {
                     )
                 }
 
-                val chainIdCosmos = it?.getAsJsonPrimitive("chain_id") ?: JsonPrimitive("")
+                val chainIdCosmos = it.getAsJsonPrimitive("chain_id") ?: JsonPrimitive("")
                 chainIdCosmosLayout.visibility = View.VISIBLE
                 chainIdEvmLayout.visibility = View.GONE
                 chainIdCosmosInfo.text = chainIdCosmos.asString
@@ -128,66 +133,80 @@ class MajorAboutFragment : Fragment() {
 
     private fun setUpClickAction() {
         binding.apply {
-            selectedChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
-                about.get("website")?.let {
-                    if (about.get("website").asString?.isNotEmpty() == true) {
-                        website.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("website").asString)
+            chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?.getAsJsonObject("about")?.let { about ->
+                    about.get("website")?.let {
+                        if (about.get("website").asString?.isNotEmpty() == true) {
+                            website.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("website").asString)
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
-                } ?: run {
-                    return
-                }
-
-                about.get("twitter")?.let {
-                    if (about.get("twitter").asString?.isNotEmpty() == true) {
-                        twitter.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("twitter").asString)
-                                )
-                            )
-                        }
+                    } ?: run {
+                        return
                     }
 
-                } ?: run {
-                    return
-                }
-
-                about.get("coingecko")?.let {
-                    if (about.get("coingecko").asString?.isNotEmpty() == true) {
-                        coingecko.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("coingecko").asString)
+                    about.get("twitter")?.let {
+                        if (about.get("twitter").asString?.isNotEmpty() == true) {
+                            twitter.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("twitter").asString)
+                                    )
                                 )
-                            )
+                            }
                         }
+
+                    } ?: run {
+                        return
                     }
 
-                } ?: run {
-                    return
-                }
-
-                about.get("blog")?.let {
-                    if (about.get("blog").asString?.isNotEmpty() == true) {
-                        blog.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("blog").asString)
+                    about.get("coingecko")?.let {
+                        if (about.get("coingecko").asString?.isNotEmpty() == true) {
+                            coingecko.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(about.get("coingecko").asString)
+                                    )
                                 )
-                            )
+                            }
                         }
+
+                    } ?: run {
+                        return
                     }
 
-                } ?: run {
-                    return
+                    about.get("blog")?.let {
+                        if (about.get("blog").asString?.isNotEmpty() == true) {
+                            blog.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("blog").asString)
+                                    )
+                                )
+                            }
+                        }
+
+                    } ?: run {
+                        return
+                    }
                 }
-            }
         }
+    }
+
+    private fun setUpUpdateData() {
+        ApplicationViewModel.shared.updateParamResult.observe(viewLifecycleOwner) {
+            initView()
+        }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        ApplicationViewModel.shared.updateParamResult.removeObservers(viewLifecycleOwner)
+        super.onDestroyView()
     }
 }

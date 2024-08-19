@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 
 class SettingBottomFragment : BottomSheetDialogFragment() {
@@ -58,6 +59,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
 
         initView()
         setUpClickAction()
+        setUpUpdateData()
     }
 
     private fun initView() {
@@ -97,8 +99,9 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         getString(R.string.title_language_ja)
                     )
 
-                    settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.LANGUAGE, null)
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(), null, null, mutableListOf(), SettingType.LANGUAGE, null
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -116,8 +119,9 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.str_select_currency)
                     val currencyList = resources.getStringArray(R.array.currency_unit_array)
 
-                    settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.CURRENCY, null)
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(), null, null, mutableListOf(), SettingType.CURRENCY, null
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -137,8 +141,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 SettingType.PRICE_STATUS -> {
                     selectTitle.text = getString(R.string.title_price_change_color)
 
-                    settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.PRICE_STATUS, null)
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(),
+                        null,
+                        null,
+                        mutableListOf(),
+                        SettingType.PRICE_STATUS,
+                        null
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -156,8 +166,9 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.title_buy_crypto)
                     val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
 
-                    settingAdapter =
-                        SettingBottomAdapter(requireContext(), null, null, mutableListOf(), SettingType.BUY_CRYPTO, null)
+                    settingAdapter = SettingBottomAdapter(
+                        requireContext(), null, null, mutableListOf(), SettingType.BUY_CRYPTO, null
+                    )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
                     recycler.adapter = settingAdapter
@@ -181,7 +192,12 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(), fromChain, rpcEndpoints, mutableListOf(), SettingType.END_POINT_EVM, endpointClickAction
+                        requireContext(),
+                        fromChain,
+                        rpcEndpoints,
+                        mutableListOf(),
+                        SettingType.END_POINT_EVM,
+                        endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -199,7 +215,12 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(), fromChain, rpcEndpoints, mutableListOf(), SettingType.END_POINT_EVM, endpointClickAction
+                        requireContext(),
+                        fromChain,
+                        rpcEndpoints,
+                        mutableListOf(),
+                        SettingType.END_POINT_EVM,
+                        endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireContext())
@@ -399,6 +420,14 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         settingAdapter.submitList(rpcEndpoints)
                     }
                 }
+            }
+        }
+    }
+
+    private fun setUpUpdateData() {
+        ApplicationViewModel.shared.updateParamResult.observe(viewLifecycleOwner) {
+            if (settingType == SettingType.END_POINT_SUI || settingType == SettingType.END_POINT_EVM || settingType == SettingType.END_POINT_COSMOS) {
+                initView()
             }
         }
     }
