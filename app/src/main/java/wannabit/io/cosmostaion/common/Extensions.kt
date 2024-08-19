@@ -428,6 +428,17 @@ fun dpTimeToYear(time: Long): String {
     return outputFormat.format(calendar.timeInMillis)
 }
 
+fun dpTimeToMonth(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        "HH:mm:ss", locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
 fun voteDpTime(time: Long): String {
     val locale = Locale.getDefault()
     val calendar = Calendar.getInstance()

@@ -701,9 +701,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun suiCoinMetadata(
-        fetcher: SuiFetcher,
-        chain: ChainSui,
-        coinType: String?
+        fetcher: SuiFetcher, chain: ChainSui, coinType: String?
     ): NetworkResult<JsonObject> {
         return try {
             val suiCoinMetadataRequest = JsonRpcRequest(
@@ -719,6 +717,29 @@ class WalletRepositoryImpl : WalletRepository {
         } catch (e: Exception) {
             safeApiCall(Dispatchers.IO) {
                 JsonObject()
+            }
+        }
+    }
+
+    override suspend fun suiApys(fetcher: SuiFetcher, chain: ChainSui): NetworkResult<MutableList<JsonObject>> {
+        return try {
+            val suiApysRequest = JsonRpcRequest(
+                method = "suix_getValidatorsApy", params = listOf()
+            )
+            val suiApysResponse = jsonRpcResponse(fetcher.suiRpc(), suiApysRequest)
+            val suiApysJsonObject = Gson().fromJson(
+                suiApysResponse.body?.string(), JsonObject::class.java
+            )
+            val result = mutableListOf<JsonObject>()
+            suiApysJsonObject["result"].asJsonObject["apys"].asJsonArray.forEach {  apy ->
+                result.add(apy.asJsonObject)
+            }
+            safeApiCall(Dispatchers.IO) {
+                result
+            }
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                mutableListOf()
             }
         }
     }

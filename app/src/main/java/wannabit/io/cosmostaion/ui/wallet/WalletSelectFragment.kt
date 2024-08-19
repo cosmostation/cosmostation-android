@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -184,7 +185,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.supportCosmos()) {
+                            if (chain.supportCosmos() || chain is ChainSui) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -204,7 +205,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if ((chain.supportEvm && chain.supportCosmos()) || chain.supportCosmos()) {
+                            if (chain.isEvmCosmos() || chain.supportCosmos() || chain is ChainSui) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

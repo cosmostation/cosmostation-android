@@ -116,6 +116,9 @@ class MajorDetailFragment : Fragment() {
                     0 -> "Crypto"
                     1 -> "NFTs"
                     2 -> "Receive"
+                    3 -> "History"
+                    4 -> "Ecosystem"
+                    5 -> "About"
                     else -> ""
                 }
             }.attach()
@@ -215,14 +218,17 @@ class MajorDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedEvmChain: BaseChain
+        fragmentActivity: FragmentActivity, selectedChain: BaseChain
     ) : FragmentStateAdapter(fragmentActivity) {
         private val fragments = mutableListOf<Fragment>()
 
         init {
-            fragments.add(MajorCryptoFragment.newInstance(selectedEvmChain))
-            fragments.add(MajorNftFragment.newInstance(selectedEvmChain))
-            fragments.add(MajorReceiveFragment.newInstance(selectedEvmChain))
+            fragments.add(MajorCryptoFragment.newInstance(selectedChain))
+            fragments.add(MajorNftFragment.newInstance(selectedChain))
+            fragments.add(MajorReceiveFragment.newInstance(selectedChain))
+            fragments.add(MajorHistoryFragment.newInstance(selectedChain))
+            fragments.add(MajorEcosystemFragment.newInstance(selectedChain))
+            fragments.add(MajorAboutFragment.newInstance(selectedChain))
         }
 
         override fun getItemCount(): Int {

@@ -15,6 +15,8 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -266,6 +268,51 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
         when (chain) {
+            is ChainSui -> {
+                chain.suiFetcher()?.let { fetcher ->
+                    chain.apply {
+                        when (val response = walletRepository.suiBalance(fetcher, this)) {
+                            is NetworkResult.Success -> {
+                                fetcher.suiBalances.clear()
+                                response.data?.get("result")?.asJsonArray?.forEach { balance ->
+                                    val coinType = balance.asJsonObject["coinType"].asString
+                                    val amount =
+                                        balance.asJsonObject["totalBalance"].asString.toBigDecimal()
+                                    fetcher.suiBalances = fetcher.suiBalances ?: mutableListOf()
+                                    fetcher.suiBalances.add(Pair(coinType, amount))
+                                }
+                                fetcher.suiBalances.sortWith { o1, o2 ->
+                                    when {
+                                        o1.first == SUI_MAIN_DENOM -> -1
+                                        o2.first == SUI_MAIN_DENOM -> 1
+                                        else -> 0
+                                    }
+                                }
+                                chain.fetched = true
+                                if (chain.fetched) {
+                                    fetcher.suiState = true
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                chain.fetched = true
+                                if (fetched) {
+                                    fetcher.suiState = false
+                                    withContext(Dispatchers.Main) {
+                                        withContext(Dispatchers.Main) {
+                                            _balanceResult.value = chain.tag
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             is ChainOktEvm -> {
                 chain.oktFetcher()?.let {
                     when (val response = walletRepository.oktAccountInfo(chain)) {

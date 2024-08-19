@@ -100,7 +100,7 @@ class HdPathSelectFragment(
             numberPicker.value = numberValue
             updateHdPath("m/44'/118'/0'/0/X", cosmosLastHdPath, numberValue)
             updateHdPath("m/44'/60'/0'/0/X", etherLastHdPath, numberValue)
-            updateHdPath("m/44'/459'/0'/0'/X", kavaLastHdPath, numberValue)
+            updateHdPath("m/44'/784'/0'/0'/X", suiLastHdPath, numberValue)
         }
     }
 

@@ -746,7 +746,6 @@ class SwapFragment : BaseTxFragment() {
                                                 chain.cosmosFetcher()?.let { fetcher ->
                                                     try {
                                                         val channel = fetcher.getChannel()
-                                                        loadAuth(channel, chain)
                                                         val loadOutputBalanceDeferred = async {
                                                             loadBalance(
                                                                 channel, chain

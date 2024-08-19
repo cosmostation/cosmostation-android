@@ -175,6 +175,7 @@
     <string name="str_change_endpoint">Change End-Point</string>
     <string name="str_current_epoch">Current epoch</string>
     <string name="str_next_reward_distribution">Next reward</string>
+    <string name="str_instant">Instant</string>
 
 
     //title

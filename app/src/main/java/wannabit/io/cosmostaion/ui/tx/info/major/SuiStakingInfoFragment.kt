@@ -47,6 +47,7 @@ class SuiStakingInfoFragment : Fragment() {
     private var displayStakedList: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     private var isClickable = true
+    private var isActiveSelected = true
 
     companion object {
         @JvmStatic
@@ -104,6 +105,7 @@ class SuiStakingInfoFragment : Fragment() {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.text.toString()) {
                         "Active" -> {
+                            isActiveSelected = true
                             val tempDisplayStakedList =
                                 displayStakedList.filter { it.second["status"].asString != "Pending" }
                             if (tempDisplayStakedList.isEmpty()) {
@@ -118,8 +120,7 @@ class SuiStakingInfoFragment : Fragment() {
                                     suiStakingInfoAdapter.setOnItemClickListener { staked ->
                                         handleOneClickWithDelay(
                                             SuiUnStakingFragment(
-                                                selectedChain,
-                                                staked
+                                                selectedChain, staked
                                             )
                                         )
                                     }
@@ -128,6 +129,7 @@ class SuiStakingInfoFragment : Fragment() {
                         }
 
                         else -> {
+                            isActiveSelected = false
                             val tempDisplayStakedList =
                                 displayStakedList.filter { it.second["status"].asString == "Pending" }
                             if (tempDisplayStakedList.isEmpty()) {
@@ -215,16 +217,26 @@ class SuiStakingInfoFragment : Fragment() {
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = suiStakingInfoAdapter
-                suiStakingInfoAdapter.submitList(displayStakedList.filter { it.second["status"].asString != "Pending" })
 
-                if (::suiStakingInfoAdapter.isInitialized) {
-                    suiStakingInfoAdapter.setOnItemClickListener { staked ->
-                        handleOneClickWithDelay(
-                            SuiUnStakingFragment(
-                                selectedChain,
-                                staked
+                if (isActiveSelected) {
+                    suiStakingInfoAdapter.submitList(displayStakedList.filter { it.second["status"].asString != "Pending" })
+                    if (::suiStakingInfoAdapter.isInitialized) {
+                        suiStakingInfoAdapter.setOnItemClickListener { staked ->
+                            handleOneClickWithDelay(
+                                SuiUnStakingFragment(
+                                    selectedChain, staked
+                                )
                             )
-                        )
+                        }
+                    }
+
+                } else {
+                    suiStakingInfoAdapter.submitList(displayStakedList.filter { it.second["status"].asString == "Pending" })
+                    if (::suiStakingInfoAdapter.isInitialized) {
+                        suiStakingInfoAdapter.setOnItemClickListener { _ ->
+                            requireActivity().makeToast(R.string.error_pending)
+                            return@setOnItemClickListener
+                        }
                     }
                 }
             }

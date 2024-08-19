@@ -6,9 +6,12 @@ import android.graphics.PorterDuff
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.dpTimeToMonth
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
@@ -20,6 +23,7 @@ import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 import java.math.RoundingMode
+import kotlin.math.abs
 
 class HistoryViewHolder(
     val context: Context, private val binding: ItemHistoryBinding
@@ -44,7 +48,7 @@ class HistoryViewHolder(
                 } else {
                     headerTitle.text = headerDate
                 }
-                headerCnt.text = "(" + cnt.toString() + ")"
+                headerCnt.text = "($cnt)"
             }
 
             if (historyGroup.second.isSuccess()) {
@@ -59,7 +63,7 @@ class HistoryViewHolder(
                 txTime.text = formatTxTimeStampToHour(context, header.timestamp)
             }
             historyGroup.second.data?.height?.let { height ->
-                txHeight.text = "(" + height + ")"
+                txHeight.text = "($height)"
                 txHeight.visibility = View.VISIBLE
             } ?: run {
                 txHeight.visibility = View.GONE
@@ -67,13 +71,11 @@ class HistoryViewHolder(
 
             sendTxImage.visibleOrGone(
                 historyGroup.second.getMsgCnt() == 1 && historyGroup.second.getMsgType(
-                    context,
-                    chain.address
+                    context, chain.address
                 ).equals(context.getString(R.string.tx_send), true)
             )
             sendTxImage.setColorFilter(
-                ContextCompat.getColor(context, R.color.color_base02),
-                PorterDuff.Mode.SRC_IN
+                ContextCompat.getColor(context, R.color.color_base02), PorterDuff.Mode.SRC_IN
             )
 
             historyGroup.second.getDpCoin(chain).let { dpCoins ->
@@ -132,10 +134,7 @@ class HistoryViewHolder(
     }
 
     fun bindOktHistory(
-        historyOktGroup: Pair<String, TransactionList>,
-        headerIndex: Int,
-        cnt: Int,
-        position: Int
+        historyOktGroup: Pair<String, TransactionList>, headerIndex: Int, cnt: Int, position: Int
     ) {
         binding.apply {
             historyView.setBackgroundResource(R.drawable.item_bg)
@@ -149,7 +148,7 @@ class HistoryViewHolder(
                 } else {
                     headerTitle.text = headerDate
                 }
-                headerCnt.text = "(" + cnt.toString() + ")"
+                headerCnt.text = "($cnt)"
             }
 
             if (historyOktGroup.second.state == "success") {
@@ -164,6 +163,107 @@ class HistoryViewHolder(
                 txTime.text = voteDpTime(timeStamp.toLong())
             }
             txDenom.text = "-"
+        }
+    }
+
+    fun bindSuiHistory(
+        chain: ChainSui,
+        historySuiGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate = dpTimeToYear(historySuiGroup.second["timestampMs"].asString.toLong())
+            val currentDate = formatCurrentTimeToYear()
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historySuiGroup.second["effects"].asJsonObject["status"].asJsonObject["status"].asString == "success") {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
+
+            var title = ""
+            var description = ""
+            val txs =
+                historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["transactions"].asJsonArray
+            description = txs.last().asJsonObject.entrySet().first().key ?: ""
+            if (txs.size() > 0) {
+                description = if (txs.size() > 1) {
+                    description + " + " + txs.size()
+                } else {
+                    description
+                }
+
+                val sender =
+                    historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["sender"].asString
+                title = if (sender == chain.mainAddress) {
+                    context.getString(R.string.tx_send)
+                } else {
+                    context.getString(R.string.tx_receive)
+                }
+                txs.forEach { tx ->
+                    if (tx.asJsonObject["MoveCall"] != null && tx.asJsonObject["MoveCall"].asJsonObject["function"].asString == "request_withdraw_stake") {
+                        title = context.getString(R.string.str_unstake)
+                    }
+                }
+                txs.forEach { tx ->
+                    if (tx.asJsonObject["MoveCall"] != null && tx.asJsonObject["MoveCall"].asJsonObject["function"].asString == "request_add_stake") {
+                        title = context.getString(R.string.str_stake)
+                    }
+                }
+            }
+
+            txMessage.text = title.ifEmpty {
+                description
+            }
+            txHash.text = historySuiGroup.second["digest"].asString
+            txTime.text = dpTimeToMonth(historySuiGroup.second["timestampMs"].asString.toLong())
+            txHeight.text = "(" + historySuiGroup.second["checkpoint"].asString + ")"
+
+            historySuiGroup.second["balanceChanges"]?.let { balanceChanges ->
+                balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString == chain.mainAddress }
+                    ?.let { change ->
+                        val symbol = change.asJsonObject["coinType"].asString
+                        val amount = change.asJsonObject["amount"].asString
+                        val intAmount = abs(amount.toLong())
+
+                        chain.suiFetcher()?.let { fetcher ->
+                            val asset = BaseData.getAsset(chain.apiName, symbol)
+                            val metaData = fetcher.suiCoinMeta[symbol]
+
+                            if (asset != null) {
+                                val dpAmount =
+                                    intAmount.toBigDecimal().movePointLeft(asset.decimals ?: 9)
+                                        .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                txAmount.text =
+                                    formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                txDenom.text = asset.symbol
+
+                            } else if (metaData != null) {
+                                txDenom.text = metaData["symbol"].asString
+                                val dpAmount = intAmount.toBigDecimal()
+                                    .movePointLeft(metaData["decimals"].asInt)
+                                    ?.setScale(18, RoundingMode.DOWN)
+                                txAmount.text = formatAmount(dpAmount.toString(), 9)
+
+                            } else {
+                                txDenom.text = symbol
+                                val dpAmount = intAmount.toBigDecimal().movePointLeft(9)
+                                    ?.setScale(18, RoundingMode.DOWN)
+                                txAmount.text = formatAmount(dpAmount.toString(), 9)
+                            }
+                        }
+                    }
+            }
         }
     }
 }

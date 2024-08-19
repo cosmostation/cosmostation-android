@@ -13,7 +13,9 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     var suiStakedList: MutableList<JsonObject> = mutableListOf()
     var suiObjects: MutableList<JsonObject> = mutableListOf()
     var suiValidators: MutableList<JsonObject> = mutableListOf()
+    var suiApys: MutableList<JsonObject> = mutableListOf()
     val suiCoinMeta: MutableMap<String, JsonObject> = mutableMapOf()
+    val suiHistory: MutableList<JsonObject> = mutableListOf()
 
     var suiState = true
 
@@ -79,7 +81,7 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         return staked.add(earned)
     }
 
-    fun suiStakedValue(isUsd: Boolean? = false): BigDecimal {
+    private fun suiStakedValue(isUsd: Boolean? = false): BigDecimal {
         val amount = stakedAmount()
         if (amount == BigDecimal.ZERO) {
             return BigDecimal.ZERO
@@ -102,19 +104,6 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         return staked
     }
 
-    fun principalValue(isUsd: Boolean? = false): BigDecimal {
-        val amount = principalAmount()
-        if (amount == BigDecimal.ZERO) {
-            return BigDecimal.ZERO
-        }
-        BaseData.getAsset(chain.apiName, SUI_MAIN_DENOM)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-            return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
-                .setScale(6, RoundingMode.DOWN)
-        }
-        return BigDecimal.ZERO
-    }
-
     fun estimateRewardAmount(): BigDecimal {
         var earned = BigDecimal.ZERO
         suiStakedList.forEach { suiStaked ->
@@ -126,19 +115,6 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
             }
         }
         return earned
-    }
-
-    fun estimateRewardValue(isUsd: Boolean? = false): BigDecimal {
-        val amount = estimateRewardAmount()
-        if (amount == BigDecimal.ZERO) {
-            return BigDecimal.ZERO
-        }
-        BaseData.getAsset(chain.apiName, SUI_MAIN_DENOM)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-            return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
-                .setScale(6, RoundingMode.DOWN)
-        }
-        return BigDecimal.ZERO
     }
 
     fun suiAllNfts(): MutableList<JsonObject> {

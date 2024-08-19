@@ -785,56 +785,6 @@ class ApplicationViewModel(
         }
     }
 
-//    private fun loadSuiAllBalance(
-//        chain: BaseChain, isEdit: Boolean
-//    ) = CoroutineScope(Dispatchers.IO).launch {
-//        (chain as ChainSui).suiFetcher()?.let { fetcher ->
-//            chain.apply {
-//                when (val response = walletRepository.suiBalance(fetcher, this)) {
-//                    is NetworkResult.Success -> {
-//                        fetcher.suiBalances?.clear()
-//                        response.data?.get("result")?.asJsonArray?.forEach { balance ->
-//                            val coinType = balance.asJsonObject["coinType"].asString
-//                            val amount =
-//                                balance.asJsonObject["totalBalance"].asString.toBigDecimal()
-//                            fetcher.suiBalances = fetcher.suiBalances ?: mutableListOf()
-//                            fetcher.suiBalances?.add(Pair(coinType, amount))
-//                        }
-//                        fetcher.suiBalances?.sortWith { o1, o2 ->
-//                            when {
-//                                o1.first == SUI_MAIN_DENOM -> -1
-//                                o2.first == SUI_MAIN_DENOM -> 1
-//                                else -> 0
-//                            }
-//                        }
-//                        loadSuiMoreData(fetcher, baseAccountId, chain, isEdit)
-//                    }
-//
-//                    is NetworkResult.Error -> {
-//                        fetchedState = false
-//                        withContext(Dispatchers.Main) {
-//                            fetchedResult.value = tag
-//                        }
-//                        delay(2000)
-//
-//                        fetchedState = true
-//                        fetched = true
-//                        if (fetched) {
-//                            fetcher.suiBalances = null
-//                            withContext(Dispatchers.Main) {
-//                                if (isEdit) {
-//                                    editFetchedResult.value = tag
-//                                } else {
-//                                    fetchedResult.value = tag
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     fun loadSuiData(
         id: Long, chain: BaseChain, isEdit: Boolean, isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -845,6 +795,7 @@ class ApplicationViewModel(
                 fetcher.suiStakedList.clear()
                 fetcher.suiObjects.clear()
                 fetcher.suiValidators.clear()
+                fetcher.suiApys.clear()
                 fetcher.suiCoinMeta.clear()
 
                 try {
@@ -854,10 +805,13 @@ class ApplicationViewModel(
                         async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
                     val loadStakesDeferred =
                         async { walletRepository.suiStakes(fetcher, this@apply) }
+                    val loadApysDeferred =
+                        async { walletRepository.suiApys(fetcher, this@apply) }
 
                     val systemStateResult = loadSystemStateDeferred.await()
                     loadOwnedObjectDeferred.await()
                     val stakesResult = loadStakesDeferred.await()
+                    val apysResult = loadApysDeferred.await()
 
                     if (systemStateResult is NetworkResult.Success) {
                         fetcher.suiSystem = systemStateResult.data
@@ -876,6 +830,16 @@ class ApplicationViewModel(
 
                     } else if (systemStateResult is NetworkResult.Error) {
                         _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
+                    }
+
+                    if (apysResult is NetworkResult.Success) {
+                        fetcher.suiApys = apysResult.data
+                        fetcher.suiApys.sortByDescending {
+                            it["apy"]?.asDouble ?: Double.MIN_VALUE
+                        }
+
+                    } else if (apysResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${apysResult.errorType}  error message : ${apysResult.errorMessage}")
                     }
 
                     fetcher.suiObjects.forEach { suiObject ->

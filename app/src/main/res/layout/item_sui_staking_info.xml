@@ -60,20 +60,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/moniker_img" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/pending_badge"
-                    style="@style/font_sm_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_4"
-                    android:background="@drawable/round_box_badge"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="Pending"
-                    android:textColor="@color/color_base01"
-                    app:layout_constraintBottom_toBottomOf="@+id/moniker_name"
+                    android:layout_width="@dimen/space_40"
+                    android:layout_height="@dimen/space_40"
+                    android:src="@drawable/icon_pending"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/moniker_name" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

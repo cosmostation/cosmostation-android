@@ -4,6 +4,7 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
@@ -149,4 +150,8 @@ interface WalletRepository {
     suspend fun suiCoinMetadata(
         fetcher: SuiFetcher, chain: ChainSui, coinType: String?
     ): NetworkResult<JsonObject>
+
+    suspend fun suiApys(
+        fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<MutableList<JsonObject>>
 }
