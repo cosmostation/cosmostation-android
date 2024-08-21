@@ -99,6 +99,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -595,6 +596,7 @@ fun allChains(): MutableList<BaseChain> {
 
     chains.add(ChainCosmosTestnet())
     chains.add(ChainArtelaTestnet())
+    chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
 
