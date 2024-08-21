@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.database.Prefs
@@ -92,9 +93,9 @@ class ChainManageFragment : Fragment() {
                 isClickable = true
                 return
             }
-            val settingType = if (chain.isEvmCosmos()) {
-                SettingType.END_POINT_COSMOS
-            } else if (chain.supportCosmos()) {
+            val settingType = if (chain is ChainSui) {
+                SettingType.END_POINT_SUI
+            } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                 SettingType.END_POINT_COSMOS
             } else {
                 SettingType.END_POINT_EVM

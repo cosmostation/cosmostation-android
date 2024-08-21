@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.chain
 
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.tx.step.SuiTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -148,7 +149,12 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     fun suiRpc(): String {
-        return chain.mainUrl
+        val endpoint = Prefs.getEvmRpcEndpoint(chain)
+        return if (endpoint?.isNotEmpty() == true) {
+            endpoint
+        } else {
+            chain.mainUrl
+        }
     }
 }
 
@@ -214,9 +220,11 @@ fun JsonObject.suiValidatorName(): String {
 }
 
 fun JsonObject.suiValidatorCommission(): BigDecimal {
-    return this["commissionRate"].asString.toBigDecimal().movePointLeft(2).setScale(2, RoundingMode.DOWN)
+    return this["commissionRate"].asString.toBigDecimal().movePointLeft(2)
+        .setScale(2, RoundingMode.DOWN)
 }
 
 fun JsonObject.suiValidatorVp(): BigDecimal {
-    return this["stakingPoolSuiBalance"].asString.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
+    return this["stakingPoolSuiBalance"].asString.toBigDecimal().movePointLeft(9)
+        .setScale(9, RoundingMode.DOWN)
 }

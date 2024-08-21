@@ -526,6 +526,7 @@ class SettingFragment : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (waitingDialog?.isAdded == true) {
                         waitingDialog?.dismissAllowingStateLoss()
+                        initChainManageCnt()
                     }
                 }, 1000)
             }

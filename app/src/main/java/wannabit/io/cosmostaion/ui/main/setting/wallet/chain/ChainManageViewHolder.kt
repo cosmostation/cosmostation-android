@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.ChainSui
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
@@ -17,7 +18,12 @@ class ChainManageViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            if (chain is ChainSui) {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "RPC"
+                rpcEndpoint.text = chain.suiFetcher()?.suiRpc()?.replace("https://", "")
+
+            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 if (chain.isEvmCosmos()) {
                     grpcLayout.visibility = View.VISIBLE
                     rpcEndpointType.text = "EVM RPC"

@@ -185,7 +185,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 SettingType.END_POINT_SUI -> {
                     selectTitle.text = getString(R.string.title_select_end_point_sui_rpc)
                     val rpcEndpoints: MutableList<Any> = ArrayList()
-                    fromChain?.getChainListParam()?.getAsJsonArray("evm_rpc_endpoint")?.let {
+                    fromChain?.getChainListParam()?.getAsJsonArray("rpc_endpoint")?.let {
                         for (jsonElement in it) {
                             rpcEndpoints.add(jsonElement.asJsonObject)
                         }
@@ -196,7 +196,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         fromChain,
                         rpcEndpoints,
                         mutableListOf(),
-                        SettingType.END_POINT_EVM,
+                        SettingType.END_POINT_SUI,
                         endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
