@@ -242,7 +242,7 @@ class DashboardFragment : Fragment() {
                                         updateRowData(chain.tag)
                                     }
                                 } else {
-                                    if (chain.address.isNotEmpty()) {
+                                    if (chain.address.isNotEmpty() || chain.mainAddress.isNotEmpty()) {
                                         updateRowData(chain.tag)
                                     }
                                 }
@@ -264,7 +264,7 @@ class DashboardFragment : Fragment() {
                                         updateRowData(chain.tag)
                                     }
                                 } else {
-                                    if (chain.address.isNotEmpty()) {
+                                    if (chain.address.isNotEmpty() || chain.mainAddress.isNotEmpty()) {
                                         updateRowData(chain.tag)
                                     }
                                 }

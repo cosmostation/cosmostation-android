@@ -7,10 +7,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -61,7 +62,7 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain is ChainSui) {
+            if (chain is ChainSui || chain is ChainBitCoin44) {
                 chainAddress.text = chain.mainAddress
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE

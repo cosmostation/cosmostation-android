@@ -6,6 +6,7 @@ import net.i2p.crypto.eddsa.Utils
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
 import net.i2p.crypto.eddsa.spec.EdDSAPublicKeySpec
+import org.bitcoinj.core.Base58
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -19,8 +20,8 @@ import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import java.security.SecureRandom
 
 object BaseKey {
@@ -93,16 +94,25 @@ object BaseKey {
     }
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519) {
-            val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
-            val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
-            val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
-            val publicKey = EdDSAPublicKey(pubKeySpec)
-            publicKey.abyte
+        return when (pubKeyType) {
+            PubKeyType.SUI_ED25519 -> {
+                val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
+                val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
+                val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
+                val publicKey = EdDSAPublicKey(pubKeySpec)
+                publicKey.abyte
 
-        } else {
-            val ecKey = ECKey.fromPrivate(privateKey)
-            ecKey.pubKey
+            }
+
+            PubKeyType.BTC_LEGACY -> {
+                val ecKey = ECKey.fromPrivate(privateKey)
+                ecKey.pubKey
+            }
+
+            else -> {
+                val ecKey = ECKey.fromPrivate(privateKey)
+                ecKey.pubKey
+            }
         }
     }
 
@@ -123,6 +133,15 @@ object BaseKey {
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
                 result = "0x" + Keys.getAddress(pub).toHex()
+            }
+
+            PubKeyType.BTC_LEGACY -> {
+                val sha256Hash = Sha256Hash.hash(pubKey)
+                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
+                val networkAndHash = byteArrayOf(0x00) + ripemd160
+                val checksum = Sha256Hash.hash(Sha256Hash.hash(networkAndHash)).copyOfRange(0, 4)
+                val dataWithChecksum = networkAndHash + checksum
+                return Base58.encode(dataWithChecksum)
             }
 
             PubKeyType.SUI_ED25519 -> {

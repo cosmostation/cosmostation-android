@@ -520,7 +520,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
-    chains.add(ChainBit())
+//    chains.add(ChainBitCoin44())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
     chains.add(ChainCantoEvm())
@@ -634,6 +634,6 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD }
