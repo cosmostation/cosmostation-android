@@ -19,7 +19,7 @@ import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
-import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.PubKeyType
 import java.security.SecureRandom
 

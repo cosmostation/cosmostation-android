@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.SUI_API
+import wannabit.io.cosmostaion.chain.majorClass.SUI_API
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
 

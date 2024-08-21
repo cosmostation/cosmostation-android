@@ -97,6 +97,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
@@ -519,6 +520,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
+    chains.add(ChainBit())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
     chains.add(ChainCantoEvm())

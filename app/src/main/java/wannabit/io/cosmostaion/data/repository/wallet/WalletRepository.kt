@@ -4,12 +4,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion

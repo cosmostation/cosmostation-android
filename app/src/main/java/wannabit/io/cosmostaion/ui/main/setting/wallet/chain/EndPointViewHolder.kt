@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.chain
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.tendermint.v1beta1.QueryProto.GetNodeInfoRequest
@@ -19,7 +18,7 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible

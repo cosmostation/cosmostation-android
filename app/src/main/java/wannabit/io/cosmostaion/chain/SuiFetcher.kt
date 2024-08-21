@@ -1,6 +1,12 @@
 package wannabit.io.cosmostaion.chain
 
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_DEFAULT
+import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_SEND
+import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_STAKE
+import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_UNSTAKE
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.SUI_TYPE_COIN
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.tx.step.SuiTxType

@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.suiValidatorImg
 import wannabit.io.cosmostaion.chain.suiValidatorName
 import wannabit.io.cosmostaion.common.BaseData

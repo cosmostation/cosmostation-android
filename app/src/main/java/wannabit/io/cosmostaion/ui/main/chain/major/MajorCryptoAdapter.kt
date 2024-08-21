@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
-import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemMajorCryptoBinding

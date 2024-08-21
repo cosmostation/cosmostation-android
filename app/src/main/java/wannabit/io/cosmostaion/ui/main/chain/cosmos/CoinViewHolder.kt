@@ -1,15 +1,13 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.assetImg
 import wannabit.io.cosmostaion.chain.suiCoinSymbol
-import wannabit.io.cosmostaion.chain.suiCoinType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue

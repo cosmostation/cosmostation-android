@@ -18,9 +18,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.ChainSui
-import wannabit.io.cosmostaion.chain.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.SUI_MIN_STAKE
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
 import wannabit.io.cosmostaion.chain.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.suiValidatorImg
 import wannabit.io.cosmostaion.chain.suiValidatorName
