@@ -1,7 +1,12 @@
 package wannabit.io.cosmostaion.common
 
 import org.bitcoinj.core.AddressFormatException
+import org.bitcoinj.core.Base58
 import org.bitcoinj.core.Bech32
+import org.bitcoinj.core.NetworkParameters
+import org.bitcoinj.core.SegwitAddress
+import org.bitcoinj.core.Sha256Hash
+import org.bitcoinj.params.MainNetParams
 import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
@@ -101,5 +106,25 @@ object ByteUtils {
         mac.init(secretKeySpec)
         val result = mac.doFinal(input)
         return Pair(result.sliceArray(0..31), result.sliceArray(32..63))
+    }
+
+    fun Base58ChecksumEncode(networkAndHash: ByteArray): String {
+        val checksum = Sha256Hash.hash(Sha256Hash.hash(networkAndHash)).copyOfRange(0, 4)
+        val dataWithChecksum = networkAndHash + checksum
+        return Base58.encode(dataWithChecksum)
+    }
+
+    fun segWitOutputScript(ripemd160: ByteArray, versionByte: Byte): ByteArray {
+        val script = ByteArray(2 + ripemd160.size)
+        script[0] = versionByte
+        script[1] = ripemd160.size.toByte()
+        System.arraycopy(ripemd160, 0, script, 2, ripemd160.size)
+        return script
+    }
+
+    fun encodeSegWitAddress(ripemd160: ByteArray): String {
+        val params: NetworkParameters = MainNetParams.get()
+        val segwitAddress = SegwitAddress.fromHash(params, ripemd160)
+        return segwitAddress.toBech32()
     }
 }

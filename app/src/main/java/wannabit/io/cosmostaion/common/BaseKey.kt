@@ -6,7 +6,6 @@ import net.i2p.crypto.eddsa.Utils
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
 import net.i2p.crypto.eddsa.spec.EdDSAPublicKeySpec
-import org.bitcoinj.core.Base58
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -22,6 +21,8 @@ import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.common.ByteUtils.encodeSegWitAddress
+import wannabit.io.cosmostaion.common.ByteUtils.segWitOutputScript
 import java.security.SecureRandom
 
 object BaseKey {
@@ -104,11 +105,6 @@ object BaseKey {
 
             }
 
-            PubKeyType.BTC_LEGACY -> {
-                val ecKey = ECKey.fromPrivate(privateKey)
-                ecKey.pubKey
-            }
-
             else -> {
                 val ecKey = ECKey.fromPrivate(privateKey)
                 ecKey.pubKey
@@ -139,9 +135,22 @@ object BaseKey {
                 val sha256Hash = Sha256Hash.hash(pubKey)
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
                 val networkAndHash = byteArrayOf(0x00) + ripemd160
-                val checksum = Sha256Hash.hash(Sha256Hash.hash(networkAndHash)).copyOfRange(0, 4)
-                val dataWithChecksum = networkAndHash + checksum
-                return Base58.encode(dataWithChecksum)
+                return ByteUtils.Base58ChecksumEncode(networkAndHash)
+            }
+
+            PubKeyType.BTC_NESTED_SEGWIT -> {
+                val sha256Hash = Sha256Hash.hash(pubKey)
+                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
+                val segWitScript = segWitOutputScript(ripemd160, 0x00)
+                val hashP2WrappedInP2sh = ByteUtils.hashToRIPMD160(Sha256Hash.hash(segWitScript))
+                val networkAndHash = byteArrayOf(0x05) + hashP2WrappedInP2sh
+                return ByteUtils.Base58ChecksumEncode(networkAndHash)
+            }
+
+            PubKeyType.BTC_NATIVE_SEGWIT -> {
+                val sha256Hash = Sha256Hash.hash(pubKey)
+                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
+                return encodeSegWitAddress(ripemd160)
             }
 
             PubKeyType.SUI_ED25519 -> {
