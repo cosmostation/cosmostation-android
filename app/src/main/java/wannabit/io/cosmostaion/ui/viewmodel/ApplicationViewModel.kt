@@ -936,7 +936,7 @@ class ApplicationViewModel(
 
                         coinMetaDeferred.forEachIndexed { index, deferred ->
                             val coinMetadataResult = deferred.await()
-                            if (coinMetadataResult is NetworkResult.Success) {
+                            if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
                                 fetcher.suiBalances[index].first?.let { type ->
                                     if (coinMetadataResult.data["result"] != null) {
                                         fetcher.suiCoinMeta[type] =

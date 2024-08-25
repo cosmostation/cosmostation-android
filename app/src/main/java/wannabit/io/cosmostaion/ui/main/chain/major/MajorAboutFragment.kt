@@ -117,12 +117,16 @@ class MajorAboutFragment : Fragment() {
                 unbondingTime.text = getString(R.string.str_instant)
                 chainInflation.text = "-"
                 val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    fetcher.suiApys[0]["apy"].asString?.let { apy ->
-                        formatPercent(
-                            apy.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
-                                .toString()
-                        )
-                    } ?: run {
+                    if (fetcher.suiApys.isNotEmpty()) {
+                        fetcher.suiApys[0]["apy"].asString?.let { apy ->
+                            formatPercent(
+                                apy.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
+                                    .toString()
+                            )
+                        } ?: run {
+                            "-"
+                        }
+                    } else {
                         "-"
                     }
                 }

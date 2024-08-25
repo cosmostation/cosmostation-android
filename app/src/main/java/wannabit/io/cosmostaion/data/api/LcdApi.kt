@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
+import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
 import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 
@@ -100,4 +101,7 @@ interface LcdApi {
 
     @POST("buildUnstakingRequest")
     suspend fun unSafeUnStake(@Body parameters: SuiUnStakeReq): String
+
+    @POST("buildSuiTransaction")
+    suspend fun transactionBlock(@Body parameters: SuiTransactionBlock): Response<String>
 }

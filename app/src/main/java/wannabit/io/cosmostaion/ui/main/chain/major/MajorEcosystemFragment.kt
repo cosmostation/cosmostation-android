@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.major
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,6 +88,7 @@ class MajorEcosystemFragment : Fragment() {
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", it)
+                    putExtra("selectedChain", selectedChain as Parcelable)
                     startActivity(this)
                 }
             }

@@ -5,8 +5,7 @@ data class SimulateTxReq(
 )
 
 data class BroadcastTxReq(
-    val mode: Int,
-    val tx_bytes: String
+    val mode: Int, val tx_bytes: String
 )
 
 //Sui
@@ -19,8 +18,8 @@ data class SuiStakeReq(
 )
 
 data class SuiUnStakeReq(
-    val address: String,
-    val objectId: String?,
-    val gas: String,
-    val rpc: String
+    val address: String, val objectId: String?, val gas: String, val rpc: String
 )
+
+data class SuiTransactionBlock(val txBlock: String, val address: String, val rpc: String)
+

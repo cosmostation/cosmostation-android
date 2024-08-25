@@ -36,6 +36,7 @@ import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +49,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
@@ -107,6 +111,34 @@ fun formatAssetValue(value: BigDecimal, isUsd: Boolean? = false): SpannableStrin
 
 fun formatPercent(value: String): SpannableString {
     return formatString("$value%", 3)
+}
+
+fun formatJsonString(jsonString: String): String {
+    return try {
+        if (jsonString.trim().startsWith("{")) {
+            val jsonObject = JSONObject(jsonString)
+            jsonObject.toString(4)
+        } else if (jsonString.trim().startsWith("[")) {
+            val jsonArray = JSONArray(jsonString)
+            jsonArray.toString(4)
+        } else {
+            jsonString
+        }
+    } catch (e: JSONException) {
+        jsonString
+    }
+}
+
+fun formatJsonOptions(data: JsonObject): Map<String, Boolean> {
+    val result = mutableMapOf<String, Boolean>(
+        "showInput" to true, "showEffects" to true, "showEvents" to true
+    )
+    for (entry in data.entrySet()) {
+        val key = entry.key
+        val value = entry.value.asBoolean
+        result.putIfAbsent(key, value)
+    }
+    return result
 }
 
 fun priceChangeStatus(lastUpDown: BigDecimal): SpannableString {
@@ -212,20 +244,13 @@ fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
         add(SvgDecoder(context))
     }.build()
 
-    val imageRequest = ImageRequest.Builder(this.context)
-        .crossfade(true)
-        .crossfade(300)
-        .data(imageUrl?.ifBlank { defaultImage })
-        .target(
-            onSuccess = { result ->
-                val bitmap = (result as BitmapDrawable).bitmap
-                this.setImageBitmap(bitmap)
-            },
-            onError = {
-                this.setImageResource(defaultImage)
-            }
-        )
-        .build()
+    val imageRequest = ImageRequest.Builder(this.context).crossfade(true).crossfade(300)
+        .data(imageUrl?.ifBlank { defaultImage }).target(onSuccess = { result ->
+            val bitmap = (result as BitmapDrawable).bitmap
+            this.setImageBitmap(bitmap)
+        }, onError = {
+            this.setImageResource(defaultImage)
+        }).build()
     imageLoader.enqueue(imageRequest)
 }
 
