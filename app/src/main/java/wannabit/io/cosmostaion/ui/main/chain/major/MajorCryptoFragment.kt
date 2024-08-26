@@ -84,6 +84,7 @@ class MajorCryptoFragment : Fragment() {
                 selectedChain = it
             }
         }
+        binding.dropMoney.visibility = View.GONE
     }
 
     private fun sortAssets() {

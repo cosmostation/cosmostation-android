@@ -176,6 +176,7 @@
     <string name="str_current_epoch">Current epoch</string>
     <string name="str_next_reward_distribution">Next reward</string>
     <string name="str_instant">Instant</string>
+    <string name="str_endpoint_reset">Reset End-Point</string>
 
 
     //title
@@ -424,7 +425,7 @@
     <string name="str_sui_guide_msg1">If you have started staking, it will remain in a \'pending\' state until the current epoch (%1$s) ends</string>
     <string name="str_sui_guide_msg2">At the end of the next epoch (%1$s), rewards will be distributed. Each subsequent epoch will be repeated</string>
     <string name="str_sui_guide_msg3">Rewards are compounded and can be used immediately after the start of unstaking</string>
-
+    <string name="str_endpoint_reset_msg">(Recommended) Would you like to reset the End-Points for all chains to their default settings?\n\nEnd-Points are servers that manage connections to the blockchain network, ensuring that data can be transmitted and received smoothly when the stable End-Point is used. </string>
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>

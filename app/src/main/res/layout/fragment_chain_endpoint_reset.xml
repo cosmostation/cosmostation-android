@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
-        android:text="@string/str_token_github"
+        android:text="@string/str_endpoint_reset"
         android:textColor="@color/color_base01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_view" />
@@ -46,7 +46,7 @@
         android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_40"
         android:gravity="start"
-        android:text="@string/str_token_github_msg"
+        android:text="@string/str_endpoint_reset_msg"
         android:textColor="@color/color_base02"
         app:layout_constraintTop_toBottomOf="@id/view1" />
 

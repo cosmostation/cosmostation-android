@@ -19,11 +19,11 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.suiCoinType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -927,7 +927,7 @@ class ApplicationViewModel(
                         _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
                     }
 
-                    async {
+                    withContext(Dispatchers.Default) {
                         val coinMetaDeferred = fetcher.suiBalances.map { (coinType, _) ->
                             async {
                                 walletRepository.suiCoinMetadata(fetcher, this@apply, coinType)
@@ -936,16 +936,19 @@ class ApplicationViewModel(
 
                         coinMetaDeferred.forEachIndexed { index, deferred ->
                             val coinMetadataResult = deferred.await()
-                            if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
+                            if (coinMetadataResult is NetworkResult.Success) {
                                 fetcher.suiBalances[index].first?.let { type ->
-                                    if (coinMetadataResult.data["result"] != null) {
-                                        fetcher.suiCoinMeta[type] =
-                                            coinMetadataResult.data["result"].asJsonObject
+                                    val result = coinMetadataResult.data["result"]?.asJsonObject
+                                    if (result != null) {
+                                        fetcher.suiCoinMeta[type] = result
                                     }
                                 }
+
+                            } else if (coinMetadataResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("Coin metadata fetch error: ${coinMetadataResult.errorMessage}")
                             }
                         }
-                    }.await()
+                    }
 
                     fetchedState = false
                     withContext(Dispatchers.Main) {

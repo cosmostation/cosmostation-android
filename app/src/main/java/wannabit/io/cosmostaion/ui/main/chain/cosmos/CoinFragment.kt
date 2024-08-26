@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
@@ -23,6 +26,7 @@ import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
@@ -82,6 +86,7 @@ class CoinFragment : Fragment() {
         initData()
         sunsetPopup()
         initSearchView()
+        setUpClickAction()
     }
 
     private fun initData() {
@@ -426,6 +431,18 @@ class CoinFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.dropMoney.apply {
+            visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron)
+            setOnClickListener {
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
+                    startActivity(this)
                 }
             }
         }

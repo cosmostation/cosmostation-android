@@ -137,6 +137,7 @@
     <string name="str_current_epoch">現在 Epoch</string>
     <string name="str_next_reward_distribution">次の報酬分配</string>
     <string name="str_instant">直ちに</string>
+    <string name="str_endpoint_reset">エンドポイントの初期化</string>
 
 
     //title
@@ -348,6 +349,7 @@
     <string name="str_sui_guide_msg1">ステーキングを開始した場合、現在のEpoch(%1$s) が終了するまで「保留」状態のままになります。</string>
     <string name="str_sui_guide_msg2">次のEpoch (%1$s) の終了時に報酬が分配されます。後続の各エポックは繰り返されます。</string>
     <string name="str_sui_guide_msg3">報酬は複利で付与され、ステーキング解除開始後すぐに使用できます。</string>
+    <string name="str_endpoint_reset_msg">（推奨）すべてのチェーンのエンドポイントをデフォルト設定にリセットしますか？\n\nエンドポイントはブロックチェーンネットワークとの接続を管理するサーバーであり、安定したエンドポイントを使用することでデータの円滑な送受信が可能になります。？</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

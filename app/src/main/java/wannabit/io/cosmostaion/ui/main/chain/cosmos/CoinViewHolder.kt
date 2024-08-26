@@ -1,18 +1,21 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.assetImg
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
+import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.database.Prefs
@@ -77,14 +80,25 @@ class CoinViewHolder(
                         coinAmount.text = formatAmount(amount.toString(), 6)
 
                     } else if (metaData != null) {
-                        tokenImg.setTokenImg(metaData.assetImg())
+                        if (metaData.assetImg().contains("base64")) {
+                            val base64String = metaData.assetImg().substringAfter("base64,")
+                            val decodedString = Base64.decode(base64String)
+                            val base64ToBitmap =
+                                BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                            tokenImg.setImageBitmap(base64ToBitmap)
+                        } else {
+                            tokenImg.setImageFromSvg(metaData.assetImg(), R.drawable.token_default)
+                        }
+
                         tokenName.text = metaData["symbol"].asString
-                        val dpAmount = balance.second?.movePointLeft(metaData["decimals"].asInt)?.setScale(18, RoundingMode.DOWN)
+                        val dpAmount = balance.second?.movePointLeft(metaData["decimals"].asInt)
+                            ?.setScale(18, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(dpAmount.toString(), 6)
 
                     } else {
                         tokenName.text = balance.first.suiCoinSymbol()
-                        val dpAmount = balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
+                        val dpAmount =
+                            balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(dpAmount.toString(), 6)
                     }
 

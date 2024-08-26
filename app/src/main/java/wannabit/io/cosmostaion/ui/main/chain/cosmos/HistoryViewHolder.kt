@@ -211,13 +211,28 @@ class HistoryViewHolder(
                     context.getString(R.string.tx_receive)
                 }
                 txs.forEach { tx ->
-                    if (tx.asJsonObject["MoveCall"] != null && tx.asJsonObject["MoveCall"].asJsonObject["function"].asString == "request_withdraw_stake") {
-                        title = context.getString(R.string.str_unstake)
-                    }
-                }
-                txs.forEach { tx ->
-                    if (tx.asJsonObject["MoveCall"] != null && tx.asJsonObject["MoveCall"].asJsonObject["function"].asString == "request_add_stake") {
-                        title = context.getString(R.string.str_stake)
+                    if (tx.asJsonObject["MoveCall"] != null) {
+                        when (tx.asJsonObject["MoveCall"].asJsonObject["function"].asString) {
+                            "request_withdraw_stake" -> {
+                                title = context.getString(R.string.str_unstake)
+                            }
+
+                            "request_add_stake" -> {
+                                title = context.getString(R.string.str_stake)
+                            }
+
+                            "swap" -> {
+                                title = context.getString(R.string.title_swap)
+                            }
+
+                            "mint" -> {
+                                title = "Supply"
+                            }
+
+                            "redeem" -> {
+                                title = "Redeem"
+                            }
+                        }
                     }
                 }
             }
