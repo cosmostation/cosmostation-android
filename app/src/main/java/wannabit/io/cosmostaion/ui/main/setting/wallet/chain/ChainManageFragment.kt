@@ -15,8 +15,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
@@ -91,9 +93,9 @@ class ChainManageFragment : Fragment() {
                 isClickable = true
                 return
             }
-            val settingType = if (chain.isEvmCosmos()) {
-                SettingType.END_POINT_COSMOS
-            } else if (chain.supportCosmos()) {
+            val settingType = if (chain is ChainSui) {
+                SettingType.END_POINT_SUI
+            } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                 SettingType.END_POINT_COSMOS
             } else {
                 SettingType.END_POINT_EVM
@@ -135,7 +137,9 @@ class ChainManageFragment : Fragment() {
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true) && !chain.isTestnet && chain.isDefault
+                                chain.name.contains(
+                                    searchTxt, ignoreCase = true
+                                ) && !chain.isTestnet && chain.isDefault
                             })
 
                             searchTestnetChains.addAll(allChains().filter { chain ->
@@ -160,6 +164,40 @@ class ChainManageFragment : Fragment() {
     private fun setUpClickAction() {
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+        binding.btnReset.setOnClickListener {
+            if (isClickable) {
+                isClickable = false
+
+                ChainEndpointResetFragment.newInstance(object : ResetListener {
+                    override fun reset() {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            mainnetChains.forEach { chain ->
+                                Prefs.removeEndpointType(chain)
+                                Prefs.removeGrpcEndpoint(chain)
+                                Prefs.removeLcdEndpoint(chain)
+                                Prefs.removeEvmRpcEndpoint(chain)
+                            }
+
+                            testnetChains.forEach { chain ->
+                                Prefs.removeEndpointType(chain)
+                                Prefs.removeGrpcEndpoint(chain)
+                                Prefs.removeLcdEndpoint(chain)
+                                Prefs.removeEvmRpcEndpoint(chain)
+                            }
+                        }
+                        chainManageAdapter.notifyDataSetChanged()
+                    }
+                }).show(
+                    requireActivity().supportFragmentManager,
+                    ChainEndpointResetFragment::class.java.name
+                )
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
+            }
         }
     }
 

@@ -97,7 +97,7 @@
                     android:id="@+id/tx_hash"
                     style="@style/font_sb_12"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/space_15"
+                    android:layout_height="wrap_content"
                     android:ellipsize="middle"
                     android:gravity="end"
                     android:maxWidth="@dimen/space_130"

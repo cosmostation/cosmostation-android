@@ -22,6 +22,9 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.suiCoinType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -43,6 +46,59 @@ class ApplicationViewModel(
     companion object {
         val shared
             get() = CosmostationApp.instance.applicationViewModel
+    }
+
+    private val _chainDataErrorMessage = MutableLiveData<String>()
+    val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
+
+    fun price(currency: String, force: Boolean? = false) = viewModelScope.launch(Dispatchers.IO) {
+        if (!BaseData.priceUpdateIfNeed() && force == false) {
+            return@launch
+        }
+        when (val response = walletRepository.price(currency)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    BaseData.prices = data
+                    BaseData.setLastPriceTime()
+                    BaseData.baseAccount?.updateAllValue()
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+
+        when (val response = walletRepository.usdPrice()) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    BaseData.usdPrices = data
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private val _updateParamResult = MutableLiveData<Boolean>()
+    val updateParamResult: LiveData<Boolean> get() = _updateParamResult
+    fun param() = viewModelScope.launch(Dispatchers.IO) {
+        if (!BaseData.paramUpdateIfNeed()) {
+            return@launch
+        }
+        when (val response = walletRepository.param()) {
+            is NetworkResult.Success -> {
+                BaseData.chainParam = response.data
+                BaseData.setLastParamTime()
+                _updateParamResult.postValue(true)
+            }
+
+            is NetworkResult.Error -> {
+                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
     }
 
     private var _currentAccountResult = MutableLiveData<Pair<Boolean, BaseAccount?>>()
@@ -102,9 +158,6 @@ class ApplicationViewModel(
         serviceTxResult.postValue(true)
     }
 
-    private val _chainDataErrorMessage = MutableLiveData<String>()
-    val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
-
     fun loadChainData(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -114,25 +167,15 @@ class ApplicationViewModel(
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.tokens = response.data
-                            if (supportNft) {
-                                when (val infoResponse = walletRepository.cw721Info(apiName)) {
-                                    is NetworkResult.Success -> {
-                                        cosmosFetcher?.cw721s = infoResponse.data
-                                    }
-
-                                    is NetworkResult.Error -> {
-                                        _chainDataErrorMessage.postValue("error type : ${infoResponse.errorType}  error message : ${infoResponse.errorMessage}")
-                                    }
-                                }
-                            }
                         }
 
                         is NetworkResult.Error -> {
                             _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                         }
                     }
+                }
 
-                } else if (supportNft) {
+                if (supportNft) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.cw721s = response.data
@@ -147,6 +190,8 @@ class ApplicationViewModel(
 
             if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
+            } else if (this is ChainSui) {
+                loadSuiData(baseAccountId, this, isEdit)
             } else {
                 if (supportEvm) {
                     loadEvmChainData(this, baseAccountId, isEdit)
@@ -165,6 +210,9 @@ class ApplicationViewModel(
 
     var editFetchedResult = SingleLiveEvent<String>()
     var editFetchedTokenResult = SingleLiveEvent<String>()
+
+    var refreshFetchedResult = SingleLiveEvent<String>()
+    var refreshStakingInfoFetchedResult = SingleLiveEvent<String>()
 
     var txFetchedResult = SingleLiveEvent<String>()
 
@@ -571,7 +619,7 @@ class ApplicationViewModel(
                                 BaseData.updateRefAddressesMain(refAddress)
                                 withContext(Dispatchers.Main) {
                                     if (isEdit) {
-                                        editFetchedResult.postValue(tag)
+                                        editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
                                     }
@@ -610,7 +658,7 @@ class ApplicationViewModel(
                                 BaseData.updateRefAddressesMain(refAddress)
                                 withContext(Dispatchers.Main) {
                                     if (isEdit) {
-                                        editFetchedResult.postValue(tag)
+                                        editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
                                     }
@@ -763,7 +811,7 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
-                                editFetchedResult.postValue(tag)
+                                editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
@@ -776,7 +824,185 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
-                                editFetchedResult.postValue(tag)
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadSuiData(
+        id: Long, chain: BaseChain, isEdit: Boolean, isRefresh: Boolean? = false
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        (chain as ChainSui).suiFetcher()?.let { fetcher ->
+            chain.apply {
+                fetcher.suiSystem = JsonObject()
+                fetcher.suiBalances.clear()
+                fetcher.suiStakedList.clear()
+                fetcher.suiObjects.clear()
+                fetcher.suiValidators.clear()
+                fetcher.suiApys.clear()
+                fetcher.suiCoinMeta.clear()
+
+                try {
+                    val loadSystemStateDeferred =
+                        async { walletRepository.suiSystemState(fetcher, this@apply) }
+                    val loadOwnedObjectDeferred =
+                        async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
+                    val loadStakesDeferred =
+                        async { walletRepository.suiStakes(fetcher, this@apply) }
+                    val loadApysDeferred =
+                        async { walletRepository.suiApys(fetcher, this@apply) }
+
+                    val systemStateResult = loadSystemStateDeferred.await()
+                    loadOwnedObjectDeferred.await()
+                    val stakesResult = loadStakesDeferred.await()
+                    val apysResult = loadApysDeferred.await()
+
+                    if (systemStateResult is NetworkResult.Success) {
+                        fetcher.suiSystem = systemStateResult.data
+                        fetcher.suiSystem["result"].asJsonObject["activeValidators"].asJsonArray.forEach { validator ->
+                            fetcher.suiValidators.add(validator.asJsonObject)
+                        }
+                        fetcher.suiValidators.sortWith { o1, o2 ->
+                            when {
+                                o1["name"].asString == "Cosmostation" -> -1
+                                o2["name"].asString == "Cosmostation" -> 1
+                                else -> o2["votingPower"]?.asInt?.compareTo(
+                                    o1["votingPower"]?.asInt ?: 0
+                                ) ?: 0
+                            }
+                        }
+
+                    } else if (systemStateResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
+                    }
+
+                    if (apysResult is NetworkResult.Success) {
+                        fetcher.suiApys = apysResult.data
+                        fetcher.suiApys.sortByDescending {
+                            it["apy"]?.asDouble ?: Double.MIN_VALUE
+                        }
+
+                    } else if (apysResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${apysResult.errorType}  error message : ${apysResult.errorMessage}")
+                    }
+
+                    fetcher.suiObjects.forEach { suiObject ->
+                        val coinType = suiObject["data"].asJsonObject["type"].asString.suiCoinType()
+                        if (coinType != null) {
+                            val fields =
+                                suiObject["data"].asJsonObject["content"].asJsonObject["fields"].asJsonObject
+                            fields?.get("balance")?.let { balance ->
+                                val index =
+                                    fetcher.suiBalances.indexOfFirst { it.first == coinType }
+                                if (index != -1) {
+                                    val alreadyAmount = fetcher.suiBalances[index].second
+                                    val sumAmount =
+                                        alreadyAmount?.add(balance.asString.toBigDecimal())
+                                    fetcher.suiBalances[index] = Pair(coinType, sumAmount)
+
+                                } else {
+                                    val newAmount = balance.asString.toBigDecimal()
+                                    fetcher.suiBalances.add(Pair(coinType, newAmount))
+                                }
+                            }
+                        }
+                    }
+
+                    if (fetcher.suiBalances.none { it.first == SUI_MAIN_DENOM }) {
+                        fetcher.suiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
+                    }
+
+                    if (stakesResult is NetworkResult.Success) {
+                        stakesResult.data["result"].asJsonArray.forEach { stake ->
+                            fetcher.suiStakedList.add(stake.asJsonObject)
+                        }
+
+                    } else if (stakesResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
+                    }
+
+                    withContext(Dispatchers.Default) {
+                        val coinMetaDeferred = fetcher.suiBalances.map { (coinType, _) ->
+                            async {
+                                walletRepository.suiCoinMetadata(fetcher, this@apply, coinType)
+                            }
+                        }
+
+                        coinMetaDeferred.forEachIndexed { index, deferred ->
+                            val coinMetadataResult = deferred.await()
+                            if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
+                                fetcher.suiBalances[index].first?.let { type ->
+                                    val result = coinMetadataResult.data["result"]?.asJsonObject
+                                    if (result != null) {
+                                        fetcher.suiCoinMeta[type] = result
+                                    }
+                                }
+
+                            } else if (coinMetadataResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("Coin metadata fetch error: ${coinMetadataResult.errorMessage}")
+                            }
+                        }
+                    }
+
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
+                    delay(2000)
+
+                    fetchedState = true
+                    fetched = true
+                    if (fetched) {
+                        fetcher.suiState = true
+                        val refAddress = RefAddress(
+                            id,
+                            tag,
+                            mainAddress,
+                            "",
+                            fetcher.allAssetValue(true).toString(),
+                            fetcher.suiBalanceAmount(SUI_MAIN_DENOM).toString(),
+                            "0",
+                            fetcher.suiBalances.size.toLong()
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        withContext(Dispatchers.Main) {
+                            if (isEdit && isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
+                            } else if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                                txFetchedResult.value = tag
+                            }
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    fetchedState = false
+                    withContext(Dispatchers.Main) {
+                        fetchedResult.value = tag
+                    }
+                    delay(2000)
+
+                    fetchedState = true
+                    fetched = true
+                    if (fetched) {
+                        fetcher.suiState = false
+                        withContext(Dispatchers.Main) {
+                            if (isEdit && isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
+                            } else if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }

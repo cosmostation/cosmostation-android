@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -8,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +28,7 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
@@ -37,6 +38,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -103,6 +105,8 @@ class CommonTransferFragment : BaseTxFragment() {
     private val evmGasLimit = BigInteger.valueOf(21000)
     private var evmHexValue = ""
 
+    private var suiFeeBudget = BigDecimal.ZERO
+
     private var availableAmount = BigDecimal.ZERO
 
     private var isClickable = true
@@ -168,14 +172,9 @@ class CommonTransferFragment : BaseTxFragment() {
             chainImg.alpha = 0.2f
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
-                transferStyle = TransferStyle.WEB3_STYLE
-                memoView.visibility = View.GONE
-            }
-
+            initTransferStyle()
             initFee()
             initToChain()
-            initTransferStyle()
 
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
@@ -260,6 +259,24 @@ class CommonTransferFragment : BaseTxFragment() {
                         R.string.title_asset_send, toSendToken?.symbol
                     )
                 }
+
+                SendAssetType.SUI_COIN -> {
+                    (fromChain as ChainSui).apply {
+                        availableAmount = suiFetcher()?.suiBalanceAmount(toSendDenom)
+                        if (fromChain.stakeDenom == toSendDenom) {
+                            availableAmount = availableAmount.subtract(suiFeeBudget)
+                        }
+                        if (availableAmount <= BigDecimal.ZERO) {
+                            availableAmount = BigDecimal.ZERO
+                        }
+                        transferImg.setImageFromSvg(fromChain.assetImg(toSendDenom), R.drawable.token_default)
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, assetSymbol(toSendDenom)
+                        )
+                    }
+                }
+
+                else -> {}
             }
         }
     }
@@ -288,28 +305,10 @@ class CommonTransferFragment : BaseTxFragment() {
                     )
                 )
 
-                if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    feeSegment.visibility = View.GONE
-                    evmFeeSegment.visibility = View.VISIBLE
-                    val evmGasTitle = listOf(
-                        getString(R.string.str_low),
-                        getString(R.string.str_average),
-                        getString(R.string.str_high)
-                    )
-                    for (i in evmGasTitle.indices) {
-                        val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                        evmFeeSegment.addView(
-                            segmentView.root,
-                            i,
-                            LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                        )
-                        segmentView.btnTitle.text = evmGasTitle[i]
-                    }
-                    evmFeeSegment.setPosition(1, false)
-                    selectedFeePosition = 1
-
-                } else {
-                    if (fromChain.supportEvm) {
+                when (transferStyle) {
+                    TransferStyle.WEB3_STYLE -> {
+                        feeSegment.visibility = View.GONE
+                        evmFeeSegment.visibility = View.VISIBLE
                         val evmGasTitle = listOf(
                             getString(R.string.str_low),
                             getString(R.string.str_average),
@@ -325,51 +324,108 @@ class CommonTransferFragment : BaseTxFragment() {
                             segmentView.btnTitle.text = evmGasTitle[i]
                         }
                         evmFeeSegment.setPosition(1, false)
+                        selectedFeePosition = 1
+
                     }
 
-                    fromChain.apply {
+                    TransferStyle.SUI_STYLE -> {
                         feeSegment.visibility = View.VISIBLE
                         evmFeeSegment.visibility = View.GONE
-
-                        if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                            val tipTitle = listOf(
-                                "Default", "Fast", "Faster", "Instant"
+                        val suiGasTitle = listOf(
+                            "Default"
+                        )
+                        for (i in suiGasTitle.indices) {
+                            val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                            feeSegment.addView(
+                                segmentView.root,
+                                i,
+                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                             )
-                            for (i in tipTitle.indices) {
-                                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                                feeSegment.addView(
-                                    segmentView.root,
-                                    i,
-                                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                                )
-                                segmentView.btnTitle.text = tipTitle[i]
-                            }
-                            feeSegment.setPosition(selectedFeePosition, false)
-                            val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
-                            val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
-                            val feeDenom = baseFee?.denom
-                            val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
-                                ?.setScale(0, RoundingMode.DOWN)
-                            cosmosTxFee =
-                                TxProto.Fee.newBuilder().setGasLimit(gasAmount.toLong()).addAmount(
-                                    CoinProto.Coin.newBuilder().setDenom(feeDenom)
-                                        .setAmount(feeAmount.toString()).build()
-                                ).build()
+                            segmentView.btnTitle.text = suiGasTitle[i]
+                        }
+                        feeSegment.setPosition(0, false)
+                        selectedFeePosition = 0
 
-                        } else {
-                            cosmosFeeInfos = fromChain.getFeeInfos(requireContext())
-                            for (i in cosmosFeeInfos.indices) {
+                        suiFeeBudget =
+                            (fromChain as ChainSui).suiFetcher()
+                                ?.suiBaseFee(SuiTxType.SUI_SEND_COIN)
+
+                    }
+
+                    else -> {
+                        if (fromChain.supportEvm) {
+                            val evmGasTitle = listOf(
+                                getString(R.string.str_low),
+                                getString(R.string.str_average),
+                                getString(R.string.str_high)
+                            )
+                            for (i in evmGasTitle.indices) {
                                 val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                                feeSegment.addView(
+                                evmFeeSegment.addView(
                                     segmentView.root,
                                     i,
                                     LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                                 )
-                                segmentView.btnTitle.text = cosmosFeeInfos[i].title
+                                segmentView.btnTitle.text = evmGasTitle[i]
                             }
-                            feeSegment.setPosition(fromChain.getFeeBasePosition(), false)
-                            selectedFeePosition = fromChain.getFeeBasePosition()
-                            cosmosTxFee = fromChain.getInitFee(requireContext())
+                            evmFeeSegment.setPosition(1, false)
+                        }
+
+                        fromChain.apply {
+                            feeSegment.visibility = View.VISIBLE
+                            evmFeeSegment.visibility = View.GONE
+
+                            if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                                val tipTitle = listOf(
+                                    "Default", "Fast", "Faster", "Instant"
+                                )
+                                for (i in tipTitle.indices) {
+                                    val segmentView =
+                                        ItemSegmentedFeeBinding.inflate(layoutInflater)
+                                    feeSegment.addView(
+                                        segmentView.root,
+                                        i,
+                                        LinearLayout.LayoutParams(
+                                            0,
+                                            dpToPx(requireContext(), 32),
+                                            1f
+                                        )
+                                    )
+                                    segmentView.btnTitle.text = tipTitle[i]
+                                }
+                                feeSegment.setPosition(selectedFeePosition, false)
+                                val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
+                                val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
+                                val feeDenom = baseFee?.denom
+                                val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
+                                    ?.setScale(0, RoundingMode.DOWN)
+                                cosmosTxFee =
+                                    TxProto.Fee.newBuilder().setGasLimit(gasAmount.toLong())
+                                        .addAmount(
+                                            CoinProto.Coin.newBuilder().setDenom(feeDenom)
+                                                .setAmount(feeAmount.toString()).build()
+                                        ).build()
+
+                            } else {
+                                cosmosFeeInfos = fromChain.getFeeInfos(requireContext())
+                                for (i in cosmosFeeInfos.indices) {
+                                    val segmentView =
+                                        ItemSegmentedFeeBinding.inflate(layoutInflater)
+                                    feeSegment.addView(
+                                        segmentView.root,
+                                        i,
+                                        LinearLayout.LayoutParams(
+                                            0,
+                                            dpToPx(requireContext(), 32),
+                                            1f
+                                        )
+                                    )
+                                    segmentView.btnTitle.text = cosmosFeeInfos[i].title
+                                }
+                                feeSegment.setPosition(fromChain.getFeeBasePosition(), false)
+                                selectedFeePosition = fromChain.getFeeBasePosition()
+                                cosmosTxFee = fromChain.getInitFee(requireContext())
+                            }
                         }
                     }
                 }
@@ -440,8 +496,11 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun initTransferStyle() {
         binding.apply {
-            if (sendAssetType == SendAssetType.ONLY_EVM_COIN) {
+            if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                 transferStyle = TransferStyle.WEB3_STYLE
+                memoView.visibility = View.GONE
+            } else if (sendAssetType == SendAssetType.SUI_COIN) {
+                transferStyle = TransferStyle.SUI_STYLE
                 memoView.visibility = View.GONE
             }
         }
@@ -590,6 +649,21 @@ class CommonTransferFragment : BaseTxFragment() {
                             sendValue.text = formatAssetValue(value)
                         }
                     }
+
+                    SendAssetType.SUI_COIN -> {
+                        (fromChain as ChainSui).apply {
+                            val price = BaseData.getPrice(assetGeckoId(toSendDenom))
+                            val dpAmount =
+                                toAmount.toBigDecimal().amountHandlerLeft(assetDecimal(toSendDenom))
+                            val value = price.multiply(dpAmount)
+                            sendAmount.text =
+                                formatAmount(dpAmount.toPlainString(), assetDecimal(toSendDenom))
+                            sendDenom.text = assetSymbol(toSendDenom)
+                            sendValue.text = formatAssetValue(value)
+                        }
+                    }
+
+                    else -> {}
                 }
                 txSimulate()
             }
@@ -615,50 +689,68 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun updateFeeView() {
         binding.apply {
-            if (transferStyle == TransferStyle.WEB3_STYLE) {
-                fromChain.apply {
-                    feeTokenImg.setImageResource(coinLogo)
-                    feeToken.text = coinSymbol
+            when (transferStyle) {
+                TransferStyle.WEB3_STYLE -> {
+                    fromChain.apply {
+                        feeTokenImg.setImageResource(coinLogo)
+                        feeToken.text = coinSymbol
 
-                    if (evmFeeAmount == null) {
-                        evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+                        if (evmFeeAmount == null) {
+                            evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+                        }
+                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
+                            ?.setScale(18, RoundingMode.DOWN)
+                        val value = price.multiply(dpAmount)
+
+                        dpAmount?.let { amount ->
+                            feeAmount.text = formatAmount(amount.toPlainString(), 18)
+                            feeValue.text = formatAssetValue(value)
+                        }
                     }
-                    val price = BaseData.getPrice(fromChain.coinGeckoId)
-                    val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-                        ?.setScale(18, RoundingMode.DOWN)
-                    val value = price.multiply(dpAmount)
+                }
 
-                    dpAmount?.let { amount ->
-                        feeAmount.text = formatAmount(amount.toPlainString(), 18)
+                TransferStyle.SUI_STYLE -> {
+                    (fromChain as ChainSui).apply {
+                        feeTokenImg.setImageResource(coinLogo)
+                        feeToken.text = coinSymbol
+
+                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                        val value = price.multiply(dpBudget)
+
+                        feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
 
-            } else {
-                cosmosTxFee?.getAmount(0)?.let { fee ->
-                    BaseData.getAsset(fromChain.apiName, fee.denom)?.let { asset ->
-                        feeTokenImg.setTokenImg(asset)
-                        feeToken.text = asset.symbol
+                else -> {
+                    cosmosTxFee?.getAmount(0)?.let { fee ->
+                        BaseData.getAsset(fromChain.apiName, fee.denom)?.let { asset ->
+                            feeTokenImg.setTokenImg(asset)
+                            feeToken.text = asset.symbol
 
-                        val amount =
-                            fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                        val price = BaseData.getPrice(asset.coinGeckoId)
-                        val value = price.multiply(amount)
+                            val amount =
+                                fee.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+                            val price = BaseData.getPrice(asset.coinGeckoId)
+                            val value = price.multiply(amount)
 
-                        feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                        feeValue.text = formatAssetValue(value)
+                            feeAmount.text =
+                                formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                            feeValue.text = formatAssetValue(value)
+                        }
                     }
                 }
             }
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -682,6 +774,7 @@ class CommonTransferFragment : BaseTxFragment() {
             sendAssetView.setOnClickListener {
                 handleOneClickWithDelay(
                     TransferAmountFragment.newInstance(fromChain,
+                        toSendDenom,
                         toSendAsset,
                         toSendToken,
                         availableAmount.toString(),
@@ -818,9 +911,18 @@ class CommonTransferFragment : BaseTxFragment() {
             btnSend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     sendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }
@@ -835,71 +937,94 @@ class CommonTransferFragment : BaseTxFragment() {
                 return
             }
 
-            if (transferStyle == TransferStyle.WEB3_STYLE) {
-                txViewModel.simulateEvmSend(
-                    toAddress,
-                    toSendAmount,
-                    toSendToken,
-                    sendAssetType,
-                    fromChain,
-                    selectedFeePosition
-                )
+            when (transferStyle) {
+                TransferStyle.WEB3_STYLE -> {
+                    txViewModel.simulateEvmSend(
+                        toAddress,
+                        toSendAmount,
+                        toSendToken,
+                        sendAssetType,
+                        fromChain,
+                        selectedFeePosition
+                    )
 
-            } else {
-                fromChain.apply {
-                    if (!isGasSimulable()) {
-                        if (chainIdCosmos != toChain.chainIdCosmos) {
+                }
+
+                TransferStyle.SUI_STYLE -> {
+                    (fromChain as ChainSui).apply {
+                        suiFetcher?.let { fetcher ->
+                            txViewModel.suiSimulate(
+                                fetcher,
+                                toSendDenom,
+                                mainAddress,
+                                suiInputs(),
+                                mutableListOf(toAddress),
+                                mutableListOf(
+                                    toSendAmount
+                                ),
+                                suiFeeBudget.toString()
+                            )
+                        }
+                    }
+
+                }
+
+                else -> {
+                    fromChain.apply {
+                        if (!isGasSimulable()) {
+                            if (chainIdCosmos != toChain.chainIdCosmos) {
+                                assetPath = assetPath(
+                                    fromChain, toChain, toSendDenom
+                                )
+                            }
+                            return updateFeeViewWithSimulate(null)
+                        }
+                        if (chainIdCosmos == toChain.chainIdCosmos) {
+                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                                txViewModel.simulate(
+                                    fromChain.cosmosFetcher?.getChannel(),
+                                    onBindWasmSendMsg(),
+                                    cosmosTxFee,
+                                    txMemo,
+                                    this
+                                )
+
+                            } else {
+                                txViewModel.simulate(
+                                    fromChain.cosmosFetcher?.getChannel(),
+                                    onBindSendMsg(),
+                                    cosmosTxFee,
+                                    txMemo,
+                                    this
+                                )
+                            }
+
+                        } else {
                             assetPath = assetPath(
                                 fromChain, toChain, toSendDenom
                             )
-                        }
-                        return updateFeeViewWithSimulate(null)
-                    }
-                    if (chainIdCosmos == toChain.chainIdCosmos) {
-                        if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                            txViewModel.simulate(
-                                fromChain.cosmosFetcher?.getChannel(),
-                                onBindWasmSendMsg(),
-                                cosmosTxFee,
-                                txMemo,
-                                this
-                            )
+                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                                txViewModel.simulate(
+                                    fromChain.cosmosFetcher?.getChannel(),
+                                    onBindWasmIbcSendMsg(),
+                                    cosmosTxFee,
+                                    txMemo,
+                                    this
+                                )
 
-                        } else {
-                            txViewModel.simulate(
-                                fromChain.cosmosFetcher?.getChannel(),
-                                onBindSendMsg(),
-                                cosmosTxFee,
-                                txMemo,
-                                this
-                            )
-                        }
-
-                    } else {
-                        assetPath = assetPath(
-                            fromChain, toChain, toSendDenom
-                        )
-                        if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                            txViewModel.simulate(
-                                fromChain.cosmosFetcher?.getChannel(),
-                                onBindWasmIbcSendMsg(),
-                                cosmosTxFee,
-                                txMemo,
-                                this
-                            )
-
-                        } else {
-                            txViewModel.simulateIbcSend(
-                                cosmosFetcher?.getChannel(),
-                                toChain,
-                                toAddress,
-                                assetPath,
-                                toSendDenom,
-                                toSendAmount,
-                                cosmosTxFee,
-                                txMemo,
-                                this
-                            )
+                            } else {
+                                txViewModel.simulateIbcSend(
+                                    cosmosFetcher?.getChannel(),
+                                    toChain,
+                                    toAddress,
+                                    assetPath,
+                                    toSendDenom,
+                                    toSendAmount,
+                                    cosmosTxFee,
+                                    txMemo,
+                                    this
+                                )
+                            }
                         }
                     }
                 }
@@ -910,7 +1035,10 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun updateFeeViewWithSimulate(gasUsed: String?) {
-        if (transferStyle == TransferStyle.COSMOS_STYLE) {
+        if (transferStyle == TransferStyle.SUI_STYLE) {
+            suiFeeBudget = gasUsed?.toBigDecimal()
+
+        } else if (transferStyle == TransferStyle.COSMOS_STYLE) {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
@@ -964,6 +1092,18 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
+    private fun suiInputs(): MutableList<String> {
+        val result: MutableList<String> = mutableListOf()
+        (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
+            fetcher.suiObjects.forEach { suiObject ->
+                if (suiObject["data"].asJsonObject["type"].asString.contains(toSendDenom)) {
+                    result.add(suiObject["data"].asJsonObject["objectId"].asString)
+                }
+            }
+        }
+        return result
+    }
+
     private fun onBindSendMsg(): MutableList<Any> {
         val sendCoin =
             CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
@@ -1004,58 +1144,81 @@ class CommonTransferFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    val web3j = Web3j.build(
-                        HttpService(
-                            fromChain.evmRpcFetcher?.getEvmRpc() ?: fromChain.evmRpcURL
+                when (transferStyle) {
+                    TransferStyle.WEB3_STYLE -> {
+                        val web3j = Web3j.build(
+                            HttpService(
+                                fromChain.evmRpcFetcher?.getEvmRpc() ?: fromChain.evmRpcURL
+                            )
                         )
-                    )
-                    txViewModel.broadcastEvmSend(web3j, evmHexValue)
+                        txViewModel.broadcastEvmSend(web3j, evmHexValue)
 
-                } else {
-                    fromChain.apply {
-                        if (chainIdCosmos == toChain.chainIdCosmos) {
-                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                                txViewModel.broadcast(
-                                    cosmosFetcher?.getChannel(),
-                                    onBindWasmSendMsg(),
-                                    cosmosTxFee,
-                                    txMemo,
-                                    this
-                                )
+                    }
 
-                            } else {
-                                txViewModel.broadcast(
-                                    cosmosFetcher?.getChannel(),
-                                    onBindSendMsg(),
-                                    cosmosTxFee,
-                                    txMemo,
+                    TransferStyle.SUI_STYLE -> {
+                        (fromChain as ChainSui).apply {
+                            suiFetcher?.let { fetcher ->
+                                txViewModel.suiBroadcast(
+                                    fetcher,
+                                    toSendDenom,
+                                    mainAddress,
+                                    suiInputs(),
+                                    mutableListOf(toAddress),
+                                    mutableListOf(
+                                        toSendAmount
+                                    ),
+                                    suiFeeBudget.toString(),
                                     this
                                 )
                             }
+                        }
+                    }
 
-                        } else {
-                            if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
-                                txViewModel.broadcast(
-                                    cosmosFetcher?.getChannel(),
-                                    onBindWasmIbcSendMsg(),
-                                    cosmosTxFee,
-                                    txMemo,
-                                    this
-                                )
+                    else -> {
+                        fromChain.apply {
+                            if (chainIdCosmos == toChain.chainIdCosmos) {
+                                if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                                    txViewModel.broadcast(
+                                        cosmosFetcher?.getChannel(),
+                                        onBindWasmSendMsg(),
+                                        cosmosTxFee,
+                                        txMemo,
+                                        this
+                                    )
+
+                                } else {
+                                    txViewModel.broadcast(
+                                        cosmosFetcher?.getChannel(),
+                                        onBindSendMsg(),
+                                        cosmosTxFee,
+                                        txMemo,
+                                        this
+                                    )
+                                }
 
                             } else {
-                                txViewModel.broadcastIbcSend(
-                                    cosmosFetcher?.getChannel(),
-                                    toChain,
-                                    toAddress,
-                                    assetPath,
-                                    toSendDenom,
-                                    toSendAmount,
-                                    cosmosTxFee,
-                                    txMemo,
-                                    this
-                                )
+                                if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                                    txViewModel.broadcast(
+                                        cosmosFetcher?.getChannel(),
+                                        onBindWasmIbcSendMsg(),
+                                        cosmosTxFee,
+                                        txMemo,
+                                        this
+                                    )
+
+                                } else {
+                                    txViewModel.broadcastIbcSend(
+                                        cosmosFetcher?.getChannel(),
+                                        toChain,
+                                        toAddress,
+                                        assetPath,
+                                        toSendDenom,
+                                        toSendAmount,
+                                        cosmosTxFee,
+                                        txMemo,
+                                        this
+                                    )
+                                }
                             }
                         }
                     }
@@ -1092,6 +1255,26 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
+        txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
+            val status =
+                response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
+            Intent(requireContext(), TransferTxResultActivity::class.java).apply {
+                if (status != "success") {
+                    putExtra("isSuccess", false)
+                } else {
+                    putExtra("isSuccess", true)
+                }
+                putExtra("txHash", response["result"].asJsonObject["digest"].asString)
+                putExtra("fromChainTag", fromChain.tag)
+                putExtra("toChainTag", toChain.tag)
+                putExtra("recipientAddress", toAddress)
+                putExtra("transferStyle", transferStyle.ordinal)
+                putExtra("suiResult", response.toString())
+                startActivity(this)
+            }
+            dismiss()
+        }
+
         txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TransferTxResultActivity::class.java).apply {
                 response?.let { txResponse ->
@@ -1191,5 +1374,6 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20 }
-enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT }
+enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE }
+enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }

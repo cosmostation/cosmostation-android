@@ -12,8 +12,8 @@ class PushNotificationActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         Prefs.foreToBack = false
-        val url = intent.getStringExtra("url")
-        if (url != null) {
+        val url = intent.getStringExtra("url") ?: ""
+        if (url.isNotEmpty()) {
             openUrlInCustomTab(this, url)
         }
         finish()

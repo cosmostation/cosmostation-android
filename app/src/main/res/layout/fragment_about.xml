@@ -221,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_20"
                 android:layout_marginTop="@dimen/space_16"
-                android:text="@string/str_chain_information"
+                android:text="@string/str_staking_information"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/information_view" />

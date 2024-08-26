@@ -77,7 +77,7 @@ class SettingBottomAdapter(
                         BuyCryptoViewHolder(parent.context, binding)
                     }
 
-                    SettingType.END_POINT_EVM.ordinal, SettingType.END_POINT_COSMOS.ordinal -> {
+                    SettingType.END_POINT_EVM.ordinal, SettingType.END_POINT_COSMOS.ordinal, SettingType.END_POINT_SUI.ordinal -> {
                         val binding = ItemEndpointBinding.inflate(
                             LayoutInflater.from(parent.context), parent, false
                         )
@@ -146,6 +146,13 @@ class SettingBottomAdapter(
                         }
                     }
 
+                    SettingType.END_POINT_SUI.ordinal -> {
+                        val endPoint = currentList[position] as JsonObject
+                        if (holder is EndPointViewHolder) {
+                            holder.suiBind(fromChain, endPoint, listener)
+                        }
+                    }
+
                     SettingType.END_POINT_EVM.ordinal -> {
                         val endPoint = currentList[position] as JsonObject
                         if (holder is EndPointViewHolder) {
@@ -187,7 +194,7 @@ class SettingBottomAdapter(
         return if (lcdEndpoints.isNotEmpty()) {
             currentList.size + 2
         } else {
-            if (settingType == SettingType.END_POINT_EVM) {
+            if (settingType == SettingType.END_POINT_EVM || settingType == SettingType.END_POINT_SUI) {
                 currentList.size
             } else {
                 if (grpcEndpoints?.isNotEmpty() == true) {

@@ -52,6 +52,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.main.chain.major.MajorActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.main.setting.wallet.account.AccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -164,7 +169,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <service
             android:name=".common.BaseFCM"

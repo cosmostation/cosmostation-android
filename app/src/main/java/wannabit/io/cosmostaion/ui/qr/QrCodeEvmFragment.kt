@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
@@ -78,7 +79,11 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain.supportCosmos()) {
+                if (selectedChain is ChainSui) {
+                    btnEthShare.visibility = View.GONE
+                    btnCosmosShare.visibility = View.GONE
+                    btnShare.visibility = View.VISIBLE
+                } else if (selectedChain.supportCosmos()) {
                     btnEthShare.visibility = View.VISIBLE
                     btnCosmosShare.visibility = View.VISIBLE
                     btnShare.visibility = View.GONE
@@ -100,7 +105,12 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, selectedChain.address)
+                val address = if (selectedChain is ChainSui) {
+                    selectedChain.mainAddress
+                } else {
+                    selectedChain.address
+                }
+                intent.putExtra(Intent.EXTRA_TEXT, address)
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))
             }

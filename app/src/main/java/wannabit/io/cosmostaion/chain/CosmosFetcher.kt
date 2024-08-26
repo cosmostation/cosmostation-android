@@ -111,7 +111,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    open fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (cosmosBalances?.isNotEmpty() == true) {
             cosmosBalances?.forEach { balance ->
@@ -370,11 +370,11 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     suspend fun ibcClient(assetPath: AssetPath?): Long {
         return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-            val ibcClientStub = QueryGrpc.newBlockingStub(getChannel())
-                .withDeadlineAfter(8L, TimeUnit.SECONDS)
+            val ibcClientStub =
+                QueryGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val ibcClientRequest =
-                QueryChannelClientStateRequest.newBuilder()
-                    .setChannelId(assetPath?.channel).setPortId(assetPath?.port).build()
+                QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.channel)
+                    .setPortId(assetPath?.port).build()
             val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
             val lastHeight =
                 TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
@@ -531,17 +531,15 @@ fun JsonObject.revisionNumber(): Long {
 fun JsonObject.accountNumber(): Long {
     return getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
         ?: getAsJsonObject("base_vesting_account")?.getAsJsonObject("base_account")
-            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
-            "base_account"
-        )?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("base_account")?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
         ?: getAsJsonObject("account")?.getAsJsonObject("base_vesting_account")
             ?.getAsJsonObject("base_account")
-            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
-            "account"
-        )?.getAsJsonObject("base_account")
-            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: getAsJsonObject(
-            "account"
-        )?.getAsJsonObject("account_number")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("base_account")
+            ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonObject("account_number")
             ?.getAsJsonPrimitive("account_number")?.asString?.toLongOrNull() ?: 0L
 }
 
@@ -555,6 +553,7 @@ fun JsonObject.sequence(): Long {
             ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
         ?: getAsJsonObject("account")?.getAsJsonObject("base_account")
             ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
+        ?: getAsJsonObject("account")?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull()
         ?: getAsJsonObject("account")?.getAsJsonObject("account_number")
             ?.getAsJsonPrimitive("sequence")?.asString?.toLongOrNull() ?: 0L
 }

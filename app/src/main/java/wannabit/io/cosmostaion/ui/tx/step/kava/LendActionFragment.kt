@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step.kava
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -321,6 +322,7 @@ class LendActionFragment : BaseTxFragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             lendAmountView.setOnClickListener {
@@ -431,9 +433,18 @@ class LendActionFragment : BaseTxFragment() {
             btnLend.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     getLendResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }

@@ -13,6 +13,8 @@ import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -59,6 +61,8 @@ class TransferTxResultActivity : BaseActivity() {
     private var txResponse: GetTxResponse? = null
 
     private var evmRecipient: TransactionReceipt? = null
+
+    private var suiResult: JsonObject? = null
 
     private lateinit var addressBookViewModel: AddressBookViewModel
 
@@ -107,6 +111,11 @@ class TransferTxResultActivity : BaseActivity() {
             toAddress = intent.getStringExtra("recipientAddress") ?: ""
             toMemo = intent.getStringExtra("memo") ?: ""
 
+            intent.getStringExtra("suiResult")?.let { intentData ->
+                suiResult = JsonParser.parseString(intentData).asJsonObject
+                    ?: JsonObject()
+            }
+
             transferStyle = enumValues<TransferStyle>()[intent.getIntExtra("transferStyle", -1)]
 
             if (transferStyle == TransferStyle.WEB3_STYLE) {
@@ -115,6 +124,14 @@ class TransferTxResultActivity : BaseActivity() {
                 } else {
                     showError()
                 }
+
+            } else if (transferStyle == TransferStyle.SUI_STYLE) {
+                if (txHash.isNotEmpty()) {
+                    updateView()
+                } else {
+                    showError()
+                }
+
             } else {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {
@@ -145,6 +162,17 @@ class TransferTxResultActivity : BaseActivity() {
                     viewFailMintscan.visibility = View.GONE
                 }
 
+            } else if (transferStyle == TransferStyle.SUI_STYLE) {
+                if (isSuccess) {
+                    loading.visibility = View.GONE
+                    successLayout.visibility = View.VISIBLE
+                    successHash.text = txHash
+                    showAddressBook()
+
+                } else {
+                    showError()
+                }
+
             } else {
                 if (isSuccess) {
                     loading.visibility = View.GONE
@@ -162,18 +190,34 @@ class TransferTxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain, txHash)
-                } else {
-                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                when (transferStyle) {
+                    TransferStyle.WEB3_STYLE -> {
+                        historyToMintscan(fromChain, txHash)
+                    }
+
+                    TransferStyle.SUI_STYLE -> {
+                        historyToMintscan(fromChain, txHash)
+                    }
+
+                    else -> {
+                        historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                    }
                 }
             }
 
             viewFailMintscan.setOnClickListener {
-                if (transferStyle == TransferStyle.WEB3_STYLE) {
-                    historyToMintscan(fromChain, txHash)
-                } else {
-                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                when (transferStyle) {
+                    TransferStyle.WEB3_STYLE -> {
+                        historyToMintscan(fromChain, txHash)
+                    }
+
+                    TransferStyle.SUI_STYLE -> {
+                        historyToMintscan(fromChain, txHash)
+                    }
+
+                    else -> {
+                        historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                    }
                 }
             }
 
@@ -360,8 +404,20 @@ class TransferTxResultActivity : BaseActivity() {
         binding.apply {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
-            failHash.visibleOrGone(errorMsg.isNotEmpty())
-            failHash.text = errorMsg
+
+            if (transferStyle == TransferStyle.SUI_STYLE) {
+                val errorMsg =
+                    suiResult?.get("result")?.asJsonObject?.get("effects")?.asJsonObject?.get("status")?.asJsonObject?.get(
+                        "error"
+                    )?.asString
+                failHash.visibleOrGone(errorMsg?.isNotEmpty() == true)
+                failHash.text = errorMsg
+
+            } else {
+                failHash.visibleOrGone(errorMsg.isNotEmpty())
+                failHash.text = errorMsg
+            }
+
             if (txHash.isNotEmpty()) {
                 viewFailMintscan.visibility = View.VISIBLE
             } else {

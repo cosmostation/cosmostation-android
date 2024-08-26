@@ -4,14 +4,11 @@ import SecureSharedPreferences
 import android.content.Context
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.google.gson.JsonSyntaxException
 import org.json.JSONArray
 import org.json.JSONException
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
-import wannabit.io.cosmostaion.data.model.res.SkipChainResponse
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
@@ -21,6 +18,7 @@ object Prefs {
     private const val LAST_ACCOUNT = "PRE_LAST_ACCOUNT"
     private const val DISPLAY_CHAINS = "PRE_DISPLAY_CHAINS"
     private const val LAST_PRICE_TIME = "PRE_LAST_PRICE_TIME"
+    private const val LAST_PARAM_TIME = "PRE_LAST_PARAM_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
     private const val LANGUAGE = "PRE_LANGUAGE"
     private const val STYLE = "PRE_STYLE"
@@ -30,8 +28,6 @@ object Prefs {
     private const val SWAP_WARN = "PRE_SWAP_WARN"
     private const val SWAP_INFO_TIME = "PRE_SWAP_INFO_TIME"
     private const val SWAP_USER_SET = "PRE_SWAP_USER_SET"
-    private const val SKIP_CHAIN_INFO = "PRE_SKIP_CHAIN_INFO"
-    private const val SKIP_ASSET_INFO = "PRE_SKIP_ASSET_INFO"
     private const val HIDE_VALUE = "PRE_HIDE_VALUE"
     private const val DISPLAY_LEGACY = "PRE_DISPLAY_LEGACY"
     private const val BIO = "PRE_BIO"
@@ -110,6 +106,10 @@ object Prefs {
         get() = preference.getString(LAST_PRICE_TIME, "0") ?: "0"
         set(value) = preference.edit().putString(LAST_PRICE_TIME, value).apply()
 
+    var lastParamTime: String
+        get() = preference.getString(LAST_PARAM_TIME, "0") ?: "0"
+        set(value) = preference.edit().putString(LAST_PARAM_TIME, value).apply()
+
     var currency: Int
         get() = preference.getInt(LAST_CURRENCY, 0)
         set(value) = preference.edit().putInt(LAST_CURRENCY, value).apply()
@@ -154,34 +154,6 @@ object Prefs {
         set(value) {
             val encoded = Gson().toJson(value)
             preference.edit().putString(SWAP_USER_SET, encoded).apply()
-        }
-
-    var skipChainInfo: SkipChainResponse?
-        get() {
-            val jsonString = preference.getString(SKIP_CHAIN_INFO, null)
-            return if (jsonString != null) {
-                Gson().fromJson(jsonString, SkipChainResponse::class.java)
-            } else {
-                null
-            }
-        }
-        set(value) {
-            val jsonString = Gson().toJson(value)
-            preference.edit().putString(SKIP_CHAIN_INFO, jsonString).apply()
-        }
-
-    var skipAssetInfo: JsonObject?
-        get() {
-            val jsonString = preference.getString(SKIP_ASSET_INFO, null)
-            return try {
-                Gson().fromJson(jsonString, JsonObject::class.java)
-            } catch (e: JsonSyntaxException) {
-                null
-            }
-        }
-        set(value) {
-            val jsonString = Gson().toJson(value)
-            preference.edit().putString(SKIP_ASSET_INFO, jsonString).apply()
         }
 
     var hideValue: Boolean
@@ -261,13 +233,20 @@ object Prefs {
             CosmosEndPointType.USE_GRPC.name -> {
                 CosmosEndPointType.USE_GRPC
             }
+
             CosmosEndPointType.USE_LCD.name -> {
                 CosmosEndPointType.USE_LCD
             }
+
             else -> {
                 chain.cosmosEndPointType
             }
         }
+    }
+
+    fun removeEndpointType(chain: BaseChain) {
+        val key = ENDPOINT_TYPE + ":" + chain.name
+        preference.edit().remove(key).apply()
     }
 
     fun setGrpcEndpoint(chain: BaseChain?, endpoint: String) {
@@ -279,6 +258,11 @@ object Prefs {
         return preference.getString(GRPC_ENDPOINT + ":" + chain.name, "") ?: ""
     }
 
+    fun removeGrpcEndpoint(chain: BaseChain) {
+        val key = GRPC_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
+    }
+
     fun setEvmRpcEndpoint(chain: BaseChain?, endpoint: String) {
         val key = EVM_RPC_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
@@ -288,6 +272,11 @@ object Prefs {
         return preference.getString(EVM_RPC_ENDPOINT + ":" + chain.name, "")
     }
 
+    fun removeEvmRpcEndpoint(chain: BaseChain) {
+        val key = EVM_RPC_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
+    }
+
     fun setLcdEndpoint(chain: BaseChain?, endpoint: String) {
         val key = LCD_ENDPOINT + ":" + chain?.name
         preference.edit().putString(key, endpoint).apply()
@@ -295,5 +284,10 @@ object Prefs {
 
     fun getLcdEndpoint(chain: BaseChain): String {
         return preference.getString(LCD_ENDPOINT + ":" + chain.name, "") ?: ""
+    }
+
+    fun removeLcdEndpoint(chain: BaseChain) {
+        val key = LCD_ENDPOINT + ":" + chain.name
+        preference.edit().remove(key).apply()
     }
 }

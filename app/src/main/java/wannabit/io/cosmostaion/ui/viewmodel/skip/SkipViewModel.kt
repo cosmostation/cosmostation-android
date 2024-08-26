@@ -23,29 +23,6 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-
-    private var _skipDataResult = MutableLiveData<SkipData?>()
-    val skipDataResult: LiveData<SkipData?> get() = _skipDataResult
-//    fun loadData() = CoroutineScope(Dispatchers.IO).launch {
-//        val sChains: SkipChainResponse?
-//        val sAssets: JsonObject?
-//        if (BaseData.needSwapInfoUpdate()) {
-//            sChains = skipChains()
-//            sAssets = skipAssets()
-//
-//            if (sChains != null && sAssets != null) {
-//                BaseData.setLastSwapInfoTime()
-//                Prefs.skipChainInfo = sChains
-//                Prefs.skipAssetInfo = sAssets
-//            }
-//
-//        } else {
-//            sChains = Prefs.skipChainInfo
-//            sAssets = Prefs.skipAssetInfo
-//        }
-//        _skipDataResult.postValue(SkipData(sChains, sAssets))
-//    }
-
     private var _skipChainsResult = MutableLiveData<SkipChainResponse?>()
     val skipChainsResult: LiveData<SkipChainResponse?> get() = _skipChainsResult
     fun skipChains() = viewModelScope.launch(Dispatchers.IO) {
@@ -59,18 +36,6 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
             }
         }
     }
-
-//    private suspend fun skipChains(): SkipChainResponse? {
-//        return when (val response = skipRepository.skipChains()) {
-//            is NetworkResult.Success -> {
-//                response.data
-//            }
-//
-//            is NetworkResult.Error -> {
-//                null
-//            }
-//        }
-//    }
 
     suspend fun skipAssets(chain: BaseChain?): JsonObject? {
         return when (val response = skipRepository.skipAssets(chain)) {
@@ -131,7 +96,3 @@ class SkipViewModel(private val skipRepository: SkipRepository) : ViewModel() {
         }
     }
 }
-
-data class SkipData(
-    var skipChains: SkipChainResponse?, var skipAssets: JsonObject?
-)

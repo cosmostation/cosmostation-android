@@ -134,6 +134,10 @@
     <string name="str_dev">開発モード</string>
     <string name="str_retry">リトライ</string>
     <string name="str_change_endpoint">End-Point 変更</string>
+    <string name="str_current_epoch">現在 Epoch</string>
+    <string name="str_next_reward_distribution">次の報酬分配</string>
+    <string name="str_instant">直ちに</string>
+    <string name="str_endpoint_reset">エンドポイントの初期化</string>
 
 
     //title
@@ -250,6 +254,7 @@
     <string name="title_select_end_point">エンドポイントの選択</string>
     <string name="title_select_end_point_grpc">エンドポイントの選択 (gRPC)</string>
     <string name="title_select_end_point_rpc">エンドポイントの選択 (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">エンドポイントの選択 (Sui RPC)</string>
     <string name="title_edit_token_list">トークンの編集</string>
     <string name="title_not_vote_list">ライブプロポーザル</string>
     <string name="title_all_vote_list">私が投票したプロポーザルは除きます</string>
@@ -340,6 +345,11 @@
     <string name="str_dapp_warn_msg">このメッセージに署名するのは、要求しているサイトを信頼し、その内容を完全に理解している場合にのみ行ってください</string>
     <string name="str_support_injection_msg">ユーザーの利便性と応答速度の改善のために、インジェクション方式（EIP-6963）をサポートしています。DAppを使用する際は、デスクトップウォレットなどを選択してください。\nデスクトップのエクステンションウォレットと同じユーザーエクスペリエンスを体験できます。\nEVM用DAppの場合、EIP-6963仕様をサポートしているため、快適なWeb3の旅をお楽しみいただけます。</string>
     <string name="str_fee_tip_msg">Feeはウォレットではなく、チェーンに支払われます</string>
+    <string name="str_sui_guide_msg0">エポックは <b>24</b> 時間ごとに作成されます。</string>
+    <string name="str_sui_guide_msg1">ステーキングを開始した場合、現在のEpoch(%1$s) が終了するまで「保留」状態のままになります。</string>
+    <string name="str_sui_guide_msg2">次のEpoch (%1$s) の終了時に報酬が分配されます。後続の各エポックは繰り返されます。</string>
+    <string name="str_sui_guide_msg3">報酬は複利で付与され、ステーキング解除開始後すぐに使用できます。</string>
+    <string name="str_endpoint_reset_msg">（推奨）すべてのチェーンのエンドポイントをデフォルト設定にリセットしますか？\n\nエンドポイントはブロックチェーンネットワークとの接続を管理するサーバーであり、安定したエンドポイントを使用することでデータの円滑な送受信が可能になります。？</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -381,6 +391,9 @@
     <string name="error_not_support_chain">モバイルでサポートされていないチェーン。</string>
     <string name="error_bera_vote_one_proposal">投票できるのは 1 つの BeraChain のみです。</string>
     <string name="error_not_support_dapp">%1$s はモバイルインジェクションをサポートしていません。</string>
+    <string name="error_not_enough_sui_stake">SUIコインが足りません（1.05以上）。 \n最小ステーキング数量1\nステーキP 0.05</string>
+    <string name="error_staking_min_sui">1 SUI以上からステーキング可能です。</string>
+    <string name="error_pending">保留中の状態です。 アンステーキングはできません。</string>
 
 
     <string name="tx_unknown">不明</string>

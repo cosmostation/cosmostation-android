@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -27,6 +28,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
 import wannabit.io.cosmostaion.ui.option.tx.general.ChangeRewardAddressWarnFragment
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 import java.math.RoundingMode
 import java.util.Locale
 
@@ -36,6 +38,7 @@ class AboutFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
+    private var chainParam: JsonObject? = JsonObject()
 
     private var isClickable = true
 
@@ -63,6 +66,7 @@ class AboutFragment : Fragment() {
 
         initView()
         setUpClickAction()
+        setUpUpdateData()
     }
 
     private fun initView() {
@@ -81,9 +85,10 @@ class AboutFragment : Fragment() {
                     selectedChain = it
                 }
             }
+            chainParam = selectedChain.getChainParam()
 
             chainName.text = selectedChain.name.uppercase()
-            selectedChain.getChainListParam()?.let {
+            chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")?.let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     chainDescription.text = it.getAsJsonObject("description")?.get("ko")?.asString
                 } else if (Prefs.language == BaseUtils.LANGUAGE_ENGLISH || Locale.getDefault().language == "en") {
@@ -131,7 +136,7 @@ class AboutFragment : Fragment() {
                 } else {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
                 }
-                val unBondingTime = unBondingTime(selectedChain)
+                val unBondingTime = unBondingTime()
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {
                     "$unBondingTime Days"
                 } else {
@@ -139,7 +144,7 @@ class AboutFragment : Fragment() {
                 }
 
                 val inflation = try {
-                    selectedChain.getChainParam()?.getAsJsonObject("params")
+                    chainParam?.getAsJsonObject("params")
                         ?.getAsJsonObject("minting_inflation")?.get("inflation")?.asString ?: ""
                 } catch (e: Exception) {
                     ""
@@ -154,7 +159,7 @@ class AboutFragment : Fragment() {
                 }
 
                 val apr = try {
-                    selectedChain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
+                    chainParam?.getAsJsonObject("params")?.get("apr")?.asString
                         ?: ""
                 } catch (e: NumberFormatException) {
                     ""
@@ -212,7 +217,8 @@ class AboutFragment : Fragment() {
                 handleOneClickWithDelay(ChangeRewardAddressWarnFragment.newInstance(selectedChain))
             }
 
-            selectedChain.getChainListParam()?.getAsJsonObject("about")?.let { about ->
+            chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?.getAsJsonObject("about")?.let { about ->
                 about.get("website")?.let {
                     if (about.get("website").asString?.isNotEmpty() == true) {
                         website.setOnClickListener {
@@ -300,14 +306,20 @@ class AboutFragment : Fragment() {
         }
     }
 
-    private fun unBondingTime(selectedChain: BaseChain?): String {
-        val unBondingTime = selectedChain?.getChainParam()?.getAsJsonObject("params")
+    private fun unBondingTime(): String {
+        val unBondingTime = chainParam?.getAsJsonObject("params")
             ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
             ?.get("unbonding_time")?.asString ?: ""
         return if (unBondingTime.isNotEmpty()) {
             unBondingTime.replace("s", "").toInt().div(60).div(60).div(24).toString()
         } else {
             ""
+        }
+    }
+
+    private fun setUpUpdateData() {
+        ApplicationViewModel.shared.updateParamResult.observe(viewLifecycleOwner) {
+            initView()
         }
     }
 
@@ -327,6 +339,7 @@ class AboutFragment : Fragment() {
 
     override fun onDestroyView() {
         _binding = null
+        ApplicationViewModel.shared.updateParamResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

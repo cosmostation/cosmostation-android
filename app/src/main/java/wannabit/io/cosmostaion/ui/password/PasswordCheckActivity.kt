@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.ui.password
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
@@ -151,6 +154,7 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun checkPwObserve() {
         walletViewModel.hasPassword.observe(this) { hasPassword ->
             if (!hasPassword) {
@@ -165,7 +169,15 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             if (result == BaseConstant.SUCCESS) {
                 setResult(RESULT_OK, intent)
                 finish()
-                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                if (Build.VERSION.SDK_INT >= 34) {
+                    overrideActivityTransition(
+                        Activity.OVERRIDE_TRANSITION_CLOSE,
+                        R.anim.anim_fade_in,
+                        R.anim.anim_slide_out_bottom
+                    )
+                } else {
+                    overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                }
 
             } else {
                 onUpdateView()
@@ -177,7 +189,15 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
             if (response.resource.isNotEmpty()) {
                 setResult(RESULT_OK, intent)
                 finish()
-                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                if (Build.VERSION.SDK_INT >= 34) {
+                    overrideActivityTransition(
+                        Activity.OVERRIDE_TRANSITION_CLOSE,
+                        R.anim.anim_fade_in,
+                        R.anim.anim_slide_out_bottom
+                    )
+                } else {
+                    overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                }
 
             } else {
                 isConfirm = false
@@ -224,16 +244,23 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
                         super.onAuthenticationHelp(helpMsgId, helpString)
                     }
 
+                    @SuppressLint("WrongConstant")
                     override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
                         cancellationSignal.cancel()
                         setResult(RESULT_OK, intent)
                         finish()
-                        overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
-                    }
-
-                    override fun onAuthenticationFailed() {
-                        super.onAuthenticationFailed()
+                        if (Build.VERSION.SDK_INT >= 34) {
+                            overrideActivityTransition(
+                                Activity.OVERRIDE_TRANSITION_CLOSE,
+                                R.anim.anim_fade_in,
+                                R.anim.anim_slide_out_bottom
+                            )
+                        } else {
+                            overridePendingTransition(
+                                R.anim.anim_fade_in, R.anim.anim_slide_out_bottom
+                            )
+                        }
                     }
                 },
                 null

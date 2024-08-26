@@ -22,6 +22,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
@@ -33,6 +34,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
+import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.option.notice.NodeDownSelectListener
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
@@ -158,7 +160,18 @@ class DashboardFragment : Fragment() {
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
-            if (chain is ChainOktEvm) {
+            if (chain is ChainSui) {
+                if (chain.suiFetcher?.suiState == false) {
+                    nodeDownPopup(chain)
+                    return
+                }
+                Intent(requireContext(), MajorActivity::class.java).apply {
+                    putExtra("selectedChain", chain as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
+
+            } else if (chain is ChainOktEvm) {
                 if (chain.oktFetcher?.oktAccountInfo == null) {
                     nodeDownPopup(chain)
                     return
@@ -229,7 +242,7 @@ class DashboardFragment : Fragment() {
                                         updateRowData(chain.tag)
                                     }
                                 } else {
-                                    if (chain.address.isNotEmpty()) {
+                                    if (chain.address.isNotEmpty() || chain.mainAddress.isNotEmpty()) {
                                         updateRowData(chain.tag)
                                     }
                                 }
@@ -251,7 +264,7 @@ class DashboardFragment : Fragment() {
                                         updateRowData(chain.tag)
                                     }
                                 } else {
-                                    if (chain.address.isNotEmpty()) {
+                                    if (chain.address.isNotEmpty() || chain.mainAddress.isNotEmpty()) {
                                         updateRowData(chain.tag)
                                     }
                                 }
@@ -457,10 +470,10 @@ class DashboardFragment : Fragment() {
                     if (chain is ChainOktEvm) {
                         return
                     }
-                    val settingType = if (chain.isEvmCosmos()) {
+                    val settingType = if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         SettingType.END_POINT_COSMOS
-                    } else if (chain.supportCosmos()) {
-                        SettingType.END_POINT_COSMOS
+                    } else if (chain is ChainSui) {
+                        SettingType.END_POINT_SUI
                     } else {
                         SettingType.END_POINT_EVM
                     }

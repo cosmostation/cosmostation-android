@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -277,10 +279,13 @@ class AccountListFragment : Fragment() {
             }
         }
 
+    @SuppressLint("WrongConstant")
     private fun pendingTransition() {
-        requireActivity().overridePendingTransition(
-            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-        )
+        if (Build.VERSION.SDK_INT >= 34) {
+            requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+        } else {
+            requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+        }
     }
 
     private fun dismissInitSelectFragment() {

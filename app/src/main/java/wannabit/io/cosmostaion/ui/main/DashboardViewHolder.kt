@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -11,6 +10,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -61,7 +61,14 @@ class DashboardViewHolder(
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos()) {
+            if (chain is ChainSui || chain.name == "BitCoin") {
+                chainAddress.text = chain.mainAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+
+            } else if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -121,7 +128,15 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain.isEvmCosmos()) {
+                    if (chain is ChainSui) {
+                        if (chain.suiFetcher?.suiState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.isEvmCosmos()) {
                         if (chain is ChainOktEvm) {
                             if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
                                 respondLayout.visibility = View.VISIBLE
@@ -169,7 +184,10 @@ class DashboardViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    if (chain is ChainOkt996Keccak) {
+                    if (chain is ChainSui) {
+                        assetCnt.text = chain.suiFetcher?.suiBalances?.size.toString() + " Coins"
+
+                    } else if (chain is ChainOkt996Keccak) {
                         assetCnt.text =
                             chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                                 .toString() + " Coins"
@@ -212,11 +230,12 @@ class DashboardViewHolder(
                         baseAccount?.let {
                             val coinCnt =
                                 if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
-                            val tokenCnt = if (Prefs.getDisplayErc20s(baseAccount.id, chain.tag) != null) {
-                                Prefs.getDisplayErc20s(baseAccount.id, chain.tag)?.size
-                            } else {
-                                chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                            }
+                            val tokenCnt =
+                                if (Prefs.getDisplayErc20s(baseAccount.id, chain.tag) != null) {
+                                    Prefs.getDisplayErc20s(baseAccount.id, chain.tag)?.size
+                                } else {
+                                    chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+                                }
                             if (tokenCnt == 0) {
                                 assetCnt.text = coinCnt
                             } else {
@@ -379,7 +398,15 @@ class DashboardViewHolder(
             } else {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain.isEvmCosmos()) {
+                    if (chain is ChainSui) {
+                        if (chain.suiFetcher?.suiState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.isEvmCosmos()) {
                         if (chain is ChainOktEvm) {
                             if (chain.oktFetcher?.oktAccountInfo == null || chain.web3j == null) {
                                 respondLayout.visibility = View.VISIBLE

@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.databinding.ItemAllChainClaimBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -28,6 +29,17 @@ class AllChainClaimViewHolder(
             valueAbleReward.apply {
                 chainImg.setImageResource(baseChain.logo)
                 chainName.text = baseChain.name.uppercase()
+                chainRewardAddress.text = baseChain.cosmosFetcher()?.rewardAddress
+                chainDiffer.goneOrVisible(baseChain.address.uppercase() == baseChain.cosmosFetcher()?.rewardAddress?.uppercase())
+                if (baseChain.address.uppercase() == baseChain.cosmosFetcher()?.rewardAddress?.uppercase()) {
+                    chainRewardAddress.setTextColor(ContextCompat.getColor(
+                        context, R.color.color_base02
+                    ))
+                } else {
+                    chainRewardAddress.setTextColor(ContextCompat.getColor(
+                        context, R.color.color_accent_red
+                    ))
+                }
 
                 if (!baseChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE
@@ -89,7 +101,7 @@ class AllChainClaimViewHolder(
                 rewardValue.text = formatAssetValue(rewardsValue)
 
                 if (rewardDenoms.size > 1) {
-                    rewardCnt.text = "(+" + (rewardDenoms.size - 1) + ")"
+                    rewardCnt.text = "+" + (rewardDenoms.size - 1)
                 } else {
                     rewardCnt.text = ""
                 }
@@ -107,17 +119,17 @@ class AllChainClaimViewHolder(
                         feeDenom.setTextColor(asset.assetColor())
                         feeValue.text = formatAssetValue(value)
 
-                        progress.visibility = View.GONE
+                        progress.visibility = View.INVISIBLE
                         simulateImg.visibility = View.VISIBLE
                     }
                 }
 
-                if (valueAbleReward.isBusy && valueAbleReward.txResponse != null) {
-                    progress.visibility = View.GONE
+                if (isBusy && txResponse != null) {
+                    progress.visibility = View.INVISIBLE
                     simulateImg.visibility = View.VISIBLE
                     simulateImg.setImageResource(R.drawable.icon_complete)
 
-                } else if (valueAbleReward.isBusy && valueAbleReward.txResponse == null) {
+                } else if (isBusy && txResponse == null) {
                     progress.visibility = View.VISIBLE
                     simulateImg.visibility = View.GONE
 

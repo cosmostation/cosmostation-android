@@ -97,8 +97,10 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -155,6 +157,9 @@ open class BaseChain : Parcelable {
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
 
+    open var mainAddress: String = ""
+    open var mainUrl: String = ""
+
     open var fetched = false
     open var fetchedState = true
 
@@ -176,17 +181,16 @@ open class BaseChain : Parcelable {
     }
 
     fun setInfoWithSeed(seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
-        privateKey = BaseKey.getPrivateKey(seed, parentPath, lastPath)
+        privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(privateKey)
     }
 
     open fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
-        publicKey = BaseKey.getPubKeyFromPKey(privateKey)
+        publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address =
                 BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
-        } else if (accountKeyType.pubkeyType == PubKeyType.SUI_ED25519) {
 
         } else {
             evmAddress =
@@ -470,7 +474,10 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (this is ChainOkt996Keccak) {
+        if (this is ChainSui) {
+            return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
+
+        } else if (this is ChainOkt996Keccak) {
             return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
         } else if (this is ChainOktEvm) {
@@ -513,6 +520,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
+//    chains.add(ChainBitCoin44())
+//    chains.add(ChainBitCoin49())
+//    chains.add(ChainBitCoin84())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
     chains.add(ChainCantoEvm())
@@ -580,6 +590,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStafi())
     chains.add(ChainStargaze())
     chains.add(ChainStride())
+    chains.add(ChainSui())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
     chains.add(ChainUx())
@@ -589,6 +600,7 @@ fun allChains(): MutableList<BaseChain> {
 
     chains.add(ChainCosmosTestnet())
     chains.add(ChainArtelaTestnet())
+    chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
 
@@ -624,6 +636,6 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD }

@@ -4,11 +4,17 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.suiValidatorCommission
+import wannabit.io.cosmostaion.chain.suiValidatorImg
+import wannabit.io.cosmostaion.chain.suiValidatorName
+import wannabit.io.cosmostaion.chain.suiValidatorVp
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
 import java.math.RoundingMode
@@ -43,6 +49,19 @@ class ValidatorDefaultViewHolder(
                     commission.text = formatString("$commissionRate%", 3)
                 }
             }
+        }
+    }
+
+    fun suiBind(toValidator: JsonObject) {
+        binding.apply {
+            jailedImg.visibility = View.GONE
+            monikerImg.setImageFromSvg(
+                toValidator.suiValidatorImg(), R.drawable.icon_default_vaildator
+            )
+            monikerName.text = toValidator.suiValidatorName()
+
+            votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
+            commission.text = formatString("${toValidator.suiValidatorCommission()}%", 3)
         }
     }
 }

@@ -10,6 +10,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -28,10 +29,18 @@ class EvmReceiveViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            receiveTitle.text =
-                context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
+            if (selectChain is ChainSui) {
+                receiveTitle.text =
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.name + " network")
+                setQrAddress(context, selectChain.mainAddress)
+
+            } else {
+                receiveTitle.text =
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
+                setQrAddress(context, selectChain.evmAddress)
+            }
+
             chainImg.setImageResource(selectChain.logo)
-            setQrAddress(context, selectChain.evmAddress)
             accountPath.text = selectChain.getHDPath(account.lastHDPath)
             chainBadge.visibility = View.GONE
             chainTypeBadge.visibility = View.GONE

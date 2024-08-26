@@ -46,6 +46,9 @@
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/space_200"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

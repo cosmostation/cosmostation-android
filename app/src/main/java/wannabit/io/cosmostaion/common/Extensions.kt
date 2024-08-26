@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.common
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -8,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -29,8 +31,12 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.cosmos.base.v1beta1.CoinProto
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +49,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
@@ -104,6 +113,34 @@ fun formatPercent(value: String): SpannableString {
     return formatString("$value%", 3)
 }
 
+fun formatJsonString(jsonString: String): String {
+    return try {
+        if (jsonString.trim().startsWith("{")) {
+            val jsonObject = JSONObject(jsonString)
+            jsonObject.toString(4)
+        } else if (jsonString.trim().startsWith("[")) {
+            val jsonArray = JSONArray(jsonString)
+            jsonArray.toString(4)
+        } else {
+            jsonString
+        }
+    } catch (e: JSONException) {
+        jsonString
+    }
+}
+
+fun formatJsonOptions(data: JsonObject): Map<String, Boolean> {
+    val result = mutableMapOf<String, Boolean>(
+        "showInput" to true, "showEffects" to true, "showEvents" to true
+    )
+    for (entry in data.entrySet()) {
+        val key = entry.key
+        val value = entry.value.asBoolean
+        result.putIfAbsent(key, value)
+    }
+    return result
+}
+
 fun priceChangeStatus(lastUpDown: BigDecimal): SpannableString {
     return if (BigDecimal.ZERO > lastUpDown) {
         formatString("- " + lastUpDown.toString().replace("-", "") + "%", 3)
@@ -139,16 +176,40 @@ fun TextView.hiddenStatus(amount: SpannableString) {
     }
 }
 
-fun Activity.toMoveAnimation() {
-    this.overridePendingTransition(
-        R.anim.anim_slide_in_left, R.anim.anim_slide_out_right
-    )
+fun TextView.hiddenStatusWithSui(amount: SpannableString) {
+    if (Prefs.hideValue) {
+        text = "✱✱✱✱"
+        textSize = 8f
+    } else {
+        text = amount
+        textSize = 10f
+    }
 }
 
+@SuppressLint("WrongConstant")
+fun Activity.toMoveAnimation() {
+    if (Build.VERSION.SDK_INT >= 34) {
+        this.overrideActivityTransition(
+            Activity.OVERRIDE_TRANSITION_OPEN,
+            R.anim.anim_slide_in_left,
+            R.anim.anim_slide_out_right
+        )
+    } else {
+        this.overridePendingTransition(R.anim.anim_slide_in_left, R.anim.anim_slide_out_right)
+    }
+}
+
+@SuppressLint("WrongConstant")
 fun Activity.toMoveBack() {
-    this.overridePendingTransition(
-        R.anim.anim_slide_in_right, R.anim.anim_slide_out_left
-    )
+    if (Build.VERSION.SDK_INT >= 34) {
+        this.overrideActivityTransition(
+            Activity.OVERRIDE_TRANSITION_CLOSE,
+            R.anim.anim_slide_in_right,
+            R.anim.anim_slide_out_left
+        )
+    } else {
+        this.overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_slide_out_left)
+    }
 }
 
 fun FragmentActivity.toMoveFragment(
@@ -176,6 +237,21 @@ fun ImageView.setImg(resourceId: Int) {
 fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
     Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
         .into(this)
+}
+
+fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
+    val imageLoader = ImageLoader.Builder(this.context).componentRegistry {
+        add(SvgDecoder(context))
+    }.build()
+
+    val imageRequest = ImageRequest.Builder(this.context).crossfade(true).crossfade(300)
+        .data(imageUrl?.ifBlank { defaultImage }).target(onSuccess = { result ->
+            val bitmap = (result as BitmapDrawable).bitmap
+            this.setImageBitmap(bitmap)
+        }, onError = {
+            this.setImageResource(defaultImage)
+        }).build()
+    imageLoader.enqueue(imageRequest)
 }
 
 fun AppCompatActivity.makeToast(id: Int) {
@@ -388,6 +464,17 @@ fun dpTimeToYear(time: Long): String {
                 "yyyy-MM-dd"
             }
         }, locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
+fun dpTimeToMonth(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        "HH:mm:ss", locale
     )
     return outputFormat.format(calendar.timeInMillis)
 }

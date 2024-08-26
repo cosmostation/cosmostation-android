@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -28,6 +29,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var fromChain: BaseChain
+    private var toSendDenom = ""
     private var toSendAsset: Asset? = null
     private var toSendToken: Token? = null
     private var availableAmount = ""
@@ -41,6 +43,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
         @JvmStatic
         fun newInstance(
             fromChain: BaseChain,
+            toSendDenom: String,
             toSendAsset: Asset?,
             toSendToken: Token?,
             availableAmount: String,
@@ -51,6 +54,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
         ): TransferAmountFragment {
             val args = Bundle().apply {
                 putParcelable("fromChain", fromChain)
+                putString("toSendDenom", toSendDenom)
                 putParcelable("toSendAsset", toSendAsset)
                 putParcelable("toSendToken", toSendToken)
                 putString("availableAmount", availableAmount)
@@ -126,6 +130,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         transferType = it
                     }
                 }
+                getString("toSendDenom")?.let { toSendDenom = it }
                 getString("availableAmount")?.let { availableAmount = it }
                 getString("existAmount")?.let { existAmount = it }
 
@@ -191,6 +196,18 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                             }
                     }
                 }
+
+                SendAssetType.SUI_COIN -> {
+                    (fromChain as ChainSui).apply {
+                        assetDecimal = assetDecimal(toSendDenom)
+                        availableDenom.text = assetSymbol(toSendDenom)
+                        val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)
+                        available.text = formatAmount(amount.toString(), assetDecimal)
+                    }
+                }
+
+                else -> {}
             }
 
             existAmount.let { toAmount ->

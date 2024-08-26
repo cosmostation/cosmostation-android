@@ -8,14 +8,22 @@ import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.suiValidatorName
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+
+
+interface ValidatorDefaultListener {
+    fun select(validatorAddress: String)
+}
 
 class ValidatorDefaultFragment(
     private val selectedChain: BaseChain,
     private val fromValidator: StakingProto.Validator?,
+    private val suiFromValidator: MutableList<JsonObject>?,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
 
@@ -23,8 +31,10 @@ class ValidatorDefaultFragment(
     private val binding get() = _binding!!
 
     private lateinit var validatorDefaultAdapter: ValidatorDefaultAdapter
+    private lateinit var suiValidatorDefaultAdapter: SuiValidatorAdapter
 
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
+    private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,6 +57,9 @@ class ValidatorDefaultFragment(
             searchView.queryHint = getString(R.string.str_search_validator)
             selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                 ?.let { searchValidators.addAll(it) }
+            if (suiFromValidator != null) {
+                searchSuiValidators.addAll(suiFromValidator)
+            }
 
             initRecyclerView()
         }
@@ -54,15 +67,29 @@ class ValidatorDefaultFragment(
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            validatorDefaultAdapter = ValidatorDefaultAdapter(selectedChain)
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = validatorDefaultAdapter
-            validatorDefaultAdapter.submitList(searchValidators)
+            if (suiFromValidator != null) {
+                suiValidatorDefaultAdapter = SuiValidatorAdapter()
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = suiValidatorDefaultAdapter
+                suiValidatorDefaultAdapter.submitList(searchSuiValidators)
 
-            validatorDefaultAdapter.setOnItemClickListener {
-                listener.select(it)
-                dismiss()
+                suiValidatorDefaultAdapter.setOnItemClickListener {
+                    listener.select(it)
+                    dismiss()
+                }
+
+            } else {
+                validatorDefaultAdapter = ValidatorDefaultAdapter(selectedChain)
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = validatorDefaultAdapter
+                validatorDefaultAdapter.submitList(searchValidators)
+
+                validatorDefaultAdapter.setOnItemClickListener {
+                    listener.select(it)
+                    dismiss()
+                }
             }
         }
     }
@@ -78,20 +105,38 @@ class ValidatorDefaultFragment(
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
+                    searchSuiValidators.clear()
+
                     if (StringUtils.isEmpty(newText)) {
-                        selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
-                            ?.let { searchValidators.addAll(it) }
+                        if (suiFromValidator != null) {
+                            searchSuiValidators.addAll(suiFromValidator)
+                            suiValidatorDefaultAdapter.notifyDataSetChanged()
+                        } else {
+                            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                                ?.let { searchValidators.addAll(it) }
+                            validatorDefaultAdapter.notifyDataSetChanged()
+                        }
+
                     } else {
                         newText?.let { searchTxt ->
-                            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
-                                ?.filter { validator ->
-                                    validator.description.moniker.contains(
-                                        searchTxt, ignoreCase = true
-                                    )
-                                }?.let { searchValidators.addAll(it) }
+                            if (suiFromValidator != null) {
+                                suiFromValidator.filter { validator ->
+                                    validator.suiValidatorName()
+                                        .contains(searchTxt, ignoreCase = true)
+                                }.let { searchSuiValidators.addAll(it) }
+                                suiValidatorDefaultAdapter.notifyDataSetChanged()
+
+                            } else {
+                                selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                                    ?.filter { validator ->
+                                        validator.description.moniker.contains(
+                                            searchTxt, ignoreCase = true
+                                        )
+                                    }?.let { searchValidators.addAll(it) }
+                                validatorDefaultAdapter.notifyDataSetChanged()
+                            }
                         }
                     }
-                    validatorDefaultAdapter.notifyDataSetChanged()
                     return true
                 }
             })
@@ -102,8 +147,4 @@ class ValidatorDefaultFragment(
         _binding = null
         super.onDestroyView()
     }
-}
-
-interface ValidatorDefaultListener {
-    fun select(validatorAddress: String)
 }

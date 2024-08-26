@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.dpTimeToYear
@@ -28,6 +30,24 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         when (chain) {
+            is ChainSui -> {
+                val suiHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historySuiGroup = suiHistoryList[position]
+
+                historySuiGroup.second.let { header ->
+                    val headerDate = dpTimeToYear(header["timestampMs"].asString.toLong())
+                    val headerIndex = suiHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = suiHistoryList.filter { it.first == headerDate }.size
+                    holder.bindSuiHistory(chain, historySuiGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(chain, null, historySuiGroup.second["digest"].asString)
+                        }
+                    }
+                }
+            }
+
             is ChainOkt996Keccak, is ChainOktEvm -> {
                 val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
                 val historyOktGroup = oktHistoryList[position]

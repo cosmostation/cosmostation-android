@@ -5,10 +5,13 @@ import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.OktFetcher
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -47,7 +50,14 @@ class WalletSelectViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.isEvmCosmos()) {
+            if (chain is ChainSui) {
+                chainAddress.text = chain.mainAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+
+            } else if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -86,7 +96,16 @@ class WalletSelectViewHolder(
                     selectListener.select(selectedTags)
                 }
 
-                if (chain.supportCosmos()) {
+                if (chain is ChainSui) {
+                    if (chain.suiFetcher?.suiState == false) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainBalance.visibility = View.GONE
+                        chainDenom.visibility = View.GONE
+                        chainAssetCnt.visibility = View.GONE
+                        return
+                    }
+
+                } else if (chain.supportCosmos()) {
                     if (chain is ChainOktEvm) {
                         if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
                             respondLayout.visibility = View.VISIBLE
@@ -142,7 +161,17 @@ class WalletSelectViewHolder(
                     chainTypeBadge.visibility = View.GONE
                 }
 
-                if (chain.supportCosmos()) {
+                if (chain is ChainSui) {
+                    val availableAmount = chain.suiFetcher()?.let { fetcher ->
+                        fetcher.suiBalanceAmount(SUI_MAIN_DENOM)?.movePointLeft(9)
+                            ?.setScale(9, RoundingMode.DOWN)
+                    }
+                    chainBalance.text = formatAmount(availableAmount.toString(), 9)
+                    chainDenom.text = chain.coinSymbol
+                    chainDenom.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                    cnt = chain.suiFetcher?.suiBalances?.size ?: 0
+
+                } else if (chain.supportCosmos()) {
                     if (chain is ChainOktEvm) {
                         updateOktInfo(chain, chain.oktFetcher)
                         cnt =

@@ -142,7 +142,7 @@
                 <ImageView
                     android:layout_width="@dimen/space_24"
                     android:layout_height="@dimen/space_24"
-                    android:src="@drawable/chain_kava" />
+                    android:src="@drawable/chain_sui" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -151,10 +151,10 @@
                     style="@style/font_sb_12"
                     android:textColor="@color/color_base01"
                     android:layout_marginStart="@dimen/space_4"
-                    android:text="KAVA"/>
+                    android:text="SUI"/>
 
                 <TextView
-                    android:id="@+id/kava_last_hd_path"
+                    android:id="@+id/sui_last_hd_path"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"

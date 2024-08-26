@@ -18,10 +18,13 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomAdapter
 import java.io.IOException
@@ -94,8 +97,11 @@ class EndPointViewHolder(
             val host = endpoint.get("url").asString.split(":")[0].trim()
             val port =
                 endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            checkImg.visibleOrGone(fromChain?.cosmosFetcher()?.endPointType(fromChain) == CosmosEndPointType.USE_GRPC &&
-                    fromChain.cosmosFetcher()?.getGrpc()?.first == host)
+            checkImg.visibleOrGone(
+                fromChain?.cosmosFetcher()
+                    ?.endPointType(fromChain) == CosmosEndPointType.USE_GRPC &&
+                        fromChain.cosmosFetcher()?.getGrpc()?.first == host
+            )
 
             CoroutineScope(Dispatchers.IO).launch {
                 val channel = getChannel(host, port)
@@ -222,6 +228,69 @@ class EndPointViewHolder(
 
                 endpointView.setOnClickListener {
                     listener?.lcdSelect(endpoint.get("url").asString, gapTime)
+                }
+            }
+        }
+    }
+
+    fun suiBind(
+        fromChain: BaseChain?,
+        endpoint: JsonObject,
+        listener: SettingBottomAdapter.EndpointListener?
+    ) {
+        binding.apply {
+            (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
+                provider.text = endpoint.get("provider").asString
+                providerUrl.text = endpoint.get("url").asString.replace("https://", "")
+
+                val checkTime = System.currentTimeMillis() / 1000.0
+                val url = endpoint.get("url").asString
+                checkImg.goneOrVisible(fetcher.suiRpc() != url)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val suiChainIdRequest = JsonRpcRequest(
+                            method = "sui_getChainIdentifier", params = listOf()
+                        )
+                        val suiChainIdResponse = jsonRpcResponse(fetcher.suiRpc(), suiChainIdRequest)
+                        if (suiChainIdResponse.isSuccessful) {
+                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                            withContext(Dispatchers.Main) {
+                                speedImg.visibility = View.VISIBLE
+                                connectTime.visibility = View.VISIBLE
+                                gapTime?.let {
+                                    if (it <= 1.2) {
+                                        speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                    } else if (it <= 3) {
+                                        speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                    } else {
+                                        speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                    }
+                                    connectTime.text = formatAmount(it.toString(), 4)
+                                }
+                            }
+
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                speedImg.visibility = View.VISIBLE
+                                connectTime.visibility = View.VISIBLE
+                                speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                connectTime.text = "Unknown"
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            speedImg.visibility = View.VISIBLE
+                            connectTime.visibility = View.VISIBLE
+                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                            connectTime.text = "Unknown"
+                        }
+                    }
+                }
+
+                endpointView.setOnClickListener {
+                    listener?.rpcSelect(endpoint.get("url").asString, gapTime)
                 }
             }
         }

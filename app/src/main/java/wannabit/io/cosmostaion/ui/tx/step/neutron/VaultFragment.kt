@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.step.neutron
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
@@ -276,6 +277,7 @@ class VaultFragment : BaseTxFragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             amountView.setOnClickListener {
@@ -393,9 +395,18 @@ class VaultFragment : BaseTxFragment() {
             btnConfirm.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     vaultResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }

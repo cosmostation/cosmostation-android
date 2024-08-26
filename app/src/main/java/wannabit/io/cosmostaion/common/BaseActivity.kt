@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.common
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -14,6 +16,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
+import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -40,15 +43,31 @@ open class BaseActivity : AppCompatActivity() {
         super.attachBaseContext(BaseUtils.updateResources(base))
     }
 
+    @SuppressLint("WrongConstant")
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch(Dispatchers.IO) {
             if (CosmostationApp.instance.needShowLockScreen() && Prefs.foreToBack) {
                 val intent = Intent(this@BaseActivity, AppLockActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                if (Build.VERSION.SDK_INT >= 34) {
+                    overrideActivityTransition(
+                        Activity.OVERRIDE_TRANSITION_OPEN,
+                        R.anim.anim_slide_in_bottom,
+                        R.anim.anim_fade_out
+                    )
+                } else {
+                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                }
             }
             Prefs.foreToBack = true
+        }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (CosmostationApp.instance.isReturnedForeground()) {
+                ApplicationViewModel.shared.price(BaseData.currencyName().lowercase())
+                ApplicationViewModel.shared.param()
+            }
         }
     }
 }

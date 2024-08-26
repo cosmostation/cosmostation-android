@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.ui.tx.step
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,7 +11,6 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -317,7 +318,8 @@ class SwapFragment : BaseTxFragment() {
                             chain.cosmosFetcher?.cosmosBalances = loadInputBalanceDeferred.await()
                             BaseUtils.onParseVesting(chain)
 
-                        } catch (e: Exception) { }
+                        } catch (e: Exception) {
+                        }
                     }
                 }
                 outputChain?.let { chain ->
@@ -330,7 +332,8 @@ class SwapFragment : BaseTxFragment() {
                             chain.cosmosFetcher?.cosmosBalances = loadOutputBalanceDeferred.await()
                             BaseUtils.onParseVesting(chain)
 
-                        } catch (e: Exception) { }
+                        } catch (e: Exception) {
+                        }
                     }
                 }
 
@@ -624,6 +627,7 @@ class SwapFragment : BaseTxFragment() {
         return Signer.wasmMsg(wasmMsgs)
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             btnSlippage.setOnClickListener {
@@ -747,7 +751,6 @@ class SwapFragment : BaseTxFragment() {
                                                 chain.cosmosFetcher()?.let { fetcher ->
                                                     try {
                                                         val channel = fetcher.getChannel()
-                                                        loadAuth(channel, chain)
                                                         val loadOutputBalanceDeferred = async {
                                                             loadBalance(
                                                                 channel, chain
@@ -832,9 +835,18 @@ class SwapFragment : BaseTxFragment() {
             btnSwap.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     swapResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
         }

@@ -85,6 +85,19 @@ object BaseData {
         return last < now
     }
 
+    fun setLastParamTime() {
+        val now = System.currentTimeMillis()
+        Prefs.lastParamTime = now.toString()
+    }
+
+    fun paramUpdateIfNeed(): Boolean {
+        if (prices?.isEmpty() == true) return true
+        val now = System.currentTimeMillis()
+        val min: Long = 60000
+        val last = Prefs.lastParamTime.toLong() + (min * 2)
+        return last < now
+    }
+
     fun setLastTime() {
         val now = Calendar.getInstance().timeInMillis
         Prefs.lastTime = now

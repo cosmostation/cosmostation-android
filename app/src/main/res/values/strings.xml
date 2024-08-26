@@ -21,6 +21,8 @@
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
+    <string name="str_total_staked" translatable="false">Total Staked</string>
+    <string name="str_earned" translatable="false">Earned</string>
     <string name="str_today">Today</string>
     <string name="str_next">Next</string>
     <string name="str_share_address">Share address</string>
@@ -171,6 +173,10 @@
     <string name="str_dev">Dev mode</string>
     <string name="str_retry">Retry</string>
     <string name="str_change_endpoint">Change End-Point</string>
+    <string name="str_current_epoch">Current epoch</string>
+    <string name="str_next_reward_distribution">Next reward</string>
+    <string name="str_instant">Instant</string>
+    <string name="str_endpoint_reset">Reset End-Point</string>
 
 
     //title
@@ -308,11 +314,12 @@
     <string name="title_select_end_point">Select End-Point</string>
     <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">Select End-Point (Sui RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
     <string name="title_all_vote_list">Excluding voted proposals</string>
     <string name="title_sunset">Chain sunset</string>
-    <string name="title_compoundingable_chains">CompoundingAble chains</string>
+    <string name="title_compoundingable_chains">Compoundable chains</string>
     <string name="title_send_info">Send detail info</string>
     <string name="title_nft_transfer">Send NFT</string>
     <string name="title_select_style">Select style</string>
@@ -414,7 +421,11 @@
     <string name="str_dapp_warn_msg">Only sign this message if you trust the requesting site and fully understand its contents</string>
     <string name="str_support_injection_msg">To enhance user convenience and response speed, we support the injection method (EIP-6963). When using DApps, please select your desktop wallet, etc.\nYou can experience the same user experience as with the desktop extension wallet.\nFor EVM-based DApps, by supporting the EIP-6963 specification, you can enjoy a seamless web3 experience.</string>
     <string name="str_fee_tip_msg">Fees are pay to the chain, not to wallet</string>
-
+    <string name="str_sui_guide_msg0">Epochs are created every <b>24 hours</b></string>
+    <string name="str_sui_guide_msg1">If you have started staking, it will remain in a \'pending\' state until the current epoch (%1$s) ends</string>
+    <string name="str_sui_guide_msg2">At the end of the next epoch (%1$s), rewards will be distributed. Each subsequent epoch will be repeated</string>
+    <string name="str_sui_guide_msg3">Rewards are compounded and can be used immediately after the start of unstaking</string>
+    <string name="str_endpoint_reset_msg">(Recommended) Would you like to reset the End-Points for all chains to their default settings?\n\nEnd-Points are servers that manage connections to the blockchain network, ensuring that data can be transmitted and received smoothly when the stable End-Point is used. </string>
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>
@@ -475,6 +486,9 @@
     <string name="error_not_support_chain">Unsupported chain in mobile</string>
     <string name="error_bera_vote_one_proposal">You can only vote for one BeraChain.</string>
     <string name="error_not_support_dapp">%1$s does not support mobile injection.</string>
+    <string name="error_not_enough_sui_stake">Not enough SUI coins (1.05 or more is possible). \nMinimum staking amount 1\nStaking fee 0.05</string>
+    <string name="error_staking_min_sui">Staking is possible from 1 SUI or more</string>
+    <string name="error_pending">Pending. UnStaking is not possible.</string>
 
 
     // tx

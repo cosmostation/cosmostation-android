@@ -128,6 +128,10 @@
     <string name="str_dev">개발 모드</string>
     <string name="str_retry">재시도</string>
     <string name="str_change_endpoint">End-Point 변경</string>
+    <string name="str_current_epoch">현재 에포치</string>
+    <string name="str_next_reward_distribution">다음 보상 분배</string>
+    <string name="str_instant">즉시</string>
+    <string name="str_endpoint_reset">End-Point 초기화</string>
 
 
     //title
@@ -176,7 +180,7 @@
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>
     <string name="title_fee_select">Tx 수수료로 사용할 코인 선택</string>
-    <string name="title_recipient_address">받을 주소</string>
+    <string name="title_recipient_address">수신 주소</string>
     <string name="title_address_confirm">주소록 확인</string>
     <string name="title_name_service">%1$s 네임 서비스 검색 결과</string>
     <string name="title_tx_result">Tx 결과</string>
@@ -246,6 +250,7 @@
     <string name="title_select_end_point">End-Point 선택</string>
     <string name="title_select_end_point_grpc">End-Point 선택 (gRPC)</string>
     <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
+    <string name="title_select_end_point_sui_rpc">End-Point 선택 (Sui RPC)</string>
     <string name="title_edit_token_list">토큰 편집</string>
     <string name="title_not_vote_list">라이브 프로포절</string>
     <string name="title_all_vote_list">내가 투표한 프로포절 제외</string>
@@ -337,6 +342,11 @@
     <string name="str_dapp_warn_msg">요청하는 사이트를 신뢰하고 그 내용을 완전히 이해하는 경우에만 이 메세지에 서명하세요</string>
     <string name="str_support_injection_msg">사용자의 편의와 반응속도 개선을 위해 인젝션 방식(EIP-6963)을 지원합니다. 디앱 사용시 데크스탑 지갑 등을 선택하세요.\n데스크탑의 익스텐션 지갑과 동일한 사용자 경험을 느끼실 수 있습니다.\nEVM용 디앱의 경우 EIP-6963 스팩을 지원함으로 편한한 web3 여행을 즐기실 수 있습니다.</string>
     <string name="str_fee_tip_msg">Fee는 지갑이 아닌 체인에 지불됩니다</string>
+    <string name="str_sui_guide_msg0">매 에포치는 <b>24시간</b>마다 시작됩니다</string>
+    <string name="str_sui_guide_msg1">스테이킹을 시작한 경우 현재 에포치(%1$s)가 끝날 때까지 펜딩상태로 유지됩니다(언스테이킹 불가)</string>
+    <string name="str_sui_guide_msg2">다음 에포치(%1$s)가 완료된 후 리워드가 발생하며, 이후 에포치 마다 추가적인 보상이 제공됩니다</string>
+    <string name="str_sui_guide_msg3">보상은 복리로 누적되며, 언스테이킹을 하는 즉시 해당 수량을 모두 사용할 수 있습니다</string>
+    <string name="str_endpoint_reset_msg">(권장됨)현재 사용자가 설정한 모든 체인의 엔드포인트를 기본 설정으로 초기화하시겠습니까?\n\nEnd-Point는 블록체인 네트워크와 연결을 관리하는 서버로, 안정적인 End-Point를 사용해야 원활하게 데이터를 주고받을 수 있습니다.</string>
 
 
     // error
@@ -379,6 +389,9 @@
     <string name="error_not_support_chain">모바일에서 지원하지 않는 체인 입니다.</string>
     <string name="error_bera_vote_one_proposal">베라체인은 한개씩만 투표 가능합니다.</string>
     <string name="error_not_support_dapp">%1$s는 모바일 인젝션을 지원하지 않습니다.</string>
+    <string name="error_not_enough_sui_stake">SUI 코인이 충분하지 않습니다 (1.05 이상가능). \n최소 스테이킹 수량 1\n스테이킹 피 0.05</string>
+    <string name="error_staking_min_sui">1 SUI 이상 부터 스테이킹 가능합니다</string>
+    <string name="error_pending">펜딩 상태입니다. 언스테이킹은 불가능합니다.</string>
 
 
     //header
@@ -455,7 +468,7 @@
     <string name="tx_kava_auction_bid">옥션 비딩</string>
     <string name="tx_kava_save_deposit">저축 예치</string>
     <string name="tx_kava_save_withdraw">저축 출금</string>
-    <string name="tx_kava_hard_mint_incentive">인센티브 USDX 빌헹</string>
+    <string name="tx_kava_hard_mint_incentive">인센티브 USDX 발행</string>
     <string name="tx_kava_hard_hard_incentive">인센티브 하드 대출</string>
     <string name="tx_kava_hard_save_incentive">인센티브 Saving</string>
     <string name="tx_kava_hard_earn_incentive">어닝 인센티브</string>

@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.ui.tx.step.service
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -457,6 +459,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding?.apply {
             btnFilter.setOnClickListener {
@@ -480,9 +483,18 @@ class AllChainVoteFragment : BaseTxFragment() {
             btnVoteAll.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
                     voteAllResultLauncher.launch(this)
-                    requireActivity().overridePendingTransition(
-                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                    )
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    }
                 }
             }
 
@@ -511,12 +523,14 @@ class AllChainVoteFragment : BaseTxFragment() {
                     }?.let { gasRate ->
                         val feeCoinAmount =
                             gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
-                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
-                            .setAmount(feeCoinAmount.toString()).build()
+                        val feeCoin =
+                            CoinProto.Coin.newBuilder().setDenom(txFee?.getAmount(0)?.denom)
+                                .setAmount(feeCoinAmount.toString()).build()
 
                         voteAllModel.isBusy = false
                         voteAllModel.txFee =
-                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong()).addAmount(feeCoin)
+                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                                .addAmount(feeCoin)
                                 .build()
                         voteAllModel.toVotes = toVotes
                     }

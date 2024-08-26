@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.wallet
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -184,7 +188,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.supportCosmos()) {
+                            if (chain.supportCosmos() || chain is ChainSui) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -204,7 +208,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if ((chain.supportEvm && chain.supportCosmos()) || chain.supportCosmos()) {
+                            if (chain.isEvmCosmos() || chain.supportCosmos() || chain is ChainSui) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -343,9 +347,14 @@ class WalletSelectFragment : Fragment() {
         }
     }
 
+    @SuppressLint("WrongConstant")
     private fun startToActivity() {
         if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT) {
-            requireActivity().overridePendingTransition(0, 0)
+            if (Build.VERSION.SDK_INT >= 34) {
+                requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0)
+            } else {
+                requireActivity().overridePendingTransition(0, 0)
+            }
             requireActivity().finish()
         } else {
             Intent(requireActivity(), MainActivity::class.java).apply {

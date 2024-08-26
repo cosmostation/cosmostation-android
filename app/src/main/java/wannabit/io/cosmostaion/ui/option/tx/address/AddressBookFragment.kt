@@ -112,8 +112,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        val refMajorAddresses: MutableList<RefAddress> = mutableListOf()
         val refAddresses: MutableList<RefAddress> = mutableListOf()
         val refEvmAddresses: MutableList<RefAddress> = mutableListOf()
+        val majorAddressBook: MutableList<AddressBook> = mutableListOf()
         val addressBooks: MutableList<AddressBook> = mutableListOf()
         val evmAddressBooks: MutableList<AddressBook> = mutableListOf()
 
@@ -242,9 +244,25 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 }
                             }
                     }
+
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                        AppDatabase.getInstance().refAddressDao().selectAll().forEach { refAddress ->
+                            if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
+                                refMajorAddresses.add(refAddress)
+                            }
+                        }
+
+                        AppDatabase.getInstance().addressBookDao().selectAll().forEach { addressBook ->
+                            if (addressBook.address.startsWith("0x") && addressBook.address.lowercase() != fromChain.mainAddress.lowercase()
+                            ) {
+                                majorAddressBook.add(addressBook)
+                            }
+                        }
+                    }
                 }
                 sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
+                sortRefSuiAddresses(refMajorAddresses)
 
                 withContext(Dispatchers.Main) {
                     when (sendAssetType) {
@@ -301,6 +319,22 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 emptyLayout.visibility = View.GONE
                                 initCosmosRecyclerView(
                                     refAddresses, addressBooks
+                                )
+                            }
+                            segmentView.visibility = View.GONE
+                            evmRecycler.visibility = View.GONE
+                        }
+
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                            if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+
+                            } else {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                initCosmosRecyclerView(
+                                    refMajorAddresses, majorAddressBook
                                 )
                             }
                             segmentView.visibility = View.GONE
@@ -429,6 +463,12 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     }
 
     private fun sortRefEvmAddresses(refAddresses: MutableList<RefAddress>) {
+        val accountMap =
+            AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
+        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
+    }
+
+    private fun sortRefSuiAddresses(refAddresses: MutableList<RefAddress>) {
         val accountMap =
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })

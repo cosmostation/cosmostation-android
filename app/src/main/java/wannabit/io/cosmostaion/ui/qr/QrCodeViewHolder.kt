@@ -11,6 +11,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -59,10 +60,21 @@ class QrCodeViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            receiveTitle.text =
-                context.getString(R.string.str_deposit_caution_msg, selectChain.name)
+            val address = if (selectChain is ChainSui) {
+                selectChain.mainAddress
+            } else {
+                selectChain.address
+            }
+
+            if (selectChain is ChainSui) {
+                receiveTitle.text =
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
+            } else {
+                receiveTitle.text =
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
+            }
+            setQrAddress(context, address)
             chainImg.setImageResource(selectChain.logo)
-            setQrAddress(context, selectChain.address)
 
             if (!selectChain.isDefault) {
                 chainBadge.visibility = View.VISIBLE
@@ -95,7 +107,7 @@ class QrCodeViewHolder(
             receiveView.setOnClickListener {
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("address", selectChain.address)
+                val clip = ClipData.newPlainText("address", address)
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
             }
