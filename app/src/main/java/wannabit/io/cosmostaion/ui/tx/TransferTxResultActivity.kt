@@ -111,9 +111,10 @@ class TransferTxResultActivity : BaseActivity() {
             toAddress = intent.getStringExtra("recipientAddress") ?: ""
             toMemo = intent.getStringExtra("memo") ?: ""
 
-            suiResult =
-                JsonParser.parseString(intent.getStringExtra("suiResult") ?: "").asJsonObject
+            intent.getStringExtra("suiResult")?.let { intentData ->
+                suiResult = JsonParser.parseString(intentData).asJsonObject
                     ?: JsonObject()
+            }
 
             transferStyle = enumValues<TransferStyle>()[intent.getIntExtra("transferStyle", -1)]
 
