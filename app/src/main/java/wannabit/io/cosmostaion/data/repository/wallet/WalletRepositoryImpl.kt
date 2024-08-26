@@ -34,7 +34,6 @@ import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.accountInfos
@@ -43,6 +42,7 @@ import wannabit.io.cosmostaion.chain.balance
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.delegations
 import wannabit.io.cosmostaion.chain.feeMarket
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.rewardAddress
 import wannabit.io.cosmostaion.chain.rewards
 import wannabit.io.cosmostaion.chain.sequence
@@ -721,7 +721,9 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun suiApys(fetcher: SuiFetcher, chain: ChainSui): NetworkResult<MutableList<JsonObject>> {
+    override suspend fun suiApys(
+        fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<MutableList<JsonObject>> {
         return try {
             val suiApysRequest = JsonRpcRequest(
                 method = "suix_getValidatorsApy", params = listOf()
@@ -731,7 +733,7 @@ class WalletRepositoryImpl : WalletRepository {
                 suiApysResponse.body?.string(), JsonObject::class.java
             )
             val result = mutableListOf<JsonObject>()
-            suiApysJsonObject["result"].asJsonObject["apys"].asJsonArray.forEach {  apy ->
+            suiApysJsonObject["result"].asJsonObject["apys"].asJsonArray.forEach { apy ->
                 result.add(apy.asJsonObject)
             }
             safeApiCall(Dispatchers.IO) {

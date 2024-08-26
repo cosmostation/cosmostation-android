@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
@@ -181,7 +182,7 @@ class TxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             selectedChain?.let { chain ->
-                if (chain.supportCosmos()) {
+                if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                     val channel = chain.cosmosFetcher()?.getChannel()
                     val stub = newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
