@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -268,7 +269,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (availableAmount <= BigDecimal.ZERO) {
                             availableAmount = BigDecimal.ZERO
                         }
-                        transferImg.setTokenImg(fromChain.assetImg(toSendDenom))
+                        transferImg.setImageFromSvg(fromChain.assetImg(toSendDenom), R.drawable.token_default)
                         sendTitle.text = getString(
                             R.string.title_asset_send, assetSymbol(toSendDenom)
                         )

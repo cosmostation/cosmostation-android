@@ -195,7 +195,11 @@ fun String?.suiCoinSymbol(): String? {
 }
 
 fun JsonObject?.assetImg(): String {
-    return this?.get("iconUrl")?.asString ?: ""
+    return try {
+        this?.get("iconUrl")?.asString ?: ""
+    } catch (e: Exception) {
+        ""
+    }
 }
 
 fun JsonObject.suiRawNftUrlString(): String? {
