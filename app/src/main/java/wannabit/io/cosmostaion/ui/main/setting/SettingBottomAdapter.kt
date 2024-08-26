@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +20,6 @@ import wannabit.io.cosmostaion.ui.main.setting.general.PriceStyleViewHolder
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointViewHolder
 
 class SettingBottomAdapter(
-    val context: Context,
     private val fromChain: BaseChain?,
     private val grpcEndpoints: MutableList<Any>?,
     private val lcdEndpoints: MutableList<Any>,

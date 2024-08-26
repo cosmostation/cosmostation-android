@@ -100,10 +100,10 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     )
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(), null, null, mutableListOf(), SettingType.LANGUAGE, null
+                        null, null, mutableListOf(), SettingType.LANGUAGE, null
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(languageList)
 
@@ -120,10 +120,10 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     val currencyList = resources.getStringArray(R.array.currency_unit_array)
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(), null, null, mutableListOf(), SettingType.CURRENCY, null
+                        null, null, mutableListOf(), SettingType.CURRENCY, null
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(currencyList.toList())
 
@@ -142,15 +142,10 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     selectTitle.text = getString(R.string.title_price_change_color)
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(),
-                        null,
-                        null,
-                        mutableListOf(),
-                        SettingType.PRICE_STATUS,
-                        null
+                        null, null, mutableListOf(), SettingType.PRICE_STATUS, null
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(listOf("Style1", "Style2"))
 
@@ -167,10 +162,10 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     val buyCryptoList = listOf("MOONPAY", "KADO", "BINANCE")
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(), null, null, mutableListOf(), SettingType.BUY_CRYPTO, null
+                        null, null, mutableListOf(), SettingType.BUY_CRYPTO, null
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(buyCryptoList)
 
@@ -192,7 +187,6 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(),
                         fromChain,
                         rpcEndpoints,
                         mutableListOf(),
@@ -200,7 +194,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(rpcEndpoints)
                 }
@@ -215,7 +209,6 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(),
                         fromChain,
                         rpcEndpoints,
                         mutableListOf(),
@@ -223,7 +216,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(rpcEndpoints)
                 }
@@ -261,7 +254,6 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
 
                     settingAdapter = SettingBottomAdapter(
-                        requireContext(),
                         fromChain,
                         grpcEndpoints,
                         lcdEndpoints,
@@ -269,7 +261,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         endpointClickAction
                     )
                     recycler.setHasFixedSize(true)
-                    recycler.layoutManager = LinearLayoutManager(requireContext())
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter
                     settingAdapter.submitList(grpcEndpoints + lcdEndpoints)
                 }
@@ -335,12 +327,12 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
             rpcSegment.apply {
                 setSelectedBackground(
                     ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
+                        requireActivity(), R.color.color_accent_purple
                     )
                 )
                 setRipple(
                     ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
+                        requireActivity(), R.color.color_accent_purple
                     )
                 )
             }
@@ -350,7 +342,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 rpcSegment.addView(
                     segmentView.root,
                     i,
-                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                    LinearLayout.LayoutParams(0, dpToPx(requireActivity(), 32), 1f)
                 )
 
                 when (i) {
@@ -385,17 +377,18 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         }
 
                         settingAdapter = SettingBottomAdapter(
-                            requireContext(),
                             fromChain,
                             grpcEndpoints,
                             lcdEndpoints,
                             SettingType.END_POINT_COSMOS,
                             endpointClickAction
                         )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = settingAdapter
-                        settingAdapter.submitList(grpcEndpoints + lcdEndpoints)
+                        if (isAdded) {
+                            recycler.setHasFixedSize(true)
+                            recycler.layoutManager = LinearLayoutManager(requireActivity())
+                            recycler.adapter = settingAdapter
+                            settingAdapter.submitList(grpcEndpoints + lcdEndpoints)
+                        }
                     }
 
                     else -> {
@@ -407,17 +400,18 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         }
 
                         settingAdapter = SettingBottomAdapter(
-                            requireContext(),
                             fromChain,
                             rpcEndpoints,
                             mutableListOf(),
                             SettingType.END_POINT_EVM,
                             endpointClickAction
                         )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = settingAdapter
-                        settingAdapter.submitList(rpcEndpoints)
+                        if (isAdded) {
+                            recycler.setHasFixedSize(true)
+                            recycler.layoutManager = LinearLayoutManager(requireActivity())
+                            recycler.adapter = settingAdapter
+                            settingAdapter.submitList(rpcEndpoints)
+                        }
                     }
                 }
             }

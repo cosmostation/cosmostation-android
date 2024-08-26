@@ -914,10 +914,6 @@ class ApplicationViewModel(
                         }
                     }
 
-                    if (fetcher.suiBalances.none { it.first == SUI_MAIN_DENOM }) {
-                        fetcher.suiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
-                    }
-
                     if (stakesResult is NetworkResult.Success) {
                         stakesResult.data["result"].asJsonArray.forEach { stake ->
                             fetcher.suiStakedList.add(stake.asJsonObject)

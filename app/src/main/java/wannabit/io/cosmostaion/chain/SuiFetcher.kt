@@ -66,11 +66,13 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     private fun suiBalanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (suiBalances.isNotEmpty()) {
-            val iterator = suiBalances.iterator()
-            while (iterator.hasNext()) {
-                val balance = iterator.next()
-                balance.first?.let {
-                    sum = sum.add(suiBalanceValue(it, isUsd))
+            synchronized(suiBalances) {
+                val iterator = suiBalances.iterator()
+                while (iterator.hasNext()) {
+                    val balance = iterator.next()
+                    balance.first?.let {
+                        sum = sum.add(suiBalanceValue(it, isUsd))
+                    }
                 }
             }
         }

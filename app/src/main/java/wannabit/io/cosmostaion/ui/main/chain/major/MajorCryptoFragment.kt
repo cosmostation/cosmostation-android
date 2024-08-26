@@ -70,7 +70,6 @@ class MajorCryptoFragment : Fragment() {
         sortAssets()
         refreshData()
         observeViewModels()
-        initSearchView()
     }
 
     private fun initData() {
@@ -95,58 +94,69 @@ class MajorCryptoFragment : Fragment() {
             searchSuiNativeBalances.clear()
 
             (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                fetcher.suiBalances.sortWith { o1, o2 ->
-                    when {
-                        o1.first == SUI_MAIN_DENOM -> -1
-                        o2.first == SUI_MAIN_DENOM -> 1
-                        else -> {
-                            val value0 = fetcher.suiBalanceValue(o1.first ?: "")
-                            val value1 = fetcher.suiBalanceValue(o2.first ?: "")
-                            value1.compareTo(value0)
+                val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+                tempSuiBalances.addAll(fetcher.suiBalances)
+
+                if (tempSuiBalances.none { it.first == SUI_MAIN_DENOM }) {
+                    tempSuiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
+                }
+                synchronized(tempSuiBalances) {
+                    tempSuiBalances.sortWith { o1, o2 ->
+                        when {
+                            o1.first == SUI_MAIN_DENOM -> -1
+                            o2.first == SUI_MAIN_DENOM -> 1
+                            else -> {
+                                val value0 = fetcher.suiBalanceValue(o1.first ?: "")
+                                val value1 = fetcher.suiBalanceValue(o2.first ?: "")
+                                value1.compareTo(value0)
+                            }
                         }
                     }
                 }
-                fetcher.suiBalances.firstOrNull()?.let { suiBalances.add(it) }
+                tempSuiBalances.firstOrNull()?.let { suiBalances.add(it) }
                 searchSuiBalances.addAll(suiBalances)
                 suiNativeBalances.addAll(fetcher.suiBalances.drop(1))
                 searchSuiNativeBalances.addAll(suiNativeBalances)
 
                 withContext(Dispatchers.Main) {
                     initRecyclerView()
+                    initSearchView(fetcher.suiBalances, suiBalances)
                 }
             }
         }
     }
 
     private fun initRecyclerView() {
-        majorCryptoAdapter = MajorCryptoAdapter(
-            requireContext(), selectedChain, searchSuiBalances, searchSuiNativeBalances
-        )
-        binding.recycler.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = majorCryptoAdapter
-            majorCryptoAdapter.notifyDataSetChanged()
+        if (isAdded) {
+            majorCryptoAdapter = MajorCryptoAdapter(
+                requireContext(), selectedChain, searchSuiBalances, searchSuiNativeBalances
+            )
+            binding.recycler.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireActivity())
+                adapter = majorCryptoAdapter
+                majorCryptoAdapter.notifyDataSetChanged()
 
-            majorCryptoAdapter.setOnItemClickListener { chain, denom ->
-                val sendAssetType = if (chain is ChainSui) {
-                    SendAssetType.SUI_COIN
-                } else {
-                    SendAssetType.ONLY_COSMOS_COIN
-                }
-                handleOneClickWithDelay(
-                    CommonTransferFragment.newInstance(
-                        chain, denom, sendAssetType
+                majorCryptoAdapter.setOnItemClickListener { chain, denom ->
+                    val sendAssetType = if (chain is ChainSui) {
+                        SendAssetType.SUI_COIN
+                    } else {
+                        SendAssetType.ONLY_COSMOS_COIN
+                    }
+                    handleOneClickWithDelay(
+                        CommonTransferFragment.newInstance(
+                            chain, denom, sendAssetType
+                        )
                     )
-                )
+                }
             }
+            binding.refresher.isRefreshing = false
         }
-        binding.refresher.isRefreshing = false
     }
 
-    private fun initSearchView() {
+    private fun initSearchView(suiBalances: MutableList<Pair<String?, BigDecimal?>>, tempSuiBalances: MutableList<Pair<String?, BigDecimal?>>) {
         binding.apply {
-            searchBar.visibleOrGone(suiBalances.size + suiNativeBalances.size > 15)
+            searchBar.visibleOrGone(suiBalances.size > 15)
             searchView.setQuery("", false)
             searchView.clearFocus()
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -160,12 +170,12 @@ class MajorCryptoFragment : Fragment() {
                         searchSuiNativeBalances.clear()
 
                         if (StringUtils.isEmpty(newText)) {
-                            searchSuiBalances.addAll(suiBalances)
+                            searchSuiBalances.addAll(tempSuiBalances)
                             searchSuiNativeBalances.addAll(suiNativeBalances)
 
                         } else {
                             newText?.let { searchTxt ->
-                                searchSuiBalances.addAll(suiBalances.filter { balance ->
+                                searchSuiBalances.addAll(tempSuiBalances.filter { balance ->
                                     balance.first?.let { denom ->
                                         BaseData.getAsset(selectedChain.apiName, denom)
                                             ?.let { asset ->
@@ -231,8 +241,8 @@ class MajorCryptoFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
-            if (selectedChain.fetched) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag && selectedChain.fetched) {
                 sortAssets()
             }
         }
