@@ -275,7 +275,7 @@ class DappActivity : BaseActivity() {
             inputStream.bufferedReader().use(BufferedReader::readText)
         } catch (e: Exception) {
             null
-        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
+        }?.let { view?.evaluateJavascript(it, null) }
     }
 
     private fun connectWalletConnect(url: String?) {
