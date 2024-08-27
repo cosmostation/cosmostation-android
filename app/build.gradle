@@ -22,8 +22,8 @@ android {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 24
         targetSdkVersion 34
-        versionCode 311
-        versionName "1.10.8"
+        versionCode 312
+        versionName "1.10.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 31
