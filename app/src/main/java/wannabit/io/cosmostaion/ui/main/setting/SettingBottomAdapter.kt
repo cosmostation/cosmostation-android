@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,7 +20,6 @@ import wannabit.io.cosmostaion.ui.main.setting.general.PriceStyleViewHolder
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointViewHolder
 
 class SettingBottomAdapter(
-    val context: Context,
     private val fromChain: BaseChain?,
     private val grpcEndpoints: MutableList<Any>?,
     private val lcdEndpoints: MutableList<Any>,
@@ -167,8 +165,11 @@ class SettingBottomAdapter(
                                 holder.bind(fromChain, grpcEndpoint, listener)
                             }
                         } else {
-                            val lcdEndpoint =
+                            val lcdEndpoint = if (grpcEndpoints?.isEmpty() == true) {
+                                lcdEndpoints[position] as JsonObject
+                            } else {
                                 lcdEndpoints[position - grpcEndpoints!!.size - 2] as JsonObject
+                            }
                             if (holder is EndPointViewHolder) {
                                 holder.lcdBind(fromChain, lcdEndpoint, listener)
                             }
@@ -181,26 +182,39 @@ class SettingBottomAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (settingType.ordinal == SettingType.END_POINT_COSMOS.ordinal) {
-            if (position == 0) VIEW_TYPE_GRPC_HEADER
-            else if (position < grpcEndpoints!!.size + 1) VIEW_TYPE_GRPC_ITEM
-            else if (position < grpcEndpoints.size + 2) VIEW_TYPE_LCD_HEADER
-            else VIEW_TYPE_LCD_ITEM
+            if (grpcEndpoints?.isEmpty() == true) {
+                VIEW_TYPE_LCD_ITEM
+            } else {
+                if (position == 0) VIEW_TYPE_GRPC_HEADER
+                else if (position < grpcEndpoints!!.size + 1) VIEW_TYPE_GRPC_ITEM
+                else if (position < grpcEndpoints.size + 2) VIEW_TYPE_LCD_HEADER
+                else VIEW_TYPE_LCD_ITEM
+            }
         } else {
             VIEW_TYPE_GRPC_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return if (lcdEndpoints.isNotEmpty()) {
-            currentList.size + 2
-        } else {
-            if (settingType == SettingType.END_POINT_EVM || settingType == SettingType.END_POINT_SUI) {
-                currentList.size
+        return if (grpcEndpoints?.isEmpty() == true) {
+            if (lcdEndpoints.isEmpty()) {
+                return 0
             } else {
-                if (grpcEndpoints?.isNotEmpty() == true) {
-                    currentList.size + 1
-                } else {
+                return currentList.size
+            }
+
+        } else {
+            if (lcdEndpoints.isNotEmpty()) {
+                currentList.size + 2
+            } else {
+                if (settingType == SettingType.END_POINT_EVM || settingType == SettingType.END_POINT_SUI) {
                     currentList.size
+                } else {
+                    if (grpcEndpoints?.isNotEmpty() == true) {
+                        currentList.size + 1
+                    } else {
+                        currentList.size
+                    }
                 }
             }
         }

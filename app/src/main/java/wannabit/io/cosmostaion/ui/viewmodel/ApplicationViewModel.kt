@@ -431,6 +431,7 @@ class ApplicationViewModel(
                                                         response.data as MutableList<CoinProto.Coin>
 
                                                 } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                    cosmosFetcher?.cosmosBaseFees?.clear()
                                                     (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
                                                         if (BaseData.getAsset(
                                                                 apiName, baseFee.denom
@@ -912,10 +913,6 @@ class ApplicationViewModel(
                                 }
                             }
                         }
-                    }
-
-                    if (fetcher.suiBalances.none { it.first == SUI_MAIN_DENOM }) {
-                        fetcher.suiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
                     }
 
                     if (stakesResult is NetworkResult.Success) {
