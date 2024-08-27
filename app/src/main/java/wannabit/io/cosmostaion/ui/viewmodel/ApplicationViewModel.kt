@@ -431,6 +431,7 @@ class ApplicationViewModel(
                                                         response.data as MutableList<CoinProto.Coin>
 
                                                 } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                    cosmosFetcher?.cosmosBaseFees?.clear()
                                                     (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
                                                         if (BaseData.getAsset(
                                                                 apiName, baseFee.denom
