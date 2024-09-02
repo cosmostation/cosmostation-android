@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
+import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.abs
 
@@ -292,8 +293,7 @@ class HistoryViewHolder(
         binding.apply {
             historyView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(headerIndex == position)
-            val headerDate =
-                dpTimeToYear(historyGroup.second["txTime"].asString.toLong())
+            val headerDate = dpTimeToYear(historyGroup.second["txTime"].asString.toLong())
             val currentDate = formatCurrentTimeToYear()
 
             if (headerDate == currentDate) {
@@ -327,17 +327,35 @@ class HistoryViewHolder(
             txHash.text = historyGroup.second["txHash"].asString
             txTime.text = dpTimeToMonth(historyGroup.second["txTime"].asString.toLong())
 
-            chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
-                ?.let { asset ->
-                    txAmount.text =
-                        formatAmount(historyGroup.second["amount"].asString, asset.decimals)
-                    txDenom.text = asset.symbol.uppercase()
+            if (historyGroup.second["tokenAddress"].asString.isEmpty()) {
+                val amount = historyGroup.second["amount"].asString.toBigDecimal()
+                if (amount > BigDecimal.ZERO) {
+                    txAmount.text = formatAmount(
+                        historyGroup.second["amount"].asString, 18
+                    )
+                    txDenom.text = chain.coinSymbol.uppercase()
                     txDenom.setTextColor(Color.parseColor("#ffffff"))
-                } ?: run {
-                txAmount.text = ""
-                txDenom.text = "-"
-                txDenom.setTextColor(Color.parseColor("#ffffff"))
-                txCnt.visibility = View.GONE
+
+                } else {
+                    txAmount.text = ""
+                    txDenom.text = "-"
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    txCnt.visibility = View.GONE
+                }
+
+            } else {
+                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
+                    ?.let { asset ->
+                        txAmount.text =
+                            formatAmount(historyGroup.second["amount"].asString, asset.decimals)
+                        txDenom.text = asset.symbol.uppercase()
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    } ?: run {
+                    txAmount.text = ""
+                    txDenom.text = "-"
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    txCnt.visibility = View.GONE
+                }
             }
         }
     }
