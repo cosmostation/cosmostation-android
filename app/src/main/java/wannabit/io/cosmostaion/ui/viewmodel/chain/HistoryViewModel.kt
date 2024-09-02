@@ -9,6 +9,7 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -129,6 +130,29 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
 
             } catch (_: Exception) {
 
+            }
+        }
+    }
+
+    private var _ethHistoryResult = MutableLiveData<JsonObject>()
+    val ethHistoryResult: LiveData<JsonObject> get() = _ethHistoryResult
+    fun ethHistory(
+        chain: BaseChain, limit: String, searchAfter: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = historyRepository.ethHistory(chain, limit, searchAfter)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        _ethHistoryResult.postValue(data.body())
+
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }

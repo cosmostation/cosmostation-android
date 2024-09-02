@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.data.repository.chain
 
 import com.google.gson.JsonObject
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -24,4 +25,8 @@ interface HistoryRepository {
     suspend fun suiToHistory(
         fetcher: SuiFetcher, address: String
     ): NetworkResult<MutableList<JsonObject>?>
+
+    suspend fun ethHistory(
+        chain: BaseChain, limit: String, searchAfter: String
+    ): NetworkResult<Response<JsonObject?>>
 }

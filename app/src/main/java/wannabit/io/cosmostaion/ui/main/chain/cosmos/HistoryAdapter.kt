@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -67,18 +68,37 @@ class HistoryAdapter(
             }
 
             else -> {
-                val cosmosHistoryList = currentList as MutableList<Pair<String, CosmosHistory>>
-                val historyGroup = cosmosHistoryList[position]
+                if (chain.cosmosEndPointType == CosmosEndPointType.UNKNOWN && chain.supportEvm) {
+                    val ethHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                    val historyGroup = ethHistoryList[position]
 
-                historyGroup.second.header?.let { header ->
-                    val headerDate = formatTxTime(context, header.timestamp)
-                    val headerIndex = cosmosHistoryList.indexOfFirst { it.first == headerDate }
-                    val headerCnt = cosmosHistoryList.filter { it.first == headerDate }.size
-                    holder.bindHistory(chain, historyGroup, headerIndex, headerCnt, position)
+                    val headerDate =
+                        dpTimeToYear(historyGroup.second.asJsonObject["txTime"].asString.toLong())
+                    val headerIndex = ethHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = ethHistoryList.filter { it.first == headerDate }.size
+
+                    holder.bindEthHistory(chain, historyGroup, headerIndex, headerCnt, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it(chain, historyGroup.second, historyGroup.second.data?.txhash)
+                            it(chain, null, historyGroup.second["txHash"].asString)
+                        }
+                    }
+
+                } else {
+                    val cosmosHistoryList = currentList as MutableList<Pair<String, CosmosHistory>>
+                    val historyGroup = cosmosHistoryList[position]
+
+                    historyGroup.second.header?.let { header ->
+                        val headerDate = formatTxTime(context, header.timestamp)
+                        val headerIndex = cosmosHistoryList.indexOfFirst { it.first == headerDate }
+                        val headerCnt = cosmosHistoryList.filter { it.first == headerDate }.size
+                        holder.bindHistory(chain, historyGroup, headerIndex, headerCnt, position)
+
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(chain, historyGroup.second, historyGroup.second.data?.txhash)
+                            }
                         }
                     }
                 }

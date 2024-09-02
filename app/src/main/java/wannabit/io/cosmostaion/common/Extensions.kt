@@ -455,13 +455,13 @@ fun dpTimeToYear(time: Long): String {
             if (Prefs.language == LANGUAGE_ENGLISH) {
                 "MMM dd, yyyy"
             } else {
-                "yyyy-MM-dd"
+                "yyyy.M.d"
             }
         } else {
             if (locale == Locale.US) {
                 "MMM dd, yyyy"
             } else {
-                "yyyy-MM-dd"
+                "yyyy.M.d"
             }
         }, locale
     )

@@ -78,4 +78,9 @@ interface MintscanApi {
 
     @GET("{chain}/eco_list.json")
     suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
+
+    @GET("v10/{chain}/proxy/okx/account/{address}/txs")
+    suspend fun evmHistory(
+        @Path("chain") chain: String?, @Path("address") address: String?, @Query("limit") limit: String?, @Query("search_after") searchAfter: String
+    ): Response<JsonObject?>
 }

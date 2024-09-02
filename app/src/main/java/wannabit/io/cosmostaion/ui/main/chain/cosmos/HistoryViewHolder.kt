@@ -281,4 +281,64 @@ class HistoryViewHolder(
             }
         }
     }
+
+    fun bindEthHistory(
+        chain: BaseChain,
+        historyGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate =
+                dpTimeToYear(historyGroup.second["txTime"].asString.toLong())
+            val currentDate = formatCurrentTimeToYear()
+
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historyGroup.second["txStatus"].asString == "success") {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
+
+            val from = historyGroup.second["from"].asJsonArray
+            val to = historyGroup.second["to"].asJsonArray
+
+            if (from.size() < 0 && to.size() < 0) {
+
+            } else {
+                txMessage.text =
+                    if (from.size() > 0 && from[0].asJsonObject["address"].asJsonArray.first().asString == chain.evmAddress) {
+                        context.getString(R.string.tx_send)
+                    } else if (to.size() > 0 && to[0].asJsonObject["address"].asJsonArray.first().asString == chain.evmAddress) {
+                        context.getString(R.string.tx_receive)
+                    } else {
+                        "Contract call"
+                    }
+            }
+            txHash.text = historyGroup.second["txHash"].asString
+            txTime.text = dpTimeToMonth(historyGroup.second["txTime"].asString.toLong())
+
+            chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
+                ?.let { asset ->
+                    txAmount.text =
+                        formatAmount(historyGroup.second["amount"].asString, asset.decimals)
+                    txDenom.text = asset.symbol.uppercase()
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                } ?: run {
+                txAmount.text = ""
+                txDenom.text = "-"
+                txDenom.setTextColor(Color.parseColor("#ffffff"))
+                txCnt.visibility = View.GONE
+            }
+        }
+    }
 }
