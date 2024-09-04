@@ -346,7 +346,7 @@ open class BaseChain : Parcelable {
     }
 
     fun supportFeeMarket(): Boolean? {
-        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.isJsonNull == true) {
+        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket") == null) {
             false
         } else {
             getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.asBoolean
