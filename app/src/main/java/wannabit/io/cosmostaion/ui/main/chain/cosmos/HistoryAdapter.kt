@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 
 class HistoryAdapter(
@@ -69,26 +68,8 @@ class HistoryAdapter(
                 }
             }
 
-            is ChainOkt996Keccak, is ChainOktEvm -> {
-                val oktHistoryList = currentList as MutableList<Pair<String, TransactionList>>
-                val historyOktGroup = oktHistoryList[position]
-
-                historyOktGroup.second.let { header ->
-                    val headerDate = dpTimeToYear(header.transactionTime.toLong())
-                    val headerIndex = oktHistoryList.indexOfFirst { it.first == headerDate }
-                    val headerCnt = oktHistoryList.filter { it.first == headerDate }.size
-                    holder.bindOktHistory(historyOktGroup, headerIndex, headerCnt, position)
-
-                    holder.itemView.setOnClickListener {
-                        onItemClickListener?.let {
-                            it(chain, null, historyOktGroup.second.txId)
-                        }
-                    }
-                }
-            }
-
             else -> {
-                if (chain.cosmosEndPointType == CosmosEndPointType.UNKNOWN && chain.supportEvm) {
+                if (chain.cosmosEndPointType == CosmosEndPointType.UNKNOWN && chain.supportEvm || chain is ChainOktEvm || chain is ChainOkt996Keccak) {
                     val ethHistoryList = currentList as MutableList<Pair<String, JsonObject>>
                     val historyGroup = ethHistoryList[position]
 

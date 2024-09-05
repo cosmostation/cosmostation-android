@@ -19,9 +19,7 @@ import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.formatTxTimeStampToHour
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -132,39 +130,6 @@ class HistoryViewHolder(
                 txDenom.setTextColor(Color.parseColor("#ffffff"))
                 txCnt.visibility = View.GONE
             }
-        }
-    }
-
-    fun bindOktHistory(
-        historyOktGroup: Pair<String, TransactionList>, headerIndex: Int, cnt: Int, position: Int
-    ) {
-        binding.apply {
-            historyView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(headerIndex == position)
-            historyOktGroup.second.transactionTime.let { timeStamp ->
-                val headerDate = dpTimeToYear(timeStamp.toLong())
-                val currentDate = formatCurrentTimeToYear()
-
-                if (headerDate == currentDate) {
-                    headerTitle.text = context.getString(R.string.str_today)
-                } else {
-                    headerTitle.text = headerDate
-                }
-                headerCnt.text = "($cnt)"
-            }
-
-            if (historyOktGroup.second.state == "success") {
-                txSuccessImg.setImageResource(R.drawable.icon_history_success)
-            } else {
-                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
-            }
-
-            txMessage.text = historyOktGroup.second.height
-            txHash.text = historyOktGroup.second.txId
-            historyOktGroup.second.transactionTime.let { timeStamp ->
-                txTime.text = voteDpTime(timeStamp.toLong())
-            }
-            txDenom.text = "-"
         }
     }
 
@@ -317,9 +282,9 @@ class HistoryViewHolder(
                 txMessage.text = "Contract call"
             } else {
                 txMessage.text =
-                    if (from.size() > 0 && from[0].asJsonObject["address"].asJsonArray.first().asString == chain.evmAddress) {
+                    if (from.size() > 0 && from[0].asJsonObject["address"].asString == chain.evmAddress) {
                         context.getString(R.string.tx_send)
-                    } else if (to.size() > 0 && to[0].asJsonObject["address"].asJsonArray.first().asString == chain.evmAddress) {
+                    } else if (to.size() > 0 && to[0].asJsonObject["address"].asString == chain.evmAddress) {
                         context.getString(R.string.tx_receive)
                     } else {
                         "Contract call"

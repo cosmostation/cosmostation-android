@@ -13,7 +13,6 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 
 class HistoryRepositoryImpl : HistoryRepository {
 
@@ -22,14 +21,6 @@ class HistoryRepositoryImpl : HistoryRepository {
     ): NetworkResult<Response<List<CosmosHistory>>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.mintscanApi.cosmosHistory(chain, address, limit, searchAfter)
-        }
-    }
-
-    override suspend fun oktHistory(
-        device: String, address: String?, limit: String
-    ): NetworkResult<Response<OktHistoryResponse>> {
-        return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.mintscanApi.oktHistory(device, address, limit)
         }
     }
 

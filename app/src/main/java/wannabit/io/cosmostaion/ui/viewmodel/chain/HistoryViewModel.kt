@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewModel() {
@@ -54,38 +53,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
             }
         }
     }
-
-    private var _oktHistoryResult = MutableLiveData<MutableList<Pair<String, TransactionList>>>()
-    val oktHistoryResult: LiveData<MutableList<Pair<String, TransactionList>>> get() = _oktHistoryResult
-    fun oktHistory(device: String, address: String?, limit: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val response = historyRepository.oktHistory(device, address, limit)) {
-                is NetworkResult.Success -> {
-                    response.data.let { data ->
-                        if (data.isSuccessful) {
-                            val result: MutableList<Pair<String, TransactionList>> = mutableListOf()
-                            if (data.body()?.data?.isNotEmpty() == true) {
-                                data.body()?.data?.get(0)?.transactionLists?.forEach { history ->
-                                    history.transactionTime.let {
-                                        val headerDate = dpTimeToYear(it.toLong())
-                                        result.add(Pair(headerDate, history))
-                                    }
-                                }
-                            } else {
-                                _errorMessage.postValue("Error")
-                            }
-                            _oktHistoryResult.postValue(result)
-                        } else {
-                            _errorMessage.postValue("Error")
-                        }
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                }
-            }
-        }
 
     private var _suiHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
     val suiHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _suiHistoryResult
