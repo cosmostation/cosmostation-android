@@ -91,7 +91,7 @@ class MajorAboutFragment : Fragment() {
 
                 val originTime = it.getAsJsonPrimitive("origin_genesis_time")?.asString ?: ""
                 initialTime.text = if (originTime.isEmpty()) {
-                    ""
+                    "-"
                 } else {
                     formatTxTime(
                         requireContext(), originTime
@@ -99,9 +99,14 @@ class MajorAboutFragment : Fragment() {
                 }
 
                 val chainIdCosmos = it.getAsJsonPrimitive("chain_id") ?: JsonPrimitive("")
-                chainIdCosmosLayout.visibility = View.VISIBLE
-                chainIdEvmLayout.visibility = View.GONE
-                chainIdCosmosInfo.text = chainIdCosmos.asString
+                if (chainIdCosmos.asString.isEmpty()) {
+                    chainIdCosmosLayout.visibility = View.GONE
+                    chainIdEvmLayout.visibility = View.GONE
+                } else {
+                    chainIdCosmosLayout.visibility = View.VISIBLE
+                    chainIdEvmLayout.visibility = View.GONE
+                    chainIdCosmosInfo.text = chainIdCosmos.asString
+                }
 
                 chainNetwork.text = if (selectedChain.isTestnet) {
                     getString(R.string.str_testnet)
@@ -114,23 +119,33 @@ class MajorAboutFragment : Fragment() {
                 } else {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
                 }
-                unbondingTime.text = getString(R.string.str_instant)
+                unbondingTime.text = if (selectedChain is ChainSui) {
+                    getString(R.string.str_instant)
+                } else {
+                    "-"
+                }
                 chainInflation.text = "-"
-                val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    if (fetcher.suiApys.isNotEmpty()) {
-                        fetcher.suiApys[0]["apy"].asString?.let { apy ->
-                            formatPercent(
-                                apy.toBigDecimal().movePointRight(2).setScale(2, RoundingMode.DOWN)
-                                    .toString()
-                            )
-                        } ?: run {
+                if (selectedChain is ChainSui) {
+                    val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                        if (fetcher.suiApys.isNotEmpty()) {
+                            fetcher.suiApys[0]["apy"].asString?.let { apy ->
+                                formatPercent(
+                                    apy.toBigDecimal().movePointRight(2)
+                                        .setScale(2, RoundingMode.DOWN)
+                                        .toString()
+                                )
+                            } ?: run {
+                                "-"
+                            }
+                        } else {
                             "-"
                         }
-                    } else {
-                        "-"
                     }
+                    chainApr.text = apy
+
+                } else {
+                    chainApr.text = "-"
                 }
-                chainApr.text = apy
             }
         }
     }

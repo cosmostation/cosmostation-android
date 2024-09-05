@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToMonth
@@ -313,7 +314,7 @@ class HistoryViewHolder(
             val to = historyGroup.second["to"].asJsonArray
 
             if (from.size() < 0 && to.size() < 0) {
-
+                txMessage.text = "Contract call"
             } else {
                 txMessage.text =
                     if (from.size() > 0 && from[0].asJsonObject["address"].asJsonArray.first().asString == chain.evmAddress) {
@@ -357,6 +358,75 @@ class HistoryViewHolder(
                     txCnt.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    fun bindBitHistory(
+        chain: ChainBitCoin84,
+        historyBitGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate =
+                dpTimeToYear(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+            val currentDate = formatCurrentTimeToYear()
+
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historyBitGroup.second["status"].asJsonObject["confirmed"].asBoolean) {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+                txTime.text =
+                    dpTimeToMonth(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+                chain.btcFetcher()?.let { fetcher ->
+                    txHeight.text =
+                        "(" + fetcher.btcBlockHeight.minus(historyBitGroup.second["status"].asJsonObject["block_height"].asLong) + " Confirmed)"
+                }
+
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+                txHeight.text = "-"
+            }
+            txHash.text = historyBitGroup.second["txid"].asString
+
+            var title = ""
+            var inputAmounts = BigDecimal.ZERO
+            var outputAmount = BigDecimal.ZERO
+            val displayAmount: BigDecimal?
+            val inputs =
+                historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+            inputs.forEach { input ->
+                inputAmounts = inputAmounts.add(input.asJsonObject["value"].asLong.toBigDecimal())
+            }
+            val outputs =
+                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+            outputs.forEach { output ->
+                outputAmount =
+                    outputAmount.add(output.asJsonObject["prevout"].asJsonObject["value"].asLong.toBigDecimal())
+            }
+
+            if (inputs.isNotEmpty()) {
+                title = context.getString(R.string.tx_receive)
+                displayAmount = inputAmounts.subtract(outputAmount).movePointLeft(8)
+                    .setScale(8, RoundingMode.DOWN)
+            } else {
+                title = context.getString(R.string.tx_send)
+                displayAmount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            }
+            txMessage.text = title
+            txAmount.text = formatAmount(
+                displayAmount.toString(), 8
+            )
+            txDenom.text = chain.coinSymbol.uppercase()
+            txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 }

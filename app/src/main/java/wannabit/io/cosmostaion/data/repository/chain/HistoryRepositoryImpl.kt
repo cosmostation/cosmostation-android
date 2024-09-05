@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.SuiFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -106,7 +107,21 @@ class HistoryRepositoryImpl : HistoryRepository {
         chain: BaseChain, limit: String, searchAfter: String
     ): NetworkResult<Response<JsonObject?>> {
         return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.mintscanJsonApi.evmHistory(chain.apiName, chain.evmAddress, limit, searchAfter)
+            RetrofitInstance.mintscanJsonApi.evmHistory(
+                chain.apiName, chain.evmAddress, limit, searchAfter
+            )
+        }
+    }
+
+    override suspend fun bitHistory(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>?> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitTxHistory(chain.mainAddress)
+        }
+    }
+
+    override suspend fun bitBlockHeight(chain: ChainBitCoin84): NetworkResult<Long?> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitBlockHeight()
         }
     }
 }

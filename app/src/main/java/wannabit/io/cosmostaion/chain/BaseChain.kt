@@ -97,8 +97,10 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
@@ -474,7 +476,10 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (this is ChainSui) {
+        if (this is ChainBitCoin84) {
+            return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
+
+        } else if (this is ChainSui) {
             return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
         } else if (this is ChainOkt996Keccak) {
@@ -603,6 +608,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainBitcoin84Testnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

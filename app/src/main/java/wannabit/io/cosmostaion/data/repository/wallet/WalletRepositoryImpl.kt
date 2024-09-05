@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.chain.balance
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.delegations
 import wannabit.io.cosmostaion.chain.feeMarket
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.rewardAddress
 import wannabit.io.cosmostaion.chain.rewards
@@ -51,6 +52,7 @@ import wannabit.io.cosmostaion.chain.validators
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
@@ -75,6 +77,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
+
 
 class WalletRepositoryImpl : WalletRepository {
 
@@ -743,6 +746,12 @@ class WalletRepositoryImpl : WalletRepository {
             safeApiCall(Dispatchers.IO) {
                 mutableListOf()
             }
+        }
+    }
+
+    override suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitApi(chain).bitBalance(chain.mainAddress)
         }
     }
 }

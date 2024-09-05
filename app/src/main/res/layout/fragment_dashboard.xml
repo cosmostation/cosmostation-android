@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.DashboardFragment">
 
+    <WebView
+        android:id="@+id/dapp_web_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color_base09"
+        app:layout_constraintTop_toTopOf="parent"
+        android:fillViewport="true"
+        android:visibility="gone" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/total_value_layout"
         android:layout_width="match_parent"

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.suiCoinType
@@ -188,7 +189,9 @@ class ApplicationViewModel(
                 }
             }
 
-            if (this is ChainOkt996Keccak) {
+            if (this is ChainBitCoin84) {
+                loadBtcData(baseAccountId, this, isEdit)
+            } else if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit)
@@ -856,8 +859,7 @@ class ApplicationViewModel(
                         async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
                     val loadStakesDeferred =
                         async { walletRepository.suiStakes(fetcher, this@apply) }
-                    val loadApysDeferred =
-                        async { walletRepository.suiApys(fetcher, this@apply) }
+                    val loadApysDeferred = async { walletRepository.suiApys(fetcher, this@apply) }
 
                     val systemStateResult = loadSystemStateDeferred.await()
                     loadOwnedObjectDeferred.await()
@@ -1002,6 +1004,91 @@ class ApplicationViewModel(
                                 refreshFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadBtcData(
+        id: Long, chain: ChainBitCoin84, isEdit: Boolean
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        chain.btcFetcher()?.let { fetcher ->
+            chain.apply {
+                fetcher.btcBalances = BigDecimal.ZERO
+                fetcher.btcPendingInput = BigDecimal.ZERO
+                fetcher.btcPendingOutput = BigDecimal.ZERO
+
+                when (val response = walletRepository.bitBalance(chain)) {
+                    is NetworkResult.Success -> {
+                        val address = response.data["address"].asString
+                        if (address.uppercase() != chain.mainAddress.uppercase()) {
+                            fetcher.bitState = false
+                        }
+                        val chainFundedTxoSum =
+                            response.data["chain_stats"].asJsonObject["funded_txo_sum"].asLong.toBigDecimal()
+                        val chainSpentTxoSum =
+                            response.data["chain_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
+                        val mempoolFundedTxoSum =
+                            response.data["mempool_stats"].asJsonObject["funded_txo_sum"].asLong.toBigDecimal()
+                        val mempoolSpentTxoSum =
+                            response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
+
+                        fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum)
+                        fetcher.btcPendingInput = mempoolFundedTxoSum
+                        fetcher.btcPendingOutput = mempoolSpentTxoSum
+
+                        fetchedState = false
+                        withContext(Dispatchers.Main) {
+                            fetchedResult.value = tag
+                        }
+                        delay(2000)
+
+                        fetchedState = true
+                        fetched = true
+                        if (fetched) {
+                            val refAddress = RefAddress(
+                                id,
+                                tag,
+                                mainAddress,
+                                "",
+                                fetcher.allAssetValue(true).toString(),
+                                "0",
+                                "0",
+                                if (fetcher.btcBalances == BigDecimal.ZERO && fetcher.btcPendingInput == BigDecimal.ZERO) 0 else 1
+                            )
+                            BaseData.updateRefAddressesMain(refAddress)
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                    txFetchedResult.value = tag
+                                }
+                            }
+                        }
+                    }
+
+                    is NetworkResult.Error -> {
+                        fetchedState = false
+                        withContext(Dispatchers.Main) {
+                            fetchedResult.value = tag
+                        }
+                        delay(2000)
+
+                        fetchedState = true
+                        fetched = true
+                        if (fetched) {
+                            fetcher.bitState = false
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                    txFetchedResult.value = tag
+                                }
                             }
                         }
                     }

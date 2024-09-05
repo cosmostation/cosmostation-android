@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -31,6 +32,25 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         when (chain) {
+            is ChainBitCoin84 -> {
+                val bitHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historyBitGroup = bitHistoryList[position]
+
+                historyBitGroup.second.let { header ->
+                    val headerDate =
+                        dpTimeToYear(header["status"].asJsonObject["block_time"].asLong * 1000)
+                    val headerIndex = bitHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = bitHistoryList.filter { it.first == headerDate }.size
+                    holder.bindBitHistory(chain, historyBitGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(chain, null, historyBitGroup.second["txid"].asString)
+                        }
+                    }
+                }
+            }
+
             is ChainSui -> {
                 val suiHistoryList = currentList as MutableList<Pair<String, JsonObject>>
                 val historySuiGroup = suiHistoryList[position]

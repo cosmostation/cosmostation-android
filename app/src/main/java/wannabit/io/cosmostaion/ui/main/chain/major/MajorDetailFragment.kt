@@ -18,9 +18,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.toMoveFragment
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
@@ -98,13 +102,26 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
+            fabMenu.visibleOrGone(selectedChain.supportStaking)
         }
     }
 
     private fun initTab() {
         binding.apply {
+            val tableTitles = mutableListOf<String>()
+            tableTitles.add("Crypto")
+
+            if (selectedChain is ChainSui) tableTitles.add("NFTs")
+
+            tableTitles.add("Receive")
+            tableTitles.add("History")
+
+            if (selectedChain.isEcosystem()) tableTitles.add("Ecosystem")
+
+            tableTitles.add("About")
+
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), selectedChain
+                requireActivity(), tableTitles, selectedChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -112,15 +129,7 @@ class MajorDetailFragment : Fragment() {
             tabLayout.bringToFront()
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = when (position) {
-                    0 -> "Crypto"
-                    1 -> "NFTs"
-                    2 -> "Receive"
-                    3 -> "History"
-                    4 -> "Ecosystem"
-                    5 -> "About"
-                    else -> ""
-                }
+                tab.text = tableTitles[position]
             }.attach()
 
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -218,25 +227,25 @@ class MajorDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedChain: BaseChain
+        fragmentActivity: FragmentActivity,
+        private val tabTitles: List<String>,
+        private val selectedChain: BaseChain
     ) : FragmentStateAdapter(fragmentActivity) {
-        private val fragments = mutableListOf<Fragment>()
-
-        init {
-            fragments.add(MajorCryptoFragment.newInstance(selectedChain))
-            fragments.add(MajorNftFragment.newInstance(selectedChain))
-            fragments.add(MajorReceiveFragment.newInstance(selectedChain))
-            fragments.add(MajorHistoryFragment.newInstance(selectedChain))
-            fragments.add(MajorEcosystemFragment.newInstance(selectedChain))
-            fragments.add(MajorAboutFragment.newInstance(selectedChain))
-        }
 
         override fun getItemCount(): Int {
-            return fragments.size
+            return tabTitles.size
         }
 
         override fun createFragment(position: Int): Fragment {
-            return fragments[position]
+            return when (tabTitles[position]) {
+                "Crypto" -> MajorCryptoFragment.newInstance(selectedChain)
+                "NFTs" -> MajorNftFragment.newInstance(selectedChain)
+                "Receive" -> MajorReceiveFragment.newInstance(selectedChain)
+                "History" -> MajorHistoryFragment.newInstance(selectedChain)
+                "Ecosystem" -> MajorEcosystemFragment.newInstance(selectedChain)
+                "About" -> MajorAboutFragment.newInstance(selectedChain)
+                else -> throw IllegalArgumentException("Invalid tab position")
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -29,9 +30,9 @@ class EvmReceiveViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            if (selectChain is ChainSui) {
+            if (selectChain is ChainSui || selectChain is ChainBitCoin84) {
                 receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name + " network")
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
                 setQrAddress(context, selectChain.mainAddress)
 
             } else {
