@@ -8,6 +8,8 @@ import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.SuiFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
@@ -228,4 +230,25 @@ interface TxRepository {
     suspend fun simulateSuiUnStake(
         fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): String
+
+
+    // bit
+    suspend fun mempoolUtxo(
+        chain: ChainBitCoin84
+    ): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun estimateSmartFee(chain: ChainBitCoin84): NetworkResult<String>
+
+    suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String?
+
+    suspend fun simulateBitSend(
+        chain: ChainBitCoin84,
+        bitcoinJS: BitCoinJS?,
+        sender: String,
+        receiver: String,
+        toAmount: String,
+        changedValue: String,
+        opReturn: String?,
+        utxo: MutableList<JsonObject>?,
+    ): String?
 }

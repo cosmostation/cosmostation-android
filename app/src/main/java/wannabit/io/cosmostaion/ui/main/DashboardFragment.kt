@@ -5,7 +5,6 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
-import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -67,8 +65,6 @@ class DashboardFragment : Fragment() {
 
     private var isNew: Boolean = false
 
-    private lateinit var bitcoinJS: BitCoinJS
-
     companion object {
         @JvmStatic
         fun newInstance(baseAccount: BaseAccount?): DashboardFragment {
@@ -104,17 +100,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initView() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            bitcoinJS = BitCoinJS(requireContext())
-            try {
-                val decrypted = bitcoinJS.test()
-                Log.e("Test1234 : ", decrypted)
-
-            } catch (e: Exception) {
-                Log.e("Test12345 : ", e.message.toString())
-            }
-        }
-
         binding?.apply {
             baseAccount = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.getParcelable("baseAccount", BaseAccount::class.java)
@@ -484,7 +469,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(chain,
+        NoticeInfoFragment.newInstance(
+            chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {

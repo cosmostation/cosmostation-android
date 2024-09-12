@@ -24,6 +24,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
@@ -132,6 +133,13 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
+            } else if (transferStyle == TransferStyle.BIT_COIN_STYLE) {
+                if (txHash.isNotEmpty()) {
+                    loadBitTx()
+                } else {
+                    showError()
+                }
+
             } else {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {
@@ -195,7 +203,7 @@ class TransferTxResultActivity : BaseActivity() {
                         historyToMintscan(fromChain, txHash)
                     }
 
-                    TransferStyle.SUI_STYLE -> {
+                    TransferStyle.SUI_STYLE, TransferStyle.BIT_COIN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -330,6 +338,50 @@ class TransferTxResultActivity : BaseActivity() {
                 if (isSuccess && fetchCnt > 0) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         loadEvmTx()
+                    }, 6000)
+
+                } else {
+                    runOnUiThread {
+                        showMoreWait()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadBitTx() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitInstance.bitApi(fromChain as ChainBitCoin84).bitTx(txHash)
+                if (response.isSuccessful) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.apply {
+                            loading.visibility = View.GONE
+                            successLayout.visibility = View.VISIBLE
+                            successHash.text = txHash
+                            showAddressBook()
+                        }
+                    }, 0)
+
+                } else {
+                    fetchCnt -= 1
+                    if (isSuccess && fetchCnt > 0) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadBitTx()
+                        }, 6000)
+
+                    } else {
+                        runOnUiThread {
+                            showMoreWait()
+                        }
+                    }
+                }
+
+            } catch (e: IOException) {
+                fetchCnt -= 1
+                if (isSuccess && fetchCnt > 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loadBitTx()
                     }, 6000)
 
                 } else {

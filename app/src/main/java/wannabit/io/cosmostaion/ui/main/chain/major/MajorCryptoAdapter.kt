@@ -73,7 +73,7 @@ class MajorCryptoAdapter(
                         holder.bitcoinBind(selectedChain as ChainBitCoin84)
                         holder.itemView.setOnClickListener {
                             onItemClickListener?.let {
-
+                                it(selectedChain, "")
                             }
                         }
                     }

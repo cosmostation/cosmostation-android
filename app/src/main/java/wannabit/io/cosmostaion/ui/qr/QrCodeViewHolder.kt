@@ -11,6 +11,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -60,7 +61,7 @@ class QrCodeViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            val address = if (selectChain is ChainSui) {
+            val address = if (selectChain is ChainSui || selectChain is ChainBitCoin84) {
                 selectChain.mainAddress
             } else {
                 selectChain.address

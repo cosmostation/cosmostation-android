@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
+import com.trustwallet.walletconnect.extensions.toHex
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import net.i2p.crypto.eddsa.Utils
@@ -42,6 +43,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
@@ -51,6 +53,7 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
@@ -72,6 +75,7 @@ import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 class TxRepositoryImpl : TxRepository {
@@ -1307,7 +1311,15 @@ class TxRepositoryImpl : TxRepository {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                 val response =
                     RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
-                response["gas_info"].asJsonObject["gas_used"].asString
+                if (response.isSuccessful) {
+                    response.body()?.getAsJsonObject("gas_info")
+                        ?.get("gas_used")?.asString.toString()
+                } else {
+                    val errorMessageJsonObject = Gson().fromJson(
+                        response.errorBody()?.string(), JsonObject::class.java
+                    )
+                    errorMessageJsonObject["message"].asString
+                }
             }
         } catch (e: Exception) {
             e.message.toString()
@@ -1376,11 +1388,21 @@ class TxRepositoryImpl : TxRepository {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                 val response =
                     RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
-                val gasInfo = AbciProto.GasInfo.newBuilder()
-                    .setGasUsed(response["gas_info"].asJsonObject["gas_used"].asString.toLong())
-                    .build()
-                ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo)
-                    .build().gasInfo.gasUsed.toString()
+                if (response.isSuccessful) {
+                    val gasUsed = response.body()?.getAsJsonObject("gas_info")
+                        ?.get("gas_used")?.asString?.toLong()
+                    val gasInfo = gasUsed?.let { used ->
+                        AbciProto.GasInfo.newBuilder().setGasUsed(used).build()
+                    }
+                    ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo)
+                        .build().gasInfo.gasUsed.toString()
+
+                } else {
+                    val errorMessageJsonObject = Gson().fromJson(
+                        response.errorBody()?.string(), JsonObject::class.java
+                    )
+                    errorMessageJsonObject["message"].asString
+                }
             }
 
         } catch (e: Exception) {
@@ -1854,5 +1876,129 @@ class TxRepositoryImpl : TxRepository {
             return e.message.toString()
         }
         return ""
+    }
+
+    override suspend fun mempoolUtxo(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitUtxo(chain.mainAddress)
+        }
+    }
+
+    override suspend fun estimateSmartFee(chain: ChainBitCoin84): NetworkResult<String> {
+        return try {
+            val estimateSmartFeeRequest = JsonRpcRequest(
+                method = "estimatesmartfee", params = listOf(2)
+            )
+            val estimateSmartFeeResponse = jsonRpcResponse(chain.rpcUrl, estimateSmartFeeRequest)
+            val estimateSmartFeeJsonObject = Gson().fromJson(
+                estimateSmartFeeResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                val fee = estimateSmartFeeJsonObject["result"].asJsonObject["feerate"].asDouble
+                val df = DecimalFormat("#.#############")
+                df.format(fee)
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String? {
+        return try {
+            val sendRawTransactionRequest = JsonRpcRequest(
+                method = "sendrawtransaction", params = listOf(txHex)
+            )
+            val sendRawTransactionResponse =
+                jsonRpcResponse(chain.rpcUrl, sendRawTransactionRequest)
+            val sendRawTransactionJsonObject = Gson().fromJson(
+                sendRawTransactionResponse.body?.string(), JsonObject::class.java
+            )
+            sendRawTransactionJsonObject["result"].asString
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateBitSend(
+        chain: ChainBitCoin84,
+        bitcoinJS: BitCoinJS?,
+        sender: String,
+        receiver: String,
+        toAmount: String,
+        changedValue: String,
+        opReturn: String?,
+        utxo: MutableList<JsonObject>?
+    ): String? {
+        val privateKey = chain.privateKey?.toHex()
+        val publicKey = chain.publicKey?.toHex()
+        val network = if (!chain.isTestnet) "mainnet" else "testnet"
+        var inputString = ""
+        try {
+            utxo?.forEach { tx ->
+                val input = """
+                            {
+                                hash: '${tx["txid"].asString}',
+                                index: ${tx["vout"].asInt},
+                                witnessUtxo: {
+                                    script: senderPayment,
+                                    value: ${tx["value"].asLong}
+                                }
+                            },
+                            """
+                inputString += input
+            }
+
+            val outPutString = if (opReturn?.isNotEmpty() == true) {
+                """
+                {
+                    address: '${receiver}',
+                    value: ${toAmount.toLong()}
+                },
+                {
+                    address: '${chain.mainAddress}',
+                    value: ${changedValue.toLong()}
+                },
+                m('${opReturn}')
+                """
+
+            } else {
+                """
+                {
+                    address: '${receiver}',
+                    value: ${toAmount.toLong()}
+                },
+                {
+                    address: '${chain.mainAddress}',
+                    value: ${changedValue.toLong()}
+                },
+                """
+            }
+
+            val createTxFunction = """function createTxFunction() {
+                        const privateKey = '${privateKey}';
+                        const publicKey = '${publicKey}';
+
+                        const senderPayment = getPayment('${publicKey}', 'p2wpkh', '${network}').output;
+
+                        const inputs = [
+                          $inputString
+                        ];
+
+                        const outputs = [
+                          $outPutString
+                        ];
+
+                        const txHex = createTx(inputs, outputs, '${privateKey}', '${network}');
+                        return txHex;
+                    }""".trimIndent()
+            bitcoinJS?.mergeFunction(createTxFunction)
+            return bitcoinJS?.executeFunction("createTxFunction()")
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
     }
 }

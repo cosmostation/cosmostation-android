@@ -79,8 +79,8 @@
             android:paddingHorizontal="@dimen/space_6"
             android:paddingVertical="@dimen/space_2"
             android:textAllCaps="true"
-            android:visibility="gone"
             android:textColor="@color/color_base02"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/account_name"
             app:layout_constraintTop_toBottomOf="@+id/top_view" />
 
@@ -94,8 +94,25 @@
             android:background="@drawable/round_box_deprecated"
             android:paddingHorizontal="@dimen/space_6"
             android:paddingVertical="@dimen/space_2"
-            android:visibility="gone"
             android:textColor="@color/color_base02"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/account_name"
+            app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+        <TextView
+            android:id="@+id/chain_bit_side_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_2"
+            android:layout_marginTop="@dimen/space_18"
+            android:background="@drawable/round_box_bit"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:text="Native Segwit"
+            android:textAllCaps="true"
+            android:textColor="@color/color_base01"
+            android:visibility="visible"
             app:layout_constraintStart_toEndOf="@+id/chain_badge"
             app:layout_constraintTop_toBottomOf="@+id/top_view" />
 

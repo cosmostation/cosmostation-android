@@ -366,32 +366,32 @@ class HistoryViewHolder(
             var inputAmounts = BigDecimal.ZERO
             var outputAmount = BigDecimal.ZERO
             val displayAmount: BigDecimal?
-            val inputs =
-                historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
-            inputs.forEach { input ->
-                inputAmounts = inputAmounts.add(input.asJsonObject["value"].asLong.toBigDecimal())
-            }
-            val outputs =
-                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
-            outputs.forEach { output ->
-                outputAmount =
-                    outputAmount.add(output.asJsonObject["prevout"].asJsonObject["value"].asLong.toBigDecimal())
-            }
-
-            if (inputs.isNotEmpty()) {
-                title = context.getString(R.string.tx_receive)
-                displayAmount = inputAmounts.subtract(outputAmount).movePointLeft(8)
-                    .setScale(8, RoundingMode.DOWN)
-            } else {
-                title = context.getString(R.string.tx_send)
-                displayAmount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-            }
-            txMessage.text = title
-            txAmount.text = formatAmount(
-                displayAmount.toString(), 8
-            )
-            txDenom.text = chain.coinSymbol.uppercase()
-            txDenom.setTextColor(Color.parseColor("#ffffff"))
+//            val inputs =
+//                historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+//            inputs.forEach { input ->
+//                inputAmounts = inputAmounts.add(input.asJsonObject["value"].asLong.toBigDecimal())
+//            }
+//            val outputs =
+//                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+//            outputs.forEach { output ->
+//                outputAmount =
+//                    outputAmount.add(output.asJsonObject["prevout"].asJsonObject["value"].asLong.toBigDecimal())
+//            }
+//
+//            if (inputs.isNotEmpty()) {
+//                title = context.getString(R.string.tx_receive)
+//                displayAmount = inputAmounts.subtract(outputAmount).movePointLeft(8)
+//                    .setScale(8, RoundingMode.DOWN)
+//            } else {
+//                title = context.getString(R.string.tx_send)
+//                displayAmount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+//            }
+//            txMessage.text = title
+//            txAmount.text = formatAmount(
+//                displayAmount.toString(), 8
+//            )
+//            txDenom.text = chain.coinSymbol.uppercase()
+//            txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 }

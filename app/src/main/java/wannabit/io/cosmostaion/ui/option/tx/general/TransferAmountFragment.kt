@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
@@ -201,6 +202,16 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     (fromChain as ChainSui).apply {
                         assetDecimal = assetDecimal(toSendDenom)
                         availableDenom.text = assetSymbol(toSendDenom)
+                        val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)
+                        available.text = formatAmount(amount.toString(), assetDecimal)
+                    }
+                }
+
+                SendAssetType.BIT_COIN -> {
+                    (fromChain as ChainBitCoin84).apply {
+                        assetDecimal = 8
+                        availableDenom.text = fromChain.coinSymbol
                         val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                             ?.setScale(assetDecimal, RoundingMode.DOWN)
                         available.text = formatAmount(amount.toString(), assetDecimal)

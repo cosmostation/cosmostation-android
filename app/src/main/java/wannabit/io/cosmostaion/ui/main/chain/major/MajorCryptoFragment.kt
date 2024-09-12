@@ -152,7 +152,7 @@ class MajorCryptoFragment : Fragment() {
                     val sendAssetType = if (chain is ChainSui) {
                         SendAssetType.SUI_COIN
                     } else {
-                        SendAssetType.ONLY_COSMOS_COIN
+                        SendAssetType.BIT_COIN
                     }
                     handleOneClickWithDelay(
                         CommonTransferFragment.newInstance(
@@ -242,7 +242,13 @@ class MajorCryptoFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetched = false
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    if (selectedChain is ChainSui) {
+                        ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    } else {
+                        ApplicationViewModel.shared.loadBtcData(
+                            account.id, selectedChain as ChainBitCoin84, false
+                        )
+                    }
                 }
             }
         }

@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.dapp.option
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -180,7 +179,6 @@ class PopUpSuiSignFragment(
                             binding.apply {
                                 loading.visibility = View.GONE
                                 binding.btnConfirm.isEnabled = true
-                                Log.e("Test1234 : ", format)
                                 signData.text = format
                                 val price = BaseData.getPrice(coinGeckoId)
                                 val dpBudget =

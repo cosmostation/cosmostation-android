@@ -67,7 +67,7 @@ interface LcdApi {
 
     @POST("/cosmos/tx/v1beta1/simulate")
     @Headers("Content-Type: application/json")
-    suspend fun lcdSimulateTx(@Body txReq: SimulateTxReq): JsonObject
+    suspend fun lcdSimulateTx(@Body txReq: SimulateTxReq): Response<JsonObject>
 
     @POST("/cosmos/tx/v1beta1/txs")
     @Headers("Content-Type: application/json")
@@ -115,4 +115,10 @@ interface LcdApi {
 
     @GET("api/blocks/tip/height")
     suspend fun bitBlockHeight(): Long
+
+    @GET("api/address/{address}/utxo")
+    suspend fun bitUtxo(@Path("address") address: String): MutableList<JsonObject>
+
+    @GET("api/tx/{txhash}")
+    suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
 }

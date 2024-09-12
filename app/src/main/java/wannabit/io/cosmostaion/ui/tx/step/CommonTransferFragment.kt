@@ -16,21 +16,27 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -43,6 +49,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendMsg
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendReq
@@ -92,6 +99,8 @@ class CommonTransferFragment : BaseTxFragment() {
     private var toSendAmount = ""
     private var txMemo = ""
 
+    private var bitcoinJS: BitCoinJS? = null
+
     private var selectedFeePosition = 0
     private var cosmosFeeInfos: MutableList<FeeInfo> = mutableListOf()
     private var cosmosTxFee: TxProto.Fee? = null
@@ -106,6 +115,13 @@ class CommonTransferFragment : BaseTxFragment() {
     private var evmHexValue = ""
 
     private var suiFeeBudget = BigDecimal.ZERO
+
+    //bitcoin
+    private var utxo: MutableList<JsonObject>? = mutableListOf()
+    private var bitGasRate = BigDecimal.ZERO
+    private var bitVBytesFee = BigDecimal.ZERO
+    private var bitFee = BigDecimal.ZERO
+    private var bitTxHex = ""
 
     private var availableAmount = BigDecimal.ZERO
 
@@ -139,6 +155,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
         initView()
         initData()
+        setUpUtxo()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -269,10 +286,28 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (availableAmount <= BigDecimal.ZERO) {
                             availableAmount = BigDecimal.ZERO
                         }
-                        transferImg.setImageFromSvg(fromChain.assetImg(toSendDenom), R.drawable.token_default)
+                        transferImg.setImageFromSvg(
+                            fromChain.assetImg(toSendDenom), R.drawable.token_default
+                        )
                         sendTitle.text = getString(
                             R.string.title_asset_send, assetSymbol(toSendDenom)
                         )
+                    }
+                }
+
+                SendAssetType.BIT_COIN -> {
+                    backdropLayout.visibility = View.VISIBLE
+                    (fromChain as ChainBitCoin84).apply {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            bitcoinJS = BitCoinJS(requireContext())
+                            txViewModel.bitTxData(fromChain as ChainBitCoin84)
+                            withContext(Dispatchers.Main) {
+                                transferImg.setImageResource(fromChain.coinLogo)
+                                sendTitle.text = getString(
+                                    R.string.title_asset_send, fromChain.coinSymbol
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -346,10 +381,29 @@ class CommonTransferFragment : BaseTxFragment() {
                         feeSegment.setPosition(0, false)
                         selectedFeePosition = 0
 
-                        suiFeeBudget =
-                            (fromChain as ChainSui).suiFetcher()
-                                ?.suiBaseFee(SuiTxType.SUI_SEND_COIN)
+                        suiFeeBudget = (fromChain as ChainSui).suiFetcher()
+                            ?.suiBaseFee(SuiTxType.SUI_SEND_COIN)
+                    }
 
+                    TransferStyle.BIT_COIN_STYLE -> {
+                        feeSegment.visibility = View.VISIBLE
+                        evmFeeSegment.visibility = View.GONE
+                        val bitGasTitle = listOf(
+                            "Default"
+                        )
+                        for (i in bitGasTitle.indices) {
+                            val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                            feeSegment.addView(
+                                segmentView.root,
+                                i,
+                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                            )
+                            segmentView.btnTitle.text = bitGasTitle[i]
+                        }
+                        feeSegment.setPosition(0, false)
+                        selectedFeePosition = 0
+                        btnFee.visibility = View.GONE
+                        return
                     }
 
                     else -> {
@@ -383,12 +437,8 @@ class CommonTransferFragment : BaseTxFragment() {
                                     val segmentView =
                                         ItemSegmentedFeeBinding.inflate(layoutInflater)
                                     feeSegment.addView(
-                                        segmentView.root,
-                                        i,
-                                        LinearLayout.LayoutParams(
-                                            0,
-                                            dpToPx(requireContext(), 32),
-                                            1f
+                                        segmentView.root, i, LinearLayout.LayoutParams(
+                                            0, dpToPx(requireContext(), 32), 1f
                                         )
                                     )
                                     segmentView.btnTitle.text = tipTitle[i]
@@ -412,12 +462,8 @@ class CommonTransferFragment : BaseTxFragment() {
                                     val segmentView =
                                         ItemSegmentedFeeBinding.inflate(layoutInflater)
                                     feeSegment.addView(
-                                        segmentView.root,
-                                        i,
-                                        LinearLayout.LayoutParams(
-                                            0,
-                                            dpToPx(requireContext(), 32),
-                                            1f
+                                        segmentView.root, i, LinearLayout.LayoutParams(
+                                            0, dpToPx(requireContext(), 32), 1f
                                         )
                                     )
                                     segmentView.btnTitle.text = cosmosFeeInfos[i].title
@@ -499,9 +545,14 @@ class CommonTransferFragment : BaseTxFragment() {
             if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                 transferStyle = TransferStyle.WEB3_STYLE
                 memoView.visibility = View.GONE
+
             } else if (sendAssetType == SendAssetType.SUI_COIN) {
                 transferStyle = TransferStyle.SUI_STYLE
                 memoView.visibility = View.GONE
+
+            } else if (sendAssetType == SendAssetType.BIT_COIN) {
+                transferStyle = TransferStyle.BIT_COIN_STYLE
+                memoView.visibility = View.VISIBLE
             }
         }
     }
@@ -663,6 +714,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
+                    SendAssetType.BIT_COIN -> {
+                        (fromChain as ChainBitCoin84).apply {
+                            val price = BaseData.getPrice(fromChain.coinGeckoId)
+                            val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
+                            val value = price.multiply(dpAmount)
+                            sendAmount.text = formatAmount(dpAmount.toPlainString(), 8)
+                            sendDenom.text = fromChain.coinSymbol
+                            sendValue.text = formatAssetValue(value)
+                        }
+                    }
+
                     else -> {}
                 }
                 txSimulate()
@@ -720,6 +782,20 @@ class CommonTransferFragment : BaseTxFragment() {
                         val value = price.multiply(dpBudget)
 
                         feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
+                        feeValue.text = formatAssetValue(value)
+                    }
+                }
+
+                TransferStyle.BIT_COIN_STYLE -> {
+                    (fromChain as ChainBitCoin84).apply {
+                        feeTokenImg.setImageResource(coinLogo)
+                        feeToken.text = coinSymbol
+
+                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
+                        val value = price.multiply(amount)
+
+                        feeAmount.text = formatAmount(amount.toPlainString(), 8)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -919,8 +995,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }
@@ -966,7 +1041,30 @@ class CommonTransferFragment : BaseTxFragment() {
                             )
                         }
                     }
+                }
 
+                TransferStyle.BIT_COIN_STYLE -> {
+                    (fromChain as ChainBitCoin84).apply {
+                        if (txMemo.isNotEmpty()) {
+                            bitVBytesFee = P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
+                                P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
+                                    BigDecimal(utxo!!.count())
+                                )
+                            ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2))).add(P2PKH_VBYTE.OP_RETURN.toBigDecimal())
+                            bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
+                                .setScale(0, RoundingMode.UP)
+                        }
+                        txViewModel.bitSendSimulate(
+                            this,
+                            bitcoinJS,
+                            mainAddress,
+                            toAddress,
+                            toSendAmount,
+                            availableAmount.minus(toSendAmount.toBigDecimal()).toString(),
+                            txMemo,
+                            utxo
+                        )
+                    }
                 }
 
                 else -> {
@@ -1037,6 +1135,9 @@ class CommonTransferFragment : BaseTxFragment() {
     private fun updateFeeViewWithSimulate(gasUsed: String?) {
         if (transferStyle == TransferStyle.SUI_STYLE) {
             suiFeeBudget = gasUsed?.toBigDecimal()
+
+        } else if (transferStyle == TransferStyle.BIT_COIN_STYLE) {
+            if (gasUsed?.isNotEmpty() == true) bitTxHex = gasUsed
 
         } else if (transferStyle == TransferStyle.COSMOS_STYLE) {
             cosmosTxFee?.let { fee ->
@@ -1174,6 +1275,12 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
+                    TransferStyle.BIT_COIN_STYLE -> {
+                        (fromChain as ChainBitCoin84).apply {
+                            txViewModel.bitSendBroadcast(this, bitTxHex)
+                        }
+                    }
+
                     else -> {
                         fromChain.apply {
                             if (chainIdCosmos == toChain.chainIdCosmos) {
@@ -1226,6 +1333,35 @@ class CommonTransferFragment : BaseTxFragment() {
             }
         }
 
+    private fun setUpUtxo() {
+        txViewModel.bitTxDataResult.observe(viewLifecycleOwner) { bitData ->
+            lifecycleScope.launch(Dispatchers.IO) {
+                (fromChain as ChainBitCoin84).apply {
+                    utxo = bitData.first
+                    bitGasRate = bitData.second.toBigDecimal()
+                    bitVBytesFee = P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
+                        P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
+                            BigDecimal(utxo!!.count())
+                        )
+                    ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                    bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
+                        .setScale(0, RoundingMode.UP)
+
+                    availableAmount =
+                        if (bitFee >= (fromChain as ChainBitCoin84).btcFetcher?.btcBalances) {
+                            BigDecimal.ZERO
+                        } else {
+                            (fromChain as ChainBitCoin84).btcFetcher?.btcBalances?.subtract(bitFee)
+                        }
+                }
+                withContext(Dispatchers.Main) {
+                    binding.backdropLayout.visibility = View.GONE
+                    updateFeeView()
+                }
+            }
+        }
+    }
+
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
             updateFeeViewWithSimulate(gasUsed)
@@ -1255,6 +1391,19 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun setUpBroadcast() {
+        txViewModel.bitBroadcast.observe(viewLifecycleOwner) { response ->
+            Intent(requireContext(), TransferTxResultActivity::class.java).apply {
+                putExtra("txHash", response)
+                putExtra("isSuccess", true)
+                putExtra("fromChainTag", fromChain.tag)
+                putExtra("toChainTag", toChain.tag)
+                putExtra("recipientAddress", toAddress)
+                putExtra("transferStyle", transferStyle.ordinal)
+                startActivity(this)
+            }
+            dismiss()
+        }
+
         txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
             val status =
                 response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
@@ -1370,10 +1519,18 @@ class CommonTransferFragment : BaseTxFragment() {
 
     override fun onDestroyView() {
         _binding = null
+        bitcoinJS?.unbindService()
         super.onDestroyView()
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT }
-enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN }
+enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, BIT_COIN_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }
+
+object P2PKH_VBYTE {
+    const val OVERHEAD = 10
+    const val INPUTS = 148
+    const val OUTPUTS = 34
+    const val OP_RETURN = 83
+}

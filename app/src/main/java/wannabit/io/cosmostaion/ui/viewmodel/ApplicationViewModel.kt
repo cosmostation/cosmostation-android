@@ -159,6 +159,12 @@ class ApplicationViewModel(
         serviceTxResult.postValue(true)
     }
 
+    private var _filterDataResult = MutableLiveData<Boolean>()
+    val filterDataResult: LiveData<Boolean> get() = _filterDataResult
+    fun updateFilterData(isShowAll: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        _filterDataResult.postValue(isShowAll)
+    }
+
     fun loadChainData(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -1036,7 +1042,7 @@ class ApplicationViewModel(
                         val mempoolSpentTxoSum =
                             response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
 
-                        fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum)
+                        fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum).subtract(mempoolSpentTxoSum)
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
 
@@ -1095,11 +1101,5 @@ class ApplicationViewModel(
                 }
             }
         }
-    }
-
-    private var _filterDataResult = MutableLiveData<Boolean>()
-    val filterDataResult: LiveData<Boolean> get() = _filterDataResult
-    fun updateFilterData(isShowAll: Boolean) = viewModelScope.launch(Dispatchers.IO) {
-        _filterDataResult.postValue(isShowAll)
     }
 }

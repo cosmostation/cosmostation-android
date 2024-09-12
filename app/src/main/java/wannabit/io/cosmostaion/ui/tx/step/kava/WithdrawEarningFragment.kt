@@ -348,7 +348,9 @@ class WithdrawEarningFragment : BaseTxFragment() {
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
-            updateFeeViewWithSimulate(gasUsed)
+            gasUsed?.let {
+                updateFeeViewWithSimulate(it)
+            }
         }
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->

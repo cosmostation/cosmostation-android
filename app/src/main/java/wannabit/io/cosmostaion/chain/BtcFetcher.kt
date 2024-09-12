@@ -22,7 +22,7 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     fun mempoolUrl(): String {
         if (chain.isTestnet) {
-            return "https://mempool.space/testnet/"
+            return "https://mempool.space/testnet4/"
         }
         return "https://mempool.space/"
     }
