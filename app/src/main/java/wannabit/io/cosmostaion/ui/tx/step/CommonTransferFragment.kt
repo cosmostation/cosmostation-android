@@ -34,6 +34,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
+import wannabit.io.cosmostaion.chain.P2PKH_VBYTE
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getdAmount
+import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -859,6 +861,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         transferStyle,
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
+                                if (toAmount.toBigDecimal() <= BigDecimal.ZERO) return
                                 updateAmountView(toAmount)
                             }
                         })
@@ -1046,11 +1049,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin84).apply {
                         if (txMemo.isNotEmpty()) {
-                            bitVBytesFee = P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
-                                P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
-                                    BigDecimal(utxo!!.count())
-                                )
-                            ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2))).add(P2PKH_VBYTE.OP_RETURN.toBigDecimal())
+                            bitVBytesFee.add(P2PKH_VBYTE.OP_RETURN.toBigDecimal())
                             bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                                 .setScale(0, RoundingMode.UP)
                         }
@@ -1339,11 +1338,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 (fromChain as ChainBitCoin84).apply {
                     utxo = bitData.first
                     bitGasRate = bitData.second.toBigDecimal()
-                    bitVBytesFee = P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
-                        P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
-                            BigDecimal(utxo!!.count())
-                        )
-                    ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                    bitVBytesFee = (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo)
                     bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                         .setScale(0, RoundingMode.UP)
 
@@ -1393,8 +1388,13 @@ class CommonTransferFragment : BaseTxFragment() {
     private fun setUpBroadcast() {
         txViewModel.bitBroadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                putExtra("txHash", response)
-                putExtra("isSuccess", true)
+                if (isHexString(response.toString())) {
+                    putExtra("isSuccess", true)
+                    putExtra("txHash", response)
+                } else {
+                    putExtra("isSuccess", false)
+                    putExtra("errorMsg", response)
+                }
                 putExtra("fromChainTag", fromChain.tag)
                 putExtra("toChainTag", toChain.tag)
                 putExtra("recipientAddress", toAddress)
@@ -1527,10 +1527,3 @@ class CommonTransferFragment : BaseTxFragment() {
 enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN }
 enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, BIT_COIN_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }
-
-object P2PKH_VBYTE {
-    const val OVERHEAD = 10
-    const val INPUTS = 148
-    const val OUTPUTS = 34
-    const val OP_RETURN = 83
-}

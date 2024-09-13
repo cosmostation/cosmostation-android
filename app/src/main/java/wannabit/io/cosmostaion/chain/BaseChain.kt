@@ -102,6 +102,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
@@ -528,13 +529,13 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainBand())
 //    chains.add(ChainBase())
 //    chains.add(ChainBitcanna())
-    chains.add(ChainBitCoin44())
-    chains.add(ChainBitCoin49())
-    chains.add(ChainBitCoin84())
+//    chains.add(ChainBitCoin44())
+//    chains.add(ChainBitCoin49())
+//    chains.add(ChainBitCoin84())
 //    chains.add(ChainBitsong())
 //    chains.add(ChainBinanceSmart())
 //    chains.add(ChainCantoEvm())
-    chains.add(ChainCelestia())
+//    chains.add(ChainCelestia())
 //    chains.add(ChainChihuahua())
 //    chains.add(ChainComdex())
 //    chains.add(ChainCoreum())
@@ -584,7 +585,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainPersistence750())
 //    chains.add(ChainPolygon())
 //    chains.add(ChainProvenance())
-    chains.add(ChainQuasar())
+//    chains.add(ChainQuasar())
 //    chains.add(ChainQuicksilver())
 //    chains.add(ChainRegen())
 //    chains.add(ChainRizon())
@@ -596,7 +597,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainShentu())
 //    chains.add(ChainSommelier())
 //    chains.add(ChainStafi())
-    chains.add(ChainStargaze())
+//    chains.add(ChainStargaze())
 //    chains.add(ChainStride())
 //    chains.add(ChainSui())
 //    chains.add(ChainTeritori())
@@ -611,6 +612,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainMantraTestnet())
 //    chains.add(ChainNeutronTestnet())
 //    chains.add(ChainNillionTestnet())
+    chains.add(ChainBitcoin49Testnet())
     chains.add(ChainBitcoin84Testnet())
 
     chains.forEach { chain ->

@@ -275,8 +275,29 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainBitSideBadge.visibleOrGone(chain is ChainBitCoin84 && chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainSideBadge.visibility = View.GONE
+                        chainBitSideBadge.visibility = View.VISIBLE
+                    }
+                }
+            } else {
+                chainSideBadge.visibility = View.GONE
+                chainBitSideBadge.visibility = View.GONE
+            }
 
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE

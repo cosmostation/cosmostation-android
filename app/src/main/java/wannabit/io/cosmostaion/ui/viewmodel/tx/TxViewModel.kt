@@ -18,7 +18,6 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
@@ -612,26 +611,21 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val loadUtxoDeferred = async { txRepository.mempoolUtxo(chain) }
             val utxoResult = loadUtxoDeferred.await()
 
-            if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT) {
-                val loadEstimateSmartFeeDeferred = async { txRepository.estimateSmartFee(chain) }
-                val estimateSmartFeeResult = loadEstimateSmartFeeDeferred.await()
+            val loadEstimateSmartFeeDeferred = async { txRepository.estimateSmartFee(chain) }
+            val estimateSmartFeeResult = loadEstimateSmartFeeDeferred.await()
 
-                if (utxoResult is NetworkResult.Success && estimateSmartFeeResult is NetworkResult.Success) {
-                    val utxoData = utxoResult.data
-                    val smartFeeData = estimateSmartFeeResult.data
-                    _bitTxDataResult.postValue(Pair(utxoData, smartFeeData))
-
-                } else {
-                    if (utxoResult is NetworkResult.Error) {
-                        errorMessage.postValue("UTXO Error: ${utxoResult.errorMessage}")
-                    }
-                    if (estimateSmartFeeResult is NetworkResult.Error) {
-                        errorMessage.postValue("Smart Fee Error: ${estimateSmartFeeResult.errorMessage}")
-                    }
-                }
+            if (utxoResult is NetworkResult.Success && estimateSmartFeeResult is NetworkResult.Success) {
+                val utxoData = utxoResult.data
+                val smartFeeData = estimateSmartFeeResult.data
+                _bitTxDataResult.postValue(Pair(utxoData, smartFeeData))
 
             } else {
-
+                if (utxoResult is NetworkResult.Error) {
+                    errorMessage.postValue("UTXO Error: ${utxoResult.errorMessage}")
+                }
+                if (estimateSmartFeeResult is NetworkResult.Error) {
+                    errorMessage.postValue("Smart Fee Error: ${estimateSmartFeeResult.errorMessage}")
+                }
             }
 
         } catch (e: Exception) {

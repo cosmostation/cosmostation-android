@@ -1907,18 +1907,18 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String? {
+        val sendRawTransactionRequest = JsonRpcRequest(
+            method = "sendrawtransaction", params = listOf(txHex)
+        )
+        val sendRawTransactionResponse =
+            jsonRpcResponse(chain.rpcUrl, sendRawTransactionRequest)
+        val sendRawTransactionJsonObject = Gson().fromJson(
+            sendRawTransactionResponse.body?.string(), JsonObject::class.java
+        )
         return try {
-            val sendRawTransactionRequest = JsonRpcRequest(
-                method = "sendrawtransaction", params = listOf(txHex)
-            )
-            val sendRawTransactionResponse =
-                jsonRpcResponse(chain.rpcUrl, sendRawTransactionRequest)
-            val sendRawTransactionJsonObject = Gson().fromJson(
-                sendRawTransactionResponse.body?.string(), JsonObject::class.java
-            )
             sendRawTransactionJsonObject["result"].asString
         } catch (e: Exception) {
-            ""
+            sendRawTransactionJsonObject["error"].asJsonObject["message"].asString
         }
     }
 
@@ -1932,73 +1932,35 @@ class TxRepositoryImpl : TxRepository {
         opReturn: String?,
         utxo: MutableList<JsonObject>?
     ): String? {
-        val privateKey = chain.privateKey?.toHex()
-        val publicKey = chain.publicKey?.toHex()
-        val network = if (!chain.isTestnet) "mainnet" else "testnet"
-        var inputString = ""
-        try {
-            utxo?.forEach { tx ->
-                val input = """
-                            {
-                                hash: '${tx["txid"].asString}',
-                                index: ${tx["vout"].asInt},
-                                witnessUtxo: {
-                                    script: senderPayment,
-                                    value: ${tx["value"].asLong}
-                                }
-                            },
-                            """
-                inputString += input
-            }
+        chain.btcFetcher()?.let { fetcher ->
+            try {
+                val privateKey = chain.privateKey?.toHex()
+                val publicKey = chain.publicKey?.toHex()
 
-            val outPutString = if (opReturn?.isNotEmpty() == true) {
-                """
-                {
-                    address: '${receiver}',
-                    value: ${toAmount.toLong()}
-                },
-                {
-                    address: '${chain.mainAddress}',
-                    value: ${changedValue.toLong()}
-                },
-                m('${opReturn}')
-                """
-
-            } else {
-                """
-                {
-                    address: '${receiver}',
-                    value: ${toAmount.toLong()}
-                },
-                {
-                    address: '${chain.mainAddress}',
-                    value: ${changedValue.toLong()}
-                },
-                """
-            }
-
-            val createTxFunction = """function createTxFunction() {
+                val createTxFunction = """function createTxFunction() {
                         const privateKey = '${privateKey}';
                         const publicKey = '${publicKey}';
 
-                        const senderPayment = getPayment('${publicKey}', 'p2wpkh', '${network}').output;
+                        const senderPayment = getPayment('${publicKey}', '${fetcher.bitType()}', '${fetcher.network()}');
 
                         const inputs = [
-                          $inputString
+                          ${fetcher.txInputString(utxo)}
                         ];
 
                         const outputs = [
-                          $outPutString
+                          ${fetcher.txOutputString(receiver, toAmount, changedValue, opReturn)}
                         ];
 
-                        const txHex = createTx(inputs, outputs, '${privateKey}', '${network}');
+                        const txHex = createTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
                         return txHex;
                     }""".trimIndent()
-            bitcoinJS?.mergeFunction(createTxFunction)
-            return bitcoinJS?.executeFunction("createTxFunction()")
+                bitcoinJS?.mergeFunction(createTxFunction)
+                return bitcoinJS?.executeFunction("createTxFunction()")
 
-        } catch (e: Exception) {
-            return e.message.toString()
+            } catch (e: Exception) {
+                return e.message.toString()
+            }
         }
+        return ""
     }
 }

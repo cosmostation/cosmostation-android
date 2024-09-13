@@ -134,8 +134,12 @@ class TransferTxResultActivity : BaseActivity() {
                 }
 
             } else if (transferStyle == TransferStyle.BIT_COIN_STYLE) {
-                if (txHash.isNotEmpty()) {
-                    loadBitTx()
+                if (isSuccess) {
+                    if (txHash.isNotEmpty()) {
+                        loadBitTx()
+                    } else {
+                        showError()
+                    }
                 } else {
                     showError()
                 }

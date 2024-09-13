@@ -52,10 +52,19 @@ class AddressBookViewHolder(
 
                     allChains().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
                         if (chain is ChainBitCoin84) {
+                            chainTypeBadge.visibility = View.GONE
                             if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT) {
                                 chainBitSideBadge.visibility = View.VISIBLE
+                                chainBadge.visibility = View.GONE
+
                             } else {
                                 chainBitSideBadge.visibility = View.GONE
+                                chainBadge.visibility = View.VISIBLE
+                                chainBadge.text = if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+                                    "NESTED SEGWIT"
+                                } else {
+                                    "LEGACY"
+                                }
                             }
 
                         } else {
