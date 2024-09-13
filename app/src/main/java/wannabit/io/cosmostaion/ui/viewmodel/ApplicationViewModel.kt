@@ -1043,6 +1043,8 @@ class ApplicationViewModel(
                             response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
 
                         fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum).subtract(mempoolSpentTxoSum)
+                            .max(
+                            BigDecimal.ZERO)
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
 

@@ -1,7 +1,10 @@
 package wannabit.io.cosmostaion.chain
 
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -62,15 +65,19 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
             }
 
             PubKeyType.BTC_NESTED_SEGWIT -> {
+                P2SH_VBYTE.OVERHEAD.toBigDecimal().add(
+                    P2SH_VBYTE.INPUTS.toBigDecimal().multiply(
+                        BigDecimal(utxo!!.count())
+                    )
+                ).add(P2SH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+            }
+
+            else -> {
                 P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
                     P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
                         BigDecimal(utxo!!.count())
                     )
                 ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
-            }
-
-            else -> {
-                BigDecimal.ZERO
             }
         }
     }
@@ -113,7 +120,28 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
             PubKeyType.BTC_LEGACY -> {
                 utxo?.forEach { tx ->
+                    if (tx["status"].asJsonObject["block_hash"] != null) {
+                        val rawTransactionRequest = JsonRpcRequest(
+                            method = "getrawtransaction", params = listOf(
+                                tx["txid"].asString, false, tx["status"].asJsonObject["block_hash"].asString
+                            )
+                        )
+                        val rawTransactionResponse =
+                            jsonRpcResponse(chain.rpcUrl, rawTransactionRequest)
+                        val rawTransactionJsonObject = Gson().fromJson(
+                            rawTransactionResponse.body?.string(), JsonObject::class.java
+                        )
+                        val nonWitnessUtxoHex = rawTransactionJsonObject["result"].asString
 
+                        val input = """
+                                {
+                                    hash: '${tx["txid"].asString}',
+                                    index: ${tx["vout"].asInt},
+                                    nonWitnessUtxo: aTb('${nonWitnessUtxoHex}'),
+                                },
+                                """
+                        inputString += input
+                    }
                 }
             }
 
@@ -153,16 +181,22 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     }
 }
 
+const val OP_RETURN = 83
+
 object P2WPKH_VBYTE {
     const val OVERHEAD = 11
     const val INPUTS = 68
     const val OUTPUTS = 31
-    const val OP_RETURN = 83
+}
+
+object P2SH_VBYTE {
+    const val OVERHEAD = 10
+    const val INPUTS = 297
+    const val OUTPUTS = 32
 }
 
 object P2PKH_VBYTE {
     const val OVERHEAD = 10
     const val INPUTS = 148
     const val OUTPUTS = 34
-    const val OP_RETURN = 83
 }

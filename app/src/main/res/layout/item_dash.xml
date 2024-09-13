@@ -130,6 +130,22 @@
                     android:text="@string/str_old"
                     android:textAllCaps="true"
                     android:textColor="@color/color_base02"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/chain_bit_badge"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/chain_name"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:layout_marginEnd="@dimen/space_3"
+                    android:background="@drawable/round_box_bit"
+                    android:paddingHorizontal="@dimen/space_6"
+                    android:paddingVertical="@dimen/space_2"
+                    android:text="Native Segwit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/color_base01"
                     android:visibility="gone" />
 
             </RelativeLayout>

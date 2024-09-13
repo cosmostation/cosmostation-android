@@ -337,7 +337,11 @@ class HistoryViewHolder(
             historyView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(headerIndex == position)
             val headerDate =
-                dpTimeToYear(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+                if (historyBitGroup.second["status"].asJsonObject["block_time"] != null) {
+                    dpTimeToYear(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+                } else {
+                    ""
+                }
             val currentDate = formatCurrentTimeToYear()
 
             if (headerDate == currentDate) {

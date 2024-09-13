@@ -34,7 +34,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
-import wannabit.io.cosmostaion.chain.P2PKH_VBYTE
+import wannabit.io.cosmostaion.chain.OP_RETURN
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -362,7 +362,6 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                         evmFeeSegment.setPosition(1, false)
                         selectedFeePosition = 1
-
                     }
 
                     TransferStyle.SUI_STYLE -> {
@@ -828,7 +827,8 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(fromChain,
+                    TransferAddressFragment.newInstance(
+                        fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -1025,7 +1025,6 @@ class CommonTransferFragment : BaseTxFragment() {
                         fromChain,
                         selectedFeePosition
                     )
-
                 }
 
                 TransferStyle.SUI_STYLE -> {
@@ -1048,18 +1047,22 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin84).apply {
-                        if (txMemo.isNotEmpty()) {
-                            bitVBytesFee.add(P2PKH_VBYTE.OP_RETURN.toBigDecimal())
-                            bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
-                                .setScale(0, RoundingMode.UP)
+                        val dpVByteFee = if (txMemo.isNotEmpty()) {
+                            bitVBytesFee.add(OP_RETURN.toBigDecimal())
+                        } else {
+                            bitVBytesFee
                         }
+                        bitFee = bitGasRate.multiply(dpVByteFee).movePointRight(5)
+                            .setScale(0, RoundingMode.UP)
+
                         txViewModel.bitSendSimulate(
                             this,
                             bitcoinJS,
                             mainAddress,
                             toAddress,
                             toSendAmount,
-                            availableAmount.minus(toSendAmount.toBigDecimal()).toString(),
+                            btcFetcher()?.btcBalances?.subtract(toSendAmount.toBigDecimal())
+                                ?.subtract(bitFee).toString(),
                             txMemo,
                             utxo
                         )

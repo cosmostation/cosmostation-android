@@ -145,8 +145,11 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                     val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
                     fetcher.btcHistory.addAll(historyResult.data ?: mutableListOf())
                     fetcher.btcHistory.forEach { history ->
-                        val headerDate =
+                        val headerDate = if (history["status"].asJsonObject["block_time"] != null) {
                             dpTimeToYear(history["status"].asJsonObject["block_time"].asLong * 1000)
+                        } else {
+                            ""
+                        }
                         result.add(Pair(headerDate, history))
                     }
                     _btcHistoryResult.postValue(result)

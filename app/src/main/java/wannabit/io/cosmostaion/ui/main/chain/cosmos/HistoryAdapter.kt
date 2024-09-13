@@ -36,8 +36,11 @@ class HistoryAdapter(
                 val historyBitGroup = bitHistoryList[position]
 
                 historyBitGroup.second.let { header ->
-                    val headerDate =
+                    val headerDate = if (header["status"].asJsonObject["block_time"] != null) {
                         dpTimeToYear(header["status"].asJsonObject["block_time"].asLong * 1000)
+                    } else {
+                        ""
+                    }
                     val headerIndex = bitHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = bitHistoryList.filter { it.first == headerDate }.size
                     holder.bindBitHistory(chain, historyBitGroup, headerIndex, headerCnt, position)

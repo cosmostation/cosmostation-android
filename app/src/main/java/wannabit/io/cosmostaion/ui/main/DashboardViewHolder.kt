@@ -533,8 +533,34 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-            chainBadge.visibleOrGone(!chain.isDefault)
             chainSideBadge.visibility = View.GONE
+            chainBitSideBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
+                        chainBitBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                    }
+
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.text = "LEGACY"
+                    }
+
+                    else -> { }
+                }
+
+            } else {
+                chainBadge.visibleOrGone(!chain.isDefault)
+            }
 
             if (!chain.fetchedState) {
                 skeletonChainValue.visibility = View.VISIBLE
@@ -544,7 +570,15 @@ class DashboardViewHolder(
             } else {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain.isEvmCosmos()) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.isEvmCosmos()) {
                         if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
