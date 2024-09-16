@@ -9,12 +9,13 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepository
 
 class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewModel() {
@@ -53,38 +54,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
         }
     }
 
-    private var _oktHistoryResult = MutableLiveData<MutableList<Pair<String, TransactionList>>>()
-    val oktHistoryResult: LiveData<MutableList<Pair<String, TransactionList>>> get() = _oktHistoryResult
-    fun oktHistory(device: String, address: String?, limit: String) =
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val response = historyRepository.oktHistory(device, address, limit)) {
-                is NetworkResult.Success -> {
-                    response.data.let { data ->
-                        if (data.isSuccessful) {
-                            val result: MutableList<Pair<String, TransactionList>> = mutableListOf()
-                            if (data.body()?.data?.isNotEmpty() == true) {
-                                data.body()?.data?.get(0)?.transactionLists?.forEach { history ->
-                                    history.transactionTime.let {
-                                        val headerDate = dpTimeToYear(it.toLong())
-                                        result.add(Pair(headerDate, history))
-                                    }
-                                }
-                            } else {
-                                _errorMessage.postValue("Error")
-                            }
-                            _oktHistoryResult.postValue(result)
-                        } else {
-                            _errorMessage.postValue("Error")
-                        }
-                    }
-                }
-
-                is NetworkResult.Error -> {
-                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                }
-            }
-        }
-
     private var _suiHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
     val suiHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _suiHistoryResult
 
@@ -105,12 +74,14 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                     val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
                     fetcher.suiHistory.addAll(fromHistoryResult.data ?: mutableListOf())
                     toHistoryResult.data?.forEach { to ->
-                        if (fetcher.suiHistory.firstOrNull { it["digest"].asString == to["digest"].asString } == null) {
+                        val existingItem =
+                            fetcher.suiHistory.firstOrNull { it["digest"].asString == to["digest"].asString }
+                        if (existingItem == null) {
                             fetcher.suiHistory.add(to)
                         }
                     }
                     fetcher.suiHistory.sortByDescending {
-                        it["checkpoint"]?.toString()?.toLongOrNull() ?: Long.MIN_VALUE
+                        it["checkpoint"].asString.toLongOrNull() ?: 0L
                     }
                     fetcher.suiHistory.forEach { history ->
                         val headerDate = dpTimeToYear(history["timestampMs"].asString.toLong())
@@ -124,6 +95,73 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
 
                     } else if (toHistoryResult is NetworkResult.Error) {
                         _errorMessage.postValue("error type : ${toHistoryResult.errorType}  error message : ${toHistoryResult.errorMessage}")
+                    }
+                }
+
+            } catch (_: Exception) {
+
+            }
+        }
+    }
+
+    private var _ethHistoryResult = MutableLiveData<JsonObject>()
+    val ethHistoryResult: LiveData<JsonObject> get() = _ethHistoryResult
+    fun ethHistory(
+        chain: BaseChain, limit: String, searchAfter: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = historyRepository.ethHistory(chain, limit, searchAfter)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        _ethHistoryResult.postValue(data.body())
+
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private var _btcHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
+    val btcHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _btcHistoryResult
+
+    fun bitHistory(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+        chain.btcFetcher()?.let { fetcher ->
+            fetcher.btcBlockHeight = 0
+            fetcher.btcHistory.clear()
+
+            try {
+                val loadHistoryDeferred = async { historyRepository.bitHistory(chain) }
+                val loadBlockHeightDeferred = async { historyRepository.bitBlockHeight(chain) }
+
+                val historyResult = loadHistoryDeferred.await()
+                val blockHeightResult = loadBlockHeightDeferred.await()
+
+                if (historyResult is NetworkResult.Success && blockHeightResult is NetworkResult.Success) {
+                    fetcher.btcBlockHeight = blockHeightResult.data ?: 0
+                    val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
+                    fetcher.btcHistory.addAll(historyResult.data ?: mutableListOf())
+                    fetcher.btcHistory.forEach { history ->
+                        val headerDate = if (history["status"].asJsonObject["block_time"] != null) {
+                            dpTimeToYear(history["status"].asJsonObject["block_time"].asLong * 1000)
+                        } else {
+                            "Mempool"
+                        }
+                        result.add(Pair(headerDate, history))
+                    }
+                    _btcHistoryResult.postValue(result)
+
+                } else {
+                    if (historyResult is NetworkResult.Error) {
+                        _errorMessage.postValue("error type : ${historyResult.errorType}  error message : ${historyResult.errorMessage}")
+
+                    } else if (blockHeightResult is NetworkResult.Error) {
+                        _errorMessage.postValue("error type : ${blockHeightResult.errorType}  error message : ${blockHeightResult.errorMessage}")
                     }
                 }
 

@@ -7,6 +7,7 @@ import org.bitcoinj.core.NetworkParameters
 import org.bitcoinj.core.SegwitAddress
 import org.bitcoinj.core.Sha256Hash
 import org.bitcoinj.params.MainNetParams
+import org.bitcoinj.params.TestNet3Params
 import org.bouncycastle.crypto.digests.RIPEMD160Digest
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
@@ -108,7 +109,7 @@ object ByteUtils {
         return Pair(result.sliceArray(0..31), result.sliceArray(32..63))
     }
 
-    fun Base58ChecksumEncode(networkAndHash: ByteArray): String {
+    fun base58ChecksumEncode(networkAndHash: ByteArray): String {
         val checksum = Sha256Hash.hash(Sha256Hash.hash(networkAndHash)).copyOfRange(0, 4)
         val dataWithChecksum = networkAndHash + checksum
         return Base58.encode(dataWithChecksum)
@@ -122,8 +123,12 @@ object ByteUtils {
         return script
     }
 
-    fun encodeSegWitAddress(ripemd160: ByteArray): String {
-        val params: NetworkParameters = MainNetParams.get()
+    fun encodeSegWitAddress(ripemd160: ByteArray, prefix: String?): String {
+        val params = if (prefix == "bc") {
+            MainNetParams.get()
+        } else {
+            TestNet3Params.get()
+        }
         val segwitAddress = SegwitAddress.fromHash(params, ripemd160)
         return segwitAddress.toBech32()
     }

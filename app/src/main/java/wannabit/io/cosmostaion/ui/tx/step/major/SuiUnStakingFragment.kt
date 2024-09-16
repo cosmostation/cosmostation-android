@@ -69,8 +69,8 @@ class SuiUnStakingFragment(
                 )
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
-            initValidatorView()
             initFee()
+            initValidatorView()
         }
     }
 
@@ -143,7 +143,7 @@ class SuiUnStakingFragment(
 
             feeTokenImg.setImageResource(selectedChain.coinLogo)
             feeToken.text = selectedChain.coinSymbol
-            suiFeeBudget = (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
+            suiFeeBudget = (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_UNSTAKE)
             updateFeeView()
         }
     }

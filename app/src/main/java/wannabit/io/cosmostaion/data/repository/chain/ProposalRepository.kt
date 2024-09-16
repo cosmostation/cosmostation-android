@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.chain
 
-import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal

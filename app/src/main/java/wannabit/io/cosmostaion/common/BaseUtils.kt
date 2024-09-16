@@ -6,8 +6,12 @@ import android.content.res.Resources
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.vesting.v1beta1.VestingProto
 import com.stride.vesting.VestingProto.StridePeriodicVestingAccount
+import org.bitcoinj.core.Address
+import org.bitcoinj.params.MainNetParams
+import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -775,5 +779,19 @@ object BaseUtils {
             return false
         }
         return true
+    }
+
+    fun isValidBitAddress(chain: ChainBitCoin84, address: String): Boolean {
+        return try {
+            val network = if (chain.isTestnet) {
+                TestNet3Params.get()
+            } else {
+                MainNetParams.get()
+            }
+            Address.fromString(network, address)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }

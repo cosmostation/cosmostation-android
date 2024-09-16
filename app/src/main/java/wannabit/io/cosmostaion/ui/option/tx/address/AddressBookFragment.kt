@@ -246,23 +246,42 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                     }
 
                     SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
-                        AppDatabase.getInstance().refAddressDao().selectAll().forEach { refAddress ->
-                            if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
-                                refMajorAddresses.add(refAddress)
+                        AppDatabase.getInstance().refAddressDao().selectAll()
+                            .forEach { refAddress ->
+                                if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
+                                    refMajorAddresses.add(refAddress)
+                                }
                             }
+                    }
+
+                    SendAssetType.BIT_COIN -> {
+                        val dpRefMajorAddresses = if (fromChain.isTestnet) {
+                            AppDatabase.getInstance().refAddressDao().selectAll()
+                                .filter { it.chainTag.contains("bitcoin") && it.chainTag.contains("_T") && it.dpAddress?.lowercase() != fromChain.mainAddress.lowercase() }
+                        } else {
+                            AppDatabase.getInstance().refAddressDao().selectAll()
+                                .filter { it.chainTag.contains("bitcoin") && !it.chainTag.contains("_T") && it.dpAddress?.lowercase() != fromChain.mainAddress.lowercase() }
                         }
 
-                        AppDatabase.getInstance().addressBookDao().selectAll().forEach { addressBook ->
-                            if (addressBook.address.startsWith("0x") && addressBook.address.lowercase() != fromChain.mainAddress.lowercase()
-                            ) {
-                                majorAddressBook.add(addressBook)
+                        dpRefMajorAddresses.forEach { refAddress ->
+                            if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
+                                if (Prefs.displayLegacy) {
+                                    refMajorAddresses.add(refAddress)
+                                } else {
+                                    allChains().firstOrNull { it.tag == refAddress.chainTag }
+                                        ?.let { chain ->
+                                            if (chain.isDefault) {
+                                                refMajorAddresses.add(refAddress)
+                                            }
+                                        }
+                                }
                             }
                         }
                     }
                 }
                 sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
-                sortRefSuiAddresses(refMajorAddresses)
+                sortRefMajorAddresses(refMajorAddresses)
 
                 withContext(Dispatchers.Main) {
                     when (sendAssetType) {
@@ -325,7 +344,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             evmRecycler.visibility = View.GONE
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN -> {
                             if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
@@ -468,10 +487,12 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
     }
 
-    private fun sortRefSuiAddresses(refAddresses: MutableList<RefAddress>) {
+    private fun sortRefMajorAddresses(refAddresses: MutableList<RefAddress>) {
         val accountMap =
             AppDatabase.getInstance().baseAccountDao().selectAll().associateBy { it.id }
-        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId })
+        val chainLineMap = allChains().associateBy { it.tag }
+        refAddresses.sortWith(compareBy<RefAddress> { if (BaseData.baseAccount?.id == it.accountId) -1 else accountMap[it.accountId]?.sortOrder?.toInt() }.thenBy { it.accountId }
+            .thenByDescending { chainLineMap[it.chainTag]?.isDefault == true })
     }
 
     override fun onDestroyView() {

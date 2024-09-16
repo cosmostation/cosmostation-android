@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToMonth
@@ -18,10 +19,9 @@ import wannabit.io.cosmostaion.common.formatCurrentTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.formatTxTimeStampToHour
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.databinding.ItemHistoryBinding
+import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.abs
 
@@ -130,39 +130,6 @@ class HistoryViewHolder(
                 txDenom.setTextColor(Color.parseColor("#ffffff"))
                 txCnt.visibility = View.GONE
             }
-        }
-    }
-
-    fun bindOktHistory(
-        historyOktGroup: Pair<String, TransactionList>, headerIndex: Int, cnt: Int, position: Int
-    ) {
-        binding.apply {
-            historyView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(headerIndex == position)
-            historyOktGroup.second.transactionTime.let { timeStamp ->
-                val headerDate = dpTimeToYear(timeStamp.toLong())
-                val currentDate = formatCurrentTimeToYear()
-
-                if (headerDate == currentDate) {
-                    headerTitle.text = context.getString(R.string.str_today)
-                } else {
-                    headerTitle.text = headerDate
-                }
-                headerCnt.text = "($cnt)"
-            }
-
-            if (historyOktGroup.second.state == "success") {
-                txSuccessImg.setImageResource(R.drawable.icon_history_success)
-            } else {
-                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
-            }
-
-            txMessage.text = historyOktGroup.second.height
-            txHash.text = historyOktGroup.second.txId
-            historyOktGroup.second.transactionTime.let { timeStamp ->
-                txTime.text = voteDpTime(timeStamp.toLong())
-            }
-            txDenom.text = "-"
         }
     }
 
@@ -279,6 +246,148 @@ class HistoryViewHolder(
                         }
                     }
             }
+        }
+    }
+
+    fun bindEthHistory(
+        chain: BaseChain,
+        historyGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate = dpTimeToYear(historyGroup.second["txTime"].asString.toLong())
+            val currentDate = formatCurrentTimeToYear()
+
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historyGroup.second["txStatus"].asString == "success") {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
+
+            val from = historyGroup.second["from"].asJsonArray
+            val to = historyGroup.second["to"].asJsonArray
+
+            if (from.size() < 0 && to.size() < 0) {
+                txMessage.text = "Contract call"
+            } else {
+                txMessage.text =
+                    if (from.size() > 0 && from[0].asJsonObject["address"].asString == chain.evmAddress) {
+                        context.getString(R.string.tx_send)
+                    } else if (to.size() > 0 && to[0].asJsonObject["address"].asString == chain.evmAddress) {
+                        context.getString(R.string.tx_receive)
+                    } else {
+                        "Contract call"
+                    }
+            }
+            txHash.text = historyGroup.second["txHash"].asString
+            txTime.text = dpTimeToMonth(historyGroup.second["txTime"].asString.toLong())
+
+            if (historyGroup.second["tokenAddress"].asString.isEmpty()) {
+                val amount = historyGroup.second["amount"].asString.toBigDecimal()
+                if (amount > BigDecimal.ZERO) {
+                    txAmount.text = formatAmount(
+                        historyGroup.second["amount"].asString, 18
+                    )
+                    txDenom.text = chain.coinSymbol.uppercase()
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+
+                } else {
+                    txAmount.text = ""
+                    txDenom.text = "-"
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    txCnt.visibility = View.GONE
+                }
+
+            } else {
+                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
+                    ?.let { asset ->
+                        txAmount.text =
+                            formatAmount(historyGroup.second["amount"].asString, asset.decimals)
+                        txDenom.text = asset.symbol.uppercase()
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    } ?: run {
+                    txAmount.text = ""
+                    txDenom.text = "-"
+                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                    txCnt.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    fun bindBitHistory(
+        chain: ChainBitCoin84,
+        historyBitGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate =
+                if (historyBitGroup.second["status"].asJsonObject["block_time"] != null) {
+                    dpTimeToYear(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+                } else {
+                    "Mempool"
+                }
+            val currentDate = formatCurrentTimeToYear()
+
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historyBitGroup.second["status"].asJsonObject["confirmed"].asBoolean) {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+                txTime.text =
+                    dpTimeToMonth(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
+                chain.btcFetcher()?.let { fetcher ->
+                    txHeight.text =
+                        "(" + fetcher.btcBlockHeight.minus(historyBitGroup.second["status"].asJsonObject["block_height"].asLong) + " Confirmed)"
+                }
+
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_pending)
+                txSuccessImg.setColorFilter(ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN)
+                txHeight.text = "-"
+            }
+            txHash.text = historyBitGroup.second["txid"].asString
+
+            val title: String
+            val amount: BigDecimal?
+            val inputs =
+                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+            if (inputs.isNotEmpty()) {
+                title = context.getString(R.string.tx_send)
+                amount =
+                    historyBitGroup.second["vout"].asJsonArray[0].asJsonObject["value"].asLong.toBigDecimal()
+                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            } else {
+                title = context.getString(R.string.tx_receive)
+                amount =
+                    historyBitGroup.second["vout"].asJsonArray[1].asJsonObject["value"].asLong.toBigDecimal()
+                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            }
+            txMessage.text = title
+            txAmount.text = formatAmount(
+                amount.toString(), 8
+            )
+            txDenom.text = chain.coinSymbol.uppercase()
+            txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 }

@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
-class ChainBitCoin44 : BaseChain(), Parcelable {
+class ChainBitCoin44 : ChainBitCoin84(), Parcelable {
 
     override var name: String = "BitCoin"
     override var tag: String = "bitcoin44"
@@ -33,6 +33,6 @@ class ChainBitCoin44 : BaseChain(), Parcelable {
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType)
+        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, bech32PrefixPattern, pubKeyHash, scriptHash)
     }
 }

@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.suiCoinSymbol
@@ -93,34 +94,44 @@ class MajorCryptoFragment : Fragment() {
             suiNativeBalances.clear()
             searchSuiNativeBalances.clear()
 
-            (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
-                tempSuiBalances.addAll(fetcher.suiBalances)
+            if (selectedChain is ChainSui) {
+                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                    val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+                    tempSuiBalances.addAll(fetcher.suiBalances)
 
-                if (tempSuiBalances.none { it.first == SUI_MAIN_DENOM }) {
-                    tempSuiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
-                }
-                synchronized(tempSuiBalances) {
-                    tempSuiBalances.sortWith { o1, o2 ->
-                        when {
-                            o1.first == SUI_MAIN_DENOM -> -1
-                            o2.first == SUI_MAIN_DENOM -> 1
-                            else -> {
-                                val value0 = fetcher.suiBalanceValue(o1.first ?: "")
-                                val value1 = fetcher.suiBalanceValue(o2.first ?: "")
-                                value1.compareTo(value0)
+                    if (tempSuiBalances.none { it.first == SUI_MAIN_DENOM }) {
+                        tempSuiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
+                    }
+                    synchronized(tempSuiBalances) {
+                        tempSuiBalances.sortWith { o1, o2 ->
+                            when {
+                                o1.first == SUI_MAIN_DENOM -> -1
+                                o2.first == SUI_MAIN_DENOM -> 1
+                                else -> {
+                                    val value0 = fetcher.suiBalanceValue(o1.first ?: "")
+                                    val value1 = fetcher.suiBalanceValue(o2.first ?: "")
+                                    value1.compareTo(value0)
+                                }
                             }
                         }
                     }
-                }
-                tempSuiBalances.firstOrNull()?.let { suiBalances.add(it) }
-                searchSuiBalances.addAll(suiBalances)
-                suiNativeBalances.addAll(fetcher.suiBalances.drop(1))
-                searchSuiNativeBalances.addAll(suiNativeBalances)
+                    tempSuiBalances.firstOrNull()?.let { suiBalances.add(it) }
+                    searchSuiBalances.addAll(suiBalances)
+                    suiNativeBalances.addAll(fetcher.suiBalances.drop(1))
+                    searchSuiNativeBalances.addAll(suiNativeBalances)
 
-                withContext(Dispatchers.Main) {
-                    initRecyclerView()
-                    initSearchView(fetcher.suiBalances, suiBalances)
+                    withContext(Dispatchers.Main) {
+                        initRecyclerView()
+                        initSearchView(fetcher.suiBalances, suiBalances)
+                    }
+                }
+
+            } else {
+                (selectedChain as ChainBitCoin84).btcFetcher()?.let {
+                    withContext(Dispatchers.Main) {
+                        initRecyclerView()
+                        binding.searchBar.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -141,7 +152,7 @@ class MajorCryptoFragment : Fragment() {
                     val sendAssetType = if (chain is ChainSui) {
                         SendAssetType.SUI_COIN
                     } else {
-                        SendAssetType.ONLY_COSMOS_COIN
+                        SendAssetType.BIT_COIN
                     }
                     handleOneClickWithDelay(
                         CommonTransferFragment.newInstance(
@@ -154,7 +165,10 @@ class MajorCryptoFragment : Fragment() {
         }
     }
 
-    private fun initSearchView(suiBalances: MutableList<Pair<String?, BigDecimal?>>, tempSuiBalances: MutableList<Pair<String?, BigDecimal?>>) {
+    private fun initSearchView(
+        suiBalances: MutableList<Pair<String?, BigDecimal?>>,
+        tempSuiBalances: MutableList<Pair<String?, BigDecimal?>>
+    ) {
         binding.apply {
             searchBar.visibleOrGone(suiBalances.size > 15)
             searchView.setQuery("", false)
@@ -228,7 +242,13 @@ class MajorCryptoFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetched = false
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    if (selectedChain is ChainSui) {
+                        ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    } else {
+                        ApplicationViewModel.shared.loadBtcData(
+                            account.id, selectedChain as ChainBitCoin84, false
+                        )
+                    }
                 }
             }
         }

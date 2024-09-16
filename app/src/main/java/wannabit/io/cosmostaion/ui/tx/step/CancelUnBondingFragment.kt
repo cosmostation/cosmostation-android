@@ -407,7 +407,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
         txViewModel.errorMessage.observe(viewLifecycleOwner) { response ->
             isBroadCastTx(false)
-            if (response.contains("unable to resolve type")) {
+            if (response?.contains("unable to resolve type") == true) {
                 requireContext().makeToast(R.string.error_not_support_cancel_unbonding)
             } else {
                 requireContext().showToast(view, response, true)

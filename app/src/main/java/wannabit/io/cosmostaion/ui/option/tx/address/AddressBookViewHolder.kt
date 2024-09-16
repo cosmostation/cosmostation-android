@@ -9,7 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.AddressBook
@@ -49,35 +51,54 @@ class AddressBookViewHolder(
                     accountAddress.text = refAddress.dpAddress
 
                     allChains().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
-                        if (!chain.isDefault) {
-                            chainBadge.visibility = View.VISIBLE
-                            chainBadge.text = context.getString(R.string.str_old)
-                            chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
-                            chainBadge.setTextColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_base02
-                                )
-                            )
-                            when (chain.tag) {
-                                "okt996_Keccak" -> {
-                                    chainTypeBadge.text =
-                                        context.getString(R.string.str_ethsecp256k1)
-                                    chainTypeBadge.visibility = View.VISIBLE
-                                }
+                        if (chain is ChainBitCoin84) {
+                            chainTypeBadge.visibility = View.GONE
+                            if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT) {
+                                chainBitSideBadge.visibility = View.VISIBLE
+                                chainBadge.visibility = View.GONE
 
-                                "okt996_Secp" -> {
-                                    chainTypeBadge.text = context.getString(R.string.str_secp256k1)
-                                    chainTypeBadge.visibility = View.VISIBLE
-                                }
-
-                                else -> {
-                                    chainTypeBadge.visibility = View.GONE
+                            } else {
+                                chainBitSideBadge.visibility = View.GONE
+                                chainBadge.visibility = View.VISIBLE
+                                chainBadge.text = if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+                                    "NESTED SEGWIT"
+                                } else {
+                                    "LEGACY"
                                 }
                             }
 
                         } else {
-                            chainBadge.visibility = View.GONE
-                            chainTypeBadge.visibility = View.GONE
+                            chainBitSideBadge.visibility = View.GONE
+                            if (!chain.isDefault) {
+                                chainBadge.visibility = View.VISIBLE
+                                chainBadge.text = context.getString(R.string.str_old)
+                                chainBadge.setBackgroundResource(R.drawable.round_box_deprecated)
+                                chainBadge.setTextColor(
+                                    ContextCompat.getColor(
+                                        context, R.color.color_base02
+                                    )
+                                )
+                                when (chain.tag) {
+                                    "okt996_Keccak" -> {
+                                        chainTypeBadge.text =
+                                            context.getString(R.string.str_ethsecp256k1)
+                                        chainTypeBadge.visibility = View.VISIBLE
+                                    }
+
+                                    "okt996_Secp" -> {
+                                        chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                                        chainTypeBadge.visibility = View.VISIBLE
+                                    }
+
+                                    else -> {
+                                        chainTypeBadge.visibility = View.GONE
+                                    }
+                                }
+
+                            } else {
+                                chainBadge.visibility = View.GONE
+                                chainTypeBadge.visibility = View.GONE
+                            }
                         }
                     }
                 }

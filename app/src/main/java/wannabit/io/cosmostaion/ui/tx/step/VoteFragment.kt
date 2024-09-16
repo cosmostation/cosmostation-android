@@ -503,7 +503,7 @@ class VoteFragment : BaseTxFragment() {
     }
 
     private fun onBindVoteMsg(): MutableList<Any> {
-        return Signer.voteMsg(toVotes)
+        return Signer.voteMsg(selectedChain, toVotes)
     }
 
     override fun onDestroyView() {

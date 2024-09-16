@@ -113,7 +113,11 @@ object BaseKey {
     }
 
     fun getAddressFromPubKey(
-        pubKey: ByteArray?, pubKeyType: PubKeyType, prefix: String? = null
+        pubKey: ByteArray?,
+        pubKeyType: PubKeyType,
+        prefix: String? = null,
+        pubKeyHash: Byte? = null,
+        scriptHash: Byte? = null
     ): String {
         var result = ""
         when (pubKeyType) {
@@ -134,8 +138,8 @@ object BaseKey {
             PubKeyType.BTC_LEGACY -> {
                 val sha256Hash = Sha256Hash.hash(pubKey)
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
-                val networkAndHash = byteArrayOf(0x00) + ripemd160
-                return ByteUtils.Base58ChecksumEncode(networkAndHash)
+                val networkAndHash = byteArrayOf(pubKeyHash!!) + ripemd160
+                return ByteUtils.base58ChecksumEncode(networkAndHash)
             }
 
             PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -143,14 +147,14 @@ object BaseKey {
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
                 val segWitScript = segWitOutputScript(ripemd160, 0x00)
                 val hashP2WrappedInP2sh = ByteUtils.hashToRIPMD160(Sha256Hash.hash(segWitScript))
-                val networkAndHash = byteArrayOf(0x05) + hashP2WrappedInP2sh
-                return ByteUtils.Base58ChecksumEncode(networkAndHash)
+                val networkAndHash = byteArrayOf(scriptHash!!) + hashP2WrappedInP2sh
+                return ByteUtils.base58ChecksumEncode(networkAndHash)
             }
 
             PubKeyType.BTC_NATIVE_SEGWIT -> {
                 val sha256Hash = Sha256Hash.hash(pubKey)
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
-                return encodeSegWitAddress(ripemd160)
+                return encodeSegWitAddress(ripemd160, prefix)
             }
 
             PubKeyType.SUI_ED25519 -> {

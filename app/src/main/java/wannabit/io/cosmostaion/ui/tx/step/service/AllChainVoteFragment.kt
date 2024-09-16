@@ -26,6 +26,8 @@ import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
@@ -607,7 +609,7 @@ class AllChainVoteFragment : BaseTxFragment() {
     ): String? {
         return try {
             val simulateTx = Signer.genSimulate(
-                Signer.voteMsg(toVotes), chain.getInitPayableFee(requireContext()), "", chain
+                Signer.voteMsg(chain, toVotes), chain.getInitPayableFee(requireContext()), "", chain
             )
             if (chain.supportCosmos()) {
                 chain.cosmosFetcher()?.getChannel()?.let { channel ->
@@ -619,7 +621,15 @@ class AllChainVoteFragment : BaseTxFragment() {
             } else {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                 val response = RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
-                response["gas_info"].asJsonObject["gas_used"].asString
+                if (response.isSuccessful) {
+                    response.body()?.getAsJsonObject("gas_info")
+                        ?.get("gas_used")?.asString
+                } else {
+                    val errorMessageJsonObject = Gson().fromJson(
+                        response.errorBody()?.string(), JsonObject::class.java
+                    )
+                    errorMessageJsonObject["message"].asString
+                }
             }
         } catch (e: Exception) {
             e.message
@@ -633,7 +643,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 val toVotes = voteAllModel.toVotes
                 val txFee = voteAllModel.txFee
-                val broadcastTx = Signer.genBroadcast(Signer.voteMsg(toVotes), txFee, "", chain)
+                val broadcastTx = Signer.genBroadcast(Signer.voteMsg(chain, toVotes), txFee, "", chain)
 
                 val txResponse = if (chain.supportCosmos()) {
                     val channel = chain.cosmosFetcher?.getChannel()

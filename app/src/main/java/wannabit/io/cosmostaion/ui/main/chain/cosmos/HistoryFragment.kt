@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
-import wannabit.io.cosmostaion.data.model.res.TransactionList
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.ui.tx.info.SendResultFragment
@@ -40,7 +41,7 @@ class HistoryFragment : Fragment() {
     private val BATCH_CNT = 30
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
-    private val allOktHistoryGroup: MutableList<Pair<String, TransactionList>> = mutableListOf()
+    private val allEthHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -90,7 +91,7 @@ class HistoryFragment : Fragment() {
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             allHistoryGroup.clear()
-            allOktHistoryGroup.clear()
+            allEthHistoryGroup.clear()
             searchAfter = ""
             initData()
         }
@@ -107,7 +108,7 @@ class HistoryFragment : Fragment() {
             if (::historyAdapter.isInitialized) {
                 historyAdapter.setOnItemClickListener { chain, history, hash ->
                     when (chain) {
-                        is ChainOkt996Keccak -> {
+                        is ChainOkt996Keccak, is ChainOktEvm -> {
                             chain.explorerTx(hash)?.let {
                                 startActivity(Intent(Intent.ACTION_VIEW, it))
                             } ?: run {
@@ -154,9 +155,7 @@ class HistoryFragment : Fragment() {
     private fun initData() {
         when (selectedChain) {
             is ChainOkt996Keccak, is ChainOktEvm -> {
-                historyViewModel.oktHistory(
-                    "ANDROID", selectedChain.evmAddress, "50"
-                )
+                historyViewModel.ethHistory(selectedChain, BATCH_CNT.toString(), searchAfter)
             }
 
             else -> {
@@ -191,13 +190,22 @@ class HistoryFragment : Fragment() {
                 if (lastVisibleItemPosition == itemTotalCount) {
                     if (hasMore) {
                         hasMore = false
-                        historyViewModel.history(
-                            requireContext(),
-                            selectedChain.apiName,
-                            selectedChain.address,
-                            BATCH_CNT.toString(),
-                            searchAfter
-                        )
+                        when (selectedChain) {
+                            is ChainOkt996Keccak, is ChainOktEvm -> {
+                                val next = searchAfter.toLong() - 1
+                                historyViewModel.ethHistory(selectedChain, "20", next.toString())
+                            }
+
+                            else -> {
+                                historyViewModel.history(
+                                    requireContext(),
+                                    selectedChain.apiName,
+                                    selectedChain.address,
+                                    BATCH_CNT.toString(),
+                                    searchAfter
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -227,18 +235,28 @@ class HistoryFragment : Fragment() {
             }
         }
 
-        historyViewModel.oktHistoryResult.observe(viewLifecycleOwner) { response ->
+        historyViewModel.ethHistoryResult.observe(viewLifecycleOwner) { response ->
             binding.refresher.isRefreshing = false
-            allOktHistoryGroup.addAll(response)
-            response?.let {
-                historyAdapter.submitList(allOktHistoryGroup as List<Any>?)
+            binding.recycler.suppressLayout(false)
+            val historyGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
+            response.asJsonObject["txs"].asJsonArray.forEach { history ->
+                val headerDate = dpTimeToYear(history.asJsonObject["txTime"].asString.toLong())
+                historyGroup.add(Pair(headerDate, history.asJsonObject))
+            }
+            allEthHistoryGroup.addAll(historyGroup)
+            if (historyGroup.isNotEmpty()) {
+                historyAdapter.submitList(allEthHistoryGroup as List<Any>?)
+                searchAfter = response["search_after"].asString
+                hasMore = historyGroup.size >= 20
+            } else {
+                searchAfter = ""
+                hasMore = false
             }
 
             binding.loading.visibility = View.GONE
-            binding.refresher.visibleOrGone(allOktHistoryGroup.isNotEmpty())
-            binding.emptyLayout.visibleOrGone(allOktHistoryGroup.isEmpty())
+            binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+            binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
-
         }
 
         historyViewModel.errorMessage.observe(viewLifecycleOwner) {

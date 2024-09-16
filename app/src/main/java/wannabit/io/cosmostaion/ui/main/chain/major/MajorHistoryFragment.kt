@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -30,6 +31,7 @@ class MajorHistoryFragment : Fragment() {
     private lateinit var historyAdapter: HistoryAdapter
 
     private val suiHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private val bitHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -73,13 +75,22 @@ class MajorHistoryFragment : Fragment() {
                 selectedChain = it
             }
         }
-        historyViewModel.suiHistory(selectedChain as ChainSui)
+        if (selectedChain is ChainBitCoin84) {
+            historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
+        } else {
+            historyViewModel.suiHistory(selectedChain as ChainSui)
+        }
     }
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            suiHistoryGroup.clear()
-            historyViewModel.suiHistory(selectedChain as ChainSui)
+            if (selectedChain is ChainBitCoin84) {
+                bitHistoryGroup.clear()
+                historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
+            } else {
+                suiHistoryGroup.clear()
+                historyViewModel.suiHistory(selectedChain as ChainSui)
+            }
         }
     }
 
@@ -110,6 +121,22 @@ class MajorHistoryFragment : Fragment() {
                 suiHistoryGroup.addAll(historyGroup)
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(suiHistoryGroup as List<Any>?)
+                }
+
+                binding.loading.visibility = View.GONE
+                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
+                historyAdapter.notifyDataSetChanged()
+            }
+        }
+
+        historyViewModel.btcHistoryResult.observe(viewLifecycleOwner) { response ->
+            bitHistoryGroup.clear()
+            binding.refresher.isRefreshing = false
+            response?.let { historyGroup ->
+                bitHistoryGroup.addAll(historyGroup)
+                if (historyGroup.isNotEmpty()) {
+                    historyAdapter.submitList(bitHistoryGroup as List<Any>?)
                 }
 
                 binding.loading.visibility = View.GONE

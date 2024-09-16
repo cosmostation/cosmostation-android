@@ -4,14 +4,15 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.SuiFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 
 class HistoryRepositoryImpl : HistoryRepository {
 
@@ -20,14 +21,6 @@ class HistoryRepositoryImpl : HistoryRepository {
     ): NetworkResult<Response<List<CosmosHistory>>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.mintscanApi.cosmosHistory(chain, address, limit, searchAfter)
-        }
-    }
-
-    override suspend fun oktHistory(
-        device: String, address: String?, limit: String
-    ): NetworkResult<Response<OktHistoryResponse>> {
-        return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.mintscanApi.oktHistory(device, address, limit)
         }
     }
 
@@ -98,6 +91,28 @@ class HistoryRepositoryImpl : HistoryRepository {
             safeApiCall(Dispatchers.IO) {
                 mutableListOf()
             }
+        }
+    }
+
+    override suspend fun ethHistory(
+        chain: BaseChain, limit: String, searchAfter: String
+    ): NetworkResult<Response<JsonObject?>> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.mintscanJsonApi.evmHistory(
+                chain.apiName, chain.evmAddress, limit, searchAfter
+            )
+        }
+    }
+
+    override suspend fun bitHistory(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>?> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitTxHistory(chain.mainAddress)
+        }
+    }
+
+    override suspend fun bitBlockHeight(chain: ChainBitCoin84): NetworkResult<Long?> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitBlockHeight()
         }
     }
 }

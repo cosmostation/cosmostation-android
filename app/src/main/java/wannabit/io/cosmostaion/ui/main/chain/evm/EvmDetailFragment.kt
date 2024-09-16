@@ -140,7 +140,8 @@ class EvmDetailFragment : Fragment() {
                 tab.text = when {
                     position == 0 -> "Assets"
                     position == 1 -> "Receive"
-                    selectedEvmChain.isEcosystem() && position == 2 -> "Ecosystem"
+                    position == 2 -> "History"
+                    selectedEvmChain.isEcosystem() && position == 3 -> "Ecosystem"
                     else -> "About"
                 }
             }.attach()
@@ -242,10 +243,11 @@ class EvmDetailFragment : Fragment() {
         init {
             fragments.add(AssetFragment.newInstance(selectedEvmChain))
             fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
+            fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
 
             if (selectedEvmChain.isEcosystem()) {
-                fragments.add(2, EvmEcoSystemFragment.newInstance(selectedEvmChain))
+                fragments.add(3, EvmEcoSystemFragment.newInstance(selectedEvmChain))
             }
         }
 

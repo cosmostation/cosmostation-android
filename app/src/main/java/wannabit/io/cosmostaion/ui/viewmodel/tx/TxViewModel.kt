@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -20,11 +22,15 @@ import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.common.isHexString
+import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.AssetPath
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NameService
+import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
@@ -282,15 +288,17 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
-    val errorMessage = SingleLiveEvent<String>()
+    val errorMessage = SingleLiveEvent<String?>()
 
     val broadcastTx = SingleLiveEvent<AbciProto.TxResponse>()
 
     val broadcast = SingleLiveEvent<AbciProto.TxResponse?>()
 
-    val simulate = SingleLiveEvent<String>()
+    val simulate = SingleLiveEvent<String?>()
 
     val suiBroadcast = SingleLiveEvent<JsonObject>()
+
+    val bitBroadcast = SingleLiveEvent<String?>()
 
     fun broadcast(
         managedChannel: ManagedChannel?,
@@ -587,6 +595,94 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
             if (response.toLongOrNull() != null) {
                 simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    private var _bitTxDataResult = MutableLiveData<Pair<MutableList<JsonObject>?, String>>()
+    val bitTxDataResult: LiveData<Pair<MutableList<JsonObject>?, String>> get() = _bitTxDataResult
+    fun bitTxData(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val loadUtxoDeferred = async { txRepository.mempoolUtxo(chain) }
+            val utxoResult = loadUtxoDeferred.await()
+
+            val loadEstimateSmartFeeDeferred = async { txRepository.estimateSmartFee(chain) }
+            val estimateSmartFeeResult = loadEstimateSmartFeeDeferred.await()
+
+            if (utxoResult is NetworkResult.Success && estimateSmartFeeResult is NetworkResult.Success) {
+                val utxoData = utxoResult.data
+                val smartFeeData = estimateSmartFeeResult.data
+                _bitTxDataResult.postValue(Pair(utxoData, smartFeeData))
+
+            } else {
+                if (utxoResult is NetworkResult.Error) {
+                    errorMessage.postValue("UTXO Error: ${utxoResult.errorMessage}")
+                }
+                if (estimateSmartFeeResult is NetworkResult.Error) {
+                    errorMessage.postValue("Smart Fee Error: ${estimateSmartFeeResult.errorMessage}")
+                }
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun bitSendBroadcast(
+        chain: ChainBitCoin84, txHex: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastBitSend(
+                chain, txHex
+            )
+
+            if (!response.isNullOrEmpty()) {
+                bitBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun bitSendSimulate(
+        chain: ChainBitCoin84,
+        bitcoinJS: BitCoinJS?,
+        sender: String,
+        receiver: String,
+        toAmount: String,
+        changedValue: String,
+        opReturn: String?,
+        utxo: MutableList<JsonObject>?,
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateBitSend(
+                chain, bitcoinJS, sender, receiver, toAmount, changedValue, opReturn, utxo
+            )
+
+            if (!response.isNullOrEmpty()) {
+                if (isHexString(response)) {
+                    simulate.postValue(response)
+                } else {
+                    val keyword = "Uncaught Error:"
+                    val startIndex = response.indexOf(keyword)
+                    val endKeyword = "(()=>"
+                    val endIndex = response.indexOf(endKeyword)
+
+                    val errorMsg = if (response.contains(keyword)) {
+                        response.substring(startIndex, endIndex).trim()
+                    } else {
+                        "Unknown Error"
+                    }
+                    errorMessage.postValue(errorMsg)
+                }
             } else {
                 errorMessage.postValue(response)
             }

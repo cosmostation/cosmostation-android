@@ -17,7 +17,6 @@ import android.webkit.JsResult
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
-import android.webkit.WebStorage
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
@@ -112,7 +111,6 @@ class DappActivity : BaseActivity() {
         setContentView(binding.root)
 
         allChains = initAllKeyData()
-        setUpDappView()
     }
 
     private suspend fun initData() {
@@ -128,6 +126,7 @@ class DappActivity : BaseActivity() {
     }
 
     private fun initAllKeyData(): MutableList<BaseChain> {
+        binding.loading.visibility = View.VISIBLE
         val result = allChains()
         lifecycleScope.launch(Dispatchers.IO) {
             initData()
@@ -150,7 +149,8 @@ class DappActivity : BaseActivity() {
                 }
             }
             withContext(Dispatchers.Main) {
-                binding.accountName.text = BaseData.baseAccount?.name
+                binding.loading.visibility = View.GONE
+                setUpDappView()
             }
         }
         return result
@@ -158,6 +158,7 @@ class DappActivity : BaseActivity() {
 
     private fun setUpDappView() {
         binding.apply {
+            accountName.text = BaseData.baseAccount?.name
             setUpBarFunction()
             dappWebView.apply {
                 settings.apply {
@@ -173,7 +174,6 @@ class DappActivity : BaseActivity() {
 
             dappWebView.visibility = View.VISIBLE
             dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
-            WebStorage.getInstance().deleteAllData()
             setDAppUrl()
         }
     }
@@ -216,6 +216,7 @@ class DappActivity : BaseActivity() {
                     }
                     finish()
                     emitCloseToWeb()
+                    dappWebView.removeJavascriptInterface("station")
                 }
             }
             btnNext.colorFilter = PorterDuffColorFilter(
@@ -234,6 +235,7 @@ class DappActivity : BaseActivity() {
                 }
                 finish()
                 emitCloseToWeb()
+                dappWebView.removeJavascriptInterface("station")
             }
         }
     }
@@ -275,7 +277,7 @@ class DappActivity : BaseActivity() {
             inputStream.bufferedReader().use(BufferedReader::readText)
         } catch (e: Exception) {
             null
-        }?.let { view?.loadUrl("javascript:(function(){$it})()") }
+        }?.let { view?.evaluateJavascript(it, null) }
     }
 
     private fun connectWalletConnect(url: String?) {
@@ -332,7 +334,9 @@ class DappActivity : BaseActivity() {
 
                                 allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                                     ?.let { line ->
-                                        selectChain = line
+                                        if (selectChain == null) {
+                                            selectChain = line
+                                        }
                                         sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
                                             accounts = listOf("$chain:${line.address}"),
                                             methods = methods,
@@ -797,18 +801,19 @@ class DappActivity : BaseActivity() {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     val params = messageJson.getJSONObject("params")
                     val chainId = params.getString("chainName")
-
-                    val accountJson = JSONObject()
-                    accountJson.put("isKeystone", false)
-                    accountJson.put("isEthermint", selectChain?.supportEvm)
-                    accountJson.put("isLedger", false)
                     BaseData.baseAccount?.let { account ->
-                        selectChain = selectedChain(allChains, chainId)
-                        accountJson.put("address", selectChain?.address)
-                        accountJson.put("name", account.name)
-                        accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                        selectedChain(allChains, chainId)?.let { chain ->
+                            selectChain = chain
+                            val accountJson = JSONObject()
+                            accountJson.put("isKeystone", false)
+                            accountJson.put("isEthermint", selectChain?.supportEvm)
+                            accountJson.put("isLedger", false)
+                            accountJson.put("address", selectChain?.address)
+                            accountJson.put("name", account.name)
+                            accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                            appToWebResult(messageJson, accountJson, messageId)
+                        }
                     }
-                    appToWebResult(messageJson, accountJson, messageId)
                 }
 
                 "cos_supportedChainIds" -> {
@@ -962,8 +967,10 @@ class DappActivity : BaseActivity() {
 
                         if (evmChainIds?.contains(chainId) == true) {
                             currentEvmChainId = chainId
-                            selectEvmChain =
-                                allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
+                            if (selectEvmChain == null) {
+                                selectEvmChain =
+                                    allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
+                            }
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
@@ -989,8 +996,10 @@ class DappActivity : BaseActivity() {
                     if (currentEvmChainId == null) {
                         currentEvmChainId = "0x1"
                     }
-                    selectEvmChain =
-                        allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
+                    if (selectEvmChain == null) {
+                        selectEvmChain =
+                            allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
+                    }
                     rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
@@ -1318,10 +1327,8 @@ class DappActivity : BaseActivity() {
                 }
 
                 "sui_getChain" -> {
-                    if (selectChain == null) {
-                        BaseData.baseAccount?.let { account ->
-                            selectChain = account.allChains.find { it.name == "Sui" }
-                        }
+                    BaseData.baseAccount?.let { account ->
+                        selectChain = account.allChains.find { it.name == "Sui" }
                     }
                     appToWebResult(
                         messageJson, "mainnet", messageId

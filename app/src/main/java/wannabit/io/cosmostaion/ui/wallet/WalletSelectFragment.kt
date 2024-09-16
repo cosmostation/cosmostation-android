@@ -19,8 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -131,7 +132,9 @@ class WalletSelectFragment : Fragment() {
             toAddAccount?.let { account ->
                 account.apply {
                     allChains = allChains()
-                    mainnetChains = allChains.filter { !it.isTestnet && it.isDefault || it.tag == "kava459" }.toMutableList()
+                    mainnetChains =
+                        allChains.filter { !it.isTestnet && it.isDefault || it.tag == "kava459" }
+                            .toMutableList()
                     testnetChains = allChains.filter { it.isTestnet }.toMutableList()
                     withContext(Dispatchers.Main) {
                         updateView()
@@ -188,7 +191,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.supportCosmos() || chain is ChainSui) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -208,7 +211,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (!chain.fetched) {
-                            if (chain.isEvmCosmos() || chain.supportCosmos() || chain is ChainSui) {
+                            if (chain.isEvmCosmos() || chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -351,7 +354,9 @@ class WalletSelectFragment : Fragment() {
     private fun startToActivity() {
         if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT) {
             if (Build.VERSION.SDK_INT >= 34) {
-                requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0)
+                requireActivity().overrideActivityTransition(
+                    Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0
+                )
             } else {
                 requireActivity().overridePendingTransition(0, 0)
             }

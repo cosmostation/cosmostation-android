@@ -556,33 +556,38 @@ class SwapFragment : BaseTxFragment() {
             binding.apply {
                 inputChain?.let { chain ->
                     txFee?.let { fee ->
-                        val gasLimit =
-                            (gasUsed.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
-                        val baseFeePosition = chain.getFeeBasePosition()
-                        val gasRate =
-                            chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull {
-                                it.denom == fee.getAmount(0)?.denom
-                            }
-                        val feeCoinAmount =
-                            gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                        gasUsed?.let {
+                            val gasLimit =
+                                (it.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                            val baseFeePosition = chain.getFeeBasePosition()
+                            val gasRate =
+                                chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull { feeData ->
+                                    feeData.denom == fee.getAmount(0)?.denom
+                                }
+                            val feeCoinAmount =
+                                gasRate?.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
-                        val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
-                            .setAmount(feeCoinAmount.toString()).build()
-                        txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-                            .addAmount(feeCoin).build()
+                            val feeCoin =
+                                CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0)?.denom)
+                                    .setAmount(feeCoinAmount.toString()).build()
+                            txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                                .addAmount(feeCoin).build()
 
-                        BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)?.let { feeAsset ->
-                            feeAsset.decimals?.let { decimal ->
-                                txFee?.getAmount(0)?.amount?.toBigDecimal()?.movePointLeft(decimal)
-                                    ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
-                                        txFeeAmount.text =
-                                            formatAmount(amount.toPlainString(), decimal)
-                                        txFeeDenom.text = feeAsset.symbol
+                            BaseData.getAsset(chain.apiName, fee.getAmount(0).denom)
+                                ?.let { feeAsset ->
+                                    feeAsset.decimals?.let { decimal ->
+                                        txFee?.getAmount(0)?.amount?.toBigDecimal()
+                                            ?.movePointLeft(decimal)
+                                            ?.setScale(decimal, RoundingMode.DOWN)?.let { amount ->
+                                                txFeeAmount.text =
+                                                    formatAmount(amount.toPlainString(), decimal)
+                                                txFeeDenom.text = feeAsset.symbol
+                                            }
                                     }
-                            }
+                                }
+                            btnToggle.updateToggleButtonView(true)
+                            btnSwap.updateButtonView(true)
                         }
-                        btnToggle.updateToggleButtonView(true)
-                        btnSwap.updateButtonView(true)
                     }
                 }
             }
@@ -843,8 +848,7 @@ class SwapFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

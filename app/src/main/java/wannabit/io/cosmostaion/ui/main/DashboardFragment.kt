@@ -22,8 +22,9 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -160,7 +161,18 @@ class DashboardFragment : Fragment() {
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
             if (!chain.fetched) return
-            if (chain is ChainSui) {
+            if (chain is ChainBitCoin84) {
+                if (chain.btcFetcher?.bitState == false) {
+                    nodeDownPopup(chain)
+                    return
+                }
+                Intent(requireContext(), MajorActivity::class.java).apply {
+                    putExtra("selectedChain", chain as Parcelable)
+                    startActivity(this)
+                }
+                requireActivity().toMoveAnimation()
+
+            } else if (chain is ChainSui) {
                 if (chain.suiFetcher?.suiState == false) {
                     nodeDownPopup(chain)
                     return
@@ -457,7 +469,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(chain,
+        NoticeInfoFragment.newInstance(
+            chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {

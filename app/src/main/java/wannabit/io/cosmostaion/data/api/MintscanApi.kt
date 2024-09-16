@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.MoonPay
-import wannabit.io.cosmostaion.data.model.res.OktHistoryResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -71,11 +70,11 @@ interface MintscanApi {
         @Path("chain") chain: String?, @Path("address") address: String?
     ): Response<MutableList<ResDaoVoteStatus>>
 
-    @GET("v10/utils/proxy/okc-transaction-list")
-    suspend fun oktHistory(
-        @Query("device") device: String?, @Query("address") address: String?, @Query("limit") limit: String?
-    ): Response<OktHistoryResponse>
-
     @GET("{chain}/eco_list.json")
     suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
+
+    @GET("v10/{chain}/proxy/okx/account/{address}/txs")
+    suspend fun evmHistory(
+        @Path("chain") chain: String?, @Path("address") address: String?, @Query("limit") limit: String?, @Query("search_after") searchAfter: String
+    ): Response<JsonObject?>
 }

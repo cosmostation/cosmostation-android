@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
+import com.trustwallet.walletconnect.extensions.toHex
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import net.i2p.crypto.eddsa.Utils
@@ -39,10 +40,11 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
@@ -51,6 +53,7 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.cosmos.BitCoinJS
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
@@ -72,6 +75,7 @@ import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 class TxRepositoryImpl : TxRepository {
@@ -1307,7 +1311,15 @@ class TxRepositoryImpl : TxRepository {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                 val response =
                     RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
-                response["gas_info"].asJsonObject["gas_used"].asString
+                if (response.isSuccessful) {
+                    response.body()?.getAsJsonObject("gas_info")
+                        ?.get("gas_used")?.asString.toString()
+                } else {
+                    val errorMessageJsonObject = Gson().fromJson(
+                        response.errorBody()?.string(), JsonObject::class.java
+                    )
+                    errorMessageJsonObject["message"].asString
+                }
             }
         } catch (e: Exception) {
             e.message.toString()
@@ -1376,11 +1388,21 @@ class TxRepositoryImpl : TxRepository {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                 val response =
                     RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
-                val gasInfo = AbciProto.GasInfo.newBuilder()
-                    .setGasUsed(response["gas_info"].asJsonObject["gas_used"].asString.toLong())
-                    .build()
-                ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo)
-                    .build().gasInfo.gasUsed.toString()
+                if (response.isSuccessful) {
+                    val gasUsed = response.body()?.getAsJsonObject("gas_info")
+                        ?.get("gas_used")?.asString?.toLong()
+                    val gasInfo = gasUsed?.let { used ->
+                        AbciProto.GasInfo.newBuilder().setGasUsed(used).build()
+                    }
+                    ServiceProto.SimulateResponse.newBuilder().setGasInfo(gasInfo)
+                        .build().gasInfo.gasUsed.toString()
+
+                } else {
+                    val errorMessageJsonObject = Gson().fromJson(
+                        response.errorBody()?.string(), JsonObject::class.java
+                    )
+                    errorMessageJsonObject["message"].asString
+                }
             }
 
         } catch (e: Exception) {
@@ -1619,23 +1641,28 @@ class TxRepositoryImpl : TxRepository {
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
                 if (response is NetworkResult.Success) {
-                    val computationCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                    val storageCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                    val storageRebate =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
 
-                    val gasCost = if (storageCost > storageRebate) {
-                        computationCost.add(storageCost).subtract(storageRebate).multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
                     } else {
-                        computationCost.multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
                     }
-                    return gasCost.toString()
                 }
             }
 
@@ -1683,23 +1710,28 @@ class TxRepositoryImpl : TxRepository {
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
                 if (response is NetworkResult.Success) {
-                    val computationCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                    val storageCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                    val storageRebate =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
 
-                    val gasCost = if (storageCost > storageRebate) {
-                        computationCost.add(storageCost).subtract(storageRebate).multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
                     } else {
-                        computationCost.multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
                     }
-                    return gasCost.toString()
                 }
             }
 
@@ -1747,23 +1779,28 @@ class TxRepositoryImpl : TxRepository {
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
                 if (response is NetworkResult.Success) {
-                    val computationCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                    val storageCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                    val storageRebate =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
 
-                    val gasCost = if (storageCost > storageRebate) {
-                        computationCost.add(storageCost).subtract(storageRebate).multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
                     } else {
-                        computationCost.multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
                     }
-                    return gasCost.toString()
                 }
             }
 
@@ -1810,28 +1847,119 @@ class TxRepositoryImpl : TxRepository {
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
                 if (response is NetworkResult.Success) {
-                    val computationCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                    val storageCost =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                    val storageRebate =
-                        response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
 
-                    val gasCost = if (storageCost > storageRebate) {
-                        computationCost.add(storageCost).subtract(storageRebate).multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
                     } else {
-                        computationCost.multiply(
-                            BigDecimal("1.3")
-                        ).setScale(0, RoundingMode.DOWN)
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
                     }
-                    return gasCost.toString()
                 }
             }
 
         } catch (e: Exception) {
             return e.message.toString()
+        }
+        return ""
+    }
+
+    override suspend fun mempoolUtxo(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.bitApi(chain).bitUtxo(chain.mainAddress)
+        }
+    }
+
+    override suspend fun estimateSmartFee(chain: ChainBitCoin84): NetworkResult<String> {
+        return try {
+            val estimateSmartFeeRequest = JsonRpcRequest(
+                method = "estimatesmartfee", params = listOf(2)
+            )
+            val estimateSmartFeeResponse = jsonRpcResponse(chain.rpcUrl, estimateSmartFeeRequest)
+            val estimateSmartFeeJsonObject = Gson().fromJson(
+                estimateSmartFeeResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                val fee = estimateSmartFeeJsonObject["result"].asJsonObject["feerate"].asDouble
+                val df = DecimalFormat("#.#############")
+                df.format(fee)
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String? {
+        val sendRawTransactionRequest = JsonRpcRequest(
+            method = "sendrawtransaction", params = listOf(txHex)
+        )
+        val sendRawTransactionResponse =
+            jsonRpcResponse(chain.rpcUrl, sendRawTransactionRequest)
+        val sendRawTransactionJsonObject = Gson().fromJson(
+            sendRawTransactionResponse.body?.string(), JsonObject::class.java
+        )
+        return try {
+            sendRawTransactionJsonObject["result"].asString
+        } catch (e: Exception) {
+            sendRawTransactionJsonObject["error"].asJsonObject["message"].asString
+        }
+    }
+
+    override suspend fun simulateBitSend(
+        chain: ChainBitCoin84,
+        bitcoinJS: BitCoinJS?,
+        sender: String,
+        receiver: String,
+        toAmount: String,
+        changedValue: String,
+        opReturn: String?,
+        utxo: MutableList<JsonObject>?
+    ): String? {
+        chain.btcFetcher()?.let { fetcher ->
+            try {
+                val privateKey = chain.privateKey?.toHex()
+                val publicKey = chain.publicKey?.toHex()
+
+                val createTxFunction = """function createTxFunction() {
+                        const privateKey = '${privateKey}';
+                        const publicKey = '${publicKey}';
+
+                        const senderPayment = getPayment('${publicKey}', '${fetcher.bitType()}', '${fetcher.network()}');
+
+                        const inputs = [
+                          ${fetcher.txInputString(utxo)}
+                        ];
+
+                        const outputs = [
+                          ${fetcher.txOutputString(receiver, toAmount, changedValue, opReturn)}
+                        ];
+
+                        const txHex = createTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
+                        return txHex;
+                    }""".trimIndent()
+                bitcoinJS?.mergeFunction(createTxFunction)
+                return bitcoinJS?.executeFunction("createTxFunction()")
+
+            } catch (e: Exception) {
+                return e.message.toString()
+            }
         }
         return ""
     }

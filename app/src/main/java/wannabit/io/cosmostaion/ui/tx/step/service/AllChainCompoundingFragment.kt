@@ -22,6 +22,8 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.TxProto
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
@@ -316,7 +318,15 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                         val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
                         val response =
                             RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
-                        response["gas_info"].asJsonObject["gas_used"].asString
+                        if (response.isSuccessful) {
+                            response.body()?.getAsJsonObject("gas_info")
+                                ?.get("gas_used")?.asString
+                        } else {
+                            val errorMessageJsonObject = Gson().fromJson(
+                                response.errorBody()?.string(), JsonObject::class.java
+                            )
+                            errorMessageJsonObject["message"].asString
+                        }
                     }
                     onComplete(gasUsed)
                 }

@@ -97,8 +97,14 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin44Testnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainCosmosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
@@ -159,6 +165,7 @@ open class BaseChain : Parcelable {
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
+    open var rpcUrl: String = ""
 
     open var fetched = false
     open var fetchedState = true
@@ -346,7 +353,7 @@ open class BaseChain : Parcelable {
     }
 
     fun supportFeeMarket(): Boolean? {
-        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.isJsonNull == true) {
+        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket") == null) {
             false
         } else {
             getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.asBoolean
@@ -474,7 +481,10 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (this is ChainSui) {
+        if (this is ChainBitCoin84) {
+            return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
+
+        } else if (this is ChainSui) {
             return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
         } else if (this is ChainOkt996Keccak) {
@@ -603,6 +613,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+//    chains.add(ChainBitcoin44Testnet())
+//    chains.add(ChainBitcoin49Testnet())
+//    chains.add(ChainBitcoin84Testnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

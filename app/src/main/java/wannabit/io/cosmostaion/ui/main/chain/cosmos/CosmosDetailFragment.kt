@@ -63,7 +63,7 @@ class CosmosDetailFragment : Fragment() {
     private var _binding: FragmentCosmosDetailBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var detailPagerAdapter: DetailPageAdapter
+    private lateinit var detailPagerAdapter: DetailPagerAdapter
 
     private lateinit var selectedChain: BaseChain
 
@@ -254,7 +254,7 @@ class CosmosDetailFragment : Fragment() {
 
             tableTitles.add("About")
 
-            detailPagerAdapter = DetailPageAdapter(
+            detailPagerAdapter = DetailPagerAdapter(
                 requireActivity(), tableTitles, selectedChain
             )
             viewPager.adapter = detailPagerAdapter
@@ -592,7 +592,7 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    class DetailPageAdapter(
+    class DetailPagerAdapter(
         fragmentActivity: FragmentActivity,
         private val tabTitles: List<String>,
         private val selectedChain: BaseChain

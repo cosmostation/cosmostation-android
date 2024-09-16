@@ -455,13 +455,13 @@ fun dpTimeToYear(time: Long): String {
             if (Prefs.language == LANGUAGE_ENGLISH) {
                 "MMM dd, yyyy"
             } else {
-                "yyyy-MM-dd"
+                "yyyy.M.d"
             }
         } else {
             if (locale == Locale.US) {
                 "MMM dd, yyyy"
             } else {
-                "yyyy-MM-dd"
+                "yyyy.M.d"
             }
         }, locale
     )
@@ -682,6 +682,11 @@ fun dpToPx(context: Context, dp: Int): Int {
 
 fun ByteArray.toHex(): String {
     return joinToString("") { "%02x".format(it) }
+}
+
+fun isHexString(value: String): Boolean {
+    val hexRegex = Regex("^[0-9A-Fa-f]+$")
+    return hexRegex.matches(value)
 }
 
 fun Context.dialogResize(dialog: Dialog, width: Float, height: Float) {

@@ -9,10 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.OktFetcher
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -50,7 +52,7 @@ class WalletSelectViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain is ChainSui) {
+            if (chain is ChainSui || chain is ChainBitCoin84) {
                 chainAddress.text = chain.mainAddress
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -82,8 +84,55 @@ class WalletSelectViewHolder(
             }
             updateView(chain, selectedTags)
 
+            if (chain is ChainBitCoin84) {
+                chainTypeBadge.visibility = View.GONE
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainLegacy.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainLegacy.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainLegacy.visibility = View.GONE
+                        chainBitBadge.visibility = View.VISIBLE
+                    }
+                }
+
+            } else {
+                chainBitBadge.visibility = View.GONE
+                if (!chain.isDefault) {
+                    chainLegacy.visibility = View.VISIBLE
+                    chainLegacy.text = context.getString(R.string.str_old)
+                    chainTypeBadge.visibility = View.VISIBLE
+                    when (chain.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_keccak256)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
+                } else {
+                    chainLegacy.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
+                }
+            }
+
             if (chain.fetched) {
-                val cnt: Int
+                var cnt = 0
                 skeletonChainValue.visibility = View.GONE
 
                 selectView.setOnClickListener {
@@ -96,7 +145,16 @@ class WalletSelectViewHolder(
                     selectListener.select(selectedTags)
                 }
 
-                if (chain is ChainSui) {
+                if (chain is ChainBitCoin84) {
+                    if (chain.btcFetcher?.bitState == false) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainBalance.visibility = View.GONE
+                        chainDenom.visibility = View.GONE
+                        chainAssetCnt.visibility = View.GONE
+                        return
+                    }
+
+                } else if (chain is ChainSui) {
                     if (chain.suiFetcher?.suiState == false) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
@@ -139,36 +197,36 @@ class WalletSelectViewHolder(
                 chainDenom.visibility = View.VISIBLE
                 chainAssetCnt.visibility = View.VISIBLE
 
-                if (!chain.isDefault) {
-                    chainLegacy.visibility = View.VISIBLE
-                    chainTypeBadge.visibility = View.VISIBLE
-                    when (chain.tag) {
-                        "okt996_Keccak" -> {
-                            chainTypeBadge.text = context.getString(R.string.str_keccak256)
-                        }
-
-                        "okt996_Secp" -> {
-                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
-                        }
-
-                        else -> {
-                            chainTypeBadge.visibility = View.GONE
-                        }
+                if (chain is ChainBitCoin84) {
+                    chain.btcFetcher()?.let { fetcher ->
+                        val availableAmount =
+                            fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                        val pendingInputAmount =
+                            fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                        val totalAmount = availableAmount.add(pendingInputAmount)
+                        chainBalance.text = formatAmount(totalAmount.toString(), 9)
+                        chainDenom.text = chain.coinSymbol
+                        chainDenom.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        cnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
                     }
 
-                } else {
-                    chainLegacy.visibility = View.GONE
-                    chainTypeBadge.visibility = View.GONE
-                }
-
-                if (chain is ChainSui) {
+                } else if (chain is ChainSui) {
                     val availableAmount = chain.suiFetcher()?.let { fetcher ->
                         fetcher.suiBalanceAmount(SUI_MAIN_DENOM)?.movePointLeft(9)
                             ?.setScale(9, RoundingMode.DOWN)
                     }
                     chainBalance.text = formatAmount(availableAmount.toString(), 9)
                     chainDenom.text = chain.coinSymbol
-                    chainDenom.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                    chainDenom.setTextColor(
+                        ContextCompat.getColorStateList(
+                            context, R.color.color_base01
+                        )
+                    )
                     cnt = chain.suiFetcher?.suiBalances?.size ?: 0
 
                 } else if (chain.supportCosmos()) {
@@ -224,7 +282,12 @@ class WalletSelectViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
 
-            if (chain.isEvmCosmos()) {
+            if (chain is ChainBitCoin84) {
+                chainAddress.text = chain.mainAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+            } else if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -242,10 +305,54 @@ class WalletSelectViewHolder(
             }
             updateView(chain, selectedTags)
 
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainLegacy.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainLegacy.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainLegacy.visibility = View.GONE
+                        chainBitBadge.visibility = View.VISIBLE
+                    }
+                }
+
+            } else {
+                chainLegacy.visibility = View.GONE
+                chainBitBadge.visibility = View.GONE
+            }
+
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
 
-                if (chain.supportCosmos()) {
+                selectView.setOnClickListener {
+                    if (selectedTags.contains(chain.tag)) {
+                        selectedTags.removeIf { it == chain.tag }
+                    } else {
+                        selectedTags.add(chain.tag)
+                    }
+                    updateView(chain, selectedTags)
+                    selectListener.select(selectedTags)
+                }
+
+                if (chain is ChainBitCoin84) {
+                    if (chain.btcFetcher?.bitState == false) {
+                        respondLayout.visibility = View.VISIBLE
+                        chainBalance.visibility = View.GONE
+                        chainDenom.visibility = View.GONE
+                        chainAssetCnt.visibility = View.GONE
+                        return
+                    }
+
+                } else if (chain.supportCosmos()) {
                     if (chain.cosmosFetcher?.cosmosBalances == null) {
                         respondLayout.visibility = View.VISIBLE
                         chainBalance.visibility = View.GONE
@@ -258,33 +365,38 @@ class WalletSelectViewHolder(
                 chainBalance.visibility = View.VISIBLE
                 chainDenom.visibility = View.VISIBLE
                 chainAssetCnt.visibility = View.VISIBLE
-                chainLegacy.visibility = View.GONE
                 chainTypeBadge.visibility = View.GONE
 
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                    val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
-                        ?.movePointLeft(asset.decimals ?: 6)
-                    chainBalance.text =
-                        formatAmount(availableAmount.toString(), asset.decimals ?: 6)
-                    chainDenom.text = asset.symbol
-                    chainDenom.setTextColor(asset.assetColor())
-                }
-                val cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
-                    BaseData.getAsset(
-                        chain.apiName, it.denom
-                    ) != null
-                } ?: 0)
-                chainAssetCnt.text = "$cnt Coins"
-
-                selectView.setOnClickListener {
-                    if (selectedTags.contains(chain.tag)) {
-                        selectedTags.removeIf { it == chain.tag }
-                    } else {
-                        selectedTags.add(chain.tag)
+                var cnt = 0
+                if (chain is ChainBitCoin84) {
+                    chain.btcFetcher()?.let { fetcher ->
+                        val availableAmount =
+                            fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                        val pendingInputAmount =
+                            fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                        val totalAmount = availableAmount.add(pendingInputAmount)
+                        chainBalance.text = formatAmount(totalAmount.toString(), 9)
+                        chainDenom.text = chain.coinSymbol
+                        cnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
                     }
-                    updateView(chain, selectedTags)
-                    selectListener.select(selectedTags)
+
+                } else {
+                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                        val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
+                            ?.movePointLeft(asset.decimals ?: 6)
+                        chainBalance.text =
+                            formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                        chainDenom.text = asset.symbol
+                        chainDenom.setTextColor(asset.assetColor())
+                    }
+                    cnt = (chain.cosmosFetcher?.cosmosBalances?.count {
+                        BaseData.getAsset(
+                            chain.apiName, it.denom
+                        ) != null
+                    } ?: 0)
                 }
+                chainAssetCnt.text = "$cnt Coins"
             }
         }
     }

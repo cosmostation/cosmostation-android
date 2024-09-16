@@ -7,9 +7,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
@@ -56,12 +58,37 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainSideBadge.visibleOrGone(!chain.isDefault)
+            chainBitBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainSideBadge.visibility = View.GONE
+                        chainBitSideBadge.visibility = View.VISIBLE
+                    }
+                }
+
+            } else {
+                chainSideBadge.visibleOrGone(!chain.isDefault)
+                chainBitSideBadge.visibility = View.GONE
+            }
 
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain is ChainSui || chain.name == "BitCoin") {
+            if (chain is ChainSui || chain is ChainBitCoin84) {
                 chainAddress.text = chain.mainAddress
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
@@ -128,7 +155,15 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainSui) {
                         if (chain.suiFetcher?.suiState == false) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
@@ -184,7 +219,12 @@ class DashboardViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        val cnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
+                        assetCnt.text = "$cnt Coins"
+
+                    } else if (chain is ChainSui) {
                         assetCnt.text = chain.suiFetcher?.suiBalances?.size.toString() + " Coins"
 
                     } else if (chain is ChainOkt996Keccak) {
@@ -271,13 +311,42 @@ class DashboardViewHolder(
             proLayout.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
-            assetCnt.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainSideBadge.visibleOrGone(!chain.isDefault)
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainSideBadge.visibility = View.GONE
+                        chainBitSideBadge.visibility = View.VISIBLE
+                    }
+                }
+            } else {
+                chainSideBadge.visibility = View.GONE
+                chainBitSideBadge.visibility = View.GONE
+            }
+
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
 
-            if (chain.isEvmCosmos()) {
+            if (chain is ChainBitCoin84) {
+                chainAddress.text = chain.mainAddress
+                chainAddress.visibility = View.VISIBLE
+                chainEvmAddress.visibility = View.GONE
+
+                handler.removeCallbacks(starEvmAddressAnimation)
+
+            } else if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -294,9 +363,18 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+            if (chain.supportCosmos()) {
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                    BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
+                }
+
+            } else {
+                chainPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
+                BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
                     chainPriceStatus.priceChangeStatusColor(lastUpDown)
                     chainPriceStatus.text = priceChangeStatus(lastUpDown)
                 }
@@ -312,7 +390,15 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain.isEvmCosmos()) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.isEvmCosmos()) {
                         if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
@@ -329,11 +415,17 @@ class DashboardViewHolder(
                     respondLayout.visibility = View.GONE
                     chainValue.visibility = View.VISIBLE
 
-                    val coinCntString = (chain.cosmosFetcher?.cosmosBalances?.count {
-                        BaseData.getAsset(
-                            chain.apiName, it.denom
-                        ) != null
-                    } ?: 0).toString() + " Coins"
+                    val coinCntString = if (chain is ChainBitCoin84) {
+                        val cnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
+                        "$cnt Coins"
+                    } else {
+                        (chain.cosmosFetcher?.cosmosBalances?.count {
+                            BaseData.getAsset(
+                                chain.apiName, it.denom
+                            ) != null
+                        } ?: 0).toString() + " Coins"
+                    }
 
                     if (chain.supportCw20) {
                         val tokenCnt =
@@ -387,8 +479,33 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-            chainBadge.visibleOrGone(!chain.isDefault)
             chainSideBadge.visibility = View.GONE
+            chainBitSideBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainBadge.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainBadge.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainBitBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                    }
+                }
+
+            } else {
+                chainBitBadge.visibility = View.GONE
+                chainBadge.visibleOrGone(!chain.isDefault)
+            }
 
             if (!chain.fetchedState) {
                 skeletonChainValue.visibility = View.VISIBLE
@@ -398,7 +515,15 @@ class DashboardViewHolder(
             } else {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainSui) {
                         if (chain.suiFetcher?.suiState == false) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
@@ -478,9 +603,34 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-            chainBadge.visibleOrGone(!chain.isDefault)
             chainSideBadge.visibility = View.GONE
-            skeletonAssetCnt.visibility = View.GONE
+            chainBitSideBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
+                        chainBitBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                    }
+
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.text = "LEGACY"
+                    }
+
+                    else -> { }
+                }
+
+            } else {
+                chainBadge.visibleOrGone(!chain.isDefault)
+            }
 
             if (!chain.fetchedState) {
                 skeletonChainValue.visibility = View.VISIBLE
@@ -490,7 +640,15 @@ class DashboardViewHolder(
             } else {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain.isEvmCosmos()) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain.isEvmCosmos()) {
                         if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
