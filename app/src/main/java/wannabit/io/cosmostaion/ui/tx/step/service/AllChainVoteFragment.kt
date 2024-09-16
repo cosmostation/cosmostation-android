@@ -609,7 +609,7 @@ class AllChainVoteFragment : BaseTxFragment() {
     ): String? {
         return try {
             val simulateTx = Signer.genSimulate(
-                Signer.voteMsg(toVotes), chain.getInitPayableFee(requireContext()), "", chain
+                Signer.voteMsg(chain, toVotes), chain.getInitPayableFee(requireContext()), "", chain
             )
             if (chain.supportCosmos()) {
                 chain.cosmosFetcher()?.getChannel()?.let { channel ->
@@ -643,7 +643,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 val toVotes = voteAllModel.toVotes
                 val txFee = voteAllModel.txFee
-                val broadcastTx = Signer.genBroadcast(Signer.voteMsg(toVotes), txFee, "", chain)
+                val broadcastTx = Signer.genBroadcast(Signer.voteMsg(chain, toVotes), txFee, "", chain)
 
                 val txResponse = if (chain.supportCosmos()) {
                     val channel = chain.cosmosFetcher?.getChannel()

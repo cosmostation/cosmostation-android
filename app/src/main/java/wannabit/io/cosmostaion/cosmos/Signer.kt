@@ -61,6 +61,7 @@ import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
@@ -241,10 +242,15 @@ object Signer {
         return msgAnys
     }
 
-    fun voteMsg(msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
+    fun voteMsg(chain: BaseChain, msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
+        val typeUrl = if (chain is ChainGovgen) {
+            "/govgen.gov.v1beta1.MsgVote"
+        } else {
+            "/cosmos.gov.v1beta1.MsgVote"
+        }
         msgVotes?.forEach { msgVote ->
-            val anyMsg = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote")
+            val anyMsg = Any.newBuilder().setTypeUrl(typeUrl)
                 .setValue(msgVote?.toByteString()).build()
             msgAnys.add(anyMsg)
         }
@@ -845,7 +851,8 @@ object Signer {
         val blake2b = Blake2b.Blake2b256()
         blake2b.update(data)
         val spec: EdDSAParameterSpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
-        val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(selectedChain.privateKey?.toHex()), spec)
+        val privateKeySpec =
+            EdDSAPrivateKeySpec(Hex.decode(selectedChain.privateKey?.toHex()), spec)
         val signature = EdDSAEngine(MessageDigest.getInstance(spec.hashAlgorithm))
         signature.initSign(EdDSAPrivateKey(privateKeySpec))
         signature.update(blake2b.digest())
