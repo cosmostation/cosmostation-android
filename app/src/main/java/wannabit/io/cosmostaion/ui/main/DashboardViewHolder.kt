@@ -503,6 +503,7 @@ class DashboardViewHolder(
                 }
 
             } else {
+                chainBitBadge.visibility = View.GONE
                 chainBadge.visibleOrGone(!chain.isDefault)
             }
 

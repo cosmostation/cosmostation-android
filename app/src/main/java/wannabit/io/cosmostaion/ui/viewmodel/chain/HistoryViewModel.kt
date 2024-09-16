@@ -74,12 +74,14 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                     val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
                     fetcher.suiHistory.addAll(fromHistoryResult.data ?: mutableListOf())
                     toHistoryResult.data?.forEach { to ->
-                        if (fetcher.suiHistory.firstOrNull { it["digest"].asString == to["digest"].asString } == null) {
+                        val existingItem =
+                            fetcher.suiHistory.firstOrNull { it["digest"].asString == to["digest"].asString }
+                        if (existingItem == null) {
                             fetcher.suiHistory.add(to)
                         }
                     }
                     fetcher.suiHistory.sortByDescending {
-                        it["checkpoint"]?.toString()?.toLongOrNull() ?: Long.MIN_VALUE
+                        it["checkpoint"].asString.toLongOrNull() ?: 0L
                     }
                     fetcher.suiHistory.forEach { history ->
                         val headerDate = dpTimeToYear(history["timestampMs"].asString.toLong())
