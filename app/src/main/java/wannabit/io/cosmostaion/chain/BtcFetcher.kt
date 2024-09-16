@@ -20,7 +20,7 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         val price = BaseData.getPrice(chain.coinGeckoId, isUsd)
-        return (btcBalances.add(btcPendingInput)).multiply(price).setScale(8, RoundingMode.DOWN)
+        return (btcBalances.add(btcPendingInput)).multiply(price).movePointLeft(8).setScale(8, RoundingMode.DOWN)
     }
 
     fun mempoolUrl(): String {

@@ -58,8 +58,31 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainSideBadge.visibleOrGone(!chain.isDefault)
-            chainBitSideBadge.visibleOrGone(chain is ChainBitCoin84 && chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
+            chainBitBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainSideBadge.visibility = View.VISIBLE
+                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainSideBadge.visibility = View.GONE
+                        chainBitSideBadge.visibility = View.VISIBLE
+                    }
+                }
+            } else {
+                chainSideBadge.visibility = View.GONE
+                chainBitSideBadge.visibility = View.GONE
+            }
 
             chainPrice.visibility = View.VISIBLE
             chainPriceStatus.visibility = View.VISIBLE
@@ -131,7 +154,15 @@ class DashboardViewHolder(
                 skeletonChainValue.visibility = View.GONE
                 skeletonAssetCnt.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainSui) {
                         if (chain.suiFetcher?.suiState == false) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
@@ -187,7 +218,12 @@ class DashboardViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        val cnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
+                        assetCnt.text = "$cnt Coins"
+
+                    } else if (chain is ChainSui) {
                         assetCnt.text = chain.suiFetcher?.suiBalances?.size.toString() + " Coins"
 
                     } else if (chain is ChainOkt996Keccak) {
@@ -442,8 +478,32 @@ class DashboardViewHolder(
             proLayout.visibility = View.GONE
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
-            chainBadge.visibleOrGone(!chain.isDefault)
             chainSideBadge.visibility = View.GONE
+            chainBitSideBadge.visibility = View.GONE
+
+            if (chain is ChainBitCoin84) {
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainBadge.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainBadge.visibility = View.VISIBLE
+                        chainBitBadge.visibility = View.GONE
+                        chainBadge.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainBitBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                    }
+                }
+
+            } else {
+                chainBadge.visibleOrGone(!chain.isDefault)
+            }
 
             if (!chain.fetchedState) {
                 skeletonChainValue.visibility = View.VISIBLE
@@ -453,7 +513,15 @@ class DashboardViewHolder(
             } else {
                 skeletonChainValue.visibility = View.GONE
                 if (chain.fetched) {
-                    if (chain is ChainSui) {
+                    if (chain is ChainBitCoin84) {
+                        if (chain.btcFetcher?.bitState == false) {
+                            respondLayout.visibility = View.VISIBLE
+                            chainValue.visibility = View.GONE
+                            assetCnt.visibility = View.GONE
+                            return
+                        }
+
+                    } else if (chain is ChainSui) {
                         if (chain.suiFetcher?.suiState == false) {
                             respondLayout.visibility = View.VISIBLE
                             chainValue.visibility = View.GONE
