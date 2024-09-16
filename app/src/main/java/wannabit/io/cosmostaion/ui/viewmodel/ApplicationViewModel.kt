@@ -1057,6 +1057,7 @@ class ApplicationViewModel(
                         fetchedState = true
                         fetched = true
                         if (fetched) {
+                            fetcher.bitState = true
                             val refAddress = RefAddress(
                                 id,
                                 tag,

@@ -148,7 +148,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                         val headerDate = if (history["status"].asJsonObject["block_time"] != null) {
                             dpTimeToYear(history["status"].asJsonObject["block_time"].asLong * 1000)
                         } else {
-                            ""
+                            "Mempool"
                         }
                         result.add(Pair(headerDate, history))
                     }

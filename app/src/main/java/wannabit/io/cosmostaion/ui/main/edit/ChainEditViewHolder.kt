@@ -11,9 +11,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -251,7 +252,7 @@ class ChainEditViewHolder(
                 listener.select(displayChains)
             }
 
-            if (chain.supportCosmos() && chain.supportEvm) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -261,7 +262,11 @@ class ChainEditViewHolder(
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
             } else {
-                chainAddress.text = chain.address
+                chainAddress.text = if (chain is ChainBitCoin84) {
+                    chain.mainAddress
+                } else {
+                    chain.address
+                }
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
 
@@ -276,7 +281,15 @@ class ChainEditViewHolder(
                                 skeletonChainValue.visibility = View.GONE
                                 skeletonAssetCnt.visibility = View.GONE
 
-                                if (chain.isEvmCosmos()) {
+                                if (chain is ChainBitCoin84) {
+                                    if (chain.btcFetcher?.bitState == false) {
+                                        respondLayout.visibility = View.VISIBLE
+                                        chainValue.visibility = View.GONE
+                                        assetCnt.visibility = View.GONE
+                                        return@withContext
+                                    }
+
+                                } else if (chain.isEvmCosmos()) {
                                     if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
                                         respondLayout.visibility = View.VISIBLE
                                         chainValue.visibility = View.GONE
@@ -293,7 +306,12 @@ class ChainEditViewHolder(
                                     }
                                 }
 
-                                if (chain.supportCosmos()) {
+                                if (chain is ChainBitCoin84) {
+                                    val cnt =
+                                        if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
+                                    assetCnt.text = "$cnt Coins"
+
+                                } else if (chain.supportCosmos()) {
                                     val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
                                     if (chain.supportCw20) {
                                         val tokenCnt =

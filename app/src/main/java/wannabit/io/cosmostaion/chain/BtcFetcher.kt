@@ -87,7 +87,8 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         when (chain.accountKeyType.pubkeyType) {
             PubKeyType.BTC_NATIVE_SEGWIT -> {
                 utxo?.forEach { tx ->
-                    val input = """
+                    if (tx["status"].asJsonObject["confirmed"].asBoolean) {
+                        val input = """
                             {
                                 hash: '${tx["txid"].asString}',
                                 index: ${tx["vout"].asInt},
@@ -97,13 +98,15 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                                 }
                             },
                             """
-                    inputString += input
+                        inputString += input
+                    }
                 }
             }
 
             PubKeyType.BTC_NESTED_SEGWIT -> {
                 utxo?.forEach { tx ->
-                    val input = """
+                    if (tx["status"].asJsonObject["confirmed"].asBoolean) {
+                        val input = """
                             {
                                 hash: '${tx["txid"].asString}',
                                 index: ${tx["vout"].asInt},
@@ -114,7 +117,8 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                                 }
                             },
                             """
-                    inputString += input
+                        inputString += input
+                    }
                 }
             }
 
@@ -133,14 +137,16 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                         )
                         val nonWitnessUtxoHex = rawTransactionJsonObject["result"].asString
 
-                        val input = """
+                        if (tx["status"].asJsonObject["confirmed"].asBoolean) {
+                            val input = """
                                 {
                                     hash: '${tx["txid"].asString}',
                                     index: ${tx["vout"].asInt},
                                     nonWitnessUtxo: aTb('${nonWitnessUtxoHex}'),
                                 },
                                 """
-                        inputString += input
+                            inputString += input
+                        }
                     }
                 }
             }

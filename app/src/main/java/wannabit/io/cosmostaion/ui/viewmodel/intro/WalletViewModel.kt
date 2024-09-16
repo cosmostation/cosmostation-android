@@ -15,9 +15,10 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -269,6 +270,57 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
         when (chain) {
+            is ChainBitCoin84 -> {
+                chain.apply {
+                    btcFetcher()?.let { fetcher ->
+                        when (val response = walletRepository.bitBalance(chain)) {
+                            is NetworkResult.Success -> {
+                                val address = response.data["address"].asString
+                                if (address.uppercase() != chain.mainAddress.uppercase()) {
+                                    fetcher.bitState = false
+                                }
+
+                                val chainFundedTxoSum =
+                                    response.data["chain_stats"].asJsonObject["funded_txo_sum"].asLong.toBigDecimal()
+                                val chainSpentTxoSum =
+                                    response.data["chain_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
+                                val mempoolFundedTxoSum =
+                                    response.data["mempool_stats"].asJsonObject["funded_txo_sum"].asLong.toBigDecimal()
+                                val mempoolSpentTxoSum =
+                                    response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
+
+                                fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum)
+                                    .subtract(mempoolSpentTxoSum).max(
+                                        BigDecimal.ZERO
+                                    )
+                                fetcher.btcPendingInput = mempoolFundedTxoSum
+                                fetcher.btcPendingOutput = mempoolSpentTxoSum
+
+                                chain.fetched = true
+                                if (chain.fetched) {
+                                    fetcher.bitState = true
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                chain.fetched = true
+                                if (fetched) {
+                                    fetcher.bitState = false
+                                    withContext(Dispatchers.Main) {
+                                        withContext(Dispatchers.Main) {
+                                            _balanceResult.value = chain.tag
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             is ChainSui -> {
                 chain.suiFetcher()?.let { fetcher ->
                     chain.apply {

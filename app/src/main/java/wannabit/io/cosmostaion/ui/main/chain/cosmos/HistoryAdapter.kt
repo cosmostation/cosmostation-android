@@ -39,7 +39,7 @@ class HistoryAdapter(
                     val headerDate = if (header["status"].asJsonObject["block_time"] != null) {
                         dpTimeToYear(header["status"].asJsonObject["block_time"].asLong * 1000)
                     } else {
-                        ""
+                        "Mempool"
                     }
                     val headerIndex = bitHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = bitHistoryList.filter { it.first == headerDate }.size

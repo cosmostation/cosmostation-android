@@ -340,7 +340,7 @@ class HistoryViewHolder(
                 if (historyBitGroup.second["status"].asJsonObject["block_time"] != null) {
                     dpTimeToYear(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
                 } else {
-                    ""
+                    "Mempool"
                 }
             val currentDate = formatCurrentTimeToYear()
 
@@ -361,41 +361,33 @@ class HistoryViewHolder(
                 }
 
             } else {
-                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+                txSuccessImg.setImageResource(R.drawable.icon_history_pending)
+                txSuccessImg.setColorFilter(ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN)
                 txHeight.text = "-"
             }
             txHash.text = historyBitGroup.second["txid"].asString
 
-            var title = ""
-            var inputAmounts = BigDecimal.ZERO
-            var outputAmount = BigDecimal.ZERO
-            val displayAmount: BigDecimal?
-//            val inputs =
-//                historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
-//            inputs.forEach { input ->
-//                inputAmounts = inputAmounts.add(input.asJsonObject["value"].asLong.toBigDecimal())
-//            }
-//            val outputs =
-//                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
-//            outputs.forEach { output ->
-//                outputAmount =
-//                    outputAmount.add(output.asJsonObject["prevout"].asJsonObject["value"].asLong.toBigDecimal())
-//            }
-//
-//            if (inputs.isNotEmpty()) {
-//                title = context.getString(R.string.tx_receive)
-//                displayAmount = inputAmounts.subtract(outputAmount).movePointLeft(8)
-//                    .setScale(8, RoundingMode.DOWN)
-//            } else {
-//                title = context.getString(R.string.tx_send)
-//                displayAmount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-//            }
-//            txMessage.text = title
-//            txAmount.text = formatAmount(
-//                displayAmount.toString(), 8
-//            )
-//            txDenom.text = chain.coinSymbol.uppercase()
-//            txDenom.setTextColor(Color.parseColor("#ffffff"))
+            val title: String
+            val amount: BigDecimal?
+            val inputs =
+                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+            if (inputs.isNotEmpty()) {
+                title = context.getString(R.string.tx_send)
+                amount =
+                    historyBitGroup.second["vout"].asJsonArray[0].asJsonObject["value"].asLong.toBigDecimal()
+                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            } else {
+                title = context.getString(R.string.tx_receive)
+                amount =
+                    historyBitGroup.second["vout"].asJsonArray[1].asJsonObject["value"].asLong.toBigDecimal()
+                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            }
+            txMessage.text = title
+            txAmount.text = formatAmount(
+                amount.toString(), 8
+            )
+            txDenom.text = chain.coinSymbol.uppercase()
+            txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }
 }
