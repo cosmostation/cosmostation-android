@@ -530,9 +530,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
-    chains.add(ChainBitCoin44())
-    chains.add(ChainBitCoin49())
-    chains.add(ChainBitCoin84())
+//    chains.add(ChainBitCoin44())
+//    chains.add(ChainBitCoin49())
+//    chains.add(ChainBitCoin84())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
     chains.add(ChainCantoEvm())
@@ -613,9 +613,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
-    chains.add(ChainBitcoin44Testnet())
-    chains.add(ChainBitcoin49Testnet())
-    chains.add(ChainBitcoin84Testnet())
+//    chains.add(ChainBitcoin44Testnet())
+//    chains.add(ChainBitcoin49Testnet())
+//    chains.add(ChainBitcoin84Testnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
