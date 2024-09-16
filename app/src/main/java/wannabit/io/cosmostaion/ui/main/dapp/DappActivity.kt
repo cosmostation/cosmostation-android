@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -124,12 +123,6 @@ class DappActivity : BaseActivity() {
         if (BaseData.assets?.isEmpty() == true) {
             loadAsset()
         }
-
-        selectEvmChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("selectedEvmChain", BaseChain::class.java)
-        } else {
-            (intent.getParcelableExtra("selectedEvmChain")) as? BaseChain
-        }
     }
 
     private fun initAllKeyData(): MutableList<BaseChain> {
@@ -181,7 +174,6 @@ class DappActivity : BaseActivity() {
 
             dappWebView.visibility = View.VISIBLE
             dappWebView.addJavascriptInterface(DappJavascriptInterface(), "station")
-//            WebStorage.getInstance().deleteAllData()
             setDAppUrl()
         }
     }
