@@ -79,8 +79,9 @@ class DashboardViewHolder(
                         chainBitSideBadge.visibility = View.VISIBLE
                     }
                 }
+
             } else {
-                chainSideBadge.visibility = View.GONE
+                chainSideBadge.visibleOrGone(!chain.isDefault)
                 chainBitSideBadge.visibility = View.GONE
             }
 
