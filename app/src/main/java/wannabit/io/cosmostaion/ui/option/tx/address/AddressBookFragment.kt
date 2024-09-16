@@ -252,13 +252,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     refMajorAddresses.add(refAddress)
                                 }
                             }
-
-                        AppDatabase.getInstance().addressBookDao().selectAll()
-                            .forEach { addressBook ->
-                                if (addressBook.address.startsWith("0x") && addressBook.address.lowercase() != fromChain.mainAddress.lowercase()) {
-                                    majorAddressBook.add(addressBook)
-                                }
-                            }
                     }
 
                     SendAssetType.BIT_COIN -> {
