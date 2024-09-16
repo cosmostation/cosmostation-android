@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.viewmodel.tx
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -667,8 +666,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.simulateBitSend(
                 chain, bitcoinJS, sender, receiver, toAmount, changedValue, opReturn, utxo
             )
-
-            Log.e("Test1234 : ", response.toString())
 
             if (!response.isNullOrEmpty()) {
                 if (isHexString(response)) {
