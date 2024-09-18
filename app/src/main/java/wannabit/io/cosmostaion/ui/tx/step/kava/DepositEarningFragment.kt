@@ -314,11 +314,16 @@ class DepositEarningFragment : BaseTxFragment() {
             }
 
             memoView.setOnClickListener {
-                handleOneClickWithDelay(MemoFragment.newInstance(txMemo, object : MemoListener {
-                    override fun memo(memo: String) {
-                        updateMemoView(memo)
-                    }
-                }))
+                handleOneClickWithDelay(
+                    MemoFragment.newInstance(
+                        selectedChain,
+                        txMemo,
+                        object : MemoListener {
+                            override fun memo(memo: String) {
+                                updateMemoView(memo)
+                            }
+                        })
+                )
             }
 
             feeTokenLayout.setOnClickListener {

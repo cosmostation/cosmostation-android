@@ -4,12 +4,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
@@ -43,8 +45,50 @@ class EvmReceiveViewHolder(
 
             chainImg.setImageResource(selectChain.logo)
             accountPath.text = selectChain.getHDPath(account.lastHDPath)
-            chainBadge.visibility = View.GONE
-            chainTypeBadge.visibility = View.GONE
+            if (selectChain is ChainBitCoin84) {
+                when (selectChain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_LEGACY -> {
+                        chainTypeBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                        chainTypeBadge.text = "LEGACY"
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base02
+                            )
+                        )
+                    }
+
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainTypeBadge.visibility = View.VISIBLE
+                        chainBadge.visibility = View.GONE
+                        chainTypeBadge.text = "NESTED SEGWIT"
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base02
+                            )
+                        )
+                    }
+
+                    else -> {
+                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.text = "NATIVE SEGWIT"
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainTypeBadge.visibility = View.GONE
+                    }
+                }
+
+            } else {
+                chainBadge.visibility = View.GONE
+                chainTypeBadge.visibility = View.GONE
+            }
 
             receiveView.setOnClickListener {
                 val clipboard =

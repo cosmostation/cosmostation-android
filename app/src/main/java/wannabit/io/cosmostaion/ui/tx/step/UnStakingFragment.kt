@@ -322,7 +322,7 @@ class UnStakingFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }

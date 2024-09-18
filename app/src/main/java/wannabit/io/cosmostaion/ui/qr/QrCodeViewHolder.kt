@@ -67,13 +67,8 @@ class QrCodeViewHolder(
                 selectChain.address
             }
 
-            if (selectChain is ChainSui) {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
-            } else {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
-            }
+            receiveTitle.text =
+                context.getString(R.string.str_deposit_caution_msg, selectChain.name)
             setQrAddress(context, address)
             chainImg.setImageResource(selectChain.logo)
 

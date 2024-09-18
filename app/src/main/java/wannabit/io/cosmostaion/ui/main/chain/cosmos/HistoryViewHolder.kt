@@ -362,25 +362,40 @@ class HistoryViewHolder(
 
             } else {
                 txSuccessImg.setImageResource(R.drawable.icon_history_pending)
-                txSuccessImg.setColorFilter(ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN)
+                txSuccessImg.setColorFilter(
+                    ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN
+                )
                 txHeight.text = "-"
             }
             txHash.text = historyBitGroup.second["txid"].asString
 
             val title: String
             val amount: BigDecimal?
-            val inputs =
-                historyBitGroup.second["vin"].asJsonArray.filter { it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString == chain.mainAddress }
+            val inputs = historyBitGroup.second["vin"].asJsonArray.filter {
+                it.asJsonObject["prevout"].asJsonObject.has(
+                    "scriptpubkey_address"
+                ) && it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString.uppercase() == chain.mainAddress.uppercase()
+            }
             if (inputs.isNotEmpty()) {
+                var outputAmount = BigDecimal.ZERO
                 title = context.getString(R.string.tx_send)
-                amount =
-                    historyBitGroup.second["vout"].asJsonArray[0].asJsonObject["value"].asLong.toBigDecimal()
-                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val outputs =
+                    historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject.has("scriptpubkey_address") && it.asJsonObject["scriptpubkey_address"].asString.uppercase() != chain.mainAddress.uppercase() }
+                outputs.forEach { output ->
+                    val value = output.asJsonObject["value"].asLong.toBigDecimal()
+                    outputAmount = outputAmount.add(value)
+                }
+                amount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
             } else {
+                var inputAmount = BigDecimal.ZERO
                 title = context.getString(R.string.tx_receive)
-                amount =
-                    historyBitGroup.second["vout"].asJsonArray[1].asJsonObject["value"].asLong.toBigDecimal()
-                        .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val outputs =
+                    historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject.has("scriptpubkey_address") && it.asJsonObject["scriptpubkey_address"].asString.uppercase() == chain.mainAddress.uppercase() }
+                outputs.forEach { output ->
+                    val value = output.asJsonObject["value"].asLong.toBigDecimal()
+                    inputAmount = inputAmount.add(value)
+                }
+                amount = inputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
             }
             txMessage.text = title
             txAmount.text = formatAmount(

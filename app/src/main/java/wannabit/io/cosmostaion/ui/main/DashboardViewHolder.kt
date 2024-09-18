@@ -312,6 +312,7 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
+            chainBitBadge.visibility = View.GONE
             if (chain is ChainBitCoin84) {
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
