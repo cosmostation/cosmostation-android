@@ -202,19 +202,21 @@ class DepositEarningFragment : BaseTxFragment() {
                     .build()
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    addAmountMsg.visibility = View.GONE
-                    addAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    addAmount.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
-                        )
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
+                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                val value = price.multiply(dpAmount)
+
+                addAmountMsg.visibility = View.GONE
+                addAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                addAmount.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base01
                     )
-                    addDenom.visibility = View.VISIBLE
-                    addDenom.text = asset.symbol
-                }
+                )
+                addDenom.visibility = View.VISIBLE
+                addDenom.text = asset.symbol
+                addValue.text = formatAssetValue(value)
             }
             txSimulate()
         }
