@@ -165,7 +165,6 @@ open class BaseChain : Parcelable {
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
-    open var rpcUrl: String = ""
 
     open var fetched = false
     open var fetchedState = true

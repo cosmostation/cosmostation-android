@@ -32,8 +32,7 @@ open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
     override var coinGeckoId: String = ""
     override var coinLogo: Int = R.drawable.token_btc
 
-    override var mainUrl: String = ""
-    override var rpcUrl: String = "https://rpc-office.cosmostation.io/bitcoin-testnet"
+    override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-testnet"
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey

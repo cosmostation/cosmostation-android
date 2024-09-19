@@ -1048,7 +1048,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin84).apply {
                         val dpVByteFee = if (txMemo.isNotEmpty()) {
-                            bitVBytesFee.add(OP_RETURN.toBigDecimal())
+                            (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)?.add(OP_RETURN.toBigDecimal())
                         } else {
                             bitVBytesFee
                         }
@@ -1341,7 +1341,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 (fromChain as ChainBitCoin84).apply {
                     utxo = bitData.first
                     bitGasRate = bitData.second.toBigDecimal()
-                    bitVBytesFee = (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo)
+                    bitVBytesFee = (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
                     bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                         .setScale(0, RoundingMode.UP)
 
