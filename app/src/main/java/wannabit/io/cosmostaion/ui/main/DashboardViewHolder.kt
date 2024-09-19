@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -58,31 +60,36 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainBitBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin84) {
+                chainSideBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainSideBadge.visibility = View.VISIBLE
-                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.defaultSet()
                         chainSideBadge.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainSideBadge.visibility = View.VISIBLE
-                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.defaultSet()
                         chainSideBadge.text = "LEGACY"
                     }
 
                     else -> {
-                        chainSideBadge.visibility = View.GONE
-                        chainBitSideBadge.visibility = View.VISIBLE
+                        chainSideBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainSideBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainSideBadge.text = "NATIVE SEGWIT"
                     }
                 }
 
             } else {
                 chainSideBadge.visibleOrGone(!chain.isDefault)
-                chainBitSideBadge.visibility = View.GONE
+                chainSideBadge.defaultSet()
+                chainBadge.text = context.getString(R.string.str_old)
             }
 
             chainPrice.visibility = View.VISIBLE
@@ -312,29 +319,36 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.VISIBLE
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
-            chainBitBadge.visibility = View.GONE
+
             if (chain is ChainBitCoin84) {
+                chainSideBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainSideBadge.visibility = View.VISIBLE
-                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.defaultSet()
                         chainSideBadge.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainSideBadge.visibility = View.VISIBLE
-                        chainBitSideBadge.visibility = View.GONE
+                        chainSideBadge.defaultSet()
                         chainSideBadge.text = "LEGACY"
                     }
 
                     else -> {
-                        chainSideBadge.visibility = View.GONE
-                        chainBitSideBadge.visibility = View.VISIBLE
+                        chainSideBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainSideBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainSideBadge.text = "NATIVE SEGWIT"
                     }
                 }
+
             } else {
-                chainSideBadge.visibility = View.GONE
-                chainBitSideBadge.visibility = View.GONE
+                chainSideBadge.visibleOrGone(!chain.isDefault)
+                chainSideBadge.defaultSet()
+                chainBadge.text = context.getString(R.string.str_old)
             }
 
             chainPrice.visibility = View.VISIBLE
@@ -481,31 +495,36 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
             chainSideBadge.visibility = View.GONE
-            chainBitSideBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin84) {
+                chainBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainBadge.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainBadge.defaultSet()
                         chainBadge.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainBadge.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainBadge.defaultSet()
                         chainBadge.text = "LEGACY"
                     }
 
                     else -> {
-                        chainBitBadge.visibility = View.VISIBLE
-                        chainBadge.visibility = View.GONE
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainBadge.text = "NATIVE SEGWIT"
                     }
                 }
 
             } else {
-                chainBitBadge.visibility = View.GONE
                 chainBadge.visibleOrGone(!chain.isDefault)
+                chainBadge.defaultSet()
+                chainBadge.text = context.getString(R.string.str_old)
             }
 
             if (!chain.fetchedState) {
@@ -605,32 +624,36 @@ class DashboardViewHolder(
             skeletonAssetCnt.visibility = View.GONE
             assetCnt.visibility = View.GONE
             chainSideBadge.visibility = View.GONE
-            chainBitSideBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin84) {
+                chainBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
-                    PubKeyType.BTC_NATIVE_SEGWIT -> {
-                        chainBitBadge.visibility = View.VISIBLE
-                        chainBadge.visibility = View.GONE
-                    }
-
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainBitBadge.visibility = View.GONE
-                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.defaultSet()
                         chainBadge.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainBitBadge.visibility = View.GONE
-                        chainBadge.visibility = View.VISIBLE
+                        chainBadge.defaultSet()
                         chainBadge.text = "LEGACY"
                     }
 
-                    else -> { }
+                    else -> {
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainBadge.text = "NATIVE SEGWIT"
+                    }
                 }
 
             } else {
                 chainBadge.visibleOrGone(!chain.isDefault)
+                chainBadge.defaultSet()
+                chainBadge.text = context.getString(R.string.str_old)
             }
 
             if (!chain.fetchedState) {
@@ -683,6 +706,11 @@ class DashboardViewHolder(
             }
         }
     }
+}
+
+private fun TextView.defaultSet() {
+    setBackgroundResource(R.drawable.round_box_deprecated)
+    setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
 }
 
 
