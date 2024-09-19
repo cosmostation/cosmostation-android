@@ -370,36 +370,40 @@ class HistoryViewHolder(
             txHash.text = historyBitGroup.second["txid"].asString
 
             val title: String
-            val amount: BigDecimal?
+            var inputAmounts = BigDecimal.ZERO
+            var outputAmounts = BigDecimal.ZERO
+            val displayAmount: BigDecimal?
             val inputs = historyBitGroup.second["vin"].asJsonArray.filter {
                 it.asJsonObject["prevout"].asJsonObject.has(
                     "scriptpubkey_address"
                 ) && it.asJsonObject["prevout"].asJsonObject["scriptpubkey_address"].asString.uppercase() == chain.mainAddress.uppercase()
             }
-            if (inputs.isNotEmpty()) {
-                var outputAmount = BigDecimal.ZERO
-                title = context.getString(R.string.tx_send)
-                val outputs =
-                    historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject.has("scriptpubkey_address") && it.asJsonObject["scriptpubkey_address"].asString.uppercase() != chain.mainAddress.uppercase() }
-                outputs.forEach { output ->
-                    val value = output.asJsonObject["value"].asLong.toBigDecimal()
-                    outputAmount = outputAmount.add(value)
-                }
-                amount = outputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-            } else {
-                var inputAmount = BigDecimal.ZERO
-                title = context.getString(R.string.tx_receive)
-                val outputs =
-                    historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject.has("scriptpubkey_address") && it.asJsonObject["scriptpubkey_address"].asString.uppercase() == chain.mainAddress.uppercase() }
-                outputs.forEach { output ->
-                    val value = output.asJsonObject["value"].asLong.toBigDecimal()
-                    inputAmount = inputAmount.add(value)
-                }
-                amount = inputAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            inputs.forEach { input ->
+                val value =
+                    input.asJsonObject["prevout"].asJsonObject["value"].asLong.toBigDecimal()
+                inputAmounts = inputAmounts.add(value)
             }
+
+            val outputs =
+                historyBitGroup.second["vout"].asJsonArray.filter { it.asJsonObject.has("scriptpubkey_address") && it.asJsonObject["scriptpubkey_address"].asString.uppercase() == chain.mainAddress.uppercase() }
+            outputs.forEach { output ->
+                val value = output.asJsonObject["value"].asLong.toBigDecimal()
+                outputAmounts = outputAmounts.add(value)
+            }
+            val fee = historyBitGroup.second["fee"].asLong.toBigDecimal()
+
+            if (inputs.isNotEmpty()) {
+                title = context.getString(R.string.tx_send)
+                displayAmount = inputAmounts.subtract(outputAmounts).subtract(fee).movePointLeft(8)
+                    .setScale(8, RoundingMode.DOWN)
+            } else {
+                title = context.getString(R.string.tx_receive)
+                displayAmount = outputAmounts.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+            }
+
             txMessage.text = title
             txAmount.text = formatAmount(
-                amount.toString(), 8
+                displayAmount.toString(), 8
             )
             txDenom.text = chain.coinSymbol.uppercase()
             txDenom.setTextColor(Color.parseColor("#ffffff"))

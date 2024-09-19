@@ -10,9 +10,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.bitcoinj.core.Address
+import org.bitcoinj.params.MainNetParams
+import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -216,6 +221,13 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 when (addressBookType) {
                     AddressBookType.ManualNew -> {
                         getRecipientChain(addressInput)?.let { targetChain ->
+                            if (targetChain is ChainBitCoin84) {
+                                val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
+                                if (memoByteLength > 80) {
+                                    // Toast
+                                    return@setOnClickListener
+                                }
+                            }
                             val addressBook = AddressBook(
                                 nameInput,
                                 targetChain.name,
@@ -232,7 +244,23 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                         }
                     }
 
-                    AddressBookType.ManualEdit, AddressBookType.AfterTxEdit -> {
+                    AddressBookType.ManualEdit -> {
+                        if (addressBook?.chainName?.contains("BitCoin") == true) {
+                            val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
+                            if (memoByteLength > 80) {
+                                // Toast
+                                return@setOnClickListener
+                            }
+                        }
+                        addressBook?.bookName = nameInput
+                        addressBook?.address = addressInput
+                        addressBook?.memo = memoInput
+                        addressBook?.lastTime = Calendar.getInstance().timeInMillis
+                        addressBookViewModel.updateAddressBook(addressBook!!)
+                        dismiss()
+                    }
+
+                    AddressBookType.AfterTxEdit -> {
                         addressBook?.bookName = nameInput
                         addressBook?.address = addressInput
                         addressBook?.memo = memoInput
@@ -261,16 +289,29 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         if (address?.isEmpty() == true) {
             return false
         }
-        if (BaseKey.isValidEthAddress(address)) {
-            return true
 
-        } else {
-            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-                ?.let { chain ->
-                    if (BaseUtils.isValidBechAddress(chain, address)) {
-                        return true
+        try {
+            return try {
+                Address.fromString(MainNetParams.get(), address)
+                true
+
+            } catch (e: Exception) {
+                Address.fromString(TestNet3Params.get(), address)
+                true
+            }
+
+        } catch (e: Exception) {
+            if (BaseKey.isValidEthAddress(address)) {
+                return true
+
+            } else {
+                allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+                    ?.let { chain ->
+                        if (BaseUtils.isValidBechAddress(chain, address)) {
+                            return true
+                        }
                     }
-                }
+            }
         }
         return false
     }
@@ -279,13 +320,25 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         if (address?.isEmpty() == true) {
             return null
         }
-        if (BaseKey.isValidEthAddress(address)) {
-            return BaseChain()
-        } else {
-            allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-                ?.let { chain ->
-                    return chain
-                }
+
+        try {
+            return try {
+                Address.fromString(MainNetParams.get(), address)
+                ChainBitCoin84()
+            } catch (e: Exception) {
+                Address.fromString(TestNet3Params.get(), address)
+                ChainBitcoin84Testnet()
+            }
+
+        } catch (e: Exception) {
+            if (BaseKey.isValidEthAddress(address)) {
+                return BaseChain()
+            } else {
+                allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
+                    ?.let { chain ->
+                        return chain
+                    }
+            }
         }
         return null
     }

@@ -55,31 +55,34 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     fun bitVBytesFee(utxo: MutableList<JsonObject>?): BigDecimal {
-        return when (chain.accountKeyType.pubkeyType) {
-            PubKeyType.BTC_NATIVE_SEGWIT -> {
-                P2WPKH_VBYTE.OVERHEAD.toBigDecimal().add(
-                    P2WPKH_VBYTE.INPUTS.toBigDecimal().multiply(
-                        BigDecimal(utxo!!.count())
-                    )
-                ).add(P2WPKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
-            }
+        utxo?.filter { tx -> tx["status"].asJsonObject["confirmed"].asBoolean }?.let { confirmedUtxo ->
+            return when (chain.accountKeyType.pubkeyType) {
+                PubKeyType.BTC_NATIVE_SEGWIT -> {
+                    P2WPKH_VBYTE.OVERHEAD.toBigDecimal().add(
+                        P2WPKH_VBYTE.INPUTS.toBigDecimal().multiply(
+                            BigDecimal(confirmedUtxo.count())
+                        )
+                    ).add(P2WPKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                }
 
-            PubKeyType.BTC_NESTED_SEGWIT -> {
-                P2SH_VBYTE.OVERHEAD.toBigDecimal().add(
-                    P2SH_VBYTE.INPUTS.toBigDecimal().multiply(
-                        BigDecimal(utxo!!.count())
-                    )
-                ).add(P2SH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
-            }
+                PubKeyType.BTC_NESTED_SEGWIT -> {
+                    P2SH_VBYTE.OVERHEAD.toBigDecimal().add(
+                        P2SH_VBYTE.INPUTS.toBigDecimal().multiply(
+                            BigDecimal(confirmedUtxo.count())
+                        )
+                    ).add(P2SH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                }
 
-            else -> {
-                P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
-                    P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
-                        BigDecimal(utxo!!.count())
-                    )
-                ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                else -> {
+                    P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
+                        P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
+                            BigDecimal(confirmedUtxo.count())
+                        )
+                    ).add(P2PKH_VBYTE.OUTPUTS.toBigDecimal().multiply(BigDecimal(2)))
+                }
             }
         }
+        return BigDecimal.ZERO
     }
 
     fun txInputString(utxo: MutableList<JsonObject>?): String {
