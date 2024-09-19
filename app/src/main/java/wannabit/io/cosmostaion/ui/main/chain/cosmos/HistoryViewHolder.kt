@@ -353,6 +353,9 @@ class HistoryViewHolder(
 
             if (historyBitGroup.second["status"].asJsonObject["confirmed"].asBoolean) {
                 txSuccessImg.setImageResource(R.drawable.icon_history_success)
+                txSuccessImg.setColorFilter(
+                    ContextCompat.getColor(context, R.color.color_green), PorterDuff.Mode.SRC_IN
+                )
                 txTime.text =
                     dpTimeToMonth(historyBitGroup.second["status"].asJsonObject["block_time"].asLong * 1000)
                 chain.btcFetcher()?.let { fetcher ->
