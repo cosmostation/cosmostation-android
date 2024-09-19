@@ -224,7 +224,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                             if (targetChain is ChainBitCoin84) {
                                 val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
                                 if (memoByteLength > 80) {
-                                    // Toast
+                                    requireContext().makeToast(R.string.error_memo_count)
                                     return@setOnClickListener
                                 }
                             }
@@ -248,7 +248,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                         if (addressBook?.chainName?.contains("BitCoin") == true) {
                             val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
                             if (memoByteLength > 80) {
-                                // Toast
+                                requireContext().makeToast(R.string.error_memo_count)
                                 return@setOnClickListener
                             }
                         }

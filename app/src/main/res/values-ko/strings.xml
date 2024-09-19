@@ -393,6 +393,7 @@
     <string name="error_staking_min_sui">1 SUI 이상 부터 스테이킹 가능합니다</string>
     <string name="error_pending">펜딩 상태입니다. 언스테이킹은 불가능합니다.</string>
     <string name="error_not_enough_balance_to_send">현재 잔액이 적어 송금을 할 수 없습니다</string>
+    <string name="error_memo_count">메모가 너무 깁니다</string>
 
 
     //header
