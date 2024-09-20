@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
@@ -585,6 +586,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPersistence750())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
+    chains.add(ChainPryzm())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRegen())
