@@ -212,7 +212,7 @@ class WalletSelectViewHolder(
                         val pendingInputAmount =
                             fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                         val totalAmount = availableAmount.add(pendingInputAmount)
-                        chainBalance.text = formatAmount(totalAmount.toString(), 9)
+                        chainBalance.text = formatAmount(totalAmount.toString(), 8)
                         chainDenom.text = chain.coinSymbol
                         chainDenom.setTextColor(
                             ContextCompat.getColorStateList(
@@ -387,7 +387,7 @@ class WalletSelectViewHolder(
                         val pendingInputAmount =
                             fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                         val totalAmount = availableAmount.add(pendingInputAmount)
-                        chainBalance.text = formatAmount(totalAmount.toString(), 9)
+                        chainBalance.text = formatAmount(totalAmount.toString(), 8)
                         chainDenom.text = chain.coinSymbol
                         cnt =
                             if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1

@@ -611,12 +611,12 @@ fun allChains(): MutableList<BaseChain> {
 
     chains.add(ChainCosmosTestnet())
     chains.add(ChainArtelaTestnet())
-    chains.add(ChainMantraTestnet())
-    chains.add(ChainNeutronTestnet())
-    chains.add(ChainNillionTestnet())
     chains.add(ChainBitcoin44Testnet())
     chains.add(ChainBitcoin49Testnet())
     chains.add(ChainBitcoin84Testnet())
+    chains.add(ChainMantraTestnet())
+    chains.add(ChainNeutronTestnet())
+    chains.add(ChainNillionTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
