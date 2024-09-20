@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.zxing.BarcodeFormat
@@ -11,6 +12,7 @@ import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
@@ -67,42 +69,59 @@ class QrCodeViewHolder(
                 selectChain.address
             }
 
-            if (selectChain is ChainSui) {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
-            } else {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
-            }
+            receiveTitle.text =
+                context.getString(R.string.str_deposit_caution_msg, selectChain.name)
             setQrAddress(context, address)
             chainImg.setImageResource(selectChain.logo)
 
-            if (!selectChain.isDefault) {
+            if (selectChain is ChainBitCoin84) {
+                chainTypeBadge.visibility = View.GONE
                 chainBadge.visibility = View.VISIBLE
-                chainBadge.setBackgroundResource(R.drawable.round_box_badge)
-                chainBadge.setTextColor(
-                    ContextCompat.getColor(
-                        context, R.color.color_base02
-                    )
-                )
-                chainBadge.text = context.getString(R.string.str_old)
-                when (selectChain.tag) {
-                    "okt996_Keccak" -> {
-                        chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                when (selectChain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainBadge.defaultSet()
+                        chainBadge.text = "NESTED SEGWIT"
                     }
 
-                    "okt996_Secp" -> {
-                        chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                    PubKeyType.BTC_LEGACY -> {
+                        chainBadge.defaultSet()
+                        chainBadge.text = "LEGACY"
                     }
 
                     else -> {
-                        chainTypeBadge.visibility = View.GONE
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainBadge.text = "NATIVE SEGWIT"
                     }
                 }
 
             } else {
-                chainBadge.visibility = View.GONE
-                chainTypeBadge.visibility = View.GONE
+                if (!selectChain.isDefault) {
+                    chainBadge.visibility = View.VISIBLE
+                    chainBadge.defaultSet()
+                    chainBadge.text = context.getString(R.string.str_old)
+                    when (selectChain.tag) {
+                        "okt996_Keccak" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_ethsecp256k1)
+                        }
+
+                        "okt996_Secp" -> {
+                            chainTypeBadge.text = context.getString(R.string.str_secp256k1)
+                        }
+
+                        else -> {
+                            chainTypeBadge.visibility = View.GONE
+                        }
+                    }
+
+                } else {
+                    chainBadge.visibility = View.GONE
+                    chainTypeBadge.visibility = View.GONE
+                }
             }
 
             receiveView.setOnClickListener {
@@ -136,4 +155,9 @@ class QrCodeViewHolder(
             qrImg.clipToOutline = true
         }
     }
+}
+
+private fun TextView.defaultSet() {
+    setBackgroundResource(R.drawable.round_box_badge)
+    setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
 }

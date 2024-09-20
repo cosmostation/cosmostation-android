@@ -80,14 +80,6 @@ class StakingViewHolder(
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->
-                    validator.tokens?.toBigDecimal()?.movePointLeft(decimal)?.let { vpAmount ->
-                        if (vpAmount < BigDecimal.ONE) {
-                            votingPower.text = formatAmount(vpAmount.toString(), decimal)
-                        } else {
-                            votingPower.text = formatAmount(vpAmount.toString(), 0)
-                        }
-                    }
-
                     val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
                         ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                     commission.text = formatString("$commissionRate%", 3)

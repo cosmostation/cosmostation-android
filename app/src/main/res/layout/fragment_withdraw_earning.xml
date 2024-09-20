@@ -65,27 +65,33 @@
 
             <TextView
                 android:id="@+id/remove_amount"
-                style="@style/font_sb_12"
-                android:layout_width="wrap_content"
+                style="@style/font_sb_14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_2"
+                android:gravity="end"
                 android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/remove_amount_title" />
+                app:layout_constraintEnd_toStartOf="@+id/remove_denom"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/remove_denom"
-                style="@style/font_sb_10"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_4"
-                android:layout_marginTop="@dimen/space_8"
                 android:textColor="@color/color_base01"
-                android:visibility="gone"
                 app:layout_constraintBaseline_toBaselineOf="@+id/remove_amount"
-                app:layout_constraintStart_toEndOf="@+id/remove_amount"
-                app:layout_constraintTop_toBottomOf="@+id/remove_amount_title" />
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/remove_value"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/remove_denom" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,8 +225,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
                 android:textColor="@color/color_base01"
-                app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <TextView
                 android:id="@+id/fee_value"
@@ -244,15 +250,15 @@
                     android:id="@+id/fee_segment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_transparent"
                     android:layout_margin="@dimen/space_4"
-                    app:radius="@dimen/space_8"
-                    app:selectedButtonRadius="@dimen/space_8"
+                    android:background="@color/color_transparent"
                     app:draggable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"
+                    app:radius="@dimen/space_8"
                     app:ripple="true"
                     app:rippleColor="@color/color_transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"/>
+                    app:selectedButtonRadius="@dimen/space_8" />
 
             </androidx.cardview.widget.CardView>
 

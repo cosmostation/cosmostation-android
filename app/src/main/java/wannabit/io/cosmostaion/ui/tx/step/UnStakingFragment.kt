@@ -222,20 +222,22 @@ class UnStakingFragment : BaseTxFragment() {
                 Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom).build()
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    undelegateAmountMsg.visibility = View.GONE
-                    undelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    undelegateAmount.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
-                        )
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
+                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                val value = price.multiply(dpAmount)
+
+                undelegateAmountMsg.visibility = View.GONE
+                undelegateAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                undelegateAmount.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base01
                     )
-                    undelegateDenom.visibility = View.VISIBLE
-                    undelegateDenom.text = asset.symbol
-                    undelegateDenom.setTextColor(asset.assetColor())
-                }
+                )
+                undelegateDenom.visibility = View.VISIBLE
+                undelegateDenom.text = asset.symbol
+                undelegateDenom.setTextColor(asset.assetColor())
+                undelegateValue.text = formatAssetValue(value)
             }
             txSimulate()
         }
@@ -322,7 +324,7 @@ class UnStakingFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -424,8 +426,7 @@ class UnStakingFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

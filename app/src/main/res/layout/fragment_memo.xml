@@ -45,8 +45,8 @@
                 android:layout_marginHorizontal="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_16"
                 android:background="@color/color_base05"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -83,6 +83,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_layout">
+
+                <TextView
+                    android:id="@+id/memo_byte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    style="@style/font_sm_12"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/memo_max_byte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" / 80 bytes"
+                    style="@style/font_sm_12"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintStart_toEndOf="@id/memo_byte"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/btn_qr"

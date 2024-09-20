@@ -9,11 +9,14 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import androidx.core.content.ContextCompat
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
@@ -82,14 +85,57 @@ class QrDialog(
                             chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
                         )
 
-                    } else if (selectedChain is ChainSui) {
+                    } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
                         chainName.text = chain.name
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.mainAddress
                         accountPath.text = chain.getHDPath(account.lastHDPath)
-                        chainBadge.visibility = View.GONE
-                        chainTypeBadge.visibility = View.GONE
                         chainImg.setImageResource(chain.logo)
+
+                        if (selectedChain is ChainBitCoin84) {
+                            when (selectedChain.accountKeyType.pubkeyType) {
+                                PubKeyType.BTC_LEGACY -> {
+                                    chainTypeBadge.visibility = View.VISIBLE
+                                    chainBadge.visibility = View.GONE
+                                    chainTypeBadge.text = "LEGACY"
+                                    chainBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context,
+                                            R.color.color_base02
+                                        )
+                                    )
+                                }
+
+                                PubKeyType.BTC_NESTED_SEGWIT -> {
+                                    chainTypeBadge.visibility = View.VISIBLE
+                                    chainBadge.visibility = View.GONE
+                                    chainTypeBadge.text = "NESTED SEGWIT"
+                                    chainBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context,
+                                            R.color.color_base02
+                                        )
+                                    )
+                                }
+
+                                else -> {
+                                    chainBadge.visibility = View.VISIBLE
+                                    chainBadge.text = "NATIVE SEGWIT"
+                                    chainBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context,
+                                            R.color.color_base01
+                                        )
+                                    )
+                                    chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                                    chainTypeBadge.visibility = View.GONE
+                                }
+                            }
+
+                        } else {
+                            chainBadge.visibility = View.GONE
+                            chainTypeBadge.visibility = View.GONE
+                        }
 
                         bitmap = barcodeEncoder.encodeBitmap(
                             chain.mainAddress, BarcodeFormat.QR_CODE, 540, 540, hints
@@ -142,7 +188,7 @@ class QrDialog(
                 intent.action = Intent.ACTION_SEND
                 val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
-                } else if (selectedChain is ChainSui) {
+                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
                     selectedChain.mainAddress
                 } else {
                     selectedChain?.evmAddress

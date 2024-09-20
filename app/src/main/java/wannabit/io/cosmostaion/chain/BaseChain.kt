@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
@@ -165,7 +166,6 @@ open class BaseChain : Parcelable {
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
-    open var rpcUrl: String = ""
 
     open var fetched = false
     open var fetchedState = true
@@ -586,6 +586,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPersistence750())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
+    chains.add(ChainPryzm())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRegen())
@@ -613,9 +614,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
-//    chains.add(ChainBitcoin44Testnet())
-//    chains.add(ChainBitcoin49Testnet())
-//    chains.add(ChainBitcoin84Testnet())
+    chains.add(ChainBitcoin44Testnet())
+    chains.add(ChainBitcoin49Testnet())
+    chains.add(ChainBitcoin84Testnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

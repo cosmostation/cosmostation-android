@@ -202,20 +202,22 @@ class VaultFragment : BaseTxFragment() {
             toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(stakeDenom).build()
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    vaultAmountMsg.visibility = View.GONE
-                    vaultAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    vaultAmount.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
-                        )
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
+                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                val value = price.multiply(dpAmount)
+
+                vaultAmountMsg.visibility = View.GONE
+                vaultAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                vaultAmount.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base01
                     )
-                    vaultDenom.visibility = View.VISIBLE
-                    vaultDenom.text = asset.symbol
-                    vaultDenom.setTextColor(asset.assetColor())
-                }
+                )
+                vaultDenom.visibility = View.VISIBLE
+                vaultDenom.text = asset.symbol
+                vaultDenom.setTextColor(asset.assetColor())
+                vaultValue.text = formatAssetValue(value)
             }
             txSimulate()
         }
@@ -298,7 +300,7 @@ class VaultFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -403,8 +405,7 @@ class VaultFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

@@ -16,12 +16,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
@@ -154,11 +156,28 @@ class MajorCryptoFragment : Fragment() {
                     } else {
                         SendAssetType.BIT_COIN
                     }
-                    handleOneClickWithDelay(
-                        CommonTransferFragment.newInstance(
-                            chain, denom, sendAssetType
+
+                    if (chain is ChainBitCoin84) {
+                        chain.btcFetcher()?.let { fetcher ->
+                            if (fetcher.btcBalances > BigDecimal.ZERO) {
+                                handleOneClickWithDelay(
+                                    CommonTransferFragment.newInstance(
+                                        chain, denom, sendAssetType
+                                    )
+                                )
+                            } else {
+                                requireContext().makeToast(R.string.error_not_enough_balance_to_send)
+                                return@setOnItemClickListener
+                            }
+                        }
+
+                    } else {
+                        handleOneClickWithDelay(
+                            CommonTransferFragment.newInstance(
+                                chain, denom, sendAssetType
+                            )
                         )
-                    )
+                    }
                 }
             }
             binding.refresher.isRefreshing = false

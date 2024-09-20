@@ -273,7 +273,7 @@ class NftTransferFragment(
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(fromChain, txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }

@@ -152,27 +152,33 @@
 
             <TextView
                 android:id="@+id/add_amount"
-                style="@style/font_sb_12"
-                android:layout_width="wrap_content"
+                style="@style/font_sb_14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_2"
+                android:gravity="end"
                 android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_amount_title" />
+                app:layout_constraintEnd_toStartOf="@+id/add_denom"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/add_denom"
-                style="@style/font_sb_10"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_4"
-                android:layout_marginTop="@dimen/space_8"
                 android:textColor="@color/color_base01"
-                android:visibility="gone"
                 app:layout_constraintBaseline_toBaselineOf="@+id/add_amount"
-                app:layout_constraintStart_toEndOf="@+id/add_amount"
-                app:layout_constraintTop_toBottomOf="@+id/add_amount_title" />
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/add_value"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_denom" />\
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

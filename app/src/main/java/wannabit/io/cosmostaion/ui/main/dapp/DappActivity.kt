@@ -60,6 +60,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants.DAPP_ADDITIONAL_SCRIPT
 import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -92,6 +93,7 @@ class DappActivity : BaseActivity() {
 
     private var selectChain: BaseChain? = null
     private var selectEvmChain: BaseChain? = null
+    private var selectMajorChain: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -274,10 +276,15 @@ class DappActivity : BaseActivity() {
     private fun initInjectScript(view: WebView?) {
         try {
             val inputStream = assets.open("injectScript.js")
-            inputStream.bufferedReader().use(BufferedReader::readText)
-        } catch (e: Exception) {
-            null
-        }?.let { view?.evaluateJavascript(it, null) }
+            val existingScript = inputStream.bufferedReader().use(BufferedReader::readText)
+            val script = if (wcUrl?.contains("astroport") == true) {
+                existingScript + "\n" + DAPP_ADDITIONAL_SCRIPT
+            } else {
+                existingScript
+            }
+            view?.evaluateJavascript(script, null)
+        } catch (_: Exception) {
+        }
     }
 
     private fun connectWalletConnect(url: String?) {
@@ -334,9 +341,7 @@ class DappActivity : BaseActivity() {
 
                                 allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                                     ?.let { line ->
-                                        if (selectChain == null) {
-                                            selectChain = line
-                                        }
+                                        selectChain = line
                                         sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
                                             accounts = listOf("$chain:${line.address}"),
                                             methods = methods,
@@ -420,8 +425,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -435,8 +439,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -622,7 +625,11 @@ class DappActivity : BaseActivity() {
     ) {
         bundle.getString("data")?.let { data ->
             PopUpSuiSignFragment(
-                selectChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
+                selectMajorChain,
+                bundle.getLong("id"),
+                data,
+                bundle.getString("method"),
+                signListener
             ).show(
                 supportFragmentManager, PopUpSuiSignFragment::class.java.name
             )
@@ -871,8 +878,7 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -889,8 +895,7 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -907,8 +912,7 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -1201,7 +1205,8 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1224,8 +1229,7 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1243,8 +1247,7 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1313,14 +1316,14 @@ class DappActivity : BaseActivity() {
 
                 // sui
                 "sui_getAccount" -> {
-                    if (selectChain == null) {
+                    if (selectMajorChain == null) {
                         BaseData.baseAccount?.let { account ->
-                            selectChain = account.allChains.find { it.name == "Sui" }
+                            selectMajorChain = account.allChains.find { it.name == "Sui" }
                         }
                     }
                     val accountJson = JSONObject()
-                    accountJson.put("address", selectChain?.mainAddress)
-                    accountJson.put("publicKey", "0x" + selectChain?.publicKey?.bytesToHex())
+                    accountJson.put("address", selectMajorChain?.mainAddress)
+                    accountJson.put("publicKey", "0x" + selectMajorChain?.publicKey?.bytesToHex())
                     appToWebResult(
                         messageJson, accountJson, messageId
                     )
@@ -1328,7 +1331,7 @@ class DappActivity : BaseActivity() {
 
                 "sui_getChain" -> {
                     BaseData.baseAccount?.let { account ->
-                        selectChain = account.allChains.find { it.name == "Sui" }
+                        selectMajorChain = account.allChains.find { it.name == "Sui" }
                     }
                     appToWebResult(
                         messageJson, "mainnet", messageId
@@ -1338,8 +1341,7 @@ class DappActivity : BaseActivity() {
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
-                    showSuiSignDialog(
-                        signBundle,
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1360,15 +1362,11 @@ class DappActivity : BaseActivity() {
                     val params = messageJson.getJSONObject("params")
                     val signBundle =
                         signBundle(0, params.toString(), "sui_signAndExecuteTransactionBlock")
-                    showSuiSignDialog(
-                        signBundle,
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 approveSuiSignExecuteRequest(
-                                    messageJson,
-                                    messageId,
-                                    data,
-                                    signature
+                                    messageJson, messageId, data, signature
                                 )
                             }
 
@@ -1381,15 +1379,13 @@ class DappActivity : BaseActivity() {
                 "sui_signMessage", "sui_signPersonalMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     if (params.getString("accountAddress")
-                            .lowercase() != selectChain?.mainAddress?.lowercase()
+                            .lowercase() != selectMajorChain?.mainAddress?.lowercase()
                     ) {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
                     }
-                    val signBundle =
-                        signBundle(0, params.toString(), "sui_signMessage")
-                    showSuiSignDialog(
-                        signBundle,
+                    val signBundle = signBundle(0, params.toString(), "sui_signMessage")
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1517,7 +1513,7 @@ class DappActivity : BaseActivity() {
         messageJson: JSONObject, messageId: String, txByte: String, signature: String
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            (selectChain as ChainSui).suiFetcher()?.let { fetcher ->
+            (selectMajorChain as ChainSui).suiFetcher()?.let { fetcher ->
                 val params = messageJson.getJSONObject("params")
                 val txJsonObject = JsonParser.parseString(params.toString()).asJsonObject
                 val options = if (txJsonObject["options"] != null) {
@@ -1530,13 +1526,9 @@ class DappActivity : BaseActivity() {
                     mapOf("showInput" to true, "showEffects" to true, "showEvents" to true)
                 }
 
-                val param =
-                    listOf(
-                        txByte,
-                        mutableListOf(signature),
-                        options,
-                        "WaitForLocalExecution"
-                    )
+                val param = listOf(
+                    txByte, mutableListOf(signature), options, "WaitForLocalExecution"
+                )
                 val suiExecuteRequest = JsonRpcRequest(
                     method = "sui_executeTransactionBlock", params = param
                 )
@@ -1792,5 +1784,3 @@ class Request(
         return gson.toJson(this)
     }
 }
-
-data class JsonRpcResponse(val result: Any, val jsonrpc: String, val id: Long)

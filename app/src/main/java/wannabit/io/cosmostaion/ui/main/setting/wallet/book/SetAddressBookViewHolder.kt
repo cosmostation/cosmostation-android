@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R

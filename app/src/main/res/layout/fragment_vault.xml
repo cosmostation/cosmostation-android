@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/vault_title"
+            style="@style/font_sb_16"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/font_sb_16"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>
@@ -38,18 +38,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/space_15"
-            android:paddingHorizontal="@dimen/space_16">
+            android:paddingHorizontal="@dimen/space_16"
+            android:paddingVertical="@dimen/space_15">
 
             <TextView
                 android:id="@+id/vault_amount_title"
+                style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/font_sm_12"
+                android:text="@string/title_vault_deposit_amount"
                 android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_vault_deposit_amount"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/vault_amount_msg"
@@ -65,27 +65,33 @@
 
             <TextView
                 android:id="@+id/vault_amount"
-                style="@style/font_sb_12"
-                android:layout_width="wrap_content"
+                style="@style/font_sb_14"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_2"
+                android:gravity="end"
                 android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vault_amount_title" />
+                app:layout_constraintEnd_toStartOf="@+id/vault_denom"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/vault_denom"
-                style="@style/font_sb_10"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8"
-                android:layout_marginStart="@dimen/space_4"
                 android:textColor="@color/color_base01"
-                app:layout_constraintStart_toEndOf="@+id/vault_amount"
-                app:layout_constraintTop_toBottomOf="@+id/vault_amount_title"
                 app:layout_constraintBaseline_toBaselineOf="@+id/vault_amount"
-                android:visibility="gone"/>
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/vault_value"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vault_denom" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,16 +172,16 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_fee_tip_msg"
                 android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="@id/fee_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fee_title"
-                app:layout_constraintBottom_toBottomOf="@id/fee_title"/>
+                app:layout_constraintTop_toTopOf="@+id/fee_title" />
 
             <View
                 android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
-                android:background="@color/color_base05"
                 android:layout_marginTop="@dimen/space_16"
+                android:background="@color/color_base05"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fee_title" />
@@ -231,8 +237,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
                 android:textColor="@color/color_base01"
-                app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <TextView
                 android:id="@+id/fee_value"
@@ -256,15 +262,15 @@
                     android:id="@+id/fee_segment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_transparent"
                     android:layout_margin="@dimen/space_4"
-                    app:radius="@dimen/space_8"
-                    app:selectedButtonRadius="@dimen/space_8"
+                    android:background="@color/color_transparent"
                     app:draggable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"
+                    app:radius="@dimen/space_8"
                     app:ripple="true"
                     app:rippleColor="@color/color_transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"/>
+                    app:selectedButtonRadius="@dimen/space_8" />
 
             </androidx.cardview.widget.CardView>
 
@@ -293,10 +299,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_background_dialog"
-        android:elevation="@dimen/space_5"
         android:clickable="true"
-        android:focusable="true"
+        android:elevation="@dimen/space_5"
         android:fitsSystemWindows="true"
+        android:focusable="true"
         android:visibility="gone">
 
         <com.airbnb.lottie.LottieAnimationView

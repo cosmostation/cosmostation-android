@@ -85,8 +85,8 @@
 
                 <ImageView
                     android:id="@+id/tx_success_img"
-                    android:layout_width="@dimen/space_12"
-                    android:layout_height="@dimen/space_12"
+                    android:layout_width="@dimen/space_14"
+                    android:layout_height="@dimen/space_14"
                     android:layout_marginEnd="@dimen/space_4"
                     android:src="@drawable/icon_history_success"
                     app:layout_constraintBottom_toBottomOf="parent"

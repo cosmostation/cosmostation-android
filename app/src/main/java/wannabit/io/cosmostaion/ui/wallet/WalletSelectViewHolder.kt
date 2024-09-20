@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -85,38 +86,45 @@ class WalletSelectViewHolder(
             updateView(chain, selectedTags)
 
             if (chain is ChainBitCoin84) {
+                chainLegacy.visibility = View.VISIBLE
                 chainTypeBadge.visibility = View.GONE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "LEGACY"
                     }
 
                     else -> {
-                        chainLegacy.visibility = View.GONE
-                        chainBitBadge.visibility = View.VISIBLE
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
 
             } else {
-                chainBitBadge.visibility = View.GONE
+                chainLegacy.defaultSet()
+
                 if (!chain.isDefault) {
                     chainLegacy.visibility = View.VISIBLE
                     chainLegacy.text = context.getString(R.string.str_old)
-                    chainTypeBadge.visibility = View.VISIBLE
                     when (chain.tag) {
                         "okt996_Keccak" -> {
+                            chainTypeBadge.visibility = View.VISIBLE
                             chainTypeBadge.text = context.getString(R.string.str_keccak256)
                         }
 
                         "okt996_Secp" -> {
+                            chainTypeBadge.visibility = View.VISIBLE
                             chainTypeBadge.text = context.getString(R.string.str_secp256k1)
                         }
 
@@ -281,6 +289,7 @@ class WalletSelectViewHolder(
         binding.apply {
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name.uppercase()
+            chainTypeBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin84) {
                 chainAddress.text = chain.mainAddress
@@ -306,33 +315,36 @@ class WalletSelectViewHolder(
             updateView(chain, selectedTags)
 
             if (chain is ChainBitCoin84) {
+                chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "LEGACY"
                     }
 
                     else -> {
-                        chainLegacy.visibility = View.GONE
-                        chainBitBadge.visibility = View.VISIBLE
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
 
             } else {
                 chainLegacy.visibility = View.GONE
-                chainBitBadge.visibility = View.GONE
             }
 
             if (chain.fetched) {
                 skeletonChainValue.visibility = View.GONE
-
                 selectView.setOnClickListener {
                     if (selectedTags.contains(chain.tag)) {
                         selectedTags.removeIf { it == chain.tag }
@@ -419,4 +431,9 @@ class WalletSelectViewHolder(
             }
         }
     }
+}
+
+private fun TextView.defaultSet() {
+    setBackgroundResource(R.drawable.round_box_deprecated)
+    setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
 }

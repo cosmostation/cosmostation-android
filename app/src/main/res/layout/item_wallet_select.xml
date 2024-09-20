@@ -94,24 +94,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/chain_name"/>
 
             <TextView
-                android:id="@+id/chain_bit_badge"
-                style="@style/font_sm_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_4"
-                android:layout_marginTop="@dimen/space_3"
-                android:background="@drawable/round_box_bit"
-                android:paddingHorizontal="@dimen/space_6"
-                android:paddingVertical="@dimen/space_2"
-                android:text="Native Segwit"
-                android:textAllCaps="true"
-                android:textColor="@color/color_base01"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/chain_name"
-                app:layout_constraintTop_toTopOf="@+id/chain_name"
-                app:layout_constraintBottom_toBottomOf="@id/chain_name"/>
-
-            <TextView
                 android:id="@+id/chain_type_badge"
                 style="@style/font_sm_8"
                 android:layout_width="wrap_content"

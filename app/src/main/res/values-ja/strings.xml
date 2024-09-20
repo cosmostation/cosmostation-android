@@ -394,6 +394,8 @@
     <string name="error_not_enough_sui_stake">SUIコインが足りません（1.05以上）。 \n最小ステーキング数量1\nステーキP 0.05</string>
     <string name="error_staking_min_sui">1 SUI以上からステーキング可能です。</string>
     <string name="error_pending">保留中の状態です。 アンステーキングはできません。</string>
+    <string name="error_not_enough_balance_to_send">バランスが十分ではありません。</string>
+    <string name="error_memo_count">メモのサイズを確認してください。</string>
 
 
     <string name="tx_unknown">不明</string>

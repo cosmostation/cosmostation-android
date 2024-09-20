@@ -186,21 +186,27 @@ class SuiStakingFragment : BaseTxFragment() {
         binding.apply {
             toStakeAmount = toAmount
 
-            val dpAmount =
-                toStakeAmount.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
-            delegateAmountMsg.visibility = View.GONE
-            delegateAmount.text = formatAmount(dpAmount.toPlainString(), 9)
-            delegateAmount.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_base01
-                )
-            )
-            delegateDenom.visibility = View.VISIBLE
-            delegateDenom.text = (selectedChain as ChainSui).coinSymbol
-            txSimulate()
+            (selectedChain as ChainSui).apply {
+                val price = BaseData.getPrice(coinGeckoId)
+                val dpAmount =
+                    toStakeAmount.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                val value = price.multiply(dpAmount)
 
-            if (toStakeAmount.toBigDecimal() < SUI_MIN_STAKE.toBigDecimal()) {
-                requireActivity().makeToast(R.string.error_staking_min_sui)
+                delegateAmountMsg.visibility = View.GONE
+                delegateAmount.text = formatAmount(dpAmount.toPlainString(), 9)
+                delegateAmount.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base01
+                    )
+                )
+                delegateDenom.visibility = View.VISIBLE
+                delegateDenom.text = (selectedChain as ChainSui).coinSymbol
+                delegateValue.text = formatAssetValue(value)
+                txSimulate()
+
+                if (toStakeAmount.toBigDecimal() < SUI_MIN_STAKE.toBigDecimal()) {
+                    requireActivity().makeToast(R.string.error_staking_min_sui)
+                }
             }
         }
     }
@@ -250,8 +256,7 @@ class SuiStakingFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

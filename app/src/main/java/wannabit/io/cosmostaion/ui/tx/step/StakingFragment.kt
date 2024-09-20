@@ -222,20 +222,22 @@ class StakingFragment : BaseTxFragment() {
                     .build()
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    delegateAmountMsg.visibility = View.GONE
-                    delegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    delegateAmount.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
-                        )
+                val price = BaseData.getPrice(asset.coinGeckoId)
+                val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
+                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                val value = price.multiply(dpAmount)
+
+                delegateAmountMsg.visibility = View.GONE
+                delegateAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                delegateAmount.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base01
                     )
-                    delegateDenom.visibility = View.VISIBLE
-                    delegateDenom.text = asset.symbol
-                    delegateDenom.setTextColor(asset.assetColor())
-                }
+                )
+                delegateDenom.visibility = View.VISIBLE
+                delegateDenom.text = asset.symbol
+                delegateDenom.setTextColor(asset.assetColor())
+                delegateValue.text = formatAssetValue(value)
             }
             txSimulate()
         }
@@ -304,8 +306,7 @@ class StakingFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(
-                        selectedChain,
+                    ValidatorDefaultFragment(selectedChain,
                         null,
                         null,
                         object : ValidatorDefaultListener {
@@ -336,7 +337,7 @@ class StakingFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(txMemo, object : MemoListener {
+                    MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
                         override fun memo(memo: String) {
                             updateMemoView(memo)
                         }
@@ -441,8 +442,7 @@ class StakingFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

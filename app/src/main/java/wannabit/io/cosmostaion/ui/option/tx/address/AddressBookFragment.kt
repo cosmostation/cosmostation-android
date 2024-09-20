@@ -277,6 +277,14 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 }
                             }
                         }
+
+                        AppDatabase.getInstance().addressBookDao().selectAll()
+                            .forEach { addressBook ->
+                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()
+                                ) {
+                                    majorAddressBook.add(addressBook)
+                                }
+                            }
                     }
                 }
                 sortRefEvmAddresses(refEvmAddresses)

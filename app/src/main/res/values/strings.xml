@@ -489,6 +489,8 @@
     <string name="error_not_enough_sui_stake">Not enough SUI coins (1.05 or more is possible). \nMinimum staking amount 1\nStaking fee 0.05</string>
     <string name="error_staking_min_sui">Staking is possible from 1 SUI or more</string>
     <string name="error_pending">Pending. UnStaking is not possible.</string>
+    <string name="error_not_enough_balance_to_send">No enough balance for send.</string>
+    <string name="error_memo_count">Please check your memo size.</string>
 
 
     // tx

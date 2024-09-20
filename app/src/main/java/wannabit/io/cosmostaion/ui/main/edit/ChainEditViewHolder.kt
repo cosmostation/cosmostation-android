@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,27 +66,29 @@ class ChainEditViewHolder(
             assetCnt.visibility = View.GONE
 
             if (chain is ChainBitCoin84) {
+                chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "LEGACY"
                     }
 
                     else -> {
-                        chainLegacy.visibility = View.GONE
-                        chainBitBadge.visibility = View.VISIBLE
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
+                        chainLegacy.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                        chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
+
             } else {
+                chainLegacy.defaultSet()
                 chainLegacy.visibleOrGone(!chain.isDefault)
-                chainBitBadge.visibility = View.GONE
+                chainLegacy.text = context.getString(R.string.str_old)
             }
 
             editView.setOnClickListener {
@@ -279,27 +283,29 @@ class ChainEditViewHolder(
             chainName.text = chain.name.uppercase()
 
             if (chain is ChainBitCoin84) {
+                chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "NESTED SEGWIT"
                     }
 
                     PubKeyType.BTC_LEGACY -> {
-                        chainLegacy.visibility = View.VISIBLE
-                        chainBitBadge.visibility = View.GONE
+                        chainLegacy.defaultSet()
                         chainLegacy.text = "LEGACY"
                     }
 
                     else -> {
-                        chainLegacy.visibility = View.GONE
-                        chainBitBadge.visibility = View.VISIBLE
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
+                        chainLegacy.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                        chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
+
             } else {
+                chainLegacy.defaultSet()
                 chainLegacy.visibleOrGone(!chain.isDefault)
-                chainBitBadge.visibility = View.GONE
+                chainLegacy.text = context.getString(R.string.str_old)
             }
 
             editView.setOnClickListener {
@@ -423,4 +429,9 @@ class ChainEditViewHolder(
             }
         }
     }
+}
+
+private fun TextView.defaultSet() {
+    setBackgroundResource(R.drawable.round_box_deprecated)
+    setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
 }
