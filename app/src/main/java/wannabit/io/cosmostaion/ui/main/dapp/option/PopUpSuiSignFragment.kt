@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.dapp.option
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -208,6 +209,15 @@ class PopUpSuiSignFragment(
                     listener.sign(id, updateData.toString(), signature.toString())
                     dismiss()
                 }
+            }
+        }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        binding.apply {
+            if (!loading.isVisible) {
+                listener.cancel(id)
             }
         }
     }

@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.tx.step.SuiTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.concurrent.CopyOnWriteArrayList
 
 class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
@@ -67,7 +68,8 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         var sum = BigDecimal.ZERO
         if (suiBalances.isNotEmpty()) {
             synchronized(suiBalances) {
-                val iterator = suiBalances.iterator()
+                val balanceList = CopyOnWriteArrayList(suiBalances)
+                val iterator = balanceList.iterator()
                 while (iterator.hasNext()) {
                     val balance = iterator.next()
                     balance.first?.let {

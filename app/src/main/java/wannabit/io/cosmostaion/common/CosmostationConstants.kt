@@ -34,4 +34,8 @@ object CosmostationConstants {
 
     const val MOON_PAY_PUBLIC_KEY = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn"
     const val KADO_PUBLIC_KEY = "18e55363-1d76-456c-8d4d-ecee7b9517ea"
+
+    const val DAPP_ADDITIONAL_SCRIPT = """window.navigator.__defineGetter__('userAgent', function () {
+                                        return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
+                                       });"""
 }
