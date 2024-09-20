@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -105,7 +106,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                val address = if (selectedChain is ChainSui) {
+                val address = if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
                     selectedChain.mainAddress
                 } else {
                     selectedChain.address

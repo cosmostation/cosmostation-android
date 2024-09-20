@@ -188,7 +188,7 @@ class QrDialog(
                 intent.action = Intent.ACTION_SEND
                 val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
-                } else if (selectedChain is ChainSui) {
+                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
                     selectedChain.mainAddress
                 } else {
                     selectedChain?.evmAddress
