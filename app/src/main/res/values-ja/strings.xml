@@ -183,6 +183,7 @@
     <string name="title_recipient_chain">受信チェーン</string>
     <string name="title_to_send_asset">転送する資産</string>
     <string name="title_memo">メモ （任意）</string>
+    <string name="title_bit_memo">OP_RETURN (任意)</string>
     <string name="title_recipient_address">お受け取りの住所</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
     <string name="title_insert_amount">投入量</string>

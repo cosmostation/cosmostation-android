@@ -245,7 +245,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     }
 
                     AddressBookType.ManualEdit -> {
-                        if (addressBook?.chainName?.contains("BitCoin") == true) {
+                        if (addressBook?.chainName?.contains("Bitcoin") == true) {
                             val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
                             if (memoByteLength > 80) {
                                 requireContext().makeToast(R.string.error_memo_count)

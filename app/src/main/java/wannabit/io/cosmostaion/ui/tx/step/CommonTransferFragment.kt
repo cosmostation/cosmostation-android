@@ -190,6 +190,11 @@ class CommonTransferFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             chainImg.alpha = 0.2f
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+            memoTitle.text = if (fromChain is ChainBitCoin84) {
+                getString(R.string.title_bit_memo)
+            } else {
+                getString(R.string.title_memo)
+            }
 
             initTransferStyle()
             initFee()
@@ -827,8 +832,7 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -1048,7 +1052,8 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin84).apply {
                         val dpVByteFee = if (txMemo.isNotEmpty()) {
-                            (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)?.add(OP_RETURN.toBigDecimal())
+                            (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
+                                ?.add(OP_RETURN.toBigDecimal())
                         } else {
                             bitVBytesFee
                         }
@@ -1341,7 +1346,8 @@ class CommonTransferFragment : BaseTxFragment() {
                 (fromChain as ChainBitCoin84).apply {
                     utxo = bitData.first
                     bitGasRate = bitData.second.toBigDecimal()
-                    bitVBytesFee = (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
+                    bitVBytesFee =
+                        (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
                     bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                         .setScale(0, RoundingMode.UP)
 

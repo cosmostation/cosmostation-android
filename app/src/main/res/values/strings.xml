@@ -241,6 +241,7 @@
     <string name="title_recipient_address">Recipient address</string>
     <string name="title_tx_fee" translatable="false">Tx Fee</string>
     <string name="title_memo">Memo (Optional)</string>
+    <string name="title_bit_memo">OP_RETURN (Optional)</string>
     <string name="title_select_recipient_chain">Select recipient chain</string>
     <string name="title_insert_amount">Insert amount</string>
     <string name="title_fee_select">Select coin to use as Tx fee</string>

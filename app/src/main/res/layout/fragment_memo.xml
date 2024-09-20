@@ -86,22 +86,32 @@
 
                 <TextView
                     android:id="@+id/memo_byte"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    style="@style/font_sm_12"
+                    android:text="0 /"
                     android:textColor="@color/color_base03"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/memo_max_byte"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" / 80 bytes"
-                    style="@style/font_sm_12"
+                    android:text=" 80"
                     android:textColor="@color/color_base03"
                     app:layout_constraintStart_toEndOf="@id/memo_byte"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/bytes_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" bytes"
+                    style="@style/font_sm_12"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintStart_toEndOf="@id/memo_max_byte"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button

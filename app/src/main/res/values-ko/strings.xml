@@ -177,6 +177,7 @@
     <string name="title_recipient_chain">수신 체인</string>
     <string name="title_to_send_asset">전송할 자산</string>
     <string name="title_memo">메모 (선택)</string>
+    <string name="title_bit_memo">OP_RETURN (선택)</string>
     <string name="title_select_recipient_chain">수신 체인 선택</string>
     <string name="title_insert_amount">수량 입력</string>
     <string name="title_fee_select">Tx 수수료로 사용할 코인 선택</string>

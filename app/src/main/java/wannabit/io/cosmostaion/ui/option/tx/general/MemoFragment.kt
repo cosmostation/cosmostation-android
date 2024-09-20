@@ -5,14 +5,17 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.KeyListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -78,12 +81,18 @@ class MemoFragment : BottomSheetDialogFragment() {
                         fromChain = it
                     }
                 }
+                binding.title.text = if (fromChain is ChainBitCoin84) {
+                    "OP_RETURN"
+                } else {
+                    "Memo"
+                }
                 binding.memoByte.visibleOrGone(fromChain is ChainBitCoin84)
                 binding.memoMaxByte.visibleOrGone(fromChain is ChainBitCoin84)
+                binding.bytesTxt.visibleOrGone(fromChain is ChainBitCoin84)
 
                 getString("memo")?.let { memo ->
                     val byteLength = memo.toByteArray(Charsets.UTF_8).size
-                    binding.memoByte.text = "$byteLength"
+                    binding.memoByte.text = "$byteLength" + " /"
                     text = Editable.Factory.getInstance().newEditable(memo)
                     setSelection(binding.memoTxt.text.toString().length)
                 }
@@ -92,24 +101,46 @@ class MemoFragment : BottomSheetDialogFragment() {
     }
 
     private fun initTextByte() {
+        val originalKeyListener: KeyListener? = binding.memoTxt.keyListener
+        var originalText = ""
+
         binding.apply {
             if (fromChain is ChainBitCoin84) {
                 memoTxt.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                    override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        originalText = s.toString()
+                    }
 
                     override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         val text = s.toString()
                         val byteLength = text.toByteArray(Charsets.UTF_8).size
-                        memoByte.text = "$byteLength"
+                        memoByte.text = "$byteLength" + " /"
                         isMemoConfirmed = byteLength < 80
                     }
 
                     override fun afterTextChanged(strEditable: Editable?) {
-                        val text = strEditable.toString()
-                        val byteLength = text.toByteArray(Charsets.UTF_8).size
                         strEditable?.let {
+                            val text = it.toString()
+                            val byteLength = text.toByteArray(Charsets.UTF_8).size
+
                             if (byteLength > 80) {
-                                it.delete(it.length - 2, strEditable.length - 1)
+                                memoTxt.keyListener = null
+                                it.replace(0, it.length, originalText)
+                                memoMaxByte.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_red
+                                    )
+                                )
+
+                            } else {
+                                memoMaxByte.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_base03
+                                    )
+                                )
+                                memoTxt.keyListener = originalKeyListener
                             }
                         }
                     }
