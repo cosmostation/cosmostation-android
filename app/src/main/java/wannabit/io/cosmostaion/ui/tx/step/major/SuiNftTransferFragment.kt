@@ -83,6 +83,7 @@ class SuiNftTransferFragment(
             chainImg.alpha = 0.2f
             memoView.visibility = View.GONE
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+            btnFee.visibility = View.GONE
 
             initToChain()
             initNft()

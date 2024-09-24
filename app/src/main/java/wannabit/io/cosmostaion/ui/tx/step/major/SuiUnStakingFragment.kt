@@ -69,6 +69,7 @@ class SuiUnStakingFragment(
                 )
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+            btnFee.visibility = View.GONE
             initFee()
             initValidatorView()
         }
