@@ -218,6 +218,7 @@
     <string name="title_support">Support</string>
     <string name="title_help" translatable="false">Help <![CDATA[ & ]]> Guide</string>
     <string name="title_homepage" translatable="false">Homepage</string>
+    <string name="title_notice">Notice</string>
     <string name="title_term">Term</string>
     <string name="title_privacy">Privacy</string>
     <string name="title_github" translatable="false">Github</string>

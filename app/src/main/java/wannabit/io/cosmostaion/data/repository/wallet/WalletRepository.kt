@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
@@ -129,6 +130,8 @@ interface WalletRepository {
     ): NetworkResult<JsonObject>
 
     suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun notice(): NetworkResult<NoticeResponse>
 
     // Sui
     suspend fun suiBalance(

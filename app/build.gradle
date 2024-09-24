@@ -194,4 +194,6 @@ dependencies {
     implementation 'io.coil-kt:coil-svg:1.2.0'
 
     implementation("androidx.javascriptengine:javascriptengine:1.0.0-beta01")
+
+    implementation 'io.noties.markwon:core:4.6.2'
 }
