@@ -115,7 +115,7 @@ class MemoFragment : BottomSheetDialogFragment() {
                         val text = s.toString()
                         val byteLength = text.toByteArray(Charsets.UTF_8).size
                         memoByte.text = "$byteLength" + " /"
-                        isMemoConfirmed = byteLength < 80
+                        isMemoConfirmed = byteLength <= 80
                     }
 
                     override fun afterTextChanged(strEditable: Editable?) {

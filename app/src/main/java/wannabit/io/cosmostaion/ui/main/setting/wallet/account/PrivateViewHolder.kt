@@ -4,14 +4,22 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.trustwallet.walletconnect.extensions.toHex
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
+import wannabit.io.cosmostaion.ui.main.defaultSet
 
 class PrivateViewHolder(
     val context: Context, private val binding: ItemPrivateBinding
@@ -26,6 +34,39 @@ class PrivateViewHolder(
             chainPrivateKey.text = "0x" + chain.privateKey?.toHex()
 
             chainLegacy.visibleOrGone(!chain.isDefault)
+
+            if (chain is ChainBitCoin84) {
+                chainLegacy.visibility = View.VISIBLE
+                chainName.maxWidth = 300
+                when (chain.accountKeyType.pubkeyType) {
+                    PubKeyType.BTC_NESTED_SEGWIT -> {
+                        chainLegacy.defaultSet()
+                        chainLegacy.text = "NESTED SEGWIT"
+                    }
+
+                    PubKeyType.BTC_LEGACY -> {
+                        chainLegacy.defaultSet()
+                        chainLegacy.text = "LEGACY"
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = "NATIVE SEGWIT"
+                    }
+                }
+
+            } else {
+                chainLegacy.defaultSet()
+                chainLegacy.text = context.getString(R.string.str_old)
+                chainLegacy.visibleOrGone(!chain.isDefault)
+                chainName.maxWidth = 500
+            }
 
             privateView.setOnLongClickListener { view ->
                 val scaleX = view.scaleX
