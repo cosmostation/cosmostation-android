@@ -189,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pending receive"
-                        android:textColor="@color/color_base02" />
+                        android:textColor="@color/color_base03" />
 
                     <TextView
                         android:id="@+id/pending"
@@ -200,7 +200,7 @@
                         android:ellipsize="middle"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:textColor="@color/color_base02" />
+                        android:textColor="@color/color_base03" />
 
                 </LinearLayout>
 

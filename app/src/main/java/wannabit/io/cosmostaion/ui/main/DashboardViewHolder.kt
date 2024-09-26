@@ -708,7 +708,7 @@ class DashboardViewHolder(
     }
 }
 
-private fun TextView.defaultSet() {
+fun TextView.defaultSet() {
     setBackgroundResource(R.drawable.round_box_deprecated)
     setTextColor(ContextCompat.getColorStateList(context, R.color.color_base02))
 }
