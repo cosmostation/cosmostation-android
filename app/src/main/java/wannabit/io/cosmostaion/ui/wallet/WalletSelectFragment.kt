@@ -133,7 +133,7 @@ class WalletSelectFragment : Fragment() {
                 account.apply {
                     allChains = allChains()
                     mainnetChains =
-                        allChains.filter { !it.isTestnet && it.isDefault || it.tag == "kava459" }
+                        allChains.filter { !it.isTestnet && it.isDefault || it.tag == "kava459" || it.apiName == "bitcoin" }
                             .toMutableList()
                     testnetChains = allChains.filter { it.isTestnet }.toMutableList()
                     withContext(Dispatchers.Main) {

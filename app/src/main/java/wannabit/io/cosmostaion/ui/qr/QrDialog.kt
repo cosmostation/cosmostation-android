@@ -174,7 +174,7 @@ class QrDialog(
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = if (selectedChain?.supportCosmos() == true) {
                     ClipData.newPlainText("address", selectedChain.address)
-                } else if (selectedChain is ChainSui) {
+                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
                     ClipData.newPlainText("address", selectedChain.mainAddress)
                 } else {
                     ClipData.newPlainText("address", selectedChain?.evmAddress)

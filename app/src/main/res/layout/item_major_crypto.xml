@@ -188,7 +188,7 @@
                         style="@style/font_sm_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pending receive"
+                        android:text="Pending balance"
                         android:textColor="@color/color_base03" />
 
                     <TextView

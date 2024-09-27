@@ -91,10 +91,16 @@ class EvmReceiveViewHolder(
             }
 
             receiveView.setOnClickListener {
+                val address = if (selectChain is ChainSui || selectChain is ChainBitCoin84) {
+                    selectChain.mainAddress
+                } else {
+                    selectChain.evmAddress
+                }
+
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address", selectChain.address
+                    "address", address
                 )
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)
