@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
+import wannabit.io.cosmostaion.ui.main.setting.NoticeActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.StyleFragment
 import wannabit.io.cosmostaion.ui.main.setting.general.DevDialogActivity
@@ -108,6 +109,7 @@ class SettingFragment : Fragment() {
                 bioView,
                 helpView,
                 homepageView,
+                noticeView,
                 termView,
                 privacyView,
                 githubView,
@@ -328,6 +330,13 @@ class SettingFragment : Fragment() {
                         Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
                     )
                 )
+            }
+
+            noticeView.setOnClickListener {
+                Intent(requireContext(), NoticeActivity::class.java).apply {
+                    startActivity(this)
+                    requireActivity().toMoveAnimation()
+                }
             }
 
             termView.setOnClickListener {
@@ -559,9 +568,15 @@ class SettingFragment : Fragment() {
                     val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
                     appLockCheckResultLauncher.launch(intent)
                     if (Build.VERSION.SDK_INT >= 34) {
-                        requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                        requireActivity().overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
                     } else {
-                        requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                        requireActivity().overridePendingTransition(
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                        )
                     }
                 }
                 setVibrate()
@@ -613,9 +628,13 @@ class SettingFragment : Fragment() {
         val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
         qrCodeResultLauncher.launch(intent)
         if (Build.VERSION.SDK_INT >= 34) {
-            requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+            requireActivity().overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
         } else {
-            requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+            requireActivity().overridePendingTransition(
+                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
         }
     }
 

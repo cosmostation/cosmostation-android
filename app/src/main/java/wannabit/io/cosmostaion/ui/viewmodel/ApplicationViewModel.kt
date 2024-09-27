@@ -225,6 +225,12 @@ class ApplicationViewModel(
 
     var txFetchedResult = SingleLiveEvent<String>()
 
+    val notifyTxResult = SingleLiveEvent<Unit>()
+
+    fun notifyTxEvent() {
+        notifyTxResult.call()
+    }
+
     private fun loadGrpcAuthData(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
@@ -1042,9 +1048,11 @@ class ApplicationViewModel(
                         val mempoolSpentTxoSum =
                             response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
 
-                        fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum).subtract(mempoolSpentTxoSum)
+                        fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum)
+                            .subtract(mempoolSpentTxoSum)
                             .max(
-                            BigDecimal.ZERO)
+                                BigDecimal.ZERO
+                            )
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
 

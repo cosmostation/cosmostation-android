@@ -185,8 +185,13 @@ class DappActivity : BaseActivity() {
             val filterIntentUri = Uri.parse(intent.getStringExtra("dappUrl").toString()) ?: null
             if (filterIntentUri.toString() != "null") {
                 if (filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_INTERNAL || filterIntentUri?.host == WC_URL_SCHEME_HOST_DAPP_EXTERNAL) {
-                    wcUrl = filterIntentUri.query
-                    dappWebView.loadUrl(filterIntentUri.query.toString())
+                    val query = filterIntentUri.query
+                    if (query?.contains("url") == true || query?.contains("uri") == true) {
+                        dappWebView.loadUrl(query.substringAfter("="))
+                    } else {
+                        wcUrl = filterIntentUri.query
+                        dappWebView.loadUrl(query.toString())
+                    }
                 } else {
                     dAppType = DAppType.DEEPLINK_WC2
                     connectWalletConnect(filterIntentUri?.query)
@@ -425,7 +430,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -439,7 +445,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -878,7 +885,8 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -895,7 +903,8 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -912,7 +921,8 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -1205,8 +1215,7 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1229,7 +1238,8 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1247,7 +1257,8 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1341,7 +1352,8 @@ class DappActivity : BaseActivity() {
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1362,7 +1374,8 @@ class DappActivity : BaseActivity() {
                     val params = messageJson.getJSONObject("params")
                     val signBundle =
                         signBundle(0, params.toString(), "sui_signAndExecuteTransactionBlock")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 approveSuiSignExecuteRequest(
@@ -1385,7 +1398,8 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "sui_signMessage")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()

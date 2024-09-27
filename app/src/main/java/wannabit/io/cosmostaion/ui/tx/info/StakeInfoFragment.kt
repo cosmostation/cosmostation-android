@@ -2,26 +2,23 @@ package wannabit.io.cosmostaion.ui.tx.info
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cosmos.staking.v1beta1.StakingProto
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
 import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class StakeInfoFragment : Fragment() {
 
@@ -30,9 +27,7 @@ class StakeInfoFragment : Fragment() {
 
     private lateinit var selectedChain: BaseChain
 
-    private lateinit var stakingInfoAdapter: StakingInfoAdapter
-
-    private var isClickable = true
+    private lateinit var stakingPagerAdapter: StakingPagerAdapter
 
     companion object {
         @JvmStatic
@@ -58,7 +53,6 @@ class StakeInfoFragment : Fragment() {
 
         initView()
         setUpClickAction()
-        setUpStakeInfo()
     }
 
     private fun initView() {
@@ -73,50 +67,38 @@ class StakeInfoFragment : Fragment() {
                 }
             }
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                val rewardAddress = selectedChain.cosmosFetcher?.rewardAddress ?: ""
-                var delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
-                val validators = selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
-                val unBondings = selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
-                    unBonding.entriesList.map { entry ->
-                        UnBondingEntry(unBonding.validatorAddress, entry)
-                    }
-                }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+            stakingPagerAdapter = StakingPagerAdapter(
+                requireActivity(), selectedChain
+            )
+            viewPager.adapter = stakingPagerAdapter
+            viewPager.offscreenPageLimit = 1
+            viewPager.isUserInputEnabled = false
+            tabLayout.bringToFront()
 
-                val cosmostationValAddress =
-                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-
-                val tempDelegations = delegations.toMutableList()
-                tempDelegations.sortWith { o1, o2 ->
-                    when {
-                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
-                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
-                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
-                        else -> 1
-                    }
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = when (position) {
+                    0 -> "Staking"
+                    else -> "Unstaking"
                 }
-                delegations = tempDelegations
+            }.attach()
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                val delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                val unBondings =
+                    selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                        unBonding.entriesList.map { entry ->
+                            UnBondingEntry(unBonding.validatorAddress, entry)
+                        }
+                    }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
 
                 withContext(Dispatchers.Main) {
                     if (delegations.isNotEmpty() || unBondings.isNotEmpty()) {
                         emptyStake.visibility = View.GONE
-                        recycler.visibility = View.VISIBLE
-
-                        stakingInfoAdapter = StakingInfoAdapter(
-                            selectedChain,
-                            rewardAddress,
-                            validators,
-                            delegations,
-                            unBondings,
-                            selectClickAction
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = stakingInfoAdapter
+                        stakingDataView.visibility = View.VISIBLE
 
                     } else {
                         emptyStake.visibility = View.VISIBLE
-                        recycler.visibility = View.GONE
+                        stakingDataView.visibility = View.GONE
                     }
                 }
             }
@@ -144,41 +126,22 @@ class StakeInfoFragment : Fragment() {
         }
     }
 
-    private val selectClickAction = object : StakingInfoAdapter.ClickListener {
-        override fun selectStakingAction(validator: StakingProto.Validator?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain, validator, null, OptionType.STAKE
-                )
-            )
+    class StakingPagerAdapter(
+        fragmentActivity: FragmentActivity, selectedChain: BaseChain
+    ) : FragmentStateAdapter(fragmentActivity) {
+        private val fragments = mutableListOf<Fragment>()
+
+        init {
+            fragments.add(StakingInfoFragment.newInstance(selectedChain))
+            fragments.add(UnStakingInfoFragment.newInstance(selectedChain))
         }
 
-        override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
-                )
-            )
+        override fun getItemCount(): Int {
+            return fragments.size
         }
-    }
 
-    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
-        if (isClickable) {
-            isClickable = false
-
-            bottomSheetDialogFragment.show(
-                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
-            )
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 300)
-        }
-    }
-
-    private fun setUpStakeInfo() {
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
-            initView()
+        override fun createFragment(position: Int): Fragment {
+            return fragments[position]
         }
     }
 

@@ -21,15 +21,10 @@ class UnstakingViewHolder(
         chain: BaseChain,
         validator: Validator,
         entry: UnBondingEntry,
-        cnt: Int,
-        position: Int,
         listener: StakingInfoAdapter.ClickListener
     ) {
         binding.apply {
             unstakingView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(position == 0)
-            headerCnt.text = cnt.toString()
-
             unstakingView.setOnClickListener {
                 listener.selectUnStakingCancelAction(entry)
             }

@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.MoonPay
+import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -72,6 +73,9 @@ interface MintscanApi {
 
     @GET("{chain}/eco_list.json")
     suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
+
+    @GET("v10/notice?include_content=true&flatform=MOBILE")
+    suspend fun notice(): NoticeResponse
 
     @GET("v10/{chain}/proxy/okx/account/{address}/txs")
     suspend fun evmHistory(

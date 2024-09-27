@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
@@ -529,6 +530,23 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             is NetworkResult.Error -> {
                 _ecoSystemErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private val _noticeErrorMessage = MutableLiveData<String>()
+    val noticeErrorMessage: LiveData<String> get() = _noticeErrorMessage
+
+    private var _noticeDataResult = MutableLiveData<NoticeResponse?>()
+    val noticeDataResult: LiveData<NoticeResponse?> get() = _noticeDataResult
+    fun notice() = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = walletRepository.notice()) {
+            is NetworkResult.Success -> {
+                _noticeDataResult.postValue(response.data)
+            }
+
+            is NetworkResult.Error -> {
+                _noticeErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }

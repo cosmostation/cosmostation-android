@@ -109,6 +109,7 @@ class SuiStakingFragment : BaseTxFragment() {
             }
             memoView.visibility = View.GONE
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+            btnFee.visibility = View.GONE
 
             initFee()
             (selectedChain as ChainSui).suiFetcher?.let { fetcher ->

@@ -71,6 +71,7 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -588,6 +589,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             ecoApi.ecoSystemInfo(chain)
+        }
+    }
+
+    override suspend fun notice(): NetworkResult<NoticeResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.notice()
         }
     }
 

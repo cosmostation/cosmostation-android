@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.setMonikerImg
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
 import java.math.BigDecimal
@@ -26,15 +25,10 @@ class StakingViewHolder(
         chain: BaseChain,
         validator: Validator,
         delegation: StakingProto.DelegationResponse,
-        cnt: Int,
-        position: Int,
         listener: StakingInfoAdapter.ClickListener
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
-            headerLayout.visibleOrGone(position == 0)
-            headerCnt.text = cnt.toString()
-
             delegationView.setOnClickListener {
                 listener.selectStakingAction(validator)
             }

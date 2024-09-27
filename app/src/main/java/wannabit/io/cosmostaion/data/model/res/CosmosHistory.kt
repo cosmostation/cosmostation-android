@@ -166,13 +166,14 @@ data class CosmosHistory(
                 if (msgType.contains("MsgSend")) {
                     val fromAddress = msgValue["from_address"].asString
                     val toAddress = msgValue["to_address"].asString
-                    result = if (toAddress == address) {
-                        c.getString(R.string.tx_receive)
-                    } else if (fromAddress == address) {
+                    result = if (fromAddress == address) {
                         c.getString(R.string.tx_send)
+                    } else if (toAddress == address) {
+                        c.getString(R.string.tx_receive)
                     } else {
                         c.getString(R.string.tx_transfer)
                     }
+
                 } else if (msgType.contains("MsgMultiSend")) {
                     result = c.getString(R.string.tx_multi_transfer)
                     for (input in msgValue.asJsonObject["inputs"].asJsonArray) {
@@ -805,15 +806,16 @@ data class CosmosHistory(
                                     denom =
                                         msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
                                 }
-                            }
 
-                            msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                                if (chain.address == receiverAddr) {
-                                    val amount =
-                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
-                                    totalAmount = totalAmount.add(amount)
-                                    denom =
-                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                            } ?: run {
+                                msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                                    if (chain.address == receiverAddr) {
+                                        val amount =
+                                            msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
+                                        totalAmount = totalAmount.add(amount)
+                                        denom =
+                                            msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                                    }
                                 }
                             }
                         }
