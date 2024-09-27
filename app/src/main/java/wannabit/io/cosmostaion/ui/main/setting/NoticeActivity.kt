@@ -64,11 +64,7 @@ class NoticeActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
-                toMoveBack()
-            }
-
-            btnChrome.setOnClickListener {
-
+                onBackPressed()
             }
         }
     }

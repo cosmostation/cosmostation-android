@@ -1067,7 +1067,7 @@
                         android:layout_width="@dimen/space_48"
                         android:layout_height="@dimen/space_48"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/icon_terms"
+                        android:src="@drawable/icon_notice"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

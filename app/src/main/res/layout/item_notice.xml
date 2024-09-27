@@ -32,7 +32,7 @@
 
                 <TextView
                     android:id="@+id/notice_title"
-                    style="@style/font_sb_16"
+                    style="@style/font_sb_14"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/space_25"
@@ -47,18 +47,17 @@
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
                     android:layout_marginEnd="@dimen/space_4"
-                    android:src="@drawable/icon_down"
+                    android:src="@drawable/icon_collapsed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/notice_created"
-                    style="@style/font_sm_11"
+                    style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_4"
-                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_6"
                     android:textColor="@color/color_base02"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/notice_type"
@@ -69,12 +68,12 @@
                     style="@style/font_sm_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:background="@drawable/round_box_deprecated"
+                    android:layout_marginTop="@dimen/space_6"
+                    android:background="@drawable/round_box_nft"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base02"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/notice_title" />
@@ -97,7 +96,7 @@
 
                 <TextView
                     android:id="@+id/notice_content"
-                    style="@style/font_sm_12"
+                    style="@style/font_sm_11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_15"

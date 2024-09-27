@@ -195,5 +195,6 @@ dependencies {
 
     implementation("androidx.javascriptengine:javascriptengine:1.0.0-beta01")
 
+    // markdown
     implementation 'io.noties.markwon:core:4.6.2'
 }
