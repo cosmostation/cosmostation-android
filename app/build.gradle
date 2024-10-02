@@ -30,18 +30,6 @@ android {
         renderscriptSupportModeEnabled true
     }
 
-    signingConfigs {
-        debug {
-            storeFile file('debug.keystore')
-        }
-        release {
-            storeFile file('eostartkeystore')
-            storePassword "dnjsjqlt034#"
-            keyAlias "key0"
-            keyPassword "dnjsjqlt034#"
-        }
-    }
-
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
@@ -56,7 +44,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectApiKey
             buildConfigField "String", "SKIP_API_KEY", skipApiKey
-            signingConfig signingConfigs.release
         }
     }
 

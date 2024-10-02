@@ -169,11 +169,7 @@ class EndPointViewHolder(
                 if (!url.endsWith("/")) {
                     url += "/"
                 }
-                url += if (chain.name.startsWith("G-Bridge") || chain.name.startsWith("Sentinel")) {
-                    "node_info"
-                } else {
-                    "cosmos/base/tendermint/v1beta1/node_info"
-                }
+                url += "cosmos/base/tendermint/v1beta1/node_info"
                 checkImg.visibleOrGone(
                     chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_LCD && chain.cosmosFetcher?.getLcd()
                         ?.contains(endpoint["url"].asString) == true

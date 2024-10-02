@@ -57,9 +57,6 @@ interface LcdApi {
     @GET("cosmos/base/tendermint/v1beta1/blocks/latest")
     suspend fun lcdNewLastHeightInfo(): JsonObject
 
-    @GET("/blocks/latest")
-    suspend fun lcdOldLastHeightInfo(): JsonObject
-
     @GET("ibc/core/channel/v1/channels/{channel}/ports/{port}/client_state")
     suspend fun lcdIbcClientInfo(
         @Path("channel") channel: String?, @Path("port") port: String?

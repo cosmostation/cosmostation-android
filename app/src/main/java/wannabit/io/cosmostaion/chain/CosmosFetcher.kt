@@ -19,7 +19,6 @@ import com.ibc.core.channel.v1.QueryProto.QueryChannelClientStateRequest
 import com.ibc.lightclients.tendermint.v1.TendermintProto
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -360,11 +359,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height
         } else {
-            if (chain is ChainGravityBridge) {
-                RetrofitInstance.lcdApi(chain).lcdOldLastHeightInfo().lastHeight()
-            } else {
-                RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
-            }
+            RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
         }
     }
 
