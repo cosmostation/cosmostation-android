@@ -116,6 +116,7 @@ class SettingFragment : Fragment() {
                 versionView,
                 devView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
+            noticeView.visibility = View.GONE
 
             updateWalletView()
             updateDefaultView()
