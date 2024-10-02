@@ -13,3 +13,6 @@ app/release/*
 /*/build/
 /captures
 .externalNativeBuild
+
+*.jks
+*.keystore
