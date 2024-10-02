@@ -166,7 +166,7 @@ class MajorCryptoFragment : Fragment() {
                                     )
                                 )
                             } else {
-                                requireContext().makeToast(R.string.error_not_enough_balance_to_send)
+                                requireContext().makeToast(R.string.error_pending_balance)
                                 return@setOnItemClickListener
                             }
                         }
