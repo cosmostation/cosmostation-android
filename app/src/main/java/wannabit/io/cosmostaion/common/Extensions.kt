@@ -35,6 +35,7 @@ import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.cosmos.base.v1beta1.CoinProto
+import com.cosmos.staking.v1beta1.StakingProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -795,5 +796,20 @@ fun jsonRpcResponse(rpcUrl: String, request: JsonRpcRequest): Response {
 
 fun CoinProto.DecCoin.getdAmount(): BigDecimal {
     return amount.toBigDecimal().movePointLeft(18).setScale(18, RoundingMode.DOWN)
+}
+
+fun StakingProto.Validator.isActiveValidator(chain: BaseChain): Boolean {
+    return if (chain.getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("interchain_provider_params") != null) {
+        val maxProviderConsensusCnt = chain.getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("interchain_provider_params")?.get("max_provider_consensus_validators")?.asString.toString().toInt()
+        val sortedValidators =
+            chain.cosmosFetcher()?.cosmosOriginValidators?.filter { it.status == StakingProto.BondStatus.BOND_STATUS_BONDED }
+                ?.sortedWith { o1, o2 ->
+                    o2.tokens.toDouble().compareTo(o1.tokens.toDouble())
+                }
+        sortedValidators?.indexOf(this)?.let { it < maxProviderConsensusCnt } ?: false
+
+    } else {
+        this.status == StakingProto.BondStatus.BOND_STATUS_BONDED
+    }
 }
 

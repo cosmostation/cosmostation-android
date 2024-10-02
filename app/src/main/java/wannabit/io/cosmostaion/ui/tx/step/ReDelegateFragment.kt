@@ -30,11 +30,11 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getdAmount
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.cosmos.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentRedelegateBinding
@@ -208,7 +208,13 @@ class ReDelegateFragment : BaseTxFragment() {
             fromValidator?.let { fromValidator ->
                 fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
                 fromMonikerName.text = fromValidator.description?.moniker
-                fromJailedImg.visibleOrGone(fromValidator.jailed)
+                val statusImage = when {
+                    fromValidator.jailed -> R.drawable.icon_jailed
+                    !fromValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                fromJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                fromJailedImg.setImageResource(statusImage)
             }
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->
@@ -228,7 +234,13 @@ class ReDelegateFragment : BaseTxFragment() {
             toValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
                 toMonikerName.text = toValidator.description?.moniker
-                toJailedImg.visibleOrGone(toValidator.jailed)
+                val statusImage = when {
+                    toValidator.jailed -> R.drawable.icon_jailed
+                    !toValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                toJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                toJailedImg.setImageResource(statusImage)
 
                 toValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                     .setScale(2, RoundingMode.DOWN).let {

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
@@ -9,6 +10,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTime
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.gapTime
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
@@ -31,7 +33,13 @@ class UnstakingViewHolder(
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
             moniker.text = validator.description?.moniker
-            jailedImg.visibleOrGone(validator.jailed)
+            val statusImage = when {
+                validator.jailed -> R.drawable.icon_jailed
+                !validator.isActiveValidator(chain) -> R.drawable.icon_inactive
+                else -> 0
+            }
+            jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+            jailedImg.setImageResource(statusImage)
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->

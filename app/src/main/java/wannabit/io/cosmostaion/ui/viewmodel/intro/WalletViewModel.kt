@@ -212,6 +212,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
 
+            chain.cosmosFetcher?.cosmosOriginValidators?.addAll(tempValidators)
+
             val dataTempValidators = tempValidators.toMutableList()
             dataTempValidators.sortWith { o1, o2 ->
                 when {

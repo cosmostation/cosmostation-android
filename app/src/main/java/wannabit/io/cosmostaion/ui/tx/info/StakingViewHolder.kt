@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
@@ -65,7 +66,7 @@ class StakingViewHolder(
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED) {
+            } else if (!validator.isActiveValidator(chain)) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_inactive)
             } else {

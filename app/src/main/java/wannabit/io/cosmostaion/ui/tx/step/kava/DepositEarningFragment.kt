@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -181,7 +182,7 @@ class DepositEarningFragment : BaseTxFragment() {
 
                 val statusImage = when {
                     validator.jailed -> R.drawable.icon_jailed
-                    validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED -> R.drawable.icon_inactive
+                    !validator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
                     else -> 0
                 }
                 jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE

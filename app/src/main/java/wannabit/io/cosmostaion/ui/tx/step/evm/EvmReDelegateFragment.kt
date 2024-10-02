@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -190,8 +191,15 @@ class EvmReDelegateFragment : BaseTxFragment() {
             fromValidator?.let { fromValidator ->
                 fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
                 fromMonikerName.text = fromValidator.description?.moniker
-                fromJailedImg.visibleOrGone(fromValidator.jailed)
+                val statusImage = when {
+                    fromValidator.jailed -> R.drawable.icon_jailed
+                    !fromValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                fromJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                fromJailedImg.setImageResource(statusImage)
             }
+
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val staked =
@@ -211,7 +219,13 @@ class EvmReDelegateFragment : BaseTxFragment() {
             toValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
                 toMonikerName.text = toValidator.description?.moniker
-                toJailedImg.visibleOrGone(toValidator.jailed)
+                val statusImage = when {
+                    toValidator.jailed -> R.drawable.icon_jailed
+                    !toValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                toJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                toJailedImg.setImageResource(statusImage)
 
                 toValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                     .setScale(2, RoundingMode.DOWN).let {

@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -187,7 +188,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
 
                 val statusImage = when {
                     validator.jailed -> R.drawable.icon_jailed
-                    validator.status != StakingProto.BondStatus.BOND_STATUS_BONDED -> R.drawable.icon_inactive
+                    !validator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
                     else -> 0
                 }
                 jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE

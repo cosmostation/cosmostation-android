@@ -44,6 +44,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     var cosmosRewards = mutableListOf<DistributionProto.DelegationDelegatorReward>()
     var rewardAddress: String? = ""
     var cosmosValidators = mutableListOf<StakingProto.Validator>()
+    var cosmosOriginValidators = mutableListOf<StakingProto.Validator>()
     var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
