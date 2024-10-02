@@ -799,15 +799,19 @@ fun CoinProto.DecCoin.getdAmount(): BigDecimal {
 }
 
 fun StakingProto.Validator.isActiveValidator(chain: BaseChain): Boolean {
-    return if (chain.getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("interchain_provider_params") != null) {
-        val maxProviderConsensusCnt = chain.getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("interchain_provider_params")?.get("max_provider_consensus_validators")?.asString.toString().toInt()
+    return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
+        val maxProviderConsensusCnt = chain.getInterchainProviderParams()?.get("max_provider_consensus_validators")?.asString.toString().toInt()
         val sortedValidators =
             chain.cosmosFetcher()?.cosmosOriginValidators?.filter { it.status == StakingProto.BondStatus.BOND_STATUS_BONDED }
                 ?.sortedWith { o1, o2 ->
                     o2.tokens.toDouble().compareTo(o1.tokens.toDouble())
                 }
-        sortedValidators?.indexOf(this)?.let { it < maxProviderConsensusCnt } ?: false
-
+        val index = sortedValidators?.indexOf(this) ?: -1
+        if (index != -1) {
+            index < maxProviderConsensusCnt
+        } else {
+            false
+        }
     } else {
         this.status == StakingProto.BondStatus.BOND_STATUS_BONDED
     }

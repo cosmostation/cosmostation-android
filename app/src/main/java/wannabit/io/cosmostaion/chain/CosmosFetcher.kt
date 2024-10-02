@@ -425,10 +425,11 @@ fun JsonObject.unDelegations(): MutableList<UnbondingDelegation> {
         val entries = mutableListOf<StakingProto.UnbondingDelegationEntry>()
         for (j in 0 until unBonding.asJsonObject["entries"].asJsonArray.size()) {
             val entry = unBonding.asJsonObject["entries"].asJsonArray[j]
+            val height = entry.asJsonObject["creation_height"].asString.toLong()
             entry.asJsonObject["completion_time"].asString?.let { date ->
                 val dpTime = dateToLong("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSX", date)
-                val time = Timestamp.newBuilder().setSeconds(dpTime).build()
-                val tempEntry = StakingProto.UnbondingDelegationEntry.newBuilder()
+                val time = Timestamp.newBuilder().setSeconds(dpTime / 1000).build()
+                val tempEntry = StakingProto.UnbondingDelegationEntry.newBuilder().setCreationHeight(height)
                     .setBalance(entry.asJsonObject["balance"].asString).setCompletionTime(time)
                     .build()
                 entries.add(tempEntry)

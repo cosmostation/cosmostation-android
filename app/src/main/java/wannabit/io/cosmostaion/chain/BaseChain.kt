@@ -413,6 +413,15 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getInterchainProviderParams(): JsonObject? {
+        return try {
+            getChainParam()?.getAsJsonObject("params")
+                ?.getAsJsonObject("interchain_provider_params") ?: JsonObject()
+        } catch (e: Exception) {
+            JsonObject()
+        }
+    }
+
     fun chainDappName(): String? {
         getChainListParam()?.get("name_for_dapp")?.let {
             return it.asString?.lowercase()
