@@ -219,7 +219,7 @@ fun FragmentActivity.toMoveFragment(
     this.supportFragmentManager.beginTransaction().setCustomAnimations(
         R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left
     ).add(R.id.fragment_container, moveFragment).hide(currentFragment).setReorderingAllowed(true)
-        .addToBackStack(stackName).commitAllowingStateLoss()
+        .addToBackStack(stackName).commit()
 }
 
 fun ImageView.setTokenImg(asset: Asset) {

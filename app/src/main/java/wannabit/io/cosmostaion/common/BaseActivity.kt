@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
@@ -48,16 +49,18 @@ open class BaseActivity : AppCompatActivity() {
         super.onStart()
         lifecycleScope.launch(Dispatchers.IO) {
             if (CosmostationApp.instance.needShowLockScreen() && Prefs.foreToBack) {
-                val intent = Intent(this@BaseActivity, AppLockActivity::class.java)
-                startActivity(intent)
-                if (Build.VERSION.SDK_INT >= 34) {
-                    overrideActivityTransition(
-                        Activity.OVERRIDE_TRANSITION_OPEN,
-                        R.anim.anim_slide_in_bottom,
-                        R.anim.anim_fade_out
-                    )
-                } else {
-                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@BaseActivity, AppLockActivity::class.java)
+                    startActivity(intent)
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                    }
                 }
             }
             Prefs.foreToBack = true
