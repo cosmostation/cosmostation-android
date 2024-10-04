@@ -538,6 +538,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAlthea118())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+//    chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
     chains.add(ChainAssetMantle())
     chains.add(ChainAxelar())
