@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants.BINANCE_BUY_URL
 import wannabit.io.cosmostaion.common.CosmostationConstants.EXPLORER_BASE_URL
@@ -113,7 +114,7 @@ class ServiceFragment : Fragment() {
 
             claimRewardsView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         handleOneClickWithDelay(
                             AllChainClaimFragment()
                         )
@@ -127,7 +128,7 @@ class ServiceFragment : Fragment() {
 
             compoundingView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         handleOneClickWithDelay(
                             AllChainCompoundingFragment()
                         )
@@ -141,7 +142,7 @@ class ServiceFragment : Fragment() {
 
             voteView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         handleOneClickWithDelay(
                             AllChainVoteFragment()
                         )

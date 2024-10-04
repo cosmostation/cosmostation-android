@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_STAKE
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -245,11 +246,11 @@ class SuiStakingInfoFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedChain.fetched) {
+            if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    selectedChain.fetched = false
+                    selectedChain.fetchState = FetchState.IDLE
                     ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, true, true)
                 }
             }
@@ -257,14 +258,14 @@ class SuiStakingInfoFragment : Fragment() {
     }
 
     private fun observeViewModels() {
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
-            if (selectedChain.fetched) {
+        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 updateView()
             }
         }
 
-        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) {
-            if (selectedChain.fetched) {
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
                 updateView()
             }
         }

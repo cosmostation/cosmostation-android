@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -134,34 +135,19 @@ class MajorNftFragment : Fragment() {
                 binding.recycler.suppressLayout(true)
             }
             BaseData.baseAccount?.let { account ->
-                suiAllNfts.clear()
-                selectedChain.fetched = false
-                ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false, true)
+                selectedChain.fetchState = FetchState.IDLE
+                ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
             }
         }
     }
 
     private fun setUpObserve() {
-        ApplicationViewModel.shared.refreshFetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag && selectedChain.fetched) {
-                if (selectedChain is ChainSui) {
-                    (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                        suiAllNfts.addAll(fetcher.suiAllNfts())
-                        updateView()
-                    }
-                }
-            }
-        }
-
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag && selectedChain.fetched) {
-                if (selectedChain is ChainSui) {
-                    (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                        if (suiAllNfts.isEmpty()) {
-                            suiAllNfts.addAll(fetcher.suiAllNfts())
-                            updateView()
-                        }
-                    }
+        ApplicationViewModel.shared.notifyTxResult.observe(viewLifecycleOwner) {
+            suiAllNfts.clear()
+            if (selectedChain is ChainSui) {
+                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                    suiAllNfts.addAll(fetcher.suiAllNfts())
+                    updateView()
                 }
             }
         }

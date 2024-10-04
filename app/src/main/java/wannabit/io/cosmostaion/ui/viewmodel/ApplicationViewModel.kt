@@ -19,6 +19,7 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -169,6 +170,7 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
+            fetchState = FetchState.BUSY
             cosmosFetcher()?.let {
                 if (supportCw20 || supportEvm) {
                     when (val response = walletRepository.token(this)) {
@@ -202,11 +204,10 @@ class ApplicationViewModel(
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit)
             } else {
-                if (supportEvm) {
-                    loadEvmChainData(this, baseAccountId, isEdit)
-                }
                 if (supportCosmos() && this !is ChainOktEvm) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
+                } else {
+                    loadEvmChainData(this, baseAccountId, isEdit)
                 }
             }
         }
@@ -235,21 +236,19 @@ class ApplicationViewModel(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            val channel = chain.cosmosFetcher?.getChannel()
+            val channel = cosmosFetcher?.getChannel()
             when (walletRepository.auth(channel, this)) {
                 is NetworkResult.Success -> {
-                    fetchedState = false
-                    withContext(Dispatchers.Main) {
-                        fetchedResult.value = tag
-                    }
-                    loadGrpcMoreData(channel, baseAccountId, chain, isEdit)
+                    loadGrpcMoreData(channel, baseAccountId, this, isEdit)
                 }
 
                 is NetworkResult.Error -> {
-                    val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
+                    val loadBalanceDeferred =
+                        async { walletRepository.balance(channel, this@apply) }
                     val loadRewardAddressDeferred =
-                        async { walletRepository.rewardAddress(channel, chain) }
-                    val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
+                        async { walletRepository.rewardAddress(channel, this@apply) }
+                    val loadFeeMarketDeferred =
+                        async { walletRepository.baseFee(channel, this@apply) }
 
                     val results = awaitAll(
                         loadBalanceDeferred, loadRewardAddressDeferred, loadFeeMarketDeferred
@@ -299,15 +298,14 @@ class ApplicationViewModel(
                         }
                     }
 
-                    fetchedState = false
-                    withContext(Dispatchers.Main) {
-                        fetchedResult.value = tag
-                    }
                     delay(2000)
+                    fetchState = if (cosmosFetcher?.cosmosBalances == null) {
+                        FetchState.FAIL
+                    } else {
+                        FetchState.SUCCESS
+                    }
 
-                    fetchedState = true
-                    fetched = true
-                    if (fetched) {
+                    if (fetchState == FetchState.SUCCESS) {
                         val refAddress = RefAddress(
                             baseAccountId,
                             tag,
@@ -319,12 +317,12 @@ class ApplicationViewModel(
                             0
                         )
                         BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
-                            }
+                    }
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
                         }
                     }
                 }
@@ -337,6 +335,51 @@ class ApplicationViewModel(
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             try {
+                if (supportEvm) {
+                    evmRpcFetcher()?.let { evmRpcFetcher ->
+                        val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
+                        val loadEvmBalanceDeferred =
+                            async { walletRepository.evmBalance(this@apply) }
+
+                        val tokenResult = loadEvmTokenDeferred.await()
+                        val balanceResult = loadEvmBalanceDeferred.await()
+
+                        if (tokenResult is NetworkResult.Success && tokenResult.data is MutableList<*> && tokenResult.data.all { it is Token }) {
+                            evmRpcFetcher.evmTokens = tokenResult.data
+                        }
+
+                        if (balanceResult is NetworkResult.Success && balanceResult.data is String) {
+                            web3j = Web3j.build(HttpService(evmRpcFetcher.getEvmRpc()))
+                            evmRpcFetcher.evmBalance = balanceResult.data.toBigDecimal()
+                        } else if (balanceResult is NetworkResult.Error) {
+                            web3j = null
+                        }
+
+                        if (web3j != null) {
+                            val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
+                                async { walletRepository.erc20Balance(this@apply, token) }
+                            }
+                            tokenBalanceDeferredList.awaitAll()
+
+                            val evmRefAddress = RefAddress(
+                                id,
+                                tag,
+                                address,
+                                evmAddress,
+                                "0",
+                                "0",
+                                evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                cosmosFetcher?.cosmosBalances?.count {
+                                    BaseData.getAsset(
+                                        apiName, it.denom
+                                    ) != null
+                                }?.toLong() ?: 0L
+                            )
+                            BaseData.updateRefAddressesToken(evmRefAddress)
+                        }
+                    }
+                }
+
                 val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
                 if (chain.supportStaking) {
                     val loadDelegationDeferred =
@@ -492,10 +535,14 @@ class ApplicationViewModel(
                     }
                 }
 
-                BaseUtils.onParseVesting(this)
-                fetchedState = true
-                fetched = true
-                if (fetched) {
+                fetchState = when {
+                    cosmosFetcher?.cosmosBalances == null -> FetchState.FAIL
+                    supportEvm && web3j == null -> FetchState.FAIL
+                    else -> FetchState.SUCCESS
+                }
+
+                if (fetchState == FetchState.SUCCESS) {
+                    BaseUtils.onParseVesting(this)
                     val refAddress = RefAddress(
                         id,
                         tag,
@@ -511,6 +558,7 @@ class ApplicationViewModel(
                         }?.toLong()
                     )
                     BaseData.updateRefAddressesMain(refAddress)
+                    coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
                     withContext(Dispatchers.Main) {
                         if (isEdit) {
                             editFetchedResult.value = tag
@@ -537,6 +585,7 @@ class ApplicationViewModel(
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
+                        tokenCnt = chain.cosmosFetcher()?.valueTokenCnt() ?: 0
                         withContext(Dispatchers.Main) {
                             if (isEdit) {
                                 editFetchedTokenResult.value = tag
@@ -547,6 +596,16 @@ class ApplicationViewModel(
                     }
 
                     fetchedTotalResult.postValue(tag)
+
+                } else if (fetchState == FetchState.FAIL) {
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                            txFetchedResult.value = tag
+                        }
+                    }
                 }
 
             } finally {
@@ -618,103 +677,85 @@ class ApplicationViewModel(
                     }
 
                     if (this is ChainOktEvm) {
-                        fetched = true
-                        if (fetched) {
-                            if (oktFetcher()?.oktAccountInfo?.isJsonNull != true) {
-                                val refAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    evmAddress,
-                                    oktFetcher?.allAssetValue(true).toString(),
-                                    evmRpcFetcher.evmBalance.toString(),
-                                    "0",
-                                    oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                                        ?.toLong()
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                withContext(Dispatchers.Main) {
-                                    if (isEdit) {
-                                        editFetchedResult.value = tag
-                                    } else {
-                                        fetchedResult.value = tag
-                                    }
-                                }
-
-                                val tokenBalanceDeferredList =
-                                    evmRpcFetcher.evmTokens.map { token ->
-                                        async { walletRepository.erc20Balance(chain, token) }
-                                    }
-
-                                tokenBalanceDeferredList.awaitAll()
-                                val evmRefAddress = RefAddress(
-                                    baseAccountId,
-                                    tag,
-                                    address,
-                                    evmAddress,
-                                    "0",
-                                    "0",
-                                    evmRpcFetcher.allTokenValue(true).toPlainString(),
-                                    0
-                                )
-                                BaseData.updateRefAddressesToken(evmRefAddress)
-                                withContext(Dispatchers.Main) {
-                                    if (isEdit) {
-                                        editFetchedTokenResult.value = tag
-                                    } else {
-                                        fetchedTokenResult.value = tag
-                                    }
-                                }
-                                fetchedTotalResult.postValue(tag)
-
+                        fetchState =
+                            if (web3j == null || oktFetcher()?.oktAccountInfo?.isJsonNull == true) {
+                                FetchState.FAIL
                             } else {
-                                val refAddress = RefAddress(
-                                    baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
-                                )
-                                BaseData.updateRefAddressesMain(refAddress)
-                                withContext(Dispatchers.Main) {
-                                    if (isEdit) {
-                                        editFetchedResult.value = tag
-                                    } else {
-                                        fetchedResult.value = tag
-                                    }
+                                FetchState.SUCCESS
+                            }
+
+                        if (fetchState == FetchState.SUCCESS) {
+                            val refAddress = RefAddress(
+                                baseAccountId,
+                                tag,
+                                address,
+                                evmAddress,
+                                oktFetcher?.allAssetValue(true).toString(),
+                                evmRpcFetcher.evmBalance.toString(),
+                                "0",
+                                oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                                    ?.toLong()
+                            )
+                            BaseData.updateRefAddressesMain(refAddress)
+                            coinCnt =
+                                oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                                    ?: 0
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                }
+                            }
+
+                            val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
+                                async { walletRepository.erc20Balance(chain, token) }
+                            }
+
+                            tokenBalanceDeferredList.awaitAll()
+                            val evmRefAddress = RefAddress(
+                                baseAccountId,
+                                tag,
+                                address,
+                                evmAddress,
+                                "0",
+                                "0",
+                                evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                0
+                            )
+                            BaseData.updateRefAddressesToken(evmRefAddress)
+                            tokenCnt = evmRpcFetcher.valueTokenCnt()
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedTokenResult.value = tag
+                                } else {
+                                    fetchedTokenResult.value = tag
+                                }
+                            }
+                            fetchedTotalResult.postValue(tag)
+
+                        } else {
+                            val refAddress = RefAddress(
+                                baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
+                            )
+                            BaseData.updateRefAddressesMain(refAddress)
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
                                 }
                             }
                         }
-
-                    } else if (supportCosmos()) {
-                        val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
-                            async { walletRepository.erc20Balance(this@apply, token) }
-                        }
-
-                        tokenBalanceDeferredList.awaitAll()
-                        val evmRefAddress = RefAddress(
-                            baseAccountId,
-                            tag,
-                            address,
-                            evmAddress,
-                            "0",
-                            "0",
-                            evmRpcFetcher.allTokenValue(true).toPlainString(),
-                            cosmosFetcher?.cosmosBalances?.count {
-                                BaseData.getAsset(
-                                    apiName, it.denom
-                                ) != null
-                            }?.toLong() ?: 0L
-                        )
-                        BaseData.updateRefAddressesToken(evmRefAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedTokenResult.value = tag
-                            } else {
-                                fetchedTokenResult.value = tag
-                            }
-                        }
-                        fetchedTotalResult.postValue(tag)
 
                     } else {
-                        fetched = true
-                        if (fetched) {
+                        fetchState = if (web3j != null) {
+                            FetchState.SUCCESS
+                        } else {
+                            FetchState.FAIL
+                        }
+
+                        if (fetchState == FetchState.SUCCESS) {
                             val refAddress = RefAddress(
                                 baseAccountId,
                                 tag,
@@ -726,6 +767,7 @@ class ApplicationViewModel(
                                 if (BigDecimal.ZERO >= evmRpcFetcher.evmBalance) 0 else 1
                             )
                             BaseData.updateRefAddressesMain(refAddress)
+                            coinCnt = evmRpcFetcher.valueCoinCnt()
                             withContext(Dispatchers.Main) {
                                 if (isEdit) {
                                     editFetchedResult.value = tag
@@ -758,6 +800,21 @@ class ApplicationViewModel(
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
+                            tokenCnt = if (Prefs.getDisplayErc20s(baseAccountId, chain.tag) != null) {
+                                Prefs.getDisplayErc20s(baseAccountId, chain.tag)?.size.toString().toInt()
+                            } else {
+                                evmRpcFetcher.valueTokenCnt()
+                            }
+                            withContext(Dispatchers.Main) {
+                                if (isEdit) {
+                                    editFetchedTokenResult.value = tag
+                                } else {
+                                    fetchedTokenResult.value = tag
+                                }
+                            }
+                            fetchedTotalResult.postValue(tag)
+
+                        } else {
                             withContext(Dispatchers.Main) {
                                 if (isEdit) {
                                     editFetchedTokenResult.value = tag
@@ -803,47 +860,46 @@ class ApplicationViewModel(
                     oktFetcher()?.oktTokens = tokenResult.data
                 }
 
-                fetchedState = false
-                withContext(Dispatchers.Main) {
-                    fetchedResult.value = tag
+                fetchState = if (oktFetcher()?.oktAccountInfo?.isJsonNull == true) {
+                    FetchState.FAIL
+                } else {
+                    FetchState.SUCCESS
                 }
-                delay(2000)
 
-                fetchedState = true
-                fetched = true
-                if (fetched) {
-                    if (oktFetcher()?.oktAccountInfo?.isJsonNull != true) {
-                        val refAddress = RefAddress(
-                            baseAccountId,
-                            tag,
-                            address,
-                            evmAddress,
-                            oktFetcher?.allAssetValue(true).toString(),
-                            oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
-                            "0",
-                            oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                                ?.toLong()
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
-                            }
+                if (fetchState == FetchState.SUCCESS) {
+                    val refAddress = RefAddress(
+                        baseAccountId,
+                        tag,
+                        address,
+                        evmAddress,
+                        oktFetcher?.allAssetValue(true).toString(),
+                        oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
+                        "0",
+                        oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                            ?.toLong()
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    coinCnt =
+                        oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                            ?: 0
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
                         }
+                    }
 
-                    } else {
-                        val refAddress = RefAddress(
-                            baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
-                            }
+                } else {
+                    val refAddress = RefAddress(
+                        baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
                         }
                     }
                 }
@@ -852,7 +908,7 @@ class ApplicationViewModel(
     }
 
     fun loadSuiData(
-        id: Long, chain: BaseChain, isEdit: Boolean, isRefresh: Boolean? = false
+        id: Long, chain: BaseChain, isEdit: Boolean, isStake: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         (chain as ChainSui).suiFetcher()?.let { fetcher ->
             chain.apply {
@@ -961,62 +1017,41 @@ class ApplicationViewModel(
                         }
                     }
 
-                    fetchedState = false
-                    withContext(Dispatchers.Main) {
-                        fetchedResult.value = tag
-                    }
-                    delay(2000)
+                    fetchState = FetchState.SUCCESS
+                    val refAddress = RefAddress(
+                        id,
+                        tag,
+                        mainAddress,
+                        "",
+                        fetcher.allAssetValue(true).toString(),
+                        fetcher.suiBalanceAmount(SUI_MAIN_DENOM).toString(),
+                        "0",
+                        fetcher.suiBalances.size.toLong()
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    coinCnt = fetcher.suiBalances.size
 
-                    fetchedState = true
-                    fetched = true
-                    if (fetched) {
-                        fetcher.suiState = true
-                        val refAddress = RefAddress(
-                            id,
-                            tag,
-                            mainAddress,
-                            "",
-                            fetcher.allAssetValue(true).toString(),
-                            fetcher.suiBalanceAmount(SUI_MAIN_DENOM).toString(),
-                            "0",
-                            fetcher.suiBalances.size.toLong()
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-                        withContext(Dispatchers.Main) {
-                            if (isEdit && isRefresh == true) {
-                                refreshStakingInfoFetchedResult.value = tag
-                            } else if (isEdit) {
-                                editFetchedResult.value = tag
-                            } else if (isRefresh == true) {
-                                refreshFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
-                                txFetchedResult.value = tag
-                            }
+                    withContext(Dispatchers.Main) {
+                        if (isEdit && isStake == true) {
+                            refreshStakingInfoFetchedResult.value = tag
+                        } else if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                            txFetchedResult.value = tag
                         }
                     }
 
                 } catch (e: Exception) {
-                    fetchedState = false
+                    fetchState = FetchState.FAIL
                     withContext(Dispatchers.Main) {
-                        fetchedResult.value = tag
-                    }
-                    delay(2000)
-
-                    fetchedState = true
-                    fetched = true
-                    if (fetched) {
-                        fetcher.suiState = false
-                        withContext(Dispatchers.Main) {
-                            if (isEdit && isRefresh == true) {
-                                refreshStakingInfoFetchedResult.value = tag
-                            } else if (isEdit) {
-                                editFetchedResult.value = tag
-                            } else if (isRefresh == true) {
-                                refreshFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
-                            }
+                        if (isEdit && isStake == true) {
+                            refreshStakingInfoFetchedResult.value = tag
+                        } else if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                            txFetchedResult.value = tag
                         }
                     }
                 }
@@ -1037,7 +1072,7 @@ class ApplicationViewModel(
                     is NetworkResult.Success -> {
                         val address = response.data["address"].asString
                         if (address.uppercase() != chain.mainAddress.uppercase()) {
-                            fetcher.bitState = false
+                            fetchState = FetchState.FAIL
                         }
                         val chainFundedTxoSum =
                             response.data["chain_stats"].asJsonObject["funded_txo_sum"].asLong.toBigDecimal()
@@ -1049,63 +1084,44 @@ class ApplicationViewModel(
                             response.data["mempool_stats"].asJsonObject["spent_txo_sum"].asLong.toBigDecimal()
 
                         fetcher.btcBalances = chainFundedTxoSum.subtract(chainSpentTxoSum)
-                            .subtract(mempoolSpentTxoSum)
-                            .max(
+                            .subtract(mempoolSpentTxoSum).max(
                                 BigDecimal.ZERO
                             )
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
 
-                        fetchedState = false
-                        withContext(Dispatchers.Main) {
-                            fetchedResult.value = tag
-                        }
-                        delay(2000)
+                        fetchState = FetchState.SUCCESS
+                        val refAddress = RefAddress(
+                            id,
+                            tag,
+                            mainAddress,
+                            "",
+                            fetcher.allAssetValue(true).toString(),
+                            "0",
+                            "0",
+                            if (fetcher.btcBalances == BigDecimal.ZERO && fetcher.btcPendingInput == BigDecimal.ZERO) 0 else 1
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+                        coinCnt = if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
 
-                        fetchedState = true
-                        fetched = true
-                        if (fetched) {
-                            fetcher.bitState = true
-                            val refAddress = RefAddress(
-                                id,
-                                tag,
-                                mainAddress,
-                                "",
-                                fetcher.allAssetValue(true).toString(),
-                                "0",
-                                "0",
-                                if (fetcher.btcBalances == BigDecimal.ZERO && fetcher.btcPendingInput == BigDecimal.ZERO) 0 else 1
-                            )
-                            BaseData.updateRefAddressesMain(refAddress)
-                            withContext(Dispatchers.Main) {
-                                if (isEdit) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
-                                    txFetchedResult.value = tag
-                                }
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                                txFetchedResult.value = tag
                             }
                         }
                     }
 
                     is NetworkResult.Error -> {
-                        fetchedState = false
+                        fetchState = FetchState.FAIL
                         withContext(Dispatchers.Main) {
-                            fetchedResult.value = tag
-                        }
-                        delay(2000)
-
-                        fetchedState = true
-                        fetched = true
-                        if (fetched) {
-                            fetcher.bitState = false
-                            withContext(Dispatchers.Main) {
-                                if (isEdit) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
-                                    txFetchedResult.value = tag
-                                }
+                            if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                                txFetchedResult.value = tag
                             }
                         }
                     }

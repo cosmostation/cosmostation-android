@@ -90,6 +90,14 @@ open class CosmosFetcher(private val chain: BaseChain) {
             .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
     }
 
+    fun valueCoinCnt(): Int {
+        return cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
+    }
+
+    fun valueTokenCnt(): Int {
+        return tokens.count { BigDecimal.ZERO <= it.amount?.toBigDecimal() }
+    }
+
     fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances?.isNotEmpty() == true) {
             return cosmosBalances?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()

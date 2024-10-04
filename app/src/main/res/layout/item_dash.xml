@@ -155,7 +155,7 @@
                     android:id="@+id/skeleton_asset_cnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_value"
+                    android:layout_below="@+id/skeleton_chain_value"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/space_5"
                     android:layout_marginEnd="@dimen/space_10"

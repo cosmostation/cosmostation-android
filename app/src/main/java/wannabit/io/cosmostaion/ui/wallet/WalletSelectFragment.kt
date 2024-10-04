@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -190,7 +191,7 @@ class WalletSelectFragment : Fragment() {
                             }
                         }
 
-                        if (!chain.fetched) {
+                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
                             if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
                                 walletViewModel.balance(chain)
                             } else {
@@ -210,8 +211,8 @@ class WalletSelectFragment : Fragment() {
                             }
                         }
 
-                        if (!chain.fetched) {
-                            if (chain.isEvmCosmos() || chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
+                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

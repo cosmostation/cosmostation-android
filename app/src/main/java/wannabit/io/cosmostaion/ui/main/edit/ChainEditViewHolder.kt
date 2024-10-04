@@ -7,27 +7,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.database.AppDatabase
-import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
-import java.math.BigDecimal
 
 class ChainEditViewHolder(
     val context: Context, private val binding: ItemEditBinding
@@ -80,7 +70,11 @@ class ChainEditViewHolder(
 
                     else -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
-                        chainLegacy.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
                         chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
@@ -111,161 +105,52 @@ class ChainEditViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
-            } else if (chain.supportCosmos()) {
-                chainAddress.text = chain.address
-                chainAddress.visibility = View.VISIBLE
-                chainEvmAddress.visibility = View.GONE
-
-                handler.removeCallbacks(starEvmAddressAnimation)
-
-            } else if (chain.supportEvm) {
-                chainAddress.text = chain.evmAddress
-                chainAddress.visibility = View.VISIBLE
-                chainEvmAddress.visibility = View.GONE
-
-                handler.removeCallbacks(starEvmAddressAnimation)
-
             } else {
-                chainAddress.text = chain.mainAddress
+                chainAddress.text = if (chain.supportCosmos()) {
+                    chain.address
+                } else if (chain.supportEvm) {
+                    chain.evmAddress
+                } else {
+                    chain.mainAddress
+                }
+
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
-
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.fetched) {
-                skeletonChainValue.visibility = View.GONE
-                skeletonAssetCnt.visibility = View.GONE
+            when (chain.fetchState) {
+                FetchState.SUCCESS -> {
+                    skeletonChainValue.visibility = View.GONE
+                    skeletonAssetCnt.visibility = View.GONE
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.VISIBLE
+                    assetCnt.visibility = View.VISIBLE
 
-                if (chain is ChainBitCoin84) {
-                    if (chain.btcFetcher?.bitState == false) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
-                    }
-
-                } else if (chain is ChainSui) {
-                    if (chain.suiFetcher?.suiState == false) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
-                    }
-
-                } else if (!chain.supportCosmos()) {
-                    if (chain.web3j == null) {
-                        respondLayout.visibility = View.VISIBLE
-                        chainValue.visibility = View.GONE
-                        assetCnt.visibility = View.GONE
-                        return
-                    }
-
-                } else {
-                    if (chain.supportEvm) {
-                        if (chain is ChainOktEvm) {
-                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
-
+                    chainValue.text = formatAssetValue(chain.allValue(true), true)
+                    val coinCntString = chain.coinCnt.toString() + " Coins"
+                    val tokenCnt = chain.tokenCnt
+                    assetCnt.text = if (tokenCnt > 0) {
+                        "$tokenCnt Tokens, $coinCntString"
                     } else {
-                        if (chain is ChainOkt996Keccak) {
-                            if (chain.oktFetcher?.oktAccountInfo?.isJsonNull == true) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-
-                        } else {
-                            if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                respondLayout.visibility = View.VISIBLE
-                                chainValue.visibility = View.GONE
-                                assetCnt.visibility = View.GONE
-                                return
-                            }
-                        }
+                        coinCntString
                     }
                 }
-                respondLayout.visibility = View.GONE
-                chainValue.visibility = View.VISIBLE
-                assetCnt.visibility = View.VISIBLE
 
-                chainValue.text = formatAssetValue(chain.allValue(true), true)
-                if (chain is ChainBitCoin84) {
-                    val cnt =
-                        if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
-                    assetCnt.text = "$cnt Coins"
+                FetchState.FAIL -> {
+                    skeletonChainValue.visibility = View.GONE
+                    skeletonAssetCnt.visibility = View.GONE
+                    respondLayout.visibility = View.VISIBLE
+                    chainValue.visibility = View.GONE
+                    assetCnt.visibility = View.GONE
+                }
 
-                } else if (chain is ChainSui) {
-                    assetCnt.text = chain.suiFetcher?.suiBalances?.size.toString() + " Coins"
-
-                } else if (chain is ChainOkt996Keccak) {
-                    assetCnt.text =
-                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
-                            "coins"
-                        )?.asJsonArray?.size().toString() + " Coins"
-
-                } else if (chain.supportCosmos()) {
-                    val coinCntString = if (chain is ChainOktEvm) {
-                        chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
-                            "coins"
-                        )?.asJsonArray?.size().toString() + " Coins"
-                    } else {
-                        (chain.cosmosFetcher?.cosmosBalances?.count {
-                            BaseData.getAsset(
-                                chain.apiName, it.denom
-                            ) != null
-                        } ?: 0).toString() + " Coins"
-                    }
-
-                    if (chain.supportCw20) {
-                        val tokenCnt =
-                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                        if (tokenCnt == 0) {
-                            assetCnt.text = coinCntString
-                        } else {
-                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                        }
-
-                    } else if (chain.supportEvm) {
-                        val tokenCnt =
-                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                        if (tokenCnt == 0) {
-                            assetCnt.text = coinCntString
-                        } else {
-                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                        }
-
-                    } else {
-                        assetCnt.text = coinCntString
-                    }
-
-                } else {
-                    val coinCnt =
-                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
-                    val tokenCnt = if (Prefs.getDisplayErc20s(baseAccount.id, chain.tag) != null) {
-                        Prefs.getDisplayErc20s(baseAccount.id, chain.tag)?.size
-                    } else {
-                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                    }
-                    if (tokenCnt == 0) {
-                        assetCnt.text = coinCnt
-                    } else {
-                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
-                    }
+                else -> {
+                    skeletonChainValue.visibility = View.VISIBLE
+                    skeletonAssetCnt.visibility = View.VISIBLE
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.GONE
+                    assetCnt.visibility = View.GONE
                 }
             }
         }
@@ -297,7 +182,11 @@ class ChainEditViewHolder(
 
                     else -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
-                        chainLegacy.setTextColor(ContextCompat.getColorStateList(context, R.color.color_base01))
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
                         chainLegacy.text = "NATIVE SEGWIT"
                     }
                 }
@@ -339,83 +228,39 @@ class ChainEditViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                AppDatabase.getInstance().refAddressDao()
-                    .selectRefAddress(baseAccount.id, chain.tag)?.let { refAddress ->
-                        withContext(Dispatchers.Main) {
-                            if (chain.fetched) {
-                                skeletonChainValue.visibility = View.GONE
-                                skeletonAssetCnt.visibility = View.GONE
+            when (chain.fetchState) {
+                FetchState.SUCCESS -> {
+                    skeletonChainValue.visibility = View.GONE
+                    skeletonAssetCnt.visibility = View.GONE
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.VISIBLE
+                    assetCnt.visibility = View.VISIBLE
 
-                                if (chain is ChainBitCoin84) {
-                                    if (chain.btcFetcher?.bitState == false) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-
-                                } else if (chain.isEvmCosmos()) {
-                                    if (chain.cosmosFetcher?.cosmosBalances == null || chain.web3j == null) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-
-                                } else {
-                                    if (chain.cosmosFetcher?.cosmosBalances == null) {
-                                        respondLayout.visibility = View.VISIBLE
-                                        chainValue.visibility = View.GONE
-                                        assetCnt.visibility = View.GONE
-                                        return@withContext
-                                    }
-                                }
-
-                                if (chain is ChainBitCoin84) {
-                                    val cnt =
-                                        if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) "0" else "1"
-                                    assetCnt.text = "$cnt Coins"
-
-                                } else if (chain.supportCosmos()) {
-                                    val coinCntString = refAddress.lastCoinCnt.toString() + " Coins"
-                                    if (chain.supportCw20) {
-                                        val tokenCnt =
-                                            chain.cosmosFetcher?.tokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                        if (tokenCnt == 0) {
-                                            assetCnt.text = coinCntString
-                                        } else {
-                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                                        }
-
-                                    } else if (chain.supportEvm) {
-                                        val tokenCnt =
-                                            chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                        if (tokenCnt == 0) {
-                                            assetCnt.text = coinCntString
-                                        } else {
-                                            assetCnt.text = "$tokenCnt Tokens, $coinCntString"
-                                        }
-
-                                    } else {
-                                        assetCnt.text = coinCntString
-                                    }
-
-                                } else {
-                                    val coinCnt =
-                                        if (BigDecimal.ZERO >= chain.evmRpcFetcher?.evmBalance) "0" + " Coins" else "1" + " Coins"
-                                    val tokenCnt =
-                                        chain.evmRpcFetcher?.evmTokens?.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
-                                    if (tokenCnt == 0) {
-                                        assetCnt.text = coinCnt
-                                    } else {
-                                        assetCnt.text = "$tokenCnt Tokens, $coinCnt"
-                                    }
-                                }
-                                chainValue.text = formatAssetValue(chain.allValue(true), true)
-                            }
-                        }
+                    chainValue.text = formatAssetValue(chain.allValue(true), true)
+                    val coinCntString = chain.coinCnt.toString() + " Coins"
+                    val tokenCnt = chain.tokenCnt
+                    assetCnt.text = if (tokenCnt > 0) {
+                        "$tokenCnt Tokens, $coinCntString"
+                    } else {
+                        coinCntString
                     }
+                }
+
+                FetchState.FAIL -> {
+                    skeletonChainValue.visibility = View.GONE
+                    skeletonAssetCnt.visibility = View.GONE
+                    respondLayout.visibility = View.VISIBLE
+                    chainValue.visibility = View.GONE
+                    assetCnt.visibility = View.GONE
+                }
+
+                else -> {
+                    skeletonChainValue.visibility = View.VISIBLE
+                    skeletonAssetCnt.visibility = View.VISIBLE
+                    respondLayout.visibility = View.GONE
+                    chainValue.visibility = View.GONE
+                    assetCnt.visibility = View.GONE
+                }
             }
         }
     }

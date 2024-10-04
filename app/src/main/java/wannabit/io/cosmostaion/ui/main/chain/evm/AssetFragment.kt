@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -192,7 +193,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedEvmChain.fetched) {
+            if (selectedEvmChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
@@ -211,14 +212,14 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             }
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
-            if (selectedEvmChain.fetched) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedEvmChain.tag == tag) {
                 sortAssets()
             }
         }
 
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-            if (selectedEvmChain.tag == it) {
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedEvmChain.tag == tag) {
                 sortAssets()
             }
         }

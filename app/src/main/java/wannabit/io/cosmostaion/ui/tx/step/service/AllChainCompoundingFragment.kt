@@ -33,6 +33,7 @@ import kotlinx.coroutines.withContext
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.accountInfos
 import wannabit.io.cosmostaion.chain.accountNumber
 import wannabit.io.cosmostaion.chain.sequence
@@ -93,7 +94,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         account.sortedDisplayChains().filter { !it.isTestnet && it.supportCosmos() }
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()

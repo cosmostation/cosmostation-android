@@ -20,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -222,7 +223,7 @@ class MainActivity : BaseActivity() {
 
             accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -235,7 +236,7 @@ class MainActivity : BaseActivity() {
 
             accountName.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -276,7 +277,7 @@ class MainActivity : BaseActivity() {
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) {
             BaseData.baseAccount?.sortedDisplayChains()?.forEach {
-                it.fetched = false
+                it.fetchState = FetchState.IDLE
             }
 
             val mainViewPagerAdapter = MainViewPageAdapter(this)

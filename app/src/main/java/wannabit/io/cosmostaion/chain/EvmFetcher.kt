@@ -47,6 +47,14 @@ class EvmFetcher(chain: BaseChain) {
         return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
     }
 
+    fun valueCoinCnt(): Int {
+        return if (evmBalance > BigDecimal.ZERO) 1 else 0
+    }
+
+    fun valueTokenCnt(): Int {
+        return evmTokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    }
+
     fun getEvmRpc(): String {
         val endpoint = Prefs.getEvmRpcEndpoint(chain)
         return if (endpoint?.isNotEmpty() == true) {

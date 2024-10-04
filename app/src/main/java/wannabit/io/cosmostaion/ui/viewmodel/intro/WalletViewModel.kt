@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -249,22 +250,19 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 is NetworkResult.Success -> {
                     chain.evmRpcFetcher?.evmBalance = response.data.toBigDecimal()
                     chain.web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
-                    chain.fetched = true
-                    if (chain.fetched) {
-                        withContext(Dispatchers.Main) {
-                            _balanceResult.value = chain.tag
-                        }
+                    chain.fetchState = FetchState.SUCCESS
+                    chain.coinCnt = chain.evmRpcFetcher?.valueCoinCnt() ?: 0
+                    withContext(Dispatchers.Main) {
+                        _balanceResult.value = chain.tag
                     }
                 }
 
                 is NetworkResult.Error -> {
                     chain.evmRpcFetcher?.evmBalance = BigDecimal.ZERO
                     chain.web3j = null
-                    chain.fetched = true
-                    if (chain.fetched) {
-                        withContext(Dispatchers.Main) {
-                            _balanceResult.value = chain.tag
-                        }
+                    chain.fetchState = FetchState.FAIL
+                    withContext(Dispatchers.Main) {
+                        _balanceResult.value = chain.tag
                     }
                 }
             }
@@ -280,7 +278,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             is NetworkResult.Success -> {
                                 val address = response.data["address"].asString
                                 if (address.uppercase() != chain.mainAddress.uppercase()) {
-                                    fetcher.bitState = false
+                                    fetchState = FetchState.FAIL
                                 }
 
                                 val chainFundedTxoSum =
@@ -299,24 +297,17 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 fetcher.btcPendingInput = mempoolFundedTxoSum
                                 fetcher.btcPendingOutput = mempoolSpentTxoSum
 
-                                chain.fetched = true
-                                if (chain.fetched) {
-                                    fetcher.bitState = true
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
 
                             is NetworkResult.Error -> {
-                                chain.fetched = true
-                                if (fetched) {
-                                    fetcher.bitState = false
-                                    withContext(Dispatchers.Main) {
-                                        withContext(Dispatchers.Main) {
-                                            _balanceResult.value = chain.tag
-                                        }
-                                    }
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
                         }
@@ -344,24 +335,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         else -> 0
                                     }
                                 }
-                                chain.fetched = true
-                                if (chain.fetched) {
-                                    fetcher.suiState = true
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
+
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = fetcher.suiBalances.size
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
 
                             is NetworkResult.Error -> {
-                                chain.fetched = true
-                                if (fetched) {
-                                    fetcher.suiState = false
-                                    withContext(Dispatchers.Main) {
-                                        withContext(Dispatchers.Main) {
-                                            _balanceResult.value = chain.tag
-                                        }
-                                    }
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
                         }
@@ -374,21 +359,20 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     when (val response = walletRepository.oktAccountInfo(chain)) {
                         is NetworkResult.Success -> {
                             chain.oktFetcher?.oktAccountInfo = response.data
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
+                            chain.fetchState = FetchState.SUCCESS
+                            chain.coinCnt =
+                                chain.oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                                    ?: 0
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = chain.tag
                             }
                         }
 
                         is NetworkResult.Error -> {
                             chain.oktFetcher?.oktAccountInfo = null
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
+                            chain.fetchState = FetchState.FAIL
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = chain.tag
                             }
                         }
                     }
@@ -401,21 +385,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     when (val response = walletRepository.balance(channel, chain)) {
                         is NetworkResult.Success -> {
                             chain.cosmosFetcher?.cosmosBalances = response.data
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
+                            chain.fetchState = FetchState.SUCCESS
+                            chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = chain.tag
                             }
                         }
 
                         is NetworkResult.Error -> {
                             chain.cosmosFetcher?.cosmosBalances = null
-                            chain.fetched = true
-                            if (chain.fetched) {
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
+                            chain.fetchState = FetchState.FAIL
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = chain.tag
                             }
                         }
                     }

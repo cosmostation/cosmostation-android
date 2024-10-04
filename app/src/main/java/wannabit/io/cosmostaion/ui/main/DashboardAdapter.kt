@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
 class DashboardAdapter(
     val context: Context,
-    val baseAccount: BaseAccount?,
     private val displayMainnetChains: MutableList<BaseChain>,
     private val displayTestnetChains: MutableList<BaseChain>,
     val listener: NodeDownListener
@@ -59,7 +58,7 @@ class DashboardAdapter(
                     if (Prefs.style == 0) {
                         holder.bind(chain)
                     } else {
-                        holder.proBind(chain, baseAccount)
+                        holder.proBind(chain)
                     }
 
                     holder.itemView.setOnClickListener {
@@ -67,10 +66,10 @@ class DashboardAdapter(
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (chain.fetched) {
-                            val scaleX = view.scaleX
-                            val scaleY = view.scaleY
-                            val customDialog = if (chain.isEvmCosmos()) {
+                        val scaleX = view.scaleX
+                        val scaleY = view.scaleY
+                        if (chain.fetchState == FetchState.SUCCESS) {
+                            val dialog = if (chain.isEvmCosmos()) {
                                 QrEvmDialog(context, chain)
                             } else {
                                 QrDialog(context, chain)
@@ -80,11 +79,11 @@ class DashboardAdapter(
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
                                 val handler = Handler()
                                 handler.postDelayed({
-                                    customDialog.show()
+                                    dialog.show()
                                 }, 200)
                             }
 
-                            customDialog.setOnDismissListener {
+                            dialog.setOnDismissListener {
                                 view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                             }
                             true
@@ -106,10 +105,10 @@ class DashboardAdapter(
                     }
 
                     holder.itemView.setOnLongClickListener { view ->
-                        if (testnet.fetched) {
+                        if (testnet.fetchState == FetchState.SUCCESS) {
                             val scaleX = view.scaleX
                             val scaleY = view.scaleY
-                            val customDialog = if (testnet.isEvmCosmos()) {
+                            val dialog = if (testnet.isEvmCosmos()) {
                                 QrEvmDialog(context, testnet)
                             } else {
                                 QrDialog(context, testnet)
@@ -119,11 +118,11 @@ class DashboardAdapter(
                                 view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
                                 val handler = Handler()
                                 handler.postDelayed({
-                                    customDialog.show()
+                                    dialog.show()
                                 }, 200)
                             }
 
-                            customDialog.setOnDismissListener {
+                            dialog.setOnDismissListener {
                                 view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                             }
                             true

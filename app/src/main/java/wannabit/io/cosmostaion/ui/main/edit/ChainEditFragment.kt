@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -81,8 +82,8 @@ class ChainEditFragment : BaseTxFragment() {
                             )
                             recycler.adapter = chainEditAdapter
 
-                            btnSelect.updateSelectButtonView(allChains.none { !it.fetched })
-                            progress.goneOrVisible(allChains.none { !it.fetched })
+                            btnSelect.updateSelectButtonView(allChains.none { it.fetchState == FetchState.BUSY })
+                            progress.goneOrVisible(allChains.none { it.fetchState == FetchState.BUSY })
                         }
                     }
                 }
@@ -98,7 +99,7 @@ class ChainEditFragment : BaseTxFragment() {
                         if (chain.publicKey == null) {
                             chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
                         }
-                        if (!chain.fetched) {
+                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
                             ApplicationViewModel.shared.loadChainData(chain, id, true)
                         }
                     }
@@ -108,7 +109,7 @@ class ChainEditFragment : BaseTxFragment() {
                         if (chain.publicKey == null) {
                             chain.setInfoWithPrivateKey(privateKey)
                         }
-                        if (!chain.fetched) {
+                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
                             ApplicationViewModel.shared.loadChainData(chain, id, true)
                         }
                     }
@@ -154,7 +155,7 @@ class ChainEditFragment : BaseTxFragment() {
             }
 
             withContext(Dispatchers.Main) {
-                if (searchMainnetChains.none { !it.fetched } && searchTestnetChains.none { !it.fetched }) {
+                if (searchMainnetChains.none { it.fetchState == FetchState.BUSY } && searchTestnetChains.none { it.fetchState == FetchState.BUSY }) {
                     binding?.apply {
                         btnSelect.updateSelectButtonView(true)
                         progress.cancelAnimation()

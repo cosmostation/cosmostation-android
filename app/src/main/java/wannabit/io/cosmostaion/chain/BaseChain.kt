@@ -167,8 +167,10 @@ open class BaseChain : Parcelable {
     open var mainAddress: String = ""
     open var mainUrl: String = ""
 
-    open var fetched = false
-    open var fetchedState = true
+    var fetchState = FetchState.IDLE
+
+    var coinCnt = 0
+    var tokenCnt = 0
 
     fun chainIdEvmDecimal(): String {
         return chainIdEvm.hexToString()
@@ -490,36 +492,39 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (this is ChainBitCoin84) {
-            return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-
-        } else if (this is ChainSui) {
-            return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-
-        } else if (this is ChainOkt996Keccak) {
-            return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-
-        } else if (this is ChainOktEvm) {
-            return oktFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
-                ?: BigDecimal.ZERO
-
-        } else if (isEvmCosmos()) {
-            val allValue =
-                cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
-                    ?: BigDecimal.ZERO
-            evmRpcFetcher?.let { evmRpc ->
-                return allValue.add(evmRpc.allTokenValue(isUsd))
+        if (fetchState == FetchState.SUCCESS) {
+            if (this is ChainBitCoin84) {
+                return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
             }
-            return allValue
+            else if (this is ChainSui) {
+                return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
-        } else if (supportCosmos()) {
-            return cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
-                ?: BigDecimal.ZERO
+            } else if (this is ChainOkt996Keccak) {
+                return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
-        } else {
-            return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
-                ?: BigDecimal.ZERO
+            } else if (this is ChainOktEvm) {
+                return oktFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
+                    ?: BigDecimal.ZERO
+
+            } else if (isEvmCosmos()) {
+                val allValue =
+                    cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
+                        ?: BigDecimal.ZERO
+                evmRpcFetcher?.let { evmRpc ->
+                    return allValue.add(evmRpc.allTokenValue(isUsd))
+                }
+                return allValue
+
+            } else if (supportCosmos()) {
+                return cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
+                    ?: BigDecimal.ZERO
+
+            } else {
+                return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
+                    ?: BigDecimal.ZERO
+            }
         }
+        return BigDecimal.ZERO
     }
 }
 
@@ -662,3 +667,5 @@ val EVM_BASE_FEE = BigDecimal("588000000000000")
 enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD }
+
+enum class FetchState { IDLE, BUSY, SUCCESS, FAIL }
