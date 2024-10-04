@@ -61,6 +61,7 @@ import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -244,10 +245,10 @@ object Signer {
 
     fun voteMsg(chain: BaseChain, msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
-        val typeUrl = if (chain is ChainGovgen) {
-            "/govgen.gov.v1beta1.MsgVote"
-        } else {
-            "/cosmos.gov.v1beta1.MsgVote"
+        val typeUrl = when (chain) {
+            is ChainGovgen -> "/govgen.gov.v1beta1.MsgVote"
+            is ChainAtomone -> "/atomone.gov.v1beta1.MsgVote"
+            else -> "/cosmos.gov.v1beta1.MsgVote"
         }
         msgVotes?.forEach { msgVote ->
             val anyMsg = Any.newBuilder().setTypeUrl(typeUrl)
