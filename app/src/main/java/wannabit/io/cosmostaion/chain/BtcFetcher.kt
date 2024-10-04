@@ -45,7 +45,7 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                 estimateSmartFeeResponse.body?.string(), JsonObject::class.java
             )
             val feeRate = estimateSmartFeeJsonObject["result"].asJsonObject["feerate"].asDouble
-            if (estimateSmartFeeJsonObject["error"].isJsonNull) {
+            if (estimateSmartFeeJsonObject["error"] == null || estimateSmartFeeJsonObject["error"].isJsonNull) {
                 feeRate.toBigDecimal().multiply(bitVBytesFee).movePointRight(5)
                     .setScale(0, RoundingMode.UP)
             } else {
