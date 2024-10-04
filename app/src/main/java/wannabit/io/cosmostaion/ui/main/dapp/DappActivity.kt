@@ -204,10 +204,12 @@ class DappActivity : BaseActivity() {
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (BaseData.getInjectWarn()) {
-                InjectWarnFragment().show(
-                    supportFragmentManager, InjectWarnFragment::class.java.name
-                )
+            if (!isFinishing && !isDestroyed) {
+                if (BaseData.getInjectWarn()) {
+                    InjectWarnFragment().show(
+                        supportFragmentManager, InjectWarnFragment::class.java.name
+                    )
+                }
             }
         }, 1000)
     }
