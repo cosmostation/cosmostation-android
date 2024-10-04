@@ -517,6 +517,7 @@ class ApplicationViewModel(
                         } else {
                             fetchedResult.value = tag
                             txFetchedResult.value = tag
+                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
 

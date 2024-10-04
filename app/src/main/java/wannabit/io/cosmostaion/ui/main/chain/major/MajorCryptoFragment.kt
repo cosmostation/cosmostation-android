@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -159,15 +160,26 @@ class MajorCryptoFragment : Fragment() {
 
                     if (chain is ChainBitCoin84) {
                         chain.btcFetcher()?.let { fetcher ->
-                            if (fetcher.btcBalances > BigDecimal.ZERO) {
-                                handleOneClickWithDelay(
-                                    CommonTransferFragment.newInstance(
-                                        chain, denom, sendAssetType
-                                    )
-                                )
-                            } else {
-                                requireContext().makeToast(R.string.error_pending_balance)
-                                return@setOnItemClickListener
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                val btcFee = fetcher.initFee()
+                                withContext(Dispatchers.Main) {
+                                    if (btcFee == null) return@withContext
+                                    if (fetcher.btcBalances > btcFee) {
+                                        handleOneClickWithDelay(
+                                            CommonTransferFragment.newInstance(
+                                                chain, denom, sendAssetType
+                                            )
+                                        )
+
+                                    } else {
+                                        if (fetcher.btcPendingInput > BigDecimal.ZERO) {
+                                            requireContext().makeToast(R.string.error_pending_balance)
+                                        } else {
+                                            requireContext().makeToast(R.string.error_not_enough_fee)
+                                        }
+                                        return@withContext
+                                    }
+                                }
                             }
                         }
 
