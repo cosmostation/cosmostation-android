@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.option.notice
+package wannabit.io.cosmostaion.ui.main
 
 import android.content.Context
 import android.net.Uri

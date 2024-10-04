@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
+import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType

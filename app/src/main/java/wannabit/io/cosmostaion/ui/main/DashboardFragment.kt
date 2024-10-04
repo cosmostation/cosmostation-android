@@ -37,9 +37,6 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.option.notice.NodeDownSelectListener
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal

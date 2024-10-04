@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.tx.option.swap
 
 import android.content.Context
 import android.text.TextUtils
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain

@@ -30,8 +30,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.databinding.ViewTabItemBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
-import wannabit.io.cosmostaion.ui.option.account.AccountSelectFragment
-import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory

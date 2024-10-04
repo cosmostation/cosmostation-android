@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.ItemAssetSelectBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.TargetAsset
 

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.option.account
+package wannabit.io.cosmostaion.ui.main
 
 import android.os.Build
 import android.os.Bundle

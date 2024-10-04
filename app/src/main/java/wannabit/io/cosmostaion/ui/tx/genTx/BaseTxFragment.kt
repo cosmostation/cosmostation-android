@@ -6,16 +6,12 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 
