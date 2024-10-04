@@ -24,12 +24,12 @@ import wannabit.io.cosmostaion.chain.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentLendListBinding
-import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.LendActionType
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.kava.MintOptionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.LendActionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.LendActionType
 import java.math.BigDecimal
 import java.math.RoundingMode
 

@@ -9,10 +9,10 @@ import wannabit.io.cosmostaion.data.repository.account.AccountRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityAccountBinding
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class AccountActivity : BaseActivity() {
 

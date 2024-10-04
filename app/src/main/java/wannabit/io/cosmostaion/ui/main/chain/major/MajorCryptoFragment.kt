@@ -27,9 +27,9 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class MajorCryptoFragment : Fragment() {

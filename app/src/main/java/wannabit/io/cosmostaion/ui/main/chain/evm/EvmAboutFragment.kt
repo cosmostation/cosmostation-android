@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmAboutBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.util.Locale
 
 class EvmAboutFragment : Fragment() {

@@ -23,11 +23,11 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
-import wannabit.io.cosmostaion.ui.main.edit.TokenEditFragment
-import wannabit.io.cosmostaion.ui.main.edit.TokenEditListener
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.main.TokenEditFragment
+import wannabit.io.cosmostaion.ui.main.TokenEditListener
+import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 interface AssetFragmentInteraction {

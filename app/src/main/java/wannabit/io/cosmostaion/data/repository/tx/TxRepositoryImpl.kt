@@ -71,7 +71,7 @@ import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.databinding.FragmentStyleBinding
-import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 
 class StyleFragment : BaseTxFragment() {
 

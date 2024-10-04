@@ -23,9 +23,9 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentSuiStakingInfoBinding
-import wannabit.io.cosmostaion.ui.tx.step.major.SuiStakingFragment
-import wannabit.io.cosmostaion.ui.tx.step.major.SuiUnStakingFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiStakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiUnStakingFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 import java.util.Date
 import java.util.Timer

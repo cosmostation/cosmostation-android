@@ -17,8 +17,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.option.general.StakingOptionFragment
 
 class UnStakingInfoFragment : Fragment() {
 

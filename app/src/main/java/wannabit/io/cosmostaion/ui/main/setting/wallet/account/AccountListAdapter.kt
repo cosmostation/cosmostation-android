@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemAccountListBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 
 class AccountListAdapter(
     val context: Context,

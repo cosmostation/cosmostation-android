@@ -23,9 +23,9 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentKavaDefiBinding
-import wannabit.io.cosmostaion.ui.tx.step.kava.ClaimIncentiveFragment
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.ClaimIncentiveFragment
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 
 class KavaDefiFragment : Fragment() {
 

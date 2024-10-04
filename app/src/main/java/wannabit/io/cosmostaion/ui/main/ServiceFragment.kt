@@ -25,11 +25,11 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainClaimFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainCompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainVoteFragment
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.SwapFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainClaimFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainCompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainVoteFragment
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.net.URLEncoder
 
 class ServiceFragment : Fragment() {

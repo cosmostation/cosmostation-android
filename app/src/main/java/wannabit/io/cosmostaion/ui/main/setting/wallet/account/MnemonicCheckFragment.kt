@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentMnemonicCheckBinding
-import wannabit.io.cosmostaion.ui.wallet.WalletSelectFragment
+import wannabit.io.cosmostaion.ui.init.WalletSelectFragment
 
 class MnemonicCheckFragment : Fragment() {
 

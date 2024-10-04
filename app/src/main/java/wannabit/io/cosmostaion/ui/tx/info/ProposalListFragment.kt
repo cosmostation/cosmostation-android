@@ -16,9 +16,9 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.databinding.FragmentProposalListBinding
-import wannabit.io.cosmostaion.ui.tx.step.VoteFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.VoteFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModel
 
 class ProposalListFragment : Fragment() {
 

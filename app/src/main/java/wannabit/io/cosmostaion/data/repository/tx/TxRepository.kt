@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
 

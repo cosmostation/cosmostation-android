@@ -16,15 +16,14 @@ import com.kava.cdp.v1beta1.GenesisProto.CollateralParam
 import com.kava.cdp.v1beta1.QueryProto.CDPResponse
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentMintListBinding
-import wannabit.io.cosmostaion.ui.option.tx.kava.MintOptionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.CreateMintFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.MintActionType
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.kava.MintOptionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.CreateMintFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.MintActionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.MintActionType
 
 class MintListFragment : Fragment() {
 

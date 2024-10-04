@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_TYPE_COIN
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.ui.tx.step.SuiTxType
+import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.CopyOnWriteArrayList

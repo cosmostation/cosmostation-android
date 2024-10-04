@@ -37,10 +37,10 @@ import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
-import wannabit.io.cosmostaion.ui.tx.step.TransferStyle
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModelProviderFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random

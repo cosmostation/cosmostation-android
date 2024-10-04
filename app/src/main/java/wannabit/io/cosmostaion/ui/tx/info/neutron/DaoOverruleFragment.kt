@@ -19,10 +19,10 @@ import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentDaoBinding
-import wannabit.io.cosmostaion.ui.tx.step.neutron.DaoVoteFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.neutron.DaoVoteFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModelProviderFactory
 
 class DaoOverruleFragment : Fragment() {
 

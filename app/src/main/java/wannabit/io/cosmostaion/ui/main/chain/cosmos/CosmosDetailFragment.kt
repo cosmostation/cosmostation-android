@@ -36,25 +36,25 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
-import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktSelectValidatorFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
 import java.math.BigDecimal
 
 

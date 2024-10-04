@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 import java.util.Calendar
 
 class SetAddressFragment : BottomSheetDialogFragment() {

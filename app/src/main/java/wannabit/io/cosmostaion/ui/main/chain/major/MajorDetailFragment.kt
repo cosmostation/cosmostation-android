@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakingInfoFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 
 class MajorDetailFragment : Fragment() {
 
