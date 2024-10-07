@@ -47,8 +47,10 @@ class AccountInitActivity : BaseActivity() {
         }
 
         fragment?.let {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, it)
-                .commitAllowingStateLoss()
+            if (!supportFragmentManager.isStateSaved && !supportFragmentManager.isDestroyed) {
+                supportFragmentManager.beginTransaction().replace(R.id.fragment_container, it)
+                    .commit()
+            }
         }
     }
 

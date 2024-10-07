@@ -49,7 +49,7 @@ class MajorActivity : BaseActivity() {
                 selectedChain = chain
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, MajorDetailFragment.newInstance(chain)
-                ).commitAllowingStateLoss()
+                ).commit()
             }
             selectedChain?.let { initChainImage(it) }
             initViewModel()
