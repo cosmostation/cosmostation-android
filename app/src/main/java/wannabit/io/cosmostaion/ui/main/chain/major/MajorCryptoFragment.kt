@@ -120,7 +120,7 @@ class MajorCryptoFragment : Fragment() {
                     }
                     tempSuiBalances.firstOrNull()?.let { suiBalances.add(it) }
                     searchSuiBalances.addAll(suiBalances)
-                    suiNativeBalances.addAll(fetcher.suiBalances.drop(1))
+                    suiNativeBalances.addAll(tempSuiBalances.drop(1))
                     searchSuiNativeBalances.addAll(suiNativeBalances)
 
                     withContext(Dispatchers.Main) {
