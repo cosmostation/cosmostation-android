@@ -31,7 +31,7 @@ class AccountActivity : BaseActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AccountListFragment()).commitAllowingStateLoss()
+                .replace(R.id.fragment_container, AccountListFragment()).commit()
         }
         initViewModel()
     }

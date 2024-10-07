@@ -47,7 +47,7 @@ class CosmosActivity : BaseActivity() {
             }?.let {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, CosmosDetailFragment.newInstance(it)
-                ).commitAllowingStateLoss()
+                ).commit()
                 initChainImage(it)
             }
             initViewModel()

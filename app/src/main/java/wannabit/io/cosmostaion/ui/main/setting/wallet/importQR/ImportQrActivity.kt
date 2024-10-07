@@ -36,7 +36,7 @@ class ImportQrActivity : BaseActivity() {
                     R.id.fragment_container, RestoreMnemonicConfirmFragment(
                         mnemonic, BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT
                     )
-                ).commitAllowingStateLoss()
+                ).commit()
             }
         }
         initViewModel()

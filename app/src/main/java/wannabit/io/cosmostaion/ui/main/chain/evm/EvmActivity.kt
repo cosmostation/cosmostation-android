@@ -47,7 +47,7 @@ class EvmActivity : BaseActivity() {
                 selectedChain = chain
                 supportFragmentManager.beginTransaction().replace(
                     R.id.fragment_container, EvmDetailFragment.newInstance(chain)
-                ).commitAllowingStateLoss()
+                ).commit()
             }
             selectedChain?.let { initChainImage(it) }
             initViewModel()
