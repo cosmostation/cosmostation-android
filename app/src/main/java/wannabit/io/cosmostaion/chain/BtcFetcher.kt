@@ -2,8 +2,10 @@ package wannabit.io.cosmostaion.chain
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -29,6 +31,30 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
             return "https://mempool.space/testnet4/"
         }
         return "https://mempool.space/"
+    }
+
+    suspend fun initFee(): BigDecimal? {
+        return try {
+            val utxo = RetrofitInstance.bitApi(chain as ChainBitCoin84).bitUtxo(chain.mainAddress)
+            val bitVBytesFee = bitVBytesFee(utxo, "")
+            val estimateSmartFeeRequest = JsonRpcRequest(
+                method = "estimatesmartfee", params = listOf(2)
+            )
+            val estimateSmartFeeResponse = jsonRpcResponse(chain.mainUrl, estimateSmartFeeRequest)
+            val estimateSmartFeeJsonObject = Gson().fromJson(
+                estimateSmartFeeResponse.body?.string(), JsonObject::class.java
+            )
+            val feeRate = estimateSmartFeeJsonObject["result"].asJsonObject["feerate"].asDouble
+            if (estimateSmartFeeJsonObject["error"] == null || estimateSmartFeeJsonObject["error"].isJsonNull) {
+                feeRate.toBigDecimal().multiply(bitVBytesFee).movePointRight(5)
+                    .setScale(0, RoundingMode.UP)
+            } else {
+                null
+            }
+
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun bitType(): String {

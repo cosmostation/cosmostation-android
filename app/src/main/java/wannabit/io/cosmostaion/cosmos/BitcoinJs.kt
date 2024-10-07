@@ -3,6 +3,9 @@ package wannabit.io.cosmostaion.cosmos
 import android.content.Context
 import androidx.javascriptengine.JavaScriptIsolate
 import androidx.javascriptengine.JavaScriptSandbox
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class BitCoinJS(private val context: Context) {
@@ -13,12 +16,21 @@ class BitCoinJS(private val context: Context) {
 
     init {
         if (!isServiceBind) {
-            sandbox = JavaScriptSandbox.createConnectedInstanceAsync(context).get()
-            jsIsolate = sandbox.createIsolate()
-            isServiceBind = true
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    if (!isServiceBind) {
+                        sandbox = JavaScriptSandbox.createConnectedInstanceAsync(context).get()
+                        jsIsolate = sandbox.createIsolate()
+                        isServiceBind = true
+                    }
+                    val jsCode = readJavaScriptFile()
+                    jsIsolate.evaluateJavaScriptAsync(jsCode).get()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
-        val jsCode = readJavaScriptFile()
-        jsIsolate.evaluateJavaScriptAsync(jsCode).get()
     }
 
     private fun readJavaScriptFile(): String {

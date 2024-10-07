@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
 import wannabit.io.cosmostaion.ui.tx.option.general.StakingOptionFragment
@@ -55,6 +57,7 @@ class StakingInfoFragment : Fragment() {
 
         initData()
         setUpStakeInfo()
+        refreshData()
     }
 
     private fun initData() {
@@ -86,6 +89,7 @@ class StakingInfoFragment : Fragment() {
                 delegations = tempDelegations
 
                 withContext(Dispatchers.Main) {
+                    refresher.isRefreshing = false
                     if (delegations.isNotEmpty()) {
                         recycler.visibility = View.VISIBLE
                         emptyLayout.visibility = View.GONE
@@ -105,6 +109,19 @@ class StakingInfoFragment : Fragment() {
                         recycler.visibility = View.GONE
                         emptyLayout.visibility = View.VISIBLE
                     }
+                }
+            }
+        }
+    }
+
+    private fun refreshData() {
+        binding.refresher.setOnRefreshListener {
+            if (selectedChain.fetchState == FetchState.BUSY) {
+                binding.refresher.isRefreshing = false
+            } else {
+                BaseData.baseAccount?.let { account ->
+                    selectedChain.fetchState = FetchState.IDLE
+                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                 }
             }
         }
@@ -146,6 +163,12 @@ class StakingInfoFragment : Fragment() {
         ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
             ApplicationViewModel.shared.notifyTxEvent()
             initData()
+        }
+
+        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
+                initData()
+            }
         }
     }
 

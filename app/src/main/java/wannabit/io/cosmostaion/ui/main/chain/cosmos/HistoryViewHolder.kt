@@ -368,7 +368,8 @@ class HistoryViewHolder(
                 txSuccessImg.setColorFilter(
                     ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN
                 )
-                txHeight.text = "-"
+                txTime.text = ""
+                txHeight.text = ""
             }
             txHash.text = historyBitGroup.second["txid"].asString
 
