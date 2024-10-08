@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
@@ -23,12 +22,12 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
-import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakingInfoFragment
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
 
 class MajorDetailFragment : Fragment() {
 
@@ -195,28 +194,21 @@ class MajorDetailFragment : Fragment() {
             }
 
             fabMenu.setOnMenuButtonClickListener {
-                handleOneClickWithDelay(SuiStakingInfoFragment.newInstance(selectedChain), null)
+                handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
             }
         }
     }
 
     private fun handleOneClickWithDelay(
-        fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
+        fragment: Fragment
     ) {
         binding.fabMenu.close(true)
         if (isClickable) {
             isClickable = false
 
-            if (fragment != null) {
-                requireActivity().toMoveFragment(
-                    this@MajorDetailFragment, fragment, fragment::class.java.name
-                )
-            } else {
-                bottomSheetDialogFragment?.show(
-                    requireActivity().supportFragmentManager,
-                    bottomSheetDialogFragment::class.java.name
-                )
-            }
+            requireActivity().toMoveFragment(
+                this@MajorDetailFragment, fragment, fragment::class.java.name
+            )
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

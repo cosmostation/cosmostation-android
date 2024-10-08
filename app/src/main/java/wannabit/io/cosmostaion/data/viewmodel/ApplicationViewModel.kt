@@ -34,11 +34,11 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
+import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -227,9 +227,14 @@ class ApplicationViewModel(
     var txFetchedResult = SingleLiveEvent<String>()
 
     val notifyTxResult = SingleLiveEvent<Unit>()
+    val notifyRefreshResult = SingleLiveEvent<Unit>()
 
     fun notifyTxEvent() {
         notifyTxResult.call()
+    }
+
+    fun notifyRefreshEvent() {
+        notifyRefreshResult.call()
     }
 
     private fun loadGrpcAuthData(
@@ -909,7 +914,7 @@ class ApplicationViewModel(
     }
 
     fun loadSuiData(
-        id: Long, chain: BaseChain, isEdit: Boolean, isStake: Boolean? = false
+        id: Long, chain: BaseChain, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         (chain as ChainSui).suiFetcher()?.let { fetcher ->
             chain.apply {
@@ -1033,26 +1038,24 @@ class ApplicationViewModel(
                     coinCnt = fetcher.suiBalances.size
 
                     withContext(Dispatchers.Main) {
-                        if (isEdit && isStake == true) {
-                            refreshStakingInfoFetchedResult.value = tag
-                        } else if (isEdit) {
+                        if (isEdit) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
                             txFetchedResult.value = tag
+                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
 
                 } catch (e: Exception) {
                     fetchState = FetchState.FAIL
                     withContext(Dispatchers.Main) {
-                        if (isEdit && isStake == true) {
-                            refreshStakingInfoFetchedResult.value = tag
-                        } else if (isEdit) {
+                        if (isEdit) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
                             txFetchedResult.value = tag
+                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
                 }
