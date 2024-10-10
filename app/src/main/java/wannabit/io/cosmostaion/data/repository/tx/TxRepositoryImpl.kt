@@ -53,8 +53,8 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.common.soft
-import wannabit.io.cosmostaion.cosmos.BitCoinJS
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams

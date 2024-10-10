@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.MultiVote
 import wannabit.io.cosmostaion.data.model.req.MultiVoteReq
 import wannabit.io.cosmostaion.data.model.req.Vote

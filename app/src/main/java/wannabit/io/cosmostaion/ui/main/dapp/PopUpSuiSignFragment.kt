@@ -25,7 +25,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setImg
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock

@@ -45,7 +45,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq

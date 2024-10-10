@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.evm
+package wannabit.io.cosmostaion.sign
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty

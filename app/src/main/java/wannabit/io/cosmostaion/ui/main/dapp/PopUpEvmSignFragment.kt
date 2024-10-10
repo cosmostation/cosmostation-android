@@ -43,7 +43,7 @@ import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.FragmentWcEvmSignBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.evm.StructuredDataEncode
+import wannabit.io.cosmostaion.sign.StructuredDataEncode
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.BigInteger

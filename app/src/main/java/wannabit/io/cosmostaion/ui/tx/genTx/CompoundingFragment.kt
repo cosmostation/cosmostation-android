@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCompoundingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding

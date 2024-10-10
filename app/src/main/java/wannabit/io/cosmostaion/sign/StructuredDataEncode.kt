@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.evm
+package wannabit.io.cosmostaion.sign
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper

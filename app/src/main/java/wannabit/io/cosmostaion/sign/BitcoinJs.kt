@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.cosmos
+package wannabit.io.cosmostaion.sign
 
 import android.content.Context
 import androidx.javascriptengine.JavaScriptIsolate

@@ -9,7 +9,7 @@ import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.cosmos.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitCoinJS
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes

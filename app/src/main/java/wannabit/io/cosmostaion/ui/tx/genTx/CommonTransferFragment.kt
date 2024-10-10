@@ -51,8 +51,8 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.cosmos.BitCoinJS
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendMsg
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendReq
 import wannabit.io.cosmostaion.data.model.req.WasmSendReq

@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken

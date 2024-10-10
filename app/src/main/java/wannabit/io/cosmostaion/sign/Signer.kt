@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.cosmos
+package wannabit.io.cosmostaion.sign
 
 import android.util.Base64.DEFAULT
 import android.util.Base64.encode

@@ -65,7 +65,7 @@ import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue

@@ -58,7 +58,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.updateToggleButtonView
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.Affiliate
 import wannabit.io.cosmostaion.data.model.req.ChainInfo
