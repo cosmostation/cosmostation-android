@@ -220,7 +220,7 @@ class MainActivity : BaseActivity() {
 
             accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -233,7 +233,7 @@ class MainActivity : BaseActivity() {
 
             accountName.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )

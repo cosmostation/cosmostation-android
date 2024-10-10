@@ -45,19 +45,19 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
-import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentAllChainVoteBinding
+import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
@@ -84,8 +84,6 @@ class AllChainVoteFragment : BaseTxFragment() {
 
     private lateinit var allChainAllVoteAdapter: AllChainAllVoteAdapter
     private var allChainAllVoteTouchAdapter: AllChainAllVoteTouchAdapter? = null
-
-    private var txTip: TxProto.Tip? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -114,7 +112,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         account.sortedDisplayChains()
                             .filter { it.supportCosmos() && !it.isTestnet && it.isDefault && tag != "finschia438" }
                             .forEach { chain ->

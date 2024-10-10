@@ -95,7 +95,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         for (chain in account.sortedDisplayChains()
                             .filter { !it.isTestnet && it.supportCosmos() }) {
                             val valueAbleReward = chain.cosmosFetcher?.valueAbleRewards()

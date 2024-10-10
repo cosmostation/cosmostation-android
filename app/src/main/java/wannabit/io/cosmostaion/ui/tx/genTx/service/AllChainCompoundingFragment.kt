@@ -94,7 +94,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         binding?.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         account.sortedDisplayChains().filter { !it.isTestnet && it.supportCosmos() }
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()

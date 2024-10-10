@@ -114,7 +114,7 @@ class ServiceFragment : Fragment() {
 
             claimRewardsView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainClaimFragment()
                         )
@@ -128,7 +128,7 @@ class ServiceFragment : Fragment() {
 
             compoundingView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainCompoundingFragment()
                         )
@@ -142,7 +142,7 @@ class ServiceFragment : Fragment() {
 
             voteView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.FAIL }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainVoteFragment()
                         )
