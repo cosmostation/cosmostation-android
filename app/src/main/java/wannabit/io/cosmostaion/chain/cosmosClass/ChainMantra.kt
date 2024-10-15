@@ -11,22 +11,21 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainRizon : BaseChain(), Parcelable {
+class ChainMantra : BaseChain(), Parcelable {
 
-    override var name: String = "Rizon"
-    override var tag: String = "rizon118"
-    override var logo: Int = R.drawable.chain_rizon
-    override var swipeLogo: Int = R.drawable.chain_swipe_rizon
-    override var apiName: String = "rizon"
+    override var name: String = "Mantra"
+    override var tag: String = "mantra118"
+    override var logo: Int = R.drawable.chain_mantra
+    override var apiName: String = "mantra"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "uatolo"
-    override var accountPrefix: String = "rizon"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://rizon.api.m.stavr.tech/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var stakeDenom: String = "uom"
+    override var accountPrefix: String = "mantra"
+    override var grpcHost: String = "grpc-mantra.cosmostation.io"
+    override var lcdUrl: String = "https://lcd-mantra.cosmostation.io/"
 }

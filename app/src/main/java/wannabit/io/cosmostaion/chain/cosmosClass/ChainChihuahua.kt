@@ -24,7 +24,7 @@ class ChainChihuahua : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var supportCw20: Boolean = true
     override var stakeDenom: String = "uhuahua"
     override var accountPrefix: String = "chihuahua"
