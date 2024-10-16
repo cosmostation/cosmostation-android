@@ -1,9 +1,10 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import com.google.gson.JsonObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.safeApiCall

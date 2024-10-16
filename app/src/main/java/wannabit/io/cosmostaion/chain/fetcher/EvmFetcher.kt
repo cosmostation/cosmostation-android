@@ -1,6 +1,7 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import org.web3j.protocol.Web3j
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs

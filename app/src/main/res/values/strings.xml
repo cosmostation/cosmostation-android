@@ -177,6 +177,9 @@
     <string name="str_next_reward_distribution">Next reward</string>
     <string name="str_instant">Instant</string>
     <string name="str_endpoint_reset">Reset End-Point</string>
+    <string name="str_legacy" translatable="false">Legacy</string>
+    <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
+    <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
 
 
     //title

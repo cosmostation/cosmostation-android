@@ -38,9 +38,9 @@ import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.accountInfos
-import wannabit.io.cosmostaion.chain.accountNumber
-import wannabit.io.cosmostaion.chain.sequence
+import wannabit.io.cosmostaion.chain.fetcher.accountInfos
+import wannabit.io.cosmostaion.chain.fetcher.accountNumber
+import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.makeToast

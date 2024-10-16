@@ -40,12 +40,12 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.SuiFetcher
-import wannabit.io.cosmostaion.chain.accountInfos
-import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.accountInfos
+import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.sequence
+import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS

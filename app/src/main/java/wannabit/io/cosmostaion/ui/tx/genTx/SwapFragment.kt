@@ -42,11 +42,11 @@ import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.accountInfos
-import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.fetcher.accountInfos
+import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.balance
-import wannabit.io.cosmostaion.chain.sequence
+import wannabit.io.cosmostaion.chain.fetcher.balance
+import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils

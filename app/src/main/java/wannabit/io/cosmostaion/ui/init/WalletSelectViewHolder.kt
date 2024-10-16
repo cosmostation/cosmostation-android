@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.OktFetcher
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -83,12 +83,12 @@ class WalletSelectViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "NESTED SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "LEGACY"
+                        chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -99,7 +99,7 @@ class WalletSelectViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainLegacy.text = "NATIVE SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -264,12 +264,12 @@ class WalletSelectViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "NESTED SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "LEGACY"
+                        chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -280,7 +280,7 @@ class WalletSelectViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainLegacy.text = "NATIVE SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 

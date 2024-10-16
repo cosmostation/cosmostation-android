@@ -34,7 +34,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
-import wannabit.io.cosmostaion.chain.OP_RETURN
+import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui

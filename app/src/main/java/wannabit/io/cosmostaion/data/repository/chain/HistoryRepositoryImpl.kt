@@ -5,7 +5,7 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall

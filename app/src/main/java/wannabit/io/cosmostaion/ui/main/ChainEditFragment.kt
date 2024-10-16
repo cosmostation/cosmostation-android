@@ -18,12 +18,12 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentChainEditBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class ChainEditFragment : BaseTxFragment() {
@@ -74,7 +74,6 @@ class ChainEditFragment : BaseTxFragment() {
                             recycler.setHasFixedSize(true)
                             recycler.layoutManager = LinearLayoutManager(requireContext())
                             chainEditAdapter = ChainEditAdapter(
-                                account,
                                 searchMainnetChains,
                                 searchTestnetChains,
                                 toDisplayChains,

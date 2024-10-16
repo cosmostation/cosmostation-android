@@ -22,7 +22,7 @@ import com.google.protobuf.Any
 import com.kava.incentive.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.allIncentiveCoins
+import wannabit.io.cosmostaion.chain.fetcher.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft

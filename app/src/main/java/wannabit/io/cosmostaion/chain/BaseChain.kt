@@ -100,6 +100,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
+import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84

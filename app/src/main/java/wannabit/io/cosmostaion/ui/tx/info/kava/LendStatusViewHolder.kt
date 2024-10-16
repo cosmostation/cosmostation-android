@@ -6,9 +6,9 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.kava.hard.v1beta1.HardProto.MoneyMarket
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.getLTV
-import wannabit.io.cosmostaion.chain.kavaOraclePrice
-import wannabit.io.cosmostaion.chain.spotMarketId
+import wannabit.io.cosmostaion.chain.fetcher.getLTV
+import wannabit.io.cosmostaion.chain.fetcher.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.fetcher.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.databinding.ItemLendStatusBinding

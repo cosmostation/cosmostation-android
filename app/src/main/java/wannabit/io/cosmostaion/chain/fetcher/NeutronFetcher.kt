@@ -1,5 +1,6 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import java.math.BigDecimal

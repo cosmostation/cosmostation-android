@@ -16,11 +16,11 @@ import com.kava.hard.v1beta1.HardProto
 import com.kava.pricefeed.v1beta1.QueryProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.KavaFetcher
-import wannabit.io.cosmostaion.chain.getLTV
-import wannabit.io.cosmostaion.chain.hardMoneyMarket
-import wannabit.io.cosmostaion.chain.kavaOraclePrice
-import wannabit.io.cosmostaion.chain.spotMarketId
+import wannabit.io.cosmostaion.chain.fetcher.KavaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.getLTV
+import wannabit.io.cosmostaion.chain.fetcher.hardMoneyMarket
+import wannabit.io.cosmostaion.chain.fetcher.kavaOraclePrice
+import wannabit.io.cosmostaion.chain.fetcher.spotMarketId
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl

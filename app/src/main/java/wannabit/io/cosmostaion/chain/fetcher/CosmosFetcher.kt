@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import com.cosmos.auth.v1beta1.AuthProto
 import com.cosmos.base.tendermint.v1beta1.QueryProto
@@ -19,6 +19,8 @@ import com.ibc.core.channel.v1.QueryProto.QueryChannelClientStateRequest
 import com.ibc.lightclients.tendermint.v1.TendermintProto
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance

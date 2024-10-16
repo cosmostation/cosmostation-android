@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 
 class ChainEditAdapter(
-    val account: BaseAccount,
     private val mainnetChains: MutableList<BaseChain>,
     private val testnetChains: MutableList<BaseChain>,
     private val selectedChains: MutableList<String>,
@@ -51,11 +49,11 @@ class ChainEditAdapter(
             is ChainEditViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAINNET_ITEM) {
                     val mainnetChain = mainnetChains[position - 1]
-                    holder.bind(account, mainnetChain, selectedChains, listener)
+                    holder.bind(mainnetChain, selectedChains, listener)
 
                 } else {
                     val testnetChain = testnetChains[position - (mainnetChains.size + 2)]
-                    holder.testnetBind(account, testnetChain, selectedChains, listener)
+                    holder.testnetBind(testnetChain, selectedChains, listener)
                 }
             }
         }

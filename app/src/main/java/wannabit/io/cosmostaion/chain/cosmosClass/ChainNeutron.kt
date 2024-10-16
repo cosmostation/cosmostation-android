@@ -8,8 +8,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.CosmosFetcher
-import wannabit.io.cosmostaion.chain.NeutronFetcher
+import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
+import wannabit.io.cosmostaion.chain.fetcher.NeutronFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize

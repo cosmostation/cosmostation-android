@@ -61,9 +61,9 @@ class AddressBookViewHolder(
                                 chainBitSideBadge.visibility = View.GONE
                                 chainBadge.visibility = View.VISIBLE
                                 chainBadge.text = if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
-                                    "NESTED SEGWIT"
+                                    context.getString(R.string.str_nested_segwit)
                                 } else {
-                                    "LEGACY"
+                                    context.getString(R.string.str_legacy)
                                 }
                             }
 

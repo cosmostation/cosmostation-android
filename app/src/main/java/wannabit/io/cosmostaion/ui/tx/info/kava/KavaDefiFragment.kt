@@ -17,7 +17,7 @@ import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.allIncentiveCoins
+import wannabit.io.cosmostaion.chain.fetcher.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.toMoveFragment

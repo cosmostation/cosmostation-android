@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import com.cosmos.base.v1beta1.CoinProto
 import com.kava.cdp.v1beta1.GenesisProto
@@ -8,6 +8,7 @@ import com.kava.hard.v1beta1.QueryProto
 import com.kava.incentive.v1beta1.QueryProto.QueryRewardsResponse
 import com.kava.swap.v1beta1.QueryProto.DepositResponse
 import com.kava.swap.v1beta1.QueryProto.PoolResponse
+import wannabit.io.cosmostaion.chain.BaseChain
 import java.math.BigDecimal
 import java.math.RoundingMode
 

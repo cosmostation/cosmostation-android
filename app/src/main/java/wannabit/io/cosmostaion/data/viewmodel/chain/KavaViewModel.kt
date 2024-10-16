@@ -23,7 +23,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.KavaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.KavaFetcher
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepository
 import java.util.concurrent.TimeUnit

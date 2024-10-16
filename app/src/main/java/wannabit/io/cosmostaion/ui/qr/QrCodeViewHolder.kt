@@ -80,12 +80,12 @@ class QrCodeViewHolder(
                 when (selectChain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "NESTED SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "LEGACY"
+                        chainBadge.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -95,7 +95,7 @@ class QrCodeViewHolder(
                                 context, R.color.color_base01
                             )
                         )
-                        chainBadge.text = "NATIVE SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 

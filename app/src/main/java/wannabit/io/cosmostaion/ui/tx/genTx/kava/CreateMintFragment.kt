@@ -24,7 +24,7 @@ import com.kava.cdp.v1beta1.TxProto.MsgCreateCDP
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.expectUSDXLTV
+import wannabit.io.cosmostaion.chain.fetcher.expectUSDXLTV
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft

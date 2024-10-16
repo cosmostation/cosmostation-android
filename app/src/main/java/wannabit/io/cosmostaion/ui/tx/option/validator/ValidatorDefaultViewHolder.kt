@@ -7,10 +7,10 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.suiValidatorCommission
-import wannabit.io.cosmostaion.chain.suiValidatorImg
-import wannabit.io.cosmostaion.chain.suiValidatorName
-import wannabit.io.cosmostaion.chain.suiValidatorVp
+import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
+import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
+import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString

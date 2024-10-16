@@ -12,7 +12,7 @@ import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.suiValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 

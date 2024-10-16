@@ -1,6 +1,7 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_DEFAULT
 import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_SEND
 import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_STAKE

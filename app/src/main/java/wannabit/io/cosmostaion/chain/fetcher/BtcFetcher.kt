@@ -1,7 +1,9 @@
-package wannabit.io.cosmostaion.chain
+package wannabit.io.cosmostaion.chain.fetcher
 
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.jsonRpcResponse

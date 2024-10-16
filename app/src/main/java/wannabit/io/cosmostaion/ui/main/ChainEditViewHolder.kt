@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 
 class ChainEditViewHolder(
@@ -40,7 +39,6 @@ class ChainEditViewHolder(
     }
 
     fun bind(
-        baseAccount: BaseAccount,
         chain: BaseChain,
         displayChains: MutableList<String>,
         listener: ChainEditAdapter.SelectListener
@@ -60,12 +58,12 @@ class ChainEditViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "NESTED SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "LEGACY"
+                        chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -75,7 +73,7 @@ class ChainEditViewHolder(
                                 context, R.color.color_base01
                             )
                         )
-                        chainLegacy.text = "NATIVE SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -157,7 +155,6 @@ class ChainEditViewHolder(
     }
 
     fun testnetBind(
-        baseAccount: BaseAccount,
         chain: BaseChain,
         displayChains: MutableList<String>,
         listener: ChainEditAdapter.SelectListener
@@ -172,12 +169,12 @@ class ChainEditViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "NESTED SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "LEGACY"
+                        chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -187,7 +184,7 @@ class ChainEditViewHolder(
                                 context, R.color.color_base01
                             )
                         )
-                        chainLegacy.text = "NATIVE SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 

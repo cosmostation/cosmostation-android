@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.data.repository.chain
 import com.google.gson.JsonObject
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult

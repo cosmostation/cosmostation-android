@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.assetImg
+import wannabit.io.cosmostaion.chain.fetcher.assetImg
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue

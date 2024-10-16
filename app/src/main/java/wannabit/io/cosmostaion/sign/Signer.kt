@@ -66,12 +66,12 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
-import wannabit.io.cosmostaion.chain.delegatorRewardDenoms
-import wannabit.io.cosmostaion.chain.earnRewardDenoms
+import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
+import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.hardRewardDenoms
-import wannabit.io.cosmostaion.chain.hasUsdxMinting
-import wannabit.io.cosmostaion.chain.swapRewardDenoms
+import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
+import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
+import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC

@@ -65,12 +65,12 @@ class DashboardViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainSideBadge.defaultSet()
-                        chainSideBadge.text = "NESTED SEGWIT"
+                        chainSideBadge.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainSideBadge.defaultSet()
-                        chainSideBadge.text = "LEGACY"
+                        chainSideBadge.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -81,7 +81,7 @@ class DashboardViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainSideBadge.text = "NATIVE SEGWIT"
+                        chainSideBadge.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -201,12 +201,12 @@ class DashboardViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainSideBadge.defaultSet()
-                        chainSideBadge.text = "NESTED SEGWIT"
+                        chainSideBadge.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainSideBadge.defaultSet()
-                        chainSideBadge.text = "LEGACY"
+                        chainSideBadge.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -217,7 +217,7 @@ class DashboardViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainSideBadge.text = "NATIVE SEGWIT"
+                        chainSideBadge.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -334,12 +334,12 @@ class DashboardViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "NESTED SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "LEGACY"
+                        chainBadge.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -350,7 +350,7 @@ class DashboardViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainBadge.text = "NATIVE SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -410,12 +410,12 @@ class DashboardViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "NESTED SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainBadge.defaultSet()
-                        chainBadge.text = "LEGACY"
+                        chainBadge.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -426,7 +426,7 @@ class DashboardViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainBadge.text = "NATIVE SEGWIT"
+                        chainBadge.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
