@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
@@ -16,7 +15,7 @@ class SetAddressBookViewHolder(
         binding.apply {
             addressBookView.setBackgroundResource(R.drawable.item_bg)
 
-            if (addressBook.address.startsWith("0x")) {
+            if (addressBook.chainName.isEmpty()) {
                 addressMemo.visibility = View.GONE
                 chainImg.setImageResource(R.drawable.chain_default)
 

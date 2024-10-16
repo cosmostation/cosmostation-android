@@ -794,4 +794,11 @@ object BaseUtils {
             false
         }
     }
+
+    fun isValidSuiAddress(address: String?): Boolean {
+        val suiPattern = "^(0x)[A-Fa-f0-9]{64}$"
+        val p = Pattern.compile(suiPattern)
+        val m = p.matcher(address)
+        return m.matches()
+    }
 }

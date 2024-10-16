@@ -41,7 +41,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private var senderAddress = ""
     private lateinit var sendAssetType: SendAssetType
 
-    private lateinit var addressBookAdapter: wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter
+    private lateinit var addressBookAdapter: AddressBookAdapter
     private lateinit var evmAddressBookAdapter: EvmAddressBookAdapter
 
     companion object {
@@ -377,7 +377,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         refAddresses: MutableList<RefAddress>, addressBooks: MutableList<AddressBook>
     ) {
         binding.apply {
-            addressBookAdapter = wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter(
+            addressBookAdapter = AddressBookAdapter(
                 refAddresses, addressBooks
             )
             recycler.setHasFixedSize(true)

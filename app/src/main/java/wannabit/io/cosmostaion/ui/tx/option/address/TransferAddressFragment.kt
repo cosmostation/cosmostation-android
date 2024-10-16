@@ -23,11 +23,11 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
-import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 
 interface AddressListener {
     fun selectAddress(address: String, memo: String)
@@ -242,6 +242,19 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                                 toChain as ChainBitCoin84, address
                             )
                         ) {
+                            addressListener?.selectAddress(
+                                address, addressBookMemo
+                            )
+                            dismiss()
+                            return@setOnClickListener
+
+                        } else {
+                            requireContext().makeToast(R.string.error_invalid_address)
+                            return@setOnClickListener
+                        }
+
+                    } else if (sendAssetType == SendAssetType.SUI_COIN) {
+                        if (BaseUtils.isValidSuiAddress(address)) {
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
