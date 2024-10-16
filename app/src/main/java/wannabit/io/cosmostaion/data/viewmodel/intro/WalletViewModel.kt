@@ -23,8 +23,8 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
-import wannabit.io.cosmostaion.data.model.Cw721Model
-import wannabit.io.cosmostaion.data.model.Cw721TokenModel
+import wannabit.io.cosmostaion.data.model.req.Cw721Model
+import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
