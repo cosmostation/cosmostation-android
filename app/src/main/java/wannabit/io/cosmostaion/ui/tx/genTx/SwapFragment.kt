@@ -42,9 +42,9 @@ import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
-import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.fetcher.balance
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -58,7 +58,6 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.updateToggleButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.Affiliate
 import wannabit.io.cosmostaion.data.model.req.ChainInfo
@@ -76,6 +75,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogBigLossWarnBinding
 import wannabit.io.cosmostaion.databinding.FragmentSwapBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
@@ -229,7 +229,7 @@ class SwapFragment : BaseTxFragment() {
                 inputChainImg.setImageResource(chain.logo)
                 inputChainName.text = chain.name.uppercase()
                 BaseData.getAsset(chain.apiName, inputAsset.denom)?.let { inputMsAsset ->
-                    inputTokenImg.setTokenImg(inputMsAsset.assetImg())
+                    inputTokenImg.setTokenImg(inputMsAsset.image)
                     inputToken.text = inputMsAsset.symbol
                 } ?: run {
                     inputTokenImg.setTokenImg(inputAsset.image)
@@ -260,7 +260,7 @@ class SwapFragment : BaseTxFragment() {
                 outputChainImg.setImageResource(chain.logo)
                 outputChainName.text = chain.name.uppercase()
                 BaseData.getAsset(chain.apiName, outputAsset.denom)?.let { outputMsAsset ->
-                    outputTokenImg.setTokenImg(outputMsAsset.assetImg())
+                    outputTokenImg.setTokenImg(outputMsAsset.image)
                     outputToken.text = outputMsAsset.symbol
                 } ?: run {
                     outputTokenImg.setTokenImg(outputAsset.image)
@@ -1093,7 +1093,7 @@ class SwapFragment : BaseTxFragment() {
                 assets.firstOrNull { it.denom == tempInputAssets[index].denom }?.let { asset ->
                     tempInputAssets[index].geckoId = asset.coinGeckoId
                     tempInputAssets[index].description = asset.description
-                    tempInputAssets[index].image = asset.assetImg()
+                    tempInputAssets[index].image = asset.image
                     targetInputAssets.add(tempInputAssets[index])
                 }
             }
@@ -1153,7 +1153,7 @@ class SwapFragment : BaseTxFragment() {
                 assets.firstOrNull { it.denom == tempOutputAssets[index].denom }?.let { asset ->
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
                     tempOutputAssets[index].description = asset.description
-                    tempOutputAssets[index].image = asset.assetImg()
+                    tempOutputAssets[index].image = asset.image
                     targetOutputAssets.add(tempOutputAssets[index])
                 }
             }

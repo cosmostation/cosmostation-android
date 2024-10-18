@@ -223,7 +223,7 @@ fun FragmentActivity.toMoveFragment(
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    Picasso.get().load(CosmostationConstants.CHAIN_BASE_URL + asset.image)
+    Picasso.get().load(asset.image)
         .error(R.drawable.token_default).into(this)
 }
 

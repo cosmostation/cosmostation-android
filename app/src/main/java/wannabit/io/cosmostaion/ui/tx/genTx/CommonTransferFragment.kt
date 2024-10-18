@@ -34,8 +34,8 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
-import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
@@ -51,8 +51,6 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.sign.BitCoinJS
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendMsg
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendReq
 import wannabit.io.cosmostaion.data.model.req.WasmSendReq
@@ -62,6 +60,8 @@ import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCommonTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
@@ -238,7 +238,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                             }
                         }
-                        transferImg.setTokenImg(toSendAsset?.assetImg() ?: "")
+                        transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
                             R.string.title_asset_send, toSendAsset?.symbol
                         )
@@ -259,7 +259,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             }
                         }
                     }
-                    transferImg.setTokenImg(toSendAsset?.assetImg() ?: "")
+                    transferImg.setTokenImg(toSendAsset?.image ?: "")
                     sendTitle.text = getString(
                         R.string.title_asset_send, toSendAsset?.symbol
                     )
@@ -497,12 +497,12 @@ class CommonTransferFragment : BaseTxFragment() {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.ibc_info?.counterparty?.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
-                    if (asset.origin_chain == fromChain.apiName && asset.counter_party?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
                 }
@@ -1506,20 +1506,26 @@ class CommonTransferFragment : BaseTxFragment() {
                         denom, true
                     )
                 ) {
-                    return AssetPath(asset.channel, asset.port)
+                    return AssetPath(
+                        asset.ibc_info?.client?.channel, asset.ibc_info?.client?.port
+                    )
                 }
-                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom?.equals(
+                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.denom?.equals(
                         denom, true
                     ) == true
                 ) {
-                    return AssetPath(asset.counter_party.channel, asset.counter_party.port)
+                    return AssetPath(
+                        asset.ibc_info.counterparty.channel, asset.ibc_info.counterparty.port
+                    )
                 }
             } else {
-                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.counter_party?.denom.equals(
+                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.denom.equals(
                         msToken.address, true
                     )
                 ) {
-                    return AssetPath(asset.counter_party?.channel, asset.counter_party?.port)
+                    return AssetPath(
+                        asset.ibc_info?.counterparty?.channel, asset.ibc_info?.counterparty?.port
+                    )
                 }
             }
         }

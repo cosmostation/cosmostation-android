@@ -26,14 +26,14 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.main.NoticeType
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.LegacyTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class CoinFragment : Fragment() {
@@ -153,20 +153,20 @@ class CoinFragment : Fragment() {
                     val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                     coinType?.let {
                         when (it) {
-                            "staking" -> {
-                                stakeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.STAKE
+                            "staking", "native" -> {
+                                if (coin.denom == selectedChain.stakeDenom) {
+                                    stakeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.STAKE
+                                        )
                                     )
-                                )
-                            }
-
-                            "native" -> {
-                                nativeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.NATIVE
+                                } else {
+                                    nativeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.NATIVE
+                                        )
                                     )
-                                )
+                                }
                             }
 
                             "bep", "bridge" -> {

@@ -51,7 +51,7 @@ class ChainSui : BaseChain(), Parcelable {
             val metaData = fetcher.suiCoinMeta[originSymbol]
 
             if (asset != null) {
-                return asset.assetImg()
+                return asset.image
             } else if (metaData != null) {
                 return metaData.assetImg()
             }
