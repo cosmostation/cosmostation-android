@@ -88,7 +88,7 @@ class DashboardViewHolder(
             } else {
                 chainSideBadge.visibleOrGone(!chain.isDefault)
                 chainSideBadge.defaultSet()
-                chainBadge.text = context.getString(R.string.str_old)
+                chainSideBadge.text = context.getString(R.string.str_old)
             }
 
             if (chain.isEvmCosmos()) {
@@ -224,7 +224,7 @@ class DashboardViewHolder(
             } else {
                 chainSideBadge.visibleOrGone(!chain.isDefault)
                 chainSideBadge.defaultSet()
-                chainBadge.text = context.getString(R.string.str_old)
+                chainSideBadge.text = context.getString(R.string.str_old)
             }
 
             chainPrice.visibility = View.VISIBLE
