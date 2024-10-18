@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -81,7 +80,7 @@ class SuiStakeInfoFragment : Fragment() {
             }
 
             suiStakePagerAdapter = SuiStakePagerAdapter(
-                requireActivity(), selectedChain
+                this@SuiStakeInfoFragment, selectedChain
             )
             viewPager.adapter = suiStakePagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -180,8 +179,8 @@ class SuiStakeInfoFragment : Fragment() {
     }
 
     class SuiStakePagerAdapter(
-        fragmentActivity: FragmentActivity, selectedChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+        fragment: Fragment, selectedChain: BaseChain
+    ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {

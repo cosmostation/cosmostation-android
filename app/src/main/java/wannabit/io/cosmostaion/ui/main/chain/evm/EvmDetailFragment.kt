@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -19,11 +18,11 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 
 class EvmDetailFragment : Fragment() {
 
@@ -128,7 +127,7 @@ class EvmDetailFragment : Fragment() {
     private fun initTab() {
         binding.apply {
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), selectedEvmChain
+                this@EvmDetailFragment, selectedEvmChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -236,8 +235,8 @@ class EvmDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedEvmChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+        fragment: Fragment, selectedEvmChain: BaseChain
+    ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {

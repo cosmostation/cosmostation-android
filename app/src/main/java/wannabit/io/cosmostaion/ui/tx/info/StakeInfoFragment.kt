@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cosmos.staking.v1beta1.StakingProto
@@ -68,7 +67,7 @@ class StakeInfoFragment : Fragment() {
             }
 
             stakingPagerAdapter = StakingPagerAdapter(
-                requireActivity(), selectedChain
+                this@StakeInfoFragment, selectedChain
             )
             viewPager.adapter = stakingPagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -127,8 +126,8 @@ class StakeInfoFragment : Fragment() {
     }
 
     class StakingPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+        fragment: Fragment, selectedChain: BaseChain
+    ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {

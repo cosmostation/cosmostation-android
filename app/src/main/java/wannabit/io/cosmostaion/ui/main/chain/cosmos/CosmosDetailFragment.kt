@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -34,6 +33,9 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
@@ -42,18 +44,15 @@ import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
-import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
-import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
-import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
-import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
+import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
 import java.math.BigDecimal
 
@@ -255,7 +254,7 @@ class CosmosDetailFragment : Fragment() {
             tableTitles.add("About")
 
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), tableTitles, selectedChain
+                this@CosmosDetailFragment, tableTitles, selectedChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 4
@@ -593,10 +592,10 @@ class CosmosDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity,
+        fragment: Fragment,
         private val tabTitles: List<String>,
         private val selectedChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+    ) : FragmentStateAdapter(fragment) {
 
         override fun getItemCount(): Int {
             return tabTitles.size

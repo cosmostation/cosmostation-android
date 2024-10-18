@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -118,7 +117,7 @@ class MajorDetailFragment : Fragment() {
             tableTitles.add("About")
 
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), tableTitles, selectedChain
+                this@MajorDetailFragment, tableTitles, selectedChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -217,10 +216,10 @@ class MajorDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity,
+        fragment: Fragment,
         private val tabTitles: List<String>,
         private val selectedChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+    ) : FragmentStateAdapter(fragment) {
 
         override fun getItemCount(): Int {
             return tabTitles.size
