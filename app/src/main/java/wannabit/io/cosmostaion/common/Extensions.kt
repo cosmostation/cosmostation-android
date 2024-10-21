@@ -9,7 +9,6 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -33,7 +32,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import coil.ImageLoader
 import coil.decode.SvgDecoder
-import coil.request.ImageRequest
+import coil.load
+import coil.request.CachePolicy
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -223,12 +223,38 @@ fun FragmentActivity.toMoveFragment(
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    Picasso.get().load(asset.image)
-        .error(R.drawable.token_default).into(this)
+    if (asset.image?.contains(".svg") == true) {
+        val imageLoader = ImageLoader.Builder(context).components {
+            add(SvgDecoder.Factory())
+        }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
+        load(asset.image, imageLoader) {
+            placeholder(R.drawable.token_default)
+            error(R.drawable.token_default)
+        }
+
+    } else {
+        Picasso.get().load(asset.image).error(R.drawable.token_default).into(this)
+    }
 }
 
 fun ImageView.setTokenImg(tokenImg: String) {
-    Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+    if (tokenImg.isNotEmpty()) {
+        if (tokenImg.contains(".svg")) {
+            val imageLoader = ImageLoader.Builder(context).components {
+                add(SvgDecoder.Factory())
+            }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
+            load(tokenImg, imageLoader) {
+                placeholder(R.drawable.token_default)
+                error(R.drawable.token_default)
+            }
+
+        } else {
+            Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+        }
+
+    } else {
+        Picasso.get().load(R.drawable.token_default).into(this)
+    }
 }
 
 fun ImageView.setImg(resourceId: Int) {
@@ -241,18 +267,23 @@ fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
 }
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
-    val imageLoader = ImageLoader.Builder(this.context).componentRegistry {
-        add(SvgDecoder(context))
-    }.build()
+    if (imageUrl?.isNotEmpty() == true) {
+        if (imageUrl?.contains(".svg") == true) {
+            val imageLoader = ImageLoader.Builder(context).components {
+                add(SvgDecoder.Factory())
+            }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
+            load(imageUrl, imageLoader) {
+                placeholder(defaultImage)
+                error(defaultImage)
+            }
 
-    val imageRequest = ImageRequest.Builder(this.context).crossfade(true).crossfade(300)
-        .data(imageUrl?.ifBlank { defaultImage }).target(onSuccess = { result ->
-            val bitmap = (result as BitmapDrawable).bitmap
-            this.setImageBitmap(bitmap)
-        }, onError = {
-            this.setImageResource(defaultImage)
-        }).build()
-    imageLoader.enqueue(imageRequest)
+        } else {
+            Picasso.get().load(imageUrl).error(defaultImage).into(this)
+        }
+
+    } else {
+        Picasso.get().load(defaultImage).into(this)
+    }
 }
 
 fun AppCompatActivity.makeToast(id: Int) {
@@ -800,7 +831,8 @@ fun CoinProto.DecCoin.getdAmount(): BigDecimal {
 
 fun StakingProto.Validator.isActiveValidator(chain: BaseChain): Boolean {
     return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
-        val maxProviderConsensusCnt = chain.getInterchainProviderParams()?.get("max_provider_consensus_validators")?.asString.toString().toInt()
+        val maxProviderConsensusCnt = chain.getInterchainProviderParams()
+            ?.get("max_provider_consensus_validators")?.asString.toString().toInt()
         val sortedValidators =
             chain.cosmosFetcher()?.cosmosOriginValidators?.filter { it.status == StakingProto.BondStatus.BOND_STATUS_BONDED }
                 ?.sortedWith { o1, o2 ->

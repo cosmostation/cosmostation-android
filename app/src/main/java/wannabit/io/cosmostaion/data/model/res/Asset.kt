@@ -18,7 +18,7 @@ data class Asset(
     val symbol: String?,
     val description: String?,
     val decimals: Int?,
-    val image: String,
+    val image: String?,
     val coinGeckoId: String?,
     val color: String?,
     val ibc_info: IbcInfo?,

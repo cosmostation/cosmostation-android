@@ -229,7 +229,7 @@ class SwapFragment : BaseTxFragment() {
                 inputChainImg.setImageResource(chain.logo)
                 inputChainName.text = chain.name.uppercase()
                 BaseData.getAsset(chain.apiName, inputAsset.denom)?.let { inputMsAsset ->
-                    inputTokenImg.setTokenImg(inputMsAsset.image)
+                    inputTokenImg.setTokenImg(inputMsAsset.image ?: "")
                     inputToken.text = inputMsAsset.symbol
                 } ?: run {
                     inputTokenImg.setTokenImg(inputAsset.image)
@@ -260,7 +260,7 @@ class SwapFragment : BaseTxFragment() {
                 outputChainImg.setImageResource(chain.logo)
                 outputChainName.text = chain.name.uppercase()
                 BaseData.getAsset(chain.apiName, outputAsset.denom)?.let { outputMsAsset ->
-                    outputTokenImg.setTokenImg(outputMsAsset.image)
+                    outputTokenImg.setTokenImg(outputMsAsset.image ?: "")
                     outputToken.text = outputMsAsset.symbol
                 } ?: run {
                     outputTokenImg.setTokenImg(outputAsset.image)
@@ -1093,7 +1093,7 @@ class SwapFragment : BaseTxFragment() {
                 assets.firstOrNull { it.denom == tempInputAssets[index].denom }?.let { asset ->
                     tempInputAssets[index].geckoId = asset.coinGeckoId
                     tempInputAssets[index].description = asset.description
-                    tempInputAssets[index].image = asset.image
+                    tempInputAssets[index].image = asset.image ?: ""
                     targetInputAssets.add(tempInputAssets[index])
                 }
             }
@@ -1153,7 +1153,7 @@ class SwapFragment : BaseTxFragment() {
                 assets.firstOrNull { it.denom == tempOutputAssets[index].denom }?.let { asset ->
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
                     tempOutputAssets[index].description = asset.description
-                    tempOutputAssets[index].image = asset.image
+                    tempOutputAssets[index].image = asset.image ?: ""
                     targetOutputAssets.add(tempOutputAssets[index])
                 }
             }
