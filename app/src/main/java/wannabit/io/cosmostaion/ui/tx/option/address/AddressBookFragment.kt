@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -161,7 +162,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
 
                                 } else {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress) {
+                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress && !BaseUtils.isValidSuiAddress(
+                                            addressBook.address
+                                        )
+                                    ) {
                                         evmAddressBooks.add(addressBook)
                                     }
                                 }
@@ -208,7 +212,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 .forEach { addressBook ->
                                     if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
                                             senderAddress
-                                        )
+                                        ) && !BaseUtils.isValidSuiAddress(addressBook.address)
                                     ) {
                                         evmAddressBooks.add(addressBook)
                                     }
@@ -252,6 +256,13 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     refMajorAddresses.add(refAddress)
                                 }
                             }
+
+                        AppDatabase.getInstance().addressBookDao().selectAll()
+                            .forEach { addressBook ->
+                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    majorAddressBook.add(addressBook)
+                                }
+                            }
                     }
 
                     SendAssetType.BIT_COIN -> {
@@ -280,8 +291,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()
-                                ) {
+                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
                                     majorAddressBook.add(addressBook)
                                 }
                             }
