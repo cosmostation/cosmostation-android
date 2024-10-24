@@ -32,10 +32,10 @@ class TokenEditAdapter(
         updateView(holder, erc20Token, displayErc20Tokens)
 
         holder.itemView.setOnClickListener {
-            if (displayErc20Tokens?.contains(erc20Token.address) == true) {
-                displayErc20Tokens.removeIf { it == erc20Token.address }
+            if (displayErc20Tokens?.contains(erc20Token.contract) == true) {
+                displayErc20Tokens.removeIf { it == erc20Token.contract }
             } else {
-                displayErc20Tokens?.add(erc20Token.address)
+                displayErc20Tokens?.add(erc20Token.contract)
             }
             updateView(holder, erc20Token, displayErc20Tokens)
             onItemClickListener?.let {
@@ -48,7 +48,7 @@ class TokenEditAdapter(
         holder: TokenEditViewHolder, token: Token, displayErc20Tokens: MutableList<String>?
     ) {
         holder.binding.apply {
-            if (displayErc20Tokens?.contains(token.address) == true) {
+            if (displayErc20Tokens?.contains(token.contract) == true) {
                 editView.setBackgroundResource(R.drawable.item_select_bg)
             } else {
                 editView.setBackgroundResource(R.drawable.cell_bg)

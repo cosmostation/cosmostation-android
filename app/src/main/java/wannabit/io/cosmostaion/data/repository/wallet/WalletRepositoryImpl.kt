@@ -350,7 +350,7 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.address)
+            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.contract)
                 .setQueryData(queryData).build()
             try {
                 stub.smartContractState(request)?.let { response ->
@@ -364,7 +364,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             try {
-                lcdApi(chain).lcdContractInfo(token.address, queryDataBase64).let { response ->
+                lcdApi(chain).lcdContractInfo(token.contract, queryDataBase64).let { response ->
                     token.amount = response["data"].asJsonObject["balance"].asString
                 }
 
@@ -384,7 +384,7 @@ class WalletRepositoryImpl : WalletRepository {
 
             val txData = FunctionEncoder.encode(function)
             val response = chain.web3j?.ethCall(
-                Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
+                Transaction.createEthCallTransaction(chain.evmAddress, token.contract, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)

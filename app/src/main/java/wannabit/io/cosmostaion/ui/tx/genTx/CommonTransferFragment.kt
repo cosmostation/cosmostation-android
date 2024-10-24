@@ -267,18 +267,18 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
                     fromChain.cosmosFetcher?.let { grpc ->
-                        grpc.tokens.firstOrNull { it.address == toSendDenom }?.let { token ->
+                        grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
                             toSendToken = token
                         }
                     }
 
                     fromChain.evmRpcFetcher?.let { evmRpc ->
-                        evmRpc.evmTokens.firstOrNull { it.address == toSendDenom }?.let { token ->
+                        evmRpc.evmTokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
                             toSendToken = token
                         }
                     }
                     availableAmount = toSendToken?.amount?.toBigDecimal()
-                    transferImg.setTokenImg(toSendToken?.assetImg() ?: "")
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
                     sendTitle.text = getString(
                         R.string.title_asset_send, toSendToken?.symbol
                     )
@@ -1227,7 +1227,7 @@ class CommonTransferFragment : BaseTxFragment() {
         val msg = ByteString.copyFromUtf8(jsonData)
         wasmMsgs.add(
             MsgExecuteContract.newBuilder().setSender(fromChain.address)
-                .setContract(toSendToken?.address).setMsg(msg).build()
+                .setContract(toSendToken?.contract).setMsg(msg).build()
         )
         return Signer.wasmMsg(wasmMsgs)
     }
@@ -1243,7 +1243,7 @@ class CommonTransferFragment : BaseTxFragment() {
         val msg = ByteString.copyFromUtf8(jsonData)
         wasmMsgs.add(
             MsgExecuteContract.newBuilder().setSender(fromChain.address)
-                .setContract(toSendToken?.address).setMsg(msg).build()
+                .setContract(toSendToken?.contract).setMsg(msg).build()
         )
         return Signer.wasmMsg(wasmMsgs)
     }
@@ -1498,7 +1498,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {
         val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
-        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.address == denom }
+        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.contract == denom }
 
         BaseData.assets?.forEach { asset ->
             if (msAsset != null) {
@@ -1520,7 +1520,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
             } else {
                 if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.denom.equals(
-                        msToken.address, true
+                        msToken.contract, true
                     )
                 ) {
                     return AssetPath(

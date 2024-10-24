@@ -11,9 +11,9 @@ class TokenEditViewHolder(
 
     fun bind(token: Token) {
         binding.apply {
-            tokenImg.setTokenImg(token.assetImg())
+            tokenImg.setTokenImg(token.image)
             tokenName.text = token.symbol
-            tokenDescription.text = token.description
+            tokenDescription.text = token.name
         }
     }
 }

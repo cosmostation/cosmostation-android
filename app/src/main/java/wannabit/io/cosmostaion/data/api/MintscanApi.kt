@@ -41,10 +41,10 @@ interface MintscanApi {
     @GET("v10/utils/params")
     suspend fun param(): JsonObject
 
-    @GET("v10/assets/{chain}/cw20/info")
+    @GET("v11/assets/{chain}/cw20/info")
     suspend fun cw20token(@Path("chain") chain: String): MutableList<Token>
 
-    @GET("v10/assets/{chain}/erc20/info")
+    @GET("v11/assets/{chain}/erc20/info")
     suspend fun erc20token(@Path("chain") chain: String): MutableList<Token>
 
     @GET("{chain}/cw721.json")

@@ -67,7 +67,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+        tokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -97,7 +97,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun valueTokenCnt(): Int {
-        return tokens.count { BigDecimal.ZERO <= it.amount?.toBigDecimal() }
+        return tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
     }
 
     fun balanceAmount(denom: String): BigDecimal {

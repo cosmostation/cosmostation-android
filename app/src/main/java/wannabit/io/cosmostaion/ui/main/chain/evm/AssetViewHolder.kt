@@ -54,7 +54,7 @@ class AssetViewHolder(
     fun tokenBind(evmChain: BaseChain, token: Token) {
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
-            assetImg.setTokenImg(token.assetImg())
+            assetImg.setTokenImg(token.image)
             assetName.text = token.symbol
 
             assetPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
@@ -76,7 +76,7 @@ class AssetViewHolder(
 
                         assetAmount.text = formatAmount(amount.toPlainString(), 6)
                         assetAmountValue.text =
-                            evmChain.evmRpcFetcher?.tokenValue(token.address)
+                            evmChain.evmRpcFetcher?.tokenValue(token.contract)
                                 ?.let { formatAssetValue(it) }
                     }
                 }

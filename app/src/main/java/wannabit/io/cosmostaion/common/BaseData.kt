@@ -54,9 +54,9 @@ object BaseData {
 
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
         return if (chain.supportCw20) {
-            chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+            chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
         } else {
-            chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+            chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
         }
     }
 

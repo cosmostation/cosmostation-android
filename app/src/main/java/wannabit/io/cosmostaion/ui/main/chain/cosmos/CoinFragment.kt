@@ -222,8 +222,8 @@ class CoinFragment : Fragment() {
                 }
 
                 tokens.sortWith { o1, o2 ->
-                    val value0 = evmRpc.tokenValue(o1.address)
-                    val value1 = evmRpc.tokenValue(o2.address)
+                    val value0 = evmRpc.tokenValue(o1.contract)
+                    val value1 = evmRpc.tokenValue(o2.contract)
                     when {
                         value0 > value1 -> -1
                         value0 < value1 -> 1
@@ -232,7 +232,7 @@ class CoinFragment : Fragment() {
                 }
             }
             tokens.forEach { token ->
-                tokenCoins.add(Coin(token.address, token.amount.toString(), CoinType.ERC20))
+                tokenCoins.add(Coin(token.contract, token.amount.toString(), CoinType.ERC20))
             }
             searchTokenCoins.addAll(tokenCoins)
 
@@ -245,8 +245,8 @@ class CoinFragment : Fragment() {
                 }
 
                 tokens.sortWith { o1, o2 ->
-                    val value0 = grpc.tokenValue(o1.address)
-                    val value1 = grpc.tokenValue(o2.address)
+                    val value0 = grpc.tokenValue(o1.contract)
+                    val value1 = grpc.tokenValue(o2.contract)
                     when {
                         value0 > value1 -> -1
                         value0 < value1 -> 1
@@ -255,7 +255,7 @@ class CoinFragment : Fragment() {
                 }
             }
             tokens.forEach { token ->
-                tokenCoins.add(Coin(token.address, token.amount.toString(), CoinType.CW20))
+                tokenCoins.add(Coin(token.contract, token.amount.toString(), CoinType.CW20))
             }
             searchTokenCoins.addAll(tokenCoins)
         }

@@ -22,7 +22,7 @@ class EvmFetcher(chain: BaseChain) {
     }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        evmTokens.firstOrNull { it.address == address }?.let { tokenInfo ->
+        evmTokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)

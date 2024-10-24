@@ -23,10 +23,10 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -381,6 +381,7 @@ class ApplicationViewModel(
                                 }?.toLong() ?: 0L
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
+                            tokenCnt = evmRpcFetcher.valueTokenCnt()
                         }
                     }
                 }
@@ -783,12 +784,12 @@ class ApplicationViewModel(
                             }
 
                             val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                evmRpcFetcher.evmTokens.filter { it.default }.map { token ->
+                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }.map { token ->
                                     async { walletRepository.erc20Balance(this@apply, token) }
                                 }
 
                             } else {
-                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
+                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
                                     .map { token ->
                                         async { walletRepository.erc20Balance(this@apply, token) }
                                     }

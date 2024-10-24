@@ -108,8 +108,8 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             BaseData.baseAccount?.let { account ->
                 Prefs.getDisplayErc20s(account.id, selectedEvmChain.tag)?.let { userCustomTokens ->
                     evmTokens.sortWith { token0, token1 ->
-                        val address0 = token0.address
-                        val address1 = token1.address
+                        val address0 = token0.contract
+                        val address1 = token1.contract
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -127,7 +127,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                         }
                     }
                     evmTokens.forEach { token ->
-                        if (userCustomTokens.contains(token.address) && !displayErc20Tokens.contains(
+                        if (userCustomTokens.contains(token.contract) && !displayErc20Tokens.contains(
                                 token
                             )
                         ) {
@@ -137,9 +137,9 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
                 } ?: run {
                     evmTokens.sortWith { o1, o2 ->
-                        val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.address)
+                        val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.contract)
                             ?: BigDecimal.ZERO
-                        val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.address)
+                        val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.contract)
                             ?: BigDecimal.ZERO
                         when {
                             value0 > value1 -> -1
@@ -285,7 +285,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     override fun showTokenList() {
         TokenEditFragment.newInstance(selectedEvmChain,
             allErc20Tokens,
-            displayErc20Tokens.map { it.address }.toMutableList(),
+            displayErc20Tokens.map { it.contract }.toMutableList(),
             object : TokenEditListener {
                 override fun edit(displayErc20Tokens: MutableList<String>) {
                     BaseData.baseAccount?.let { account ->

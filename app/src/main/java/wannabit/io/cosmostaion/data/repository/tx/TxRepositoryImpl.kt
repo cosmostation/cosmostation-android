@@ -211,7 +211,7 @@ class TxRepositoryImpl : TxRepository {
                 val estimateGasRequest = JsonRpcRequest(
                     method = "eth_estimateGas", params = listOf(
                         EstimateGasParams(
-                            fromAddress, token.address, txData
+                            fromAddress, token.contract, txData
                         )
                     )
                 )
@@ -346,7 +346,7 @@ class TxRepositoryImpl : TxRepository {
                             chainID,
                             nonce,
                             gasLimit,
-                            selectedToken?.address,
+                            selectedToken?.contract,
                             BigInteger.ZERO,
                             txData,
                             tip,
@@ -379,7 +379,7 @@ class TxRepositoryImpl : TxRepository {
                             nonce,
                             web3j.ethGasPrice().send().gasPrice,
                             gasLimit,
-                            selectedToken?.address,
+                            selectedToken?.contract,
                             BigInteger.ZERO,
                             txData
                         )
