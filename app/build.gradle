@@ -6,14 +6,13 @@ apply plugin: 'kotlin-parcelize'
 
 android {
     def localPropertiesFile = rootProject.file("local.properties")
-    def walletConnectDevApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
-    def walletConnectApiKey = '"57a6070dfa02b49cc83f17171299a6b8"'
-    def skipDevApiKey = "\"5708b388-04d6-4048-afd8-22982bb9497c\""
-    def skipApiKey = "\"5708b388-04d6-4048-afd8-22982bb9497c\""
+    def walletConnectApiKey = ""
+    def skipApiKey = ""
     if (localPropertiesFile.exists()) {
         def localProperties = new Properties()
         localProperties.load(new FileInputStream(localPropertiesFile))
         walletConnectApiKey = localProperties['walletconnect.apiKey.release']
+        skipApiKey = localProperties['skip.apiKey.release']
     }
 
     defaultConfig {
@@ -30,20 +29,23 @@ android {
         renderscriptSupportModeEnabled true
     }
 
-    buildTypes {
-        debug {
-            applicationIdSuffix '.debug'
-            splits.abi.enable = false
-            splits.density.enable = false
-            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectDevApiKey
-            buildConfigField "String", "SKIP_API_KEY", skipDevApiKey
+    signingConfigs {
+        release {
+            storeFile file('eostartkeystore')
+            storePassword "dnjsjqlt034#"
+            keyAlias "key0"
+            keyPassword "dnjsjqlt034#"
         }
+    }
+
+    buildTypes {
         release {
             minifyEnabled false
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "WALLETCONNECT_API_KEY", walletConnectApiKey
-            buildConfigField "String", "SKIP_API_KEY", skipApiKey
+            buildConfigField "String", "WALLETCONNECT_API_KEY", "\"${walletConnectApiKey}\""
+            buildConfigField "String", "SKIP_API_KEY", "\"${skipApiKey}\""
+            signingConfig signingConfigs.release
         }
     }
 
