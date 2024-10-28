@@ -19,7 +19,7 @@ class ChainKaia : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "KLAY"
-    override var coinGeckoId: String = ""
+    override var coinGeckoId: String = "klay-token"
     override var coinLogo: Int = R.drawable.token_kaia
     override var supportStaking = false
 

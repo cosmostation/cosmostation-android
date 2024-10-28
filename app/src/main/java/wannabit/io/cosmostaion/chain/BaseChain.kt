@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
@@ -51,6 +52,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
@@ -76,11 +78,13 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
@@ -98,6 +102,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
+import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
@@ -578,6 +583,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainInjective())
     chains.add(ChainIris())
     chains.add(ChainIxo())
+    chains.add(ChainJackal())
     chains.add(ChainJuno())
     chains.add(ChainKaia())
     chains.add(ChainKavaEvm())
@@ -592,6 +598,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantra())
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
+    chains.add(ChainMigaloo())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
@@ -606,6 +613,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPassage())
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
+    chains.add(ChainPlanqEvm())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
@@ -620,12 +628,14 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSentinel())
     chains.add(ChainShentu())
     chains.add(ChainSommelier())
+    chains.add(ChainSource())
     chains.add(ChainStafi())
     chains.add(ChainStargaze())
     chains.add(ChainStride())
     chains.add(ChainSui())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
+    chains.add(ChainUnification())
     chains.add(ChainUx())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
