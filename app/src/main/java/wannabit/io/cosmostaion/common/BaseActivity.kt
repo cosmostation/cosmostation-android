@@ -66,11 +66,9 @@ open class BaseActivity : AppCompatActivity() {
             Prefs.foreToBack = true
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            if (CosmostationApp.instance.isReturnedForeground()) {
-                ApplicationViewModel.shared.price(BaseData.currencyName().lowercase())
-                ApplicationViewModel.shared.param()
-            }
+        if (CosmostationApp.instance.isReturnedForeground()) {
+            ApplicationViewModel.shared.price(BaseData.currencyName().lowercase())
+            ApplicationViewModel.shared.param()
         }
     }
 }

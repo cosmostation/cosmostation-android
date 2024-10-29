@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -128,7 +127,7 @@ class EvmDetailFragment : Fragment() {
     private fun initTab() {
         binding.apply {
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), selectedEvmChain
+                this@EvmDetailFragment, selectedEvmChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 1
@@ -236,8 +235,8 @@ class EvmDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity, selectedEvmChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+        fragment: Fragment, selectedEvmChain: BaseChain
+    ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {

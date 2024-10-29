@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -255,7 +254,7 @@ class CosmosDetailFragment : Fragment() {
             tableTitles.add("About")
 
             detailPagerAdapter = DetailPagerAdapter(
-                requireActivity(), tableTitles, selectedChain
+                this@CosmosDetailFragment, tableTitles, selectedChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 4
@@ -593,10 +592,10 @@ class CosmosDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragmentActivity: FragmentActivity,
+        fragment: Fragment,
         private val tabTitles: List<String>,
         private val selectedChain: BaseChain
-    ) : FragmentStateAdapter(fragmentActivity) {
+    ) : FragmentStateAdapter(fragment) {
 
         override fun getItemCount(): Int {
             return tabTitles.size

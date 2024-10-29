@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
@@ -85,7 +84,7 @@ class DaoProposalListFragment : Fragment() {
     private fun initTab() {
         binding.apply {
             daoProposalPagerAdapter = DaoProposalPagerAdapter(
-                requireActivity(), selectedChain, neutronMyVotes
+                this@DaoProposalListFragment, selectedChain, neutronMyVotes
             )
             viewPager.adapter = daoProposalPagerAdapter
             viewPager.offscreenPageLimit = 2
@@ -141,10 +140,10 @@ class DaoProposalListFragment : Fragment() {
     }
 
     class DaoProposalPagerAdapter(
-        fragmentActivity: FragmentActivity,
+        fragment: Fragment,
         selectedChain: ChainNeutron,
         neutronMyVotes: MutableList<ResDaoVoteStatus>?
-    ) : FragmentStateAdapter(fragmentActivity) {
+    ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {
