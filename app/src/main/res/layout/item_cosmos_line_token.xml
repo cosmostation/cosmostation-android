@@ -28,6 +28,8 @@
                 android:layout_width="@dimen/space_40"
                 android:layout_height="@dimen/space_40"
                 android:src="@drawable/token_default"
+                android:background="@drawable/round_img"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

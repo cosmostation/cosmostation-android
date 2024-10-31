@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
+import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,6 +31,7 @@ import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
@@ -237,6 +239,30 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    private val _editErc20Balance = MutableLiveData<String>()
+    val editErc20Balance: LiveData<String> get() = _editErc20Balance
+
+    fun erc20Balance(chain: BaseChain, token: Token) {
+        viewModelScope.launch(Dispatchers.IO) {
+            walletRepository.erc20Balance(chain, token)
+            withContext(Dispatchers.Main) {
+                _editErc20Balance.value = token.contract
+            }
+        }
+    }
+
+    private val _editCw20Balance = MutableLiveData<String>()
+    val editCw20Balance: LiveData<String> get() = _editCw20Balance
+
+    fun cw20Balance(channel: ManagedChannel?, chain: BaseChain, token: Token) {
+        viewModelScope.launch(Dispatchers.IO) {
+            walletRepository.cw20Balance(channel, chain, token)
+            withContext(Dispatchers.Main) {
+                _editCw20Balance.value = token.contract
             }
         }
     }

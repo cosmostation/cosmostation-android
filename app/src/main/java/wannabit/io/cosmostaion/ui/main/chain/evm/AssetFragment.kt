@@ -21,13 +21,13 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
 import wannabit.io.cosmostaion.ui.main.TokenEditFragment
 import wannabit.io.cosmostaion.ui.main.TokenEditListener
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 interface AssetFragmentInteraction {
@@ -137,14 +137,16 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
                 } ?: run {
                     evmTokens.sortWith { o1, o2 ->
-                        val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.contract)
-                            ?: BigDecimal.ZERO
-                        val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.contract)
-                            ?: BigDecimal.ZERO
                         when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
+                            BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
+                            BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
+                            else -> {
+                                val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.contract)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.contract)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
                         }
                     }
 

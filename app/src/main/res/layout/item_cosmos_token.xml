@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/coin_view"
@@ -27,6 +27,8 @@
                 android:id="@+id/token_img"
                 android:layout_width="@dimen/space_40"
                 android:layout_height="@dimen/space_40"
+                android:background="@drawable/round_img"
+                android:scaleType="centerCrop"
                 android:src="@drawable/token_default"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,9 +48,9 @@
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:maxWidth="@dimen/space_200"
                     android:maxLines="1"
-                    android:ellipsize="end"
                     android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

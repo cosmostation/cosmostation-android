@@ -356,8 +356,10 @@ class WalletRepositoryImpl : WalletRepository {
                 stub.smartContractState(request)?.let { response ->
                     val json = JSONObject(response.data.toStringUtf8())
                     token.amount = json.get("balance").toString()
+                    token.fetched = true
                 }
             } catch (e: Exception) {
+                token.fetched = false
                 null
             }
 
@@ -366,9 +368,11 @@ class WalletRepositoryImpl : WalletRepository {
             try {
                 lcdApi(chain).lcdContractInfo(token.contract, queryDataBase64).let { response ->
                     token.amount = response["data"].asJsonObject["balance"].asString
+                    token.fetched = true
                 }
 
             } catch (e: Exception) {
+                token.fetched = false
                 null
             }
         }
@@ -394,8 +398,10 @@ class WalletRepositoryImpl : WalletRepository {
             } else {
                 token.amount = "0"
             }
+            token.fetched = true
         } catch (e: Exception) {
             token.amount = "0"
+            token.fetched = false
         }
     }
 

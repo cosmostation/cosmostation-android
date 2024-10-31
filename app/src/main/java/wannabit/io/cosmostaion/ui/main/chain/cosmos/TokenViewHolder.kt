@@ -25,6 +25,7 @@ class TokenViewHolder(
             coinView.setBackgroundResource(R.drawable.item_bg)
             BaseData.getToken(chain, chain.apiName, coin.denom)?.let { token ->
                 tokenImg.setTokenImg(token.image)
+                tokenImg.clipToOutline = true
                 tokenName.text = token.symbol
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))

@@ -37,6 +37,7 @@ object Prefs {
     private const val BACKGROUND_IMAGE = "PRE_BACKGROUND_IMAGE"
     private const val FOREGROUND_TO_BACKGROUND = "PRE_FOREGROUND_TO_BACKGROUND"
     private const val DISPLAY_ERC20_TOKENS = "PRE_DISPLAY_ERC20_TOKENS"
+    private const val DISPLAY_CW20_TOKENS = "PRE_DISPLAY_CW20_TOKENS"
     private const val GRPC_ENDPOINT = "PRE_GRPC_ENDPOINT"
     private const val EVM_RPC_ENDPOINT = "PRE_EVM_RPC_ENDPOINT"
     private const val LCD_ENDPOINT = "PRE_LCD_ENDPOINT"
@@ -206,6 +207,41 @@ object Prefs {
 
     fun getDisplayErc20s(baseAccountId: Long, chainTag: String): MutableList<String>? {
         val key = "$baseAccountId $chainTag $DISPLAY_ERC20_TOKENS"
+        val savedDataString = preference.getString(key, null)
+
+        if (!savedDataString.isNullOrEmpty()) {
+            try {
+                val jsonArray = JSONArray(savedDataString)
+                val result = ArrayList<String>()
+                for (i in 0 until jsonArray.length()) {
+                    result.add(jsonArray.getString(i))
+                }
+                return result
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
+
+    fun setDisplayCw20s(
+        baseAccountId: Long, chainTag: String, contractAddresses: List<String>
+    ) {
+        val encoded = try {
+            val jsonString = JSONArray(contractAddresses).toString()
+            jsonString.toByteArray(Charsets.UTF_8)
+        } catch (e: JSONException) {
+            null
+        }
+
+        if (encoded != null) {
+            val key = "$baseAccountId $chainTag $DISPLAY_CW20_TOKENS"
+            preference.edit().putString(key, String(encoded)).apply()
+        }
+    }
+
+    fun getDisplayCw20s(baseAccountId: Long, chainTag: String): MutableList<String>? {
+        val key = "$baseAccountId $chainTag $DISPLAY_CW20_TOKENS"
         val savedDataString = preference.getString(key, null)
 
         if (!savedDataString.isNullOrEmpty()) {

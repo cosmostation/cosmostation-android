@@ -8,8 +8,8 @@ import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.assetImg
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -33,6 +33,7 @@ class CoinViewHolder(
 
             BaseData.getAsset(chain.apiName, coin.denom)?.let { asset ->
                 tokenImg.setTokenImg(asset)
+                tokenImg.clipToOutline = true
                 tokenName.text = asset.symbol
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
@@ -41,22 +42,20 @@ class CoinViewHolder(
                     tokenPriceChange.text = priceChangeStatus(lastUpDown)
                 }
 
-                asset.decimals?.let { decimal ->
-                    val amount = coin.amount.toBigDecimal().movePointLeft(decimal)
-                        .setScale(6, RoundingMode.DOWN)
-                    if (Prefs.hideValue) {
-                        coinAmount.visibility = View.GONE
-                        coinAmountValue.visibility = View.GONE
-                        hideValue.visibility = View.VISIBLE
-                    } else {
-                        coinAmount.visibility = View.VISIBLE
-                        coinAmountValue.visibility = View.VISIBLE
-                        hideValue.visibility = View.GONE
+                val amount = coin.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
+                    .setScale(6, RoundingMode.DOWN)
+                if (Prefs.hideValue) {
+                    coinAmount.visibility = View.GONE
+                    coinAmountValue.visibility = View.GONE
+                    hideValue.visibility = View.VISIBLE
+                } else {
+                    coinAmount.visibility = View.VISIBLE
+                    coinAmountValue.visibility = View.VISIBLE
+                    hideValue.visibility = View.GONE
 
-                        coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                        coinAmountValue.text = chain.cosmosFetcher?.denomValue(coin.denom)
-                            ?.let { formatAssetValue(it) }
-                    }
+                    coinAmount.text = formatAmount(amount.toPlainString(), 6)
+                    coinAmountValue.text = chain.cosmosFetcher?.denomValue(coin.denom)
+                        ?.let { formatAssetValue(it) }
                 }
             }
         }
@@ -73,6 +72,7 @@ class CoinViewHolder(
 
                     if (asset != null) {
                         tokenImg.setTokenImg(asset)
+                        tokenImg.clipToOutline = true
                         tokenName.text = asset.symbol
 
                         val amount = balance.second?.movePointLeft(asset.decimals ?: 6)

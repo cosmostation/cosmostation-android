@@ -27,18 +27,20 @@
                 android:id="@+id/token_img"
                 android:layout_width="@dimen/space_36"
                 android:layout_height="@dimen/space_36"
-                android:layout_centerVertical="true"
-                android:src="@drawable/chain_cosmos"
+                android:scaleType="centerCrop"
+                android:background="@drawable/round_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/token_info_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_12"
-                android:layout_marginEnd="@dimen/space_12"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_10"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/token_value_layout"
                 app:layout_constraintStart_toEndOf="@id/token_img"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -56,11 +58,95 @@
                     style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_base03"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:maxWidth="@dimen/space_100"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toEndOf="@+id/token_name"
+                    app:layout_constraintTop_toTopOf="@id/token_name"
+                    app:layout_constraintBottom_toBottomOf="@id/token_name"/>
+
+                <TextView
+                    android:id="@+id/token_address"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
+                    android:ellipsize="middle"
                     android:gravity="top"
+                    android:maxWidth="@dimen/space_150"
+                    android:maxLines="1"
                     android:textColor="@color/color_base02"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/token_name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/token_value_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/skeleton_token_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shimmer_base_alpha="0.8">
+
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="@dimen/space_18"
+                        android:background="@drawable/skeleton_shape" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <TextView
+                    android:id="@+id/token_amount"
+                    style="@style/font_sb_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:maxWidth="@dimen/space_200"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/skeleton_token_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/skeleton_token_amount"
+                    app:shimmer_base_alpha="0.8">
+
+                    <View
+                        android:layout_width="@dimen/space_30"
+                        android:layout_height="@dimen/space_14"
+                        android:background="@drawable/skeleton_shape" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <TextView
+                    android:id="@+id/token_value"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_13"
+                    android:layout_marginTop="@dimen/space_3"
+                    android:gravity="end|top"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/token_amount" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

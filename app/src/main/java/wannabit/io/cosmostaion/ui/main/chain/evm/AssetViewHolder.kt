@@ -24,6 +24,7 @@ class AssetViewHolder(
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
             assetImg.setImageResource(evmChain.coinLogo)
+            assetImg.clipToOutline = true
             assetName.text = evmChain.coinSymbol
 
             val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
@@ -55,6 +56,7 @@ class AssetViewHolder(
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
             assetImg.setTokenImg(token.image)
+            assetImg.clipToOutline = true
             assetName.text = token.symbol
 
             assetPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))

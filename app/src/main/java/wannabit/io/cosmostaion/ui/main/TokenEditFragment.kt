@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentTokenEditBinding
 
@@ -30,11 +32,13 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentTokenEditBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fromChain: BaseChain
-    private var allErc20Tokens: MutableList<Token>? = mutableListOf()
-    private var displayErc20Tokens: MutableList<String>? = mutableListOf()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
-    private var searchErc20Tokens: MutableList<Token> = mutableListOf()
+    private lateinit var fromChain: BaseChain
+    private var allTokens: MutableList<Token>? = mutableListOf()
+    private var displayTokens: MutableList<String>? = mutableListOf()
+
+    private var searchTokens: MutableList<Token> = mutableListOf()
 
     private lateinit var tokenEditAdapter: TokenEditAdapter
 
@@ -48,8 +52,8 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         ): TokenEditFragment {
             val args = Bundle().apply {
                 putParcelable("fromChain", fromChain)
-                putParcelableArrayList("allErc20Tokens", ArrayList(allErc20Tokens))
-                putStringArrayList("displayErc20Tokens", ArrayList(displayErc20Tokens))
+                putParcelableArrayList("allTokens", ArrayList(allErc20Tokens))
+                putStringArrayList("displayTokens", ArrayList(displayErc20Tokens))
             }
             val fragment = TokenEditFragment()
             fragment.arguments = args
@@ -129,9 +133,9 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                         fromChain = it
                     }
                 }
-                allErc20Tokens = getParcelableArrayList("allErc20Tokens")
-                displayErc20Tokens = getStringArrayList("displayErc20Tokens")
-                allErc20Tokens?.let { searchErc20Tokens.addAll(it) }
+                allTokens = getParcelableArrayList("allTokens")
+                displayTokens = getStringArrayList("displayTokens")
+                allTokens?.let { searchTokens.addAll(it) }
             }
         }
         initRecyclerView()
@@ -139,14 +143,14 @@ class TokenEditFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.apply {
-            tokenEditAdapter = TokenEditAdapter(displayErc20Tokens)
+            tokenEditAdapter = TokenEditAdapter(walletViewModel, viewLifecycleOwner, fromChain, displayTokens)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = tokenEditAdapter
-            tokenEditAdapter.submitList(searchErc20Tokens)
+            tokenEditAdapter.submitList(searchTokens)
 
             tokenEditAdapter.setOnItemClickListener { selectDisplayTokens ->
-                displayErc20Tokens = selectDisplayTokens
+                displayTokens = selectDisplayTokens
             }
         }
     }
@@ -161,15 +165,15 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchErc20Tokens.clear()
+                    searchTokens.clear()
 
                     if (StringUtils.isEmpty(newText)) {
-                        allErc20Tokens?.let { searchErc20Tokens.addAll(it) }
+                        allTokens?.let { searchTokens.addAll(it) }
 
                     } else {
                         newText?.let { searchTxt ->
-                            allErc20Tokens?.let { tokens ->
-                                searchErc20Tokens.addAll(tokens.filter {
+                            allTokens?.let { tokens ->
+                                searchTokens.addAll(tokens.filter {
                                     it.symbol.contains(searchTxt, ignoreCase = true)
                                 })
                             }
@@ -185,8 +189,12 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     private fun setUpClickAction() {
         binding.btnConfirm.setOnClickListener {
             BaseData.baseAccount?.let { account ->
-                displayErc20Tokens?.let { tokenList ->
-                    Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
+                displayTokens?.let { tokenList ->
+                    if (fromChain.supportEvm) {
+                        Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
+                    } else {
+                        Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)
+                    }
                     tokenEditListener?.edit(tokenList)
                 }
             }

@@ -1,15 +1,23 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.databinding.ItemTokenEditBinding
 
 class TokenEditAdapter(
-    private val displayErc20Tokens: MutableList<String>?
+    private val walletViewModel: WalletViewModel,
+    private val lifecycleOwner: LifecycleOwner,
+    private val selectChain: BaseChain,
+    private val displayTokens: MutableList<String>?
 ) : ListAdapter<Token, TokenEditViewHolder>(
     TokenEditDiffCallback()
 ) {
@@ -27,28 +35,44 @@ class TokenEditAdapter(
     override fun onBindViewHolder(
         holder: TokenEditViewHolder, position: Int
     ) {
-        val erc20Token = currentList[position]
-        holder.bind(erc20Token)
-        updateView(holder, erc20Token, displayErc20Tokens)
+        val token = currentList[position]
+        holder.bind(walletViewModel, selectChain, token)
+        updateView(holder, token, displayTokens)
+
+        walletViewModel.editErc20Balance.observe(lifecycleOwner) { contract ->
+            if (contract == token.contract) {
+                Handler(Looper.getMainLooper()).post {
+                    notifyItemChanged(position)
+                }
+            }
+        }
+
+        walletViewModel.editCw20Balance.observe(lifecycleOwner) { contract ->
+            if (contract == token.contract) {
+                Handler(Looper.getMainLooper()).post {
+                    notifyItemChanged(position)
+                }
+            }
+        }
 
         holder.itemView.setOnClickListener {
-            if (displayErc20Tokens?.contains(erc20Token.contract) == true) {
-                displayErc20Tokens.removeIf { it == erc20Token.contract }
+            if (displayTokens?.contains(token.contract) == true) {
+                displayTokens.removeIf { it == token.contract }
             } else {
-                displayErc20Tokens?.add(erc20Token.contract)
+                displayTokens?.add(token.contract)
             }
-            updateView(holder, erc20Token, displayErc20Tokens)
+            updateView(holder, token, displayTokens)
             onItemClickListener?.let {
-                displayErc20Tokens?.let(it)
+                displayTokens?.let(it)
             }
         }
     }
 
     private fun updateView(
-        holder: TokenEditViewHolder, token: Token, displayErc20Tokens: MutableList<String>?
+        holder: TokenEditViewHolder, token: Token, displayTokens: MutableList<String>?
     ) {
         holder.binding.apply {
-            if (displayErc20Tokens?.contains(token.contract) == true) {
+            if (displayTokens?.contains(token.contract) == true) {
                 editView.setBackgroundResource(R.drawable.item_select_bg)
             } else {
                 editView.setBackgroundResource(R.drawable.cell_bg)

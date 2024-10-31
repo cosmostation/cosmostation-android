@@ -359,30 +359,6 @@ class ApplicationViewModel(
                         } else if (balanceResult is NetworkResult.Error) {
                             web3j = null
                         }
-
-                        if (web3j != null) {
-                            val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
-                                async { walletRepository.erc20Balance(this@apply, token) }
-                            }
-                            tokenBalanceDeferredList.awaitAll()
-
-                            val evmRefAddress = RefAddress(
-                                id,
-                                tag,
-                                address,
-                                evmAddress,
-                                "0",
-                                "0",
-                                evmRpcFetcher.allTokenValue(true).toPlainString(),
-                                cosmosFetcher?.cosmosBalances?.count {
-                                    BaseData.getAsset(
-                                        apiName, it.denom
-                                    ) != null
-                                }?.toLong() ?: 0L
-                            )
-                            BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenCnt = evmRpcFetcher.valueTokenCnt()
-                        }
                     }
                 }
 
@@ -576,8 +552,18 @@ class ApplicationViewModel(
                     }
 
                     if (supportCw20) {
-                        val tokenBalanceDeferredList = cosmosFetcher?.tokens?.map { token ->
-                            async { walletRepository.cw20Balance(channel, chain, token) }
+                        val userDisplayToken = Prefs.getDisplayCw20s(id, tag)
+                        val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                            cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+                                ?.map { token ->
+                                    async { walletRepository.cw20Balance(channel, chain, token) }
+                                }
+
+                        } else {
+                            cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.contract) }
+                                ?.map { token ->
+                                    async { walletRepository.cw20Balance(channel, chain, token) }
+                                }
                         }
 
                         tokenBalanceDeferredList?.awaitAll()
@@ -598,6 +584,62 @@ class ApplicationViewModel(
                                 editFetchedTokenResult.value = tag
                             } else {
                                 fetchedTokenResult.value = tag
+                            }
+                        }
+
+                    } else {
+                        if (web3j != null) {
+                            evmRpcFetcher()?.let { evmRpcFetcher ->
+                                val userDisplayToken = Prefs.getDisplayErc20s(id, tag)
+                                val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                    evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
+                                        .map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
+                                                )
+                                            }
+                                        }
+
+                                } else {
+                                    evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
+                                        .map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
+                                                )
+                                            }
+                                        }
+                                }
+
+                                tokenBalanceDeferredList.awaitAll()
+                                val evmRefAddress = RefAddress(
+                                    id,
+                                    tag,
+                                    address,
+                                    evmAddress,
+                                    "0",
+                                    "0",
+                                    evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                    cosmosFetcher?.cosmosBalances?.count {
+                                        BaseData.getAsset(
+                                            apiName, it.denom
+                                        ) != null
+                                    }?.toLong() ?: 0L
+                                )
+                                BaseData.updateRefAddressesToken(evmRefAddress)
+                                tokenCnt = if (Prefs.getDisplayErc20s(id, chain.tag) != null) {
+                                    Prefs.getDisplayErc20s(id, chain.tag)?.size.toString().toInt()
+                                } else {
+                                    evmRpcFetcher.valueTokenCnt()
+                                }
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit) {
+                                        editFetchedTokenResult.value = tag
+                                    } else {
+                                        fetchedTokenResult.value = tag
+                                    }
+                                }
                             }
                         }
                     }
@@ -784,9 +826,10 @@ class ApplicationViewModel(
                             }
 
                             val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }.map { token ->
-                                    async { walletRepository.erc20Balance(this@apply, token) }
-                                }
+                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
+                                    .map { token ->
+                                        async { walletRepository.erc20Balance(this@apply, token) }
+                                    }
 
                             } else {
                                 evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
@@ -807,11 +850,14 @@ class ApplicationViewModel(
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenCnt = if (Prefs.getDisplayErc20s(baseAccountId, chain.tag) != null) {
-                                Prefs.getDisplayErc20s(baseAccountId, chain.tag)?.size.toString().toInt()
-                            } else {
-                                evmRpcFetcher.valueTokenCnt()
-                            }
+                            tokenCnt =
+                                if (Prefs.getDisplayErc20s(baseAccountId, chain.tag) != null) {
+                                    Prefs.getDisplayErc20s(
+                                        baseAccountId, chain.tag
+                                    )?.size.toString().toInt()
+                                } else {
+                                    evmRpcFetcher.valueTokenCnt()
+                                }
                             withContext(Dispatchers.Main) {
                                 if (isEdit) {
                                     editFetchedTokenResult.value = tag
@@ -1107,7 +1153,8 @@ class ApplicationViewModel(
                             if (fetcher.btcBalances == BigDecimal.ZERO && fetcher.btcPendingInput == BigDecimal.ZERO) 0 else 1
                         )
                         BaseData.updateRefAddressesMain(refAddress)
-                        coinCnt = if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
+                        coinCnt =
+                            if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
 
                         withContext(Dispatchers.Main) {
                             if (isEdit) {

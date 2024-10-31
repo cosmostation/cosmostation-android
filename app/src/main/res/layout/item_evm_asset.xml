@@ -27,6 +27,8 @@
                 android:id="@+id/asset_img"
                 android:layout_width="@dimen/space_40"
                 android:layout_height="@dimen/space_40"
+                android:scaleType="centerCrop"
+                android:background="@drawable/round_img"
                 android:src="@drawable/token_default"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

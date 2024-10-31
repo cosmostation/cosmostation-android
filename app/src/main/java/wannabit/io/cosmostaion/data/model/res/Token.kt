@@ -19,4 +19,6 @@ data class Token(
 
     var amount: String? = null
         get() = field ?: "0"
+
+    var fetched: Boolean = false
 }
