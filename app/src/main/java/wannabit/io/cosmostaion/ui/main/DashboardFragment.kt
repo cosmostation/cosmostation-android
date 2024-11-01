@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -37,8 +39,6 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 
@@ -115,17 +115,32 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initData(baseAccount: BaseAccount?) {
+        mainnetChains.clear()
+        testnetChains.clear()
         searchMainnetChains.clear()
         searchTestnetChains.clear()
 
         baseAccount?.let { account ->
+            val searchTxt = binding?.searchView?.query
             mainnetChains =
                 account.sortedDisplayChains().filter { chain -> !chain.isTestnet }.toMutableList()
-            searchMainnetChains.addAll(mainnetChains)
+            searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                mainnetChains
+            } else {
+                mainnetChains.filter { chain ->
+                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                }
+            })
 
             testnetChains =
                 account.sortedDisplayChains().filter { chain -> chain.isTestnet }.toMutableList()
-            searchTestnetChains.addAll(testnetChains)
+            searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                testnetChains
+            } else {
+                testnetChains.filter { chain ->
+                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                }
+            })
         }
     }
 
@@ -415,8 +430,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(
-            chain,
+        NoticeInfoFragment.newInstance(chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {
@@ -525,7 +539,7 @@ class DashboardFragment : Fragment() {
                         return@launch
                     }
                     Prefs.setDisplayChains(account, response)
-                    account.sortLine()
+                    account.sortLine(Prefs.chainFilter)
                     initDisplayData(account)
 
                     delay(100)
@@ -547,6 +561,19 @@ class DashboardFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     initData(baseAccount)
                     updateViewWithLoadedData(baseAccount)
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.chainFilterResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.let { account ->
+                    account.sortLine(Prefs.chainFilter)
+                    initData(account)
+
+                    withContext(Dispatchers.Main) {
+                        dashAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         }

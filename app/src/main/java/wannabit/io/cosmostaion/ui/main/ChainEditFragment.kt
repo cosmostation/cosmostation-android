@@ -12,12 +12,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.updateSelectButtonView
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -58,32 +60,46 @@ class ChainEditFragment : BaseTxFragment() {
     private fun initLoadData() {
         binding?.apply {
             BaseData.baseAccount?.let { account ->
-                account.apply {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        sortLine()
-                        mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
-                        searchMainnetChains.addAll(mainnetChains)
+                lifecycleScope.launch(Dispatchers.IO) {
+                    account.sortLine(Prefs.chainFilter)
+                    val searchTxt = binding?.searchView?.query
 
-                        testnetChains.addAll(account.allChains.filter { it.isTestnet })
-                        searchTestnetChains.addAll(testnetChains)
-
-                        toDisplayChains.addAll(Prefs.getDisplayChains(account))
-                        initAllData(account)
-
-                        withContext(Dispatchers.Main) {
-                            recycler.setHasFixedSize(true)
-                            recycler.layoutManager = LinearLayoutManager(requireContext())
-                            chainEditAdapter = ChainEditAdapter(
-                                searchMainnetChains,
-                                searchTestnetChains,
-                                toDisplayChains,
-                                selectClickAction
-                            )
-                            recycler.adapter = chainEditAdapter
-
-                            btnSelect.updateSelectButtonView(allChains.none { it.fetchState == FetchState.BUSY })
-                            progress.goneOrVisible(allChains.none { it.fetchState == FetchState.BUSY })
+                    mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
+                    searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                        mainnetChains
+                    } else {
+                        mainnetChains.filter { chain ->
+                            chain.name.contains(searchTxt.toString(), ignoreCase = true)
                         }
+                    })
+
+                    testnetChains.addAll(account.allChains.filter { it.isTestnet })
+                    searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                        testnetChains
+                    } else {
+                        testnetChains.filter { chain ->
+                            chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                        }
+                    })
+
+                    toDisplayChains.addAll(Prefs.getDisplayChains(account))
+                    initAllData(account)
+
+                    withContext(Dispatchers.Main) {
+                        recycler.setHasFixedSize(true)
+                        recycler.layoutManager = LinearLayoutManager(requireContext())
+                        chainEditAdapter = ChainEditAdapter(
+                            searchMainnetChains,
+                            searchTestnetChains,
+                            toDisplayChains,
+                            selectClickAction
+                        )
+                        recycler.adapter = chainEditAdapter
+
+                        btnSelect.updateSelectButtonView(account.allChains.none { it.fetchState == FetchState.IDLE })
+                        progress.goneOrVisible(account.allChains.none { it.fetchState == FetchState.IDLE })
+                        btnSort.visibleOrGone(account.allChains.none { it.fetchState == FetchState.IDLE })
+                        btnSort.setImageResource(if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort)
                     }
                 }
             }
@@ -159,6 +175,7 @@ class ChainEditFragment : BaseTxFragment() {
                         btnSelect.updateSelectButtonView(true)
                         progress.cancelAnimation()
                         progress.visibility = View.GONE
+                        btnSort.visibility = View.VISIBLE
                     }
                 }
             }
@@ -200,6 +217,46 @@ class ChainEditFragment : BaseTxFragment() {
                 }
             }
 
+            btnSort.setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    BaseData.baseAccount?.let { account ->
+                        mainnetChains.clear()
+                        testnetChains.clear()
+                        searchMainnetChains.clear()
+                        searchTestnetChains.clear()
+                        Prefs.chainFilter = !Prefs.chainFilter
+                        account.sortLine(Prefs.chainFilter)
+                        val searchTxt = searchView.query
+
+                        mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
+                        searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                            mainnetChains
+                        } else {
+                            mainnetChains.filter { chain ->
+                                chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                            }
+                        })
+
+                        testnetChains.addAll(account.allChains.filter { it.isTestnet })
+                        searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                            testnetChains
+                        } else {
+                            testnetChains.filter { chain ->
+                                chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                            }
+                        })
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
+                        btnSort.setImageResource(
+                            if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
+                        )
+                        chainEditAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
             btnConfirm.setOnClickListener {
                 ApplicationViewModel.shared.walletEdit(toDisplayChains)
                 dismiss()
@@ -228,15 +285,13 @@ class ChainEditFragment : BaseTxFragment() {
                             newText?.let { searchTxt ->
                                 searchMainnetChains.addAll(account.allChains.filter { chain ->
                                     chain.name.contains(
-                                        searchTxt,
-                                        ignoreCase = true
+                                        searchTxt, ignoreCase = true
                                     ) && !chain.isTestnet
                                 })
 
                                 searchTestnetChains.addAll(account.allChains.filter { chain ->
                                     chain.name.contains(
-                                        searchTxt,
-                                        ignoreCase = true
+                                        searchTxt, ignoreCase = true
                                     ) && chain.isTestnet
                                 })
                             }

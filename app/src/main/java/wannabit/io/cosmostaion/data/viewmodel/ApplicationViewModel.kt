@@ -166,6 +166,12 @@ class ApplicationViewModel(
         _filterDataResult.postValue(isShowAll)
     }
 
+    private var _chainFilterResult = MutableLiveData<Boolean>()
+    val chainFilterResult: LiveData<Boolean> get() = _chainFilterResult
+    fun chainFilter(isValueFilter: Boolean) = CoroutineScope(Dispatchers.IO).launch {
+        _chainFilterResult.postValue(isValueFilter)
+    }
+
     fun loadChainData(
         chain: BaseChain, baseAccountId: Long, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {

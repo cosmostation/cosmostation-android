@@ -155,7 +155,6 @@ class DashboardViewHolder(
                         chainValue.textSize = 14f
                     }
 
-                    chainValue.text = formatAssetValue(chain.allValue(true), true)
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {
@@ -285,7 +284,6 @@ class DashboardViewHolder(
                         chainValue.textSize = 14f
                     }
 
-                    chainValue.text = formatAssetValue(chain.allValue(true), true)
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {

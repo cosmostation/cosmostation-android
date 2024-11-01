@@ -56,6 +56,16 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/btn_sort"
+                android:layout_width="@dimen/space_28"
+                android:layout_height="@dimen/space_28"
+                android:layout_marginRight="@dimen/space_10"
+                android:src="@drawable/icon_value_sort"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
                 android:id="@+id/btn_edit"
                 android:layout_width="@dimen/space_28"
                 android:layout_height="@dimen/space_28"

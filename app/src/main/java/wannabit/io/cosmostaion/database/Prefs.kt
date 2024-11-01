@@ -45,6 +45,7 @@ object Prefs {
     private const val INJECT_WARN = "PRE_INJECT_WARN"
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
     private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
+    private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
 
 
     private val preference =
@@ -188,6 +189,10 @@ object Prefs {
     var displayTestnet: Boolean
         get() = preference.getBoolean(DISPLAY_TESTNET, false)
         set(value) = preference.edit().putBoolean(DISPLAY_TESTNET, value).apply()
+
+    var chainFilter: Boolean
+        get() = preference.getBoolean(CHAIN_FILTER, false)
+        set(value) = preference.edit().putBoolean(CHAIN_FILTER, value).apply()
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>

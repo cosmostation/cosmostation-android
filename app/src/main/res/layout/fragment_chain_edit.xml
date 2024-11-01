@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,9 +54,9 @@
         <TextView
             android:id="@+id/edit_title"
             style="@style/font_sb_16"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
             android:text="@string/title_select_wallet"
             android:textColor="@color/color_base01" />
 
@@ -65,10 +65,18 @@
             android:layout_width="@dimen/space_30"
             android:layout_height="@dimen/space_30"
             app:lottie_autoPlay="true"
+            android:layout_alignParentEnd="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/progress" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/btn_sort"
+            android:layout_width="@dimen/space_30"
+            android:layout_height="@dimen/space_30"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_value_sort"/>
+
+    </RelativeLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/search_bar"
