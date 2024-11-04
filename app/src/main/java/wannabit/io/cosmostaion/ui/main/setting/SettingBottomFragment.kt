@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 
 
 class SettingBottomFragment : BottomSheetDialogFragment() {

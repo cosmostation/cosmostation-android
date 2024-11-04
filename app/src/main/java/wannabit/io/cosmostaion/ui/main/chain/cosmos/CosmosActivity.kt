@@ -15,11 +15,11 @@ import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityCosmosBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.ProposalViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class CosmosActivity : BaseActivity() {
 

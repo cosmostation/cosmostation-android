@@ -17,15 +17,15 @@ import com.kava.incentive.v1beta1.QueryProto
 import com.kava.pricefeed.v1beta1.QueryProto.QueryPricesResponse
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.allIncentiveCoins
+import wannabit.io.cosmostaion.chain.fetcher.allIncentiveCoins
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentKavaDefiBinding
-import wannabit.io.cosmostaion.ui.tx.step.kava.ClaimIncentiveFragment
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.ClaimIncentiveFragment
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 
 class KavaDefiFragment : Fragment() {
 

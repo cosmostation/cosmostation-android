@@ -6,8 +6,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.suiNftUrl
-import wannabit.io.cosmostaion.data.model.Cw721TokenModel
+import wannabit.io.cosmostaion.chain.fetcher.suiNftUrl
+import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.databinding.ItemNftBinding
 
 class NftViewHolder(

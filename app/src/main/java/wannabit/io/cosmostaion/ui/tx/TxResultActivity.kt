@@ -32,9 +32,9 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 

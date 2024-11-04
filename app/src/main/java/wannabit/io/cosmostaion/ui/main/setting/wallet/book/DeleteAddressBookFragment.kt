@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentDeleteAddressBookBinding
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 
 class DeleteAddressBookFragment(
     private val addressBook: AddressBook

@@ -40,12 +40,12 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.SuiFetcher
-import wannabit.io.cosmostaion.chain.accountInfos
-import wannabit.io.cosmostaion.chain.accountNumber
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.accountInfos
+import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.sequence
+import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -53,8 +53,8 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.common.soft
-import wannabit.io.cosmostaion.cosmos.BitCoinJS
-import wannabit.io.cosmostaion.cosmos.Signer
+import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
@@ -71,7 +71,7 @@ import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -211,7 +211,7 @@ class TxRepositoryImpl : TxRepository {
                 val estimateGasRequest = JsonRpcRequest(
                     method = "eth_estimateGas", params = listOf(
                         EstimateGasParams(
-                            fromAddress, token.address, txData
+                            fromAddress, token.contract, txData
                         )
                     )
                 )
@@ -346,7 +346,7 @@ class TxRepositoryImpl : TxRepository {
                             chainID,
                             nonce,
                             gasLimit,
-                            selectedToken?.address,
+                            selectedToken?.contract,
                             BigInteger.ZERO,
                             txData,
                             tip,
@@ -379,7 +379,7 @@ class TxRepositoryImpl : TxRepository {
                             nonce,
                             web3j.ethGasPrice().send().gasPrice,
                             gasLimit,
-                            selectedToken?.address,
+                            selectedToken?.contract,
                             BigInteger.ZERO,
                             txData
                         )

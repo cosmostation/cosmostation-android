@@ -22,10 +22,10 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentDeleteBinding
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
 
 class DeleteFragment : BottomSheetDialogFragment() {
 

@@ -17,16 +17,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAssetBinding
-import wannabit.io.cosmostaion.ui.main.edit.TokenEditFragment
-import wannabit.io.cosmostaion.ui.main.edit.TokenEditListener
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.main.TokenEditFragment
+import wannabit.io.cosmostaion.ui.main.TokenEditListener
+import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
 
 interface AssetFragmentInteraction {
@@ -107,8 +108,8 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             BaseData.baseAccount?.let { account ->
                 Prefs.getDisplayErc20s(account.id, selectedEvmChain.tag)?.let { userCustomTokens ->
                     evmTokens.sortWith { token0, token1 ->
-                        val address0 = token0.address
-                        val address1 = token1.address
+                        val address0 = token0.contract
+                        val address1 = token1.contract
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -126,7 +127,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                         }
                     }
                     evmTokens.forEach { token ->
-                        if (userCustomTokens.contains(token.address) && !displayErc20Tokens.contains(
+                        if (userCustomTokens.contains(token.contract) && !displayErc20Tokens.contains(
                                 token
                             )
                         ) {
@@ -136,14 +137,16 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
                 } ?: run {
                     evmTokens.sortWith { o1, o2 ->
-                        val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.address)
-                            ?: BigDecimal.ZERO
-                        val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.address)
-                            ?: BigDecimal.ZERO
                         when {
-                            value0 > value1 -> -1
-                            value0 < value1 -> 1
-                            else -> 0
+                            BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
+                            BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
+                            else -> {
+                                val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.contract)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.contract)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
                         }
                     }
 
@@ -192,7 +195,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedEvmChain.fetched) {
+            if (selectedEvmChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
@@ -211,14 +214,14 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             }
         }
 
-        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) {
-            if (selectedEvmChain.fetched) {
+        ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedEvmChain.tag == tag) {
                 sortAssets()
             }
         }
 
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-            if (selectedEvmChain.tag == it) {
+        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedEvmChain.tag == tag) {
                 sortAssets()
             }
         }
@@ -284,7 +287,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     override fun showTokenList() {
         TokenEditFragment.newInstance(selectedEvmChain,
             allErc20Tokens,
-            displayErc20Tokens.map { it.address }.toMutableList(),
+            displayErc20Tokens.map { it.contract }.toMutableList(),
             object : TokenEditListener {
                 override fun edit(displayErc20Tokens: MutableList<String>) {
                     BaseData.baseAccount?.let { account ->

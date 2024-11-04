@@ -18,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
+import wannabit.io.cosmostaion.ui.main.PushNotificationActivity
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL

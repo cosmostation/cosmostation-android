@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,8 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class EvmEcoSystemFragment : Fragment() {
 
@@ -86,6 +87,7 @@ class EvmEcoSystemFragment : Fragment() {
             evmEcoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", it)
+                    putExtra("selectedEvmChain", selectedEvmChain as Parcelable)
                     startActivity(this)
                 }
             }

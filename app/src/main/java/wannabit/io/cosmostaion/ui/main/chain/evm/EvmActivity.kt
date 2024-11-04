@@ -14,11 +14,11 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityEvmBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.tx.TxViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 
 class EvmActivity : BaseActivity() {
 

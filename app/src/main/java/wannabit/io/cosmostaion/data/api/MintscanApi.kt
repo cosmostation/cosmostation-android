@@ -35,16 +35,16 @@ interface MintscanApi {
     @GET("v10/utils/market/prices")
     suspend fun price(@Query("currency") currency: String): List<Price>
 
-    @GET("v10/assets")
+    @GET("v11/assets")
     suspend fun asset(): AssetResponse
 
-    @GET("v10/utils/params")
+    @GET("v11/utils/params")
     suspend fun param(): JsonObject
 
-    @GET("v10/assets/{chain}/cw20/info")
+    @GET("v11/assets/{chain}/cw20/info")
     suspend fun cw20token(@Path("chain") chain: String): MutableList<Token>
 
-    @GET("v10/assets/{chain}/erc20/info")
+    @GET("v11/assets/{chain}/erc20/info")
     suspend fun erc20token(@Path("chain") chain: String): MutableList<Token>
 
     @GET("{chain}/cw721.json")

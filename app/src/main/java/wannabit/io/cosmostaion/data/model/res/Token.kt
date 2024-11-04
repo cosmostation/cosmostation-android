@@ -2,25 +2,23 @@ package wannabit.io.cosmostaion.data.model.res
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @Parcelize
 data class Token(
-    val chainId: Int,
-    val chainName: String,
-    val address: String,
+    val chain: String,
+    val type: String,
+    val contract: String,
+    val name: String,
     val symbol: String,
-    val decimals: Int,
     val description: String,
+    val decimals: Int,
     val image: String,
-    val default: Boolean,
-    val coinGeckoId: String
+    val coinGeckoId: String,
+    val wallet_preload: Boolean? = false
 ) : Parcelable {
 
     var amount: String? = null
         get() = field ?: "0"
 
-    fun assetImg(): String {
-        return CosmostationConstants.CHAIN_BASE_URL + image
-    }
+    var fetched: Boolean = false
 }

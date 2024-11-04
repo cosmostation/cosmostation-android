@@ -15,13 +15,13 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentEarnListBinding
-import wannabit.io.cosmostaion.ui.option.tx.kava.EarnClickListener
-import wannabit.io.cosmostaion.ui.option.tx.kava.EarnOptionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.DepositEarningFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.WithdrawEarningFragment
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.kava.EarnClickListener
+import wannabit.io.cosmostaion.ui.tx.option.kava.EarnOptionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.DepositEarningFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.WithdrawEarningFragment
 
 class EarnListFragment : Fragment() {
 

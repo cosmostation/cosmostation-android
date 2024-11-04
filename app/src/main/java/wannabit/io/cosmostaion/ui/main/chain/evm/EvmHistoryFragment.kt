@@ -17,8 +17,8 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.HistoryAdapter
-import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.HistoryViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModelProviderFactory
 
 class EvmHistoryFragment : Fragment() {
 

@@ -18,17 +18,18 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class MajorCryptoFragment : Fragment() {
@@ -267,11 +268,11 @@ class MajorCryptoFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedChain.fetched) {
+            if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    selectedChain.fetched = false
+                    selectedChain.fetchState = FetchState.IDLE
                     if (selectedChain is ChainSui) {
                         ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
                     } else {
@@ -292,13 +293,8 @@ class MajorCryptoFragment : Fragment() {
         }
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag && selectedChain.fetched) {
-                sortAssets()
-            }
-        }
-
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-            if (selectedChain.tag == it) {
+            ApplicationViewModel.shared.notifyTxEvent()
+            if (selectedChain.tag == tag) {
                 sortAssets()
             }
         }

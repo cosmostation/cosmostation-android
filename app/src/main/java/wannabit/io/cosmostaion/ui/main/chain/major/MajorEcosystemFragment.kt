@@ -16,8 +16,8 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class MajorEcosystemFragment : Fragment() {
 

@@ -6,6 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.chain.cosmos.CoinFragment">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="@dimen/space_120"
+        android:layout_height="@dimen/space_120"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading"
+        app:lottie_speed="1.6"
+        android:visibility="gone"/>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"

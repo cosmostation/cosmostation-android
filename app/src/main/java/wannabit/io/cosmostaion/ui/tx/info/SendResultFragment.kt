@@ -19,7 +19,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.txDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.databinding.FragmentSendResultBinding
-import wannabit.io.cosmostaion.ui.tx.step.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.RoundingMode
 
 class SendResultFragment(val selectedChain: BaseChain, private val history: CosmosHistory) :

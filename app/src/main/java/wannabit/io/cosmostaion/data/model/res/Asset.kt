@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.common.CosmostationConstants
 
 @JsonClass(generateAdapter = true)
 data class AssetResponse(val assets: List<Asset>?)
@@ -13,25 +12,20 @@ data class AssetResponse(val assets: List<Asset>?)
 @JsonClass(generateAdapter = true)
 data class Asset(
     val chain: String?,
-    val denom: String?,
     val type: String?,
-    val origin_chain: String?,
-    val origin_denom: String?,
+    val denom: String?,
+    val name: String?,
     val symbol: String?,
-    val decimals: Int?,
     val description: String?,
+    val decimals: Int?,
     val image: String?,
     val coinGeckoId: String?,
     val color: String?,
-    val enable: Boolean?,
-    val path: String?,
-    val channel: String?,
-    val port: String?,
-    val counter_party: CounterParty?,
+    val ibc_info: IbcInfo?,
 ) : Parcelable {
 
     fun beforeChain(apiName: String): String? {
-        path?.let {
+        ibc_info?.path?.let {
             val chainPath = it.split(">")
             chainPath.lastIndexOf(apiName).apply {
                 if (this > 0) {
@@ -43,17 +37,13 @@ data class Asset(
     }
 
     fun justBeforeChain(): String? {
-        path?.let {
+        ibc_info?.path?.let {
             val chainPath = it.split(">")
             if (chainPath.count() > 1) {
                 return chainPath[chainPath.count() - 2]
             }
         }
         return null
-    }
-
-    fun assetImg(): String {
-        return CosmostationConstants.CHAIN_BASE_URL + image
     }
 
     fun assetColor(): Int {
@@ -67,15 +57,27 @@ data class Asset(
 
 @Parcelize
 @JsonClass(generateAdapter = true)
+data class IbcInfo(
+    val path: String?,
+    val client: Client?,
+    val counterparty: CounterParty?,
+    val enable: Boolean? = true
+) : Parcelable
+
+@Parcelize
+@JsonClass(generateAdapter = true)
+data class Client(
+    val channel: String?, val port: String?
+) : Parcelable
+
+@Parcelize
+@JsonClass(generateAdapter = true)
 data class CounterParty(
-    val channel: String?,
-    val port: String?,
-    val denom: String?
+    val channel: String?, val port: String?, val chain: String?, val denom: String?
 ) : Parcelable
 
 data class AssetPath(
-    var channel: String?,
-    var port: String?
+    var channel: String?, var port: String?
 ) {
     fun ibcContract(): String {
         port?.let {

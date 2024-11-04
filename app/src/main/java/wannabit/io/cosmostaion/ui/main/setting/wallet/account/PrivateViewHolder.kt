@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -41,12 +42,12 @@ class PrivateViewHolder(
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "NESTED SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_nested_segwit)
                     }
 
                     PubKeyType.BTC_LEGACY -> {
                         chainLegacy.defaultSet()
-                        chainLegacy.text = "LEGACY"
+                        chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
                     else -> {
@@ -57,7 +58,7 @@ class PrivateViewHolder(
                                 R.color.color_base01
                             )
                         )
-                        chainLegacy.text = "NATIVE SEGWIT"
+                        chainLegacy.text = context.getString(R.string.str_native_segwit)
                     }
                 }
 
@@ -75,8 +76,7 @@ class PrivateViewHolder(
                 if (scaleX == 1.0f && scaleY == 1.0f) {
                     view.animate().scaleX(1.05f).scaleY(1.05f).setDuration(300).start()
 
-                    val handler = Handler()
-                    handler.postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         val clipboard =
                             context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

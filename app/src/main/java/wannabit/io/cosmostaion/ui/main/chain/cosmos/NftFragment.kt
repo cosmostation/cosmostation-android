@@ -12,14 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.concurrentForEach
-import wannabit.io.cosmostaion.data.model.Cw721Model
+import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.databinding.FragmentNftBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_HEADER
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_ITEM
-import wannabit.io.cosmostaion.ui.tx.step.NftTransferFragment
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.genTx.NftTransferFragment
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class NftFragment : Fragment() {
 

@@ -12,8 +12,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.hideKeyboard
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.FragmentChangeNameBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
 
 class ChangeNameFragment : BottomSheetDialogFragment() {
 

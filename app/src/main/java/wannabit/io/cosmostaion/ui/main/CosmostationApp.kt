@@ -22,8 +22,8 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModelProviderFactory
 import java.util.UUID
 
 class CosmostationApp : Application(), ViewModelStoreOwner {

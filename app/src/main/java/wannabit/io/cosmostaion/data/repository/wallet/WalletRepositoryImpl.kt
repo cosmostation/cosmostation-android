@@ -35,20 +35,20 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.SuiFetcher
-import wannabit.io.cosmostaion.chain.accountInfos
-import wannabit.io.cosmostaion.chain.accountNumber
-import wannabit.io.cosmostaion.chain.balance
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.accountInfos
+import wannabit.io.cosmostaion.chain.fetcher.accountNumber
+import wannabit.io.cosmostaion.chain.fetcher.balance
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
-import wannabit.io.cosmostaion.chain.delegations
-import wannabit.io.cosmostaion.chain.feeMarket
+import wannabit.io.cosmostaion.chain.fetcher.delegations
+import wannabit.io.cosmostaion.chain.fetcher.feeMarket
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.rewardAddress
-import wannabit.io.cosmostaion.chain.rewards
-import wannabit.io.cosmostaion.chain.sequence
-import wannabit.io.cosmostaion.chain.unDelegations
-import wannabit.io.cosmostaion.chain.validators
+import wannabit.io.cosmostaion.chain.fetcher.rewardAddress
+import wannabit.io.cosmostaion.chain.fetcher.rewards
+import wannabit.io.cosmostaion.chain.fetcher.sequence
+import wannabit.io.cosmostaion.chain.fetcher.unDelegations
+import wannabit.io.cosmostaion.chain.fetcher.validators
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
@@ -350,25 +350,29 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.address)
+            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.contract)
                 .setQueryData(queryData).build()
             try {
                 stub.smartContractState(request)?.let { response ->
                     val json = JSONObject(response.data.toStringUtf8())
                     token.amount = json.get("balance").toString()
+                    token.fetched = true
                 }
             } catch (e: Exception) {
+                token.fetched = false
                 null
             }
 
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             try {
-                lcdApi(chain).lcdContractInfo(token.address, queryDataBase64).let { response ->
+                lcdApi(chain).lcdContractInfo(token.contract, queryDataBase64).let { response ->
                     token.amount = response["data"].asJsonObject["balance"].asString
+                    token.fetched = true
                 }
 
             } catch (e: Exception) {
+                token.fetched = false
                 null
             }
         }
@@ -384,7 +388,7 @@ class WalletRepositoryImpl : WalletRepository {
 
             val txData = FunctionEncoder.encode(function)
             val response = chain.web3j?.ethCall(
-                Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
+                Transaction.createEthCallTransaction(chain.evmAddress, token.contract, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
@@ -394,8 +398,10 @@ class WalletRepositoryImpl : WalletRepository {
             } else {
                 token.amount = "0"
             }
+            token.fetched = true
         } catch (e: Exception) {
             token.amount = "0"
+            token.fetched = false
         }
     }
 

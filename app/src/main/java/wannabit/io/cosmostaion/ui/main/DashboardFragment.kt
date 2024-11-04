@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,6 +21,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
@@ -37,11 +39,6 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.option.notice.NodeDownSelectListener
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
 import java.math.BigDecimal
 
 
@@ -122,13 +119,26 @@ class DashboardFragment : Fragment() {
         searchTestnetChains.clear()
 
         baseAccount?.let { account ->
+            val searchTxt = binding?.searchView?.query
             mainnetChains =
                 account.sortedDisplayChains().filter { chain -> !chain.isTestnet }.toMutableList()
-            searchMainnetChains.addAll(mainnetChains)
+            searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                mainnetChains
+            } else {
+                mainnetChains.filter { chain ->
+                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                }
+            })
 
             testnetChains =
                 account.sortedDisplayChains().filter { chain -> chain.isTestnet }.toMutableList()
-            searchTestnetChains.addAll(testnetChains)
+            searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                testnetChains
+            } else {
+                testnetChains.filter { chain ->
+                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                }
+            })
         }
     }
 
@@ -144,7 +154,6 @@ class DashboardFragment : Fragment() {
     private fun initRecyclerView() {
         dashAdapter = DashboardAdapter(
             requireContext(),
-            baseAccount,
             searchMainnetChains,
             searchTestnetChains,
             listener = nodeDownCheckAction
@@ -160,81 +169,31 @@ class DashboardFragment : Fragment() {
 
     private val nodeDownCheckAction = object : DashboardAdapter.NodeDownListener {
         override fun nodeDown(chain: BaseChain) {
-            if (!chain.fetched) return
-            if (chain is ChainBitCoin84) {
-                if (chain.btcFetcher?.bitState == false) {
-                    nodeDownPopup(chain)
-                    return
-                }
-                Intent(requireContext(), MajorActivity::class.java).apply {
-                    putExtra("selectedChain", chain as Parcelable)
-                    startActivity(this)
-                }
-                requireActivity().toMoveAnimation()
-
-            } else if (chain is ChainSui) {
-                if (chain.suiFetcher?.suiState == false) {
-                    nodeDownPopup(chain)
-                    return
-                }
-                Intent(requireContext(), MajorActivity::class.java).apply {
-                    putExtra("selectedChain", chain as Parcelable)
-                    startActivity(this)
-                }
-                requireActivity().toMoveAnimation()
-
-            } else if (chain is ChainOktEvm) {
-                if (chain.oktFetcher?.oktAccountInfo == null) {
-                    nodeDownPopup(chain)
-                    return
-                }
-                Intent(requireContext(), CosmosActivity::class.java).apply {
-                    putExtra("selectedChain", chain as Parcelable)
-                    startActivity(this)
-                }
-                requireActivity().toMoveAnimation()
-
-            } else if (chain.isEvmCosmos()) {
-                if (chain.cosmosFetcher?.cosmosBalances == null) {
-                    nodeDownPopup(chain)
-                    return
-                }
-
-                if (chain.web3j == null) {
-                    nodeDownPopup(chain)
-                    return
-                }
-                Intent(requireContext(), CosmosActivity::class.java).apply {
-                    putExtra("selectedChain", chain as Parcelable)
-                    startActivity(this)
-                }
-                requireActivity().toMoveAnimation()
-
-            } else if (chain.supportCosmos()) {
-                chain.cosmosFetcher?.let {
-                    if (chain.cosmosFetcher?.cosmosBalances == null) {
-                        nodeDownPopup(chain)
-                        return
+            if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) return
+            if (chain.fetchState == FetchState.SUCCESS) {
+                if (chain is ChainSui || chain is ChainBitCoin84) {
+                    Intent(requireContext(), MajorActivity::class.java).apply {
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
                     }
+
+                } else if (chain.supportCosmos() || chain.isEvmCosmos()) {
                     Intent(requireContext(), CosmosActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)
                     }
-                    requireActivity().toMoveAnimation()
-                }
 
-            } else {
-                chain.evmRpcFetcher?.let {
-                    if (chain.web3j == null) {
-                        nodeDownPopup(chain)
-                        return
-                    }
+                } else {
                     Intent(requireContext(), EvmActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)
                     }
-                    requireActivity().toMoveAnimation()
                 }
+                requireActivity().toMoveAnimation()
+
+            } else {
+                nodeDownPopup(chain)
+                return
             }
         }
     }
@@ -260,7 +219,7 @@ class DashboardFragment : Fragment() {
                                 }
                             }
 
-                            if (!chain.fetched) {
+                            if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
                         }
@@ -282,7 +241,7 @@ class DashboardFragment : Fragment() {
                                 }
                             }
 
-                            if (!chain.fetched) {
+                            if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, false)
                             }
                         }
@@ -320,7 +279,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun updateRowData(tag: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val searchMainnetResult = searchMainnetChains.filter { it.tag == tag }
             val mainIterator = searchMainnetResult.iterator()
             while (mainIterator.hasNext()) {
@@ -355,24 +314,25 @@ class DashboardFragment : Fragment() {
 
     private fun updateTotalValue() {
         lifecycleScope.launch(Dispatchers.IO) {
-            var totalSum = BigDecimal.ZERO
+            BaseData.baseAccount?.let { account ->
+                var totalSum = BigDecimal.ZERO
+                val dpTags = Prefs.getDisplayChains(account)
+                val dpChains = account.allChains.filter { chain ->
+                    dpTags.contains(chain.tag)
+                }
 
-            mainnetChains.forEach { chain ->
-                totalSum = totalSum.add(chain.allValue(false))
-            }
+                dpChains.forEach { chain ->
+                    totalSum = totalSum.add(chain.allValue(false))
+                }
 
-            testnetChains.forEach { chain ->
-                totalSum = totalSum.add(chain.allValue(false))
-            }
+                withContext(Dispatchers.Main) {
+                    if (isAdded) {
+                        totalChainValue = totalSum
 
-            withContext(Dispatchers.Main) {
-                if (isAdded) {
-                    totalChainValue = totalSum
-
-                    val totalValueTxt = binding?.totalValue
-                    totalValueTxt?.text =
-                        if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
-                    totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
+                        binding?.totalValue?.text =
+                            if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalChainValue)
+                        binding?.totalValue?.textSize = if (Prefs.hideValue) 18f else 24f
+                    }
                 }
             }
         }
@@ -404,7 +364,7 @@ class DashboardFragment : Fragment() {
         binding?.apply {
             refresher.setOnRefreshListener {
                 baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().any { !it.fetched }) {
+                    if (account.sortedDisplayChains().any { it.fetchState == FetchState.BUSY }) {
                         refresher.isRefreshing = false
 
                     } else {
@@ -413,7 +373,7 @@ class DashboardFragment : Fragment() {
 
                         lifecycleScope.launch(Dispatchers.IO) {
                             account.sortedDisplayChains().forEach { chain ->
-                                chain.fetched = false
+                                chain.fetchState = FetchState.IDLE
                             }
                             withContext(Dispatchers.Main) {
                                 updateViewWithLoadedData(account)
@@ -469,20 +429,18 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(
-            chain,
+        NoticeInfoFragment.newInstance(chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {
                     baseAccount?.let { account ->
                         ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                        updateRowData(tag.toString())
                     }
                 }
 
                 override fun changeEndpoint(tag: String?) {
-                    if (chain is ChainOktEvm) {
-                        return
-                    }
+                    if (chain is ChainOktEvm || chain is ChainBitCoin84) return
                     val settingType = if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         SettingType.END_POINT_COSMOS
                     } else if (chain is ChainSui) {
@@ -500,6 +458,7 @@ class DashboardFragment : Fragment() {
                     ) { _, _ ->
                         baseAccount?.let { account ->
                             ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                            updateRowData(tag.toString())
                         }
                     }
                 }
@@ -521,7 +480,7 @@ class DashboardFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.initAccount()
                 baseAccount?.sortedDisplayChains()?.forEach { chain ->
-                    chain.fetched = false
+                    chain.fetchState = FetchState.IDLE
                 }
                 withContext(Dispatchers.Main) {
                     initData(baseAccount)
@@ -536,7 +495,7 @@ class DashboardFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.initAccount()
                 baseAccount?.sortedDisplayChains()?.forEach { chain ->
-                    chain.fetched = false
+                    chain.fetchState = FetchState.IDLE
                 }
                 withContext(Dispatchers.Main) {
                     initData(baseAccount)
@@ -579,7 +538,7 @@ class DashboardFragment : Fragment() {
                         return@launch
                     }
                     Prefs.setDisplayChains(account, response)
-                    account.sortLine()
+                    account.sortLine(Prefs.chainFilter)
                     initDisplayData(account)
 
                     delay(100)
@@ -596,11 +555,24 @@ class DashboardFragment : Fragment() {
         ApplicationViewModel.shared.serviceTxResult.observe(viewLifecycleOwner) {
             lifecycleScope.launch(Dispatchers.IO) {
                 baseAccount?.sortedDisplayChains()?.forEach { chain ->
-                    chain.fetched = false
+                    chain.fetchState = FetchState.IDLE
                 }
                 withContext(Dispatchers.Main) {
                     initData(baseAccount)
                     updateViewWithLoadedData(baseAccount)
+                }
+            }
+        }
+
+        ApplicationViewModel.shared.chainFilterResult.observe(viewLifecycleOwner) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                baseAccount?.let { account ->
+                    account.sortLine(Prefs.chainFilter)
+                    initData(account)
+
+                    withContext(Dispatchers.Main) {
+                        dashAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         }

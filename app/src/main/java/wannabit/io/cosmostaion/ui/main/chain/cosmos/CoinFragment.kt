@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -25,17 +26,24 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
+import wannabit.io.cosmostaion.ui.main.NoticeType
+import wannabit.io.cosmostaion.ui.main.TokenEditFragment
+import wannabit.io.cosmostaion.ui.main.TokenEditListener
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.tx.step.CommonTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.LegacyTransferFragment
-import wannabit.io.cosmostaion.ui.tx.step.SendAssetType
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.LegacyTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
 
-class CoinFragment : Fragment() {
+interface CoinFragmentInteraction {
+    fun showTokenList()
+}
+
+class CoinFragment : Fragment(), CoinFragmentInteraction {
 
     private var _binding: FragmentCoinBinding? = null
     private val binding get() = _binding!!
@@ -55,6 +63,8 @@ class CoinFragment : Fragment() {
     private val etcCoins = mutableListOf<Coin>()
     private val searchEtcCoins = mutableListOf<Coin>()
     private val tokenCoins = mutableListOf<Coin>()
+    private var allTokenCoins = mutableListOf<Token>()
+    private var displayTokenCoins = mutableListOf<Token>()
     private val searchTokenCoins = mutableListOf<Coin>()
 
     private var isClickable = true
@@ -110,10 +120,15 @@ class CoinFragment : Fragment() {
         searchIbcCoins.clear()
         bridgeCoins.clear()
         searchBridgeCoins.clear()
-        tokenCoins.clear()
-        searchTokenCoins.clear()
         etcCoins.clear()
         searchEtcCoins.clear()
+
+        val tokens = mutableListOf<Token>()
+        tokens.clear()
+        tokenCoins.clear()
+        searchTokenCoins.clear()
+        allTokenCoins.clear()
+        displayTokenCoins.clear()
 
         when (selectedChain) {
             is ChainOktEvm -> {
@@ -152,20 +167,20 @@ class CoinFragment : Fragment() {
                     val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                     coinType?.let {
                         when (it) {
-                            "staking" -> {
-                                stakeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.STAKE
+                            "staking", "native" -> {
+                                if (coin.denom == selectedChain.stakeDenom) {
+                                    stakeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.STAKE
+                                        )
                                     )
-                                )
-                            }
-
-                            "native" -> {
-                                nativeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.NATIVE
+                                } else {
+                                    nativeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.NATIVE
+                                        )
                                     )
-                                )
+                                }
                             }
 
                             "bep", "bridge" -> {
@@ -211,53 +226,154 @@ class CoinFragment : Fragment() {
             }
         }
 
-        val tokens = mutableListOf<Token>()
-        if (selectedChain.supportEvm) {
-            selectedChain.evmRpcFetcher?.let { evmRpc ->
-                evmRpc.evmTokens.forEach { token ->
-                    if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                        tokens.add(token)
+        BaseData.baseAccount?.let { account ->
+            if (selectedChain.supportEvm) {
+                selectedChain.evmRpcFetcher?.evmTokens?.let { tokens.addAll(it) }
+                tokens.sortBy { it.symbol.lowercase() }
+                Prefs.getDisplayErc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
+                    tokens.sortWith { o1, o2 ->
+                        val address0 = o1.contract
+                        val address1 = o2.contract
+
+                        val containsToken0 = userCustomTokens.contains(address0)
+                        val containsToken1 = userCustomTokens.contains(address1)
+
+                        when {
+                            containsToken0 && !containsToken1 -> -1
+                            !containsToken0 && containsToken1 -> 1
+                            else -> {
+                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(address0)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(address1)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
                     }
+
+                    tokens.forEach { token ->
+                        if (userCustomTokens.contains(token.contract) && !displayTokenCoins.contains(
+                                token
+                            )
+                        ) {
+                            displayTokenCoins.add(token)
+                            tokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.ERC20
+                                )
+                            )
+                        }
+                    }
+                    allTokenCoins.addAll(tokens)
+                    searchTokenCoins.addAll(tokenCoins)
+
+                } ?: run {
+                    tokens.sortWith { o1, o2 ->
+                        when {
+                            BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
+                            BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
+                            else -> {
+                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(o1.contract)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(o2.contract)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
+                    }
+
+                    tokens.forEach { token ->
+                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayTokenCoins.contains(
+                                token
+                            ) && token.wallet_preload == true
+                        ) {
+                            displayTokenCoins.add(token)
+                            tokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.ERC20
+                                )
+                            )
+                        }
+                    }
+                    allTokenCoins.addAll(tokens)
+                    searchTokenCoins.addAll(tokenCoins)
                 }
 
-                tokens.sortWith { o1, o2 ->
-                    val value0 = evmRpc.tokenValue(o1.address)
-                    val value1 = evmRpc.tokenValue(o2.address)
-                    when {
-                        value0 > value1 -> -1
-                        value0 < value1 -> 1
-                        else -> 0
-                    }
-                }
-            }
-            tokens.forEach { token ->
-                tokenCoins.add(Coin(token.address, token.amount.toString(), CoinType.ERC20))
-            }
-            searchTokenCoins.addAll(tokenCoins)
+            } else {
+                selectedChain.cosmosFetcher?.tokens?.let { tokens.addAll(it) }
+                tokens.sortBy { it.symbol.lowercase() }
 
-        } else {
-            selectedChain.cosmosFetcher?.let { grpc ->
-                grpc.tokens.forEach { token ->
-                    if (token.amount?.toBigDecimal() != BigDecimal.ZERO) {
-                        tokens.add(token)
-                    }
-                }
+                Prefs.getDisplayCw20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
+                    tokens.sortWith { o1, o2 ->
+                        val address0 = o1.contract
+                        val address1 = o2.contract
 
-                tokens.sortWith { o1, o2 ->
-                    val value0 = grpc.tokenValue(o1.address)
-                    val value1 = grpc.tokenValue(o2.address)
-                    when {
-                        value0 > value1 -> -1
-                        value0 < value1 -> 1
-                        else -> 0
+                        val containsToken0 = userCustomTokens.contains(address0)
+                        val containsToken1 = userCustomTokens.contains(address1)
+
+                        when {
+                            containsToken0 && !containsToken1 -> -1
+                            !containsToken0 && containsToken1 -> 1
+                            else -> {
+                                val value0 = selectedChain.cosmosFetcher?.tokenValue(address0)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.cosmosFetcher?.tokenValue(address1)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
                     }
+
+                    tokens.forEach { token ->
+                        if (userCustomTokens.contains(token.contract) && !displayTokenCoins.contains(
+                                token
+                            )
+                        ) {
+                            displayTokenCoins.add(token)
+                            tokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.CW20
+                                )
+                            )
+                        }
+                    }
+                    allTokenCoins.addAll(tokens)
+                    searchTokenCoins.addAll(tokenCoins)
+
+                } ?: run {
+                    tokens.sortWith { o1, o2 ->
+                        when {
+                            BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
+                            BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
+                            else -> {
+                                val value0 = selectedChain.cosmosFetcher?.tokenValue(o1.contract)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.cosmosFetcher?.tokenValue(o2.contract)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
+                    }
+
+                    tokens.forEach { token ->
+                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayTokenCoins.contains(
+                                token
+                            ) && token.wallet_preload == true
+                        ) {
+                            displayTokenCoins.add(token)
+                            tokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.CW20
+                                )
+                            )
+                        }
+                    }
+                    allTokenCoins.addAll(tokens)
+                    searchTokenCoins.addAll(tokenCoins)
                 }
             }
-            tokens.forEach { token ->
-                tokenCoins.add(Coin(token.address, token.amount.toString(), CoinType.CW20))
-            }
-            searchTokenCoins.addAll(tokenCoins)
         }
+
         initRecyclerView()
         binding.refresher.isRefreshing = false
     }
@@ -305,7 +421,7 @@ class CoinFragment : Fragment() {
                         }
                     }
 
-                    if (selectedChain.isBankLocked()) {
+                    if (!selectedChain.isSendEnabled()) {
                         requireActivity().makeToast(R.string.error_tranfer_disabled)
                         return@setOnItemClickListener
                     }
@@ -382,10 +498,9 @@ class CoinFragment : Fragment() {
                             }
 
                             searchTokenCoins.addAll(tokenCoins.filter { coin ->
-                                BaseData.getToken(selectedChain, selectedChain.apiName, coin.denom)
-                                    ?.let { asset ->
-                                        asset.symbol.contains(searchTxt, ignoreCase = true)
-                                    } ?: false
+                                BaseData.getToken(
+                                    selectedChain, selectedChain.apiName, coin.denom
+                                )?.symbol?.contains(searchTxt, ignoreCase = true) ?: false
                             })
                         }
                     }
@@ -426,7 +541,7 @@ class CoinFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedChain.fetched) {
+            if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
@@ -477,6 +592,7 @@ class CoinFragment : Fragment() {
                 if (selectedChain.supportCw20 || selectedChain.supportEvm) {
                     ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
                         initData()
+                        binding.loading.visibility = View.GONE
                     }
                 } else {
                     initData()
@@ -509,6 +625,24 @@ class CoinFragment : Fragment() {
                 isClickable = true
             }, 300)
         }
+    }
+
+    override fun showTokenList() {
+        TokenEditFragment.newInstance(selectedChain,
+            allTokenCoins,
+            displayTokenCoins.map { it.contract }.toMutableList(),
+            object : TokenEditListener {
+                override fun edit(displayErc20Tokens: MutableList<String>) {
+                    binding.loading.visibility = View.VISIBLE
+                    BaseData.baseAccount?.let { account ->
+                        ApplicationViewModel.shared.loadChainData(
+                            selectedChain, account.id, false
+                        )
+                    }
+                }
+            }).show(
+            requireActivity().supportFragmentManager, TokenEditFragment::class.java.name
+        )
     }
 
     override fun onDestroyView() {

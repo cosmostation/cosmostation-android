@@ -7,9 +7,9 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.SuiFetcher
-import wannabit.io.cosmostaion.chain.assetImg
-import wannabit.io.cosmostaion.chain.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.fetcher.assetImg
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 
@@ -51,7 +51,7 @@ class ChainSui : BaseChain(), Parcelable {
             val metaData = fetcher.suiCoinMeta[originSymbol]
 
             if (asset != null) {
-                return asset.assetImg()
+                return asset.image ?: ""
             } else if (metaData != null) {
                 return metaData.assetImg()
             }

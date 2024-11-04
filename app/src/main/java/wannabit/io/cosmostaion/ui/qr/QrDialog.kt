@@ -97,7 +97,7 @@ class QrDialog(
                                 PubKeyType.BTC_LEGACY -> {
                                     chainTypeBadge.visibility = View.VISIBLE
                                     chainBadge.visibility = View.GONE
-                                    chainTypeBadge.text = "LEGACY"
+                                    chainTypeBadge.text = context.getString(R.string.str_legacy)
                                     chainBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,
@@ -109,7 +109,7 @@ class QrDialog(
                                 PubKeyType.BTC_NESTED_SEGWIT -> {
                                     chainTypeBadge.visibility = View.VISIBLE
                                     chainBadge.visibility = View.GONE
-                                    chainTypeBadge.text = "NESTED SEGWIT"
+                                    chainTypeBadge.text = context.getString(R.string.str_nested_segwit)
                                     chainBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,
@@ -120,7 +120,7 @@ class QrDialog(
 
                                 else -> {
                                     chainBadge.visibility = View.VISIBLE
-                                    chainBadge.text = "NATIVE SEGWIT"
+                                    chainBadge.text = context.getString(R.string.str_native_segwit)
                                     chainBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,

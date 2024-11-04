@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants.BINANCE_BUY_URL
 import wannabit.io.cosmostaion.common.CosmostationConstants.EXPLORER_BASE_URL
@@ -24,11 +25,11 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
-import wannabit.io.cosmostaion.ui.tx.step.SwapFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainClaimFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainCompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.service.AllChainVoteFragment
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.tx.genTx.SwapFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainClaimFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainCompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainVoteFragment
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.net.URLEncoder
 
 class ServiceFragment : Fragment() {
@@ -113,7 +114,7 @@ class ServiceFragment : Fragment() {
 
             claimRewardsView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainClaimFragment()
                         )
@@ -127,7 +128,7 @@ class ServiceFragment : Fragment() {
 
             compoundingView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainCompoundingFragment()
                         )
@@ -141,7 +142,7 @@ class ServiceFragment : Fragment() {
 
             voteView.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AllChainVoteFragment()
                         )

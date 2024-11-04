@@ -1060,7 +1060,7 @@ data class CosmosHistory(
                             null
                         }
                         if (amount != null) {
-                            chain.cosmosFetcher?.tokens?.firstOrNull { it.address == contractAddress }
+                            chain.cosmosFetcher?.tokens?.firstOrNull { it.contract == contractAddress }
                                 ?.let { cw20 ->
                                     return Pair(cw20, amount.toBigDecimal())
                                 }
@@ -1080,7 +1080,7 @@ data class CosmosHistory(
                             val hexData = Base64.decode(data).toHex()
                             val contractAddress = dataValue.asJsonObject["to"].asString
                             if (hexData.startsWith("a9059cbb")) {
-                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address == contractAddress }
+                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.contract == contractAddress }
                                     ?.let { erc20 ->
                                         return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
                                     }

@@ -25,6 +25,7 @@ class ChainSei : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var supportCw20: Boolean = true
     override var stakeDenom: String = "usei"
     override var accountPrefix: String = "sei"
     override var grpcHost: String = "grpc-sei.cosmostation.io"

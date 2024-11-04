@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kava.swap.v1beta1.QueryProto
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.usdxAmount
+import wannabit.io.cosmostaion.chain.fetcher.usdxAmount
 import wannabit.io.cosmostaion.data.repository.chain.KavaRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModel
+import wannabit.io.cosmostaion.data.viewmodel.chain.KavaViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentPoolListBinding
-import wannabit.io.cosmostaion.ui.option.tx.kava.PoolOptionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.PoolActionFragment
-import wannabit.io.cosmostaion.ui.tx.step.kava.PoolActionType
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.chain.KavaViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.kava.PoolOptionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.PoolActionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.kava.PoolActionType
 
 class PoolListFragment : Fragment() {
 

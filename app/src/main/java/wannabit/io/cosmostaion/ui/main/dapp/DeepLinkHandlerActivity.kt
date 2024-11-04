@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 
 class DeepLinkHandlerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

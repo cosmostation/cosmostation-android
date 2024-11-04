@@ -18,11 +18,11 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
 
 class EvmDetailFragment : Fragment() {
 

@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.hexToBigDecimal
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmAboutBinding
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.util.Locale
 
 class EvmAboutFragment : Fragment() {
@@ -95,7 +95,7 @@ class EvmAboutFragment : Fragment() {
                 val chainIdEvm = it.getAsJsonPrimitive("chain_id_evm") ?: JsonPrimitive("")
                 chainIdEvmInfo.text = chainIdEvm.asString.hexToBigDecimal().toString()
 
-                val coinForGas = it.getAsJsonPrimitive("symbol") ?: JsonPrimitive("")
+                val coinForGas = it.getAsJsonPrimitive("main_asset_symbol") ?: JsonPrimitive("")
                 coinForGasInfo.text = coinForGas.asString
 
                 chainNetwork.text = if (selectedEvmChain.isTestnet) {

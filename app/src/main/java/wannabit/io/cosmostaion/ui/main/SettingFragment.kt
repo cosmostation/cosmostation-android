@@ -58,8 +58,8 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportQrActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.QrImportConfirmListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.WaitingDialog
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.util.Locale
 
 class SettingFragment : Fragment() {
@@ -608,11 +608,7 @@ class SettingFragment : Fragment() {
 
     private fun setVibrate() {
         val vibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
-        } else {
-            vibrator.vibrate(100)
-        }
+        vibrator.vibrate(VibrationEffect.createOneShot(100, 50))
     }
 
     private val appLockCheckResultLauncher: ActivityResultLauncher<Intent> =

@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
-import wannabit.io.cosmostaion.ui.tx.step.StakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.StakingFragment
 
 class StakeInfoFragment : Fragment() {
 

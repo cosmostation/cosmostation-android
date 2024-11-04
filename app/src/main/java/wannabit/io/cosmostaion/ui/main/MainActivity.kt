@@ -20,21 +20,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityMainBinding
 import wannabit.io.cosmostaion.databinding.ViewTabItemBinding
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
-import wannabit.io.cosmostaion.ui.main.edit.ChainEditFragment
-import wannabit.io.cosmostaion.ui.option.account.AccountSelectFragment
-import wannabit.io.cosmostaion.ui.option.notice.PushNotificationActivity
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 
 class MainActivity : BaseActivity() {
 
@@ -60,7 +59,9 @@ class MainActivity : BaseActivity() {
     @SuppressLint("WrongConstant")
     private fun showPushData() {
         intent.apply {
-            if (getStringExtra("push_txhash")?.isEmpty() == true) { return }
+            if (getStringExtra("push_txhash")?.isEmpty() == true) {
+                return
+            }
             if (getStringExtra("push_type").toString() == "0") {
                 getStringExtra("push_txhash")?.let { txHash ->
                     getStringExtra("push_network")?.let { network ->
@@ -73,9 +74,15 @@ class MainActivity : BaseActivity() {
                                 putExtra("url", url)
                                 startActivity(this)
                                 if (Build.VERSION.SDK_INT >= 34) {
-                                    overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                                    overrideActivityTransition(
+                                        Activity.OVERRIDE_TRANSITION_OPEN,
+                                        R.anim.anim_slide_in_bottom,
+                                        R.anim.anim_fade_out
+                                    )
                                 } else {
-                                    overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+                                    overridePendingTransition(
+                                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                                    )
                                 }
                             }
                         }, 1000)
@@ -120,6 +127,9 @@ class MainActivity : BaseActivity() {
     private fun initView() {
         binding.apply {
             parentLayout.setBackgroundResource(Prefs.background)
+            btnSort.setImageResource(
+                if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
+            )
 
             accountName.text = BaseData.baseAccount?.name
             val mainViewPagerAdapter = MainViewPageAdapter(this@MainActivity)
@@ -169,8 +179,8 @@ class MainActivity : BaseActivity() {
                     mainViewPager.setCurrentItem(position, false)
                     tabIconSetColor(tab, true)
 
-                    if (position == 1 || position == 2) btnEdit.visibility = View.GONE
-                    else btnEdit.visibility = View.VISIBLE
+                    btnEdit.goneOrVisible(position == 1 || position == 2)
+                    btnSort.goneOrVisible(position == 1 || position == 2)
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -222,7 +232,7 @@ class MainActivity : BaseActivity() {
 
             accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -235,7 +245,7 @@ class MainActivity : BaseActivity() {
 
             accountName.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { !it.fetched }) {
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -249,6 +259,14 @@ class MainActivity : BaseActivity() {
             btnRandom.setOnClickListener {
                 CosmostationApp.instance.setRandomBackgroundImage()
                 binding.parentLayout.setBackgroundResource(Prefs.background)
+            }
+
+            btnSort.setOnClickListener {
+                Prefs.chainFilter = !Prefs.chainFilter
+                ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
+                btnSort.setImageResource(
+                    if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
+                )
             }
         }
     }
@@ -276,7 +294,7 @@ class MainActivity : BaseActivity() {
     private fun recreateView() {
         ApplicationViewModel.shared.txRecreateResult.observe(this) {
             BaseData.baseAccount?.sortedDisplayChains()?.forEach {
-                it.fetched = false
+                it.fetchState = FetchState.IDLE
             }
 
             val mainViewPagerAdapter = MainViewPageAdapter(this)
@@ -287,6 +305,12 @@ class MainActivity : BaseActivity() {
                 mainViewPager.isUserInputEnabled = false
                 mainViewPagerAdapter.notifyDataSetChanged()
             }
+        }
+
+        ApplicationViewModel.shared.chainFilterResult.observe(this) {
+            binding.btnSort.setImageResource(
+                if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
+            )
         }
     }
 

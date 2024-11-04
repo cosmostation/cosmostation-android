@@ -11,8 +11,8 @@ import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ActivityAddressBookListBinding
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModelProviderFactory
 
 class AddressBookListActivity : BaseActivity() {
 

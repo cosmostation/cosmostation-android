@@ -33,27 +33,26 @@ import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
-import wannabit.io.cosmostaion.ui.intro.IntroActivity
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import wannabit.io.cosmostaion.ui.option.notice.NoticeInfoFragment
-import wannabit.io.cosmostaion.ui.option.notice.NoticeType
-import wannabit.io.cosmostaion.ui.option.tx.general.VaultSelectFragment
+import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktSelectValidatorFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
-import wannabit.io.cosmostaion.ui.tx.step.ClaimRewardFragment
-import wannabit.io.cosmostaion.ui.tx.step.CompoundingFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktDepositFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktSelectValidatorFragment
-import wannabit.io.cosmostaion.ui.tx.step.okt.OktWithdrawFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
 import java.math.BigDecimal
 
 
@@ -272,7 +271,7 @@ class CosmosDetailFragment : Fragment() {
                     when (tab?.text.toString()) {
                         "Crypto" -> {
                             btnAddToken.visibleOrGone(supportToken)
-                            btnAddToken.setImageResource(R.drawable.icon_add_token_explain)
+                            btnAddToken.setImageResource(R.drawable.icon_add_token)
                             noticeType = NoticeType.TOKEN_GITHUB
                         }
 
@@ -313,12 +312,6 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-    private fun showNotice(noticeType: NoticeType) {
-        NoticeInfoFragment.newInstance(selectedChain, noticeType, null).show(
-            requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
-        )
-    }
-
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -335,7 +328,16 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAddToken.setOnClickListener {
-                showNotice(noticeType)
+                if (isClickable) {
+                    isClickable = false
+
+                    val coinFragment = detailPagerAdapter.getCoinFragmentInstance()
+                    coinFragment?.showTokenList()
+                }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    isClickable = true
+                }, 300)
             }
 
             btnAccount.setOnClickListener {
@@ -597,12 +599,14 @@ class CosmosDetailFragment : Fragment() {
         private val selectedChain: BaseChain
     ) : FragmentStateAdapter(fragment) {
 
+        private val fragmentCache = mutableMapOf<Int, Fragment>()
+
         override fun getItemCount(): Int {
             return tabTitles.size
         }
 
         override fun createFragment(position: Int): Fragment {
-            return when (tabTitles[position]) {
+            val fragment = when (tabTitles[position]) {
                 "Crypto" -> CoinFragment.newInstance(selectedChain)
                 "NFTs" -> NftFragment.newInstance(selectedChain)
                 "Receive" -> ReceiveFragment.newInstance(selectedChain)
@@ -611,6 +615,13 @@ class CosmosDetailFragment : Fragment() {
                 "About" -> AboutFragment.newInstance(selectedChain)
                 else -> throw IllegalArgumentException("Invalid tab position")
             }
+            fragmentCache[position] = fragment
+            return fragment
+        }
+
+        fun getCoinFragmentInstance(): CoinFragment? {
+            val position = tabTitles.indexOf("Crypto")
+            return fragmentCache[position] as? CoinFragment
         }
     }
 

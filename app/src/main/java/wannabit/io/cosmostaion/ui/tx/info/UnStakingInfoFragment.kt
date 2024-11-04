@@ -16,10 +16,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
-import wannabit.io.cosmostaion.ui.option.tx.general.StakingOptionFragment
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.ui.tx.option.general.StakingOptionFragment
 
 class UnStakingInfoFragment : Fragment() {
 
@@ -107,11 +108,11 @@ class UnStakingInfoFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (!selectedChain.fetched) {
+            if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    selectedChain.fetched = false
+                    selectedChain.fetchState = FetchState.IDLE
                     ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
                 }
             }

@@ -17,13 +17,14 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
-import wannabit.io.cosmostaion.ui.viewmodel.address.AddressBookViewModel
 import java.util.Calendar
 
 class SetAddressFragment : BottomSheetDialogFragment() {
@@ -170,7 +171,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
     private fun updateView() {
         binding.apply {
             val addressInput = addressTxt.text.toString().trim()
-            if (BaseKey.isValidEthAddress(addressInput)) {
+            if (BaseKey.isValidEthAddress(addressInput) || BaseUtils.isValidSuiAddress(addressInput)) {
                 memoLayout.visibility = View.GONE
 
             } else {
@@ -301,7 +302,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             }
 
         } catch (e: Exception) {
-            if (BaseKey.isValidEthAddress(address)) {
+            if (BaseKey.isValidEthAddress(address) || BaseUtils.isValidSuiAddress(address)) {
                 return true
 
             } else {
@@ -331,8 +332,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             }
 
         } catch (e: Exception) {
-            if (BaseKey.isValidEthAddress(address)) {
+            if (BaseUtils.isValidSuiAddress(address)) {
+                return ChainSui()
+
+            } else if (BaseKey.isValidEthAddress(address)) {
                 return BaseChain()
+
             } else {
                 allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
                     ?.let { chain ->

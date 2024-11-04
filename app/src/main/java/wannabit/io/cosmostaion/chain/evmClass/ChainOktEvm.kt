@@ -8,7 +8,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.OktFetcher
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.CosmostationConstants
 

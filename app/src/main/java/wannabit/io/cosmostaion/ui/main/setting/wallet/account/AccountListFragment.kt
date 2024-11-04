@@ -30,14 +30,14 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAccountListBinding
-import wannabit.io.cosmostaion.ui.option.account.AccountManageListener
-import wannabit.io.cosmostaion.ui.option.account.AccountManageOptionFragment
+import wannabit.io.cosmostaion.ui.main.AccountManageListener
+import wannabit.io.cosmostaion.ui.main.AccountManageOptionFragment
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.ui.viewmodel.account.AccountViewModel
-import wannabit.io.cosmostaion.ui.wallet.CreateMnemonicFragment
-import wannabit.io.cosmostaion.ui.wallet.RestoreMnemonicFragment
-import wannabit.io.cosmostaion.ui.wallet.RestorePrivateFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
+import wannabit.io.cosmostaion.ui.init.CreateMnemonicFragment
+import wannabit.io.cosmostaion.ui.init.RestoreMnemonicFragment
+import wannabit.io.cosmostaion.ui.init.RestorePrivateFragment
 
 class AccountListFragment : Fragment() {
 
