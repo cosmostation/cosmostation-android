@@ -104,29 +104,31 @@ class ReceiveViewHolder(
 
     private fun setQrAddress(context: Context, selectAddress: String?) {
         binding.apply {
-            try {
-                val hints = mutableMapOf<EncodeHintType, Int>()
-                hints[EncodeHintType.MARGIN] = 0
+            if (selectAddress.isNullOrEmpty()) {
+                return
+            } else {
+                try {
+                    val hints = mutableMapOf<EncodeHintType, Int>()
+                    hints[EncodeHintType.MARGIN] = 0
 
-                if (selectAddress.isNullOrEmpty()) { return }
+                    val barcodeEncoder = BarcodeEncoder()
+                    val bitmap = barcodeEncoder.encodeBitmap(
+                        selectAddress, BarcodeFormat.QR_CODE, 540, 540, hints
+                    )
+                    address.text = selectAddress
+                    if (address.text.toString().length >= 45) {
+                        address.letterSpacing = -0.03f
+                    } else {
+                        address.letterSpacing = 0.0f
+                    }
+                    qrImg.setImageBitmap(bitmap)
 
-                val barcodeEncoder = BarcodeEncoder()
-                val bitmap = barcodeEncoder.encodeBitmap(
-                    selectAddress, BarcodeFormat.QR_CODE, 540, 540, hints
-                )
-                address.text = selectAddress
-                if (address.text.toString().length >= 45) {
-                    address.letterSpacing = -0.03f
-                } else {
-                    address.letterSpacing = 0.0f
+                    qrView.radius = context.resources.getDimension(R.dimen.space_8)
+                    qrImg.clipToOutline = true
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-                qrImg.setImageBitmap(bitmap)
-
-                qrView.radius = context.resources.getDimension(R.dimen.space_8)
-                qrImg.clipToOutline = true
-
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }

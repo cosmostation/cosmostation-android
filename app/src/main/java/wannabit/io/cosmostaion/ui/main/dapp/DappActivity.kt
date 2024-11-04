@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -65,7 +66,6 @@ import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
@@ -76,6 +76,7 @@ import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
+import wannabit.io.cosmostaion.sign.Signer
 import java.io.BufferedReader
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -121,6 +122,12 @@ class DappActivity : BaseActivity() {
         }
         if (BaseData.assets?.isEmpty() == true) {
             loadAsset()
+        }
+
+        selectEvmChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("selectedEvmChain", BaseChain::class.java)
+        } else {
+            (intent.getParcelableExtra("selectedEvmChain")) as? BaseChain
         }
     }
 
@@ -980,10 +987,8 @@ class DappActivity : BaseActivity() {
 
                         if (evmChainIds?.contains(chainId) == true) {
                             currentEvmChainId = chainId
-                            if (selectEvmChain == null) {
-                                selectEvmChain =
-                                    allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
-                            }
+                            selectEvmChain =
+                                allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
@@ -1006,13 +1011,11 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_chainId" -> {
-                    if (currentEvmChainId == null) {
-                        currentEvmChainId = "0x1"
-                    }
                     if (selectEvmChain == null) {
                         selectEvmChain =
-                            allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == currentEvmChainId }
+                            allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == "0x1" }
                     }
+                    currentEvmChainId = selectEvmChain?.chainIdEvm
                     rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
@@ -1042,9 +1045,9 @@ class DappActivity : BaseActivity() {
                                     method = "eth_estimateGas", params = listOf(
                                         EstimateGasParamsWithValue(
                                             param.getString("from") ?: null,
-                                            param.getString("to"),
-                                            param.getString("data"),
-                                            param.getString("value")
+                                            if (param.has("to")) param.getString("to") else null,
+                                            if (param.has("data")) param.getString("data") else null,
+                                            if (param.has("value")) param.getString("value") else null
                                         )
                                     )
                                 )
@@ -1054,8 +1057,8 @@ class DappActivity : BaseActivity() {
                                     method = "eth_estimateGas", params = listOf(
                                         EstimateGasParams(
                                             param.getString("from") ?: null,
-                                            param.getString("to"),
-                                            param.getString("data")
+                                            if (param.has("to")) param.getString("to") else null,
+                                            if (param.has("data")) param.getString("data") else null
                                         )
                                     )
                                 )

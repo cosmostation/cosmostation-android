@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.evm
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +87,7 @@ class EvmEcoSystemFragment : Fragment() {
             evmEcoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", it)
+                    putExtra("selectedEvmChain", selectedEvmChain as Parcelable)
                     startActivity(this)
                 }
             }

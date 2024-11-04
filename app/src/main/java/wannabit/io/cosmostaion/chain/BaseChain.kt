@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
@@ -559,6 +560,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
     chains.add(ChainDesmos())
+    chains.add(ChainDungeon())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())

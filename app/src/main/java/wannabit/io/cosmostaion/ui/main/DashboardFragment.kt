@@ -115,8 +115,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initData(baseAccount: BaseAccount?) {
-        mainnetChains.clear()
-        testnetChains.clear()
         searchMainnetChains.clear()
         searchTestnetChains.clear()
 
@@ -316,24 +314,25 @@ class DashboardFragment : Fragment() {
 
     private fun updateTotalValue() {
         lifecycleScope.launch(Dispatchers.IO) {
-            var totalSum = BigDecimal.ZERO
+            BaseData.baseAccount?.let { account ->
+                var totalSum = BigDecimal.ZERO
+                val dpTags = Prefs.getDisplayChains(account)
+                val dpChains = account.allChains.filter { chain ->
+                    dpTags.contains(chain.tag)
+                }
 
-            mainnetChains.forEach { chain ->
-                totalSum = totalSum.add(chain.allValue(false))
-            }
+                dpChains.forEach { chain ->
+                    totalSum = totalSum.add(chain.allValue(false))
+                }
 
-            testnetChains.forEach { chain ->
-                totalSum = totalSum.add(chain.allValue(false))
-            }
+                withContext(Dispatchers.Main) {
+                    if (isAdded) {
+                        totalChainValue = totalSum
 
-            withContext(Dispatchers.Main) {
-                if (isAdded) {
-                    totalChainValue = totalSum
-
-                    val totalValueTxt = binding?.totalValue
-                    totalValueTxt?.text =
-                        if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalSum)
-                    totalValueTxt?.textSize = if (Prefs.hideValue) 18f else 24f
+                        binding?.totalValue?.text =
+                            if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalChainValue)
+                        binding?.totalValue?.textSize = if (Prefs.hideValue) 18f else 24f
+                    }
                 }
             }
         }
