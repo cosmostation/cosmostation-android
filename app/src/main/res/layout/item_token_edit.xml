@@ -27,8 +27,8 @@
                 android:id="@+id/token_img"
                 android:layout_width="@dimen/space_36"
                 android:layout_height="@dimen/space_36"
-                android:scaleType="centerCrop"
                 android:background="@drawable/round_img"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,20 +52,6 @@
                     android:textColor="@color/color_base01"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/token_description"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_base03"
-                    android:layout_marginStart="@dimen/space_6"
-                    android:maxWidth="@dimen/space_100"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    app:layout_constraintStart_toEndOf="@+id/token_name"
-                    app:layout_constraintTop_toTopOf="@id/token_name"
-                    app:layout_constraintBottom_toBottomOf="@id/token_name"/>
 
                 <TextView
                     android:id="@+id/token_address"
@@ -115,7 +101,6 @@
                     android:layout_marginStart="@dimen/space_8"
                     android:ellipsize="end"
                     android:gravity="end"
-                    android:maxWidth="@dimen/space_200"
                     android:maxLines="1"
                     android:textColor="@color/color_base01"
                     app:layout_constraintEnd_toEndOf="parent"

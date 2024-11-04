@@ -95,7 +95,7 @@ class EvmAboutFragment : Fragment() {
                 val chainIdEvm = it.getAsJsonPrimitive("chain_id_evm") ?: JsonPrimitive("")
                 chainIdEvmInfo.text = chainIdEvm.asString.hexToBigDecimal().toString()
 
-                val coinForGas = it.getAsJsonPrimitive("symbol") ?: JsonPrimitive("")
+                val coinForGas = it.getAsJsonPrimitive("main_asset_symbol") ?: JsonPrimitive("")
                 coinForGasInfo.text = coinForGas.asString
 
                 chainNetwork.text = if (selectedEvmChain.isTestnet) {

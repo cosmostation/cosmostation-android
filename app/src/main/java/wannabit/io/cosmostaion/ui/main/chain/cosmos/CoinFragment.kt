@@ -421,7 +421,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         }
                     }
 
-                    if (selectedChain.isBankLocked()) {
+                    if (!selectedChain.isSendEnabled()) {
                         requireActivity().makeToast(R.string.error_tranfer_disabled)
                         return@setOnItemClickListener
                     }

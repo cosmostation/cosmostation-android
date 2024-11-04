@@ -289,11 +289,11 @@ open class BaseChain : Parcelable {
     }
 
     fun getFeeBasePosition(): Int {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("base")?.asInt ?: 0
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("base")?.asInt ?: 0
     }
 
     fun getFeeBaseGasAmount(): Long {
-        return getChainListParam()?.getAsJsonObject("fee")?.let {
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.let {
             it.get("init_gas_limit")?.asLong
         } ?: run {
             BaseConstant.BASE_GAS_AMOUNT.toLong()
@@ -322,7 +322,7 @@ open class BaseChain : Parcelable {
 
     fun getFeeInfos(c: Context): MutableList<FeeInfo> {
         val result: MutableList<FeeInfo> = mutableListOf()
-        getChainListParam()?.getAsJsonObject("fee")?.let {
+        getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.let {
             it.getAsJsonArray("rate").forEach { rate ->
                 result.add(FeeInfo(rate.asString))
             }
@@ -358,40 +358,40 @@ open class BaseChain : Parcelable {
     }
 
     fun gasMultiply(): Double {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("simul_gas_multiply")?.asDouble
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("simulated_gas_multiply")?.asDouble
             ?: run {
                 1.3
             }
     }
 
     fun supportFeeMarket(): Boolean? {
-        return if (getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket") == null) {
+        return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
         } else {
-            getChainListParam()?.get("fee")?.asJsonObject?.get("feemarket")?.asBoolean
+            getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket")?.asBoolean
         }
     }
 
     fun evmSupportEip1559(): Boolean {
-        return getChainListParam()?.get("evm_fee")?.let {
-            it.asJsonObject["eip1559"].asBoolean
+        return getChainListParam()?.get("evm_fee_info")?.let {
+            it.asJsonObject["is_eip1559"].asBoolean
         } ?: run {
             false
         }
     }
 
     fun evmGasMultiply(): BigInteger? {
-        return if (getChainListParam()?.get("evm_fee")?.isJsonNull == true) {
+        return if (getChainListParam()?.get("evm_fee_info")?.isJsonNull == true) {
             BigInteger("13")
         } else {
-            (getChainListParam()?.get("evm_fee")?.asJsonObject?.get("simul_gas_multiply")?.asDouble?.toBigDecimal()
+            (getChainListParam()?.get("evm_fee_info")?.asJsonObject?.get("simulated_gas_multiply")?.asDouble?.toBigDecimal()
                 ?.multiply(BigDecimal(10)))?.toBigInteger()
         }
     }
 
     fun skipAffiliate(): String {
         return BaseData.chainParam?.get("cosmos")?.asJsonObject?.get("params")?.asJsonObject?.get("chainlist_params")?.asJsonObject?.get(
-            "skipAffiliate"
+            "skip_Affiliate"
         )?.asString ?: "50"
     }
 
@@ -405,7 +405,7 @@ open class BaseChain : Parcelable {
     }
 
     fun txTimeout(): Long {
-        return getChainListParam()?.get("tx_timeout_add")?.asLong ?: 30
+        return getChainListParam()?.get("tx_timeout_padding")?.asLong ?: 30
     }
 
     fun getChainParam(): JsonObject? {
@@ -434,23 +434,16 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun chainDappName(): String? {
-        getChainListParam()?.get("name_for_dapp")?.let {
-            return it.asString?.lowercase()
-        }
-        return ""
-    }
-
     fun isGasSimulable(): Boolean {
-        return getChainListParam()?.getAsJsonObject("fee")?.get("isSimulable")?.asBoolean ?: true
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("is_simulable")?.asBoolean ?: true
     }
 
-    fun isBankLocked(): Boolean {
-        return getChainListParam()?.get("isBankLocked")?.asBoolean ?: false
+    fun isSendEnabled(): Boolean {
+        return getChainListParam()?.get("is_send_enabled")?.asBoolean ?: true
     }
 
     fun isEcosystem(): Boolean {
-        return getChainListParam()?.get("moblie_dapp")?.asBoolean ?: false
+        return getChainListParam()?.get("is_support_moblie_dapp")?.asBoolean ?: false
     }
 
     fun explorerAccount(address: String): Uri? {

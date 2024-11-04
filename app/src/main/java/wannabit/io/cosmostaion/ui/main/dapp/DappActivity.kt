@@ -846,7 +846,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_supportedChainNames" -> {
                     val supportChainNames = allChains?.filter {
-                        it.supportCosmos() && it.chainDappName()?.isNotEmpty() == true
+                        it.supportCosmos() && it.name.lowercase().isNotEmpty()
                     }?.map { it.name.lowercase() }?.distinct()
                     if (supportChainNames?.isNotEmpty() == true) {
                         val dataJson = JSONObject()

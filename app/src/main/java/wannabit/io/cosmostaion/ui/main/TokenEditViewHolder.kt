@@ -28,7 +28,6 @@ class TokenEditViewHolder(
             tokenImg.setTokenImg(token.image)
             tokenImg.clipToOutline = true
             tokenName.text = token.symbol
-            tokenDescription.text = token.name
             tokenAddress.text = token.contract
 
             BaseData.getToken(chain, token.chain, token.contract)?.let { token ->

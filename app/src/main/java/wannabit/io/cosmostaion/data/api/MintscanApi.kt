@@ -38,7 +38,7 @@ interface MintscanApi {
     @GET("v11/assets")
     suspend fun asset(): AssetResponse
 
-    @GET("v10/utils/params")
+    @GET("v11/utils/params")
     suspend fun param(): JsonObject
 
     @GET("v11/assets/{chain}/cw20/info")
