@@ -634,7 +634,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXpla())
     chains.add(ChainZetaEvm())
 
-    chains.add(ChainCosmosTestnet())
+//    chains.add(ChainCosmosTestnet())
     chains.add(ChainArtelaTestnet())
     chains.add(ChainBitcoin44Testnet())
     chains.add(ChainBitcoin49Testnet())
