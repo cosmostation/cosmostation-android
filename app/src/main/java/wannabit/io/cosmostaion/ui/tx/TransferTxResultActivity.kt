@@ -24,6 +24,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
@@ -32,15 +33,15 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModelProviderFactory
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
-import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModelProviderFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -247,7 +248,7 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             fromChain.apply {
-                if (supportCosmos()) {
+                if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_GRPC) {
                     val channel = fromChain.cosmosFetcher?.getChannel()
                     val stub = ServiceGrpc.newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
