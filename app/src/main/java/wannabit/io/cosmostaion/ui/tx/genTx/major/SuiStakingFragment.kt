@@ -219,6 +219,7 @@ class SuiStakingFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
                         null,
+                        null,
                         (selectedChain as ChainSui).suiFetcher()?.suiValidators ?: mutableListOf(),
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {

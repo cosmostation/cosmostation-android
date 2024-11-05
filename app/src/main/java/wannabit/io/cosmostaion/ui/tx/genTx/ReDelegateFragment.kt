@@ -355,6 +355,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         selectedChain,
                         fromValidator,
                         null,
+                        null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

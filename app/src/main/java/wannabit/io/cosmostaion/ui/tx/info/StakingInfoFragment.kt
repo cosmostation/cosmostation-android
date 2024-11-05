@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
@@ -72,42 +73,96 @@ class StakingInfoFragment : Fragment() {
 
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                var delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
-                val validators = selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
-                val cosmostationValAddress =
-                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                if (selectedChain is ChainInitiaTestnet) {
+                    var delegations =
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
+                            ?: mutableListOf()
+                    val validators =
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators
+                            ?: mutableListOf()
+                    val cosmostationValAddress =
+                        validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
 
-                val tempDelegations = delegations.toMutableList()
-                tempDelegations.sortWith { o1, o2 ->
-                    when {
-                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
-                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
-                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
-                        else -> 1
+                    val tempDelegations = delegations.toMutableList()
+                    tempDelegations.sortWith { o1, o2 ->
+                        when {
+                            o1.delegation.validatorAddress == cosmostationValAddress -> -1
+                            o2.delegation.validatorAddress == cosmostationValAddress -> 1
+                            o1.balanceList.first { it.denom == selectedChain.stakeDenom }.amount.toDouble() > o2.balanceList.first { it.denom == selectedChain.stakeDenom }.amount.toDouble() -> -1
+                            else -> 1
+                        }
                     }
-                }
-                delegations = tempDelegations
+                    delegations = tempDelegations
 
-                withContext(Dispatchers.Main) {
-                    refresher.isRefreshing = false
-                    if (delegations.isNotEmpty()) {
-                        recycler.visibility = View.VISIBLE
-                        emptyLayout.visibility = View.GONE
-                        stakingInfoAdapter = StakingInfoAdapter(
-                            selectedChain,
-                            validators,
-                            delegations,
-                            mutableListOf(),
-                            OptionType.STAKE,
-                            selectClickAction
-                        )
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = stakingInfoAdapter
+                    withContext(Dispatchers.Main) {
+                        refresher.isRefreshing = false
+                        if (delegations.isNotEmpty()) {
+                            recycler.visibility = View.VISIBLE
+                            emptyLayout.visibility = View.GONE
+                            stakingInfoAdapter = StakingInfoAdapter(
+                                selectedChain,
+                                mutableListOf(),
+                                mutableListOf(),
+                                mutableListOf(),
+                                validators,
+                                delegations,
+                                mutableListOf(),
+                                OptionType.STAKE,
+                                selectClickAction
+                            )
+                            recycler.setHasFixedSize(true)
+                            recycler.layoutManager = LinearLayoutManager(requireContext())
+                            recycler.adapter = stakingInfoAdapter
 
-                    } else {
-                        recycler.visibility = View.GONE
-                        emptyLayout.visibility = View.VISIBLE
+                        } else {
+                            recycler.visibility = View.GONE
+                            emptyLayout.visibility = View.VISIBLE
+                        }
+                    }
+
+                } else {
+                    var delegations =
+                        selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                    val validators =
+                        selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
+                    val cosmostationValAddress =
+                        validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+
+                    val tempDelegations = delegations.toMutableList()
+                    tempDelegations.sortWith { o1, o2 ->
+                        when {
+                            o1.delegation.validatorAddress == cosmostationValAddress -> -1
+                            o2.delegation.validatorAddress == cosmostationValAddress -> 1
+                            o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
+                            else -> 1
+                        }
+                    }
+                    delegations = tempDelegations
+
+                    withContext(Dispatchers.Main) {
+                        refresher.isRefreshing = false
+                        if (delegations.isNotEmpty()) {
+                            recycler.visibility = View.VISIBLE
+                            emptyLayout.visibility = View.GONE
+                            stakingInfoAdapter = StakingInfoAdapter(
+                                selectedChain,
+                                validators,
+                                delegations,
+                                mutableListOf(),
+                                mutableListOf(),
+                                mutableListOf(),
+                                mutableListOf(),
+                                OptionType.STAKE,
+                                selectClickAction
+                            )
+                            recycler.setHasFixedSize(true)
+                            recycler.layoutManager = LinearLayoutManager(requireContext())
+                            recycler.adapter = stakingInfoAdapter
+
+                        } else {
+                            recycler.visibility = View.GONE
+                            emptyLayout.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
@@ -131,7 +186,15 @@ class StakingInfoFragment : Fragment() {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, validator, null, OptionType.STAKE
+                    selectedChain, validator, null, null, null, OptionType.STAKE
+                )
+            )
+        }
+
+        override fun selectInitiaStakingAction(validator: com.initia.mstaking.v1.StakingProto.Validator?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, null, validator, null, null, OptionType.STAKE
                 )
             )
         }
@@ -139,7 +202,15 @@ class StakingInfoFragment : Fragment() {
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, unBondingEntry, OptionType.UNSTAKE
+                    selectedChain, null, null, unBondingEntry, null, OptionType.UNSTAKE
+                )
+            )
+        }
+
+        override fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, null, null, null, initiaUnBondingEntry, OptionType.UNSTAKE
                 )
             )
         }

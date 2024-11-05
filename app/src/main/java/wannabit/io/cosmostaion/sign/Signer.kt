@@ -162,6 +162,15 @@ object Signer {
         return msgAnys
     }
 
+    fun initiaDelegateMsg(msgDelegate: com.initia.mstaking.v1.TxProto.MsgDelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgDelegate")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(

@@ -55,6 +55,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -846,6 +847,32 @@ fun StakingProto.Validator.isActiveValidator(chain: BaseChain): Boolean {
         }
     } else {
         this.status == StakingProto.BondStatus.BOND_STATUS_BONDED
+    }
+}
+
+fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: ChainInitiaTestnet): Boolean {
+    return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
+        val maxProviderConsensusCnt = chain.getInterchainProviderParams()
+            ?.get("max_provider_consensus_validators")?.asString.toString().toInt()
+        val sortedValidators =
+            chain.initiaFetcher()?.initiaOriginValidators?.filter { it.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED }
+                ?.sortedWith { o1, o2 ->
+                    val token1 =
+                        o1.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toDouble()
+                            ?: 0.0
+                    val token2 =
+                        o2.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toDouble()
+                            ?: 0.0
+                    token2.compareTo(token1)
+                }
+        val index = sortedValidators?.indexOf(this) ?: -1
+        if (index != -1) {
+            index < maxProviderConsensusCnt
+        } else {
+            false
+        }
+    } else {
+        this.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED
     }
 }
 

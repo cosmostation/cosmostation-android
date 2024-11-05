@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.StakingFragment
 
@@ -82,13 +83,26 @@ class StakeInfoFragment : Fragment() {
             }.attach()
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
-                val unBondings =
+                val delegations = if (selectedChain is ChainInitiaTestnet) {
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
+                        ?: mutableListOf()
+                } else {
+                    selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                }
+                val unBondings = if (selectedChain is ChainInitiaTestnet) {
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unbonding ->
+                        unbonding.entriesList.map { entry ->
+                            InitiaUnBondingEntry(unbonding.validatorAddress, entry)
+                        }
+                    }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+
+                } else {
                     selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
                         unBonding.entriesList.map { entry ->
                             UnBondingEntry(unBonding.validatorAddress, entry)
                         }
                     }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                }
 
                 withContext(Dispatchers.Main) {
                     if (delegations.isNotEmpty() || unBondings.isNotEmpty()) {
@@ -117,7 +131,7 @@ class StakeInfoFragment : Fragment() {
 //                        EvmStakingFragment::class.java.name
 //                    )
 //                } else {
-                StakingFragment.newInstance(selectedChain, null).show(
+                StakingFragment.newInstance(selectedChain, null, null).show(
                     requireActivity().supportFragmentManager, StakingFragment::class.java.name
                 )
 //                }
@@ -153,6 +167,12 @@ class StakeInfoFragment : Fragment() {
 @Parcelize
 data class UnBondingEntry(
     val validatorAddress: String?, val entry: StakingProto.UnbondingDelegationEntry?
+) : Parcelable
+
+@Parcelize
+data class InitiaUnBondingEntry(
+    val validatorAddress: String?,
+    val entry: com.initia.mstaking.v1.StakingProto.UnbondingDelegationEntry?
 ) : Parcelable
 
 enum class OptionType { STAKE, UNSTAKE }

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
@@ -13,6 +14,9 @@ class StakingInfoAdapter(
     private val validators: MutableList<StakingProto.Validator>,
     private val delegations: MutableList<StakingProto.DelegationResponse>,
     private val unBondings: MutableList<UnBondingEntry>,
+    private val initiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator>,
+    private val initiaDelegations: MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>,
+    private val initiaUnBondings: MutableList<InitiaUnBondingEntry>,
     private val optionType: OptionType,
     private var listener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,33 +43,52 @@ class StakingInfoAdapter(
         when (optionType) {
             OptionType.STAKE -> {
                 if (holder is StakingViewHolder) {
-                    val delegation = delegations[position]
-                    validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
-                        ?.let { validator ->
-                            holder.bind(
-                                selectedChain,
-                                validator,
-                                delegation,
-                                listener
-                            )
-                        }
+                    if (selectedChain is ChainInitiaTestnet) {
+                        val delegation = initiaDelegations[position]
+                        initiaValidators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                            ?.let { validator ->
+                                holder.initiaBind(
+                                    selectedChain, validator, delegation, listener
+                                )
+                            }
+
+                    } else {
+                        val delegation = delegations[position]
+                        validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                            ?.let { validator ->
+                                holder.bind(
+                                    selectedChain, validator, delegation, listener
+                                )
+                            }
+                    }
                 }
             }
 
             OptionType.UNSTAKE -> {
                 if (holder is UnstakingViewHolder) {
-                    val entry = unBondings[position]
-                    validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                        ?.let { validator ->
-                            holder.bind(
-                                selectedChain,
-                                validator,
-                                entry,
-                                listener
-                            )
+                    if (selectedChain is ChainInitiaTestnet) {
+                        val entry = initiaUnBondings[position]
+                        initiaValidators.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                            ?.let { validator ->
+                                holder.initiaBind(
+                                    selectedChain, validator, entry, listener
+                                )
 
-                        } ?: run {
-                        holder.notBind()
+                            } ?: run {
+                            holder.notBind()
+                        }
+
+                    } else {
+                        val entry = unBondings[position]
+                        validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                            ?.let { validator ->
+                                holder.bind(
+                                    selectedChain, validator, entry, listener
+                                )
+
+                            } ?: run {
+                            holder.notBind()
+                        }
                     }
                 }
             }
@@ -74,14 +97,25 @@ class StakingInfoAdapter(
 
     override fun getItemCount(): Int {
         return if (optionType == OptionType.STAKE) {
-            delegations.size
+            if (selectedChain is ChainInitiaTestnet) {
+                initiaDelegations.size
+            } else {
+                delegations.size
+            }
+
         } else {
-            unBondings.size
+            if (selectedChain is ChainInitiaTestnet) {
+                initiaUnBondings.size
+            } else {
+                unBondings.size
+            }
         }
     }
 
     interface ClickListener {
         fun selectStakingAction(validator: StakingProto.Validator?)
+        fun selectInitiaStakingAction(validator: com.initia.mstaking.v1.StakingProto.Validator?)
         fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?)
+        fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?)
     }
 }

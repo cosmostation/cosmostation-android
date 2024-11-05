@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 
@@ -23,6 +24,7 @@ interface ValidatorDefaultListener {
 class ValidatorDefaultFragment(
     private val selectedChain: BaseChain,
     private val fromValidator: StakingProto.Validator?,
+    private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator?,
     private val suiFromValidator: MutableList<JsonObject>?,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
@@ -34,6 +36,8 @@ class ValidatorDefaultFragment(
     private lateinit var suiValidatorDefaultAdapter: SuiValidatorAdapter
 
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
+    private var searchInitiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator> =
+        mutableListOf()
     private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
 
     override fun onCreateView(
@@ -55,8 +59,15 @@ class ValidatorDefaultFragment(
             selectTitle.text = getString(R.string.title_select_validator)
             searchBar.visibility = View.VISIBLE
             searchView.queryHint = getString(R.string.str_search_validator)
-            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
-                ?.let { searchValidators.addAll(it) }
+            if (selectedChain is ChainInitiaTestnet) {
+                selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
+                    ?.let {
+                        searchInitiaValidators.addAll(it)
+                    }
+            } else {
+                selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                    ?.let { searchValidators.addAll(it) }
+            }
             if (suiFromValidator != null) {
                 searchSuiValidators.addAll(suiFromValidator)
             }
@@ -84,11 +95,20 @@ class ValidatorDefaultFragment(
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = validatorDefaultAdapter
-                validatorDefaultAdapter.submitList(searchValidators)
 
-                validatorDefaultAdapter.setOnItemClickListener {
-                    listener.select(it)
-                    dismiss()
+                if (selectedChain is ChainInitiaTestnet) {
+                    validatorDefaultAdapter.submitList(searchInitiaValidators as List<Any>?)
+                    validatorDefaultAdapter.setOnItemClickListener {
+                        listener.select(it)
+                        dismiss()
+                    }
+
+                } else {
+                    validatorDefaultAdapter.submitList(searchValidators as List<Any>?)
+                    validatorDefaultAdapter.setOnItemClickListener {
+                        listener.select(it)
+                        dismiss()
+                    }
                 }
             }
         }

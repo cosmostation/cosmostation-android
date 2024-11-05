@@ -304,7 +304,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        fromValidator, null,
+                        fromValidator, null, null,
                         object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =

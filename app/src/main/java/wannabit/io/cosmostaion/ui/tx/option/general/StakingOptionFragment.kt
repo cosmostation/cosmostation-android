@@ -12,6 +12,7 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -24,6 +25,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.ReDelegateFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.StakingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.UnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.info.InitiaUnBondingEntry
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -33,6 +35,8 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     private lateinit var selectedChain: BaseChain
     private var validator: Validator? = null
     private var unBondingEntry: UnBondingEntry? = null
+    private var initiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
+    private var initiaUnBondingEntry: InitiaUnBondingEntry? = null
     private var optionType: OptionType? = OptionType.STAKE
 
     private var isClickable = true
@@ -42,13 +46,17 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
         fun newInstance(
             selectedChain: BaseChain,
             validator: Validator?,
+            initiaValidator: com.initia.mstaking.v1.StakingProto.Validator?,
             unBondingEntry: UnBondingEntry?,
+            initiaUnBondingEntry: InitiaUnBondingEntry?,
             optionType: OptionType?
         ): StakingOptionFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("validator", validator)
+                putSerializable("initiaValidator", initiaValidator)
                 putParcelable("unBondingEntry", unBondingEntry)
+                putParcelable("initiaUnBondingEntry", initiaUnBondingEntry)
                 putSerializable("optionType", optionType)
             }
             val fragment = StakingOptionFragment()
@@ -79,7 +87,9 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         selectedChain = it
                     }
                     validator = getSerializable("validator", Validator::class.java)
+                    initiaValidator = getSerializable("initiaValidator", com.initia.mstaking.v1.StakingProto.Validator::class.java)
                     unBondingEntry = getParcelable("unBondingEntry", UnBondingEntry::class.java)
+                    initiaUnBondingEntry = getParcelable("initiaUnBondingEntry", InitiaUnBondingEntry::class.java)
                     optionType = getSerializable("optionType", OptionType::class.java)
                 }
             } else {
@@ -88,7 +98,9 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         selectedChain = it
                     }
                     validator = getSerializable("validator") as? Validator
+                    initiaValidator = getSerializable("initiaValidator") as? com.initia.mstaking.v1.StakingProto.Validator
                     unBondingEntry = getParcelable("unBondingEntry") as? UnBondingEntry
+                    initiaUnBondingEntry = getParcelable("initiaUnBondingEntry") as? InitiaUnBondingEntry
                     optionType = getSerializable("optionType") as? OptionType
                 }
             }
@@ -121,7 +133,11 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 //                        )
 //                    )
 //                } else {
-                handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator))
+                if (selectedChain is ChainInitiaTestnet) {
+                    handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, null, initiaValidator))
+                } else {
+                    handleOneClickWithDelay(StakingFragment.newInstance(selectedChain, validator, null))
+                }
 //                }
             }
 
