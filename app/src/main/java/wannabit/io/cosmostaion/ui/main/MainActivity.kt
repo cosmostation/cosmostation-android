@@ -262,11 +262,18 @@ class MainActivity : BaseActivity() {
             }
 
             btnSort.setOnClickListener {
-                Prefs.chainFilter = !Prefs.chainFilter
-                ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
-                btnSort.setImageResource(
-                    if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
-                )
+                BaseData.baseAccount?.let { account ->
+                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
+                        Prefs.chainFilter = !Prefs.chainFilter
+                        ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
+                        btnSort.setImageResource(
+                            if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
+                        )
+                    } else {
+                        makeToast(R.string.str_data_synchronizing)
+                        return@setOnClickListener
+                    }
+                }
             }
         }
     }
