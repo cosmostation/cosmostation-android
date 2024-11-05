@@ -9,6 +9,8 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
+import wannabit.io.cosmostaion.chain.fetcher.InitiaFetcher
 
 @Parcelize
 class ChainInitiaTestnet : BaseChain(), Parcelable {
@@ -29,4 +31,18 @@ class ChainInitiaTestnet : BaseChain(), Parcelable {
     override var accountPrefix: String = "init"
     override var grpcHost: String = "grpc-office-initia-2.cosmostation.io"
     override var lcdUrl: String = "https://lcd-office.cosmostation.io/initia-2-testnet/"
+
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = InitiaFetcher(this)
+        }
+        return cosmosFetcher
+    }
+
+    fun initiaFetcher(): InitiaFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = InitiaFetcher(this)
+        }
+        return cosmosFetcher as? InitiaFetcher
+    }
 }
