@@ -111,9 +111,10 @@ data class BaseAccount(
 
     fun sortedDisplayChains(): MutableList<BaseChain> {
         val displayNames = Prefs.getDisplayChains(this)
-        return allChains.associateBy { chain ->
-            displayNames.firstOrNull { it == chain.tag }
-        }.filterKeys { it != null }.map { it.value }.toMutableList()
+        val filteredChains = allChains.filter { chain ->
+            displayNames.contains(chain.tag)
+        }
+        return filteredChains.toMutableList()
     }
 
     fun updateAllValue() {
