@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -553,7 +554,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
     private fun setUpClickAction() {
         binding.dropMoney.apply {
-            visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron)
+            visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron || selectedChain is ChainCelestia)
             setOnClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
