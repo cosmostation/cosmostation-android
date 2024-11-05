@@ -70,8 +70,6 @@ data class BaseAccount(
                     when {
                         o1.tag == "cosmos118" -> -1
                         o2.tag == "cosmos118" -> 1
-                        o1.tag == "cosmos118_T" -> -1
-                        o2.tag == "cosmos118_T" -> 1
                         o1.name.compareTo(o2.name) != 0 -> o1.name.compareTo(o2.name)
                         else -> 0
                     }
@@ -83,8 +81,6 @@ data class BaseAccount(
                         o2.tag == "cosmos118" -> 1
                         displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
                         displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
-                        o1.tag == "cosmos118_T" -> -1
-                        o2.tag == "cosmos118_T" -> 1
                         else -> 0
                     }
                 }
@@ -106,8 +102,6 @@ data class BaseAccount(
                         o2.tag == "cosmos118" -> 1
                         displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
                         displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
-                        o1.tag == "cosmos118_T" -> -1
-                        o2.tag == "cosmos118_T" -> 1
                         else -> 0
                     }
                 }
