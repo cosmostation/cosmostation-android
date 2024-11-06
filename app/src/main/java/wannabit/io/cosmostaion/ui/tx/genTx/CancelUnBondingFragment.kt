@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -32,12 +33,13 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCancelUnBondingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.info.InitiaUnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
@@ -55,6 +57,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private lateinit var unBondingEntry: UnBondingEntry
+    private lateinit var initiaUnBondingEntry: InitiaUnBondingEntry
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -66,11 +69,14 @@ class CancelUnBondingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, unBondingEntry: UnBondingEntry?
+            selectedChain: BaseChain,
+            unBondingEntry: UnBondingEntry?,
+            initiaUnBondingEntry: InitiaUnBondingEntry?
         ): CancelUnBondingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putParcelable("unBondingEntry", unBondingEntry)
+                putParcelable("initiaUnBondingEntry", initiaUnBondingEntry)
             }
             val fragment = CancelUnBondingFragment()
             fragment.arguments = args
@@ -106,6 +112,9 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     getParcelable("unBondingEntry", UnBondingEntry::class.java)?.let {
                         unBondingEntry = it
                     }
+                    getParcelable("initiaUnBondingEntry", InitiaUnBondingEntry::class.java)?.let {
+                        initiaUnBondingEntry = it
+                    }
                 }
 
             } else {
@@ -116,6 +125,9 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     (getParcelable("unBondingEntry") as? UnBondingEntry)?.let {
                         unBondingEntry = it
                     }
+                    (getParcelable("initiaUnBondingEntry") as? InitiaUnBondingEntry)?.let {
+                        initiaUnBondingEntry = it
+                    }
                 }
             }
 
@@ -124,16 +136,29 @@ class CancelUnBondingFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
-                ?.let { validator ->
-                    validatorName.text = validator.description.moniker
+            var unBondingAmount: BigDecimal?
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                if (selectedChain is ChainInitiaTestnet) {
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
+                        ?.let { validator ->
+                            validatorName.text = validator.description.moniker
+                        }
+
+                    unBondingAmount =
+                        initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
+                            ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+
+                } else {
+                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
+                        ?.let { validator ->
+                            validatorName.text = validator.description.moniker
+                        }
+
+                    unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
+                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                 }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
-                    ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
-                cancelAmount.text =
-                    formatAmount(unBondingAmount.toPlainString(), asset.decimals ?: 6)
+                cancelAmount.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
                 cancelDenom.text = asset.symbol
                 cancelDenom.setTextColor(asset.assetColor())
             }
@@ -346,8 +371,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }
@@ -460,13 +484,28 @@ class CancelUnBondingFragment : BaseTxFragment() {
     }
 
     private fun onBindCancelUnBondingMsg(): MutableList<Any> {
-        val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-            .setAmount(unBondingEntry.entry?.balance).build()
-        val msgCancelUnbondingDelegation =
-            MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
-                .setValidatorAddress(unBondingEntry.validatorAddress)
-                .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin).build()
-        return Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+        return if (selectedChain is ChainInitiaTestnet) {
+            val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount)
+                .build()
+            val msgCancelUnbondingDelegation =
+                com.initia.mstaking.v1.TxProto.MsgCancelUnbondingDelegation.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(initiaUnBondingEntry.validatorAddress)
+                    .setCreationHeight(initiaUnBondingEntry.entry!!.creationHeight)
+                    .addAmount(toCoin).build()
+            Signer.initiaCancelUnbondingMsg(msgCancelUnbondingDelegation)
+
+        } else {
+            val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                .setAmount(unBondingEntry.entry?.balance).build()
+            val msgCancelUnbondingDelegation =
+                MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(unBondingEntry.validatorAddress)
+                    .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin)
+                    .build()
+            Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+        }
     }
 
     private fun setUpBroadcast() {

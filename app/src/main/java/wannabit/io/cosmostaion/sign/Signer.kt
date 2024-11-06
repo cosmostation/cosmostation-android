@@ -66,9 +66,9 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
@@ -180,6 +180,15 @@ object Signer {
         return msgAnys
     }
 
+    fun initiaUnDelegateMsg(msgUndelegate: com.initia.mstaking.v1.TxProto.MsgUndelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgUndelegate")
+                .setValue(msgUndelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -189,10 +198,28 @@ object Signer {
         return msgAnys
     }
 
+    fun initiaReDelegateMsg(msgReDelegate: com.initia.mstaking.v1.TxProto.MsgBeginRedelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgBeginRedelegate")
+                .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgCancelUnbondingDelegation")
+                .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun initiaCancelUnbondingMsg(msgCancelUnbondingDelegation: com.initia.mstaking.v1.TxProto.MsgCancelUnbondingDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgCancelUnbondingDelegation")
                 .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
         )
         return msgAnys
@@ -260,8 +287,8 @@ object Signer {
             else -> "/cosmos.gov.v1beta1.MsgVote"
         }
         msgVotes?.forEach { msgVote ->
-            val anyMsg = Any.newBuilder().setTypeUrl(typeUrl)
-                .setValue(msgVote?.toByteString()).build()
+            val anyMsg =
+                Any.newBuilder().setTypeUrl(typeUrl).setValue(msgVote?.toByteString()).build()
             msgAnys.add(anyMsg)
         }
         return msgAnys
