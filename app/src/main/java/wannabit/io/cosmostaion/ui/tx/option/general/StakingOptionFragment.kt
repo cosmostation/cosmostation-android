@@ -179,16 +179,21 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             claimRewardsLayout.setOnClickListener {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator?.operatorAddress }
-                    ?.let { claimableReward ->
-                        if (claimableReward.rewardCount > 0) {
-                            claimableRewards.add(claimableReward)
-                        } else {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
-                        }
+                selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
+                    if (selectedChain is ChainInitiaTestnet) {
+                        it.validatorAddress == initiaValidator?.operatorAddress
+                    } else {
+                        it.validatorAddress == validator?.operatorAddress
+                    }
+                }?.let { claimableReward ->
+                    if (claimableReward.rewardCount > 0) {
+                        claimableRewards.add(claimableReward)
+                    } else {
+                        requireContext().makeToast(R.string.error_not_reward)
+                        return@setOnClickListener
+                    }
 
-                    } ?: run {
+                } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
@@ -206,19 +211,24 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     return@setOnClickListener
                 }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.cosmosFetcher?.claimableRewards()
-                    ?.firstOrNull { it?.validatorAddress == validator?.operatorAddress }
-                    ?.let { claimableReward ->
-                        if (claimableReward.rewardCount > 0) {
-                            claimableRewards.add(claimableReward)
-                        } else {
-                            requireContext().makeToast(R.string.error_not_reward)
-                            return@setOnClickListener
-                        }
-                    } ?: run {
+                selectedChain.cosmosFetcher?.claimableRewards()?.firstOrNull {
+                    if (selectedChain is ChainInitiaTestnet) {
+                        it?.validatorAddress == initiaValidator?.operatorAddress
+                    } else {
+                        it?.validatorAddress == validator?.operatorAddress
+                    }
+                }?.let { claimableReward ->
+                    if (claimableReward.rewardCount > 0) {
+                        claimableRewards.add(claimableReward)
+                    } else {
+                        requireContext().makeToast(R.string.error_not_reward)
+                        return@setOnClickListener
+                    }
+                } ?: run {
                     requireContext().makeToast(R.string.error_not_reward)
                     return@setOnClickListener
                 }
+
                 handleOneClickWithDelay(
                     CompoundingFragment.newInstance(
                         selectedChain, claimableRewards

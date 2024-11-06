@@ -73,6 +73,7 @@ import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -242,9 +243,7 @@ object Signer {
     }
 
     fun compoundingMsg(
-        selectedChain: BaseChain,
-        rewards: MutableList<DelegationDelegatorReward?>,
-        stakingDenom: String?
+        selectedChain: BaseChain, rewards: MutableList<DelegationDelegatorReward?>
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         rewards.forEach { reward ->
@@ -256,7 +255,8 @@ object Signer {
                 .setValue(claimMsg.toByteString()).build()
             msgAnys.add(anyMsg)
 
-            val rewardCoin = reward?.rewardList?.firstOrNull { it.denom == stakingDenom }
+            val rewardCoin =
+                reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }
             val delegateCoin = CoinProto.Coin.newBuilder().setDenom(rewardCoin?.denom).setAmount(
                 rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
                     ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
@@ -264,6 +264,35 @@ object Signer {
             val delegateMsg = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
                 .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin).build()
             val deleAnyMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
+                .setValue(delegateMsg.toByteString()).build()
+            msgAnys.add(deleAnyMsg)
+        }
+        return msgAnys
+    }
+
+    fun initiaCompoundingMsg(
+        selectedChain: ChainInitiaTestnet, rewards: MutableList<DelegationDelegatorReward?>
+    ): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        rewards.forEach { reward ->
+            val claimMsg =
+                MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(reward?.validatorAddress).build()
+            val anyMsg = Any.newBuilder()
+                .setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
+                .setValue(claimMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+
+            val rewardCoin =
+                reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }
+            val delegateCoin = CoinProto.Coin.newBuilder().setDenom(rewardCoin?.denom).setAmount(
+                rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
+                    ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
+            )
+            val delegateMsg = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
+                .setDelegatorAddress(selectedChain.address)
+                .setValidatorAddress(reward?.validatorAddress).addAmount(delegateCoin).build()
+            val deleAnyMsg = Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgDelegate")
                 .setValue(delegateMsg.toByteString()).build()
             msgAnys.add(deleAnyMsg)
         }
