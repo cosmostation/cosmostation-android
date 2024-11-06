@@ -40,14 +40,12 @@ class ValidatorDefaultViewHolder(
             }
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(decimal)
-                    votingPower.text = formatAmount(vpAmount.toString(), 0)
+                val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
+                votingPower.text = formatAmount(vpAmount.toString(), 0)
 
-                    val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                        ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                    commission.text = formatString("$commissionRate%", 3)
-                }
+                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
+                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
             }
         }
     }
@@ -69,16 +67,14 @@ class ValidatorDefaultViewHolder(
             }
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val vpAmount =
-                        validator.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
-                            ?.movePointLeft(decimal)
-                    votingPower.text = formatAmount(vpAmount.toString(), 0)
+                val vpAmount =
+                    validator.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                        ?.movePointLeft(asset.decimals ?: 6)
+                votingPower.text = formatAmount(vpAmount.toString(), 0)
 
-                    val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                        ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                    commission.text = formatString("$commissionRate%", 3)
-                }
+                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
+                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
             }
         }
     }
