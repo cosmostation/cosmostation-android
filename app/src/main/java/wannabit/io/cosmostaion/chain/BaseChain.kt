@@ -446,6 +446,10 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_support_moblie_dapp")?.asBoolean ?: false
     }
 
+    fun isSupportEs(): Boolean {
+        return getChainListParam()?.get("is_support_mintscan")?.asBoolean ?: false
+    }
+
     fun explorerAccount(address: String): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
@@ -541,9 +545,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAlthea118())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+    chains.add(ChainAssetMantle())
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
-    chains.add(ChainAssetMantle())
     chains.add(ChainAxelar())
     chains.add(ChainBand())
     chains.add(ChainBase())

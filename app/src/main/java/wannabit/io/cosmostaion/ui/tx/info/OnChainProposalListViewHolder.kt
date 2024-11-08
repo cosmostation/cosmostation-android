@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.tx.info
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.View
@@ -11,26 +10,23 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
-import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.ItemProposalBinding
+import wannabit.io.cosmostaion.databinding.ItemOnChainProposalBinding
 
-class ProposalListViewHolder(
+class OnChainProposalListViewHolder(
     val context: Context,
-    private val binding: ItemProposalBinding,
+    private val binding: ItemOnChainProposalBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
         selectedChain: BaseChain,
         proposal: CosmosProposal,
-        myVotes: MutableList<VoteData>,
         toVote: MutableList<String>?,
-        checkListener: ProposalListAdapter.CheckListener
+        checkListener: OnChainProposalListAdapter.CheckListener
     ) {
         binding.apply {
             proposalView.setBackgroundResource(R.drawable.item_bg)
@@ -42,10 +38,7 @@ class ProposalListViewHolder(
                 voteStatusImg.visibility = View.GONE
                 voteRemainTime.visibility = View.VISIBLE
                 switchView.visibility = View.VISIBLE
-                val endTimeToLong = dateToLong(
-                    context.getString(R.string.str_tx_time_format), proposal.voting_end_time
-                )
-                voteRemainTime.text = "${voteDpTime(endTimeToLong)} (${gapTime(endTimeToLong)})"
+                voteRemainTime.text = "${voteDpTime(proposal.voting_end_time?.toLong() ?: 0L)} (${gapTime(proposal.voting_end_time?.toLong() ?: 0L)})"
                 selectSwitch.thumbDrawable =
                     ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
             } else {
@@ -61,32 +54,6 @@ class ProposalListViewHolder(
                 )
             }
             expeditedImg.visibleOrGone(proposal.is_expedited)
-
-            myVotes.firstOrNull { it.proposal_id == proposal.id }?.let { rawVote ->
-                if (rawVote.votes.size > 1) {
-                    statusImg.setImageResource(R.drawable.icon_weight)
-                    return
-
-                } else {
-                    val myVote = rawVote.votes[0]
-                    when {
-                        myVote.option?.contains("OPTION_YES") == true -> statusImg.setImageResource(
-                            R.drawable.icon_yes
-                        )
-
-                        myVote.option?.contains("OPTION_NO_WITH_VETO") == true -> statusImg.setImageResource(
-                            R.drawable.icon_veto
-                        )
-
-                        myVote.option?.contains("OPTION_NO") == true -> statusImg.setImageResource(R.drawable.icon_no)
-                        myVote.option?.contains("OPTION_ABSTAIN") == true -> statusImg.setImageResource(
-                            R.drawable.icon_abstain
-                        )
-                    }
-                }
-            } ?: run {
-                statusImg.setImageResource(R.drawable.icon_not_voted)
-            }
 
             selectSwitch.setOnCheckedChangeListener(null)
             selectSwitch.setOnCheckedChangeListener { _, isChecked ->

@@ -547,7 +547,7 @@ fun gapPastTime(finishTime: Long): String {
     } else if (left >= BaseConstant.CONSTANT_M) {
         (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
     } else {
-        "0 days"
+        gapTime(finishTime)
     }
     return result
 }
@@ -564,7 +564,7 @@ fun gapTime(finishTime: Long): String {
     } else if (left >= BaseConstant.CONSTANT_M) {
         (left / BaseConstant.CONSTANT_M).toString() + " minutes left"
     } else {
-        "0 days"
+        gapPastTime(finishTime)
     }
     return result
 }

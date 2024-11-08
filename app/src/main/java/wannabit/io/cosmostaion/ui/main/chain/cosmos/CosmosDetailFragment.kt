@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
+import wannabit.io.cosmostaion.ui.tx.info.OnChainProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
@@ -506,7 +508,11 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabVote.setOnClickListener {
-                handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
+                if (selectedChain.isSupportEs() || selectedChain is ChainIxo) {
+                    handleOneClickWithDelay(ProposalListFragment.newInstance(selectedChain), null)
+                } else {
+                    handleOneClickWithDelay(OnChainProposalListFragment.newInstance(selectedChain), null)
+                }
             }
 
             fabDefi.setOnClickListener {

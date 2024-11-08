@@ -49,6 +49,20 @@ interface LcdApi {
     @GET("cosmos/staking/v1beta1/validators?status=BOND_STATUS_UNBONDING&pagination.limit=500")
     suspend fun lcdUnBondingValidatorInfo(): JsonObject
 
+    @GET("cosmos/gov/v1/proposals")
+    suspend fun lcdV1Proposals(
+        @Query("pagination.limit") limit: String,
+        @Query("pagination.key") nextKey: String? = "",
+        @Query("pagination.reverse") reverse: Boolean
+    ): JsonObject
+
+    @GET("cosmos/gov/v1beta1/proposals")
+    suspend fun lcdV1beta1Proposals(
+        @Query("pagination.limit") limit: String,
+        @Query("pagination.key") nextKey: String? = "",
+        @Query("pagination.reverse") reverse: Boolean
+    ): JsonObject
+
     //initia
     @GET("initia/mstaking/v1/delegations/{address}")
     suspend fun lcdInitiaDelegationInfo(@Path("address") address: String?): JsonObject

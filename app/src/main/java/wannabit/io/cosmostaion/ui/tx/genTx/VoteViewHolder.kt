@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.gov.v1beta1.GovProto.VoteOption
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.voteDpTime
@@ -16,15 +17,19 @@ class VoteViewHolder(
     private val binding: ItemVoteBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(proposal: CosmosProposal, listener: VoteAdapter.ClickListener) {
+    fun bind(chain: BaseChain, proposal: CosmosProposal, listener: VoteAdapter.ClickListener) {
         binding.apply {
             voteView.setBackgroundResource(R.drawable.cell_bg)
             updateView(proposal)
 
             voteId.text = "# " + proposal.id + "."
             voteTitle.text = proposal.title
-            val endTimeToLong = dateToLong(context.getString(R.string.str_tx_time_format), proposal.voting_end_time)
-            voteRemainTime.text = voteDpTime(endTimeToLong) + " (" + gapTime(endTimeToLong) + ")"
+            val dateTime = if (chain.isSupportEs()) {
+                dateToLong(context.getString(R.string.str_tx_time_format), proposal.voting_end_time)
+            } else {
+                proposal.voting_end_time?.toLong() ?: 0L
+            }
+            voteRemainTime.text = voteDpTime(dateTime) + " (" + gapTime(dateTime) + ")"
 
             yesView.setOnClickListener {
                 updateView(proposal)
