@@ -73,8 +73,13 @@ data class Client(
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class CounterParty(
-    val channel: String?, val port: String?, val chain: String?, val denom: String?
-) : Parcelable
+    val channel: String?, val port: String?, val chain: String?, private val denom: String?
+) : Parcelable {
+    val dpDenom: String?
+        get() = denom?.let {
+            if (it.startsWith("cw20:")) it.removePrefix("cw20:") else it
+        }
+}
 
 data class AssetPath(
     var channel: String?, var port: String?

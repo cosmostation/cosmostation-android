@@ -26,7 +26,7 @@ object RetrofitInstance {
         OkHttpClient.Builder().addInterceptor(httpExceptionInterceptor)
             .addInterceptor(httpLoggingInterceptor).connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS) .build()
+            .writeTimeout(60, TimeUnit.SECONDS).build()
     }
 
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()

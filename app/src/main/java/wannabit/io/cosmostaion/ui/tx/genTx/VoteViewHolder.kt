@@ -24,7 +24,7 @@ class VoteViewHolder(
 
             voteId.text = "# " + proposal.id + "."
             voteTitle.text = proposal.title
-            val dateTime = if (chain.isSupportEs()) {
+            val dateTime = if (chain.isSupportMintscan()) {
                 dateToLong(context.getString(R.string.str_tx_time_format), proposal.voting_end_time)
             } else {
                 proposal.voting_end_time?.toLong() ?: 0L

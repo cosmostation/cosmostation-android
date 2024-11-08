@@ -446,7 +446,7 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_support_moblie_dapp")?.asBoolean ?: false
     }
 
-    fun isSupportEs(): Boolean {
+    fun isSupportMintscan(): Boolean {
         return getChainListParam()?.get("is_support_mintscan")?.asBoolean ?: false
     }
 
