@@ -19,8 +19,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
@@ -250,9 +248,8 @@ class CosmosDetailFragment : Fragment() {
 
             tableTitles.add("Receive")
             if (selectedChain.isSupportMintscan() || selectedChain.name == "OKT") tableTitles.add("History")
-            if (selectedChain.isEcosystem()) tableTitles.add("Ecosystem")
-
-            tableTitles.add("About")
+            if (selectedChain.isSupportMobileDapp() && selectedChain.isDefault) tableTitles.add("Ecosystem")
+            if (selectedChain.getChainListParam()?.size()!! > 0) tableTitles.add("About")
 
             detailPagerAdapter = DetailPagerAdapter(
                 this@CosmosDetailFragment, tableTitles, selectedChain

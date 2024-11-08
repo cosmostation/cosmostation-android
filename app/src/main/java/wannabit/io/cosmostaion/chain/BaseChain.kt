@@ -21,7 +21,10 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCheqd
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
@@ -88,6 +91,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
+import wannabit.io.cosmostaion.chain.evmClass.ChainAiozEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
@@ -105,6 +109,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
@@ -443,7 +448,7 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_send_enabled")?.asBoolean ?: true
     }
 
-    fun isEcosystem(): Boolean {
+    fun isSupportMobileDapp(): Boolean {
         return getChainListParam()?.get("is_support_moblie_dapp")?.asBoolean ?: false
     }
 
@@ -541,6 +546,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCosmos())
     chains.add(ChainAgoric564())
     chains.add(ChainAgoric118())
+    chains.add(ChainAiozEvm())
     chains.add(ChainAkash())
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
@@ -559,7 +565,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
     chains.add(ChainCantoEvm())
+    chains.add(ChainCarbon())
     chains.add(ChainCelestia())
+    chains.add(ChainC4E())
+    chains.add(ChainCheqd())
     chains.add(ChainChihuahua())
     chains.add(ChainComdex())
     chains.add(ChainCoreum())
@@ -632,6 +641,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStargaze())
     chains.add(ChainStride())
     chains.add(ChainSui())
+    chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
     chains.add(ChainUnification())

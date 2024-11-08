@@ -112,7 +112,7 @@ class MajorDetailFragment : Fragment() {
             tableTitles.add("Receive")
             tableTitles.add("History")
 
-            if (selectedChain.isEcosystem()) tableTitles.add("Ecosystem")
+            if (selectedChain.isSupportMobileDapp()) tableTitles.add("Ecosystem")
 
             tableTitles.add("About")
 
