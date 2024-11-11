@@ -191,7 +191,7 @@ class ApplicationViewModel(
                     }
                 }
 
-                if (supportNft) {
+                if (isSupportCw721()) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.cw721s = response.data

@@ -25,7 +25,6 @@ class ChainArchway : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportNft: Boolean = true
     override var stakeDenom: String = "aarch"
     override var accountPrefix: String = "archway"
     override var grpcHost: String = "grpc-archway.cosmostation.io"

@@ -160,7 +160,6 @@ open class BaseChain : Parcelable {
     open var address: String = ""
     open var stakeDenom: String = ""
     open var supportStaking = true
-    open var supportNft = false
     open var grpcHost: String = ""
     open var grpcPort = 443
     open var lcdUrl: String = ""
@@ -450,6 +449,10 @@ open class BaseChain : Parcelable {
 
     fun isSupportCw20(): Boolean {
         return getChainListParam()?.get("is_support_cw20")?.asBoolean ?: false
+    }
+
+    fun isSupportCw721(): Boolean {
+        return getChainListParam()?.get("is_support_cw721")?.asBoolean ?: false
     }
 
     fun explorerAccount(address: String): Uri? {

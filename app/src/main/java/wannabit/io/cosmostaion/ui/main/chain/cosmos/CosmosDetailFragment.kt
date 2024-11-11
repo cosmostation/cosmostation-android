@@ -240,12 +240,12 @@ class CosmosDetailFragment : Fragment() {
 
             val supportToken = selectedChain.isSupportCw20() || selectedChain.supportEvm
             btnAddToken.visibleOrGone(supportToken)
-            val supportNft = selectedChain.supportNft
+            val supportNft = selectedChain.isSupportCw721()
 
             val tableTitles = mutableListOf<String>()
             tableTitles.add("Crypto")
 
-            if (supportNft) tableTitles.add("NFTs")
+            if (selectedChain.isSupportCw721()) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
             if (selectedChain.isSupportMintscan() || selectedChain.name == "OKT") tableTitles.add("History")
