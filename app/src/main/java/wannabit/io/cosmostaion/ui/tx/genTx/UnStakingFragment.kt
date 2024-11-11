@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -34,10 +35,10 @@ import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentUnStakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -61,6 +62,7 @@ class UnStakingFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private var validator: Validator? = null
+    private var initiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -75,10 +77,15 @@ class UnStakingFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain, validator: Validator?): UnStakingFragment {
+        fun newInstance(
+            selectedChain: BaseChain,
+            validator: Validator?,
+            initiaValidator: com.initia.mstaking.v1.StakingProto.Validator?
+        ): UnStakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("validator", validator)
+                putSerializable("initiaValidator", initiaValidator)
             }
             val fragment = UnStakingFragment()
             fragment.arguments = args
@@ -109,11 +116,16 @@ class UnStakingFragment : BaseTxFragment() {
                 arguments?.getParcelable("selectedChain", BaseChain::class.java)
                     ?.let { selectedChain = it }
                 validator = arguments?.getSerializable("validator", Validator::class.java)
+                initiaValidator = arguments?.getSerializable(
+                    "initiaValidator", com.initia.mstaking.v1.StakingProto.Validator::class.java
+                )
             } else {
                 (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
                 validator = arguments?.getSerializable("validator") as? Validator?
+                initiaValidator =
+                    arguments?.getSerializable("initiaValidator") as? com.initia.mstaking.v1.StakingProto.Validator?
             }
 
             listOf(validatorView, amountView, memoView, feeView).forEach {
@@ -123,11 +135,22 @@ class UnStakingFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (validator != null) {
-                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
-                    it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
-                        0
-                    )?.delegation?.validatorAddress
+            if (selectedChain is ChainInitiaTestnet) {
+                if (initiaValidator != null) {
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull {
+                        it.operatorAddress == (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.get(
+                            0
+                        )?.delegation?.validatorAddress
+                    }
+                }
+
+            } else {
+                if (validator != null) {
+                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
+                        it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
+                            0
+                        )?.delegation?.validatorAddress
+                    }
                 }
             }
             updateValidatorView()
@@ -191,24 +214,42 @@ class UnStakingFragment : BaseTxFragment() {
 
     private fun updateValidatorView() {
         binding.apply {
-            validator?.let { validator ->
-                monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                monikerName.text = validator.description?.moniker
-
-                val statusImage = when {
-                    validator.jailed -> R.drawable.icon_jailed
-                    !validator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
-                    else -> 0
-                }
-                jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
-                jailedImg.setImageResource(statusImage)
-            }
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
+                validator?.let { validator ->
+                    monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                    monikerName.text = validator.description?.moniker
+
+                    val statusImage = when {
+                        validator.jailed -> R.drawable.icon_jailed
+                        !validator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                        else -> 0
+                    }
+                    jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                    jailedImg.setImageResource(statusImage)
+
                     val staked =
-                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator?.operatorAddress }?.balance?.amount
-                    staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
-                        stakedAmount.text = formatAmount(it.toPlainString(), decimal)
+                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balance?.amount
+                    staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
+                        stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
+                    }
+                }
+
+                initiaValidator?.let { validator ->
+                    monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                    monikerName.text = validator.description?.moniker
+
+                    val statusImage = when {
+                        validator.jailed -> R.drawable.icon_jailed
+                        !validator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                        else -> 0
+                    }
+                    jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                    jailedImg.setImageResource(statusImage)
+
+                    val staked =
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                    staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
+                        stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
                 }
             }
@@ -280,10 +321,18 @@ class UnStakingFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator?.operatorAddress }
-                    ?.let {
-                        availableAmount = it.balance.amount.toBigDecimal()
-                    }
+                if (selectedChain is ChainInitiaTestnet) {
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaValidator?.operatorAddress }
+                        ?.let {
+                            availableAmount =
+                                it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
+                        }
+                } else {
+                    selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator?.operatorAddress }
+                        ?.let {
+                            availableAmount = it.balance.amount.toBigDecimal()
+                        }
+                }
             }
         }
     }
@@ -295,12 +344,19 @@ class UnStakingFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     ValidatorFragment(selectedChain, object : ValidatorListener {
                         override fun select(validatorAddress: String) {
-                            if (validator?.operatorAddress != validatorAddress) {
-                                validator =
-                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
-                                updateFeeView()
-                                updateValidatorView()
+                            if (selectedChain is ChainInitiaTestnet) {
+                                if (initiaValidator?.operatorAddress != validatorAddress) {
+                                    initiaValidator =
+                                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                }
+                            } else {
+                                if (validator?.operatorAddress != validatorAddress) {
+                                    validator =
+                                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                }
                             }
+                            updateFeeView()
+                            updateValidatorView()
                         }
                     })
                 )
@@ -558,9 +614,17 @@ class UnStakingFragment : BaseTxFragment() {
     }
 
     private fun onBindUnDelegateMsg(): MutableList<Any> {
-        val msgUnDelegate = MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
-            .setValidatorAddress(validator?.operatorAddress).setAmount(toCoin).build()
-        return Signer.unDelegateMsg(msgUnDelegate)
+        return if (selectedChain is ChainInitiaTestnet) {
+            val msgUnDelegate = com.initia.mstaking.v1.TxProto.MsgUndelegate.newBuilder()
+                .setDelegatorAddress(selectedChain.address)
+                .setValidatorAddress(initiaValidator?.operatorAddress).addAmount(toCoin).build()
+            Signer.initiaUnDelegateMsg(msgUnDelegate)
+        } else {
+            val msgUnDelegate =
+                MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(validator?.operatorAddress).setAmount(toCoin).build()
+            Signer.unDelegateMsg(msgUnDelegate)
+        }
     }
 
     override fun onDestroyView() {

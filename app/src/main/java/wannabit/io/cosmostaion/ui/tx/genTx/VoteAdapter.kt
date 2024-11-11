@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.databinding.ItemVoteBinding
 
 class VoteAdapter(
+    private var selectChain: BaseChain,
     private var listener: ClickListener
 ): ListAdapter<CosmosProposal, VoteViewHolder>(VoteDiffCallback()) {
 
@@ -18,7 +20,7 @@ class VoteAdapter(
 
     override fun onBindViewHolder(holder: VoteViewHolder, position: Int) {
         val proposal = currentList[position]
-        holder.bind(proposal, listener)
+        holder.bind(selectChain, proposal, listener)
     }
 
     private class VoteDiffCallback : DiffUtil.ItemCallback<CosmosProposal>() {

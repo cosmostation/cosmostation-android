@@ -49,6 +49,36 @@ interface LcdApi {
     @GET("cosmos/staking/v1beta1/validators?status=BOND_STATUS_UNBONDING&pagination.limit=500")
     suspend fun lcdUnBondingValidatorInfo(): JsonObject
 
+    @GET("cosmos/gov/v1/proposals")
+    suspend fun lcdV1Proposals(
+        @Query("pagination.limit") limit: String,
+        @Query("pagination.key") nextKey: String? = "",
+        @Query("pagination.reverse") reverse: Boolean
+    ): JsonObject
+
+    @GET("cosmos/gov/v1beta1/proposals")
+    suspend fun lcdV1beta1Proposals(
+        @Query("pagination.limit") limit: String,
+        @Query("pagination.key") nextKey: String? = "",
+        @Query("pagination.reverse") reverse: Boolean
+    ): JsonObject
+
+    //initia
+    @GET("initia/mstaking/v1/delegations/{address}")
+    suspend fun lcdInitiaDelegationInfo(@Path("address") address: String?): JsonObject
+
+    @GET("initia/mstaking/v1/delegators/{address}/unbonding_delegations")
+    suspend fun lcdInitiaUnBondingInfo(@Path("address") address: String?): JsonObject
+
+    @GET("initia/mstaking/v1/validators?status=BOND_STATUS_BONDED&pagination.limit=500")
+    suspend fun lcdInitiaBondedValidatorInfo(): JsonObject
+
+    @GET("initia/mstaking/v1/validators?status=BOND_STATUS_UNBONDED&pagination.limit=500")
+    suspend fun lcdInitiaUnBondedValidatorInfo(): JsonObject
+
+    @GET("initia/mstaking/v1/validators?status=BOND_STATUS_UNBONDING&pagination.limit=500")
+    suspend fun lcdInitiaUnBondingValidatorInfo(): JsonObject
+
     @GET("cosmwasm/wasm/v1/contract/{address}/smart/{query_data}")
     suspend fun lcdContractInfo(
         @Path("address") address: String?, @Path("query_data") queryData: String
@@ -62,15 +92,15 @@ interface LcdApi {
         @Path("channel") channel: String?, @Path("port") port: String?
     ): JsonObject
 
-    @POST("/cosmos/tx/v1beta1/simulate")
+    @POST("cosmos/tx/v1beta1/simulate")
     @Headers("Content-Type: application/json")
     suspend fun lcdSimulateTx(@Body txReq: SimulateTxReq): Response<JsonObject>
 
-    @POST("/cosmos/tx/v1beta1/txs")
+    @POST("cosmos/tx/v1beta1/txs")
     @Headers("Content-Type: application/json")
     suspend fun lcdBroadcastTx(@Body txReq: BroadcastTxReq): JsonObject
 
-    @GET("/cosmos/tx/v1beta1/txs/{hash}")
+    @GET("cosmos/tx/v1beta1/txs/{hash}")
     suspend fun lcdTxInfo(@Path("hash") hash: String?): Response<JsonObject>
 
     @GET("auth/accounts/{address}")

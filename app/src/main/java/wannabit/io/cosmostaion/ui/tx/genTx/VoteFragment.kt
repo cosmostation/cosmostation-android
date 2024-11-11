@@ -118,7 +118,7 @@ class VoteFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            voteAdapter = VoteAdapter(listener = selectOption)
+            voteAdapter = VoteAdapter(selectedChain, listener = selectOption)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = voteAdapter

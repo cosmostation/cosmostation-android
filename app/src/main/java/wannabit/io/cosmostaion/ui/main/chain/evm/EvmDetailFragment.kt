@@ -140,7 +140,7 @@ class EvmDetailFragment : Fragment() {
                     position == 0 -> "Assets"
                     position == 1 -> "Receive"
                     position == 2 -> "History"
-                    selectedEvmChain.isEcosystem() && position == 3 -> "Ecosystem"
+                    selectedEvmChain.isSupportMobileDapp() && position == 3 -> "Ecosystem"
                     else -> "About"
                 }
             }.attach()
@@ -245,7 +245,7 @@ class EvmDetailFragment : Fragment() {
             fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
             fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
 
-            if (selectedEvmChain.isEcosystem()) {
+            if (selectedEvmChain.isSupportMobileDapp()) {
                 fragments.add(3, EvmEcoSystemFragment.newInstance(selectedEvmChain))
             }
         }

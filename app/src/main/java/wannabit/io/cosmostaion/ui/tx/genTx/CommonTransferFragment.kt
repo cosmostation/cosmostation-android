@@ -183,6 +183,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
                 getString("toSendDenom")?.let { toSendDenom = it }
+                if (toSendDenom.startsWith("cw20:")) toSendDenom = toSendDenom.split("cw20:").last()
             }
 
             listOf(
@@ -497,12 +498,12 @@ class CommonTransferFragment : BaseTxFragment() {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
 
-                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.ibc_info?.counterparty?.denom?.lowercase() == toSendDenom.lowercase()) {
+                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
 
                 } else {
-                    if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.denom?.lowercase() == toSendDenom.lowercase()) {
+                    if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.dpDenom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
                 }
@@ -1510,7 +1511,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         asset.ibc_info?.client?.channel, asset.ibc_info?.client?.port
                     )
                 }
-                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.denom?.equals(
+                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.equals(
                         denom, true
                     ) == true
                 ) {
@@ -1519,7 +1520,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     )
                 }
             } else {
-                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.denom.equals(
+                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom.equals(
                         msToken.contract, true
                     )
                 ) {

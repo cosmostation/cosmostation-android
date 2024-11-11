@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -26,29 +27,54 @@ class ValidatorDefaultViewHolder(
 
     fun bind(chain: BaseChain, validator: StakingProto.Validator) {
         binding.apply {
-            validator.let { validator ->
-                monikerImg.setMonikerImg(chain, validator.operatorAddress)
-                monikerName.text = validator.description?.moniker
-                if (validator.jailed) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_jailed)
-                } else if (!validator.isActiveValidator(chain)) {
-                    jailedImg.visibility = View.VISIBLE
-                    jailedImg.setImageResource(R.drawable.icon_inactive)
-                } else {
-                    jailedImg.visibility = View.GONE
-                }
+            monikerImg.setMonikerImg(chain, validator.operatorAddress)
+            monikerName.text = validator.description?.moniker
+            if (validator.jailed) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_jailed)
+            } else if (!validator.isActiveValidator(chain)) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            } else {
+                jailedImg.visibility = View.GONE
             }
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(decimal)
-                    votingPower.text = formatAmount(vpAmount.toString(), 0)
+                val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
+                votingPower.text = formatAmount(vpAmount.toString(), 0)
 
-                    val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                        ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                    commission.text = formatString("$commissionRate%", 3)
-                }
+                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
+                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
+            }
+        }
+    }
+
+    fun initiaBind(
+        chain: ChainInitiaTestnet, validator: com.initia.mstaking.v1.StakingProto.Validator
+    ) {
+        binding.apply {
+            monikerImg.setMonikerImg(chain, validator.operatorAddress)
+            monikerName.text = validator.description?.moniker
+            if (validator.jailed) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_jailed)
+            } else if (!validator.isActiveValidator(chain)) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            } else {
+                jailedImg.visibility = View.GONE
+            }
+
+            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                val vpAmount =
+                    validator.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                        ?.movePointLeft(asset.decimals ?: 6)
+                votingPower.text = formatAmount(vpAmount.toString(), 0)
+
+                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
+                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
             }
         }
     }

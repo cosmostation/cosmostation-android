@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import io.grpc.ManagedChannel
+import com.google.protobuf.ByteString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -45,6 +45,31 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
+    }
+
+    fun onChainProposalList(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        val result: MutableList<CosmosProposal> = mutableListOf()
+        var nextKey: ByteString? = null
+
+        do {
+            when (val response = proposalRepository.onChainProposal(chain, nextKey)) {
+                is NetworkResult.Success -> {
+                    nextKey = response.data.second
+                    if (nextKey?.isEmpty == true) {
+                        result.addAll(response.data.first)
+                        nextKey = null
+                    } else {
+                        result.addAll(response.data.first)
+                    }
+                }
+
+                is NetworkResult.Error -> {
+                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                }
+            }
+        } while (nextKey != null)
+
+        _proposalResult.postValue(result)
     }
 
     private var _voteStatusResult = MutableLiveData<VoteStatus?>()

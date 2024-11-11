@@ -35,20 +35,24 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.delegations
 import wannabit.io.cosmostaion.chain.fetcher.feeMarket
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.fetcher.initiaDelegations
+import wannabit.io.cosmostaion.chain.fetcher.initiaUnDelegations
+import wannabit.io.cosmostaion.chain.fetcher.initiaValidators
 import wannabit.io.cosmostaion.chain.fetcher.rewardAddress
 import wannabit.io.cosmostaion.chain.fetcher.rewards
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.fetcher.unDelegations
 import wannabit.io.cosmostaion.chain.fetcher.validators
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
@@ -462,6 +466,105 @@ class WalletRepositoryImpl : WalletRepository {
                 lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
                     response["data"].asJsonObject["power"].asString
                 }
+            }
+        }
+    }
+
+    override suspend fun initiaDelegation(
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
+    ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>> {
+        return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.initia.mstaking.v1.QueryProto.QueryDelegatorDelegationsRequest.newBuilder()
+                    .setDelegatorAddr(chain.address).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.delegatorDelegations(request).delegationResponsesList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdInitiaDelegationInfo(chain.address).initiaDelegations()
+            }
+        }
+    }
+
+    override suspend fun initiaUnBonding(
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
+    ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.UnbondingDelegation>> {
+        return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.initia.mstaking.v1.QueryProto.QueryDelegatorUnbondingDelegationsRequest.newBuilder()
+                    .setDelegatorAddr(chain.address).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.delegatorUnbondingDelegations(request).unbondingResponsesList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdInitiaUnBondingInfo(chain.address).initiaUnDelegations()
+            }
+        }
+    }
+
+    override suspend fun initiaBondedValidator(
+        channel: ManagedChannel?,
+        chain: ChainInitiaTestnet
+    ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
+        return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.initia.mstaking.v1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdInitiaBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED)
+            }
+        }
+    }
+
+    override suspend fun initiaUnBondedValidator(
+        channel: ManagedChannel?,
+        chain: ChainInitiaTestnet
+    ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
+        return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.initia.mstaking.v1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdInitiaUnBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
+            }
+        }
+    }
+
+    override suspend fun initiaUnBondingValidator(
+        channel: ManagedChannel?,
+        chain: ChainInitiaTestnet
+    ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
+        return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.initia.mstaking.v1.QueryProto.QueryValidatorsRequest.newBuilder()
+                .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+            safeApiCall(Dispatchers.IO) {
+                stub.validators(request).validatorsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdInitiaUnBondingValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDING)
             }
         }
     }

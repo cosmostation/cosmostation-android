@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -31,10 +32,10 @@ import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCompoundingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
@@ -114,14 +115,27 @@ class CompoundingFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            val cosmostationValAddress =
-                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-            if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                validatorName.text = "Cosmostation"
+            if (selectedChain is ChainInitiaTestnet) {
+                val cosmostationValAddress =
+                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
+                    validatorName.text = "Cosmostation"
+                } else {
+                    validatorName.text =
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                }
+
             } else {
-                validatorName.text =
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                val cosmostationValAddress =
+                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
+                    validatorName.text = "Cosmostation"
+                } else {
+                    validatorName.text =
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                }
             }
+
             if (claimableRewards.size > 1) {
                 validatorCnt.text = "+ " + (claimableRewards.size - 1)
             } else {
@@ -484,9 +498,15 @@ class CompoundingFragment : BaseTxFragment() {
     }
 
     private fun onBindCompoundingMsg(): MutableList<Any> {
-        return Signer.compoundingMsg(
-            selectedChain, claimableRewards, selectedChain.stakeDenom
-        )
+        return if (selectedChain is ChainInitiaTestnet) {
+            Signer.initiaCompoundingMsg(
+                selectedChain as ChainInitiaTestnet, claimableRewards
+            )
+        } else {
+            Signer.compoundingMsg(
+                selectedChain, claimableRewards
+            )
+        }
     }
 
     override fun onDestroyView() {

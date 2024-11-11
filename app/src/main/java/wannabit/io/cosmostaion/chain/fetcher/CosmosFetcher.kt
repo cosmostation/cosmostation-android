@@ -158,7 +158,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum
     }
 
-    fun delegationAmountSum(): BigDecimal {
+    open fun delegationAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
         val delegationListCopy = cosmosDelegations.toList()
         for (delegation in delegationListCopy) {
@@ -182,7 +182,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    fun unbondingAmountSum(): BigDecimal {
+    open fun unbondingAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosUnbondings.forEach { unbonding ->
             unbonding.entriesList.forEach { entry ->

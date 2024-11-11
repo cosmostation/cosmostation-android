@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -370,17 +371,69 @@ class ApplicationViewModel(
 
                 val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
                 if (chain.supportStaking) {
-                    val loadDelegationDeferred =
-                        async { walletRepository.delegation(channel, chain) }
-                    val loadUnBondingDeferred = async { walletRepository.unBonding(channel, chain) }
                     val loadRewardDeferred = async { walletRepository.reward(channel, chain) }
                     val loadRewardAddressDeferred =
                         async { walletRepository.rewardAddress(channel, chain) }
                     val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
 
+                    if (chain is ChainInitiaTestnet) {
+                        val loadDelegationDeferred =
+                            async { walletRepository.initiaDelegation(channel, chain) }
+                        val loadUnBondingDeferred =
+                            async { walletRepository.initiaUnBonding(channel, chain) }
+
+                        val delegationResult = loadDelegationDeferred.await()
+                        val unBondingResult = loadUnBondingDeferred.await()
+
+                        if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
+                            chain.initiaFetcher()?.initiaDelegations?.clear()
+                            delegationResult.data.forEach { delegation ->
+                                delegation.balanceList.filter { it.denom == chain.stakeDenom }.forEach { balance ->
+                                    if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                        chain.initiaFetcher()?.initiaDelegations?.add(delegation)
+                                    }
+                                }
+                            }
+                        } else if (delegationResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
+                        }
+
+                        if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
+                            chain.initiaFetcher()?.initiaUnbondings = unBondingResult.data
+                        } else if (unBondingResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
+                        }
+
+                    } else {
+                        val loadDelegationDeferred =
+                            async { walletRepository.delegation(channel, chain) }
+                        val loadUnBondingDeferred =
+                            async { walletRepository.unBonding(channel, chain) }
+
+                        val delegationResult = loadDelegationDeferred.await()
+                        val unBondingResult = loadUnBondingDeferred.await()
+
+                        if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
+                            cosmosFetcher?.cosmosDelegations?.clear()
+                            delegationResult.data.forEach { delegation ->
+                                if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                    cosmosFetcher?.cosmosDelegations?.add(
+                                        delegation
+                                    )
+                                }
+                            }
+                        } else if (delegationResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
+                        }
+
+                        if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
+                            cosmosFetcher?.cosmosUnbondings = unBondingResult.data
+                        } else if (unBondingResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
+                        }
+                    }
+
                     val balanceResult = loadBalanceDeferred.await()
-                    val delegationResult = loadDelegationDeferred.await()
-                    val unBondingResult = loadUnBondingDeferred.await()
                     val rewardResult = loadRewardDeferred.await()
                     val rewardAddressResult = loadRewardAddressDeferred.await()
                     val feeMarketResult = loadFeeMarketDeferred.await()
@@ -389,24 +442,6 @@ class ApplicationViewModel(
                         cosmosFetcher?.cosmosBalances = balanceResult.data
                     } else if (balanceResult is NetworkResult.Error) {
                         _chainDataErrorMessage.postValue("error type : ${balanceResult.errorType}  error message : ${balanceResult.errorMessage}")
-                    }
-                    if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
-                        cosmosFetcher?.cosmosDelegations?.clear()
-                        delegationResult.data.forEach { delegation ->
-                            if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                cosmosFetcher?.cosmosDelegations?.add(
-                                    delegation
-                                )
-                            }
-                        }
-                    } else if (delegationResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
-                    }
-
-                    if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
-                        cosmosFetcher?.cosmosUnbondings = unBondingResult.data
-                    } else if (unBondingResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
                     }
 
                     if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<*>) {

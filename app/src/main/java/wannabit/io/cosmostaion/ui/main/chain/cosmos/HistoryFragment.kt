@@ -159,6 +159,7 @@ class HistoryFragment : Fragment() {
             }
 
             else -> {
+                if (!selectedChain.isSupportMintscan()) return
                 historyViewModel.history(
                     requireContext(),
                     selectedChain.apiName,
