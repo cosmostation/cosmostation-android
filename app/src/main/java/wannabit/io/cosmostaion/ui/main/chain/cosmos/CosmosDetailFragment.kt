@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCosmosDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
@@ -311,6 +312,12 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
+    private fun showNotice(noticeType: NoticeType) {
+        NoticeInfoFragment.newInstance(selectedChain, noticeType, null).show(
+            requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
+        )
+    }
+
     private fun setUpClickAction() {
         binding.apply {
             btnBack.setOnClickListener {
@@ -330,8 +337,12 @@ class CosmosDetailFragment : Fragment() {
                 if (isClickable) {
                     isClickable = false
 
-                    val coinFragment = detailPagerAdapter.getCoinFragmentInstance()
-                    coinFragment?.showTokenList()
+                    if (noticeType == NoticeType.TOKEN_NFT_GITHUB) {
+                        showNotice(noticeType)
+                    } else {
+                        val coinFragment = detailPagerAdapter.getCoinFragmentInstance()
+                        coinFragment?.showTokenList()
+                    }
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
