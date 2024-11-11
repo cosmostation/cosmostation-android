@@ -25,7 +25,6 @@ class ChainJuno : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportCw20: Boolean = true
     override var stakeDenom: String = "ujuno"
     override var accountPrefix: String = "juno"
     override var grpcHost: String = "grpc-juno.cosmostation.io"

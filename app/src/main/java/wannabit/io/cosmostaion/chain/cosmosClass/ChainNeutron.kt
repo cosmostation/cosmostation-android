@@ -27,7 +27,6 @@ open class ChainNeutron : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportCw20: Boolean = true
     override var stakeDenom: String = "untrn"
     override var supportStaking = false
     override var accountPrefix: String = "neutron"

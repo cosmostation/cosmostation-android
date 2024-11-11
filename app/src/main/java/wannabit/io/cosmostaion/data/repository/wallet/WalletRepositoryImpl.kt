@@ -130,7 +130,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            if (chain.supportCw20) {
+            if (chain.isSupportCw20()) {
                 mintscanApi.cw20token(chain.apiName)
             } else if (chain.supportEvm) {
                 mintscanApi.erc20token(chain.apiName)

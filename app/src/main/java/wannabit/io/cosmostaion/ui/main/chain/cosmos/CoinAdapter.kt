@@ -292,7 +292,7 @@ class CoinAdapter(
                     headerCnt.text = etcCoins.size.toString()
 
                 } else {
-                    headerTitle.text = if (selectedChain.supportCw20) {
+                    headerTitle.text = if (selectedChain.isSupportCw20()) {
                         context.getString(R.string.str_contract_tokens)
                     } else {
                         if (selectedChain is ChainOktEvm) {

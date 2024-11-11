@@ -590,7 +590,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                if (selectedChain.supportCw20 || selectedChain.supportEvm) {
+                if (selectedChain.isSupportCw20() || selectedChain.supportEvm) {
                     ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
                         initData()
                         binding.loading.visibility = View.GONE

@@ -238,7 +238,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            val supportToken = selectedChain.supportCw20 || selectedChain.supportEvm
+            val supportToken = selectedChain.isSupportCw20() || selectedChain.supportEvm
             btnAddToken.visibleOrGone(supportToken)
             val supportNft = selectedChain.supportNft
 

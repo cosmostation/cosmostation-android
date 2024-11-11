@@ -46,7 +46,7 @@ class TokenViewHolder(
                             hideValue.visibility = View.GONE
 
                             coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                            if (chain.supportCw20) {
+                            if (chain.isSupportCw20()) {
                                 chain.cosmosFetcher?.let {
                                     coinAmountValue.text =
                                         formatAssetValue(it.tokenValue(token.contract))

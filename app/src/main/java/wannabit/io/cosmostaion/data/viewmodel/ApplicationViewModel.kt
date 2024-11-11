@@ -179,7 +179,7 @@ class ApplicationViewModel(
         chain.apply {
             fetchState = FetchState.BUSY
             cosmosFetcher()?.let {
-                if (supportCw20 || supportEvm) {
+                if (isSupportCw20() || supportEvm) {
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.tokens = response.data
@@ -592,7 +592,7 @@ class ApplicationViewModel(
                         }
                     }
 
-                    if (supportCw20) {
+                    if (isSupportCw20()) {
                         val userDisplayToken = Prefs.getDisplayCw20s(id, tag)
                         val tokenBalanceDeferredList = if (userDisplayToken == null) {
                             cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }

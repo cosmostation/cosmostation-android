@@ -159,7 +159,6 @@ open class BaseChain : Parcelable {
     open var chainIdCosmos: String = ""
     open var address: String = ""
     open var stakeDenom: String = ""
-    open var supportCw20 = false
     open var supportStaking = true
     open var supportNft = false
     open var grpcHost: String = ""
@@ -447,6 +446,10 @@ open class BaseChain : Parcelable {
 
     fun isSupportMintscan(): Boolean {
         return getChainListParam()?.get("is_support_mintscan")?.asBoolean ?: false
+    }
+
+    fun isSupportCw20(): Boolean {
+        return getChainListParam()?.get("is_support_cw20")?.asBoolean ?: false
     }
 
     fun explorerAccount(address: String): Uri? {

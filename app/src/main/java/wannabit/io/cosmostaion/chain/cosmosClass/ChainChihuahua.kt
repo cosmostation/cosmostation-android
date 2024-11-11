@@ -25,7 +25,6 @@ class ChainChihuahua : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var supportCw20: Boolean = true
     override var stakeDenom: String = "uhuahua"
     override var accountPrefix: String = "chihuahua"
     override var grpcHost: String = "grpc-chihuahua.cosmostation.io"
