@@ -147,9 +147,9 @@ class OnChainProposalListFragment : Fragment() {
 
             btnVote.setOnClickListener {
                 val delegated = selectedChain.cosmosFetcher?.delegationAmountSum()
-                val voteThreshold = selectedChain.voteThreshold()
-                if (voteThreshold != null) {
-                    if (voteThreshold >= delegated) {
+                val votingThreshold = selectedChain.votingThreshold()
+                if (votingThreshold != null) {
+                    if (votingThreshold >= delegated) {
                         requireActivity().makeToast(R.string.error_no_bonding_no_vote)
                         return@setOnClickListener
                     }

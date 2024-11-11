@@ -185,7 +185,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             for (i in 0 until compoundAbleRewards.size) {
                 if (isAdded) {
                     activity?.let {
-                        if (!compoundAbleRewards[i].baseChain.isGasSimulable()) {
+                        if (!compoundAbleRewards[i].baseChain.isSimulable()) {
                             compoundAbleRewards[i].fee =
                                 compoundAbleRewards[i].baseChain.getInitPayableFee(it)
 
@@ -197,7 +197,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
                                     val txGasLimit =
-                                        (toGas.toDouble() * compoundAbleReward.baseChain.gasMultiply()).toLong()
+                                        (toGas.toDouble() * compoundAbleReward.baseChain.simulatedGasMultiply()).toLong()
                                             .toBigDecimal()
                                     compoundAbleReward.baseChain.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
                                         feeData.denom == txFee?.getAmount(0)?.denom

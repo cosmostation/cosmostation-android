@@ -558,7 +558,7 @@ class SwapFragment : BaseTxFragment() {
                     txFee?.let { fee ->
                         gasUsed?.let {
                             val gasLimit =
-                                (it.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                                (it.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
                             val baseFeePosition = chain.getFeeBasePosition()
                             val gasRate =
                                 chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull { feeData ->

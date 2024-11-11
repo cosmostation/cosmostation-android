@@ -605,7 +605,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)

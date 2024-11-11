@@ -342,7 +342,7 @@ class PopUpCosmosSignFragment(
             btnConfirm.updateButtonView(false)
             btnFromDapp.isEnabled = false
             loading.visibility = View.VISIBLE
-            if (selectedChain?.isGasSimulable() == false) {
+            if (selectedChain?.isSimulable() == false) {
                 return
             }
 
@@ -481,7 +481,7 @@ class PopUpCosmosSignFragment(
                             .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
                             ?.let { gasRate ->
                                 val gasLimit =
-                                    (gas.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                                    (gas.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
                                 val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
                                     ?.setScale(0, RoundingMode.UP)
 
@@ -531,7 +531,7 @@ class PopUpCosmosSignFragment(
                     selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
                     val simulateGasLimit =
-                        (simulateGas.gasUsed.toDouble() * chain.gasMultiply()).toLong()
+                        (simulateGas.gasUsed.toDouble() * chain.simulatedGasMultiply()).toLong()
                     val updateFee = updateFeeWithSimulate(
                         simulateGasLimit.toBigDecimal(), fee
                     )

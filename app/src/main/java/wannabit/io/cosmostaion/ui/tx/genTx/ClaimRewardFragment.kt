@@ -197,7 +197,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
                 val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.get(0)
-                val gasAmount = selectedChain.getFeeBaseGasAmount().toBigDecimal()
+                val gasAmount = selectedChain.getInitGasLimit().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
                     baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
@@ -319,7 +319,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getFeeBaseGasAmount()
+                                                val gasAmount = selectedChain.getInitGasLimit()
                                                     .toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
@@ -331,7 +331,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                                                         ).build()
 
                                                 txFee = TxProto.Fee.newBuilder().setGasLimit(
-                                                    selectedChain.getFeeBaseGasAmount()
+                                                    selectedChain.getInitGasLimit()
                                                 ).addAmount(updateFeeCoin).build()
 
                                                 updateFeeView()
@@ -419,7 +419,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
     private fun txSimulate() {
         binding.apply {
-            if (!selectedChain.isGasSimulable()) {
+            if (!selectedChain.isSimulable()) {
                 return updateFeeViewWithSimulate(null)
             }
             btnGetReward.updateButtonView(false)
@@ -450,7 +450,7 @@ class ClaimRewardFragment : BaseTxFragment() {
         txFee?.let { fee ->
             gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(

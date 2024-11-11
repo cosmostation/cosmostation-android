@@ -397,7 +397,7 @@ class CreateMintFragment : BaseTxFragment() {
             if (toCollateralAmount.toBigDecimal() == BigDecimal.ZERO || toPrincipalAmount.toBigDecimal() == BigDecimal.ZERO) {
                 return
             }
-            if (!selectedChain.isGasSimulable()) {
+            if (!selectedChain.isSimulable()) {
                 return updateFeeViewWithSimulate(null)
             }
 
@@ -433,7 +433,7 @@ class CreateMintFragment : BaseTxFragment() {
 
             gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)

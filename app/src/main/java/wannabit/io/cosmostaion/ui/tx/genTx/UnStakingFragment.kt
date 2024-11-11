@@ -185,7 +185,7 @@ class UnStakingFragment : BaseTxFragment() {
                 }
                 feeSegment.setPosition(selectedFeeInfo, false)
                 val baseFee = selectedChain.cosmosFetcher?.cosmosBaseFees?.get(0)
-                val gasAmount = selectedChain.getFeeBaseGasAmount().toBigDecimal()
+                val gasAmount = selectedChain.getInitGasLimit().toBigDecimal()
                 val feeDenom = baseFee?.denom
                 val feeAmount =
                     baseFee?.getdAmount()?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
@@ -424,7 +424,7 @@ class UnStakingFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getFeeBaseGasAmount()
+                                                val gasAmount = selectedChain.getInitGasLimit()
                                                     .toBigDecimal()
                                                 val updateFeeCoin =
                                                     Coin.newBuilder().setDenom(denom).setAmount(
@@ -434,7 +434,7 @@ class UnStakingFragment : BaseTxFragment() {
                                                     ).build()
 
                                                 txFee = TxProto.Fee.newBuilder().setGasLimit(
-                                                    selectedChain.getFeeBaseGasAmount()
+                                                    selectedChain.getInitGasLimit()
                                                 ).addAmount(updateFeeCoin).build()
 
                                                 updateFeeView()
@@ -523,7 +523,7 @@ class UnStakingFragment : BaseTxFragment() {
             if (toCoin == null) {
                 return
             }
-            if (!selectedChain.isGasSimulable()) {
+            if (!selectedChain.isSimulable()) {
                 return updateFeeViewWithSimulate(null)
             }
             backdropLayout.visibility = View.VISIBLE
@@ -554,7 +554,7 @@ class UnStakingFragment : BaseTxFragment() {
         txFee?.let { fee ->
             gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     selectedChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(

@@ -452,7 +452,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                                 feeSegment.setPosition(selectedFeePosition, false)
                                 val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
-                                val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
+                                val gasAmount = fromChain.getInitGasLimit().toBigDecimal()
                                 val feeDenom = baseFee?.denom
                                 val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
                                     ?.setScale(0, RoundingMode.DOWN)
@@ -915,7 +915,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                                 cosmosFeeInfos[selectedFeePosition].feeDatas.firstOrNull { it.denom == denom }
                                                     ?.let { feeCoin ->
                                                         val gasAmount =
-                                                            getFeeBaseGasAmount().toBigDecimal()
+                                                            getInitGasLimit().toBigDecimal()
                                                         val updateFeeCoin =
                                                             CoinProto.Coin.newBuilder()
                                                                 .setDenom(denom).setAmount(
@@ -927,7 +927,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                                                         cosmosTxFee =
                                                             TxProto.Fee.newBuilder().setGasLimit(
-                                                                getFeeBaseGasAmount()
+                                                                getInitGasLimit()
                                                             ).addAmount(updateFeeCoin).build()
 
                                                         updateFeeView()
@@ -1077,7 +1077,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 else -> {
                     fromChain.apply {
-                        if (!isGasSimulable()) {
+                        if (!isSimulable()) {
                             if (chainIdCosmos != toChain.chainIdCosmos) {
                                 assetPath = assetPath(
                                     fromChain, toChain, toSendDenom
@@ -1151,7 +1151,7 @@ class CommonTransferFragment : BaseTxFragment() {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
-                        val gasLimit = (gas.toDouble() * gasMultiply()).toLong().toBigDecimal()
+                        val gasLimit = (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(

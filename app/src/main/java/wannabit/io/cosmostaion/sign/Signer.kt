@@ -628,7 +628,7 @@ object Signer {
         msgsAny?.forEach { msg ->
             builder.addMessages(msg)
         }
-        return builder.setMemo(memo).setTimeoutHeight(height + chain!!.txTimeout()).build()
+        return builder.setMemo(memo).setTimeoutHeight(height + chain!!.txTimeoutPadding()).build()
     }
 
     private fun grpcSignerInfo(

@@ -343,7 +343,7 @@ class PopUpEvmSignFragment(
                 val gasAmount = BigInteger(
                     gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
                 )
-                gasAmount.multiply(selectedEvmChain.evmGasMultiply() ?: BigInteger("13")).divide(
+                gasAmount.multiply(selectedEvmChain.evmSimulatedGasMultiply() ?: BigInteger("13")).divide(
                     BigInteger("10")
                 )
 
@@ -403,7 +403,7 @@ class PopUpEvmSignFragment(
                 }
 
                 val suggestTipValue = soft(rearrangedArray)
-                if (selectedEvmChain.evmSupportEip1559()) {
+                if (selectedEvmChain.isEvmSupportEip1559()) {
                     for (i in 0 until 3) {
                         val baseFee = suggestBaseFee[i]
                         val tip = suggestTipValue[i]

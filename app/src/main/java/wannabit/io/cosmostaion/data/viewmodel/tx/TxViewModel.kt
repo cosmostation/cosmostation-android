@@ -365,7 +365,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val sendCoin =
                 CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
             val height = ClientProto.Height.newBuilder().setRevisionNumber(revisionNumber ?: 0)
-                .setRevisionHeight((toLastBlock ?: 0) + (toChain.txTimeout() * 10))
+                .setRevisionHeight((toLastBlock ?: 0) + (toChain.txTimeoutPadding() * 10))
 
             val msgTransfer =
                 MsgTransfer.newBuilder().setSender(selectedChain.address).setReceiver(toAddress)
@@ -401,7 +401,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val sendCoin =
                 CoinProto.Coin.newBuilder().setDenom(toSendDenom).setAmount(toSendAmount).build()
             val height = ClientProto.Height.newBuilder().setRevisionNumber(revisionNumber ?: 0)
-                .setRevisionHeight((toLastBlock ?: 0) + (toChain.txTimeout() * 10))
+                .setRevisionHeight((toLastBlock ?: 0) + (toChain.txTimeoutPadding() * 10))
 
             val msgTransfer =
                 MsgTransfer.newBuilder().setSender(selectedChain.address).setReceiver(toAddress)

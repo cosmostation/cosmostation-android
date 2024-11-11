@@ -303,7 +303,7 @@ class TxRepositoryImpl : TxRepository {
                     val baseFee: BigInteger?
                     val evmGas: Long
 
-                    if (selectedChain.evmSupportEip1559()) {
+                    if (selectedChain.isEvmSupportEip1559()) {
                         tip = suggestTipValue[selectedFeeInfo]
                         baseFee = suggestBaseFee[selectedFeeInfo]
                         evmGas = baseFee!!.toLong() + tip.toLong()

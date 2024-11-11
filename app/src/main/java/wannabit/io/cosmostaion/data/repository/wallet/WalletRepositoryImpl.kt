@@ -262,7 +262,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun baseFee(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.DecCoin>>? {
-        if (chain.supportFeeMarket() == false) {
+        if (chain.isSupportFeeMarket() == false) {
             return null
         }
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
