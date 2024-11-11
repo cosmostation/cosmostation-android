@@ -5,13 +5,13 @@ import com.cosmos.gov.v1beta1.GovProto
 import com.cosmwasm.wasm.v1.QueryGrpc
 import com.cosmwasm.wasm.v1.QueryProto
 import com.google.gson.Gson
+import com.google.gson.JsonParser
 import com.google.protobuf.ByteString
 import kotlinx.coroutines.Dispatchers
 import org.bouncycastle.util.encoders.Base64
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 class ProposalRepositoryImpl : ProposalRepository {
@@ -62,8 +63,15 @@ class ProposalRepositoryImpl : ProposalRepository {
 
                 val cosmosProposals: MutableList<CosmosProposal> = mutableListOf()
                 tempProposals.forEach { proposal ->
-                    val title = proposal.title.ifEmpty {
+                    val title = if (proposal.title.isNotEmpty()) {
+                        proposal.title
+                    } else if (proposal.messagesList.isNotEmpty()) {
                         proposal.messagesList.first().typeUrl.split(".").last()
+                    } else if (proposal.metadata.isNotEmpty()) {
+                        val json = JsonParser.parseString(proposal.metadata).asJsonObject
+                        json["title"].asString
+                    } else {
+                        ""
                     }
 
                     val cosmosProposal = CosmosProposal(
@@ -149,6 +157,10 @@ class ProposalRepositoryImpl : ProposalRepository {
                                     messages[0].asJsonObject["content"].asJsonObject["title"].asString
                                 }
 
+                            } else if (proposal.asJsonObject.has("metadata")) {
+                                val json =
+                                    JsonParser.parseString(proposal.asJsonObject["metadata"].asString).asJsonObject
+                                json["title"].asString
                             } else {
                                 ""
                             }
@@ -161,15 +173,16 @@ class ProposalRepositoryImpl : ProposalRepository {
                             } else {
                                 messages[0].asJsonObject["@type"].asString.split(".").last()
                             }
+                        } else if (proposal.asJsonObject.has("metadata")) {
+                            val json =
+                                JsonParser.parseString(proposal.asJsonObject["metadata"].asString).asJsonObject
+                            json["title"].asString
                         } else {
                             ""
                         }
                     }
-
-                    val endTime = dateToLong(
-                        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSX",
-                        proposal.asJsonObject["voting_end_time"].asString
-                    )
+                    val endTime =
+                        Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
 
                     val cosmosProposal = CosmosProposal(
                         proposal.asJsonObject["id"].asString,
@@ -204,15 +217,13 @@ class ProposalRepositoryImpl : ProposalRepository {
                 val cosmosProposals: MutableList<CosmosProposal> = mutableListOf()
                 tempProposals.forEach { proposal ->
                     val content = proposal.asJsonObject["content"].asJsonObject
-                    val title = if (content["title"].isJsonNull) {
-                        content["@type"].asString.split(".").last()
-                    } else {
+                    val title = if (content.has("title")) {
                         content["title"].asString
+                    } else {
+                        content["@type"].asString.split(".").last()
                     }
-                    val endTime = dateToLong(
-                        "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSSX",
-                        proposal.asJsonObject["voting_end_time"].asString
-                    )
+                    val endTime =
+                        Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
 
                     val cosmosProposal = CosmosProposal(
                         proposal.asJsonObject["proposal_id"].asString,
