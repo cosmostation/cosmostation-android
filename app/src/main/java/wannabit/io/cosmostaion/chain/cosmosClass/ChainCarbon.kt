@@ -27,5 +27,5 @@ class ChainCarbon : BaseChain(), Parcelable {
     override var stakeDenom: String = "swth"
     override var accountPrefix: String = "swth"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.carbon.network/"
+    override var lcdUrl: String = "https://rest.lavenderfive.com/carbon/"
 }
