@@ -826,7 +826,7 @@ class DappActivity : BaseActivity() {
                             selectChain = chain
                             val accountJson = JSONObject()
                             accountJson.put("isKeystone", false)
-                            accountJson.put("isEthermint", selectChain?.supportEvm)
+                            accountJson.put("isEthermint", selectChain?.isSupportErc20())
                             accountJson.put("isLedger", false)
                             accountJson.put("address", selectChain?.address)
                             accountJson.put("name", account.name)
@@ -973,7 +973,7 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
-                    val address = allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
+                    val address = allChains?.firstOrNull { chain -> chain.isSupportErc20() }?.evmAddress
                     appToWebResult(
                         messageJson, JSONArray(listOf(address)), messageId
                     )
@@ -1013,7 +1013,7 @@ class DappActivity : BaseActivity() {
                 "eth_chainId" -> {
                     if (selectEvmChain == null) {
                         selectEvmChain =
-                            allChains?.firstOrNull { chain -> chain.supportEvm && chain.chainIdEvm == "0x1" }
+                            allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
                     }
                     currentEvmChainId = selectEvmChain?.chainIdEvm
                     rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
@@ -1667,7 +1667,7 @@ class DappActivity : BaseActivity() {
     private fun pubKeyType(): String {
         return if (selectChain is ChainInjective) {
             INJECTIVE_KEY_TYPE_PUBLIC
-        } else if (selectChain?.supportEvm == true) {
+        } else if (selectChain?.isSupportErc20() == true) {
             ETHERMINT_KEY_TYPE_PUBLIC
         } else {
             COSMOS_KEY_TYPE_PUBLIC

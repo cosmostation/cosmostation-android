@@ -38,7 +38,7 @@ class TokenEditViewHolder(
                             skeletonTokenValue.visibility = View.GONE
 
                             tokenAmount.text = formatAmount(amount.toPlainString(), 6)
-                            if (chain.supportEvm) {
+                            if (chain.isSupportErc20()) {
                                 chain.evmRpcFetcher?.let {
                                     tokenValue.text =
                                         formatAssetValue(it.tokenValue(token.contract))
@@ -53,7 +53,7 @@ class TokenEditViewHolder(
 
                         } else {
                             CoroutineScope(Dispatchers.IO).launch {
-                                if (chain.supportEvm) {
+                                if (chain.isSupportErc20()) {
                                     walletViewModel.erc20Balance(chain, token)
                                 } else {
                                     val channel = chain.cosmosFetcher?.getChannel()

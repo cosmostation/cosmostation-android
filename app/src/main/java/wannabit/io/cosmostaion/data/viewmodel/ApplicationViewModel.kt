@@ -179,7 +179,7 @@ class ApplicationViewModel(
         chain.apply {
             fetchState = FetchState.BUSY
             cosmosFetcher()?.let {
-                if (isSupportCw20() || supportEvm) {
+                if (isSupportCw20() || isSupportErc20()) {
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.tokens = response.data
@@ -347,7 +347,7 @@ class ApplicationViewModel(
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             try {
-                if (supportEvm) {
+                if (isSupportErc20()) {
                     evmRpcFetcher()?.let { evmRpcFetcher ->
                         val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
                         val loadEvmBalanceDeferred =
@@ -560,7 +560,7 @@ class ApplicationViewModel(
 
                 fetchState = when {
                     cosmosFetcher?.cosmosBalances == null -> FetchState.FAIL
-                    supportEvm && web3j == null -> FetchState.FAIL
+                    isSupportErc20() && web3j == null -> FetchState.FAIL
                     else -> FetchState.SUCCESS
                 }
 

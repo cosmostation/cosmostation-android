@@ -165,7 +165,7 @@ class CosmosDetailFragment : Fragment() {
                 accountEvmAddress.visibility = View.INVISIBLE
                 accountAddress.text = selectedChain.address
 
-                if (selectedChain.supportEvm) {
+                if (selectedChain.isSupportErc20()) {
                     accountAddress.text = selectedChain.address
                     accountEvmAddress.text = selectedChain.evmAddress
                     accountAddress.visibility = View.INVISIBLE
@@ -174,7 +174,7 @@ class CosmosDetailFragment : Fragment() {
                     handler.postDelayed(starEvmAddressAnimation, 5000)
 
                 } else {
-                    if (selectedChain.supportEvm) {
+                    if (selectedChain.isSupportErc20()) {
                         accountAddress.text = selectedChain.evmAddress
                     } else {
                         accountAddress.text = selectedChain.address
@@ -238,7 +238,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            val supportToken = selectedChain.isSupportCw20() || selectedChain.supportEvm
+            val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20()
             btnAddToken.visibleOrGone(supportToken)
             val supportNft = selectedChain.isSupportCw721()
 
@@ -366,7 +366,7 @@ class CosmosDetailFragment : Fragment() {
                     )
 
                 } else {
-                    if (selectedChain.supportEvm) {
+                    if (selectedChain.isSupportErc20()) {
                         QrCodeEvmFragment.newInstance(selectedChain).show(
                             requireActivity().supportFragmentManager,
                             QrCodeEvmFragment::class.java.name
@@ -382,7 +382,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountValueLayout.setOnClickListener {
-                if (selectedChain.supportEvm) {
+                if (selectedChain.isSupportErc20()) {
                     QrCodeEvmFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )

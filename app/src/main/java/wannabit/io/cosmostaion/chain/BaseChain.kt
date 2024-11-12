@@ -447,6 +447,10 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_support_mintscan")?.asBoolean ?: false
     }
 
+    fun isSupportErc20(): Boolean {
+        return (getChainListParam()?.get("is_support_erc20")?.asBoolean ?: false && supportEvm)
+    }
+
     fun isSupportCw20(): Boolean {
         return getChainListParam()?.get("is_support_cw20")?.asBoolean ?: false
     }

@@ -190,7 +190,7 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         binding.btnConfirm.setOnClickListener {
             BaseData.baseAccount?.let { account ->
                 displayTokens?.let { tokenList ->
-                    if (fromChain.supportEvm) {
+                    if (fromChain.isSupportErc20()) {
                         Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
                     } else {
                         Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)

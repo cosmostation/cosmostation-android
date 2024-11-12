@@ -228,7 +228,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
         }
 
         BaseData.baseAccount?.let { account ->
-            if (selectedChain.supportEvm) {
+            if (selectedChain.isSupportErc20()) {
                 selectedChain.evmRpcFetcher?.evmTokens?.let { tokens.addAll(it) }
                 tokens.sortBy { it.symbol.lowercase() }
                 Prefs.getDisplayErc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
@@ -400,7 +400,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     val sendAssetType = if (position == 0) {
                         if (chain is ChainOktEvm) {
                             SendAssetType.ONLY_EVM_COIN
-                        } else if (chain.supportEvm && chain.supportCosmos()) {
+                        } else if (chain.isEvmCosmos()) {
                             SendAssetType.COSMOS_EVM_COIN
                         } else {
                             SendAssetType.ONLY_COSMOS_COIN
@@ -590,7 +590,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                if (selectedChain.isSupportCw20() || selectedChain.supportEvm) {
+                if (selectedChain.isSupportCw20() || selectedChain.isSupportErc20()) {
                     ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
                         initData()
                         binding.loading.visibility = View.GONE

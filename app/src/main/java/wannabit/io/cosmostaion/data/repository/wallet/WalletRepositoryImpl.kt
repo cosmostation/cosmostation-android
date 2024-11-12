@@ -132,7 +132,7 @@ class WalletRepositoryImpl : WalletRepository {
         return safeApiCall(Dispatchers.IO) {
             if (chain.isSupportCw20()) {
                 mintscanApi.cw20token(chain.apiName)
-            } else if (chain.supportEvm) {
+            } else if (chain.isSupportErc20()) {
                 mintscanApi.erc20token(chain.apiName)
             } else {
                 mutableListOf()
