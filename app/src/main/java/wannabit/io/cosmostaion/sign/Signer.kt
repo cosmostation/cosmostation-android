@@ -613,7 +613,7 @@ object Signer {
     ): SimulateRequest? {
         selectedChain.cosmosFetcher()?.lastHeight()?.let { height ->
             val txBody = grpcTxBody(msgAnys, memo, height, selectedChain)
-            val signerInfo = grpcSimulInfo(selectedChain)
+            val signerInfo = grpcSignerInfo(selectedChain)
             val authInfo = grpcAuthInfo(signerInfo, fee)
             val simulateTx = grpcSimulTx(txBody, authInfo)
             return SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
@@ -633,33 +633,13 @@ object Signer {
 
     private fun grpcSignerInfo(
         chain: BaseChain?
-    ): SignerInfo? {
-        ECKey.fromPrivate(chain?.privateKey)?.let {
-            val pubKey = generateGrpcPubKeyFromPriv(chain, it.privateKeyAsHex)
-            val singleMode =
-                ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
-            val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
-            return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-                .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
-        }
-        return null
-    }
-
-    private fun grpcSimulInfo(chain: BaseChain?): SignerInfo {
+    ): SignerInfo {
+        val pubKey = generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain?.privateKey).privateKeyAsHex)
         val singleMode =
             ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
         val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()
-        val pubKey = if (chain is ChainInjective) {
-            Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey").build()
-        } else if (chain is ChainArtelaTestnet) {
-            Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey").build()
-        } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
-            Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey").build()
-        } else {
-            Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey").build()
-        }
         return SignerInfo.newBuilder().setPublicKey(pubKey).setModeInfo(modeInfo)
-            .setSequence(chain?.cosmosFetcher()?.cosmosSequence!!).build()
+            .setSequence(chain?.cosmosFetcher()?.cosmosSequence ?: 0).build()
     }
 
     private fun grpcAuthInfo(signerInfo: SignerInfo?, fee: Fee?): AuthInfo? {

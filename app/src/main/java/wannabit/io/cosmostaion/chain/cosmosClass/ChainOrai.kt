@@ -11,22 +11,21 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainKi : BaseChain(), Parcelable {
+class ChainOrai : BaseChain(), Parcelable {
 
-    override var name: String = "Ki Chain"
-    override var tag: String = "ki118"
-    override var logo: Int = R.drawable.chain_ki
-    override var swipeLogo: Int = R.drawable.chain_swipe_ki
-    override var apiName: String = "ki-chain"
+    override var name: String = "Orai Chain"
+    override var tag: String = "orai118"
+    override var logo: Int = R.drawable.chain_orai
+    override var apiName: String = "orai-chain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var stakeDenom: String = "uxki"
-    override var accountPrefix: String = "ki"
-    override var grpcHost: String = "grpc-ki-chain.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-ki-chain.cosmostation.io/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var stakeDenom: String = "orai"
+    override var accountPrefix: String = "orai"
+    override var grpcHost: String = "grpc-oraichain.mms.team"
+    override var lcdUrl: String = "https://lcd.orai.io/"
 }
