@@ -22,7 +22,6 @@ class ChainAvalanche : BaseChain(), Parcelable {
     override var coinSymbol: String = "AVAX"
     override var coinGeckoId: String = "avalanche-2"
     override var coinLogo: Int = R.drawable.token_avax
-    override var supportStaking = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

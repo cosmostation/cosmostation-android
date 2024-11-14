@@ -25,9 +25,9 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.ui.tx.option.general.ChangeRewardAddressWarnFragment
 import java.math.RoundingMode
 import java.util.Locale
@@ -131,7 +131,7 @@ class AboutFragment : Fragment() {
                     getString(R.string.str_mainnet)
                 }
 
-                stakingDenom.text = if (!selectedChain.supportStaking) {
+                stakingDenom.text = if (!selectedChain.isStakeEnabled()) {
                     "-"
                 } else {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
@@ -173,7 +173,7 @@ class AboutFragment : Fragment() {
                     "-"
                 }
 
-                if (selectedChain.supportStaking) {
+                if (!selectedChain.cosmosFetcher?.rewardAddress.isNullOrEmpty()) {
                     if (selectedChain.address == selectedChain.cosmosFetcher?.rewardAddress) {
                         cautionImg.visibility = View.GONE
                         rewardAddressWarnMsg.visibility = View.GONE

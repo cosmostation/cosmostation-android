@@ -370,7 +370,85 @@ class ApplicationViewModel(
                 }
 
                 val loadBalanceDeferred = async { walletRepository.balance(channel, chain) }
-                if (chain.supportStaking) {
+                if (this is ChainNeutron) {
+                    val loadTokenInfoDeferred = async { walletRepository.token(this@apply) }
+                    val loadVaultDepositDeferred =
+                        async { walletRepository.vaultDeposit(channel, this@apply) }
+                    val loadVestingDeferred =
+                        async { walletRepository.vestingData(channel, this@apply) }
+                    val loadFeeMarketDeferred =
+                        async { walletRepository.baseFee(channel, this@apply) }
+
+                    val responses = awaitAll(
+                        loadBalanceDeferred,
+                        loadTokenInfoDeferred,
+                        loadVestingDeferred,
+                        loadVaultDepositDeferred,
+                        loadFeeMarketDeferred
+                    )
+
+                    responses.forEach { response ->
+                        when (response) {
+                            is NetworkResult.Success -> {
+                                when (response.data) {
+                                    is MutableList<*> -> {
+                                        if (response.data.isEmpty()) {
+                                            mutableListOf<CoinProto.Coin>()
+                                        } else {
+                                            if (response.data.all { it is Token }) {
+                                                cosmosFetcher?.tokens =
+                                                    response.data as MutableList<Token>
+
+                                            } else if (response.data.all { it is CoinProto.Coin }) {
+                                                cosmosFetcher?.cosmosBalances =
+                                                    response.data as MutableList<CoinProto.Coin>
+
+                                            } else if (response.data.all { it is CoinProto.DecCoin }) {
+                                                cosmosFetcher?.cosmosBaseFees?.clear()
+                                                (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
+                                                    if (BaseData.getAsset(
+                                                            apiName, baseFee.denom
+                                                        ) != null
+                                                    ) {
+                                                        cosmosFetcher?.cosmosBaseFees?.add(
+                                                            baseFee
+                                                        )
+                                                    }
+                                                }
+                                                cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
+                                                    if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
+                                                        -1
+                                                    } else {
+                                                        0
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    is com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse -> {
+                                        neutronFetcher()?.neutronVesting = Gson().fromJson(
+                                            response.data.data.toStringUtf8(),
+                                            VestingData::class.java
+                                        )
+                                    }
+
+                                    else -> {
+                                        neutronFetcher()?.neutronDeposited =
+                                            response.data.toString().toBigDecimal()
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                            }
+
+                            else -> {}
+                        }
+                    }
+
+                } else {
                     val loadRewardDeferred = async { walletRepository.reward(channel, chain) }
                     val loadRewardAddressDeferred =
                         async { walletRepository.rewardAddress(channel, chain) }
@@ -388,11 +466,12 @@ class ApplicationViewModel(
                         if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
                             chain.initiaFetcher()?.initiaDelegations?.clear()
                             delegationResult.data.forEach { delegation ->
-                                delegation.balanceList.filter { it.denom == chain.stakeDenom }.forEach { balance ->
-                                    if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                        chain.initiaFetcher()?.initiaDelegations?.add(delegation)
+                                delegation.balanceList.filter { it.denom == chain.stakeDenom }
+                                    .forEach { balance ->
+                                        if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                            chain.initiaFetcher()?.initiaDelegations?.add(delegation)
+                                        }
                                     }
-                                }
                             }
                         } else if (delegationResult is NetworkResult.Error) {
                             _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
@@ -475,86 +554,6 @@ class ApplicationViewModel(
                         }
                     } else if (feeMarketResult is NetworkResult.Error) {
                         _chainDataErrorMessage.postValue("error type : ${feeMarketResult.errorType}  error message : ${feeMarketResult.errorMessage}")
-                    }
-
-                } else {
-                    if (this is ChainNeutron) {
-                        val loadTokenInfoDeferred = async { walletRepository.token(this@apply) }
-                        val loadVaultDepositDeferred =
-                            async { walletRepository.vaultDeposit(channel, this@apply) }
-                        val loadVestingDeferred =
-                            async { walletRepository.vestingData(channel, this@apply) }
-                        val loadFeeMarketDeferred =
-                            async { walletRepository.baseFee(channel, this@apply) }
-
-                        val responses = awaitAll(
-                            loadBalanceDeferred,
-                            loadTokenInfoDeferred,
-                            loadVestingDeferred,
-                            loadVaultDepositDeferred,
-                            loadFeeMarketDeferred
-                        )
-
-                        responses.forEach { response ->
-                            when (response) {
-                                is NetworkResult.Success -> {
-                                    when (response.data) {
-                                        is MutableList<*> -> {
-                                            if (response.data.isEmpty()) {
-                                                mutableListOf<CoinProto.Coin>()
-                                            } else {
-                                                if (response.data.all { it is Token }) {
-                                                    cosmosFetcher?.tokens =
-                                                        response.data as MutableList<Token>
-
-                                                } else if (response.data.all { it is CoinProto.Coin }) {
-                                                    cosmosFetcher?.cosmosBalances =
-                                                        response.data as MutableList<CoinProto.Coin>
-
-                                                } else if (response.data.all { it is CoinProto.DecCoin }) {
-                                                    cosmosFetcher?.cosmosBaseFees?.clear()
-                                                    (response.data as MutableList<CoinProto.DecCoin>).forEach { baseFee ->
-                                                        if (BaseData.getAsset(
-                                                                apiName, baseFee.denom
-                                                            ) != null
-                                                        ) {
-                                                            cosmosFetcher?.cosmosBaseFees?.add(
-                                                                baseFee
-                                                            )
-                                                        }
-                                                    }
-                                                    cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                                                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                                            -1
-                                                        } else {
-                                                            0
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        is com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse -> {
-                                            neutronFetcher()?.neutronVesting = Gson().fromJson(
-                                                response.data.data.toStringUtf8(),
-                                                VestingData::class.java
-                                            )
-                                        }
-
-                                        else -> {
-                                            neutronFetcher()?.neutronDeposited =
-                                                response.data.toString().toBigDecimal()
-                                        }
-                                    }
-                                }
-
-                                is NetworkResult.Error -> {
-                                    _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                                }
-
-                                else -> {}
-                            }
-                        }
                     }
                 }
 

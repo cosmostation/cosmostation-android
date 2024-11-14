@@ -185,7 +185,7 @@ class CoinAdapter(
                 }
 
                 holder.itemView.setOnLongClickListener { view ->
-                    if (selectedChain.supportStaking && selectedChain.cosmosFetcher?.cosmosRewards?.isNotEmpty() == true) {
+                    if (selectedChain.isStakeEnabled() && selectedChain.cosmosFetcher?.cosmosRewards?.isNotEmpty() == true) {
                         val scaleX = view.scaleX
                         val scaleY = view.scaleY
                         val customDialog = RewardDialog(

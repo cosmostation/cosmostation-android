@@ -22,7 +22,6 @@ class ChainBinanceSmart : BaseChain(), Parcelable {
     override var coinSymbol: String = "BNB"
     override var coinGeckoId: String = "binancecoin"
     override var coinLogo: Int = R.drawable.token_bnb
-    override var supportStaking = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

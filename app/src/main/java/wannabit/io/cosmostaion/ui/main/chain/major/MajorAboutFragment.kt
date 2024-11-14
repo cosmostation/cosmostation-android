@@ -19,10 +19,9 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.common.goneOrVisible
-import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentAboutBinding
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.RoundingMode
 import java.util.Locale
 
@@ -120,11 +119,12 @@ class MajorAboutFragment : Fragment() {
                 stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin84)
                 stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin84)
 
-                stakingDenom.text = if (!selectedChain.supportStaking) {
-                    "-"
-                } else {
+                stakingDenom.text = if (selectedChain is ChainSui) {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
+                } else {
+                    "-"
                 }
+
                 unbondingTime.text = if (selectedChain is ChainSui) {
                     getString(R.string.str_instant)
                 } else {

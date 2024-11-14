@@ -26,7 +26,6 @@ open class ChainOktEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "okt"
     override var accountPrefix: String = "ex"
-    override var supportStaking = false
     override var lcdUrl: String = "https://exchainrpc.okex.org/okexchain/v1/"
 
     override var supportEvm: Boolean = true

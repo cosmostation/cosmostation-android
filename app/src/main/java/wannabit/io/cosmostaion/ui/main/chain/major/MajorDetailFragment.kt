@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.squareup.okhttp.Interceptor.Chain
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -98,7 +99,7 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            fabMenu.visibleOrGone(selectedChain.supportStaking)
+            fabMenu.visibleOrGone(selectedChain is ChainSui)
         }
     }
 

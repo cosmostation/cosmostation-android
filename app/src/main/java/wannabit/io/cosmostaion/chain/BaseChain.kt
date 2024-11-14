@@ -159,7 +159,6 @@ open class BaseChain : Parcelable {
     open var chainIdCosmos: String = ""
     open var address: String = ""
     open var stakeDenom: String = ""
-    open var supportStaking = true
     open var grpcHost: String = ""
     open var grpcPort = 443
     open var lcdUrl: String = ""
@@ -437,6 +436,10 @@ open class BaseChain : Parcelable {
 
     fun isSendEnabled(): Boolean {
         return getChainListParam()?.get("is_send_enabled")?.asBoolean ?: true
+    }
+
+    fun isStakeEnabled(): Boolean {
+        return getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
     }
 
     fun isSupportMobileDapp(): Boolean {

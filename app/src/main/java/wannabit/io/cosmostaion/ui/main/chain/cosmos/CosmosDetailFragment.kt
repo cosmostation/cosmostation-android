@@ -189,7 +189,7 @@ class CosmosDetailFragment : Fragment() {
                 )
             }
 
-            if (selectedChain.supportStaking) {
+            if (selectedChain.isStakeEnabled()) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
             when (selectedChain) {
@@ -216,10 +216,10 @@ class CosmosDetailFragment : Fragment() {
 
     private fun initTab() {
         binding.apply {
-            fabStake.visibleOrGone(selectedChain.supportStaking)
-            fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-            fabCompounding.visibleOrGone(selectedChain.supportStaking)
-            fabVote.visibleOrGone(selectedChain.supportStaking)
+            fabStake.visibleOrGone(selectedChain.isStakeEnabled())
+            fabClaimReward.visibleOrGone(selectedChain.isStakeEnabled())
+            fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
+            fabVote.visibleOrGone(selectedChain.isStakeEnabled())
 
             when (selectedChain) {
                 is ChainNeutron -> {
@@ -240,7 +240,6 @@ class CosmosDetailFragment : Fragment() {
 
             val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20()
             btnAddToken.visibleOrGone(supportToken)
-            val supportNft = selectedChain.isSupportCw721()
 
             val tableTitles = mutableListOf<String>()
             tableTitles.add("Crypto")
@@ -401,18 +400,23 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabMenu.setOnMenuToggleListener { opened ->
-                fabMenu.bringToFront()
-                backdropLayout.visibleOrGone(opened)
-                if (opened) {
-                    tabLayout.elevation = 0.1f
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(
-                        requireContext(), R.color.color_fab_background_dialog
-                    )
+                if (selectedChain.isStakeEnabled() || selectedChain is ChainNeutron || selectedChain is ChainOktEvm) {
+                    fabMenu.bringToFront()
+                    backdropLayout.visibleOrGone(opened)
+                    if (opened) {
+                        tabLayout.elevation = 0.1f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_fab_background_dialog
+                        )
+                    } else {
+                        tabLayout.elevation = 0f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_transparent
+                        )
+                    }
+
                 } else {
-                    tabLayout.elevation = 0f
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(
-                        requireContext(), R.color.color_transparent
-                    )
+                    return@setOnMenuToggleListener
                 }
             }
 
