@@ -29,16 +29,19 @@ import com.google.protobuf.ByteString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bitcoinj.core.Bech32
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils.convertBits
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -1151,7 +1154,8 @@ class CommonTransferFragment : BaseTxFragment() {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
-                        val gasLimit = (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
+                        val gasLimit =
+                            (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
@@ -1214,11 +1218,25 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun onBindSendMsg(): MutableList<Any> {
-        val sendCoin =
-            CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
-        val msgSend = MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
-            .addAmount(sendCoin).build()
-        return Signer.sendMsg(msgSend)
+        return if (fromChain is ChainThorchain) {
+            val fromAddressByteArray = convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
+            val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
+
+            val sendCoin =
+                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+            val msgSend = com.types.MsgSendProto.MsgSend.newBuilder()
+                .setFromAddress(ByteString.copyFrom(fromAddressByteArray))
+                .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin).build()
+            Signer.thorchainSendMsg(msgSend)
+
+        } else {
+            val sendCoin =
+                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+            val msgSend =
+                MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
+                    .addAmount(sendCoin).build()
+            Signer.sendMsg(msgSend)
+        }
     }
 
     private fun onBindWasmSendMsg(): MutableList<Any> {

@@ -8,18 +8,12 @@ import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class EvmFetcher(chain: BaseChain) {
-
-    var chain: BaseChain
+class EvmFetcher(var chain: BaseChain) {
 
     var evmBalance: BigDecimal = BigDecimal.ZERO
     var evmTokens = mutableListOf<Token>()
 
     var web3j: Web3j? = null
-
-    init {
-        this.chain = chain
-    }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
         evmTokens.firstOrNull { it.contract == address }?.let { tokenInfo ->

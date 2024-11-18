@@ -122,6 +122,15 @@ object Signer {
         return msgAnys
     }
 
+    fun thorchainSendMsg(msgSend: com.types.MsgSendProto.MsgSend?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/types.MsgSend")
+                .setValue(msgSend?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     suspend fun genIbcSendBroadcast(
         msgTransfer: MsgTransfer?, fee: Fee?, memo: String, selectedChain: BaseChain
     ): BroadcastTxRequest? {
