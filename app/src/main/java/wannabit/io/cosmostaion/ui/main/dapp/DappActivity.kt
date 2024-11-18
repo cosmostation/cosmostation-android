@@ -832,6 +832,11 @@ class DappActivity : BaseActivity() {
                             accountJson.put("name", account.name)
                             accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
                             appToWebResult(messageJson, accountJson, messageId)
+
+                        } ?: run {
+                            appToWebError(
+                                messageJson, messageId, "Invalid method parameter(s)."
+                            )
                         }
                     }
                 }
@@ -883,7 +888,7 @@ class DappActivity : BaseActivity() {
                         )
                     } else {
                         appToWebError(
-                            messageJson, getString(R.string.error_not_support_chain), messageId
+                            messageJson, messageId, getString(R.string.error_not_support_chain)
                         )
                     }
                 }
@@ -973,7 +978,8 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
-                    val address = allChains?.firstOrNull { chain -> chain.isSupportErc20() }?.evmAddress
+                    val address =
+                        allChains?.firstOrNull { chain -> chain.isSupportErc20() }?.evmAddress
                     appToWebResult(
                         messageJson, JSONArray(listOf(address)), messageId
                     )
@@ -1015,13 +1021,19 @@ class DappActivity : BaseActivity() {
                         selectEvmChain =
                             allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
                     }
-                    currentEvmChainId = selectEvmChain?.chainIdEvm
+                    currentEvmChainId =
+                        allChains?.firstOrNull { it.name == selectEvmChain?.name }?.chainIdEvm
                     rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
+                    if (selectEvmChain == null) {
+                        selectEvmChain =
+                            allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
+                    }
+
                     if (selectEvmChain?.evmAddress?.isNotEmpty() == true) {
                         appToWebResult(
                             messageJson, JSONArray(listOf(selectEvmChain?.evmAddress)), messageId
@@ -1029,7 +1041,7 @@ class DappActivity : BaseActivity() {
 
                     } else {
                         appToWebResult(
-                            messageJson, JSONArray(listOf("")), messageId
+                            messageJson, JSONArray(arrayListOf<String>()), messageId
                         )
                     }
                 }
