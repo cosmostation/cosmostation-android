@@ -660,7 +660,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUx())
-    chains.add(ChainXion())
+//    chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
     chains.add(ChainZetaEvm())

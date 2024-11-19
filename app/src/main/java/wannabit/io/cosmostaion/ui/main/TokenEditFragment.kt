@@ -234,7 +234,14 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                                     }?.let { searchTokens?.addAll(it) }
                             }
                         }
-                        tokenEditAdapter.updateTokens(searchTokens)
+                        if (searchTokens?.isEmpty() == true) {
+                            emptyLayout.visibility = View.VISIBLE
+                            recycler.visibility = View.GONE
+                        } else {
+                            emptyLayout.visibility = View.GONE
+                            recycler.visibility = View.VISIBLE
+                            tokenEditAdapter.updateTokens(searchTokens)
+                        }
 
                     } else {
                         if (StringUtils.isEmpty(newText)) {
@@ -249,7 +256,15 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                                 }
                             }
                         }
-                        tokenEditAdapter.notifyDataSetChanged()
+                        if (searchTokens?.isEmpty() == true) {
+                            emptyLayout.visibility = View.VISIBLE
+                            recycler.visibility = View.GONE
+                        } else {
+                            emptyLayout.visibility = View.GONE
+                            recycler.visibility = View.VISIBLE
+                            tokenEditAdapter.notifyDataSetChanged()
+                        }
+
                     }
                     return true
                 }
