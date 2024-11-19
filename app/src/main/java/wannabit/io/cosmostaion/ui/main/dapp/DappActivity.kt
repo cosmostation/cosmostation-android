@@ -995,6 +995,8 @@ class DappActivity : BaseActivity() {
                             currentEvmChainId = chainId
                             selectEvmChain =
                                 allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
+                            rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
+                            web3j = Web3j.build(HttpService(rpcUrl))
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 

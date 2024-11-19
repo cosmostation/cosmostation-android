@@ -179,10 +179,22 @@ class ApplicationViewModel(
         chain.apply {
             fetchState = FetchState.BUSY
             cosmosFetcher()?.let {
-                if (isSupportCw20() || isSupportErc20()) {
+                if (isSupportCw20()) {
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
                             cosmosFetcher?.tokens = response.data
+                        }
+
+                        is NetworkResult.Error -> {
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
+                if (isSupportErc20()) {
+                    when (val response = walletRepository.evmToken(this)) {
+                        is NetworkResult.Success -> {
+                            chain.evmRpcFetcher()?.evmTokens = response.data
                         }
 
                         is NetworkResult.Error -> {
@@ -619,15 +631,9 @@ class ApplicationViewModel(
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
                         tokenCnt = chain.cosmosFetcher()?.valueTokenCnt() ?: 0
-                        withContext(Dispatchers.Main) {
-                            if (isEdit) {
-                                editFetchedTokenResult.value = tag
-                            } else {
-                                fetchedTokenResult.value = tag
-                            }
-                        }
+                    }
 
-                    } else {
+                    if (isSupportErc20()) {
                         if (web3j != null) {
                             evmRpcFetcher()?.let { evmRpcFetcher ->
                                 val userDisplayToken = Prefs.getDisplayErc20s(id, tag)
@@ -673,17 +679,16 @@ class ApplicationViewModel(
                                 } else {
                                     evmRpcFetcher.valueTokenCnt()
                                 }
-                                withContext(Dispatchers.Main) {
-                                    if (isEdit) {
-                                        editFetchedTokenResult.value = tag
-                                    } else {
-                                        fetchedTokenResult.value = tag
-                                    }
-                                }
                             }
                         }
                     }
-
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedTokenResult.value = tag
+                        } else {
+                            fetchedTokenResult.value = tag
+                        }
+                    }
                     fetchedTotalResult.postValue(tag)
 
                 } else if (fetchState == FetchState.FAIL) {
