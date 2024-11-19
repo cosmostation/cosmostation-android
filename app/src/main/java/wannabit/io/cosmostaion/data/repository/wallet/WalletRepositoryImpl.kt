@@ -130,9 +130,9 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
-            if (chain.supportCw20) {
+            if (chain.isSupportCw20()) {
                 mintscanApi.cw20token(chain.apiName)
-            } else if (chain.supportEvm) {
+            } else if (chain.isSupportErc20()) {
                 mintscanApi.erc20token(chain.apiName)
             } else {
                 mutableListOf()
@@ -262,7 +262,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun baseFee(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.DecCoin>>? {
-        if (chain.supportFeeMarket() == false) {
+        if (chain.isSupportFeeMarket() == false) {
             return null
         }
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {

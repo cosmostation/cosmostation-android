@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
-import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 
 class EvmEcoSystemFragment : Fragment() {
 

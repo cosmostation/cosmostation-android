@@ -139,15 +139,6 @@ class NoticeInfoFragment : BottomSheetDialogFragment() {
                         dismiss()
                     }
 
-                    NoticeType.TOKEN_GITHUB -> {
-                        val githubUrl = if (selectedChain?.supportEvm == true) {
-                            "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/erc20.json"
-                        } else {
-                            "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw20.json"
-                        }
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl)))
-                    }
-
                     NoticeType.TOKEN_NFT_GITHUB -> {
                         val githubUrl =
                             "https://github.com/cosmostation/chainlist/blob/main/chain/" + selectedChain?.apiName + "/cw721.json"

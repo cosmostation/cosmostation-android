@@ -372,7 +372,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
             feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == fee.getAmount(0).denom }
                 ?.let { gasRate ->
                     val gasLimit =
-                        (gasUsed.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                        (gasUsed.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                     val feeCoinAmount =
                         gasRate.gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 

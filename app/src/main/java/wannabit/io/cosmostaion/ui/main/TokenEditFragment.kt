@@ -8,7 +8,9 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,13 +20,15 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentTokenEditBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 
 interface TokenEditListener {
-    fun edit(displayErc20Tokens: MutableList<String>)
+    fun edit()
 }
 
 class TokenEditFragment : BottomSheetDialogFragment() {
@@ -37,23 +41,24 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     private lateinit var fromChain: BaseChain
     private var allTokens: MutableList<Token>? = mutableListOf()
     private var displayTokens: MutableList<String>? = mutableListOf()
-
-    private var searchTokens: MutableList<Token> = mutableListOf()
+    private var searchTokens: MutableList<Token>? = mutableListOf()
 
     private lateinit var tokenEditAdapter: TokenEditAdapter
+
+    private var tokenTypes = mutableListOf("cw20", "erc20")
 
     companion object {
         @JvmStatic
         fun newInstance(
             fromChain: BaseChain,
-            allErc20Tokens: MutableList<Token>,
-            displayErc20Tokens: MutableList<String>,
+            allTokens: MutableList<Token>,
+            displayTokens: MutableList<String>,
             listener: TokenEditListener
         ): TokenEditFragment {
             val args = Bundle().apply {
                 putParcelable("fromChain", fromChain)
-                putParcelableArrayList("allTokens", ArrayList(allErc20Tokens))
-                putStringArrayList("displayTokens", ArrayList(displayErc20Tokens))
+                putParcelableArrayList("allTokens", ArrayList(allTokens))
+                putStringArrayList("displayTokens", ArrayList(displayTokens))
             }
             val fragment = TokenEditFragment()
             fragment.arguments = args
@@ -122,6 +127,7 @@ class TokenEditFragment : BottomSheetDialogFragment() {
 
         binding.apply {
             selectTitle.text = getString(R.string.title_edit_token_list)
+            segmentView.visibility = View.GONE
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     getParcelable("fromChain", BaseChain::class.java)?.let {
@@ -135,19 +141,68 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                 }
                 allTokens = getParcelableArrayList("allTokens")
                 displayTokens = getStringArrayList("displayTokens")
-                allTokens?.let { searchTokens.addAll(it) }
+                allTokens?.let {
+                    if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
+                        searchTokens?.addAll(it.filter { token -> token.type == tokenTypes[tokenSegment.position] })
+                    } else {
+                        searchTokens?.addAll(it)
+                    }
+                }
             }
         }
+        initSegmentView()
         initRecyclerView()
+    }
+
+    private fun initSegmentView() {
+        binding.apply {
+            if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
+                segmentView.visibility = View.VISIBLE
+                segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+                tokenSegment.apply {
+                    setSelectedBackground(
+                        ContextCompat.getColor(
+                            requireActivity(), R.color.color_accent_purple
+                        )
+                    )
+                    setRipple(
+                        ContextCompat.getColor(
+                            requireActivity(), R.color.color_accent_purple
+                        )
+                    )
+                }
+
+                for (i in 0 until 2) {
+                    val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                    tokenSegment.addView(
+                        segmentView.root,
+                        i,
+                        LinearLayout.LayoutParams(0, dpToPx(requireActivity(), 32), 1f)
+                    )
+
+                    when (i) {
+                        0 -> {
+                            segmentView.btnTitle.text = "Cw20"
+                        }
+
+                        else -> {
+                            segmentView.btnTitle.text = "Erc20"
+                        }
+                    }
+                }
+            } else {
+                segmentView.visibility = View.GONE
+            }
+        }
     }
 
     private fun initRecyclerView() {
         binding.apply {
-            tokenEditAdapter = TokenEditAdapter(walletViewModel, viewLifecycleOwner, fromChain, displayTokens)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
+            tokenEditAdapter =
+                TokenEditAdapter(walletViewModel, viewLifecycleOwner, fromChain, searchTokens, displayTokens)
             recycler.adapter = tokenEditAdapter
-            tokenEditAdapter.submitList(searchTokens)
 
             tokenEditAdapter.setOnItemClickListener { selectDisplayTokens ->
                 displayTokens = selectDisplayTokens
@@ -165,21 +220,37 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchTokens.clear()
+                    searchTokens?.clear()
 
-                    if (StringUtils.isEmpty(newText)) {
-                        allTokens?.let { searchTokens.addAll(it) }
-
-                    } else {
-                        newText?.let { searchTxt ->
-                            allTokens?.let { tokens ->
-                                searchTokens.addAll(tokens.filter {
-                                    it.symbol.contains(searchTxt, ignoreCase = true)
-                                })
+                    if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
+                        if (StringUtils.isEmpty(newText)) {
+                            allTokens?.filter { it.type == tokenTypes[tokenSegment.position] }
+                                ?.let { searchTokens?.addAll(it) }
+                        } else {
+                            newText?.let { searchTxt ->
+                                allTokens?.filter { it.type == tokenTypes[tokenSegment.position] }
+                                    ?.filter { token ->
+                                        token.symbol.contains(searchTxt, ignoreCase = true) || token.contract.contains(searchTxt, ignoreCase = true)
+                                    }?.let { searchTokens?.addAll(it) }
                             }
                         }
+                        tokenEditAdapter.updateTokens(searchTokens)
+
+                    } else {
+                        if (StringUtils.isEmpty(newText)) {
+                            allTokens?.let { searchTokens?.addAll(it) }
+
+                        } else {
+                            newText?.let { searchTxt ->
+                                allTokens?.let { tokens ->
+                                    searchTokens?.addAll(tokens.filter {
+                                        it.symbol.contains(searchTxt, ignoreCase = true) || it.contract.contains(searchTxt, ignoreCase = true)
+                                    })
+                                }
+                            }
+                        }
+                        tokenEditAdapter.notifyDataSetChanged()
                     }
-                    tokenEditAdapter.notifyDataSetChanged()
                     return true
                 }
             })
@@ -187,18 +258,39 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpClickAction() {
-        binding.btnConfirm.setOnClickListener {
-            BaseData.baseAccount?.let { account ->
-                displayTokens?.let { tokenList ->
-                    if (fromChain.supportEvm) {
-                        Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
-                    } else {
-                        Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)
-                    }
-                    tokenEditListener?.edit(tokenList)
-                }
+        binding.apply {
+            tokenSegment.setOnPositionChangedListener { position ->
+                searchTokens =
+                    allTokens?.filter { it.type == tokenTypes[position] }?.toMutableList()
+                tokenEditAdapter.updateTokens(searchTokens)
+                searchView.setQuery("", false)
             }
-            dismiss()
+
+            btnConfirm.setOnClickListener {
+                BaseData.baseAccount?.let { account ->
+                    displayTokens?.let { tokenList ->
+                        if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
+                            tokenList.filter { contract ->
+                                allTokens?.filter { it.type == "cw20" }?.map { it.contract }
+                                    ?.contains(contract) == true
+                            }.let { Prefs.setDisplayCw20s(account.id, fromChain.tag, it) }
+
+                            tokenList.filter { contract ->
+                                allTokens?.filter { it.type == "erc20" }?.map { it.contract }
+                                    ?.contains(contract) == true
+                            }.let { Prefs.setDisplayErc20s(account.id, fromChain.tag, it) }
+
+                        } else if (fromChain.isSupportCw20()) {
+                            Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)
+
+                        } else {
+                            Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
+                        }
+                        tokenEditListener?.edit()
+                    }
+                }
+                dismiss()
+            }
         }
     }
 

@@ -118,9 +118,8 @@ class AllChainVoteFragment : BaseTxFragment() {
                             .forEach { chain ->
                                 val delegated =
                                     chain.cosmosFetcher?.delegationAmountSum() ?: BigDecimal.ZERO
-                                val voteThreshold = chain.voteThreshold()
                                 val txFee = chain.getInitPayableFee(requireContext())
-                                if (delegated > voteThreshold && txFee != null) {
+                                if (delegated > chain.votingThreshold() && txFee != null) {
                                     stakedChains.add(chain)
                                 }
                             }
@@ -516,7 +515,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 if (gasUsed.toLongOrNull() != null) {
                     val gasLimit =
-                        (gasUsed.toLong().toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                        (gasUsed.toLong().toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
                     chain.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
                         it.denom == txFee?.getAmount(
                             0

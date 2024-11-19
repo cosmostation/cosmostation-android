@@ -8,8 +8,8 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.BtcFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.BtcFetcher
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
@@ -26,7 +26,6 @@ open class ChainBitCoin84 : BaseChain(), Parcelable {
     override var tag: String = "bitcoin84"
     override var logo: Int = R.drawable.chain_bitcoin
     override var apiName: String = "bitcoin"
-    override var supportStaking = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.BTC_NATIVE_SEGWIT, "m/84'/0'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

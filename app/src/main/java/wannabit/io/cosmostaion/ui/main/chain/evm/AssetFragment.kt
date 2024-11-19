@@ -289,7 +289,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             allErc20Tokens,
             displayErc20Tokens.map { it.contract }.toMutableList(),
             object : TokenEditListener {
-                override fun edit(displayErc20Tokens: MutableList<String>) {
+                override fun edit() {
                     BaseData.baseAccount?.let { account ->
                         ApplicationViewModel.shared.loadEvmChainData(
                             selectedEvmChain, account.id, false

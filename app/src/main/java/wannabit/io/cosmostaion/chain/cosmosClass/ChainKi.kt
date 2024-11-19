@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainKi : BaseChain(), Parcelable {
 
-    override var name: String = "KiChain"
+    override var name: String = "Ki Chain"
     override var tag: String = "ki118"
     override var logo: Int = R.drawable.chain_ki
     override var swipeLogo: Int = R.drawable.chain_swipe_ki
@@ -25,7 +25,6 @@ class ChainKi : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportCw20: Boolean = true
     override var stakeDenom: String = "uxki"
     override var accountPrefix: String = "ki"
     override var grpcHost: String = "grpc-ki-chain.cosmostation.io"

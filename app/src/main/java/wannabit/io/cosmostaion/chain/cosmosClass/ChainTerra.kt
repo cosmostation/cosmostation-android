@@ -25,7 +25,6 @@ class ChainTerra : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportCw20: Boolean = true
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
     override var grpcHost: String = "grpc-terra.cosmostation.io"

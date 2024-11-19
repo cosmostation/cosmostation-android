@@ -20,8 +20,6 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     var btcBlockHeight: Long = 0
     var btcHistory: MutableList<JsonObject> = mutableListOf()
 
-    var bitState = true
-
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         val price = BaseData.getPrice(chain.coinGeckoId, isUsd)
         return (btcBalances.add(btcPendingInput)).multiply(price).movePointLeft(8)

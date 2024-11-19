@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -11,7 +11,9 @@
         android:layout_height="@dimen/space_4"
         android:layout_marginTop="@dimen/space_20"
         android:background="@drawable/round_view"
-        android:layout_centerHorizontal="true"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/select_title"
@@ -21,20 +23,22 @@
         android:layout_marginStart="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
         android:text="@string/title_select_account"
-        android:layout_below="@+id/top_view"
+        app:layout_constraintTop_toBottomOf="@+id/top_view"
+        app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/color_base01" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/search_bar"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/space_180"
         android:layout_height="@dimen/space_40"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_16"
+        android:layout_marginEnd="@dimen/space_12"
         android:background="@drawable/cell_search_bg"
         android:theme="@style/AppTheme.NoActionBar"
         android:translationZ="0.1dp"
         app:elevation="0dp"
-        android:layout_below="@+id/select_title" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/select_title"
+        app:layout_constraintBottom_toBottomOf="@+id/select_title">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -51,13 +55,36 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/segment_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/select_title"
+        android:layout_marginHorizontal="@dimen/space_12"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        android:layout_marginTop="@dimen/space_12">
+
+        <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+            android:id="@+id/token_segment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_transparent"
+            android:layout_margin="@dimen/space_4"
+            app:radius="@dimen/space_8"
+            app:selectedButtonRadius="@dimen/space_8"
+            app:draggable="true"
+            app:ripple="true"
+            app:rippleColor="@color/color_transparent" />
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_below="@+id/search_bar"
-        android:layout_above="@+id/btn_confirm"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/space_8"/>
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/space_8"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/segment_view" />
 
     <Button
         android:id="@+id/btn_confirm"
@@ -68,8 +95,8 @@
         android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_common_bg"
         android:text="@string/str_confirm"
-        android:layout_alignParentBottom="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:textAllCaps="false"
         android:textColor="@color/color_base01" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

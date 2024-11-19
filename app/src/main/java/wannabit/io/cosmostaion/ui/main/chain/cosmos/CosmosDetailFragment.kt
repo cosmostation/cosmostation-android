@@ -165,7 +165,7 @@ class CosmosDetailFragment : Fragment() {
                 accountEvmAddress.visibility = View.INVISIBLE
                 accountAddress.text = selectedChain.address
 
-                if (selectedChain.supportEvm) {
+                if (selectedChain.isSupportErc20()) {
                     accountAddress.text = selectedChain.address
                     accountEvmAddress.text = selectedChain.evmAddress
                     accountAddress.visibility = View.INVISIBLE
@@ -174,7 +174,7 @@ class CosmosDetailFragment : Fragment() {
                     handler.postDelayed(starEvmAddressAnimation, 5000)
 
                 } else {
-                    if (selectedChain.supportEvm) {
+                    if (selectedChain.isSupportErc20()) {
                         accountAddress.text = selectedChain.evmAddress
                     } else {
                         accountAddress.text = selectedChain.address
@@ -189,7 +189,7 @@ class CosmosDetailFragment : Fragment() {
                 )
             }
 
-            if (selectedChain.supportStaking) {
+            if (selectedChain.isStakeEnabled()) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
             when (selectedChain) {
@@ -216,10 +216,10 @@ class CosmosDetailFragment : Fragment() {
 
     private fun initTab() {
         binding.apply {
-            fabStake.visibleOrGone(selectedChain.supportStaking)
-            fabClaimReward.visibleOrGone(selectedChain.supportStaking)
-            fabCompounding.visibleOrGone(selectedChain.supportStaking)
-            fabVote.visibleOrGone(selectedChain.supportStaking)
+            fabStake.visibleOrGone(selectedChain.isStakeEnabled())
+            fabClaimReward.visibleOrGone(selectedChain.isStakeEnabled())
+            fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
+            fabVote.visibleOrGone(selectedChain.isStakeEnabled())
 
             when (selectedChain) {
                 is ChainNeutron -> {
@@ -238,14 +238,13 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            val supportToken = selectedChain.supportCw20 || selectedChain.supportEvm
+            val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20()
             btnAddToken.visibleOrGone(supportToken)
-            val supportNft = selectedChain.supportNft
 
             val tableTitles = mutableListOf<String>()
             tableTitles.add("Crypto")
 
-            if (supportNft) tableTitles.add("NFTs")
+            if (selectedChain.isSupportCw721()) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
             if (selectedChain.isSupportMintscan() || selectedChain.name == "OKT") tableTitles.add("History")
@@ -366,7 +365,7 @@ class CosmosDetailFragment : Fragment() {
                     )
 
                 } else {
-                    if (selectedChain.supportEvm) {
+                    if (selectedChain.isSupportErc20()) {
                         QrCodeEvmFragment.newInstance(selectedChain).show(
                             requireActivity().supportFragmentManager,
                             QrCodeEvmFragment::class.java.name
@@ -382,7 +381,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountValueLayout.setOnClickListener {
-                if (selectedChain.supportEvm) {
+                if (selectedChain.isSupportErc20()) {
                     QrCodeEvmFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )
@@ -401,18 +400,23 @@ class CosmosDetailFragment : Fragment() {
             }
 
             fabMenu.setOnMenuToggleListener { opened ->
-                fabMenu.bringToFront()
-                backdropLayout.visibleOrGone(opened)
-                if (opened) {
-                    tabLayout.elevation = 0.1f
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(
-                        requireContext(), R.color.color_fab_background_dialog
-                    )
+                if (selectedChain.isStakeEnabled() || selectedChain is ChainNeutron || selectedChain is ChainOktEvm) {
+                    fabMenu.bringToFront()
+                    backdropLayout.visibleOrGone(opened)
+                    if (opened) {
+                        tabLayout.elevation = 0.1f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_fab_background_dialog
+                        )
+                    } else {
+                        tabLayout.elevation = 0f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_transparent
+                        )
+                    }
+
                 } else {
-                    tabLayout.elevation = 0f
-                    requireActivity().window.statusBarColor = ContextCompat.getColor(
-                        requireContext(), R.color.color_transparent
-                    )
+                    return@setOnMenuToggleListener
                 }
             }
 

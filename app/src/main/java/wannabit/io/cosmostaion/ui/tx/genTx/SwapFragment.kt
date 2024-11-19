@@ -558,7 +558,7 @@ class SwapFragment : BaseTxFragment() {
                     txFee?.let { fee ->
                         gasUsed?.let {
                             val gasLimit =
-                                (it.toDouble() * chain.gasMultiply()).toLong().toBigDecimal()
+                                (it.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
                             val baseFeePosition = chain.getFeeBasePosition()
                             val gasRate =
                                 chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull { feeData ->
@@ -1178,7 +1178,7 @@ class SwapFragment : BaseTxFragment() {
         } else if (inputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
+            if (inputChain?.supportCosmos() == false && inputChain?.isSupportErc20() == true) {
                 inputAsset.balance = inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 inputAsset.balance =
@@ -1193,7 +1193,7 @@ class SwapFragment : BaseTxFragment() {
         } else if (outputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
+            if (outputChain?.supportCosmos() == false && outputChain?.isSupportErc20() == true) {
                 outputAsset.balance = outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 outputAsset.balance = outputChain?.cosmosFetcher()?.balanceAmount(outputAsset.denom)

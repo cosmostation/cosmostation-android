@@ -25,7 +25,6 @@ class ChainStargaze : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var supportNft: Boolean = true
     override var stakeDenom: String = "ustars"
     override var accountPrefix: String = "stars"
     override var grpcHost: String = "grpc-stargaze.cosmostation.io"

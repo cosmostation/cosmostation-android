@@ -59,11 +59,13 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNolus
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
@@ -88,8 +90,10 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.evmClass.ChainAiozEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
@@ -102,6 +106,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
@@ -118,7 +123,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin44Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -160,9 +164,6 @@ open class BaseChain : Parcelable {
     open var chainIdCosmos: String = ""
     open var address: String = ""
     open var stakeDenom: String = ""
-    open var supportCw20 = false
-    open var supportStaking = true
-    open var supportNft = false
     open var grpcHost: String = ""
     open var grpcPort = 443
     open var lcdUrl: String = ""
@@ -243,14 +244,28 @@ open class BaseChain : Parcelable {
     }
 
     fun supportCosmos(): Boolean {
-        if (cosmosEndPointType == null || cosmosEndPointType == CosmosEndPointType.UNKNOWN) {
-            return false
-        }
-        return true
+        return !(cosmosEndPointType == null || cosmosEndPointType == CosmosEndPointType.UNKNOWN)
     }
 
     fun isEvmCosmos(): Boolean {
         return supportCosmos() && supportEvm
+    }
+
+    fun getChainParam(): JsonObject? {
+        return try {
+            return BaseData.chainParam?.getAsJsonObject(apiName)
+        } catch (e: Exception) {
+            JsonObject()
+        }
+    }
+
+    fun getChainListParam(): JsonObject? {
+        return try {
+            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
+                ?: JsonObject()
+        } catch (e: Exception) {
+            JsonObject()
+        }
     }
 
     fun getInitFee(c: Context): TxProto.Fee? {
@@ -258,7 +273,7 @@ open class BaseChain : Parcelable {
             val fee = getDefaultFeeCoins(c).first()
             val feeCoin =
                 CoinProto.Coin.newBuilder().setDenom(fee.denom).setAmount(fee.amount).build()
-            TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin).build()
+            TxProto.Fee.newBuilder().setGasLimit(getInitGasLimit()).addAmount(feeCoin).build()
         } else {
             null
         }
@@ -274,18 +289,18 @@ open class BaseChain : Parcelable {
             }
         }
         if (feeCoin != null) {
-            return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(feeCoin)
+            return TxProto.Fee.newBuilder().setGasLimit(getInitGasLimit()).addAmount(feeCoin)
                 .build()
         }
         return null
     }
 
     fun getBaseFee(c: Context, position: Int, denom: String?): TxProto.Fee {
-        val gasAmount = getFeeBaseGasDpAmount()
         val feeDatas = getFeeInfos(c)[position].feeDatas
         val rate = feeDatas.firstOrNull { it.denom == denom }?.gasRate ?: BigDecimal.ZERO
-        val coinAmount = rate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-        return TxProto.Fee.newBuilder().setGasLimit(getFeeBaseGasAmount()).addAmount(
+        val coinAmount =
+            rate?.multiply(getInitGasLimit().toBigDecimal())?.setScale(0, RoundingMode.DOWN)
+        return TxProto.Fee.newBuilder().setGasLimit(getInitGasLimit()).addAmount(
             CoinProto.Coin.newBuilder().setDenom(denom).setAmount(coinAmount.toString()).build()
         ).build()
     }
@@ -298,7 +313,7 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("base")?.asInt ?: 0
     }
 
-    fun getFeeBaseGasAmount(): Long {
+    fun getInitGasLimit(): Long {
         return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.let {
             it.get("init_gas_limit")?.asLong
         } ?: run {
@@ -306,13 +321,9 @@ open class BaseChain : Parcelable {
         }
     }
 
-    private fun getFeeBaseGasDpAmount(): BigDecimal {
-        return BigDecimal(getFeeBaseGasAmount().toString())
-    }
-
     fun getDefaultFeeCoins(c: Context): MutableList<CoinProto.Coin> {
         val result: MutableList<CoinProto.Coin> = mutableListOf()
-        val gasAmount = getFeeBaseGasDpAmount()
+        val gasAmount = getInitGasLimit().toBigDecimal()
         if (getFeeInfos(c).size > 0) {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
@@ -363,14 +374,14 @@ open class BaseChain : Parcelable {
         return result
     }
 
-    fun gasMultiply(): Double {
-        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("simulated_gas_multiply")?.asDouble
-            ?: run {
-                1.3
-            }
+    fun simulatedGasMultiply(): Double {
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
+            ?.get("simulated_gas_multiply")?.asDouble ?: run {
+            1.3
+        }
     }
 
-    fun supportFeeMarket(): Boolean? {
+    fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
         } else {
@@ -378,7 +389,7 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun evmSupportEip1559(): Boolean {
+    fun isEvmSupportEip1559(): Boolean {
         return getChainListParam()?.get("evm_fee_info")?.let {
             it.asJsonObject["is_eip1559"].asBoolean
         } ?: run {
@@ -386,7 +397,7 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun evmGasMultiply(): BigInteger? {
+    fun evmSimulatedGasMultiply(): BigInteger? {
         return if (getChainListParam()?.get("evm_fee_info")?.isJsonNull == true) {
             BigInteger("13")
         } else {
@@ -410,25 +421,8 @@ open class BaseChain : Parcelable {
         return false
     }
 
-    fun txTimeout(): Long {
+    fun txTimeoutPadding(): Long {
         return getChainListParam()?.get("tx_timeout_padding")?.asLong ?: 30
-    }
-
-    fun getChainParam(): JsonObject? {
-        return try {
-            return BaseData.chainParam?.getAsJsonObject(apiName)
-        } catch (e: Exception) {
-            JsonObject()
-        }
-    }
-
-    fun getChainListParam(): JsonObject? {
-        return try {
-            getChainParam()?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
-                ?: JsonObject()
-        } catch (e: Exception) {
-            JsonObject()
-        }
     }
 
     fun getInterchainProviderParams(): JsonObject? {
@@ -440,12 +434,17 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun isGasSimulable(): Boolean {
-        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")?.get("is_simulable")?.asBoolean ?: true
+    fun isSimulable(): Boolean {
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
+            ?.get("is_simulable")?.asBoolean ?: true
     }
 
     fun isSendEnabled(): Boolean {
         return getChainListParam()?.get("is_send_enabled")?.asBoolean ?: true
+    }
+
+    fun isStakeEnabled(): Boolean {
+        return getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
     }
 
     fun isSupportMobileDapp(): Boolean {
@@ -454,6 +453,18 @@ open class BaseChain : Parcelable {
 
     fun isSupportMintscan(): Boolean {
         return getChainListParam()?.get("is_support_mintscan")?.asBoolean ?: false
+    }
+
+    fun isSupportErc20(): Boolean {
+        return (getChainListParam()?.get("is_support_erc20")?.asBoolean ?: false && supportEvm)
+    }
+
+    fun isSupportCw20(): Boolean {
+        return getChainListParam()?.get("is_support_cw20")?.asBoolean ?: false
+    }
+
+    fun isSupportCw721(): Boolean {
+        return getChainListParam()?.get("is_support_cw721")?.asBoolean ?: false
     }
 
     fun explorerAccount(address: String): Uri? {
@@ -488,7 +499,7 @@ open class BaseChain : Parcelable {
         return null
     }
 
-    fun voteThreshold(): BigDecimal? {
+    fun votingThreshold(): BigDecimal? {
         return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == true) {
             getChainListParam()?.get("voting_threshold")?.asString?.toBigDecimal()
         } else {
@@ -508,8 +519,7 @@ open class BaseChain : Parcelable {
         if (fetchState == FetchState.SUCCESS) {
             if (this is ChainBitCoin84) {
                 return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-            }
-            else if (this is ChainSui) {
+            } else if (this is ChainSui) {
                 return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
             } else if (this is ChainOkt996Keccak) {
@@ -580,6 +590,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainDymensionEvm())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
+    chains.add(ChainFantom())
     chains.add(ChainFetchAi())
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
@@ -609,12 +620,14 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
+    chains.add(ChainNolus())
     chains.add(ChainNyx())
     chains.add(ChainOktEvm())
     chains.add(ChainOkt996Keccak())
     chains.add(ChainOkt996Secp())
     chains.add(ChainOmniflix())
     chains.add(ChainOnomy())
+    chains.add(ChainOrai())
     chains.add(ChainOsmosis())
     chains.add(ChainOptimism())
     chains.add(ChainPassage())
@@ -644,8 +657,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
+    chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUx())
+    chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
     chains.add(ChainZetaEvm())

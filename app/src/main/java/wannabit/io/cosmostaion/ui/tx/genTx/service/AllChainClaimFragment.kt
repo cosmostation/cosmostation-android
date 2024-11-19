@@ -183,7 +183,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             for (i in 0 until valueAbleRewards.size) {
                 if (isAdded) {
                     activity?.let {
-                        if (!valueAbleRewards[i].baseChain.isGasSimulable()) {
+                        if (!valueAbleRewards[i].baseChain.isSimulable()) {
                             valueAbleRewards[i].fee =
                                 valueAbleRewards[i].baseChain.getInitPayableFee(it)
 
@@ -195,7 +195,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                             ) { gasUsed ->
                                 gasUsed?.let { toGas ->
                                     val txGasLimit =
-                                        (toGas.toDouble() * valueAbleReward.baseChain.gasMultiply()).toLong()
+                                        (toGas.toDouble() * valueAbleReward.baseChain.simulatedGasMultiply()).toLong()
                                             .toBigDecimal()
                                     valueAbleReward.baseChain.getBaseFeeInfo(it).feeDatas.firstOrNull { feeData ->
                                         feeData.denom == txFee?.getAmount(0)?.denom

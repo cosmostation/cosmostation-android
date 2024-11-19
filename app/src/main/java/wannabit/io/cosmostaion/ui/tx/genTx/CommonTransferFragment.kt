@@ -29,16 +29,19 @@ import com.google.protobuf.ByteString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bitcoinj.core.Bech32
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.ByteUtils.convertBits
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -414,7 +417,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
 
                     else -> {
-                        if (fromChain.supportEvm) {
+                        if (fromChain.isSupportErc20()) {
                             val evmGasTitle = listOf(
                                 getString(R.string.str_low),
                                 getString(R.string.str_average),
@@ -452,7 +455,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                                 feeSegment.setPosition(selectedFeePosition, false)
                                 val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.get(0)
-                                val gasAmount = fromChain.getFeeBaseGasAmount().toBigDecimal()
+                                val gasAmount = fromChain.getInitGasLimit().toBigDecimal()
                                 val feeDenom = baseFee?.denom
                                 val feeAmount = baseFee?.getdAmount()?.multiply(gasAmount)
                                     ?.setScale(0, RoundingMode.DOWN)
@@ -915,7 +918,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                                 cosmosFeeInfos[selectedFeePosition].feeDatas.firstOrNull { it.denom == denom }
                                                     ?.let { feeCoin ->
                                                         val gasAmount =
-                                                            getFeeBaseGasAmount().toBigDecimal()
+                                                            getInitGasLimit().toBigDecimal()
                                                         val updateFeeCoin =
                                                             CoinProto.Coin.newBuilder()
                                                                 .setDenom(denom).setAmount(
@@ -927,7 +930,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                                                         cosmosTxFee =
                                                             TxProto.Fee.newBuilder().setGasLimit(
-                                                                getFeeBaseGasAmount()
+                                                                getInitGasLimit()
                                                             ).addAmount(updateFeeCoin).build()
 
                                                         updateFeeView()
@@ -1077,7 +1080,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 else -> {
                     fromChain.apply {
-                        if (!isGasSimulable()) {
+                        if (!isSimulable()) {
                             if (chainIdCosmos != toChain.chainIdCosmos) {
                                 assetPath = assetPath(
                                     fromChain, toChain, toSendDenom
@@ -1151,7 +1154,8 @@ class CommonTransferFragment : BaseTxFragment() {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
-                        val gasLimit = (gas.toDouble() * gasMultiply()).toLong().toBigDecimal()
+                        val gasLimit =
+                            (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
@@ -1214,11 +1218,25 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun onBindSendMsg(): MutableList<Any> {
-        val sendCoin =
-            CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
-        val msgSend = MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
-            .addAmount(sendCoin).build()
-        return Signer.sendMsg(msgSend)
+        return if (fromChain is ChainThorchain) {
+            val fromAddressByteArray = convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
+            val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
+
+            val sendCoin =
+                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+            val msgSend = com.types.MsgSendProto.MsgSend.newBuilder()
+                .setFromAddress(ByteString.copyFrom(fromAddressByteArray))
+                .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin).build()
+            Signer.thorchainSendMsg(msgSend)
+
+        } else {
+            val sendCoin =
+                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+            val msgSend =
+                MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
+                    .addAmount(sendCoin).build()
+            Signer.sendMsg(msgSend)
+        }
     }
 
     private fun onBindWasmSendMsg(): MutableList<Any> {

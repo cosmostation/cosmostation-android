@@ -58,7 +58,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (selectedChain.supportEvm) {
+        return if (selectedChain.isSupportErc20()) {
             when (position) {
                 0 -> VIEW_TYPE_EVM_HEADER
                 1 -> VIEW_TYPE_EVM_ITEM
@@ -74,7 +74,7 @@ class ReceiveAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (selectedChain.supportEvm) {
+        return if (selectedChain.isSupportErc20()) {
             4
         } else {
             2

@@ -334,7 +334,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
 
     private fun txSimulate() {
         binding.apply {
-            if (!selectedChain.isGasSimulable()) {
+            if (!selectedChain.isSimulable()) {
                 return updateFeeViewWithSimulate(null)
             }
             backdropLayout.visibility = View.VISIBLE
@@ -373,7 +373,7 @@ class ClaimIncentiveFragment : BaseTxFragment() {
 
             gasUsed?.toLong()?.let { gas ->
                 val gasLimit =
-                    (gas.toDouble() * selectedChain.gasMultiply()).toLong().toBigDecimal()
+                    (gas.toDouble() * selectedChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
 
                 val feeCoin = CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
