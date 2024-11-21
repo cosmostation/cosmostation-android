@@ -47,11 +47,7 @@ data class Asset(
     }
 
     fun assetColor(): Int {
-        color?.let {
-            return Color.parseColor(it)
-        } ?: run {
-            return Color.parseColor("#ffffff")
-        }
+        return Color.parseColor("#ffffff")
     }
 }
 

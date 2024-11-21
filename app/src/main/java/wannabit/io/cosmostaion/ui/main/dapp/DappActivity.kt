@@ -124,11 +124,12 @@ class DappActivity : BaseActivity() {
             loadAsset()
         }
 
-        selectEvmChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val ecoChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("selectedEvmChain", BaseChain::class.java)
         } else {
             (intent.getParcelableExtra("selectedEvmChain")) as? BaseChain
         }
+        selectEvmChain = allChains?.firstOrNull { it.name == ecoChain?.name }
     }
 
     private fun initAllKeyData(): MutableList<BaseChain> {
@@ -995,7 +996,8 @@ class DappActivity : BaseActivity() {
                             currentEvmChainId = chainId
                             selectEvmChain =
                                 allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
-                            rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
+                            rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc()
+                                ?: selectEvmChain?.evmRpcURL
                             web3j = Web3j.build(HttpService(rpcUrl))
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)

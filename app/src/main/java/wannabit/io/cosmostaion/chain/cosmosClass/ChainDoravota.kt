@@ -11,12 +11,12 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainOrai : BaseChain(), Parcelable {
+class ChainDoravota : BaseChain(), Parcelable {
 
-    override var name: String = "OraiChain"
-    override var tag: String = "orai118"
-    override var logo: Int = R.drawable.chain_orai
-    override var apiName: String = "orai-chain"
+    override var name: String = "Dora vota"
+    override var tag: String = "Doravota118"
+    override var logo: Int = R.drawable.chain_doravota
+    override var apiName: String = "doravota"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -24,8 +24,8 @@ class ChainOrai : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "orai"
-    override var accountPrefix: String = "orai"
-    override var grpcHost: String = "grpc-oraichain.mms.team"
-    override var lcdUrl: String = "https://lcd.orai.io/"
+    override var stakeDenom: String = "peaka"
+    override var accountPrefix: String = "dora"
+    override var grpcHost: String = "vota-grpc.dorafactory.org"
+    override var lcdUrl: String = "https://vota-rest.dorafactory.org/"
 }

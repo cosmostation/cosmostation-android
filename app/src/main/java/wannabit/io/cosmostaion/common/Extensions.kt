@@ -722,6 +722,14 @@ fun isHexString(value: String): Boolean {
     return hexRegex.matches(value)
 }
 
+fun String.stripHexPrefix(): String {
+    return if (this.startsWith("0x")) {
+        this.substring(2)
+    } else {
+        this
+    }
+}
+
 fun Context.dialogResize(dialog: Dialog, width: Float, height: Float) {
     val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val marginInDp = 8
