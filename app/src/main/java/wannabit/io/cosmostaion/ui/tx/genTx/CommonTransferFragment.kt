@@ -232,14 +232,34 @@ class CommonTransferFragment : BaseTxFragment() {
                     } else {
                         toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                         availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
-                        if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                            cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
-                                val totalFeeAmount = feeAmount
-                                availableAmount = if (totalFeeAmount >= availableAmount) {
+                        if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
+                            if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+                                val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                                availableAmount = if (feeAmount >= availableAmount) {
                                     BigDecimal.ZERO
                                 } else {
-                                    availableAmount.subtract(totalFeeAmount)
+                                    availableAmount.subtract(feeAmount)
                                 }
+                            }
+                            transferImg.setTokenImg(toSendAsset?.image ?: "")
+                            sendTitle.text = getString(
+                                R.string.title_asset_send, toSendAsset?.symbol
+                            )
+                        }
+                    }
+                }
+
+                SendAssetType.ONLY_COSMOS_COIN -> {
+                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
+
+                    if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
+                        if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
+                            val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                            availableAmount = if (feeAmount >= availableAmount) {
+                                BigDecimal.ZERO
+                            } else {
+                                availableAmount.subtract(feeAmount)
                             }
                         }
                         transferImg.setTokenImg(toSendAsset?.image ?: "")
@@ -247,26 +267,6 @@ class CommonTransferFragment : BaseTxFragment() {
                             R.string.title_asset_send, toSendAsset?.symbol
                         )
                     }
-                }
-
-                SendAssetType.ONLY_COSMOS_COIN -> {
-                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
-
-                    if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                        cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()?.let { feeAmount ->
-                            val totalFeeAmount = feeAmount
-                            availableAmount = if (totalFeeAmount >= availableAmount) {
-                                BigDecimal.ZERO
-                            } else {
-                                availableAmount.subtract(totalFeeAmount)
-                            }
-                        }
-                    }
-                    transferImg.setTokenImg(toSendAsset?.image ?: "")
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendAsset?.symbol
-                    )
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {

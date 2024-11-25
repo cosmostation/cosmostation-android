@@ -4,6 +4,7 @@ import android.content.Context
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -651,30 +652,43 @@ data class CosmosHistory(
                 } else if (msgType.contains("MsgInstantiateContract")) {
                     result = c.getString(R.string.tx_cosmwasm_instantiate)
                 } else if (msgType.contains("MsgExecuteContract")) {
-                    msgValue["msg__@stringify"].asString?.let { wasmMsg ->
-                        val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
-                        val recipient = try {
-                            wasmFunc.asJsonObject["transfer"].asJsonObject["recipient"].asString
-                        } catch (e: Exception) {
-                            null
+                    val msgStringify: JsonElement? = msgValue.get("msg__@stringify")
+                    when {
+                        msgStringify == null -> {
+                            result = c.getString(R.string.tx_cosmwasm_execontract)
                         }
-                        if (recipient != null) {
-                            result = if (recipient.equals(address, true)) {
-                                c.getString(R.string.tx_cosmwasm_token_receive)
+
+                        msgStringify.isJsonPrimitive && msgStringify.asJsonPrimitive.isString -> {
+                            val wasmMsg = msgStringify.asString
+                            val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
+                            val recipient = try {
+                                wasmFunc.asJsonObject["transfer"].asJsonObject["recipient"].asString
+                            } catch (e: Exception) {
+                                null
+                            }
+                            if (recipient != null) {
+                                result = if (recipient.equals(address, true)) {
+                                    c.getString(R.string.tx_cosmwasm_token_receive)
+                                } else {
+                                    c.getString(R.string.tx_cosmwasm_token_send)
+                                }
+
                             } else {
-                                c.getString(R.string.tx_cosmwasm_token_send)
-                            }
-
-                        } else {
-                            val description = wasmFunc.entrySet().first().key ?: ""
-                            result = c.getString(R.string.tx_wasm) + "_" + description
-                            result = result.split('_').joinToString(" ") { des ->
-                                des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                                val description = if (wasmFunc.entrySet().isNotEmpty()) {
+                                    wasmFunc.entrySet().first().key
+                                } else {
+                                    ""
+                                }
+                                result = c.getString(R.string.tx_wasm) + "_" + description
+                                result = result.split('_').joinToString(" ") { des ->
+                                    des.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+                                }
                             }
                         }
 
-                    } ?: run {
-                        result = c.getString(R.string.tx_cosmwasm_execontract)
+                        else -> {
+                            result = c.getString(R.string.tx_cosmwasm_execontract)
+                        }
                     }
                 }
 
@@ -1051,22 +1065,36 @@ data class CosmosHistory(
                 val msgValue = firstMsg.asJsonObject[msgType.replace(".", "-")]
 
                 if (msgType.contains("cosmwasm.") && msgType.contains("MsgExecuteContract")) {
-                    msgValue.asJsonObject["contract"].asString?.let { contractAddress ->
-                        val wasmMsg = msgValue.asJsonObject["msg__@stringify"].asString
-                        val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
-                        val amount = try {
-                            wasmFunc.asJsonObject["transfer"].asJsonObject["amount"].asString
-                        } catch (e: Exception) {
-                            null
-                        }
-                        if (amount != null) {
-                            chain.cosmosFetcher?.tokens?.firstOrNull { it.contract == contractAddress }
-                                ?.let { cw20 ->
-                                    return Pair(cw20, amount.toBigDecimal())
+                    if (msgValue.asJsonObject["contract"] != null) {
+                        val contractAddress = msgValue.asJsonObject["contract"].asString
+                        val msgStringify: JsonElement? =
+                            msgValue.asJsonObject.get("msg__@stringify")
+                        when {
+                            msgStringify?.isJsonPrimitive == true && msgStringify.asJsonPrimitive?.isString == true -> {
+                                val wasmMsg = msgStringify.asString
+                                val wasmFunc = Gson().fromJson(wasmMsg, JsonObject::class.java)
+                                val amount = try {
+                                    wasmFunc.asJsonObject["transfer"].asJsonObject["amount"].asString
+                                } catch (e: Exception) {
+                                    null
                                 }
-                        } else {
-                            return null
+                                if (amount != null) {
+                                    chain.cosmosFetcher?.tokens?.firstOrNull { it.contract == contractAddress }
+                                        ?.let { cw20 ->
+                                            return Pair(cw20, amount.toBigDecimal())
+                                        }
+                                } else {
+                                    return null
+                                }
+                            }
+
+                            else -> {
+                                null
+                            }
                         }
+
+                    } else {
+                        null
                     }
 
                 } else if (msgType.contains("ethermint.evm") && msgType.contains("MsgEthereumTx")) {

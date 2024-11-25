@@ -547,7 +547,7 @@ fun gapPastTime(finishTime: Long): String {
     } else if (left >= BaseConstant.CONSTANT_M) {
         (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
     } else {
-        gapTime(finishTime)
+        "-"
     }
     return result
 }
@@ -564,7 +564,16 @@ fun gapTime(finishTime: Long): String {
     } else if (left >= BaseConstant.CONSTANT_M) {
         (left / BaseConstant.CONSTANT_M).toString() + " minutes left"
     } else {
-        gapPastTime(finishTime)
+        val after = now - finishTime
+        if (after >= CONSTANT_D) {
+            (after / CONSTANT_D).toString() + " days ago"
+        } else if (after >= BaseConstant.CONSTANT_H) {
+            (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+        } else if (after >= BaseConstant.CONSTANT_M) {
+            (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+        } else {
+            "-"
+        }
     }
     return result
 }
