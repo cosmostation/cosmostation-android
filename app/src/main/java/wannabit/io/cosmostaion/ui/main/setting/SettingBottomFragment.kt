@@ -58,6 +58,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initRecyclerView()
         setUpClickAction()
         setUpUpdateData()
     }
@@ -82,8 +83,6 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                     }
                 }
             }
-
-            initRecyclerView()
         }
     }
 

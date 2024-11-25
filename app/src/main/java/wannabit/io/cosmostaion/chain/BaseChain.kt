@@ -31,12 +31,14 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -107,6 +109,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
+import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
@@ -585,6 +588,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
     chains.add(ChainDesmos())
+//    chains.add(ChainDoravota())
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
@@ -595,8 +599,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
     chains.add(ChainFinschia())
+//    chains.add(ChainFirma())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
+//    chains.add(ChainHaqqEvm())
     chains.add(ChainHumansEvm())
     chains.add(ChainInjective())
     chains.add(ChainIris())

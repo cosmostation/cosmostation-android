@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import net.i2p.crypto.eddsa.Utils.hexToBytes
 import org.bitcoinj.core.ECKey
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.ECKeyPair
@@ -34,10 +35,12 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.soft
+import wannabit.io.cosmostaion.common.stripHexPrefix
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -284,13 +287,16 @@ class PopUpEvmSignFragment(
                     val txJsonArray = JsonParser.parseString(data).asJsonArray
                     val firstParameter = txJsonArray[0].asString
                     val secondParameter = txJsonArray[1].asString
-                    val messageBytes =
-                        if (WalletUtils.isValidAddress(firstParameter) && firstParameter == selectedEvmChain.evmAddress) {
-                            secondParameter.toByteArray()
-                        } else {
-                            firstParameter.toByteArray()
-                        }
-                    val messageHash = Sign.getEthereumMessageHash(messageBytes)
+                    var messageParameter = if (WalletUtils.isValidAddress(firstParameter) && firstParameter == selectedEvmChain.evmAddress) {
+                        secondParameter
+                    } else {
+                        firstParameter
+                    }
+                    if (isHexString(messageParameter.stripHexPrefix())) {
+                        messageParameter = String(hexToBytes(messageParameter.stripHexPrefix()), Charsets.UTF_8)
+                    }
+
+                    val messageHash = Sign.getEthereumMessageHash(messageParameter.toByteArray())
                     val signature =
                         Sign.signMessage(messageHash, ECKeyPair.create(chain.privateKey), false)
 
@@ -301,7 +307,7 @@ class PopUpEvmSignFragment(
                     updateData = r + s.substring(2) + v.substring(2)
 
                     withContext(Dispatchers.Main) {
-                        signData.text = "Message : " + txJsonArray[1].asString
+                        signData.text = "Message : " + messageParameter
                     }
                 }
             }
