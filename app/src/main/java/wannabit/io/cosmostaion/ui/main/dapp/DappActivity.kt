@@ -1346,9 +1346,7 @@ class DappActivity : BaseActivity() {
                 // sui
                 "sui_getAccount" -> {
                     if (selectMajorChain == null) {
-                        BaseData.baseAccount?.let { account ->
-                            selectMajorChain = account.allChains.find { it.name == "Sui" }
-                        }
+                        selectMajorChain = allChains?.find { it.name == "Sui" }
                     }
                     val accountJson = JSONObject()
                     accountJson.put("address", selectMajorChain?.mainAddress)
@@ -1359,9 +1357,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "sui_getChain" -> {
-                    BaseData.baseAccount?.let { account ->
-                        selectMajorChain = account.allChains.find { it.name == "Sui" }
-                    }
+                    selectMajorChain = allChains?.find { it.name == "Sui" }
                     appToWebResult(
                         messageJson, "mainnet", messageId
                     )
