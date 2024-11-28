@@ -596,7 +596,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=trade.opsdao.dydxchain")
+                        Uri.parse("market://details?id=trade.opsdao.dydxchain")
                     )
                 )
             }

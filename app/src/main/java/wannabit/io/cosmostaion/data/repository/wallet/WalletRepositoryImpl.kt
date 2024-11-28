@@ -624,9 +624,9 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>> {
+    override suspend fun cw721Info(chain: String): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
-            baseApi.cw721Info(chain)
+            mintscanJsonApi.cw721Info(chain)
         }
     }
 

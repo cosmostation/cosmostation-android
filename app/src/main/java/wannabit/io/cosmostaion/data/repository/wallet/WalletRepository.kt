@@ -138,7 +138,7 @@ interface WalletRepository {
 
     suspend fun evmBalance(chain: BaseChain): NetworkResult<String>
 
-    suspend fun cw721Info(chain: String): NetworkResult<MutableList<JsonObject>>
+    suspend fun cw721Info(chain: String): NetworkResult<JsonObject>
 
     suspend fun cw721TokenIds(
         channel: ManagedChannel?, chain: BaseChain, list: JsonObject
