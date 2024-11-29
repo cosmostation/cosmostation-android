@@ -19,17 +19,17 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import java.math.BigDecimal
 
 class MajorCryptoFragment : Fragment() {
@@ -87,7 +87,10 @@ class MajorCryptoFragment : Fragment() {
                 selectedChain = it
             }
         }
-        binding.dropMoney.visibility = View.GONE
+        binding.apply {
+            dropMoney.visibility = View.GONE
+            dydxTrade.visibility = View.GONE
+        }
     }
 
     private fun sortAssets() {
