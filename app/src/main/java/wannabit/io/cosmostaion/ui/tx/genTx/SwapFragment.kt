@@ -557,8 +557,8 @@ class SwapFragment : BaseTxFragment() {
                 inputChain?.let { chain ->
                     txFee?.let { fee ->
                         gasUsed?.let {
-                            val gasLimit =
-                                (it.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
+                            val gasLimit = (it.toDouble() * chain.simulatedGasMultiply()).toLong()
+                                .toBigDecimal()
                             val baseFeePosition = chain.getFeeBasePosition()
                             val gasRate =
                                 chain.getFeeInfos(requireContext())[baseFeePosition].feeDatas.firstOrNull { feeData ->
@@ -702,7 +702,7 @@ class SwapFragment : BaseTxFragment() {
             inputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
                     AssetSelectFragment.newInstance(inputChain,
-                        targetInputAssets,
+                        targetInputAssets.filter { it.balance > BigDecimal.ZERO }.toMutableList(),
                         inputChain?.cosmosFetcher?.cosmosBalances,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
@@ -1094,6 +1094,14 @@ class SwapFragment : BaseTxFragment() {
                     tempInputAssets[index].geckoId = asset.coinGeckoId
                     tempInputAssets[index].description = asset.description
                     tempInputAssets[index].image = asset.image ?: ""
+                    if (inputChain?.supportCosmos() == false && inputChain?.isSupportErc20() == true) {
+                        tempInputAssets[index].balance =
+                            inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
+                    } else {
+                        tempInputAssets[index].balance =
+                            inputChain?.cosmosFetcher()?.balanceAmount(tempInputAssets[index].denom)
+                                ?: BigDecimal.ZERO
+                    }
                     targetInputAssets.add(tempInputAssets[index])
                 }
             }
@@ -1154,6 +1162,13 @@ class SwapFragment : BaseTxFragment() {
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
                     tempOutputAssets[index].description = asset.description
                     tempOutputAssets[index].image = asset.image ?: ""
+                    if (outputChain?.supportCosmos() == false && outputChain?.isSupportErc20() == true) {
+                        tempOutputAssets[index].balance =
+                            outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
+                    } else {
+                        tempOutputAssets[index].balance = outputChain?.cosmosFetcher()
+                            ?.balanceAmount(tempOutputAssets[index].denom) ?: BigDecimal.ZERO
+                    }
                     targetOutputAssets.add(tempOutputAssets[index])
                 }
             }

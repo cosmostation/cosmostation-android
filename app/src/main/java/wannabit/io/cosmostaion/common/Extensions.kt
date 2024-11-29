@@ -254,7 +254,7 @@ fun ImageView.setTokenImg(tokenImg: String) {
         }
 
     } else {
-        Picasso.get().load(R.drawable.token_default).into(this)
+        this.setImageResource(R.drawable.token_default)
     }
 }
 

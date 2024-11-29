@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainNyx : BaseChain(), Parcelable {
 
-    override var name: String = "Nyx"
+    override var name: String = "Nym"
     override var tag: String = "nyx118"
     override var logo: Int = R.drawable.chain_nyx
     override var swipeLogo: Int = R.drawable.chain_swipe_nyx

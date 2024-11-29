@@ -27,12 +27,12 @@ class ChainPlanqEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "aplanq"
     override var accountPrefix: String = "plq"
     override var grpcHost: String = "grpc.planq.network"
-    override var lcdUrl: String = "https://rest.planq.network/"
+    override var lcdUrl: String = "https://planq.api.m.stavr.tech/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "PLANQ"
     override var coinGeckoId: String = "planq"
     override var coinLogo: Int = R.drawable.token_planq
     override var addressLogo: Int = R.drawable.icon_planq_address
-    override var evmRpcURL: String = "https://evm-rpc.planq.network"
+    override var evmRpcURL: String = "https://planq-rpc.nodies.app"
 }
