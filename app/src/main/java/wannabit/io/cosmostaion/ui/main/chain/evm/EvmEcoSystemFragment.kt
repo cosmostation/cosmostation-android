@@ -12,10 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_DAPP_HEADER
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_INJECT_HEADER
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 
 class EvmEcoSystemFragment : Fragment() {
@@ -78,11 +82,22 @@ class EvmEcoSystemFragment : Fragment() {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
 
-            evmEcoSystemAdapter = EvmEcoSystemAdapter(requireContext())
-            recycler.setHasFixedSize(true)
-            recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-            recycler.adapter = evmEcoSystemAdapter
+            evmEcoSystemAdapter = EvmEcoSystemAdapter(requireContext(), selectedEvmChain)
             evmEcoSystemAdapter.submitList(infos)
+            val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+            if (selectedEvmChain is ChainEthereum) {
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (recycler.adapter?.getItemViewType(position)) {
+                            VIEW_TYPE_INJECT_HEADER, VIEW_TYPE_DAPP_HEADER -> gridLayoutManager.spanCount
+                            else -> 1
+                        }
+                    }
+                }
+            }
+            recycler.setHasFixedSize(true)
+            recycler.layoutManager = gridLayoutManager
+            recycler.adapter = evmEcoSystemAdapter
 
             evmEcoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
@@ -96,6 +111,40 @@ class EvmEcoSystemFragment : Fragment() {
 
     private fun setUpEcoSystemInfo() {
         walletViewModel.ecoSystemListResult.observe(viewLifecycleOwner) { infos ->
+            if (selectedEvmChain is ChainEthereum) {
+                val inject = JsonObject().apply {
+                    addProperty("name", "Injection Example")
+                    addProperty(
+                        "description",
+                        "This page offers examples and guidance for integrating and using the Cosmostation app in applications."
+                    )
+                    addProperty(
+                        "thumbnail",
+                        "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/injection.png"
+                    )
+                    addProperty(
+                        "link", "https://cosmostation.github.io/cosmostation-app-injection-example/"
+                    )
+                    addProperty("type", "Develop Tool")
+                }
+                val github = JsonObject().apply {
+                    addProperty("name", "Injection Github")
+                    addProperty(
+                        "description",
+                        "This GitHub provides sample code and guides for integrating Cosmostation Wallet with DApps."
+                    )
+                    addProperty(
+                        "thumbnail",
+                        "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/github.png"
+                    )
+                    addProperty(
+                        "link", "https://github.com/cosmostation/cosmostation-app-injection-example"
+                    )
+                    addProperty("type", "Github")
+                }
+                infos?.add(0, inject)
+                infos?.add(1, github)
+            }
             runCatching {
                 if (infos?.isNotEmpty() == true) {
                     updateView(infos)

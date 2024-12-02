@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -18,6 +19,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -580,13 +582,23 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
     }
 
     private fun setUpClickAction() {
-        binding.dropMoney.apply {
-            visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron || selectedChain is ChainCelestia)
-            setOnClickListener {
+        binding.apply {
+            dropMoney.visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron || selectedChain is ChainCelestia)
+            dropMoney.setOnClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
                     startActivity(this)
                 }
+            }
+
+            dydxTrade.visibleOrGone(selectedChain is ChainDydx)
+            dydxTrade.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=trade.opsdao.dydxchain")
+                    )
+                )
             }
         }
     }

@@ -206,7 +206,10 @@ class ApplicationViewModel(
                 if (isSupportCw721()) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
-                            cosmosFetcher?.cw721s = response.data
+                            val data = response.data["assets"].asJsonArray
+                            data.forEach {
+                                cosmosFetcher?.cw721s?.add(it.asJsonObject)
+                            }
                         }
 
                         is NetworkResult.Error -> {

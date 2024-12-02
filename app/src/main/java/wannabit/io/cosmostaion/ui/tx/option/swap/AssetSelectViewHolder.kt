@@ -21,9 +21,7 @@ class AssetSelectViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        chain: BaseChain?,
-        asset: TargetAsset,
-        balances: MutableList<CoinProto.Coin>?
+        chain: BaseChain?, asset: TargetAsset, balances: MutableList<CoinProto.Coin>?
     ) {
         binding.apply {
             tokenImg.setTokenImg(asset.image)
@@ -36,14 +34,17 @@ class AssetSelectViewHolder(
                     tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
 
                 }
+
                 TargetAssetType.CW20 -> {
                     tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
 
                 }
+
                 TargetAssetType.IBC -> {
                     tokenDescription.text = asset.denom
                     tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
                 }
+
                 else -> {
                     asset.description?.let { description ->
                         tokenDescription.text = description
@@ -57,20 +58,31 @@ class AssetSelectViewHolder(
 
             chain?.let { chain ->
                 BaseData.getAsset(chain.apiName, asset.denom)?.let { asset ->
-                    val amount = balances?.firstOrNull { it.denom == asset.denom }?.amount?.toBigDecimal()
-                        ?: run {
-                        BigDecimal.ZERO
+                    val amount =
+                        balances?.firstOrNull { it.denom == asset.denom }?.amount?.toBigDecimal()
+                            ?: run {
+                                BigDecimal.ZERO
+                            }
+
+                    if (amount > BigDecimal.ZERO) {
+                        val dpAmount = amount.movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        tokenBalance.text =
+                            formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+
+                        val price = BaseData.getPrice(asset.coinGeckoId)
+                        val value = price.multiply(amount).movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        tokenValue.text = formatAssetValue(value)
+                    } else {
+                        tokenBalance.text = ""
+                        tokenValue.text = ""
                     }
-
-                    val dpAmount =
-                        amount.movePointLeft(asset.decimals ?: 6).setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                    tokenBalance.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
-
-                    val price = BaseData.getPrice(asset.coinGeckoId)
-                    val value = price.multiply(amount).movePointLeft(asset.decimals ?: 6)
-                        .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                    tokenValue.text = formatAssetValue(value)
                 }
+
+            } ?: run {
+                tokenBalance.text = ""
+                tokenValue.text = ""
             }
         }
     }

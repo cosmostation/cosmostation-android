@@ -81,9 +81,11 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSelf
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
@@ -588,7 +590,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
     chains.add(ChainDesmos())
-//    chains.add(ChainDoravota())
+    chains.add(ChainDoravota())
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
@@ -599,10 +601,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
     chains.add(ChainFinschia())
-//    chains.add(ChainFirma())
+    chains.add(ChainFirma())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
-//    chains.add(ChainHaqqEvm())
+    chains.add(ChainHaqqEvm())
     chains.add(ChainHumansEvm())
     chains.add(ChainInjective())
     chains.add(ChainIris())
@@ -650,9 +652,11 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSaga())
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())
+    chains.add(ChainSeda())
     chains.add(ChainSei())
     chains.add(ChainSelf())
     chains.add(ChainSentinel())
+    chains.add(ChainSge())
     chains.add(ChainShentu())
     chains.add(ChainSommelier())
     chains.add(ChainSource())
@@ -666,7 +670,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUx())
-//    chains.add(ChainXion())
+    chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
     chains.add(ChainZetaEvm())
