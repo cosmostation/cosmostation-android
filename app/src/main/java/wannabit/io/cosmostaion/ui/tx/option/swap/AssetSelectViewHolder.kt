@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.option.swap
 
 import android.content.Context
-import android.text.TextUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -28,33 +27,7 @@ class AssetSelectViewHolder(
             tokenName.text = asset.symbol
 
             ibcBadge.visibleOrGone(asset.type == TargetAssetType.IBC)
-
-            when (asset.type) {
-                TargetAssetType.ERC20 -> {
-                    tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
-
-                }
-
-                TargetAssetType.CW20 -> {
-                    tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
-
-                }
-
-                TargetAssetType.IBC -> {
-                    tokenDescription.text = asset.denom
-                    tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
-                }
-
-                else -> {
-                    asset.description?.let { description ->
-                        tokenDescription.text = description
-                        tokenDescription.ellipsize = TextUtils.TruncateAt.END
-                    } ?: run {
-                        tokenDescription.text = asset.denom
-                        tokenDescription.ellipsize = TextUtils.TruncateAt.MIDDLE
-                    }
-                }
-            }
+            tokenDescription.text = asset.description
 
             chain?.let { chain ->
                 BaseData.getAsset(chain.apiName, asset.denom)?.let { asset ->

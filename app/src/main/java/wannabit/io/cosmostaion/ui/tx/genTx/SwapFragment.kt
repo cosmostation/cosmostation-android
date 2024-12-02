@@ -1092,7 +1092,7 @@ class SwapFragment : BaseTxFragment() {
             for (index in tempInputAssets.indices) {
                 assets.firstOrNull { it.denom == tempInputAssets[index].denom }?.let { asset ->
                     tempInputAssets[index].geckoId = asset.coinGeckoId
-                    tempInputAssets[index].description = asset.description
+                    tempInputAssets[index].description = asset.name
                     tempInputAssets[index].image = asset.image ?: ""
                     if (inputChain?.supportCosmos() == false && inputChain?.isSupportErc20() == true) {
                         tempInputAssets[index].balance =
@@ -1160,7 +1160,7 @@ class SwapFragment : BaseTxFragment() {
             for (index in tempOutputAssets.indices) {
                 assets.firstOrNull { it.denom == tempOutputAssets[index].denom }?.let { asset ->
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
-                    tempOutputAssets[index].description = asset.description
+                    tempOutputAssets[index].description = asset.name
                     tempOutputAssets[index].image = asset.image ?: ""
                     if (outputChain?.supportCosmos() == false && outputChain?.isSupportErc20() == true) {
                         tempOutputAssets[index].balance =

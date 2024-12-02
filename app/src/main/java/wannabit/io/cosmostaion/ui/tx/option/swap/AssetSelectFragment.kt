@@ -109,13 +109,39 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 selectTitle.text = getString(R.string.title_select_output_asset)
                 searchView.queryHint = getString(R.string.title_select_output_asset)
             }
-            searchAssets = swapAssets!!
-            initRecyclerView()
+            loading.visibility = View.VISIBLE
+            recycler.visibility = View.GONE
+            lifecycleScope.launch(Dispatchers.Default) {
+                val assetValues = mutableMapOf<String, BigDecimal>()
+                val assetAmounts = mutableMapOf<String, BigDecimal>()
+
+                swapAssets?.forEach { asset ->
+                    selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
+                        assetValues[asset.denom] = value
+                    }
+                    selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount ->
+                        assetAmounts[asset.denom] = amount
+                    }
+                }
+
+                val sortedAssets =
+                    swapAssets?.sortedWith(compareBy<TargetAsset> { it.denom != "ATOM" }
+                        .thenByDescending { asset -> assetValues[asset.denom] ?: 0.0 }
+                        .thenByDescending { asset -> assetAmounts[asset.denom] ?: 0.0 }
+                        .thenBy { it.symbol })
+                sortedAssets?.let { searchAssets.addAll(it) }
+
+                withContext(Dispatchers.Main) {
+                    initRecyclerView()
+                }
+            }
         }
     }
 
     private fun initRecyclerView() {
+        binding.loading.visibility = View.GONE
         binding.recycler.apply {
+            visibility = View.VISIBLE
             assetSelectAdapter = AssetSelectAdapter(selectedChain, swapBalance)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
