@@ -17,7 +17,7 @@
 <details open>
 <summary><h2 style='display: inline; font-size: 24px'>Key Features</h2></summary>
 <br>
-Non-custodial tendermint-based mobile walle application designed for managing and staking Cosmos-based assets. It supports various Cosmos SDK-based blockchains, enabling users to store, send, receive, and stake their tokens directly from their mobile devices. The wallet features a user-friendly interface, real-time transaction history, and secure private key management. It also provides integration with decentralized applications
+Non-custodial tendermint-based mobile wallet application designed for managing and staking Cosmos-based assets. It supports various Cosmos SDK-based blockchains, enabling users to store, send, receive, and stake their tokens directly from their mobile devices. The wallet features a user-friendly interface, real-time transaction history, and secure private key management. It also provides integration with decentralized applications
 
 1. Fully open-source
 2. We respect your privacy and ensure that no user data is collected, except for push notifications to keep you informed.
@@ -186,7 +186,7 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/chain4energy/resource/chain_chain4energy.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">CAHIN4ENERGY</span></td>
+    <td><span style="font-weight:bold">CHAIN4ENERGY</span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
@@ -875,7 +875,7 @@ You can download each store.
 <br>
 
 <details >
-<summary><h2 style='display: inline; font-size: 24px'>Supporting Chains (Ethreum & L1, L2)</h2></summary>
+<summary><h2 style='display: inline; font-size: 24px'>Supporting Chains (Ethereum & L1, L2)</h2></summary>
 <br>
 <table border="1">
   <tr>
