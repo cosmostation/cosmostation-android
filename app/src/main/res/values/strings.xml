@@ -744,7 +744,7 @@
     <string name="title_language_kr" translatable="false">한국어(대한민국)</string>
     <string name="title_language_ja" translatable="false">日本語(日本)</string>
 
-    // currecny
+    // currency
     <string-array name="currency_unit_array" translatable="false">
         <item>USD</item>
         <item>EUR</item>
