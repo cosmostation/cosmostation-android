@@ -24,9 +24,9 @@ class ChainComdex : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ucmdx"
     override var accountPrefix: String = "comdex"
-    override var grpcHost: String = "grpc-comdex.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-comdex.cosmostation.io/"
+    override var grpcHost: String = "comdex-grpc.lavenderfive.com"
+    override var lcdUrl: String = "https://rest.comdex.one/"
 }

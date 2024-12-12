@@ -628,7 +628,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
-    chains.add(ChainMilkyway ())
+//    chains.add(ChainMilkyway ())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
