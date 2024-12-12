@@ -10,6 +10,7 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAaron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
@@ -58,6 +59,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
@@ -505,7 +507,7 @@ open class BaseChain : Parcelable {
     }
 
     fun votingThreshold(): BigDecimal? {
-        return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == true) {
+        return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == false) {
             getChainListParam()?.get("voting_threshold")?.asString?.toBigDecimal()
         } else {
             return BigDecimal.ZERO
@@ -559,6 +561,7 @@ open class BaseChain : Parcelable {
 fun allChains(): MutableList<BaseChain> {
     var chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
+    chains.add(ChainAaron())
     chains.add(ChainAgoric564())
     chains.add(ChainAgoric118())
     chains.add(ChainAiozEvm())
@@ -625,6 +628,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
+    chains.add(ChainMilkyway ())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
