@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosDetailFragment.DetailPagerAdapter
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 
 class EvmDetailFragment : Fragment() {
@@ -126,23 +127,24 @@ class EvmDetailFragment : Fragment() {
 
     private fun initTab() {
         binding.apply {
+            btnAddToken.visibility = View.VISIBLE
+            val tableTitles = mutableListOf<String>()
+            tableTitles.add("Assets")
+            tableTitles.add("Receive")
+            if (!selectedEvmChain.isTestnet) tableTitles.add("History")
+            if (selectedEvmChain.isSupportMobileDapp()) tableTitles.add("Ecosystem")
+            tableTitles.add("About")
+
             detailPagerAdapter = DetailPagerAdapter(
-                this@EvmDetailFragment, selectedEvmChain
+                this@EvmDetailFragment, tableTitles, selectedEvmChain
             )
             viewPager.adapter = detailPagerAdapter
             viewPager.offscreenPageLimit = 1
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
 
-            btnAddToken.visibility = View.VISIBLE
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                tab.text = when {
-                    position == 0 -> "Assets"
-                    position == 1 -> "Receive"
-                    position == 2 -> "History"
-                    selectedEvmChain.isSupportMobileDapp() && position == 3 -> "Ecosystem"
-                    else -> "About"
-                }
+                tab.text = tableTitles[position]
             }.attach()
 
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -235,31 +237,33 @@ class EvmDetailFragment : Fragment() {
     }
 
     class DetailPagerAdapter(
-        fragment: Fragment, selectedEvmChain: BaseChain
+        fragment: Fragment,
+        private val tabTitles: List<String>,
+        private val selectedEvmChain: BaseChain
     ) : FragmentStateAdapter(fragment) {
-        private val fragments = mutableListOf<Fragment>()
 
-        init {
-            fragments.add(AssetFragment.newInstance(selectedEvmChain))
-            fragments.add(EvmReceiveFragment.newInstance(selectedEvmChain))
-            fragments.add(EvmHistoryFragment.newInstance(selectedEvmChain))
-            fragments.add(EvmAboutFragment.newInstance(selectedEvmChain))
-
-            if (selectedEvmChain.isSupportMobileDapp()) {
-                fragments.add(3, EvmEcoSystemFragment.newInstance(selectedEvmChain))
-            }
-        }
+        private val fragmentCache = mutableMapOf<Int, Fragment>()
 
         override fun getItemCount(): Int {
-            return fragments.size
+            return tabTitles.size
         }
 
         override fun createFragment(position: Int): Fragment {
-            return fragments[position]
+            val fragment = when (tabTitles[position]) {
+                "Assets" -> AssetFragment.newInstance(selectedEvmChain)
+                "Receive" -> EvmReceiveFragment.newInstance(selectedEvmChain)
+                "History" -> EvmHistoryFragment.newInstance(selectedEvmChain)
+                "Ecosystem" -> EvmEcoSystemFragment.newInstance(selectedEvmChain)
+                "About" -> EvmAboutFragment.newInstance(selectedEvmChain)
+                else -> throw IllegalArgumentException("Invalid tab position")
+            }
+            fragmentCache[position] = fragment
+            return fragment
         }
 
         fun getAssetFragmentInstance(): AssetFragment? {
-            return fragments.firstOrNull { it is AssetFragment } as? AssetFragment
+            val position = tabTitles.indexOf("Assets")
+            return fragmentCache[position] as? AssetFragment
         }
     }
 
