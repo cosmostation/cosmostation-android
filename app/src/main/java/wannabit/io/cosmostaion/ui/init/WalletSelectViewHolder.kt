@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -236,12 +236,7 @@ class WalletSelectViewHolder(
             chainName.text = chain.name.uppercase()
             chainTypeBadge.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
-                chainAddress.text = chain.mainAddress
-                chainAddress.visibility = View.VISIBLE
-                chainEvmAddress.visibility = View.GONE
-
-            } else if (chain.isEvmCosmos()) {
+            if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
                 chainEvmAddress.text = chain.evmAddress
                 chainAddress.visibility = View.INVISIBLE
@@ -251,7 +246,13 @@ class WalletSelectViewHolder(
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
             } else {
-                chainAddress.text = chain.address
+                chainAddress.text = if (chain is ChainBitCoin84) {
+                    chain.mainAddress
+                } else if (chain.isSupportErc20()) {
+                    chain.evmAddress
+                } else {
+                    chain.address
+                }
                 chainAddress.visibility = View.VISIBLE
                 chainEvmAddress.visibility = View.GONE
 
@@ -319,7 +320,7 @@ class WalletSelectViewHolder(
                             chainDenom.text = chain.coinSymbol
                         }
 
-                    } else {
+                    } else if (chain.supportCosmos()) {
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             val availableAmount =
                                 chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
@@ -327,6 +328,15 @@ class WalletSelectViewHolder(
                             chainBalance.text =
                                 formatAmount(availableAmount.toString(), asset.decimals ?: 6)
                             chainDenom.text = asset.symbol
+                            chainDenom.setTextColor(asset.assetColor())
+                        }
+
+                    } else {
+                        val availableAmount = chain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
+                            ?.setScale(18, RoundingMode.DOWN)
+                        chainBalance.text = formatAmount(availableAmount.toString(), 18)
+                        chainDenom.text = chain.coinSymbol
+                        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             chainDenom.setTextColor(asset.assetColor())
                         }
                     }

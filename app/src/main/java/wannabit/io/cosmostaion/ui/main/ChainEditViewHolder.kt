@@ -216,6 +216,8 @@ class ChainEditViewHolder(
             } else {
                 chainAddress.text = if (chain is ChainBitCoin84) {
                     chain.mainAddress
+                } else if (chain.isSupportErc20()) {
+                    chain.evmAddress
                 } else {
                     chain.address
                 }
