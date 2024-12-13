@@ -70,7 +70,7 @@ object PushManager {
                 if (chain.supportCosmos()) {
                     val pushAccount = PushAccount(chain.apiName, chain.address)
                     pushAccounts.add(pushAccount)
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     val pushAccount = PushAccount(chain.apiName, chain.evmAddress)
                     pushAccounts.add(pushAccount)
                 }

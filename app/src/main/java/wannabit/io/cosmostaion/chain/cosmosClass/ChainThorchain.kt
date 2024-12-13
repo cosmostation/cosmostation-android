@@ -27,5 +27,5 @@ class ChainThorchain : BaseChain(), Parcelable {
     override var stakeDenom: String = "rune"
     override var accountPrefix: String = "thor"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://thornode.thorchain.liquify.com/"
+    override var lcdUrl: String = "https://thornode.ninerealms.com/"
 }

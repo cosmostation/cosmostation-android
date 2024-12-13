@@ -417,7 +417,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
 
                     else -> {
-                        if (fromChain.isSupportErc20()) {
+                        if (fromChain.supportEvm) {
                             val evmGasTitle = listOf(
                                 getString(R.string.str_low),
                                 getString(R.string.str_average),

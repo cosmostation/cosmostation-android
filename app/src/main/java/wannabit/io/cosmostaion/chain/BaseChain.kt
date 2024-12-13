@@ -10,6 +10,7 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAaron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
@@ -34,6 +35,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainElys
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
@@ -58,6 +60,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
@@ -92,6 +95,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
@@ -119,6 +123,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
@@ -135,6 +141,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -505,7 +512,7 @@ open class BaseChain : Parcelable {
     }
 
     fun votingThreshold(): BigDecimal? {
-        return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == true) {
+        return if (getChainListParam()?.get("voting_threshold")?.isJsonNull == false) {
             getChainListParam()?.get("voting_threshold")?.asString?.toBigDecimal()
         } else {
             return BigDecimal.ZERO
@@ -559,6 +566,7 @@ open class BaseChain : Parcelable {
 fun allChains(): MutableList<BaseChain> {
     var chains = mutableListOf<BaseChain>()
     chains.add(ChainCosmos())
+    chains.add(ChainAaron())
     chains.add(ChainAgoric564())
     chains.add(ChainAgoric118())
     chains.add(ChainAiozEvm())
@@ -594,6 +602,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
+    chains.add(ChainElys())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
     chains.add(ChainFantom())
@@ -625,6 +634,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
+    chains.add(ChainMilkyway ())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
@@ -647,8 +657,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPryzm())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
+    chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
     chains.add(ChainRizon())
+    chains.add(ChainRouterchainEvm())
     chains.add(ChainSaga())
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())
@@ -664,6 +676,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStargaze())
     chains.add(ChainStride())
     chains.add(ChainSui())
+    chains.add(ChainSynternet())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
@@ -684,6 +697,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainStroyTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

@@ -165,7 +165,7 @@ class CosmosDetailFragment : Fragment() {
                 accountEvmAddress.visibility = View.INVISIBLE
                 accountAddress.text = selectedChain.address
 
-                if (selectedChain.isSupportErc20()) {
+                if (selectedChain.isEvmCosmos()) {
                     accountAddress.text = selectedChain.address
                     accountEvmAddress.text = selectedChain.evmAddress
                     accountAddress.visibility = View.INVISIBLE
@@ -174,11 +174,7 @@ class CosmosDetailFragment : Fragment() {
                     handler.postDelayed(starEvmAddressAnimation, 5000)
 
                 } else {
-                    if (selectedChain.isSupportErc20()) {
-                        accountAddress.text = selectedChain.evmAddress
-                    } else {
-                        accountAddress.text = selectedChain.address
-                    }
+                    accountAddress.text = selectedChain.address
                     accountEvmAddress.visibility = View.INVISIBLE
                 }
 
@@ -365,7 +361,7 @@ class CosmosDetailFragment : Fragment() {
                     )
 
                 } else {
-                    if (selectedChain.isSupportErc20()) {
+                    if (selectedChain.supportEvm) {
                         QrCodeEvmFragment.newInstance(selectedChain).show(
                             requireActivity().supportFragmentManager,
                             QrCodeEvmFragment::class.java.name
@@ -381,7 +377,7 @@ class CosmosDetailFragment : Fragment() {
             }
 
             accountValueLayout.setOnClickListener {
-                if (selectedChain.isSupportErc20()) {
+                if (selectedChain.supportEvm) {
                     QrCodeEvmFragment.newInstance(selectedChain).show(
                         requireActivity().supportFragmentManager, QrCodeEvmFragment::class.java.name
                     )

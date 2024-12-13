@@ -827,7 +827,7 @@ class DappActivity : BaseActivity() {
                             selectChain = chain
                             val accountJson = JSONObject()
                             accountJson.put("isKeystone", false)
-                            accountJson.put("isEthermint", selectChain?.isSupportErc20())
+                            accountJson.put("isEthermint", selectChain?.supportEvm)
                             accountJson.put("isLedger", false)
                             accountJson.put("address", selectChain?.address)
                             accountJson.put("name", account.name)
@@ -980,7 +980,7 @@ class DappActivity : BaseActivity() {
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
                     val address =
-                        allChains?.firstOrNull { chain -> chain.isSupportErc20() }?.evmAddress
+                        allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
                     appToWebResult(
                         messageJson, JSONArray(listOf(address)), messageId
                     )
@@ -988,14 +988,14 @@ class DappActivity : BaseActivity() {
 
                 "wallet_switchEthereumChain" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm }?.distinct()
+                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
 
-                        if (evmChainIds?.contains(chainId) == true) {
+                        if (evmChainIds?.contains(chainId.uppercase()) == true) {
                             currentEvmChainId = chainId
                             selectEvmChain =
-                                allChains?.firstOrNull { it.chainIdEvm == currentEvmChainId }
+                                allChains?.firstOrNull { it.chainIdEvm.uppercase() == currentEvmChainId?.uppercase() }
                             rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc()
                                 ?: selectEvmChain?.evmRpcURL
                             web3j = Web3j.build(HttpService(rpcUrl))
@@ -1003,7 +1003,7 @@ class DappActivity : BaseActivity() {
                             emitToWeb(chainId)
 
                             val chainNetwork =
-                                allChains?.firstOrNull { it.chainIdEvm == chainId }?.name
+                                allChains?.firstOrNull { it.chainIdEvm.uppercase() == chainId.uppercase() }?.name
                             withContext(Dispatchers.Main) {
                                 makeToast("Connected to $chainNetwork network")
                             }
@@ -1679,7 +1679,7 @@ class DappActivity : BaseActivity() {
     private fun pubKeyType(): String {
         return if (selectChain is ChainInjective) {
             INJECTIVE_KEY_TYPE_PUBLIC
-        } else if (selectChain?.isSupportErc20() == true) {
+        } else if (selectChain?.supportEvm == true) {
             ETHERMINT_KEY_TYPE_PUBLIC
         } else {
             COSMOS_KEY_TYPE_PUBLIC

@@ -1094,7 +1094,7 @@ class SwapFragment : BaseTxFragment() {
                     tempInputAssets[index].geckoId = asset.coinGeckoId
                     tempInputAssets[index].description = asset.name
                     tempInputAssets[index].image = asset.image ?: ""
-                    if (inputChain?.supportCosmos() == false && inputChain?.isSupportErc20() == true) {
+                    if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
                         tempInputAssets[index].balance =
                             inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
                     } else {
@@ -1162,7 +1162,7 @@ class SwapFragment : BaseTxFragment() {
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
                     tempOutputAssets[index].description = asset.name
                     tempOutputAssets[index].image = asset.image ?: ""
-                    if (outputChain?.supportCosmos() == false && outputChain?.isSupportErc20() == true) {
+                    if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
                         tempOutputAssets[index].balance =
                             outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
                     } else {
@@ -1193,7 +1193,7 @@ class SwapFragment : BaseTxFragment() {
         } else if (inputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (inputChain?.supportCosmos() == false && inputChain?.isSupportErc20() == true) {
+            if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
                 inputAsset.balance = inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 inputAsset.balance =
@@ -1208,7 +1208,7 @@ class SwapFragment : BaseTxFragment() {
         } else if (outputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (outputChain?.supportCosmos() == false && outputChain?.isSupportErc20() == true) {
+            if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
                 outputAsset.balance = outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 outputAsset.balance = outputChain?.cosmosFetcher()?.balanceAmount(outputAsset.denom)

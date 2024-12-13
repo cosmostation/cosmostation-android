@@ -13,7 +13,7 @@ data class Token(
     val description: String,
     val decimals: Int,
     val image: String,
-    val coinGeckoId: String,
+    val coinGeckoId: String?,
     val wallet_preload: Boolean? = false
 ) : Parcelable {
 
