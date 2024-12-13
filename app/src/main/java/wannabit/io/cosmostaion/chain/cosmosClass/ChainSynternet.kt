@@ -11,22 +11,21 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainIxo : BaseChain(), Parcelable {
+class ChainSynternet : BaseChain(), Parcelable {
 
-    override var name: String = "Impact"
-    override var tag: String = "ixo118"
-    override var logo: Int = R.drawable.chain_ixo
-    override var swipeLogo: Int = R.drawable.chain_swipe_ixo
-    override var apiName: String = "ixo"
+    override var name: String = "Synternet"
+    override var tag: String = "synternet118"
+    override var logo: Int = R.drawable.chain_synternet
+    override var apiName: String = "synternet"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var stakeDenom: String = "uixo"
-    override var accountPrefix: String = "ixo"
-    override var grpcHost: String = "grpc-ixo.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-ixo.cosmostation.io/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var stakeDenom: String = "usynt"
+    override var accountPrefix: String = "synt"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://api.synternet.com/"
 }

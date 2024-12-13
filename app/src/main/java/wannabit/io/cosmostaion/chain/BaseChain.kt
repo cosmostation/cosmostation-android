@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainElys
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
@@ -94,6 +95,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
@@ -121,6 +123,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
@@ -597,6 +601,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
+    chains.add(ChainElys())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
     chains.add(ChainFantom())
@@ -628,7 +633,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
-//    chains.add(ChainMilkyway ())
+    chains.add(ChainMilkyway ())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
@@ -651,8 +656,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPryzm())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
+    chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
     chains.add(ChainRizon())
+    chains.add(ChainRouterchainEvm())
     chains.add(ChainSaga())
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())
@@ -668,6 +675,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStargaze())
     chains.add(ChainStride())
     chains.add(ChainSui())
+    chains.add(ChainSynternet())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
