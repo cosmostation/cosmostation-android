@@ -42,6 +42,7 @@ import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -1018,7 +1019,7 @@ class SwapFragment : BaseTxFragment() {
     private suspend fun loadAuth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.supportCosmos()) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub =
                 QueryGrpc.newBlockingStub(managedChannel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request =
@@ -1041,12 +1042,13 @@ class SwapFragment : BaseTxFragment() {
     private suspend fun loadBalance(
         channel: ManagedChannel?, chain: BaseChain
     ): MutableList<CoinProto.Coin> {
-        return if (chain.supportCosmos()) {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)
                 .setAddress(chain.address).build()
             stub.allBalances(request).balancesList
+
         } else {
             RetrofitInstance.lcdApi(chain).lcdBalanceInfo(chain.address, "2000").balance()
         }
