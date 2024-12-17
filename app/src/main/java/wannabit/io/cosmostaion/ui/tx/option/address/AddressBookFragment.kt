@@ -296,6 +296,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 }
                             }
                     }
+
+                    SendAssetType.NAMADA_COIN -> {
+
+                    }
                 }
                 sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
@@ -376,6 +380,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                             segmentView.visibility = View.GONE
                             evmRecycler.visibility = View.GONE
+                        }
+
+                        SendAssetType.NAMADA_COIN -> {
+
                         }
                     }
                 }

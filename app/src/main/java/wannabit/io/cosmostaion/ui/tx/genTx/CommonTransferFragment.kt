@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
+import com.ledger.live.ble.extension.toHexString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,7 +41,9 @@ import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.NAMADA_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils.convertBits
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -52,6 +56,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.model.req.WasmIbcSendMsg
@@ -64,7 +69,10 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCommonTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BondMsg
+import wannabit.io.cosmostaion.sign.BondProps
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.WrapperTx
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
@@ -234,7 +242,8 @@ class CommonTransferFragment : BaseTxFragment() {
                         availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                         if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                             if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                                val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                                val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
+                                    ?: BigDecimal.ZERO
                                 availableAmount = if (feeAmount >= availableAmount) {
                                     BigDecimal.ZERO
                                 } else {
@@ -251,11 +260,13 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
+                    availableAmount =
+                        fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
 
                     if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                         if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                            val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                            val feeAmount =
+                                cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
                             availableAmount = if (feeAmount >= availableAmount) {
                                 BigDecimal.ZERO
                             } else {
@@ -320,6 +331,23 @@ class CommonTransferFragment : BaseTxFragment() {
                             }
                         }
                     }
+                }
+
+                SendAssetType.NAMADA_COIN -> {
+                    (fromChain as ChainNamada).apply {
+                        toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                        availableAmount = namadaFetcher?.namadaBalanceAmount(toSendDenom)
+                        if (toSendDenom == NAMADA_MAIN_DENOM) {
+                            availableAmount = availableAmount.subtract(BigDecimal("50000"))
+                        }
+                        if (availableAmount <= BigDecimal.ZERO) {
+                            availableAmount = BigDecimal.ZERO
+                        }
+                    }
+                    transferImg.setTokenImg(toSendAsset?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendAsset?.symbol
+                    )
                 }
 
                 else -> {}
@@ -414,6 +442,25 @@ class CommonTransferFragment : BaseTxFragment() {
                         selectedFeePosition = 0
                         btnFee.visibility = View.GONE
                         return
+                    }
+
+                    TransferStyle.NAMADA_STYLE -> {
+                        feeSegment.visibility = View.VISIBLE
+                        evmFeeSegment.visibility = View.GONE
+                        val namadaGasTitle = listOf(
+                            "Default"
+                        )
+                        for (i in namadaGasTitle.indices) {
+                            val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                            feeSegment.addView(
+                                segmentView.root,
+                                i,
+                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                            )
+                            segmentView.btnTitle.text = namadaGasTitle[i]
+                        }
+                        feeSegment.setPosition(0, false)
+                        selectedFeePosition = 0
                     }
 
                     else -> {
@@ -562,6 +609,10 @@ class CommonTransferFragment : BaseTxFragment() {
 
             } else if (sendAssetType == SendAssetType.BIT_COIN) {
                 transferStyle = TransferStyle.BIT_COIN_STYLE
+                memoView.visibility = View.VISIBLE
+
+            } else if (sendAssetType == SendAssetType.NAMADA_COIN) {
+                transferStyle = TransferStyle.NAMADA_STYLE
                 memoView.visibility = View.VISIBLE
             }
         }
@@ -735,6 +786,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
+                    SendAssetType.NAMADA_COIN -> {
+                        (fromChain as ChainNamada).apply {
+                            val price = BaseData.getPrice(fromChain.coinGeckoId)
+                            val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
+                            val value = price.multiply(dpAmount)
+                            sendAmount.text = formatAmount(dpAmount.toPlainString(), 8)
+                            sendDenom.text = fromChain.coinSymbol
+                            sendValue.text = formatAssetValue(value)
+                        }
+                    }
+
                     else -> {}
                 }
                 txSimulate()
@@ -806,6 +868,21 @@ class CommonTransferFragment : BaseTxFragment() {
                         val value = price.multiply(amount)
 
                         feeAmount.text = formatAmount(amount.toPlainString(), 8)
+                        feeValue.text = formatAssetValue(value)
+                    }
+                }
+
+                TransferStyle.NAMADA_STYLE -> {
+                    BaseData.getAsset(fromChain.apiName, toSendDenom)?.let { asset ->
+                        feeTokenImg.setTokenImg(asset)
+                        feeToken.text = asset.symbol
+
+                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val amount = BigDecimal("50000").movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.UP)
+                        val value = price.multiply(amount)
+
+                        feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
                         feeValue.text = formatAssetValue(value)
                     }
                 }
@@ -1219,7 +1296,8 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun onBindSendMsg(): MutableList<Any> {
         return if (fromChain is ChainThorchain) {
-            val fromAddressByteArray = convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
+            val fromAddressByteArray =
+                convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
             val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
 
             val sendCoin =
@@ -1304,6 +1382,123 @@ class CommonTransferFragment : BaseTxFragment() {
                     TransferStyle.BIT_COIN_STYLE -> {
                         (fromChain as ChainBitCoin84).apply {
                             txViewModel.bitSendBroadcast(this, bitTxHex)
+                        }
+                    }
+
+                    TransferStyle.NAMADA_STYLE -> {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            val bondProps = BondProps(
+                                "tnam1qrhphgp3kncqfha0kc40fnf4yn9hauf2csfgqpze",
+                                "tnam1qygyng6guhgj7jy4cfe2pxmsle6sakcvqv3cnlg6",
+                                BigDecimal("0.1")
+                            )
+                            val encodedBond = bondProps.serialize()
+
+                            val wrapper = WrapperTx(
+                                "tnam1q9gr66cvu4hrzm0sd5kmlnjje82gs3xlfg3v6nu7",
+                                BigDecimal("0.000001"),
+                                BigDecimal("50000"),
+                                "namada.5f5de2dd1b88cba30586420",
+                                "tpknam1qplgtrep8r962z8cwxz3n7w6ygff6p6dan2jvjcjendudyv7urvqyv68fty"
+                            )
+                            val encodedWrapperArgs = wrapper.serialize()
+//                            val jsonData = Gson().toJson(test)
+//                            val queryData = ByteString.copyFromUtf8(jsonData)
+//                            val ddd = org.bouncycastle.util.encoders.Base64.toBase64String(jsonData.toByteArray())
+//                            val tes1t = java.util.Base64.getEncoder().encodeToString(queryData.toByteArray())
+
+//                            val args = GlobalArg(
+//                                expiration = "2024-12-11T23:59:59Z",
+//                                chain_id = "namada.5f5de2dd1b88cba30586420"
+//                            )
+//
+//                            // Create a Test object using the factory method
+//                            val bond = Bond.new(
+//                                validator = "tnam1qygyng6guhgj7jy4cfe2pxmsle6sakcvqv3cnlg6",
+//                                amount = 1000L,
+//                                source = "tnam1qrhphgp3kncqfha0kc40fnf4yn9hauf2csfgqpze",
+//                                args = args
+//                            )
+//                            val jsonData = Gson().toJson(test1)
+//                            Log.e("test1234 : ", jsonData)
+//                            val encode = org.bouncycastle.util.encoders.Base64.toBase64String(jsonData.toByteArray())
+//                            Log.e("Test12345 : ", encode)
+
+//                            val args = GlobalArgs(
+//                                expiration = "2024-12-6T17:00:00Z",
+//                                code_hash = "490cf419bdbffe616c6aa6c72d38064e350ee65fb04d92472ccf285aec6844b6",
+//                                chain_id = "namada.5f5de2dd1b88cba30586420"
+//                            )
+//
+//                            val validator = "tnam1qygyng6guhgj7jy4cfe2pxmsle6sakcvqv3cnlg6"
+//                            val amount = "1000"
+//                            val source = "tnam1qrhphgp3kncqfha0kc40fnf4yn9hauf2csfgqpze"
+//
+//                            val bondTx = Bond.new(
+//                                validator = validator,
+//                                amount = amount,
+//                                source = source,
+//                                args = args
+//                            )
+//                            val fee = "0.001"
+//                            val token = "tnam1q9gr66cvu4hrzm0sd5kmlnjje82gs3xlfg3v6nu7"
+//                            val feePayer = "tnam1qrhphgp3kncqfha0kc40fnf4yn9hauf2csfgqpze"
+//                            val gasLimit = "200000"
+//                            val bondWithFee = bondTx.attachFee(fee, token, feePayer, gasLimit)
+//                            val signatureBytes = generateSignature(bondWithFee.toBytes(), fromChain as ChainNamada)
+//
+//                            Log.e("test123456 : ", bondWithFee.payload().toString())
+//
+//                            val signer = PublicKey(fromChain.publicKey!!.toHex())
+//                            val signature = Signature(signatureBytes)
+//                            val signedTx = bondTx.attachSignatures(signer, signature)
+//
+//                            val txBytes = signedTx.toBytes()
+//                            val txBytesBase64 = Base64.encodeToString(txBytes, Base64.DEFAULT)
+//                            Log.e("Test12345 : ", txBytesBase64.toString())
+//                            val validator = Address("validator_address")
+//                            val amount = "1000" // token::Amount in Rust
+//                            val source = Address("source_address")
+//                            val globalArgs = GlobalArgs(
+//                                expiration = "2024-12-31T23:59:59Z",
+//                                codeHash = "code_hash_example",
+//                                chainId = "chain_id_example"
+//                            )
+//
+//                            // Bond 트랜잭션 생성
+//                            val bond = Bond.new(validator, amount, source, globalArgs)
+//
+//                            // 서명 추가
+//                            val signer = PublicKey(fromChain.publicKey!!.toHex())
+//                            val signature = Signature(
+//                                generateSignature(
+//                                    bond.toBytes(),
+//                                    fromChain as ChainNamada
+//                                )
+//                            )
+//                            val signedBond = bond.attachSignatures(signer, signature)
+//
+//                            // 수수료 추가
+//                            val fee =
+//                                Fee(amountPerGasUnit = "0.01", token = "token_address_example")
+//                            val gasLimit = GasLimit(20000)
+//                            val bondWithFee = signedBond.attachFee(fee, signer, gasLimit)
+//
+//                            // 직렬화 및 검증
+//                            val serializedTx = bondWithFee.toBytes()
+//                            val request =
+//                                org.bouncycastle.util.encoders.Base64.toBase64String(serializedTx)
+//                            Log.e("Test12345 : ", request)
+
+
+//                            val suiToHistoryRequest = JsonRpcRequest(
+//                                method = "broadcast_tx_sync", params = listOf(txBytesBase64)
+//                            )
+//                            val suiToHistoryResponse = jsonRpcResponse((fromChain as ChainNamada).mainUrl, suiToHistoryRequest)
+//                            val suiToHistoryJsonObject = Gson().fromJson(
+//                                suiToHistoryResponse.body?.string(), JsonObject::class.java
+//                            )
+//                            Log.e("Test12345 : ", suiToHistoryJsonObject.toString())
                         }
                     }
 
@@ -1558,6 +1753,6 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN }
-enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, BIT_COIN_STYLE }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, NAMADA_COIN }
+enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, BIT_COIN_STYLE, NAMADA_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }

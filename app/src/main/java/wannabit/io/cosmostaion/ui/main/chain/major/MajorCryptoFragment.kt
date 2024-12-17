@@ -21,11 +21,15 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.NAMADA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.res.Coin
+import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
@@ -45,6 +49,12 @@ class MajorCryptoFragment : Fragment() {
     private var searchSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var suiNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var searchSuiNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private val stakeCoins = mutableListOf<Coin>()
+    private val searchStakeCoins = mutableListOf<Coin>()
+    private val nativeCoins = mutableListOf<Coin>()
+    private val searchNativeCoins = mutableListOf<Coin>()
+    private val ibcCoins = mutableListOf<Coin>()
+    private val searchIbcCoins = mutableListOf<Coin>()
 
     private var isClickable = true
 
@@ -81,11 +91,7 @@ class MajorCryptoFragment : Fragment() {
             arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable(
-                "selectedChain" + ""
-            ) as? BaseChain)?.let {
-                selectedChain = it
-            }
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let { selectedChain = it }
         }
         binding.apply {
             dropMoney.visibility = View.GONE
@@ -99,6 +105,12 @@ class MajorCryptoFragment : Fragment() {
             searchSuiBalances.clear()
             suiNativeBalances.clear()
             searchSuiNativeBalances.clear()
+            stakeCoins.clear()
+            searchStakeCoins.clear()
+            nativeCoins.clear()
+            searchNativeCoins.clear()
+            ibcCoins.clear()
+            searchIbcCoins.clear()
 
             if (selectedChain is ChainSui) {
                 (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
@@ -132,11 +144,58 @@ class MajorCryptoFragment : Fragment() {
                     }
                 }
 
-            } else {
+            } else if (selectedChain is ChainBitCoin84) {
                 (selectedChain as ChainBitCoin84).btcFetcher()?.let {
                     withContext(Dispatchers.Main) {
                         initRecyclerView()
                         binding.searchBar.visibility = View.GONE
+                    }
+                }
+
+            } else {
+                (selectedChain as ChainNamada).namadaFetcher()?.let { fetcher ->
+                    fetcher.namadaBalances?.forEach { coin ->
+                        BaseData.getAsset(selectedChain.apiName, coin["tokenAddress"].asString)?.type?.let { coinType ->
+                            when (coinType) {
+                                "staking, native" -> {
+                                    if (coin["tokenAddress"].asString == NAMADA_MAIN_DENOM) {
+                                        stakeCoins.add(
+                                            Coin(
+                                                coin["tokenAddress"].asString, coin["balance"].asString, CoinType.STAKE
+                                            )
+                                        )
+                                    } else {
+                                        nativeCoins.add(
+                                            Coin(
+                                                coin["tokenAddress"].asString, coin["balance"].asString, CoinType.NATIVE
+                                            )
+                                        )
+                                    }
+                                }
+
+                                "ibc" -> {
+                                    ibcCoins.add(Coin(coin["tokenAddress"].asString, coin["balance"].asString, CoinType.IBC))
+                                }
+                            }
+                        }
+                    }
+                    if (stakeCoins.none { it.denom == NAMADA_MAIN_DENOM }) {
+                        stakeCoins.add(Coin(NAMADA_MAIN_DENOM, "0", CoinType.STAKE))
+                    }
+                    searchStakeCoins.addAll(stakeCoins)
+
+                    nativeCoins.sortWith(compareByDescending {
+                        fetcher.namadaBalanceValue(it.denom)
+                    })
+                    searchNativeCoins.addAll(nativeCoins)
+                    ibcCoins.sortWith(compareByDescending {
+                        fetcher.namadaBalanceValue(it.denom)
+                    })
+                    searchIbcCoins.addAll(ibcCoins)
+
+                    withContext(Dispatchers.Main) {
+                        initRecyclerView()
+                        initSearchView(mutableListOf(), mutableListOf())
                     }
                 }
             }
@@ -146,7 +205,7 @@ class MajorCryptoFragment : Fragment() {
     private fun initRecyclerView() {
         if (isAdded) {
             majorCryptoAdapter = MajorCryptoAdapter(
-                requireContext(), selectedChain, searchSuiBalances, searchSuiNativeBalances
+                requireContext(), selectedChain, searchSuiBalances, searchSuiNativeBalances, searchStakeCoins, searchNativeCoins, searchIbcCoins
             )
             binding.recycler.apply {
                 setHasFixedSize(true)
@@ -157,8 +216,10 @@ class MajorCryptoFragment : Fragment() {
                 majorCryptoAdapter.setOnItemClickListener { chain, denom ->
                     val sendAssetType = if (chain is ChainSui) {
                         SendAssetType.SUI_COIN
-                    } else {
+                    } else if (chain is ChainBitCoin84) {
                         SendAssetType.BIT_COIN
+                    } else {
+                        SendAssetType.NAMADA_COIN
                     }
 
                     if (chain is ChainBitCoin84) {
@@ -276,12 +337,22 @@ class MajorCryptoFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    if (selectedChain is ChainSui) {
-                        ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
-                    } else {
-                        ApplicationViewModel.shared.loadBtcData(
-                            account.id, selectedChain as ChainBitCoin84, false
-                        )
+                    when (selectedChain) {
+                        is ChainSui -> {
+                            ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                        }
+
+                        is ChainBitCoin84 -> {
+                            ApplicationViewModel.shared.loadBtcData(
+                                account.id, selectedChain as ChainBitCoin84, false
+                            )
+                        }
+
+                        else -> {
+                            ApplicationViewModel.shared.loadNamadaData(
+                                account.id, selectedChain as ChainNamada, false
+                            )
+                        }
                     }
                 }
             }

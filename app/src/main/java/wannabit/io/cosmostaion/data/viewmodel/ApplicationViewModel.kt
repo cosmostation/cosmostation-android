@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
@@ -225,6 +226,8 @@ class ApplicationViewModel(
                 loadOktLcdData(this, baseAccountId, isEdit)
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit)
+            } else if (this is ChainNamada) {
+                loadNamadaData(baseAccountId, this, isEdit)
             } else {
                 if (supportCosmos() && this !is ChainOktEvm) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
@@ -1223,6 +1226,86 @@ class ApplicationViewModel(
                                 fetchedResult.value = tag
                                 txFetchedResult.value = tag
                             }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadNamadaData(
+        id: Long, chain: ChainNamada, isEdit: Boolean
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        chain.namadaFetcher()?.let { fetcher ->
+            chain.apply {
+                fetcher.namadaBalances?.clear()
+                fetcher.namadaReward?.clear()
+
+                val loadBalanceDeferred = async { walletRepository.namadaBalance(chain) }
+                val loadBondDeferred = async { walletRepository.namadaBond(chain) }
+                val loadUnBondDeferred = async { walletRepository.namadaUnBond(chain) }
+                val loadRewardDeferred = async { walletRepository.namadaReward(chain) }
+
+                val balanceResult = loadBalanceDeferred.await()
+                val bondResult = loadBondDeferred.await()
+                val unBondResult = loadUnBondDeferred.await()
+                val rewardResult = loadRewardDeferred.await()
+
+                if (balanceResult is NetworkResult.Success && balanceResult.data is MutableList<JsonObject>) {
+                    fetcher.namadaBalances?.addAll(balanceResult.data)
+                } else {
+                    fetcher.namadaBalances = null
+                }
+
+                if (bondResult is NetworkResult.Success && bondResult.data is JsonObject) {
+                    fetcher.namadaBond = bondResult.data
+                }
+
+                if (unBondResult is NetworkResult.Success && unBondResult.data is JsonObject) {
+                    fetcher.namadaUnBond = unBondResult.data
+                }
+
+                if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<JsonObject>) {
+                    fetcher.namadaReward?.addAll(rewardResult.data)
+                }
+
+                fetchState = if (fetcher.namadaBalances != null) {
+                    FetchState.SUCCESS
+                } else {
+                    FetchState.FAIL
+                }
+
+                if (fetchState == FetchState.SUCCESS) {
+                    val refAddress = RefAddress(
+                        id,
+                        tag,
+                        mainAddress,
+                        "",
+                        fetcher.allAssetValue(true).toString(),
+                        "0",
+                        "0",
+                        fetcher.namadaBalances?.size?.toLong()
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    coinCnt = fetcher.namadaBalances?.size ?: 0
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                        }
+                    }
+
+                } else {
+                    val refAddress = RefAddress(
+                        id, tag, address, mainAddress, "0", "0", "0", 0
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    withContext(Dispatchers.Main) {
+                        if (isEdit) {
+                            editFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
                         }
                     }
                 }

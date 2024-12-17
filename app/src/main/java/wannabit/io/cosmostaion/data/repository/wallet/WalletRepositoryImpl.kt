@@ -51,16 +51,17 @@ import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.fetcher.unDelegations
 import wannabit.io.cosmostaion.chain.fetcher.validators
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.namadaApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -884,6 +885,30 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitBalance(chain.mainAddress)
+        }
+    }
+
+    override suspend fun namadaBalance(chain: ChainNamada): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            namadaApi(chain).namadaBalance(chain.mainAddress)
+        }
+    }
+
+    override suspend fun namadaBond(chain: ChainNamada): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            namadaApi(chain).namadaBond(chain.mainAddress)
+        }
+    }
+
+    override suspend fun namadaUnBond(chain: ChainNamada): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            namadaApi(chain).namadaUnBond(chain.mainAddress)
+        }
+    }
+
+    override suspend fun namadaReward(chain: ChainNamada): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            namadaApi(chain).namadaReward(chain.mainAddress)
         }
     }
 }

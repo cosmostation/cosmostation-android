@@ -428,7 +428,6 @@
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_disable_bg"
-        android:enabled="false"
         android:text="@string/str_send"
         android:textAllCaps="false"
         android:textColor="@color/color_base03"

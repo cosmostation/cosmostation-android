@@ -148,4 +148,17 @@ interface LcdApi {
 
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
+
+    //Namada
+    @GET("api/v1/account/{address}")
+    suspend fun namadaBalance(@Path("address") address: String): MutableList<JsonObject>
+
+    @GET("api/v1/pos/bond/{address}")
+    suspend fun namadaBond(@Path("address") address: String): JsonObject
+
+    @GET("api/v1/pos/unbond/{address}")
+    suspend fun namadaUnBond(@Path("address") address: String): JsonObject
+
+    @GET("api/v1/pos/reward/{address}")
+    suspend fun namadaReward(@Path("address") address: String): MutableList<JsonObject>
 }

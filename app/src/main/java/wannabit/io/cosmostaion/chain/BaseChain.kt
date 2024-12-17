@@ -133,6 +133,7 @@ import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin44Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
@@ -531,8 +532,12 @@ open class BaseChain : Parcelable {
         if (fetchState == FetchState.SUCCESS) {
             if (this is ChainBitCoin84) {
                 return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-            } else if (this is ChainSui) {
+            }
+            else if (this is ChainSui) {
                 return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
+
+            } else if (this is ChainNamada) {
+                return namadaFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
 
             } else if (this is ChainOkt996Keccak) {
                 return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
@@ -635,6 +640,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway ())
+    chains.add(ChainNamada())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
@@ -731,7 +737,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, NAMADA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD }
 

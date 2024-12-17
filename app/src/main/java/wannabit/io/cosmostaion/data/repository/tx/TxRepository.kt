@@ -7,8 +7,10 @@ import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.NamadaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.sign.BitCoinJS
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -251,4 +253,17 @@ interface TxRepository {
         opReturn: String?,
         utxo: MutableList<JsonObject>?,
     ): String?
+
+    suspend fun broadcastNamadaSend(
+        fetcher: NamadaFetcher,
+        fromAddress: String,
+        toAddress: String,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: ChainNamada
+    ): JsonObject
 }

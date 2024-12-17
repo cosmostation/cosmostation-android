@@ -12,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.SUI_API
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
@@ -83,6 +84,13 @@ object RetrofitInstance {
             .baseUrl(chain.btcFetcher()?.mempoolUrl() ?: chain.mainUrl).build()
     }
 
+    private fun namadaRetrofit(chain: ChainNamada): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.lcdUrl).build()
+    }
+
     val mintscanApi: MintscanApi by lazy {
         mintScanRetrofit.create(MintscanApi::class.java)
     }
@@ -99,12 +107,12 @@ object RetrofitInstance {
         return bitRetrofit(chain).create(LcdApi::class.java)
     }
 
-    val skipApi: SkipApi by lazy {
-        skipRetrofit.create(SkipApi::class.java)
+    fun namadaApi(chain: ChainNamada): LcdApi {
+        return namadaRetrofit(chain).create(LcdApi::class.java)
     }
 
-    val baseApi: MintscanApi by lazy {
-        baseRetrofit.create(MintscanApi::class.java)
+    val skipApi: SkipApi by lazy {
+        skipRetrofit.create(SkipApi::class.java)
     }
 
     val ecoApi: MintscanApi by lazy {

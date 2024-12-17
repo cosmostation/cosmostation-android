@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
 import android.widget.FrameLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -13,14 +12,13 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.ActivityMajorBinding
-import wannabit.io.cosmostaion.ui.main.chain.evm.EvmDetailFragment
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
+import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.ActivityMajorBinding
 
 class MajorActivity : BaseActivity() {
 

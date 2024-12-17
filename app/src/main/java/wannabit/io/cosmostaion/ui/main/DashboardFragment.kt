@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
@@ -171,7 +172,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) return
             if (chain.fetchState == FetchState.SUCCESS) {
-                if (chain is ChainSui || chain is ChainBitCoin84) {
+                if (chain is ChainSui || chain is ChainBitCoin84 || chain is ChainNamada) {
                     Intent(requireContext(), MajorActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)

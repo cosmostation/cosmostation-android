@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -686,6 +687,25 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             } else {
                 errorMessage.postValue(response)
             }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun namadaSendBroadcast(
+        chain: ChainNamada, txHex: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+//            val response = txRepository.broadcastBitSend(
+//                chain, txHex
+//            )
+//
+//            if (!response.isNullOrEmpty()) {
+//                bitBroadcast.postValue(response)
+//            } else {
+//                errorMessage.postValue(response)
+//            }
 
         } catch (e: Exception) {
             errorMessage.postValue(e.message.toString())

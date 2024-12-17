@@ -77,8 +77,10 @@ class MajorHistoryFragment : Fragment() {
         }
         if (selectedChain is ChainBitCoin84) {
             historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
-        } else {
+        } else if (selectedChain is ChainSui) {
             historyViewModel.suiHistory(selectedChain as ChainSui)
+        } else {
+
         }
     }
 
@@ -87,9 +89,11 @@ class MajorHistoryFragment : Fragment() {
             if (selectedChain is ChainBitCoin84) {
                 bitHistoryGroup.clear()
                 historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
-            } else {
+            } else if (selectedChain is ChainSui) {
                 suiHistoryGroup.clear()
                 historyViewModel.suiHistory(selectedChain as ChainSui)
+            } else {
+
             }
         }
     }

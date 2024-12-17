@@ -10,6 +10,7 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -182,4 +183,13 @@ interface WalletRepository {
     ): NetworkResult<MutableList<JsonObject>>
 
     suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject>
+
+    //namada
+    suspend fun namadaBalance(chain: ChainNamada): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun namadaBond(chain: ChainNamada): NetworkResult<JsonObject>
+
+    suspend fun namadaUnBond(chain: ChainNamada): NetworkResult<JsonObject>
+
+    suspend fun namadaReward(chain: ChainNamada): NetworkResult<MutableList<JsonObject>>
 }

@@ -20,6 +20,7 @@ import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.ByteUtils.encodeSegWitAddress
 import wannabit.io.cosmostaion.common.ByteUtils.segWitOutputScript
@@ -59,12 +60,22 @@ object BaseKey {
         return getHDSeed(MnemonicCode().toEntropy(words))
     }
 
-    private fun getEd25519PrivateKey(seed: ByteArray?, lastPath: String): ByteArray {
+    private fun getEd25519PrivateKey(
+        pubKeyType: PubKeyType, seed: ByteArray?, lastPath: String
+    ): ByteArray {
         var pair = ByteUtils.shaking(seed, "ed25519 seed".toByteArray())
-        val components = ChainSui().getHDPath(lastPath).split("/")
+        val components = if (pubKeyType == PubKeyType.SUI_ED25519) {
+            ChainSui().getHDPath(lastPath).split("/")
+        } else {
+            ChainNamada().getHDPath(lastPath).split("/")
+        }
         val nodes = mutableListOf<Int>()
         for (component in components.subList(1, components.size)) {
-            val index = component.trim('\'').toInt()
+            val index = if (component.endsWith("'")) {
+                component.trim('\'').toInt()
+            } else {
+                component.toInt()
+            }
             nodes.add(index)
         }
         nodes.forEach {
@@ -83,8 +94,8 @@ object BaseKey {
     fun getPrivateKey(
         pubKeyType: PubKeyType, seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String
     ): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519) {
-            getEd25519PrivateKey(seed, lastPath)
+        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.NAMADA_ED25519) {
+            getEd25519PrivateKey(pubKeyType, seed, lastPath)
         } else {
             val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
             val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
@@ -96,13 +107,12 @@ object BaseKey {
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
         return when (pubKeyType) {
-            PubKeyType.SUI_ED25519 -> {
+            PubKeyType.SUI_ED25519, PubKeyType.NAMADA_ED25519 -> {
                 val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
                 val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
                 val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
                 val publicKey = EdDSAPublicKey(pubKeySpec)
                 publicKey.abyte
-
             }
 
             else -> {
@@ -165,6 +175,14 @@ object BaseKey {
                     val hex = Utils.bytesToHex(blake2b.digest())
                     return "0x${hex.substring(0, 64)}"
                 }
+            }
+
+            PubKeyType.NAMADA_ED25519 -> {
+                val hexPublicKey = "00" + pubKey?.toHex()
+                val sha256Hash = Sha256Hash.hash(Utils.hexToBytes(hexPublicKey))
+                val addressKey = Utils.hexToBytes("00${sha256Hash.toHex().substring(0, 40)}")
+                val converted = ByteUtils.convertBits(addressKey, 8, 5, true)
+                return Bech32.encode(Bech32.Encoding.BECH32M, prefix, converted)
             }
 
             else -> return result
