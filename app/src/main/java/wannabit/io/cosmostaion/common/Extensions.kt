@@ -269,7 +269,7 @@ fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
     if (imageUrl?.isNotEmpty() == true) {
-        if (imageUrl?.contains(".svg") == true) {
+        if (imageUrl.contains(".svg")) {
             val imageLoader = ImageLoader.Builder(context).components {
                 add(SvgDecoder.Factory())
             }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()

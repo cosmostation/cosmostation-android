@@ -11,22 +11,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.squareup.okhttp.Interceptor.Chain
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.NamadaStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
 
 class MajorDetailFragment : Fragment() {
@@ -37,6 +45,8 @@ class MajorDetailFragment : Fragment() {
     private lateinit var detailPagerAdapter: DetailPagerAdapter
 
     private lateinit var selectedChain: BaseChain
+
+    private lateinit var walletViewModel: WalletViewModel
 
     private var isClickable = true
 
@@ -62,9 +72,28 @@ class MajorDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initData()
         initTab()
         setUpClickAction()
+        setFabMenuClickAction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!::selectedChain.isInitialized) {
+            Intent(requireContext(), IntroActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
+            }
+        }
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initData() {
@@ -97,9 +126,15 @@ class MajorDetailFragment : Fragment() {
                 )
             }
 
+            if (selectedChain is ChainNamada) {
+                walletViewModel.loadGrpcStakeData(selectedChain)
+            }
+
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            fabMenu.visibleOrGone(selectedChain is ChainSui)
+            fabMenu.visibleOrGone(selectedChain is ChainSui || selectedChain is ChainNamada)
+
+            fabStake.visibleOrGone(selectedChain is ChainNamada)
         }
     }
 
@@ -192,23 +227,71 @@ class MajorDetailFragment : Fragment() {
                 }
                 ApplicationViewModel.shared.hideValue()
             }
+        }
+    }
 
-            fabMenu.setOnMenuButtonClickListener {
-                handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
+    private fun setFabMenuClickAction() {
+        binding.apply {
+            if (selectedChain is ChainNamada) {
+                fabMenu.setOnMenuToggleListener { opened ->
+                    fabMenu.bringToFront()
+                    backdropLayout.visibleOrGone(opened)
+                    if (opened) {
+                        tabLayout.elevation = 0.1f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_fab_background_dialog
+                        )
+                    } else {
+                        tabLayout.elevation = 0f
+                        requireActivity().window.statusBarColor = ContextCompat.getColor(
+                            requireContext(), R.color.color_transparent
+                        )
+                    }
+                }
+
+            } else {
+                fabMenu.setOnMenuButtonClickListener {
+                    handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain), null)
+                }
+            }
+
+            backdropLayout.setOnClickListener {
+                fabMenu.close(true)
+                backdropLayout.visibility = View.GONE
+                tabLayout.elevation = 0f
+                requireActivity().window.statusBarColor = ContextCompat.getColor(
+                    requireContext(), R.color.color_transparent
+                )
+            }
+
+            fabStake.setOnClickListener {
+                if ((selectedChain as ChainNamada).namadaFetcher?.namadaValidators?.isEmpty() == true) {
+                    requireContext().makeToast(R.string.error_wait_moment)
+                    fabMenu.close(true)
+                    return@setOnClickListener
+                }
+                handleOneClickWithDelay(NamadaStakeInfoFragment.newInstance(selectedChain), null)
             }
         }
     }
 
     private fun handleOneClickWithDelay(
-        fragment: Fragment
+        fragment: Fragment?, bottomSheetDialogFragment: BottomSheetDialogFragment?
     ) {
         binding.fabMenu.close(true)
         if (isClickable) {
             isClickable = false
 
-            requireActivity().toMoveFragment(
-                this@MajorDetailFragment, fragment, fragment::class.java.name
-            )
+            if (fragment != null) {
+                requireActivity().toMoveFragment(
+                    this@MajorDetailFragment, fragment, fragment::class.java.name
+                )
+            } else {
+                bottomSheetDialogFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetDialogFragment::class.java.name
+                )
+            }
 
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true

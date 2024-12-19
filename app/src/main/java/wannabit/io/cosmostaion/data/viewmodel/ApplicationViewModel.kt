@@ -1245,11 +1245,15 @@ class ApplicationViewModel(
                 val loadBondDeferred = async { walletRepository.namadaBond(chain) }
                 val loadUnBondDeferred = async { walletRepository.namadaUnBond(chain) }
                 val loadRewardDeferred = async { walletRepository.namadaReward(chain) }
+                val loadWithdrawDeferred = async { walletRepository.namadaWithdraw(chain) }
+                val loadGasDeferred = async { walletRepository.namadaGas(chain) }
 
                 val balanceResult = loadBalanceDeferred.await()
                 val bondResult = loadBondDeferred.await()
                 val unBondResult = loadUnBondDeferred.await()
                 val rewardResult = loadRewardDeferred.await()
+                val withdrawResult = loadWithdrawDeferred.await()
+                val gasResult = loadGasDeferred.await()
 
                 if (balanceResult is NetworkResult.Success && balanceResult.data is MutableList<JsonObject>) {
                     fetcher.namadaBalances?.addAll(balanceResult.data)
@@ -1267,6 +1271,14 @@ class ApplicationViewModel(
 
                 if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<JsonObject>) {
                     fetcher.namadaReward?.addAll(rewardResult.data)
+                }
+
+                if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
+                    fetcher.namadaWithdraw = withdrawResult.data
+                }
+
+                if (gasResult is NetworkResult.Success && gasResult.data is MutableList<JsonObject>) {
+                    fetcher.namadaGas?.addAll(gasResult.data)
                 }
 
                 fetchState = if (fetcher.namadaBalances != null) {

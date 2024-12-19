@@ -1,13 +1,6 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
-import android.util.Log
-import com.desmos.profiles.v3.ModelsChainLinksProto.SingleSignature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.gson.Gson
 import com.google.gson.JsonObject
-import com.google.protobuf.ByteString
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.EdDSAEngine
 import net.i2p.crypto.eddsa.EdDSAPrivateKey
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
@@ -17,17 +10,10 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
 import wannabit.io.cosmostaion.chain.majorClass.NAMADA_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.toHex
-import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
-import wannabit.io.cosmostaion.data.model.res.Cw20Balance
-import wannabit.io.cosmostaion.data.model.res.Expiration
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.security.MessageDigest
-import java.security.PublicKey
-import java.time.Instant
-import java.util.Base64
 
 class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
@@ -35,16 +21,21 @@ class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     var namadaBond: JsonObject? = JsonObject()
     var namadaUnBond: JsonObject? = JsonObject()
     var namadaReward: MutableList<JsonObject>? = mutableListOf()
+    var namadaWithdraw: JsonObject? = JsonObject()
+    var namadaGas: MutableList<JsonObject>? = mutableListOf()
+    var namadaValidators: MutableList<JsonObject>? = mutableListOf()
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return namadaBalanceValueSum(isUsd).add(namadaBondValueSum(isUsd))
             .add(namadaUnBondValueSum(isUsd)).add(namadaRewardValueSum(isUsd))
+            .add(namadaWithdrawValueSum(isUsd))
     }
 
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal {
         return if (denom == NAMADA_MAIN_DENOM) {
             namadaBalanceValue(denom, isUsd).add(namadaUnBondValueSum(isUsd))
                 .add(namadaUnBondValueSum(isUsd)).add(namadaRewardValueSum(isUsd))
+                .add(namadaWithdrawValueSum(isUsd))
         } else {
             namadaBalanceValue(denom, isUsd)
         }
@@ -152,24 +143,45 @@ class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         }
         return BigDecimal.ZERO
     }
+
+    fun namadaWithdrawAmountSum(): BigDecimal {
+        var sum = BigDecimal.ZERO
+        namadaWithdraw?.get("results")?.asJsonArray?.let { withdraws ->
+            if (withdraws.size() > 0) {
+                withdraws.forEach { withdraw ->
+                    sum = sum.add(withdraw.asJsonObject["minDenomAmount"].asString.toBigDecimal())
+                }
+            } else {
+                sum = BigDecimal.ZERO
+            }
+
+        } ?: run {
+            sum = BigDecimal.ZERO
+        }
+        return sum
+    }
+
+    private fun namadaWithdrawValueSum(isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, NAMADA_MAIN_DENOM)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = namadaWithdrawAmountSum()
+            return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
+                .setScale(6, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
+    }
 }
 
 data class GlobalArgs(
-    val expiration: String?,
-    val code_hash: String,
-    val chain_id: String
+    val expiration: String?, val code_hash: String, val chain_id: String
 )
 
 data class BondData(
-    val validator: String,
-    val amount: Long,
-    val source: String,
-    val args: GlobalArgs
+    val validator: String, val amount: Long, val source: String, val args: GlobalArgs
 )
 
 data class Tx(
-    val header: Header,
-    val sections: Section
+    val header: Header, val sections: Section
 )
 
 //object Transaction {
@@ -234,14 +246,13 @@ data class TxError(val message: String)
 data class Header(var timestamp: String = "2000-01-01T00:00:00Z")
 
 
-
 fun generateSignature(tx: ByteArray, chain: ChainNamada): ByteArray {
     val hash = MessageDigest.getInstance("SHA-256").digest(tx)
 
     val spec: net.i2p.crypto.eddsa.spec.EdDSAParameterSpec = EdDSANamedCurveTable.getByName(
-        EdDSANamedCurveTable.ED_25519)
-    val privateKeySpec =
-        EdDSAPrivateKeySpec(Hex.decode(chain.privateKey?.toHex()), spec)
+        EdDSANamedCurveTable.ED_25519
+    )
+    val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(chain.privateKey?.toHex()), spec)
     val privateKey = EdDSAPrivateKey(privateKeySpec)
 
     val signatureEngine = EdDSAEngine(MessageDigest.getInstance(spec.hashAlgorithm))
@@ -258,9 +269,7 @@ data class Address(val value: String)
 //data class Signature(val signatureBytes: ByteArray)
 
 data class Authorizations(
-    val targets: List<String>,
-    val signer: Signer,
-    val signatures: Map<Int, ByteArray>
+    val targets: List<String>, val signer: Signer, val signatures: Map<Int, ByteArray>
 )
 
 sealed class Section {

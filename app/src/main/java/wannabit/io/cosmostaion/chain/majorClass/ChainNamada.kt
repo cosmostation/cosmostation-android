@@ -27,8 +27,8 @@ class ChainNamada : BaseChain(), Parcelable {
     override var coinGeckoId: String = ""
     override var coinLogo: Int = R.drawable.token_nam
 
-    override var lcdUrl: String = "https://indexer.namada.tududes.com/"
-    override var mainUrl: String = "https://rpc.namada.tududes.com"
+    override var lcdUrl: String = "https://index-namada.5elementsnodes.com/"
+    override var mainUrl: String = "https://rpc-namada.5elementsnodes.com"
 
     override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
         this.privateKey = privateKey

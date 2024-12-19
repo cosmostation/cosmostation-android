@@ -6,16 +6,22 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainNamada
+import wannabit.io.cosmostaion.chain.majorClass.NAMADA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.isActiveValidator
+import wannabit.io.cosmostaion.common.setImageFromSvg
+import wannabit.io.cosmostaion.common.setImg
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
+import wannabit.io.cosmostaion.ui.tx.info.major.NamadaBondingAdapter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -199,7 +205,9 @@ class StakingViewHolder(
                         ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                     commission.text = formatString("$commissionRate%", 3)
 
-                    val stakedAmount = delegation.balanceList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()?.movePointLeft(decimal) ?: BigDecimal.ZERO
+                    val stakedAmount =
+                        delegation.balanceList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                            ?.movePointLeft(decimal) ?: BigDecimal.ZERO
                     staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                     chain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
@@ -245,7 +253,9 @@ class StakingViewHolder(
 
                     val apr = chain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
                         ?: "0"
-                    val staked = delegation.balanceList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                    val staked =
+                        delegation.balanceList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                            ?: BigDecimal.ZERO
                     val comm = BigDecimal.ONE.subtract(
                         validator.commission?.commissionRates?.rate?.toBigDecimal()
                             ?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
@@ -256,6 +266,48 @@ class StakingViewHolder(
                         .setScale(decimal, RoundingMode.DOWN)
                     estimateReward.text = formatAmount(est.toPlainString(), decimal)
                 }
+            }
+        }
+    }
+
+    fun namadaBind(
+        chain: ChainNamada,
+        validator: JsonObject,
+        delegation: JsonObject,
+        listener: NamadaBondingAdapter.ClickListener
+    ) {
+        binding.apply {
+            delegationView.setBackgroundResource(R.drawable.item_bg)
+            delegationView.setOnClickListener {
+                listener.selectStakingAction()
+            }
+
+            if (validator["avatar"].isJsonNull) {
+                monikerImg.setImg(R.drawable.icon_default_vaildator)
+            } else {
+                monikerImg.setImageFromSvg(
+                    validator["avatar"].asString, R.drawable.icon_default_vaildator
+                )
+            }
+            moniker.text = if (!validator["name"].isJsonNull) {
+                validator["name"].asString
+            } else {
+                validator["address"].asString
+            }
+            if (validator["state"].asString == "consensus") {
+                jailedImg.visibility = View.GONE
+            } else {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            }
+
+            BaseData.getAsset(chain.apiName, NAMADA_MAIN_DENOM)?.let { asset ->
+                val commissionRate = validator["commission"].asString.toBigDecimal().movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
+
+                val stakedAmount = delegation["minDenomAmount"].asString.toBigDecimal()
+                    .movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                staked.text = formatAmount(stakedAmount.toPlainString(), asset.decimals ?: 6)
             }
         }
     }

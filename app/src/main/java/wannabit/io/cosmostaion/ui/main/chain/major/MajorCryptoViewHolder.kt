@@ -188,15 +188,21 @@ class MajorCryptoViewHolder(
                     val unBonded =
                         fetcher.namadaUnBondAmountSum().movePointLeft(asset.decimals ?: 6)
                             ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-                    val rewardAmount = fetcher.namadaRewardAmountSum().movePointLeft(asset.decimals ?: 6)
-                        ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                    val rewardAmount =
+                        fetcher.namadaRewardAmountSum().movePointLeft(asset.decimals ?: 6)
+                            ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                    val withdrawAmount =
+                        fetcher.namadaWithdrawAmountSum().movePointLeft(asset.decimals ?: 6)
+                            ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
-                    val totalAmount = balance.add(bonded).add(unBonded).add(rewardAmount)
+                    val totalAmount =
+                        balance.add(bonded).add(unBonded).add(rewardAmount).add(withdrawAmount)
 
                     unstakedLayout.goneOrVisible(unBonded?.compareTo(BigDecimal.ZERO) == 0)
                     rewardLayout.visibleOrGone(
                         fetcher.namadaReward?.isNotEmpty() == true
                     )
+                    withdrawLayout.goneOrVisible(withdrawAmount?.compareTo(BigDecimal.ZERO) == 0)
 
                     with(Prefs) {
                         total.visibility = if (hideValue) View.GONE else View.VISIBLE
@@ -233,6 +239,12 @@ class MajorCryptoViewHolder(
                         reward.hiddenStatus(
                             formatAmount(
                                 rewardAmount.toPlainString(), 6
+                            )
+                        )
+
+                        withdraw.hiddenStatus(
+                            formatAmount(
+                                withdrawAmount.toPlainString(), 6
                             )
                         )
                     }

@@ -179,7 +179,24 @@
         android:elevation="@dimen/space_2"
         fab:menu_colorNormal="@color/color_accent_purple"
         fab:menu_colorPressed="@color/color_accent_purple"
-        fab:menu_colorRipple="@color/color_accent_purple">
+        fab:menu_colorRipple="@color/color_accent_purple"
+        fab:menu_labels_position="left"
+        fab:menu_labels_style="@style/FabLabelStyle"
+        fab:menu_openDirection="up">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_stake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:src="@drawable/icon_stake"
+            app:fab_colorDisabled="@color/color_base08"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:maxImageSize="@dimen/space_100"
+            fab:fab_label="@string/title_stake"
+            fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
 
