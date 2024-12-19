@@ -19,9 +19,9 @@ class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     var namadaBalances: MutableList<JsonObject>? = mutableListOf()
     var namadaBond: JsonObject? = JsonObject()
-    var namadaUnBond: JsonObject? = JsonObject()
+    var namadaUnBond: MutableList<JsonObject> = mutableListOf()
     var namadaReward: MutableList<JsonObject>? = mutableListOf()
-    var namadaWithdraw: JsonObject? = JsonObject()
+    var namadaWithdraw: MutableList<JsonObject> = mutableListOf()
     var namadaGas: MutableList<JsonObject>? = mutableListOf()
     var namadaValidators: MutableList<JsonObject>? = mutableListOf()
 
@@ -101,16 +101,11 @@ class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     fun namadaUnBondAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        namadaUnBond?.get("results")?.asJsonArray?.let { bonds ->
-            if (bonds.size() > 0) {
-                bonds.forEach { bond ->
-                    sum = sum.add(bond.asJsonObject["minDenomAmount"].asString.toBigDecimal())
-                }
-            } else {
-                sum = BigDecimal.ZERO
+        if (namadaUnBond.isNotEmpty()) {
+            namadaUnBond.forEach { unBond ->
+                sum = sum.add(unBond.asJsonObject["minDenomAmount"].asString.toBigDecimal())
             }
-
-        } ?: run {
+        } else {
             sum = BigDecimal.ZERO
         }
         return sum
@@ -146,16 +141,11 @@ class NamadaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     fun namadaWithdrawAmountSum(): BigDecimal {
         var sum = BigDecimal.ZERO
-        namadaWithdraw?.get("results")?.asJsonArray?.let { withdraws ->
-            if (withdraws.size() > 0) {
-                withdraws.forEach { withdraw ->
-                    sum = sum.add(withdraw.asJsonObject["minDenomAmount"].asString.toBigDecimal())
-                }
-            } else {
-                sum = BigDecimal.ZERO
+        if (namadaWithdraw.isNotEmpty()) {
+            namadaWithdraw.forEach { withdraw ->
+                sum = sum.add(withdraw.asJsonObject["minDenomAmount"].asString.toBigDecimal())
             }
-
-        } ?: run {
+        } else {
             sum = BigDecimal.ZERO
         }
         return sum

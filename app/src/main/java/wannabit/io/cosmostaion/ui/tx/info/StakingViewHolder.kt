@@ -302,12 +302,34 @@ class StakingViewHolder(
             }
 
             BaseData.getAsset(chain.apiName, NAMADA_MAIN_DENOM)?.let { asset ->
-                val commissionRate = validator["commission"].asString.toBigDecimal().movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                val commissionRate =
+                    validator["commission"].asString.toBigDecimal().movePointRight(2)
+                        ?.setScale(2, RoundingMode.DOWN)
                 commission.text = formatString("$commissionRate%", 3)
 
                 val stakedAmount = delegation["minDenomAmount"].asString.toBigDecimal()
                     .movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                 staked.text = formatAmount(stakedAmount.toPlainString(), asset.decimals ?: 6)
+
+                chain.namadaFetcher?.namadaReward?.firstOrNull { it["validator"].asJsonObject["address"].asString == validator["address"].asString }
+                    ?.let { reward ->
+                        val mainDenomRewardAmount = reward["minDenomAmount"].asString.toBigDecimal()
+                            .movePointLeft(asset.decimals ?: 6)
+                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        rewardAmount.text =
+                            formatAmount(mainDenomRewardAmount.toPlainString(), asset.decimals ?: 6)
+
+                    } ?: run {
+                    rewardTitle.text = "Reward"
+                    rewardAmount.text = formatAmount(
+                        BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
+                        asset.decimals ?: 6
+                    )
+                    estimateReward.text = formatAmount(
+                        BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
+                        asset.decimals ?: 6
+                    )
+                }
             }
         }
     }

@@ -193,8 +193,6 @@ interface WalletRepository {
 
     suspend fun namadaReward(chain: ChainNamada): NetworkResult<MutableList<JsonObject>>
 
-    suspend fun namadaWithdraw(chain: ChainNamada): NetworkResult<JsonObject>
-
     suspend fun namadaGas(chain: ChainNamada): NetworkResult<MutableList<JsonObject>>
 
     suspend fun namadaValidators(chain: ChainNamada): NetworkResult<MutableList<JsonObject>>

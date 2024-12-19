@@ -162,9 +162,6 @@ interface LcdApi {
     @GET("api/v1/pos/reward/{address}")
     suspend fun namadaReward(@Path("address") address: String): MutableList<JsonObject>
 
-    @GET("api/v1/pos/withdraw/{address}")
-    suspend fun namadaWithdraw(@Path("address") address: String): JsonObject
-
     @GET("api/v1/gas")
     suspend fun namadaGas(): MutableList<JsonObject>
 

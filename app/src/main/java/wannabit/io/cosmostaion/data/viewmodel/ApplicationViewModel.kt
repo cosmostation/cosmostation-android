@@ -1239,20 +1239,20 @@ class ApplicationViewModel(
         chain.namadaFetcher()?.let { fetcher ->
             chain.apply {
                 fetcher.namadaBalances?.clear()
+                fetcher.namadaUnBond.clear()
+                fetcher.namadaWithdraw.clear()
                 fetcher.namadaReward?.clear()
 
                 val loadBalanceDeferred = async { walletRepository.namadaBalance(chain) }
                 val loadBondDeferred = async { walletRepository.namadaBond(chain) }
                 val loadUnBondDeferred = async { walletRepository.namadaUnBond(chain) }
                 val loadRewardDeferred = async { walletRepository.namadaReward(chain) }
-                val loadWithdrawDeferred = async { walletRepository.namadaWithdraw(chain) }
                 val loadGasDeferred = async { walletRepository.namadaGas(chain) }
 
                 val balanceResult = loadBalanceDeferred.await()
                 val bondResult = loadBondDeferred.await()
                 val unBondResult = loadUnBondDeferred.await()
                 val rewardResult = loadRewardDeferred.await()
-                val withdrawResult = loadWithdrawDeferred.await()
                 val gasResult = loadGasDeferred.await()
 
                 if (balanceResult is NetworkResult.Success && balanceResult.data is MutableList<JsonObject>) {
@@ -1266,15 +1266,17 @@ class ApplicationViewModel(
                 }
 
                 if (unBondResult is NetworkResult.Success && unBondResult.data is JsonObject) {
-                    fetcher.namadaUnBond = unBondResult.data
+                    unBondResult.data["results"].asJsonArray.forEach { unbond ->
+                        if (unbond.asJsonObject["canWithdraw"].asBoolean) {
+                            fetcher.namadaWithdraw.add(unbond.asJsonObject)
+                        } else {
+                            fetcher.namadaUnBond.add(unbond.asJsonObject)
+                        }
+                    }
                 }
 
                 if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<JsonObject>) {
                     fetcher.namadaReward?.addAll(rewardResult.data)
-                }
-
-                if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
-                    fetcher.namadaWithdraw = withdrawResult.data
                 }
 
                 if (gasResult is NetworkResult.Success && gasResult.data is MutableList<JsonObject>) {

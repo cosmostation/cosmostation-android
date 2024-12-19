@@ -912,12 +912,6 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun namadaWithdraw(chain: ChainNamada): NetworkResult<JsonObject> {
-        return safeApiCall(Dispatchers.IO) {
-            namadaApi(chain).namadaWithdraw(chain.mainAddress)
-        }
-    }
-
     override suspend fun namadaGas(chain: ChainNamada): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             namadaApi(chain).namadaGas()

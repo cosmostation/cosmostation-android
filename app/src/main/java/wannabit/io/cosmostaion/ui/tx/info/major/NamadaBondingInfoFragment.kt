@@ -191,4 +191,9 @@ class NamadaBondingInfoFragment : Fragment() {
     private fun setUpStakeInfo() {
 
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }
