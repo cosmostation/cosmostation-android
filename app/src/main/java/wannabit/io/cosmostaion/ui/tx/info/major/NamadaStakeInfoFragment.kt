@@ -97,7 +97,7 @@ class NamadaStakeInfoFragment : Fragment() {
 
         init {
             fragments.add(NamadaBondingInfoFragment.newInstance(selectedChain))
-//            fragments.add(UnStakingInfoFragment.newInstance(selectedChain))
+            fragments.add(NamadaUnbondingInfoFragment.newInstance(selectedChain))
         }
 
         override fun getItemCount(): Int {

@@ -21,7 +21,7 @@ import wannabit.io.cosmostaion.common.setImg
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
-import wannabit.io.cosmostaion.ui.tx.info.major.NamadaBondingAdapter
+import wannabit.io.cosmostaion.ui.tx.info.major.NamadaBondingInfoAdapter
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -274,7 +274,7 @@ class StakingViewHolder(
         chain: ChainNamada,
         validator: JsonObject,
         delegation: JsonObject,
-        listener: NamadaBondingAdapter.ClickListener
+        listener: NamadaBondingInfoAdapter.ClickListener
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)

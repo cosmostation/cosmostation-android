@@ -134,7 +134,9 @@ class MajorDetailFragment : Fragment() {
             fabMenu.isIconAnimated = false
             fabMenu.visibleOrGone(selectedChain is ChainSui || selectedChain is ChainNamada)
 
-            fabStake.visibleOrGone(selectedChain is ChainNamada)
+            listOf(fabStake, fabVote).forEach {
+                it.visibleOrGone(selectedChain is ChainNamada)
+            }
         }
     }
 
