@@ -77,6 +77,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
@@ -116,6 +117,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
 import wannabit.io.cosmostaion.chain.evmClass.ChainForma
+import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
@@ -614,6 +616,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFinschia())
     chains.add(ChainFirma())
     chains.add(ChainForma())
+    chains.add(ChainFxcoreEvm())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -658,6 +661,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
+    chains.add(ChainPundix())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
