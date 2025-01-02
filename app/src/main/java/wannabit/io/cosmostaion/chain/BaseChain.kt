@@ -115,6 +115,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
+import wannabit.io.cosmostaion.chain.evmClass.ChainForma
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
@@ -142,6 +143,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -611,6 +613,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi60Secp())
     chains.add(ChainFinschia())
     chains.add(ChainFirma())
+    chains.add(ChainForma())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -698,6 +701,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
     chains.add(ChainStroyTestnet())
+    chains.add(ChainTabichainTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

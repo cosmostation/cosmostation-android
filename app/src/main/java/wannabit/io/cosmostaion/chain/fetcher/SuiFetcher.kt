@@ -26,8 +26,6 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     val suiCoinMeta: MutableMap<String, JsonObject> = mutableMapOf()
     val suiHistory: MutableList<JsonObject> = mutableListOf()
 
-    var suiState = true
-
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return suiBalanceValueSum(isUsd).add(suiStakedValue(isUsd))
     }
