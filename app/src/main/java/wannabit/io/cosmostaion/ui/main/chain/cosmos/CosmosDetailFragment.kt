@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -346,7 +347,13 @@ class CosmosDetailFragment : Fragment() {
             }
 
             btnAccount.setOnClickListener {
-                selectedChain.explorerAccount(selectedChain.address)?.let { url ->
+                val address = if (selectedChain is ChainTabichainTestnet) {
+                    selectedChain.evmAddress
+                } else {
+                    selectedChain.address
+                }
+
+                selectedChain.explorerAccount(address)?.let { url ->
                     startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
                 } ?: run {

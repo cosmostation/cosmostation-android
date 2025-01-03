@@ -11,12 +11,12 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainDungeon : BaseChain(), Parcelable {
+class ChainBostrom : BaseChain(), Parcelable {
 
-    override var name: String = "Dungeon"
-    override var tag: String = "dungeon118"
-    override var logo: Int = R.drawable.chain_dungeon
-    override var apiName: String = "dungeon"
+    override var name: String = "Bostrom"
+    override var tag: String = "bostrom118"
+    override var logo: Int = R.drawable.chain_bostrom
+    override var apiName: String = "bostrom"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -24,8 +24,8 @@ class ChainDungeon : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "udgn"
-    override var accountPrefix: String = "dungeon"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://dungeon.api.quasarstaking.ai/"
+    override var stakeDenom: String = "boot"
+    override var accountPrefix: String = "bostrom"
+    override var grpcHost: String = "grpc-cyber-ia.cosmosia.notional.ventures"
+    override var lcdUrl: String = "https://lcd.bostrom.cybernode.ai/"
 }

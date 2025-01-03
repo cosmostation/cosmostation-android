@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDHealth
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
@@ -77,6 +79,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
@@ -115,6 +118,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
+import wannabit.io.cosmostaion.chain.evmClass.ChainForma
+import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
@@ -142,6 +147,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -587,6 +593,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitCoin84())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
+    chains.add(ChainBostrom())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
@@ -597,6 +604,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCoreum())
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
+    chains.add(ChainDHealth())
     chains.add(ChainDesmos())
     chains.add(ChainDoravota())
     chains.add(ChainDungeon())
@@ -611,6 +619,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi60Secp())
     chains.add(ChainFinschia())
     chains.add(ChainFirma())
+    chains.add(ChainForma())
+    chains.add(ChainFxcoreEvm())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -655,6 +665,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
+    chains.add(ChainPundix())
     chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
@@ -698,6 +709,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
     chains.add(ChainStroyTestnet())
+    chains.add(ChainTabichainTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
