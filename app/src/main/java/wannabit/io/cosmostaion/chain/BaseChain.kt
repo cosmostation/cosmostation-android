@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -31,6 +32,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDHealth
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
@@ -591,6 +593,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitCoin84())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
+    chains.add(ChainBostrom())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
@@ -601,6 +604,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCoreum())
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
+    chains.add(ChainDHealth())
     chains.add(ChainDesmos())
     chains.add(ChainDoravota())
     chains.add(ChainDungeon())
