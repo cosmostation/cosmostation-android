@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainSelf : BaseChain(), Parcelable {
 
-    override var name: String = "Self Chain"
+    override var name: String = "Selfchain"
     override var tag: String = "selfchain"
     override var logo: Int = R.drawable.chain_selfchain
     override var apiName: String = "selfchain"
