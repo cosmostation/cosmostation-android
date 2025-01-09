@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -604,8 +605,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCoreum())
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
-    chains.add(ChainDHealth())
     chains.add(ChainDesmos())
+    chains.add(ChainDHealth())
     chains.add(ChainDoravota())
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
@@ -704,6 +705,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitcoin44Testnet())
     chains.add(ChainBitcoin49Testnet())
     chains.add(ChainBitcoin84Testnet())
+    chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
@@ -745,6 +747,6 @@ val EVM_BASE_FEE = BigDecimal("588000000000000")
 
 enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, NONE }
 
-enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD }
+enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 
 enum class FetchState { IDLE, BUSY, SUCCESS, FAIL }

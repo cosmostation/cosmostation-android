@@ -893,3 +893,17 @@ fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: Chain
     }
 }
 
+fun String.regexWithNumberAndChar(): Pair<String, String> {
+    val regex = Regex("[0-9]*\\.?[0-9]*")
+    val matchResult = regex.find(this)
+    return if (matchResult != null) {
+        val amount = matchResult.value
+        val denomIndex = amount.length
+        val denom = this.substring(denomIndex)
+        Pair(denom, amount)
+
+    } else {
+        Pair("", "")
+    }
+}
+

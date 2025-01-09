@@ -55,7 +55,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
@@ -306,9 +305,11 @@ class WalletRepositoryImpl : WalletRepository {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             channel?.let { managedChannel ->
                 val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-                val stub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-                val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-                    .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+                val stub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                val request =
+                    com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                        .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
                 safeApiCall(Dispatchers.IO) {
                     stub.validators(request).validatorsList
                 }
@@ -333,9 +334,11 @@ class WalletRepositoryImpl : WalletRepository {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             channel?.let { managedChannel ->
                 val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-                val stub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-                val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-                    .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+                val stub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                val request =
+                    com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                        .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
                 safeApiCall(Dispatchers.IO) {
                     stub.validators(request).validatorsList
                 }
@@ -525,8 +528,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaBondedValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -540,14 +542,14 @@ class WalletRepositoryImpl : WalletRepository {
 
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED)
+                lcdApi(chain).lcdInitiaBondedValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED)
             }
         }
     }
 
     override suspend fun initiaUnBondedValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -560,14 +562,14 @@ class WalletRepositoryImpl : WalletRepository {
             }
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaUnBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
+                lcdApi(chain).lcdInitiaUnBondedValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
             }
         }
     }
 
     override suspend fun initiaUnBondingValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -580,7 +582,8 @@ class WalletRepositoryImpl : WalletRepository {
             }
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaUnBondingValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDING)
+                lcdApi(chain).lcdInitiaUnBondingValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDING)
             }
         }
     }
@@ -884,6 +887,15 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitBalance(chain.mainAddress)
+        }
+    }
+
+    override suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response> {
+        val authRequest = JsonRpcRequest(
+            method = "abci_query", params = listOf("auth/accounts/${chain.address}", "", "0", false)
+        )
+        return safeApiCall(Dispatchers.IO) {
+            jsonRpcResponse(chain.mainUrl, authRequest)
         }
     }
 }

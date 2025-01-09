@@ -34,6 +34,7 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
@@ -234,7 +235,8 @@ class CommonTransferFragment : BaseTxFragment() {
                         availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                         if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                             if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                                val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                                val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal()
+                                    ?: BigDecimal.ZERO
                                 availableAmount = if (feeAmount >= availableAmount) {
                                     BigDecimal.ZERO
                                 } else {
@@ -251,11 +253,13 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
-                    availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
+                    availableAmount =
+                        fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
 
                     if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                         if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
-                            val feeAmount = cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                            val feeAmount =
+                                cosmosTxFee?.getAmount(0)?.amount?.toBigDecimal() ?: BigDecimal.ZERO
                             availableAmount = if (feeAmount >= availableAmount) {
                                 BigDecimal.ZERO
                             } else {
@@ -1218,24 +1222,28 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun onBindSendMsg(): MutableList<Any> {
-        return if (fromChain is ChainThorchain) {
-            val fromAddressByteArray = convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
-            val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
+        return when (fromChain) {
+            is ChainThorchain -> {
+                val fromAddressByteArray =
+                    convertBits(Bech32.decode(fromChain.address).data, 5, 8, false)
+                val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
 
-            val sendCoin =
-                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
-            val msgSend = com.types.MsgSendProto.MsgSend.newBuilder()
-                .setFromAddress(ByteString.copyFrom(fromAddressByteArray))
-                .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin).build()
-            Signer.thorchainSendMsg(msgSend)
+                val sendCoin =
+                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+                val msgSend = com.types.MsgSendProto.MsgSend.newBuilder()
+                    .setFromAddress(ByteString.copyFrom(fromAddressByteArray))
+                    .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin).build()
+                Signer.thorchainSendMsg(msgSend)
+            }
 
-        } else {
-            val sendCoin =
-                CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
-            val msgSend =
-                MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
-                    .addAmount(sendCoin).build()
-            Signer.sendMsg(msgSend)
+            else -> {
+                val sendCoin =
+                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+                val msgSend =
+                    MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
+                        .addAmount(sendCoin).build()
+                Signer.sendMsg(msgSend)
+            }
         }
     }
 
@@ -1320,13 +1328,27 @@ class CommonTransferFragment : BaseTxFragment() {
                                     )
 
                                 } else {
-                                    txViewModel.broadcast(
-                                        cosmosFetcher?.getChannel(),
-                                        onBindSendMsg(),
-                                        cosmosTxFee,
-                                        txMemo,
-                                        this
-                                    )
+                                    if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_RPC) {
+                                        val msgSend =
+                                            com.gno.bank.BankProto.MsgSend.newBuilder().setFromAddress(fromChain.address)
+                                                .setToAddress(toAddress).setAmount(toSendAmount + toSendDenom).build()
+                                        Signer.gnoSendMsg(msgSend)
+                                        txViewModel.rpcBroadcast(
+                                            msgSend,
+                                            cosmosTxFee,
+                                            txMemo,
+                                            this
+                                        )
+
+                                    } else {
+                                        txViewModel.broadcast(
+                                            cosmosFetcher?.getChannel(),
+                                            onBindSendMsg(),
+                                            cosmosTxFee,
+                                            txMemo,
+                                            this
+                                        )
+                                    }
                                 }
 
                             } else {

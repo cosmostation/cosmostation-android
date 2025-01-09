@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.data.repository.tx
 
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.gno.bank.BankProto.MsgSend
 import com.google.gson.JsonObject
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
@@ -9,12 +10,12 @@ import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.sign.BitCoinJS
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.sign.BitCoinJS
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
@@ -115,6 +116,10 @@ interface TxRepository {
         memo: String,
         selectedChain: BaseChain
     ): String
+
+    suspend fun broadcastRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): AbciProto.TxResponse?
 
     suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain

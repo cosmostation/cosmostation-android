@@ -182,4 +182,6 @@ interface WalletRepository {
     ): NetworkResult<MutableList<JsonObject>>
 
     suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject>
+
+    suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response>
 }

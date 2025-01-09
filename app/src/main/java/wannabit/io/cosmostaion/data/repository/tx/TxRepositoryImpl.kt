@@ -9,6 +9,7 @@ import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.gno.bank.BankProto.MsgSend
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
+import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -146,7 +148,25 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+            val authRequest = JsonRpcRequest(
+                method = "abci_query",
+                params = listOf("auth/accounts/${chain.address}", "", "0", true)
+            )
+            val authResponse = jsonRpcResponse(chain.mainUrl, authRequest)
+            val jsonResponse = Gson().fromJson(
+                authResponse.body?.string(), JsonObject::class.java
+            )
+            val data =
+                jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
+            val decodeData = formatJsonString(String(Base64.decode(data)))
+            val dataJson = Gson().fromJson(decodeData, JsonObject::class.java)
+            val accountData = dataJson["BaseAccount"].asJsonObject
+            chain.cosmosFetcher()?.cosmosAccountNumber =
+                accountData["account_number"].asString.toLong()
+            chain.cosmosFetcher()?.cosmosSequence = accountData["sequence"].asString.toLong()
+
+        } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = QueryGrpc.newBlockingStub(managedChannel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QueryAccountRequest.newBuilder().setAddress(chain.address).build()
@@ -1326,6 +1346,30 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun broadcastRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): TxResponse? {
+        return try {
+            val broadcastTx = Signer.signRpcBroadcastTx(msgSend, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
+            val broadcastRequest = JsonRpcRequest(
+                method = "broadcast_tx_async", params = listOf(txByte)
+            )
+            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastJsonObject = Gson().fromJson(
+                broadcastResponse.body?.string(), JsonObject::class.java
+            )
+            val result = broadcastJsonObject["result"].asJsonObject
+            return if (result["error"].isJsonNull) {
+                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
+            } else {
+                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     override suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
     ): LegacyRes? {
@@ -1910,8 +1954,7 @@ class TxRepositoryImpl : TxRepository {
         val sendRawTransactionRequest = JsonRpcRequest(
             method = "sendrawtransaction", params = listOf(txHex)
         )
-        val sendRawTransactionResponse =
-            jsonRpcResponse(chain.mainUrl, sendRawTransactionRequest)
+        val sendRawTransactionResponse = jsonRpcResponse(chain.mainUrl, sendRawTransactionRequest)
         val sendRawTransactionJsonObject = Gson().fromJson(
             sendRawTransactionResponse.body?.string(), JsonObject::class.java
         )

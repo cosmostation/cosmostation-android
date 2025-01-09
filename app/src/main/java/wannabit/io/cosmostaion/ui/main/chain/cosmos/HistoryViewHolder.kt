@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -294,14 +295,21 @@ class HistoryViewHolder(
             txTime.text = dpTimeToMonth(historyGroup.second["txTime"].asString.toLong())
 
             if (historyGroup.second["tokenAddress"].asString.isEmpty()) {
-                val amount = historyGroup.second["amount"].asString.toBigDecimal()
-                if (amount > BigDecimal.ZERO) {
-                    txAmount.text = formatAmount(
-                        historyGroup.second["amount"].asString, 18
-                    )
-                    txDenom.text = chain.coinSymbol.uppercase()
-                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                if (historyGroup.second["amount"].asString.isNotEmpty()) {
+                    val amount = historyGroup.second["amount"].asString.toBigDecimal()
+                    if (amount > BigDecimal.ZERO) {
+                        txAmount.text = formatAmount(
+                            historyGroup.second["amount"].asString, 18
+                        )
+                        txDenom.text = chain.coinSymbol.uppercase()
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
 
+                    } else {
+                        txAmount.text = ""
+                        txDenom.text = "-"
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
+                        txCnt.visibility = View.GONE
+                    }
                 } else {
                     txAmount.text = ""
                     txDenom.text = "-"
