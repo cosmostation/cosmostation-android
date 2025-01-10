@@ -6,14 +6,13 @@ import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
 class ChainBitCoin49 : ChainBitCoin84(), Parcelable {
 
-    override var name: String = "BitCoin"
+    override var name: String = "Bitcoin"
     override var tag: String = "bitcoin49"
     override var logo: Int = R.drawable.chain_bitcoin
     override var isDefault: Boolean = false

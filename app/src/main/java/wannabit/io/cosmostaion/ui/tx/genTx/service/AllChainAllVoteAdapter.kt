@@ -134,7 +134,7 @@ class AllChainAllVoteAdapter(
                 binding.apply {
                     voteAllModel.basechain?.let { chain ->
                         chainImg.setImageResource(chain.logo)
-                        chainName.text = chain.name.uppercase()
+                        chainName.text = chain.name
                         voteCnt.text = voteAllModel.proposals.size.toString()
 
                         if (voteAllModel.isBusy) {

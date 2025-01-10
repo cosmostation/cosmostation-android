@@ -22,7 +22,7 @@ open class ChainBitCoin84 : BaseChain(), Parcelable {
     open var scriptHash: Byte = 0x05
     open var bech32PrefixPattern: String = "bc"
 
-    override var name: String = "BitCoin"
+    override var name: String = "Bitcoin"
     override var tag: String = "bitcoin84"
     override var logo: Int = R.drawable.chain_bitcoin
     override var apiName: String = "bitcoin"

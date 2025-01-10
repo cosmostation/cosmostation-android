@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.common.BaseKey
 @Parcelize
 class ChainBitcoin44Testnet : ChainBitcoin84Testnet(), Parcelable {
 
-    override var name: String = "BitCoin Testnet"
+    override var name: String = "Bitcoin Testnet"
     override var tag: String = "bitcoin44_T"
     override var logo: Int = R.drawable.chain_bitcoin_testnet
     override var isDefault: Boolean = false

@@ -50,7 +50,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
@@ -187,7 +187,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
@@ -316,7 +316,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
             dashView.heightInDp(68)
@@ -392,7 +392,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
             dashView.heightInDp(68)

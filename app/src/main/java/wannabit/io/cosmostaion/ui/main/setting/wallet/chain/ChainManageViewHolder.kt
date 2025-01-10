@@ -17,7 +17,7 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             if (chain is ChainBitCoin84) {
                 grpcLayout.visibility = View.GONE
@@ -71,7 +71,7 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             if (chain is ChainBitCoin84) {
                 grpcLayout.visibility = View.GONE

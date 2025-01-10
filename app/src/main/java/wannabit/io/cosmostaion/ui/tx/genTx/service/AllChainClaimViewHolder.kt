@@ -28,7 +28,7 @@ class AllChainClaimViewHolder(
 
             valueAbleReward.apply {
                 chainImg.setImageResource(baseChain.logo)
-                chainName.text = baseChain.name.uppercase()
+                chainName.text = baseChain.name
                 chainRewardAddress.text = baseChain.cosmosFetcher()?.rewardAddress
                 chainDiffer.goneOrVisible(baseChain.address.uppercase() == baseChain.cosmosFetcher()?.rewardAddress?.uppercase())
                 if (baseChain.address.uppercase() == baseChain.cosmosFetcher()?.rewardAddress?.uppercase()) {

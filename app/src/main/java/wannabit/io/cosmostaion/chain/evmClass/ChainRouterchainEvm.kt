@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainRouterchainEvm : BaseChain(), Parcelable {
 
-    override var name: String = "Routerchain"
+    override var name: String = "RouterChain"
     override var tag: String = "routerchain60"
     override var logo: Int = R.drawable.chain_routerchain
     override var apiName: String = "routerchain"
