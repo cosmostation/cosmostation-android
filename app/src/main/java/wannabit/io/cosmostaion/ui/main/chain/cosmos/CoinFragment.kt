@@ -600,6 +600,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     )
                 )
             }
+            bitStaking.visibility = View.GONE
         }
     }
 

@@ -17,9 +17,9 @@ open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
     override var scriptHash: Byte = (-60).toByte()
     override var bech32PrefixPattern: String = "tb"
 
-    override var name: String = "BitCoin Testnet"
+    override var name: String = "Bitcoin Signet"
     override var tag: String = "bitcoin84_T"
-    override var logo: Int = R.drawable.chain_bitcoin_testnet
+    override var logo: Int = R.drawable.chain_bitcoin_signet
     override var isTestnet: Boolean = true
     override var apiName: String = "bitcoin-testnet"
 

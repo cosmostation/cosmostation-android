@@ -1,9 +1,11 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +21,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -28,6 +31,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
@@ -90,6 +94,15 @@ class MajorCryptoFragment : Fragment() {
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
+            bitStaking.visibleOrGone(selectedChain is ChainBitCoin84 && selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
+
+            bitStaking.setOnClickListener {
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", "")
+                    putExtra("selectedChain", selectedChain as Parcelable)
+                    startActivity(this)
+                }
+            }
         }
     }
 
