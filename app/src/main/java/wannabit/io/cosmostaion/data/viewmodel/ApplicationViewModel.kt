@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -1286,14 +1287,23 @@ class ApplicationViewModel(
                                 } else {
                                     val dataJson =
                                         Gson().fromJson(decodeData, JsonObject::class.java)
-
                                     val accountData = dataJson["BaseAccount"].asJsonObject
-                                    tempBalances.add(
-                                        CoinProto.Coin.newBuilder()
-                                            .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
-                                            .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
-                                            .build()
-                                    )
+                                    if (accountData["coins"].asString.isNotEmpty()) {
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                                .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                .build()
+                                        )
+                                    } else {
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(stakeDenom)
+                                                .setAmount("0")
+                                                .build()
+                                        )
+                                    }
+
                                     fetcher.cosmosBalances = tempBalances
                                     fetcher.cosmosAccountNumber =
                                         accountData["account_number"].asString.toLong()

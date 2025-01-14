@@ -27,6 +27,6 @@ class ChainBitcanna : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubcna"
     override var accountPrefix: String = "bcna"
-    override var grpcHost: String = "grpc-bitcanna.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-bitcanna.cosmostation.io/"
+    override var grpcHost: String = "grpc-bitcanna.io"
+    override var lcdUrl: String = "https://lcd-bitcanna.io/"
 }
