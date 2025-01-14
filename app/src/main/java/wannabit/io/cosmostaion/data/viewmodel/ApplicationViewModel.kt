@@ -1263,7 +1263,6 @@ class ApplicationViewModel(
                                     jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
                                 val decodeData = formatJsonString(String(Base64.decode(data)))
 
-                                fetchState = FetchState.SUCCESS
                                 if (decodeData == "null") {
                                     tempBalances.add(
                                         CoinProto.Coin.newBuilder().setDenom(stakeDenom)
@@ -1353,6 +1352,7 @@ class ApplicationViewModel(
                                     )
                                     BaseData.updateRefAddressesToken(grcRefAddress)
                                     tokenCnt = chain.cosmosFetcher()?.valueGrc20TokenCnt() ?: 0
+                                    fetchState = FetchState.SUCCESS
 
                                     withContext(Dispatchers.Main) {
                                         if (isEdit) {

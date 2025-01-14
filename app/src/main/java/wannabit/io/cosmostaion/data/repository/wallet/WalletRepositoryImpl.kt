@@ -455,17 +455,17 @@ class WalletRepositoryImpl : WalletRepository {
 
                 } else {
                     grc20Token.amount = "0"
-                    grc20Token.fetched = false
+                    grc20Token.fetched = true
                 }
 
             } else {
                 grc20Token.amount = "0"
-                grc20Token.fetched = false
+                grc20Token.fetched = true
             }
 
         } catch (e: Exception) {
             grc20Token.amount = "0"
-            grc20Token.fetched = false
+            grc20Token.fetched = true
         }
     }
 

@@ -94,13 +94,15 @@ class MajorCryptoFragment : Fragment() {
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
-            bitStaking.visibleOrGone(selectedChain is ChainBitCoin84 && selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
+            bitStaking.visibleOrGone(selectedChain.isSupportStaking() && selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
 
             bitStaking.setOnClickListener {
-                Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dapp", "")
-                    putExtra("selectedChain", selectedChain as Parcelable)
-                    startActivity(this)
+                if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", selectedChain.btcStakingDapp())
+                        putExtra("selectedChain", selectedChain as Parcelable)
+                        startActivity(this)
+                    }
                 }
             }
         }

@@ -41,6 +41,10 @@ class TokenEditViewHolder(
                                 }
 
                             } else {
+                                skeletonTokenAmount.visibility = View.VISIBLE
+                                skeletonTokenValue.visibility = View.VISIBLE
+                                tokenAmount.text = ""
+                                tokenValue.text = ""
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val channel = chain.cosmosFetcher?.getChannel()
                                     walletViewModel.cw20Balance(channel, chain, token)
@@ -83,6 +87,10 @@ class TokenEditViewHolder(
                                     }
 
                                 } else {
+                                    skeletonTokenAmount.visibility = View.VISIBLE
+                                    skeletonTokenValue.visibility = View.VISIBLE
+                                    tokenAmount.text = ""
+                                    tokenValue.text = ""
                                     CoroutineScope(Dispatchers.IO).launch {
                                         walletViewModel.grc20Balance(chain, token)
                                     }

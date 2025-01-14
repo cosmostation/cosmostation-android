@@ -86,7 +86,6 @@ import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
-import wannabit.io.cosmostaion.sign.BitCoinJS
 import wannabit.io.cosmostaion.sign.Signer
 import java.io.BufferedReader
 import java.net.URLDecoder
@@ -126,8 +125,6 @@ class DappActivity : BaseActivity() {
     private lateinit var walletViewModel: WalletViewModel
     private lateinit var txViewModel: TxViewModel
 
-    private var bitcoinJS: BitCoinJS? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDappBinding.inflate(layoutInflater)
@@ -161,7 +158,7 @@ class DappActivity : BaseActivity() {
         } else {
             (intent.getParcelableExtra("selectedChain")) as? BaseChain
         }
-        selectBitcoin = allChains?.firstOrNull { it.name == ecoMajorChain?.name }
+        selectBitcoin = allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
     }
 
     private fun initViewModel() {
@@ -637,7 +634,6 @@ class DappActivity : BaseActivity() {
         binding.apply {
             dappWebView.removeJavascriptInterface("station")
         }
-        bitcoinJS?.unbindService()
     }
 
     private fun signBundle(id: Long, data: String, method: String? = ""): Bundle {
@@ -694,12 +690,12 @@ class DappActivity : BaseActivity() {
     }
 
     private fun showBitSignDialog(
-        bundle: Bundle, bitCoinJS: BitCoinJS?, signListener: PopUpBitSignFragment.WcSignRawDataListener
+        bundle: Bundle,
+        signListener: PopUpBitSignFragment.WcSignRawDataListener
     ) {
         bundle.getString("data")?.let { data ->
             PopUpBitSignFragment(
                 selectBitcoin,
-                bitCoinJS,
                 bundle.getLong("id"),
                 data,
                 bundle.getString("method"),
@@ -877,7 +873,6 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-            Log.e("Test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -1612,9 +1607,6 @@ class DappActivity : BaseActivity() {
 
                 "bit_sendBitcoin" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        if (bitcoinJS == null) {
-                            bitcoinJS = BitCoinJS(this@DappActivity)
-                        }
                         val params = messageJson.getJSONObject("params")
                         currentMessageJson = messageJson
                         currentMessageId = messageId
@@ -1627,50 +1619,95 @@ class DappActivity : BaseActivity() {
                         }
 
                         val signBundle = signBundle(0, params.toString(), "bit_sendBitcoin")
-                        showBitSignDialog(signBundle, bitcoinJS, object : PopUpBitSignFragment.WcSignRawDataListener {
-                            override fun sign(id: Long, txHex: String) {
-                                lifecycleScope.launch(Dispatchers.IO) {
-                                    val bitSendTxRequest = JsonRpcRequest(
-                                        method = "sendrawtransaction", params = listOf(txHex)
-                                    )
-                                    val bitSendTxResponse =
-                                        jsonRpcResponse(selectBitcoin?.mainUrl ?: "", bitSendTxRequest)
-                                    val bitSendTxJsonObject = Gson().fromJson(
-                                        bitSendTxResponse.body?.string(), JsonObject::class.java
-                                    )
-                                    try {
-                                        val result = bitSendTxJsonObject["result"].asString
-                                        appToWebResult(
-                                            currentMessageJson, result, currentMessageId
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        val bitSendTxRequest = JsonRpcRequest(
+                                            method = "sendrawtransaction", params = listOf(txHex)
                                         )
+                                        val bitSendTxResponse =
+                                            jsonRpcResponse(
+                                                selectBitcoin?.mainUrl ?: "",
+                                                bitSendTxRequest
+                                            )
+                                        val bitSendTxJsonObject = Gson().fromJson(
+                                            bitSendTxResponse.body?.string(), JsonObject::class.java
+                                        )
+                                        try {
+                                            val result = bitSendTxJsonObject["result"].asString
+                                            appToWebResult(
+                                                currentMessageJson, result, currentMessageId
+                                            )
 
-                                    } catch (e: Exception) {
-                                        val errorMessage =
-                                            bitSendTxJsonObject["error"].asJsonObject["message"].asString
-                                        appToWebError(
-                                            currentMessageJson, currentMessageId, errorMessage
-                                        )
+                                        } catch (e: Exception) {
+                                            val errorMessage =
+                                                bitSendTxJsonObject["error"].asJsonObject["message"].asString
+                                            appToWebError(
+                                                currentMessageJson, currentMessageId, errorMessage
+                                            )
+                                        }
                                     }
                                 }
-                            }
 
-                            override fun cancel(id: Long) {
-                                appToWebError(messageJson, messageId, "User rejected the request.")
-                            }
-                        })
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson,
+                                        messageId,
+                                        "User rejected the request."
+                                    )
+                                }
+                            })
                     }
                 }
 
                 "bit_signMessage" -> {
-                    if (bitcoinJS == null) {
-                        bitcoinJS = BitCoinJS(this@DappActivity)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val signBundle = signBundle(0, params.toString(), "bit_signMessage")
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    appToWebResult(
+                                        messageJson, txHex, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson,
+                                        messageId,
+                                        "User rejected the request."
+                                    )
+                                }
+                            })
                     }
-                    val test = """function test() {
-                        const sign = signMessageECDSA2()
-                        console.log("sign : ", sign)
-                    """.trimIndent()
-                    bitcoinJS?.mergeFunction(test)
-                    bitcoinJS?.executeFunction("test()")
+                }
+
+                "bit_signPsbt" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getString("params")
+                        val signBundle = signBundle(0, params, "bit_signPsbt")
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    appToWebResult(
+                                        messageJson, txHex, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson,
+                                        messageId,
+                                        "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
                 }
 
                 else -> {

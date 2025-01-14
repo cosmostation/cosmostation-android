@@ -133,6 +133,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/no_tx_txt"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/error_not_enough_fee"
+                    android:textColor="@color/color_accent_red"
+                    android:visibility="gone"
+                    android:gravity="end"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/view1"/>
+
                 <View
                     android:id="@+id/view1"
                     android:layout_width="match_parent"
@@ -148,12 +161,12 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_16"
+                    android:layout_marginBottom="@dimen/space_14"
                     android:background="@drawable/button_fee_bg"
                     android:paddingHorizontal="@dimen/space_10"
                     android:paddingVertical="@dimen/space_8"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="@dimen/space_14"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view1">
 
                     <ImageView

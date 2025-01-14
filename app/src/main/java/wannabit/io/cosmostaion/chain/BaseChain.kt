@@ -491,6 +491,14 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_support_grc20")?.asBoolean ?: false
     }
 
+    fun isSupportStaking(): Boolean {
+        return getChainListParam()?.getAsJsonObject("btc_staking")?.get("is_support_staking")?.asBoolean ?: false
+    }
+
+    fun btcStakingDapp(): String {
+        return getChainListParam()?.getAsJsonObject("btc_staking")?.get("url")?.asString ?: ""
+    }
+
     fun explorerAccount(address: String): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
