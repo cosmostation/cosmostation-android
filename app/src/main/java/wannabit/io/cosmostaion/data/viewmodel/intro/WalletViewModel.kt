@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
@@ -13,9 +15,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bouncycastle.util.encoders.Base64
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -25,6 +29,8 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.formatJsonString
+import wannabit.io.cosmostaion.common.regexWithNumberAndChar
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -338,6 +344,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         }
     }
 
+    private val _editGrc20Balance = MutableLiveData<String>()
+    val editGrc20Balance: LiveData<String> get() = _editGrc20Balance
+
+    fun grc20Balance(chain: BaseChain, token: Token) {
+        viewModelScope.launch(Dispatchers.IO) {
+            walletRepository.grc20Balance(chain, token)
+            withContext(Dispatchers.Main) {
+                _editGrc20Balance.value = token.contract
+            }
+        }
+    }
+
     private var _balanceResult = MutableLiveData<String>()
     val balanceResult: LiveData<String> get() = _balanceResult
 
@@ -479,22 +497,85 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             else -> {
                 chain.cosmosFetcher()?.let { cosmosFetcher ->
-                    val channel = cosmosFetcher.getChannel()
-                    when (val response = walletRepository.balance(channel, chain)) {
-                        is NetworkResult.Success -> {
-                            chain.cosmosFetcher?.cosmosBalances = response.data
-                            chain.fetchState = FetchState.SUCCESS
-                            chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = chain.tag
+                    if (cosmosFetcher.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                        when (val response = walletRepository.rpcAuth(chain)) {
+                            is NetworkResult.Success -> {
+                                if (response.data.isSuccessful) {
+                                    val tempBalances: MutableList<CoinProto.Coin> = mutableListOf()
+                                    val jsonResponse = Gson().fromJson(
+                                        response.data.body?.string(), JsonObject::class.java
+                                    )
+                                    val data =
+                                        jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
+                                    val decodeData = formatJsonString(String(Base64.decode(data)))
+                                    if (decodeData == "null") {
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                                                .setAmount("0").build()
+                                        )
+                                        cosmosFetcher.cosmosBalances = tempBalances
+                                        chain.fetchState = FetchState.SUCCESS
+                                        chain.coinCnt = 0
+                                        withContext(Dispatchers.Main) {
+                                            _balanceResult.value = chain.tag
+                                        }
+
+                                    } else {
+                                        val dataJson =
+                                            Gson().fromJson(decodeData, JsonObject::class.java)
+
+                                        val accountData = dataJson["BaseAccount"].asJsonObject
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                                .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                .build()
+                                        )
+                                        cosmosFetcher.cosmosBalances = tempBalances
+                                        chain.fetchState = FetchState.SUCCESS
+                                        chain.coinCnt =
+                                            if (cosmosFetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                        withContext(Dispatchers.Main) {
+                                            _balanceResult.value = chain.tag
+                                        }
+                                    }
+
+                                } else {
+                                    chain.cosmosFetcher?.cosmosBalances = null
+                                    chain.fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                chain.cosmosFetcher?.cosmosBalances = null
+                                chain.fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
 
-                        is NetworkResult.Error -> {
-                            chain.cosmosFetcher?.cosmosBalances = null
-                            chain.fetchState = FetchState.FAIL
-                            withContext(Dispatchers.Main) {
-                                _balanceResult.value = chain.tag
+                    } else {
+                        val channel = cosmosFetcher.getChannel()
+                        when (val response = walletRepository.balance(channel, chain)) {
+                            is NetworkResult.Success -> {
+                                chain.cosmosFetcher?.cosmosBalances = response.data
+                                chain.fetchState = FetchState.SUCCESS
+                                chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                chain.cosmosFetcher?.cosmosBalances = null
+                                chain.fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
                             }
                         }
                     }

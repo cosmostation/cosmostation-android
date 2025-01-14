@@ -207,6 +207,18 @@ class ApplicationViewModel(
                     }
                 }
 
+                if (isSupportGrc20()) {
+                    when (val response = walletRepository.token(this)) {
+                        is NetworkResult.Success -> {
+                            cosmosFetcher?.grc20Tokens = response.data
+                        }
+
+                        is NetworkResult.Error -> {
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
                 if (isSupportCw721()) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
@@ -1277,10 +1289,12 @@ class ApplicationViewModel(
                                         Gson().fromJson(decodeData, JsonObject::class.java)
 
                                     val accountData = dataJson["BaseAccount"].asJsonObject
-                                    tempBalances.add(CoinProto.Coin.newBuilder()
-                                        .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
-                                        .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
-                                        .build())
+                                    tempBalances.add(
+                                        CoinProto.Coin.newBuilder()
+                                            .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                            .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                            .build()
+                                    )
                                     fetcher.cosmosBalances = tempBalances
                                     fetcher.cosmosAccountNumber =
                                         accountData["account_number"].asString.toLong()
@@ -1309,6 +1323,45 @@ class ApplicationViewModel(
                                         fetchedResult.value = tag
                                         txFetchedResult.value = tag
                                     }
+                                }
+
+                                if (isSupportGrc20()) {
+                                    val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
+                                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                        cosmosFetcher?.grc20Tokens?.filter { it.wallet_preload ?: false }
+                                            ?.map { token ->
+                                                async { walletRepository.grc20Balance(chain, token) }
+                                            }
+
+                                    } else {
+                                        cosmosFetcher?.grc20Tokens?.filter { userDisplayToken.contains(it.contract) }
+                                            ?.map { token ->
+                                                async { walletRepository.grc20Balance(chain, token) }
+                                            }
+                                    }
+
+                                    tokenBalanceDeferredList?.awaitAll()
+                                    val grcRefAddress = RefAddress(
+                                        id,
+                                        tag,
+                                        address,
+                                        "",
+                                        "0",
+                                        "0",
+                                        cosmosFetcher?.allTokenValue(true)?.toPlainString(),
+                                        0
+                                    )
+                                    BaseData.updateRefAddressesToken(grcRefAddress)
+                                    tokenCnt = chain.cosmosFetcher()?.valueGrc20TokenCnt() ?: 0
+
+                                    withContext(Dispatchers.Main) {
+                                        if (isEdit) {
+                                            editFetchedTokenResult.value = tag
+                                        } else {
+                                            fetchedTokenResult.value = tag
+                                        }
+                                    }
+                                    fetchedTotalResult.postValue(tag)
                                 }
 
                             } else {

@@ -200,7 +200,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
                         if (BaseUtils.isValidBechAddress(
                                 toChain, address
                             )

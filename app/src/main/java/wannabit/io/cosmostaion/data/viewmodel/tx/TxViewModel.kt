@@ -8,6 +8,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.gno.bank.BankProto.MsgSend
+import com.gno.vm.VmProto.MsgCall
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -300,21 +301,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val suiBroadcast = SingleLiveEvent<JsonObject>()
 
     val bitBroadcast = SingleLiveEvent<String?>()
-
-    fun rpcBroadcast(
-        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            txRepository.auth(null, selectedChain)
-            val response = txRepository.broadcastRpcTx(msgSend,fee, memo, selectedChain)
-            broadcast.postValue(response)
-        } catch (e: Exception) {
-            val errorResponse = txRepository.broadcastRpcTx(
-                msgSend, fee, memo, selectedChain
-            )
-            errorMessage.postValue(errorResponse?.rawLog)
-        }
-    }
 
     fun broadcast(
         managedChannel: ManagedChannel?,
@@ -705,6 +691,36 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
         } catch (e: Exception) {
             errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun rpcSendBroadcast(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.broadcastSendRpcTx(msgSend,fee, memo, selectedChain)
+            broadcast.postValue(response)
+        } catch (e: Exception) {
+            val errorResponse = txRepository.broadcastSendRpcTx(
+                msgSend, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse?.rawLog)
+        }
+    }
+
+    fun rpcCallBroadcast(
+        msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.broadcastCallRpcTx(msgCall,fee, memo, selectedChain)
+            broadcast.postValue(response)
+        } catch (e: Exception) {
+            val errorResponse = txRepository.broadcastCallRpcTx(
+                msgCall, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse?.rawLog)
         }
     }
 }

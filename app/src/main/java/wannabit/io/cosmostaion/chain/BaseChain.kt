@@ -140,6 +140,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin44Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -486,6 +487,10 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.get("is_support_cw721")?.asBoolean ?: false
     }
 
+    fun isSupportGrc20(): Boolean {
+        return getChainListParam()?.get("is_support_grc20")?.asBoolean ?: false
+    }
+
     fun explorerAccount(address: String): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
@@ -704,6 +709,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainArtelaTestnet())
 //    chains.add(ChainBitcoin44Testnet())
 //    chains.add(ChainBitcoin49Testnet())
+    chains.add(ChainBabylonTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())

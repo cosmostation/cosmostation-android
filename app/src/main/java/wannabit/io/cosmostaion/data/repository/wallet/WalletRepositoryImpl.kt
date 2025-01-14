@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.chain.fetcher.validators
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
+import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
@@ -133,6 +134,8 @@ class WalletRepositoryImpl : WalletRepository {
                 mintscanApi.cw20token(chain.apiName)
             } else if (chain.isSupportErc20()) {
                 mintscanApi.erc20token(chain.apiName)
+            } else if (chain.isSupportGrc20()) {
+                mintscanApi.grc20token(chain.apiName)
             } else {
                 mutableListOf()
             }
@@ -425,6 +428,44 @@ class WalletRepositoryImpl : WalletRepository {
         } catch (e: Exception) {
             token.amount = "0"
             token.fetched = false
+        }
+    }
+
+    override suspend fun grc20Balance(chain: BaseChain, grc20Token: Token) {
+        val queryData = grc20Token.contract + ".BalanceOf(\"${chain.address}\")"
+        val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+        val grc20BalanceRequest = JsonRpcRequest(
+            method = "abci_query", params = listOf("vm/qeval", queryDataBase64, "0", false)
+        )
+        val grc20BalanceResponse = jsonRpcResponse(chain.mainUrl, grc20BalanceRequest)
+        try {
+            if (grc20BalanceResponse.isSuccessful) {
+                val grc20BalanceJsonObject = Gson().fromJson(
+                    grc20BalanceResponse.body?.string(), JsonObject::class.java
+                )
+                if (!grc20BalanceJsonObject.has("error")) {
+                    val balanceResult =
+                        grc20BalanceJsonObject["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject
+                    val balanceData = balanceResult["Data"].asString
+                    val decodeData = formatJsonString(String(Base64.decode(balanceData)))
+                    val regex = "\\d+".toRegex()
+                    val match = regex.find(decodeData)
+                    grc20Token.amount = match?.value?.toLong().toString()
+                    grc20Token.fetched = true
+
+                } else {
+                    grc20Token.amount = "0"
+                    grc20Token.fetched = false
+                }
+
+            } else {
+                grc20Token.amount = "0"
+                grc20Token.fetched = false
+            }
+
+        } catch (e: Exception) {
+            grc20Token.amount = "0"
+            grc20Token.fetched = false
         }
     }
 

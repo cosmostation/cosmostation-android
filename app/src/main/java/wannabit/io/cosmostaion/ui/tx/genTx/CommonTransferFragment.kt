@@ -326,6 +326,20 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
 
+                SendAssetType.ONLY_COSMOS_GRC20 -> {
+                    fromChain.cosmosFetcher?.let { fetcher ->
+                        fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
+                            ?.let { token ->
+                                toSendToken = token
+                            }
+                    }
+                    availableAmount = toSendToken?.amount?.toBigDecimal()
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendToken?.symbol
+                    )
+                }
+
                 else -> {}
             }
         }
@@ -499,7 +513,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun initData() {
         recipientAbleChains.add(fromChain)
-        if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+        if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
             BaseData.assets?.forEach { asset ->
                 if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
                     if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
@@ -508,7 +522,6 @@ class CommonTransferFragment : BaseTxFragment() {
                     } else if (asset.justBeforeChain() == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
                     }
-
                 } else {
                     if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.dpDenom?.lowercase() == toSendDenom.lowercase()) {
                         addRecipientChainIfNotExists(asset.chain)
@@ -704,7 +717,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
-                    SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
+                    SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20, SendAssetType.ONLY_COSMOS_GRC20 -> {
                         toSendToken?.let { token ->
                             val price = BaseData.getPrice(token.coinGeckoId)
                             val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(token.decimals)
@@ -1229,16 +1242,19 @@ class CommonTransferFragment : BaseTxFragment() {
                 val toAddressByteArray = convertBits(Bech32.decode(toAddress).data, 5, 8, false)
 
                 val sendCoin =
-                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom)
+                        .build()
                 val msgSend = com.types.MsgSendProto.MsgSend.newBuilder()
                     .setFromAddress(ByteString.copyFrom(fromAddressByteArray))
-                    .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin).build()
+                    .setToAddress(ByteString.copyFrom(toAddressByteArray)).addAmount(sendCoin)
+                    .build()
                 Signer.thorchainSendMsg(msgSend)
             }
 
             else -> {
                 val sendCoin =
-                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom).build()
+                    CoinProto.Coin.newBuilder().setAmount(toSendAmount).setDenom(toSendDenom)
+                        .build()
                 val msgSend =
                     MsgSend.newBuilder().setFromAddress(fromChain.address).setToAddress(toAddress)
                         .addAmount(sendCoin).build()
@@ -1326,18 +1342,24 @@ class CommonTransferFragment : BaseTxFragment() {
                                         txMemo,
                                         this
                                     )
+                                } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
+                                    val msgCall =
+                                        com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+                                            .setCaller(fromChain.address)
+                                            .setPkgPath(toSendToken?.contract).setFunc("Transfer")
+                                            .addAllArgs(listOf(toAddress, toSendAmount)).build()
+                                    txViewModel.rpcCallBroadcast(
+                                        msgCall, cosmosTxFee, txMemo, this
+                                    )
 
                                 } else {
                                     if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_RPC) {
-                                        val msgSend =
-                                            com.gno.bank.BankProto.MsgSend.newBuilder().setFromAddress(fromChain.address)
-                                                .setToAddress(toAddress).setAmount(toSendAmount + toSendDenom).build()
-                                        Signer.gnoSendMsg(msgSend)
-                                        txViewModel.rpcBroadcast(
-                                            msgSend,
-                                            cosmosTxFee,
-                                            txMemo,
-                                            this
+                                        val msgSend = com.gno.bank.BankProto.MsgSend.newBuilder()
+                                            .setFromAddress(fromChain.address)
+                                            .setToAddress(toAddress)
+                                            .setAmount(toSendAmount + toSendDenom).build()
+                                        txViewModel.rpcSendBroadcast(
+                                            msgSend, cosmosTxFee, txMemo, this
                                         )
 
                                     } else {
@@ -1580,6 +1602,6 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, ONLY_COSMOS_GRC20 }
 enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, BIT_COIN_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }

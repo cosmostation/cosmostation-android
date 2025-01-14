@@ -78,6 +78,11 @@ class ChainManageViewHolder(
                 rpcEndpointType.text = "API"
                 rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
 
+            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "RPC"
+                rpcEndpoint.text = chain.mainUrl
+
             } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 if (chain.isEvmCosmos()) {
                     grpcLayout.visibility = View.VISIBLE

@@ -4,12 +4,14 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -288,6 +290,7 @@ class WalletSelectViewHolder(
             } else {
                 chainLegacy.visibility = View.GONE
             }
+            Log.e("Test12345 : ", chain.fetchState.toString())
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {
@@ -320,7 +323,7 @@ class WalletSelectViewHolder(
                             chainDenom.text = chain.coinSymbol
                         }
 
-                    } else if (chain.supportCosmos()) {
+                    } else if (chain.supportCosmos() || chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             val availableAmount =
                                 chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)

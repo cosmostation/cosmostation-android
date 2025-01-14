@@ -67,6 +67,28 @@ class TokenEditViewHolder(
                                 }
                             }
                     }
+
+            } ?: run {
+                chain.cosmosFetcher()?.grc20Tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
+                    ?.let { token ->
+                        token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
+                            ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+                                if (token.fetched) {
+                                    skeletonTokenAmount.visibility = View.GONE
+                                    skeletonTokenValue.visibility = View.GONE
+                                    tokenAmount.text = formatAmount(amount.toPlainString(), 6)
+                                    chain.cosmosFetcher?.let {
+                                        tokenValue.text =
+                                            formatAssetValue(it.grc20TokenValue(token.contract))
+                                    }
+
+                                } else {
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        walletViewModel.grc20Balance(chain, token)
+                                    }
+                                }
+                            }
+                    }
             }
         }
     }

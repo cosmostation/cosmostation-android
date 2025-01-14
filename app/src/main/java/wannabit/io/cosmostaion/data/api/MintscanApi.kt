@@ -47,6 +47,9 @@ interface MintscanApi {
     @GET("v11/assets/{chain}/erc20/info")
     suspend fun erc20token(@Path("chain") chain: String): MutableList<Token>
 
+    @GET("v11/assets/{chain}/grc20/info")
+    suspend fun grc20token(@Path("chain") chain: String): MutableList<Token>
+
     @GET("v11/assets/{chain}/cw721")
     suspend fun cw721Info(@Path("chain") chain: String): JsonObject
 

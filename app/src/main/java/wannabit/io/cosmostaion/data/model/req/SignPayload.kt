@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.model.req
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 
@@ -26,7 +27,28 @@ data class Fee(
 data class Msgs(
     @SerializedName("@type")
     val type: String,
-    val from_address: String,
-    val to_address: String,
-    val amount: String
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val from_address: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val to_address: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val amount: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val send: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val caller: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val pkg_path: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val func: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val args: List<String>? = null,
 )

@@ -12,7 +12,7 @@ class BitCoinJS(private val context: Context) {
 
     private var isServiceBind = false
     private lateinit var sandbox: JavaScriptSandbox
-    private lateinit var jsIsolate: JavaScriptIsolate
+    private var jsIsolate: JavaScriptIsolate? = null
 
     init {
         if (!isServiceBind) {
@@ -24,7 +24,7 @@ class BitCoinJS(private val context: Context) {
                         isServiceBind = true
                     }
                     val jsCode = readJavaScriptFile()
-                    jsIsolate.evaluateJavaScriptAsync(jsCode).get()
+                    jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
 
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -37,12 +37,12 @@ class BitCoinJS(private val context: Context) {
         return context.assets.open("bitcoin.js").bufferedReader().use { it.readText() }
     }
 
-    fun executeFunction(functionCall: String): String {
-        return jsIsolate.evaluateJavaScriptAsync(functionCall).get()
+    fun executeFunction(functionCall: String): String? {
+        return jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
     }
 
     fun mergeFunction(createTx: String) {
-        jsIsolate.evaluateJavaScriptAsync(createTx).get()
+        jsIsolate?.evaluateJavaScriptAsync(createTx)?.get()
     }
 
     fun unbindService() {

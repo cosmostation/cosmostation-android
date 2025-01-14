@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.data.repository.tx
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.gno.bank.BankProto.MsgSend
+import com.gno.vm.VmProto.MsgCall
 import com.google.gson.JsonObject
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
@@ -116,10 +117,6 @@ interface TxRepository {
         memo: String,
         selectedChain: BaseChain
     ): String
-
-    suspend fun broadcastRpcTx(
-        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
-    ): AbciProto.TxResponse?
 
     suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
@@ -256,4 +253,12 @@ interface TxRepository {
         opReturn: String?,
         utxo: MutableList<JsonObject>?,
     ): String?
+
+    suspend fun broadcastSendRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): AbciProto.TxResponse?
+
+    suspend fun broadcastCallRpcTx(
+        msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): AbciProto.TxResponse?
 }

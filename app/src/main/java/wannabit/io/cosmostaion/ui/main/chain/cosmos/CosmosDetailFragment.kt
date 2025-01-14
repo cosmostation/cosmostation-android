@@ -235,7 +235,7 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20()
+            val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20() || selectedChain.isSupportGrc20()
             btnAddToken.visibleOrGone(supportToken)
 
             val tableTitles = mutableListOf<String>()

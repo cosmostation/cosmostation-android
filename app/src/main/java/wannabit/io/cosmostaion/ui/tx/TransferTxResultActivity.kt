@@ -268,7 +268,11 @@ class TransferTxResultActivity : BaseActivity() {
                                     .build()
 
                             } else {
-                                errorMsg = txResult["Error"].asJsonObject["value"].asString ?: ""
+                                errorMsg = try {
+                                    txResult["Error"].asJsonObject["value"].asString
+                                } catch (e: Exception) {
+                                    txResult["Log"].asString
+                                }
                                 TxResponse.newBuilder().setTxhash(txHash).setCode(-1)
                                     .setRawLog(errorMsg).build()
                             }

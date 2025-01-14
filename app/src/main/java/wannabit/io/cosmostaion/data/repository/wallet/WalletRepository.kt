@@ -87,6 +87,10 @@ interface WalletRepository {
         chain: BaseChain, token: Token
     )
 
+    suspend fun grc20Balance(
+        chain: BaseChain, grc20Token: Token
+    )
+
     //neutron
     suspend fun vestingData(
         channel: ManagedChannel?, chain: BaseChain

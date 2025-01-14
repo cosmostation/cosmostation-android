@@ -50,6 +50,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
+    var grc20Tokens = mutableListOf<Token>()
     var cw721s = mutableListOf<JsonObject>()
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
@@ -76,13 +77,34 @@ open class CosmosFetcher(private val chain: BaseChain) {
         }
     }
 
+    fun grc20TokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
+        grc20Tokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
+            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
+            return price.multiply(tokenInfo.amount?.toBigDecimal())
+                .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
+        } ?: run {
+            return BigDecimal.ZERO
+        }
+    }
+
     fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        tokens.forEach { token ->
-            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
-            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
-                .setScale(6, RoundingMode.DOWN)
-            result = result.add(value)
+        if (tokens.isNotEmpty()) {
+            tokens.forEach { token ->
+                val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+                val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
+        }
+
+        if (grc20Tokens.isNotEmpty()) {
+            grc20Tokens.forEach { token ->
+                val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+                val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                    .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
         }
         return result
     }
@@ -98,6 +120,10 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     fun valueTokenCnt(): Int {
         return tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    }
+
+    fun valueGrc20TokenCnt(): Int {
+        return grc20Tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
     }
 
     fun balanceAmount(denom: String): BigDecimal {

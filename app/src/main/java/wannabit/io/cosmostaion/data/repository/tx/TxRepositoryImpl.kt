@@ -10,6 +10,7 @@ import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.gno.bank.BankProto.MsgSend
+import com.gno.vm.VmProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
@@ -1346,30 +1347,6 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun broadcastRpcTx(
-        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
-    ): TxResponse? {
-        return try {
-            val broadcastTx = Signer.signRpcBroadcastTx(msgSend, fee, memo, selectedChain)
-            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
-            val broadcastRequest = JsonRpcRequest(
-                method = "broadcast_tx_async", params = listOf(txByte)
-            )
-            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
-            val broadcastJsonObject = Gson().fromJson(
-                broadcastResponse.body?.string(), JsonObject::class.java
-            )
-            val result = broadcastJsonObject["result"].asJsonObject
-            return if (result["error"].isJsonNull) {
-                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
-            } else {
-                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
-            }
-        } catch (e: Exception) {
-            null
-        }
-    }
-
     override suspend fun broadcastOktTx(
         msgs: MutableList<Msg>, fee: LFee, memo: String, selectedChain: BaseChain
     ): LegacyRes? {
@@ -2005,5 +1982,56 @@ class TxRepositoryImpl : TxRepository {
             }
         }
         return ""
+    }
+
+    override suspend fun broadcastSendRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): TxResponse? {
+        return try {
+            val broadcastTx = Signer.signRpcSendBroadcastTx(msgSend, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
+            val broadcastRequest = JsonRpcRequest(
+                method = "broadcast_tx_async", params = listOf(txByte)
+            )
+            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastJsonObject = Gson().fromJson(
+                broadcastResponse.body?.string(), JsonObject::class.java
+            )
+            val result = broadcastJsonObject["result"].asJsonObject
+            return if (result["error"].isJsonNull) {
+                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
+            } else {
+                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override suspend fun broadcastCallRpcTx(
+        msgCall: VmProto.MsgCall,
+        fee: Fee?,
+        memo: String,
+        selectedChain: BaseChain
+    ): TxResponse? {
+        return try {
+            val broadcastTx = Signer.signRpcCallBroadcastTx(msgCall, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
+            val broadcastRequest = JsonRpcRequest(
+                method = "broadcast_tx_async", params = listOf(txByte)
+            )
+            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastJsonObject = Gson().fromJson(
+                broadcastResponse.body?.string(), JsonObject::class.java
+            )
+            val result = broadcastJsonObject["result"].asJsonObject
+            return if (result["error"].isJsonNull) {
+                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
+            } else {
+                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
+            }
+        } catch (e: Exception) {
+            null
+        }
     }
 }
