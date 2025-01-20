@@ -26,6 +26,6 @@ class ChainDungeon : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "udgn"
     override var accountPrefix: String = "dungeon"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://dungeon.api.quasarstaking.ai/"
+    override var grpcHost: String = "dungeon.grpc.quasarstaking.ai:80"
+    override var lcdUrl: String = "https://dungeon-wallet.api.quasarstaking.ai"
 }
