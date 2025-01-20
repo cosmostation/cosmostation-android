@@ -28,7 +28,7 @@ open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
         ChildNumber(84, true), ChildNumber(1, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var coinSymbol: String = "BTC"
+    override var coinSymbol: String = "sBTC"
     override var coinGeckoId: String = ""
     override var coinLogo: Int = R.drawable.token_btc
 

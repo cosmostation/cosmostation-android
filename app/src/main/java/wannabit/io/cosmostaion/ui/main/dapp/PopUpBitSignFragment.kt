@@ -88,7 +88,7 @@ class PopUpBitSignFragment(
                             )
                         )
                         dappFeeTokenImg.setImg(R.drawable.token_btc)
-                        dappFeeToken.text = "BTC"
+                        dappFeeToken.text = selectedChain?.coinSymbol
                     }
                 }
             }
