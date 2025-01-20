@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -290,7 +289,6 @@ class WalletSelectViewHolder(
             } else {
                 chainLegacy.visibility = View.GONE
             }
-            Log.e("Test12345 : ", chain.fetchState.toString())
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {

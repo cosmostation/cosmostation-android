@@ -882,7 +882,6 @@ class DappActivity : BaseActivity() {
                         selectedChain(allChains, chainId)?.let { chain ->
                             selectChain = chain
                             val accountJson = JSONObject()
-                            accountJson.put("isKeystone", false)
                             accountJson.put("isEthermint", selectChain?.supportEvm)
                             accountJson.put("isLedger", false)
                             accountJson.put("address", selectChain?.address)
@@ -1502,7 +1501,7 @@ class DappActivity : BaseActivity() {
                     }
                     appToWebResult(
                         messageJson,
-                        Base64.encodeToString(selectBitcoin?.publicKey, Base64.NO_WRAP),
+                        selectBitcoin?.publicKey?.bytesToHex(),
                         messageId
                     )
                 }

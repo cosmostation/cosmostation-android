@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.JsonParser
 import com.trustwallet.walletconnect.extensions.toHex
+import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -87,7 +88,7 @@ class PopUpBitSignFragment(
                             )
                         )
                         dappFeeTokenImg.setImg(R.drawable.token_btc)
-                        dappFeeToken.text = "BIT"
+                        dappFeeToken.text = "BTC"
                     }
                 }
             }
@@ -206,7 +207,7 @@ class PopUpBitSignFragment(
                         }
 
                         "bit_signPsbt" -> {
-                            val privateKey = selectedChain?.privateKey?.toHex()
+                            val privateKey = selectedChain?.privateKey?.bytesToHex()
                             val network = if (selectedChain is ChainBitcoin84Testnet) {
                                 "testnet"
                             } else {

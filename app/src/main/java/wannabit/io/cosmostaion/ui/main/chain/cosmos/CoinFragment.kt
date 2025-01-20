@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -474,7 +473,6 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
                     allGrc20TokenCoins.addAll(grc20Tokens)
                     searchGrc20TokenCoins.addAll(grc20TokenCoins)
-                    Log.e("Test12345 : ", searchGrc20TokenCoins.toString())
                 }
             }
         }
