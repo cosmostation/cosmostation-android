@@ -72,7 +72,7 @@ import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
@@ -1944,7 +1944,7 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun simulateBitSend(
         chain: ChainBitCoin84,
-        bitcoinJS: BitCoinJS?,
+        bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
         toAmount: String,

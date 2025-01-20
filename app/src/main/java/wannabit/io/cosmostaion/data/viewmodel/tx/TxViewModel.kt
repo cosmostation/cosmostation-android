@@ -35,7 +35,7 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
@@ -656,7 +656,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     fun bitSendSimulate(
         chain: ChainBitCoin84,
-        bitcoinJS: BitCoinJS?,
+        bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
         toAmount: String,

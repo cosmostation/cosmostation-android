@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.JsonParser
-import com.trustwallet.walletconnect.extensions.toHex
 import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.setImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.databinding.FragmentBitSignBinding
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -41,8 +40,6 @@ class PopUpBitSignFragment(
 
     private var _binding: FragmentBitSignBinding? = null
     private val binding get() = _binding!!
-
-    private var bitcoinJS: BitCoinJS? = null
 
     private var bitToAddress: String = ""
     private var bitSatAmount: String = ""
@@ -61,16 +58,12 @@ class PopUpBitSignFragment(
         super.onViewCreated(view, savedInstanceState)
 
         initViewResource()
-        parsingRequest()
-        setUpObserve()
-        setUpClickAction()
     }
 
     private fun initViewResource() {
         binding.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                bitcoinJS = BitCoinJS(requireContext())
-                withContext(Dispatchers.Main) {
+            BitcoinJs.initialize(requireContext(), lifecycleScope) {
+                if (BitcoinJs.isInitialized()) {
                     signView.setBackgroundResource(R.drawable.cell_bg)
                     feeView.setBackgroundResource(R.drawable.cell_bg)
                     if (method == "bit_signMessage") {
@@ -90,35 +83,37 @@ class PopUpBitSignFragment(
                         dappFeeTokenImg.setImg(R.drawable.token_btc)
                         dappFeeToken.text = selectedChain?.coinSymbol
                     }
+                    parsingRequest()
+                    setUpObserve()
+                    setUpClickAction()
+
+                } else {
+                    initViewResource()
                 }
             }
         }
     }
 
     private fun parsingRequest() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            (selectedChain as ChainBitCoin84).apply {
-                when (method) {
-                    "bit_sendBitcoin" -> {
-                        val txJsonObject = JsonParser.parseString(data).asJsonObject
-                        bitToAddress = txJsonObject["to"].asString
-                        bitSatAmount = txJsonObject["satAmount"].asLong.toString()
-                        message = JSONObject(
-                            mapOf(
-                                "From" to selectedChain?.mainAddress,
-                                "To" to bitToAddress,
-                                "Amount" to bitSatAmount.toBigDecimal().movePointLeft(8)
-                                    .setScale(8, RoundingMode.DOWN).toPlainString()
-                            )
-                        ).toString(4)
-                        withContext(Dispatchers.Main) {
-                            txViewModel.bitTxData(this@apply)
-                        }
-                    }
+        (selectedChain as ChainBitCoin84).apply {
+            when (method) {
+                "bit_sendBitcoin" -> {
+                    val txJsonObject = JsonParser.parseString(data).asJsonObject
+                    bitToAddress = txJsonObject["to"].asString
+                    bitSatAmount = txJsonObject["satAmount"].asLong.toString()
+                    message = JSONObject(
+                        mapOf(
+                            "From" to selectedChain?.mainAddress,
+                            "To" to bitToAddress,
+                            "Amount" to bitSatAmount.toBigDecimal().movePointLeft(8)
+                                .setScale(8, RoundingMode.DOWN).toPlainString()
+                        )
+                    ).toString(4)
+                    txViewModel.bitTxData(this@apply)
+                }
 
-                    else -> {
-                        txViewModel.bitTxData(this@apply)
-                    }
+                else -> {
+                    txViewModel.bitTxData(this@apply)
                 }
             }
         }
@@ -129,45 +124,13 @@ class PopUpBitSignFragment(
             (selectedChain as ChainBitCoin84).apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     when (method) {
-                        "bit_signMessage" -> {
-                            val txJsonObject = JsonParser.parseString(data).asJsonObject
-                            val message = txJsonObject["message"].asString
-                            val type = txJsonObject["type"].asString
-                            val privateKey = selectedChain?.privateKey?.toHex()
-
-                            if (type == "ecdsa") {
-                                val signMessageFunction = """function signMessageFunction() {
-                                            const signMessage = signMessageECDSA('${message}', '${privateKey}');
-                                            return signMessage;
-                                        }""".trimMargin()
-                                bitcoinJS?.mergeFunction(signMessageFunction)
-                                updateData = bitcoinJS?.executeFunction("signMessageFunction()")
-
-                            } else {
-                                val signMessageFunction = """function signMessageFunction() {
-                                            const signMessage = signMessageBIP322('${message}', '${privateKey}', '${selectedChain?.mainAddress}');
-                                            return signMessage;
-                                        }""".trimMargin()
-                                bitcoinJS?.mergeFunction(signMessageFunction)
-                                updateData = bitcoinJS?.executeFunction("signMessageFunction()")
-                            }
-
-                            withContext(Dispatchers.Main) {
-                                binding.apply {
-                                    btnConfirm.isEnabled = true
-                                    loading.visibility = View.GONE
-                                    signData.text = message
-                                }
-                            }
-                        }
-
                         "bit_sendBitcoin" -> {
                             val bitVByteFee = btcFetcher()?.bitVBytesFee(bitData.first, "")
                             val bitFee = bitData.second.toBigDecimal().multiply(bitVByteFee)
                                 .movePointRight(5).setScale(0, RoundingMode.UP)
                             var btcBalance = BigDecimal.ZERO
-                            bitData.first?.forEach { utxo ->
-                                btcBalance = btcBalance.add(utxo["value"].asLong.toBigDecimal())
+                            bitData.first?.forEach { uTxo ->
+                                btcBalance = btcBalance.add(uTxo["value"].asLong.toBigDecimal())
                             }
 
                             withContext(Dispatchers.Main) {
@@ -192,7 +155,7 @@ class PopUpBitSignFragment(
 
                                         txViewModel.bitSendSimulate(
                                             (selectedChain as ChainBitCoin84),
-                                            bitcoinJS,
+                                            BitcoinJs,
                                             mainAddress,
                                             bitToAddress,
                                             bitSatAmount,
@@ -202,6 +165,38 @@ class PopUpBitSignFragment(
                                             bitData.first
                                         )
                                     }
+                                }
+                            }
+                        }
+
+                        "bit_signMessage" -> {
+                            val txJsonObject = JsonParser.parseString(data).asJsonObject
+                            val message = txJsonObject["message"].asString
+                            val type = txJsonObject["type"].asString
+                            val privateKey = selectedChain?.privateKey?.bytesToHex()
+
+                            if (type == "ecdsa") {
+                                val signMessageFunction = """function signMessageFunction() {
+                                            const signMessage = signMessageECDSA('${message}', '${privateKey}');
+                                            return signMessage;
+                                        }""".trimMargin()
+                                BitcoinJs.mergeFunction(signMessageFunction)
+                                updateData = BitcoinJs.executeFunction("signMessageFunction()")
+
+                            } else {
+                                val signMessageFunction = """function signMessageFunction() {
+                                            const signMessage = signMessageBIP322('${message}', '${privateKey}', '${selectedChain?.mainAddress}');
+                                            return signMessage;
+                                        }""".trimMargin()
+                                BitcoinJs.mergeFunction(signMessageFunction)
+                                updateData = BitcoinJs.executeFunction("signMessageFunction()")
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                binding.apply {
+                                    btnConfirm.isEnabled = true
+                                    loading.visibility = View.GONE
+                                    signData.text = message
                                 }
                             }
                         }
@@ -217,30 +212,31 @@ class PopUpBitSignFragment(
                             val bitFee = bitData.second.toBigDecimal().multiply(bitVByteFee)
                                 .movePointRight(5).setScale(0, RoundingMode.UP)
                             var btcBalance = BigDecimal.ZERO
-                            bitData.first?.forEach { utxo ->
-                                btcBalance = btcBalance.add(utxo["value"].asLong.toBigDecimal())
+                            bitData.first?.forEach { uTxo ->
+                                btcBalance = btcBalance.add(uTxo["value"].asLong.toBigDecimal())
                             }
 
                             val signPsbtFunction = """function signPsbtFunction() {
                                             const txHex = signPsbt('${data}', '${privateKey}');
                                             return txHex;
                                         }""".trimMargin()
-                            bitcoinJS?.mergeFunction(signPsbtFunction)
-                            updateData = bitcoinJS?.executeFunction("signPsbtFunction()")
+                            BitcoinJs.mergeFunction(signPsbtFunction)
+                            updateData = BitcoinJs.executeFunction("signPsbtFunction()")
 
                             val getInOutPutsFunction = """function getInOutPutsFunction() {
                                             const inputOutput = getInOutPuts('${data}', '${network}');
                                             return inputOutput;
                                         }""".trimMargin()
-                            bitcoinJS?.mergeFunction(getInOutPutsFunction)
+                            BitcoinJs.mergeFunction(getInOutPutsFunction)
                             val messageData =
-                                bitcoinJS?.executeFunction("getInOutPutsFunction()").toString()
+                                BitcoinJs.executeFunction("getInOutPutsFunction()").toString()
                             val messageJsonObject = JsonParser.parseString(messageData).asJsonObject
                             val outputs = messageJsonObject["outputs"].asJsonArray
                             var outputBalance = BigDecimal.ZERO
                             outputs.forEach { output ->
                                 if (output.asJsonObject["address"].asString != selectedChain?.mainAddress) {
-                                    outputBalance = outputBalance.add(output.asJsonObject["value"].asString.toBigDecimal())
+                                    outputBalance =
+                                        outputBalance.add(output.asJsonObject["value"].asString.toBigDecimal())
                                 }
                             }
 
@@ -302,6 +298,7 @@ class PopUpBitSignFragment(
                 listener.cancel(id)
             }
         }
+        BitcoinJs.unbindService()
     }
 
     interface WcSignRawDataListener {
@@ -312,6 +309,6 @@ class PopUpBitSignFragment(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        bitcoinJS?.unbindService()
+        BitcoinJs.unbindService()
     }
 }

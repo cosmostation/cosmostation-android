@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
@@ -245,7 +245,7 @@ interface TxRepository {
 
     suspend fun simulateBitSend(
         chain: ChainBitCoin84,
-        bitcoinJS: BitCoinJS?,
+        bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
         toAmount: String,

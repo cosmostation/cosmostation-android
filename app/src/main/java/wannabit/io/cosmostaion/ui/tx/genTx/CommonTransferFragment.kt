@@ -64,7 +64,7 @@ import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCommonTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
@@ -104,8 +104,6 @@ class CommonTransferFragment : BaseTxFragment() {
     private var toAddress = ""
     private var toSendAmount = ""
     private var txMemo = ""
-
-    private var bitcoinJS: BitCoinJS? = null
 
     private var selectedFeePosition = 0
     private var cosmosFeeInfos: MutableList<FeeInfo> = mutableListOf()
@@ -313,15 +311,12 @@ class CommonTransferFragment : BaseTxFragment() {
                 SendAssetType.BIT_COIN -> {
                     backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainBitCoin84).apply {
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            bitcoinJS = BitCoinJS(requireContext())
+                        BitcoinJs.initialize(requireContext(), lifecycleScope) {
                             txViewModel.bitTxData(fromChain as ChainBitCoin84)
-                            withContext(Dispatchers.Main) {
-                                transferImg.setImageResource(fromChain.coinLogo)
-                                sendTitle.text = getString(
-                                    R.string.title_asset_send, fromChain.coinSymbol
-                                )
-                            }
+                            transferImg.setImageResource(fromChain.coinLogo)
+                            sendTitle.text = getString(
+                                R.string.title_asset_send, fromChain.coinSymbol
+                            )
                         }
                     }
                 }
@@ -1083,7 +1078,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                         txViewModel.bitSendSimulate(
                             this,
-                            bitcoinJS,
+                            BitcoinJs,
                             mainAddress,
                             toAddress,
                             toSendAmount,
@@ -1597,7 +1592,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     override fun onDestroyView() {
         _binding = null
-        bitcoinJS?.unbindService()
+        BitcoinJs.unbindService()
         super.onDestroyView()
     }
 }
