@@ -27,5 +27,5 @@ class ChainDungeon : BaseChain(), Parcelable {
     override var stakeDenom: String = "udgn"
     override var accountPrefix: String = "dungeon"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://dungeon.api.quasarstaking.ai/"
+    override var lcdUrl: String = "https://dungeon-wallet.api.quasarstaking.ai/"
 }
