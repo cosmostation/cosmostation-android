@@ -30,7 +30,7 @@ open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
 
     override var coinSymbol: String = "sBTC"
     override var coinGeckoId: String = ""
-    override var coinLogo: Int = R.drawable.token_btc
+    override var coinLogo: Int = R.drawable.token_btc_signet
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-testnet"
 
