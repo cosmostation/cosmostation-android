@@ -498,6 +498,7 @@
     <string name="error_not_enough_balance_to_send">No enough balance for send.</string>
     <string name="error_memo_count">Please check your memo size.</string>
     <string name="error_pending_balance">Waiting for the previous transaction to be processed</string>
+    <string name="error_js">The data cannot be read because it is not in the correct format</string>
 
 
     // tx

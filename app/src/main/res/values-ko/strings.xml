@@ -397,6 +397,7 @@
     <string name="error_not_enough_balance_to_send">현재 잔액이 적어 송금을 할 수 없습니다</string>
     <string name="error_memo_count">메모가 너무 깁니다</string>
     <string name="error_pending_balance">이전 트랜잭션이 처리될 때까지 대기 중입니다.</string>
+    <string name="error_js">올바른 포맷이 아니기 때문에 해당 데이터를 읽을 수 없습니다</string>
 
 
     //header

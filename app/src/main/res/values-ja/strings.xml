@@ -399,6 +399,7 @@
     <string name="error_not_enough_balance_to_send">バランスが十分ではありません。</string>
     <string name="error_memo_count">メモのサイズを確認してください。</string>
     <string name="error_pending_balance">前回の取引が処理されるのを待っています。</string>
+    <string name="error_js">データの形式が正しくないため、読み取ることができません。</string>
 
 
     <string name="tx_unknown">不明</string>
