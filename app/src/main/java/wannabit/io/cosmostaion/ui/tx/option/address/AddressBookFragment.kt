@@ -220,7 +220,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         }
                     }
 
-                    SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
+                    SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
@@ -346,7 +346,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             )
                         }
 
-                        SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20 -> {
+                        SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
                             if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE

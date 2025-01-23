@@ -16,7 +16,6 @@ class ChainBitsong : BaseChain(), Parcelable {
     override var name: String = "Bitsong"
     override var tag: String = "bitsong639"
     override var logo: Int = R.drawable.chain_bitsong
-    override var swipeLogo: Int = R.drawable.chain_swipe_bitsong
     override var apiName: String = "bitsong"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/639'/0'/0/X")

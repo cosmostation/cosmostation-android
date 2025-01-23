@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.AddressBook
@@ -51,19 +51,41 @@ class AddressBookViewHolder(
                     accountAddress.text = refAddress.dpAddress
 
                     allChains().firstOrNull { it.tag == refAddress.chainTag }?.let { chain ->
-                        if (chain is ChainBitCoin84) {
+                        if (chain is ChainBitCoin86) {
                             chainTypeBadge.visibility = View.GONE
-                            if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT) {
-                                chainBitSideBadge.visibility = View.VISIBLE
-                                chainBadge.visibility = View.GONE
+                            when (chain.accountKeyType.pubkeyType) {
+                                PubKeyType.BTC_TAPROOT -> {
+                                    chainBitSideBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                                    chainBitSideBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+                                    chainBitSideBadge.text = context.getString(R.string.str_taproot)
+                                    chainBitSideBadge.visibility = View.VISIBLE
+                                    chainBadge.visibility = View.GONE
+                                }
 
-                            } else {
-                                chainBitSideBadge.visibility = View.GONE
-                                chainBadge.visibility = View.VISIBLE
-                                chainBadge.text = if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
-                                    context.getString(R.string.str_nested_segwit)
-                                } else {
-                                    context.getString(R.string.str_legacy)
+                                PubKeyType.BTC_NATIVE_SEGWIT -> {
+                                    chainBitSideBadge.setBackgroundResource(R.drawable.round_box_bit)
+                                    chainBitSideBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+                                    chainBitSideBadge.text = context.getString(R.string.str_native_segwit)
+                                    chainBitSideBadge.visibility = View.VISIBLE
+                                    chainBadge.visibility = View.GONE
+                                }
+
+                                else -> {
+                                    chainBitSideBadge.visibility = View.GONE
+                                    chainBadge.visibility = View.VISIBLE
+                                    chainBadge.text = if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+                                        context.getString(R.string.str_nested_segwit)
+                                    } else {
+                                        context.getString(R.string.str_legacy)
+                                    }
                                 }
                             }
 

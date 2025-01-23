@@ -16,7 +16,6 @@ class ChainLava : BaseChain(), Parcelable {
     override var name: String = "Lava"
     override var tag: String = "lava118"
     override var logo: Int = R.drawable.chain_lava
-    override var swipeLogo: Int = R.drawable.chain_swipe_lava
     override var apiName: String = "lava"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

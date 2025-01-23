@@ -23,9 +23,9 @@ class ChainElys : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uelys"
     override var accountPrefix: String = "elys"
-    override var grpcHost: String = "grpc-elys.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-elys.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://elys-api.polkachu.com/"
 }

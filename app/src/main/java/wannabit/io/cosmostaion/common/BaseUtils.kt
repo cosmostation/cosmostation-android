@@ -11,7 +11,7 @@ import org.bitcoinj.params.MainNetParams
 import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -816,7 +816,7 @@ object BaseUtils {
         return true
     }
 
-    fun isValidBitAddress(chain: ChainBitCoin84, address: String): Boolean {
+    fun isValidBitAddress(chain: ChainBitCoin86, address: String): Boolean {
         return try {
             val network = if (chain.isTestnet) {
                 TestNet3Params.get()

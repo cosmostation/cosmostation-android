@@ -126,4 +126,31 @@
         app:lottie_speed="1.3"
         app:lottie_rawRes="@raw/dydx" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/bit_staking"
+        android:layout_width="@dimen/space_60"
+        android:layout_height="@dimen/space_60"
+        android:layout_marginEnd="@dimen/space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/space_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="1.3"
+        app:lottie_rawRes="@raw/babylon" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/babylon_staking"
+        android:layout_width="@dimen/space_60"
+        android:layout_height="@dimen/space_60"
+        android:layout_marginEnd="@dimen/space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="95dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_speed="1.3"
+        app:lottie_rawRes="@raw/babylon"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

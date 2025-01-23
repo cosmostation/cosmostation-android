@@ -19,23 +19,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentWalletSelectBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 
 class WalletSelectFragment : Fragment() {
 
@@ -182,8 +183,9 @@ class WalletSelectFragment : Fragment() {
                     val wordList = mnemonic.split(" ")
                     val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
                     allChains.asSequence().concurrentForEach { chain ->
+                        val safeContext = context ?: return@concurrentForEach
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -192,7 +194,9 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
+                                    ?.endPointType(chain) == CosmosEndPointType.USE_RPC
+                            ) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -202,8 +206,9 @@ class WalletSelectFragment : Fragment() {
 
                 } else {
                     allChains.asSequence().concurrentForEach { chain ->
+                        val safeContext = context ?: return@concurrentForEach
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                            chain.setInfoWithPrivateKey(safeContext, Utils.hexToBytes(pKey))
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -212,7 +217,8 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
+                                    ?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

@@ -39,13 +39,13 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.updateButtonViewEnabled
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentWcSignBinding
 import wannabit.io.cosmostaion.databinding.ItemDappSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
@@ -111,7 +111,7 @@ class PopUpCosmosSignFragment(
                 txJsonObject["chainName"].asString ?: txJsonObject["chain_id"].asString
             }
 
-            allChains?.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
+            allChains?.filter { it.supportCosmos() }
                 ?.firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                 ?.let { chain ->
                     selectedChain = chain
@@ -474,7 +474,7 @@ class PopUpCosmosSignFragment(
             val chainId =
                 txJsonSignDoc.get("chain_id").asString ?: txJsonObject.get("chainName").asString
             BaseData.baseAccount?.let { account ->
-                account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
+                account.allChains.filter { it.supportCosmos() }
                     .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                     ?.let { chain ->
                         chain.getFeeInfos(requireContext())
@@ -526,7 +526,7 @@ class PopUpCosmosSignFragment(
 
         val chainId = doc["chain_id"].asString
         BaseData.baseAccount?.let { account ->
-            account.allChains.filter { it.isDefault && !it.isTestnet && it.supportCosmos() }
+            account.allChains.filter { it.supportCosmos() }
                 .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }?.let { chain ->
                     selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
@@ -546,16 +546,15 @@ class PopUpCosmosSignFragment(
     private fun updateFeeWithSimulate(
         simulateGasLimit: BigDecimal, fee: Fee
     ): Fee? {
-        fee.getAmount(0).denom?.let { denom ->
-            feeInfos[selectFeePosition].feeDatas.firstOrNull { it.denom == denom }?.let { gasRate ->
-                val feeCoinAmount =
-                    gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
-                val updateFeeCoin =
-                    CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoinAmount.toString())
-                        .build()
-                return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
-                    .addAmount(updateFeeCoin).setPayer(fee.payer).build()
-            }
+        val denom = fee.getAmount(0).denom ?: ""
+        feeInfos[selectFeePosition].feeDatas.firstOrNull { it.denom == denom }?.let { gasRate ->
+            val feeCoinAmount =
+                gasRate.gasRate?.multiply(simulateGasLimit)?.setScale(0, RoundingMode.UP)
+            val updateFeeCoin =
+                CoinProto.Coin.newBuilder().setDenom(denom).setAmount(feeCoinAmount.toString())
+                    .build()
+            return Fee.newBuilder().setGasLimit(simulateGasLimit.toLong())
+                .addAmount(updateFeeCoin).setPayer(fee.payer).build()
         }
         return null
     }

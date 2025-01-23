@@ -100,6 +100,39 @@ class TokenViewHolder(
                                 }
                             }
                     }
+
+            } ?: run {
+                chain.cosmosFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chain.apiName && token.contract == coin.denom }
+                    ?.let { token ->
+                        tokenImg.setTokenImg(token.image)
+                        tokenImg.clipToOutline = true
+                        tokenName.text = token.symbol
+
+                        tokenPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
+                        BaseData.lastUpDown(token.coinGeckoId).let { lastUpDown ->
+                            tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                            tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                        }
+
+                        token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
+                            ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+                                if (Prefs.hideValue) {
+                                    coinAmount.visibility = View.GONE
+                                    coinAmountValue.visibility = View.GONE
+                                    hideValue.visibility = View.VISIBLE
+                                } else {
+                                    coinAmount.visibility = View.VISIBLE
+                                    coinAmountValue.visibility = View.VISIBLE
+                                    hideValue.visibility = View.GONE
+
+                                    coinAmount.text = formatAmount(amount.toPlainString(), 6)
+                                    chain.cosmosFetcher?.let {
+                                        coinAmountValue.text =
+                                            formatAssetValue(it.grc20TokenValue(token.contract))
+                                    }
+                                }
+                            }
+                    }
             }
         }
     }

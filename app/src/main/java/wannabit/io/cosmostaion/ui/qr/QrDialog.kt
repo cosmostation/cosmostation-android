@@ -16,7 +16,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
@@ -85,14 +85,14 @@ class QrDialog(
                             chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
                         )
 
-                    } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
+                    } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin86) {
                         chainName.text = chain.name
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.mainAddress
                         accountPath.text = chain.getHDPath(account.lastHDPath)
                         chainImg.setImageResource(chain.logo)
 
-                        if (selectedChain is ChainBitCoin84) {
+                        if (selectedChain is ChainBitCoin86) {
                             when (selectedChain.accountKeyType.pubkeyType) {
                                 PubKeyType.BTC_LEGACY -> {
                                     chainTypeBadge.visibility = View.VISIBLE
@@ -118,17 +118,30 @@ class QrDialog(
                                     )
                                 }
 
-                                else -> {
-                                    chainBadge.visibility = View.VISIBLE
-                                    chainBadge.text = context.getString(R.string.str_native_segwit)
-                                    chainBadge.setTextColor(
+                                PubKeyType.BTC_NATIVE_SEGWIT -> {
+                                    chainBadge.visibility = View.GONE
+                                    chainTypeBadge.visibility = View.VISIBLE
+                                    chainTypeBadge.text = context.getString(R.string.str_native_segwit)
+                                    chainTypeBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,
                                             R.color.color_base01
                                         )
                                     )
-                                    chainBadge.setBackgroundResource(R.drawable.round_box_bit)
-                                    chainTypeBadge.visibility = View.GONE
+                                    chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit)
+                                }
+
+                                else -> {
+                                    chainBadge.visibility = View.GONE
+                                    chainTypeBadge.visibility = View.VISIBLE
+                                    chainTypeBadge.text = context.getString(R.string.str_taproot)
+                                    chainTypeBadge.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context,
+                                            R.color.color_base01
+                                        )
+                                    )
+                                    chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
                                 }
                             }
 
@@ -174,7 +187,7 @@ class QrDialog(
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = if (selectedChain?.supportCosmos() == true) {
                     ClipData.newPlainText("address", selectedChain.address)
-                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
+                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin86) {
                     ClipData.newPlainText("address", selectedChain.mainAddress)
                 } else {
                     ClipData.newPlainText("address", selectedChain?.evmAddress)
@@ -188,7 +201,7 @@ class QrDialog(
                 intent.action = Intent.ACTION_SEND
                 val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
-                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin84) {
+                } else if (selectedChain is ChainSui || selectedChain is ChainBitCoin86) {
                     selectedChain.mainAddress
                 } else {
                     selectedChain?.evmAddress

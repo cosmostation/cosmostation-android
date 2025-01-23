@@ -16,21 +16,25 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bouncycastle.util.encoders.Base64
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.formatJsonString
+import wannabit.io.cosmostaion.common.regexWithNumberAndChar
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
@@ -203,6 +207,18 @@ class ApplicationViewModel(
                     }
                 }
 
+                if (isSupportGrc20()) {
+                    when (val response = walletRepository.token(this)) {
+                        is NetworkResult.Success -> {
+                            cosmosFetcher?.grc20Tokens = response.data
+                        }
+
+                        is NetworkResult.Error -> {
+                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                        }
+                    }
+                }
+
                 if (isSupportCw721()) {
                     when (val response = walletRepository.cw721Info(apiName)) {
                         is NetworkResult.Success -> {
@@ -219,14 +235,16 @@ class ApplicationViewModel(
                 }
             }
 
-            if (this is ChainBitCoin84) {
+            if (this is ChainBitCoin86) {
                 loadBtcData(baseAccountId, this, isEdit)
             } else if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit)
             } else {
-                if (supportCosmos() && this !is ChainOktEvm) {
+                if (this.cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_RPC) {
+                    loadRpcData(this, baseAccountId, isEdit)
+                } else if (supportCosmos() && this !is ChainOktEvm) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
                 } else {
                     loadEvmChainData(this, baseAccountId, isEdit)
@@ -1159,7 +1177,7 @@ class ApplicationViewModel(
     }
 
     fun loadBtcData(
-        id: Long, chain: ChainBitCoin84, isEdit: Boolean
+        id: Long, chain: ChainBitCoin86, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.btcFetcher()?.let { fetcher ->
             chain.apply {
@@ -1229,4 +1247,158 @@ class ApplicationViewModel(
             }
         }
     }
+
+    private fun loadRpcData(chain: BaseChain, id: Long, isEdit: Boolean) =
+        CoroutineScope(Dispatchers.IO).launch {
+            chain.apply {
+                when (val response = walletRepository.rpcAuth(chain)) {
+                    is NetworkResult.Success -> {
+                        cosmosFetcher()?.let { fetcher ->
+                            if (response.data.isSuccessful) {
+                                val tempBalances: MutableList<CoinProto.Coin> = mutableListOf()
+                                val jsonResponse = Gson().fromJson(
+                                    response.data.body?.string(), JsonObject::class.java
+                                )
+                                val data =
+                                    jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
+                                val decodeData = formatJsonString(String(Base64.decode(data)))
+
+                                if (decodeData == "null") {
+                                    tempBalances.add(
+                                        CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                            .setAmount("0").build()
+                                    )
+                                    fetcher.cosmosBalances = tempBalances
+
+                                    val refAddress = RefAddress(
+                                        id,
+                                        tag,
+                                        address,
+                                        "",
+                                        fetcher.allAssetValue(true).toString(),
+                                        "0",
+                                        "0",
+                                        0
+                                    )
+                                    BaseData.updateRefAddressesMain(refAddress)
+                                    coinCnt = 0
+
+                                } else {
+                                    val dataJson =
+                                        Gson().fromJson(decodeData, JsonObject::class.java)
+                                    val accountData = dataJson["BaseAccount"].asJsonObject
+                                    if (accountData["coins"].asString.isNotEmpty()) {
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                                .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                .build()
+                                        )
+                                    } else {
+                                        tempBalances.add(
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(stakeDenom)
+                                                .setAmount("0")
+                                                .build()
+                                        )
+                                    }
+
+                                    fetcher.cosmosBalances = tempBalances
+                                    fetcher.cosmosAccountNumber =
+                                        accountData["account_number"].asString.toLong()
+                                    fetcher.cosmosSequence =
+                                        accountData["sequence"].asString.toLong()
+
+                                    val refAddress = RefAddress(
+                                        id,
+                                        tag,
+                                        address,
+                                        "",
+                                        fetcher.allAssetValue(true).toString(),
+                                        "0",
+                                        "0",
+                                        if (fetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                    )
+                                    BaseData.updateRefAddressesMain(refAddress)
+                                    coinCnt =
+                                        if (fetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                }
+
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit) {
+                                        editFetchedResult.value = tag
+                                    } else {
+                                        fetchedResult.value = tag
+                                        txFetchedResult.value = tag
+                                    }
+                                }
+
+                                if (isSupportGrc20()) {
+                                    val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
+                                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                        cosmosFetcher?.grc20Tokens?.filter { it.wallet_preload ?: false }
+                                            ?.map { token ->
+                                                async { walletRepository.grc20Balance(chain, token) }
+                                            }
+
+                                    } else {
+                                        cosmosFetcher?.grc20Tokens?.filter { userDisplayToken.contains(it.contract) }
+                                            ?.map { token ->
+                                                async { walletRepository.grc20Balance(chain, token) }
+                                            }
+                                    }
+
+                                    tokenBalanceDeferredList?.awaitAll()
+                                    val grcRefAddress = RefAddress(
+                                        id,
+                                        tag,
+                                        address,
+                                        "",
+                                        "0",
+                                        "0",
+                                        cosmosFetcher?.allTokenValue(true)?.toPlainString(),
+                                        0
+                                    )
+                                    BaseData.updateRefAddressesToken(grcRefAddress)
+                                    tokenCnt = chain.cosmosFetcher()?.valueGrc20TokenCnt() ?: 0
+                                    fetchState = FetchState.SUCCESS
+
+                                    withContext(Dispatchers.Main) {
+                                        if (isEdit) {
+                                            editFetchedTokenResult.value = tag
+                                        } else {
+                                            fetchedTokenResult.value = tag
+                                        }
+                                    }
+                                    fetchedTotalResult.postValue(tag)
+                                }
+
+                            } else {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit) {
+                                        editFetchedResult.value = tag
+                                    } else {
+                                        fetchedResult.value = tag
+                                        txFetchedResult.value = tag
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    is NetworkResult.Error -> {
+                        fetchState = FetchState.FAIL
+                        withContext(Dispatchers.Main) {
+                            if (isEdit) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                                txFetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
 }

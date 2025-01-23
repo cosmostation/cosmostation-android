@@ -16,7 +16,6 @@ class ChainLum880 : BaseChain(), Parcelable {
     override var name: String = "Lum"
     override var tag: String = "lum880"
     override var logo: Int = R.drawable.chain_lum
-    override var swipeLogo: Int = R.drawable.chain_swipe_lum
     override var apiName: String = "lum"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/880'/0'/0/X")

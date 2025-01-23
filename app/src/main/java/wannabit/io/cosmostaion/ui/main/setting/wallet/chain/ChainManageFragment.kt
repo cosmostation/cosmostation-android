@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
@@ -90,7 +91,7 @@ class ChainManageFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            if (chain is ChainOktEvm || chain is ChainBitCoin84) {
+            if (chain is ChainOktEvm || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
                 isClickable = true
                 return
             }

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
@@ -24,7 +24,7 @@ class MajorCryptoViewHolder(
     private val binding: ItemMajorCryptoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bitcoinBind(chain: ChainBitCoin84) {
+    fun bitcoinBind(chain: ChainBitCoin86) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             pendingLayout.visibility = View.VISIBLE

@@ -16,7 +16,6 @@ class ChainAlthea118 : BaseChain(), Parcelable {
     override var name: String = "Althea"
     override var tag: String = "althea118"
     override var logo: Int = R.drawable.chain_althea
-    override var swipeLogo: Int = R.drawable.chain_swipe_althea
     override var isDefault: Boolean = false
     override var apiName: String = "althea"
 

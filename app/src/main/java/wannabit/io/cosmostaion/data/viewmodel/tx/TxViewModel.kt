@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.gno.bank.BankProto.MsgSend
+import com.gno.vm.VmProto.MsgCall
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -22,7 +24,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -33,7 +35,7 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
@@ -606,7 +608,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     private var _bitTxDataResult = MutableLiveData<Pair<MutableList<JsonObject>?, String>>()
     val bitTxDataResult: LiveData<Pair<MutableList<JsonObject>?, String>> get() = _bitTxDataResult
-    fun bitTxData(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+    fun bitTxData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val loadUtxoDeferred = async { txRepository.mempoolUtxo(chain) }
             val utxoResult = loadUtxoDeferred.await()
@@ -634,7 +636,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun bitSendBroadcast(
-        chain: ChainBitCoin84, txHex: String
+        chain: ChainBitCoin86, txHex: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastBitSend(
@@ -653,8 +655,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun bitSendSimulate(
-        chain: ChainBitCoin84,
-        bitcoinJS: BitCoinJS?,
+        chain: ChainBitCoin86,
+        bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
         toAmount: String,
@@ -689,6 +691,36 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
         } catch (e: Exception) {
             errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun rpcSendBroadcast(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.broadcastSendRpcTx(msgSend,fee, memo, selectedChain)
+            broadcast.postValue(response)
+        } catch (e: Exception) {
+            val errorResponse = txRepository.broadcastSendRpcTx(
+                msgSend, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse?.rawLog)
+        }
+    }
+
+    fun rpcCallBroadcast(
+        msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.broadcastCallRpcTx(msgCall,fee, memo, selectedChain)
+            broadcast.postValue(response)
+        } catch (e: Exception) {
+            val errorResponse = txRepository.broadcastCallRpcTx(
+                msgCall, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse?.rawLog)
         }
     }
 }

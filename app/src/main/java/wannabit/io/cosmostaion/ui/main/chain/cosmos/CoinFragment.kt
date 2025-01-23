@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,11 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
     private var displayErc20TokenCoins = mutableListOf<Token>()
     private val searchErc20TokenCoins = mutableListOf<Coin>()
 
+    private val grc20TokenCoins = mutableListOf<Coin>()
+    private val allGrc20TokenCoins = mutableListOf<Token>()
+    private var displayGrc20TokenCoins = mutableListOf<Token>()
+    private val searchGrc20TokenCoins = mutableListOf<Coin>()
+
     private var isClickable = true
 
     companion object {
@@ -145,6 +151,13 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
         allErc20TokenCoins.clear()
         searchErc20TokenCoins.clear()
         displayErc20TokenCoins.clear()
+
+        val grc20Tokens = mutableListOf<Token>()
+        grc20Tokens.clear()
+        grc20TokenCoins.clear()
+        allGrc20TokenCoins.clear()
+        searchGrc20TokenCoins.clear()
+        displayGrc20TokenCoins.clear()
 
         when (selectedChain) {
             is ChainOktEvm -> {
@@ -389,6 +402,80 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     searchCw20TokenCoins.addAll(cw20TokenCoins)
                 }
             }
+
+            if (selectedChain.cosmosFetcher?.grc20Tokens?.isNotEmpty() == true) {
+                selectedChain.cosmosFetcher?.grc20Tokens?.let { grc20Tokens.addAll(it) }
+                grc20Tokens.sortBy { it.symbol.lowercase() }
+
+                Prefs.getDisplayGrc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
+                    grc20Tokens.sortWith { o1, o2 ->
+                        val address0 = o1.contract
+                        val address1 = o2.contract
+
+                        val containsToken0 = userCustomTokens.contains(address0)
+                        val containsToken1 = userCustomTokens.contains(address1)
+
+                        when {
+                            containsToken0 && !containsToken1 -> -1
+                            !containsToken0 && containsToken1 -> 1
+                            else -> {
+                                val value0 = selectedChain.cosmosFetcher?.grc20TokenValue(address0)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.cosmosFetcher?.grc20TokenValue(address1)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
+                    }
+
+                    grc20Tokens.forEach { token ->
+                        if (userCustomTokens.contains(token.contract) && !displayGrc20TokenCoins.contains(
+                                token
+                            )
+                        ) {
+                            displayGrc20TokenCoins.add(token)
+                            grc20TokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.GRC20
+                                )
+                            )
+                        }
+                    }
+                    allGrc20TokenCoins.addAll(grc20Tokens)
+                    searchGrc20TokenCoins.addAll(grc20TokenCoins)
+
+                } ?: run {
+                    grc20Tokens.sortWith { o1, o2 ->
+                        when {
+                            BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
+                            BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
+                            else -> {
+                                val value0 = selectedChain.cosmosFetcher?.grc20TokenValue(o1.contract)
+                                    ?: BigDecimal.ZERO
+                                val value1 = selectedChain.cosmosFetcher?.grc20TokenValue(o2.contract)
+                                    ?: BigDecimal.ZERO
+                                value1.compareTo(value0)
+                            }
+                        }
+                    }
+
+                    grc20Tokens.forEach { token ->
+                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayGrc20TokenCoins.contains(
+                                token
+                            ) && token.wallet_preload == true
+                        ) {
+                            displayGrc20TokenCoins.add(token)
+                            grc20TokenCoins.add(
+                                Coin(
+                                    token.contract, token.amount.toString(), CoinType.GRC20
+                                )
+                            )
+                        }
+                    }
+                    allGrc20TokenCoins.addAll(grc20Tokens)
+                    searchGrc20TokenCoins.addAll(grc20TokenCoins)
+                }
+            }
         }
 
         initRecyclerView()
@@ -405,7 +492,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             searchIbcCoins,
             searchEtcCoins,
             searchCw20TokenCoins,
-            searchErc20TokenCoins
+            searchErc20TokenCoins,
+            searchGrc20TokenCoins
         )
         binding.recycler.apply {
             setHasFixedSize(true)
@@ -433,6 +521,10 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                                 SendAssetType.ONLY_EVM_ERC20
                             }
 
+                            CoinType.GRC20 -> {
+                                SendAssetType.ONLY_COSMOS_GRC20
+                            }
+
                             else -> {
                                 SendAssetType.ONLY_COSMOS_COIN
                             }
@@ -456,7 +548,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
     private fun initSearchView() {
         binding.apply {
-            searchBar.visibleOrGone(searchStakeCoins.size + searchNativeCoins.size + searchBridgeCoins.size + searchIbcCoins.size + searchEtcCoins.size + searchCw20TokenCoins.size + searchErc20TokenCoins.size > 15)
+            searchBar.visibleOrGone(searchStakeCoins.size + searchNativeCoins.size + searchBridgeCoins.size + searchIbcCoins.size + searchEtcCoins.size + searchCw20TokenCoins.size + searchErc20TokenCoins.size + searchGrc20TokenCoins.size > 15)
             searchView.setQuery("", false)
             searchView.clearFocus()
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -472,6 +564,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     searchEtcCoins.clear()
                     searchCw20TokenCoins.clear()
                     searchErc20TokenCoins.clear()
+                    searchGrc20TokenCoins.clear()
 
                     if (StringUtils.isEmpty(newText)) {
                         searchStakeCoins.addAll(stakeCoins)
@@ -481,6 +574,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         searchEtcCoins.addAll(etcCoins)
                         searchCw20TokenCoins.addAll(cw20TokenCoins)
                         searchErc20TokenCoins.addAll(erc20TokenCoins)
+                        searchGrc20TokenCoins.addAll(grc20TokenCoins)
 
                     } else {
                         newText?.let { searchTxt ->
@@ -528,10 +622,16 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                                     selectedChain, selectedChain.apiName, coin.denom
                                 )?.symbol?.contains(searchTxt, ignoreCase = true) ?: false
                             })
+
+                            searchGrc20TokenCoins.addAll(grc20TokenCoins.filter { coin ->
+                                BaseData.getToken(
+                                    selectedChain, selectedChain.apiName, coin.denom
+                                )?.symbol?.contains(searchTxt, ignoreCase = true) ?: false
+                            })
                         }
                     }
 
-                    if (searchStakeCoins.isEmpty() && searchNativeCoins.isEmpty() && searchBridgeCoins.isEmpty() && searchIbcCoins.isEmpty() && searchEtcCoins.isEmpty() && searchErc20TokenCoins.isEmpty()) {
+                    if (searchStakeCoins.isEmpty() && searchNativeCoins.isEmpty() && searchBridgeCoins.isEmpty() && searchIbcCoins.isEmpty() && searchEtcCoins.isEmpty() && searchErc20TokenCoins.isEmpty() && searchGrc20TokenCoins.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {
@@ -558,7 +658,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                                     searchIbcCoins,
                                     searchBridgeCoins,
                                     searchCw20TokenCoins,
-                                    searchErc20TokenCoins
+                                    searchErc20TokenCoins,
+                                    searchGrc20TokenCoins
                                 )
                             }
                         }
@@ -600,6 +701,18 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     )
                 )
             }
+            bitStaking.visibility = View.GONE
+            babylonStaking.visibleOrGone(selectedChain.isSupportStaking())
+
+            babylonStaking.setOnClickListener {
+                if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", selectedChain.btcStakingDapp())
+                        putExtra("selectedChain", selectedChain as Parcelable)
+                        startActivity(this)
+                    }
+                }
+            }
         }
     }
 
@@ -629,7 +742,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                if (selectedChain.isSupportCw20() || selectedChain.isSupportErc20()) {
+                if (selectedChain.isSupportCw20() || selectedChain.isSupportErc20() || selectedChain.isSupportGrc20()) {
                     ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
                         initData()
                         binding.loading.visibility = View.GONE
@@ -672,6 +785,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             (allCw20TokenCoins + allErc20TokenCoins).toMutableList()
         } else if (selectedChain.isSupportCw20()) {
             allCw20TokenCoins
+        } else if (selectedChain.isSupportGrc20()) {
+            allGrc20TokenCoins
         } else {
             allErc20TokenCoins
         }
@@ -679,6 +794,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             (displayCw20TokenCoins.map { it.contract } + displayErc20TokenCoins.map { it.contract }).toMutableList()
         } else if (selectedChain.isSupportCw20()) {
             displayCw20TokenCoins.map { it.contract }
+        } else if (selectedChain.isSupportGrc20()) {
+            displayGrc20TokenCoins.map { it.contract }
         } else {
             displayErc20TokenCoins.map { it.contract }
         }

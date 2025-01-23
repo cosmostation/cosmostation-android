@@ -16,7 +16,6 @@ class ChainShentu : BaseChain(), Parcelable {
     override var name: String = "Shentu"
     override var tag: String = "shentu118"
     override var logo: Int = R.drawable.chain_shentu
-    override var swipeLogo: Int = R.drawable.chain_swipe_shentu
     override var apiName: String = "shentu"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

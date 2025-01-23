@@ -15,7 +15,6 @@ class ChainArbitrum : BaseChain(), Parcelable {
     override var name: String = "Arbitrum"
     override var tag: String = "arbitrum60"
     override var logo: Int = R.drawable.chain_arbitrum
-    override var swipeLogo: Int = R.drawable.chain_swipe_arbitrum
     override var apiName: String = "arbitrum"
 
     override var supportEvm: Boolean = true

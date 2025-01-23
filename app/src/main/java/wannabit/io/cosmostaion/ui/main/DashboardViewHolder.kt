@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -50,7 +50,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
@@ -60,7 +60,7 @@ class DashboardViewHolder(
             chainPriceStatus.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainSideBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -73,15 +73,24 @@ class DashboardViewHolder(
                         chainSideBadge.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainSideBadge.setBackgroundResource(R.drawable.round_box_bit)
                         chainSideBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainSideBadge.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainSideBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainSideBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainSideBadge.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -187,7 +196,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
             dashView.heightInDp(114)
             proLayout.visibility = View.VISIBLE
@@ -195,28 +204,27 @@ class DashboardViewHolder(
             skeletonChainValue.visibility = View.VISIBLE
             chainBadge.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainSideBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
-                    PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainSideBadge.defaultSet()
-                        chainSideBadge.text = context.getString(R.string.str_nested_segwit)
-                    }
-
-                    PubKeyType.BTC_LEGACY -> {
-                        chainSideBadge.defaultSet()
-                        chainSideBadge.text = context.getString(R.string.str_legacy)
-                    }
-
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainSideBadge.setBackgroundResource(R.drawable.round_box_bit)
                         chainSideBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainSideBadge.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainSideBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainSideBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainSideBadge.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -316,7 +324,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
             dashView.heightInDp(68)
@@ -327,7 +335,7 @@ class DashboardViewHolder(
             assetCnt.visibility = View.GONE
             chainSideBadge.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainBadge.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -340,15 +348,24 @@ class DashboardViewHolder(
                         chainBadge.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainBadge.setBackgroundResource(R.drawable.round_box_bit)
                         chainBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainBadge.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainBadge.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -392,7 +409,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
             dashView.heightInDp(68)
@@ -403,29 +420,25 @@ class DashboardViewHolder(
             assetCnt.visibility = View.GONE
             chainSideBadge.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainBadge.visibility = View.VISIBLE
-                when (chain.accountKeyType.pubkeyType) {
-                    PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainBadge.defaultSet()
-                        chainBadge.text = context.getString(R.string.str_nested_segwit)
-                    }
-
-                    PubKeyType.BTC_LEGACY -> {
-                        chainBadge.defaultSet()
-                        chainBadge.text = context.getString(R.string.str_legacy)
-                    }
-
-                    else -> {
-                        chainBadge.setBackgroundResource(R.drawable.round_box_bit)
-                        chainBadge.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
-                            )
+                if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT) {
+                    chainBadge.setBackgroundResource(R.drawable.round_box_bit)
+                    chainBadge.setTextColor(
+                        ContextCompat.getColorStateList(
+                            context, R.color.color_base01
                         )
-                        chainBadge.text = context.getString(R.string.str_native_segwit)
-                    }
+                    )
+                    chainBadge.text = context.getString(R.string.str_native_segwit)
+
+                } else {
+                    chainBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                    chainBadge.setTextColor(
+                        ContextCompat.getColorStateList(
+                            context, R.color.color_base01
+                        )
+                    )
+                    chainBadge.text = context.getString(R.string.str_taproot)
                 }
 
             } else {

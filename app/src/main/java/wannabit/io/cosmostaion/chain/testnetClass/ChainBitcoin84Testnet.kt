@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.testnetClass
 
+import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
@@ -7,19 +8,16 @@ import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
-open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
+class ChainBitcoin84Testnet : ChainBitCoin86(), Parcelable {
 
-    override var pubKeyHash: Byte = 0x6F
-    override var scriptHash: Byte = (-60).toByte()
-    override var bech32PrefixPattern: String = "tb"
-
-    override var name: String = "BitCoin Testnet"
+    override var name: String = "Bitcoin Signet"
     override var tag: String = "bitcoin84_T"
-    override var logo: Int = R.drawable.chain_bitcoin_testnet
+    override var logo: Int = R.drawable.chain_bitcoin_signet
+    override var isDefault: Boolean = false
     override var isTestnet: Boolean = true
     override var apiName: String = "bitcoin-testnet"
 
@@ -28,15 +26,17 @@ open class ChainBitcoin84Testnet : ChainBitCoin84(), Parcelable {
         ChildNumber(84, true), ChildNumber(1, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var coinSymbol: String = "BTC"
+    override var coinSymbol: String = "sBTC"
     override var coinGeckoId: String = ""
-    override var coinLogo: Int = R.drawable.token_btc
+    override var coinLogo: Int = R.drawable.token_btc_signet
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-testnet"
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, bech32PrefixPattern, pubKeyHash, scriptHash)
+        mainAddress = BaseKey.getAddressFromPubKey(
+            context, publicKey, accountKeyType.pubkeyType, network = "testnet"
+        )
     }
 }

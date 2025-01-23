@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -9,6 +10,8 @@ import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.gno.bank.BankProto.MsgSend
+import com.gno.vm.VmProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
@@ -40,15 +43,18 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
+import wannabit.io.cosmostaion.common.bitType
+import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -69,7 +75,7 @@ import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
-import wannabit.io.cosmostaion.sign.BitCoinJS
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
@@ -146,7 +152,25 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+            val authRequest = JsonRpcRequest(
+                method = "abci_query",
+                params = listOf("auth/accounts/${chain.address}", "", "0", true)
+            )
+            val authResponse = jsonRpcResponse(chain.mainUrl, authRequest)
+            val jsonResponse = Gson().fromJson(
+                authResponse.body?.string(), JsonObject::class.java
+            )
+            val data =
+                jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
+            val decodeData = formatJsonString(String(Base64.decode(data)))
+            val dataJson = Gson().fromJson(decodeData, JsonObject::class.java)
+            val accountData = dataJson["BaseAccount"].asJsonObject
+            chain.cosmosFetcher()?.cosmosAccountNumber =
+                accountData["account_number"].asString.toLong()
+            chain.cosmosFetcher()?.cosmosSequence = accountData["sequence"].asString.toLong()
+
+        } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = QueryGrpc.newBlockingStub(managedChannel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QueryAccountRequest.newBuilder().setAddress(chain.address).build()
@@ -1878,13 +1902,13 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
-    override suspend fun mempoolUtxo(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>> {
+    override suspend fun mempoolUtxo(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.bitApi(chain).bitUtxo(chain.mainAddress)
         }
     }
 
-    override suspend fun estimateSmartFee(chain: ChainBitCoin84): NetworkResult<String> {
+    override suspend fun estimateSmartFee(chain: ChainBitCoin86): NetworkResult<String> {
         return try {
             val estimateSmartFeeRequest = JsonRpcRequest(
                 method = "estimatesmartfee", params = listOf(2)
@@ -1906,12 +1930,11 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String? {
+    override suspend fun broadcastBitSend(chain: ChainBitCoin86, txHex: String): String? {
         val sendRawTransactionRequest = JsonRpcRequest(
             method = "sendrawtransaction", params = listOf(txHex)
         )
-        val sendRawTransactionResponse =
-            jsonRpcResponse(chain.mainUrl, sendRawTransactionRequest)
+        val sendRawTransactionResponse = jsonRpcResponse(chain.mainUrl, sendRawTransactionRequest)
         val sendRawTransactionJsonObject = Gson().fromJson(
             sendRawTransactionResponse.body?.string(), JsonObject::class.java
         )
@@ -1923,8 +1946,8 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateBitSend(
-        chain: ChainBitCoin84,
-        bitcoinJS: BitCoinJS?,
+        chain: ChainBitCoin86,
+        bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
         toAmount: String,
@@ -1937,11 +1960,35 @@ class TxRepositoryImpl : TxRepository {
                 val privateKey = chain.privateKey?.toHex()
                 val publicKey = chain.publicKey?.toHex()
 
-                val createTxFunction = """function createTxFunction() {
+                if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT) {
+                    val createTxFunction = """function createTxFunction() {
                         const privateKey = '${privateKey}';
                         const publicKey = '${publicKey}';
 
-                        const senderPayment = getPayment('${publicKey}', '${fetcher.bitType()}', '${fetcher.network()}');
+                        const senderPayment = getPayment('${publicKey}', '${bitType(chain.accountKeyType.pubkeyType)}', '${fetcher.network()}');
+
+                        const inputs = [
+                          ${fetcher.txInputString(utxo)}
+                        ];
+
+                        const outputs = [
+                          ${fetcher.txOutputString(receiver, toAmount, changedValue, opReturn)}
+                        ];
+
+                        const txHex = createTaprootTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
+                        return txHex;
+                    }""".trimIndent()
+                    bitcoinJS?.mergeFunction(createTxFunction)
+                    val hex = bitcoinJS?.executeFunction("createTxFunction()").toString()
+                    Log.e("Test12345 : ", hex)
+                    return hex
+
+                } else {
+                    val createTxFunction = """function createTxFunction() {
+                        const privateKey = '${privateKey}';
+                        const publicKey = '${publicKey}';
+
+                        const senderPayment = getPayment('${publicKey}', '${bitType(chain.accountKeyType.pubkeyType)}', '${fetcher.network()}');
 
                         const inputs = [
                           ${fetcher.txInputString(utxo)}
@@ -1954,13 +2001,65 @@ class TxRepositoryImpl : TxRepository {
                         const txHex = createTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
                         return txHex;
                     }""".trimIndent()
-                bitcoinJS?.mergeFunction(createTxFunction)
-                return bitcoinJS?.executeFunction("createTxFunction()")
+                    bitcoinJS?.mergeFunction(createTxFunction)
+                    return bitcoinJS?.executeFunction("createTxFunction()")
+                }
 
             } catch (e: Exception) {
                 return e.message.toString()
             }
         }
         return ""
+    }
+
+    override suspend fun broadcastSendRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): TxResponse? {
+        return try {
+            val broadcastTx = Signer.signRpcSendBroadcastTx(msgSend, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
+            val broadcastRequest = JsonRpcRequest(
+                method = "broadcast_tx_async", params = listOf(txByte)
+            )
+            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastJsonObject = Gson().fromJson(
+                broadcastResponse.body?.string(), JsonObject::class.java
+            )
+            val result = broadcastJsonObject["result"].asJsonObject
+            return if (result["error"].isJsonNull) {
+                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
+            } else {
+                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    override suspend fun broadcastCallRpcTx(
+        msgCall: VmProto.MsgCall,
+        fee: Fee?,
+        memo: String,
+        selectedChain: BaseChain
+    ): TxResponse? {
+        return try {
+            val broadcastTx = Signer.signRpcCallBroadcastTx(msgCall, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(broadcastTx.toByteArray())
+            val broadcastRequest = JsonRpcRequest(
+                method = "broadcast_tx_async", params = listOf(txByte)
+            )
+            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastJsonObject = Gson().fromJson(
+                broadcastResponse.body?.string(), JsonObject::class.java
+            )
+            val result = broadcastJsonObject["result"].asJsonObject
+            return if (result["error"].isJsonNull) {
+                TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
+            } else {
+                TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
+            }
+        } catch (e: Exception) {
+            null
+        }
     }
 }

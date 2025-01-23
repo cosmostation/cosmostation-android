@@ -22,6 +22,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
@@ -53,9 +54,12 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -74,6 +78,12 @@ import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.PubKey
 import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
 import wannabit.io.cosmostaion.sign.Signer
@@ -92,9 +102,11 @@ class DappActivity : BaseActivity() {
     private var selectChain: BaseChain? = null
     private var selectEvmChain: BaseChain? = null
     private var selectMajorChain: BaseChain? = null
+    private var selectBitcoin: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
+    private var bitNetwork: String = "mainnet"
 
     private var walletConnectURI: String? = null
     private var currentV2PairingUri: String? = null
@@ -105,11 +117,21 @@ class DappActivity : BaseActivity() {
 
     private var currentEvmChainId: String? = null
 
+    private var currentMessageJson: JSONObject = JSONObject()
+    private var currentMessageId: String = ""
+    private var bitToAddress: String = ""
+    private var bitSatAmount: String = ""
+
+    private lateinit var walletViewModel: WalletViewModel
+    private lateinit var txViewModel: TxViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDappBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initViewModel()
+        setUpObserve()
         allChains = initAllKeyData()
     }
 
@@ -130,6 +152,29 @@ class DappActivity : BaseActivity() {
             (intent.getParcelableExtra("selectedEvmChain")) as? BaseChain
         }
         selectEvmChain = allChains?.firstOrNull { it.name == ecoChain?.name }
+
+        val ecoMajorChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("selectedChain", BaseChain::class.java)
+        } else {
+            (intent.getParcelableExtra("selectedChain")) as? BaseChain
+        }
+        selectBitcoin = if (ecoMajorChain?.tag == "babylon118_T") {
+            allChains?.find { it is ChainBitCoin86 && it.isDefault }
+        } else {
+            allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
+        }
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel = ViewModelProvider(
+            this, walletViewModelProviderFactory
+        )[WalletViewModel::class.java]
+
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
+        txViewModel = ViewModelProvider(this, txViewModelProviderFactory)[TxViewModel::class.java]
     }
 
     private fun initAllKeyData(): MutableList<BaseChain> {
@@ -142,19 +187,22 @@ class DappActivity : BaseActivity() {
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(
+                                    this@DappActivity, seed, chain.setParentPath, lastHDPath
+                                )
                             }
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         result.forEach { chain ->
                             if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(privateKey)
+                                chain.setInfoWithPrivateKey(this@DappActivity, privateKey)
                             }
                         }
                     }
                 }
             }
+
             withContext(Dispatchers.Main) {
                 binding.loading.visibility = View.GONE
                 setUpDappView()
@@ -173,9 +221,12 @@ class DappActivity : BaseActivity() {
                     userAgentString =
                         "$userAgentString Cosmostation/APP/Android/${BuildConfig.VERSION_NAME}"
                     domStorageEnabled = true
+                    useWideViewPort = true
+                    loadWithOverviewMode = true
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                     webViewClient = dappWebViewClient
                     webChromeClient = dappWebChromeClient
+                    cacheMode = WebSettings.LOAD_NO_CACHE
                 }
             }
 
@@ -272,7 +323,9 @@ class DappActivity : BaseActivity() {
                     connectWalletConnect(walletConnectURI)
 
                 } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
-                    data.query?.let { url -> binding.dappWebView.loadUrl(url) }
+                    data.query?.let { url ->
+                        binding.dappWebView.loadUrl(url)
+                    }
                 }
             }
         }
@@ -437,8 +490,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -452,8 +504,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -650,6 +701,18 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun showBitSignDialog(
+        bundle: Bundle, signListener: PopUpBitSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpBitSignFragment(
+                selectBitcoin, bundle.getLong("id"), data, bundle.getString("method"), signListener
+            ).show(
+                supportFragmentManager, PopUpSuiSignFragment::class.java.name
+            )
+        }
+    }
+
     private val dappWebViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -820,40 +883,44 @@ class DappActivity : BaseActivity() {
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
-                    val params = messageJson.getJSONObject("params")
-                    val chainId = params.getString("chainName")
-                    BaseData.baseAccount?.let { account ->
-                        selectedChain(allChains, chainId)?.let { chain ->
-                            selectChain = chain
-                            val accountJson = JSONObject()
-                            accountJson.put("isKeystone", false)
-                            accountJson.put("isEthermint", selectChain?.supportEvm)
-                            accountJson.put("isLedger", false)
-                            accountJson.put("address", selectChain?.address)
-                            accountJson.put("name", account.name)
-                            accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
-                            appToWebResult(messageJson, accountJson, messageId)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val chainId = params.getString("chainName")
+                        BaseData.baseAccount?.let { account ->
+                            selectedChain(allChains, chainId)?.let { chain ->
+                                selectChain = chain
+                                val accountJson = JSONObject()
+                                accountJson.put("isEthermint", selectChain?.supportEvm)
+                                accountJson.put("isLedger", false)
+                                accountJson.put("address", selectChain?.address)
+                                accountJson.put("name", account.name)
+                                accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                                appToWebResult(messageJson, accountJson, messageId)
 
-                        } ?: run {
-                            appToWebError(
-                                messageJson, messageId, "Invalid method parameter(s)."
-                            )
+                            } ?: run {
+                                appToWebError(
+                                    messageJson, messageId, "Invalid method parameter(s)."
+                                )
+                            }
                         }
                     }
                 }
 
                 "cos_supportedChainIds" -> {
-                    val supportChainIds =
-                        allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
-                            ?.map { it.chainIdCosmos }?.distinct()
-                    if (supportChainIds?.isNotEmpty() == true) {
-                        val dataJson = JSONObject()
-                        dataJson.put("official", JSONArray(supportChainIds))
-                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                        appToWebResult(messageJson, dataJson, messageId)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val supportChainIds =
+                            allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
+                                ?.map { it.chainIdCosmos }?.distinct()
 
-                    } else {
-                        appToWebError("Error")
+                        if (supportChainIds?.isNotEmpty() == true) {
+                            val dataJson = JSONObject()
+                            dataJson.put("official", JSONArray(supportChainIds))
+                            dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                            appToWebResult(messageJson, dataJson, messageId)
+
+                        } else {
+                            appToWebError("Error")
+                        }
                     }
                 }
 
@@ -897,8 +964,7 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -915,8 +981,7 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -933,8 +998,7 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(
-                        signBundle,
+                    showSignDialog(signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -979,8 +1043,7 @@ class DappActivity : BaseActivity() {
 
                 // evm method
                 "eth_requestAccounts", "wallet_requestPermissions" -> {
-                    val address =
-                        allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
+                    val address = allChains?.firstOrNull { chain -> chain.supportEvm }?.evmAddress
                     appToWebResult(
                         messageJson, JSONArray(listOf(address)), messageId
                     )
@@ -988,7 +1051,8 @@ class DappActivity : BaseActivity() {
 
                 "wallet_switchEthereumChain" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val evmChainIds = allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
+                        val evmChainIds =
+                            allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
 
@@ -1233,7 +1297,8 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1256,8 +1321,7 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1275,8 +1339,7 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1366,8 +1429,7 @@ class DappActivity : BaseActivity() {
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
-                    showSuiSignDialog(
-                        signBundle,
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1388,8 +1450,7 @@ class DappActivity : BaseActivity() {
                     val params = messageJson.getJSONObject("params")
                     val signBundle =
                         signBundle(0, params.toString(), "sui_signAndExecuteTransactionBlock")
-                    showSuiSignDialog(
-                        signBundle,
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 approveSuiSignExecuteRequest(
@@ -1412,8 +1473,7 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "sui_signMessage")
-                    showSuiSignDialog(
-                        signBundle,
+                    showSuiSignDialog(signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1428,6 +1488,241 @@ class DappActivity : BaseActivity() {
                                 appToWebError(messageJson, messageId, "User rejected the request.")
                             }
                         })
+                }
+
+                //babylon
+                "bit_requestAccount" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
+
+                        if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
+                            appToWebResult(
+                                messageJson, listOf(selectBitcoin?.mainAddress), messageId
+                            )
+                        } else {
+                            appToWebError(messageJson, messageId, "None Address")
+                        }
+                    }
+                }
+
+                "bit_getPublicKeyHex" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
+                        appToWebResult(
+                            messageJson, selectBitcoin?.publicKey?.bytesToHex(), messageId
+                        )
+                    }
+                }
+
+                "bit_getNetwork" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
+                        appToWebResult(
+                            messageJson, bitNetwork, messageId
+                        )
+                    }
+                }
+
+                "bit_switchNetwork" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+                        if (params.length() > 0) {
+                            bitNetwork = params.get(0).toString()
+                            if (selectBitcoin == null) {
+                                selectBitcoin = if (bitNetwork == "mainnet") {
+                                    allChains?.find {
+                                        it is ChainBitCoin86 && it.isDefault
+                                    }
+                                } else {
+                                    allChains?.find {
+                                        it is ChainBitcoin86Testnet && it.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT && it.isTestnet
+                                    }
+                                }
+
+                            } else {
+                                if (bitNetwork == "signet" && selectBitcoin?.isTestnet == false) {
+                                    selectBitcoin = allChains?.find {
+                                        it is ChainBitcoin86Testnet && it.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT && it.isTestnet
+                                    }
+                                } else if (bitNetwork == "mainnet" && selectBitcoin?.isTestnet == true) {
+                                    selectBitcoin = allChains?.find {
+                                        it is ChainBitCoin86 && it.isDefault
+                                    }
+                                }
+                            }
+                            appToWebResult(
+                                messageJson, bitNetwork, messageId
+                            )
+
+                        } else {
+                            appToWebError(messageJson, messageId, "Error : No Network")
+                        }
+                    }
+                }
+
+                "bit_getAddress" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
+
+                        if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
+                            appToWebResult(
+                                messageJson, selectBitcoin?.mainAddress, messageId
+                            )
+                        } else {
+                            appToWebError(messageJson, messageId, "None Address")
+                        }
+                    }
+                }
+
+                "bit_getBalance" -> {
+                    currentMessageJson = messageJson
+                    currentMessageId = messageId
+
+                    selectBitcoin?.let { chain ->
+                        walletViewModel.balance(chain)
+                    } ?: run {
+                        appToWebError(
+                            messageJson, messageId, getString(R.string.error_not_support)
+                        )
+                    }
+                }
+
+                "bit_pushTx" -> {
+                    val params = messageJson.getJSONArray("params")
+                    if (params.length() > 0) {
+                        val txHex = params.get(0).toString()
+                        val pushTxRequest = JsonRpcRequest(
+                            method = "sendrawtransaction", params = listOf(txHex)
+                        )
+                        val pushTxResponse =
+                            jsonRpcResponse(selectBitcoin?.mainUrl ?: "", pushTxRequest)
+                        val pushTxJsonObject = Gson().fromJson(
+                            pushTxResponse.body?.string(), JsonObject::class.java
+                        )
+                        try {
+                            val result = pushTxJsonObject["result"].asString
+                            appToWebResult(
+                                messageJson, result, messageId
+                            )
+
+                        } catch (e: Exception) {
+                            val errorMessage =
+                                pushTxJsonObject["error"].asJsonObject["message"].asString
+                            appToWebError(
+                                messageJson, messageId, errorMessage
+                            )
+                        }
+
+                    } else {
+                        appToWebError(
+                            messageJson, messageId, "No Param Data"
+                        )
+                    }
+                }
+
+                "bit_sendBitcoin" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        currentMessageJson = messageJson
+                        currentMessageId = messageId
+                        bitToAddress = params.getString("to")
+                        bitSatAmount = params.getLong("satAmount").toString()
+
+                        if (selectBitcoin?.mainAddress?.lowercase() == bitToAddress.lowercase()) {
+                            appToWebError(messageJson, messageId, "Wrong address")
+                            return@launch
+                        }
+
+                        val signBundle = signBundle(0, params.toString(), "bit_sendBitcoin")
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        val bitSendTxRequest = JsonRpcRequest(
+                                            method = "sendrawtransaction", params = listOf(txHex)
+                                        )
+                                        val bitSendTxResponse = jsonRpcResponse(
+                                            selectBitcoin?.mainUrl ?: "", bitSendTxRequest
+                                        )
+                                        val bitSendTxJsonObject = Gson().fromJson(
+                                            bitSendTxResponse.body?.string(), JsonObject::class.java
+                                        )
+                                        try {
+                                            val result = bitSendTxJsonObject["result"].asString
+                                            appToWebResult(
+                                                currentMessageJson, result, currentMessageId
+                                            )
+
+                                        } catch (e: Exception) {
+                                            val errorMessage =
+                                                bitSendTxJsonObject["error"].asJsonObject["message"].asString
+                                            appToWebError(
+                                                currentMessageJson, currentMessageId, errorMessage
+                                            )
+                                        }
+                                    }
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson, messageId, "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
+                }
+
+                "bit_signMessage" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val signBundle = signBundle(0, params.toString(), "bit_signMessage")
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    appToWebResult(
+                                        messageJson, txHex, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson, messageId, "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
+                }
+
+                "bit_signPsbt" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getString("params")
+                        val signBundle = signBundle(0, params, "bit_signPsbt")
+                        showBitSignDialog(
+                            signBundle,
+                            object : PopUpBitSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, txHex: String) {
+                                    appToWebResult(
+                                        messageJson, txHex, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson, messageId, "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
                 }
 
                 else -> {
@@ -1696,10 +1991,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun setUpObserve() {
+        walletViewModel.balanceResult.observe(this) {
+            appToWebResult(
+                currentMessageJson,
+                (selectBitcoin as ChainBitCoin86).btcFetcher()?.btcBalances,
+                currentMessageId
+            )
+        }
+    }
+
     inner class DappJavascriptInterface {
         @JavascriptInterface
         fun request(message: String) {
-            processRequest(message)
+            lifecycleScope.launch(Dispatchers.IO) {
+                processRequest(message)
+            }
         }
     }
 

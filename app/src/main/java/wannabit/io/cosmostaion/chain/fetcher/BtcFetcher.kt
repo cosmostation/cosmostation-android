@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -28,14 +28,14 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     fun mempoolUrl(): String {
         if (chain.isTestnet) {
-            return "https://mempool.space/testnet4/"
+            return "https://mempool.space/signet/"
         }
         return "https://mempool.space/"
     }
 
     suspend fun initFee(): BigDecimal? {
         return try {
-            val utxo = RetrofitInstance.bitApi(chain as ChainBitCoin84).bitUtxo(chain.mainAddress)
+            val utxo = RetrofitInstance.bitApi(chain as ChainBitCoin86).bitUtxo(chain.mainAddress)
             val bitVBytesFee = bitVBytesFee(utxo, "")
             val estimateSmartFeeRequest = JsonRpcRequest(
                 method = "estimatesmartfee", params = listOf(2)
@@ -54,26 +54,6 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
         } catch (e: Exception) {
             null
-        }
-    }
-
-    fun bitType(): String {
-        return when (chain.accountKeyType.pubkeyType) {
-            PubKeyType.BTC_NATIVE_SEGWIT -> {
-                "p2wpkh"
-            }
-
-            PubKeyType.BTC_NESTED_SEGWIT -> {
-                "p2sh"
-            }
-
-            PubKeyType.BTC_LEGACY -> {
-                "p2pkh"
-            }
-
-            else -> {
-                ""
-            }
         }
     }
 
@@ -107,13 +87,24 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                         )
                     }
 
-                    else -> {
+                    PubKeyType.BTC_LEGACY -> {
                         P2PKH_VBYTE.OVERHEAD.toBigDecimal().add(
                             P2PKH_VBYTE.INPUTS.toBigDecimal().multiply(
                                 BigDecimal(confirmedUtxo.count())
                             )
                         ).add(
                             P2PKH_VBYTE.OUTPUTS.toBigDecimal()
+                                .multiply(if (memo.isNotEmpty()) BigDecimal(3) else BigDecimal(2))
+                        )
+                    }
+
+                    else -> {
+                        P2TR_VBYTE.OVERHEAD.toBigDecimal().add(
+                            P2TR_VBYTE.INPUTS.toBigDecimal().multiply(
+                                BigDecimal(confirmedUtxo.count())
+                            )
+                        ).add(
+                            P2TR_VBYTE.OUTPUTS.toBigDecimal()
                                 .multiply(if (memo.isNotEmpty()) BigDecimal(3) else BigDecimal(2))
                         )
                     }
@@ -193,6 +184,25 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
                 }
             }
 
+            PubKeyType.BTC_TAPROOT -> {
+                utxo?.forEach { tx ->
+                    if (tx["status"].asJsonObject["confirmed"].asBoolean) {
+                        val input = """
+                            {
+                                hash: '${tx["txid"].asString}',
+                                index: ${tx["vout"].asInt},
+                                witnessUtxo: {
+                                    script: senderPayment.output,
+                                    value: ${tx["value"].asLong}
+                                },
+                                tapInternalKey: senderPayment.internalPubkey,
+                            },
+                            """
+                        inputString += input
+                    }
+                }
+            }
+
             else -> {}
         }
         return inputString
@@ -247,4 +257,10 @@ object P2PKH_VBYTE {
     const val OVERHEAD = 10
     const val INPUTS = 148
     const val OUTPUTS = 34
+}
+
+object P2TR_VBYTE {
+    const val OVERHEAD = 11
+    const val INPUTS = 58
+    const val OUTPUTS = 43
 }

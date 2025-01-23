@@ -41,6 +41,10 @@ class TokenEditViewHolder(
                                 }
 
                             } else {
+                                skeletonTokenAmount.visibility = View.VISIBLE
+                                skeletonTokenValue.visibility = View.VISIBLE
+                                tokenAmount.text = ""
+                                tokenValue.text = ""
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val channel = chain.cosmosFetcher?.getChannel()
                                     walletViewModel.cw20Balance(channel, chain, token)
@@ -64,6 +68,32 @@ class TokenEditViewHolder(
 
                                 } else {
                                     walletViewModel.erc20Balance(chain, token)
+                                }
+                            }
+                    }
+
+            } ?: run {
+                chain.cosmosFetcher()?.grc20Tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
+                    ?.let { token ->
+                        token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
+                            ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+                                if (token.fetched) {
+                                    skeletonTokenAmount.visibility = View.GONE
+                                    skeletonTokenValue.visibility = View.GONE
+                                    tokenAmount.text = formatAmount(amount.toPlainString(), 6)
+                                    chain.cosmosFetcher?.let {
+                                        tokenValue.text =
+                                            formatAssetValue(it.grc20TokenValue(token.contract))
+                                    }
+
+                                } else {
+                                    skeletonTokenAmount.visibility = View.VISIBLE
+                                    skeletonTokenValue.visibility = View.VISIBLE
+                                    tokenAmount.text = ""
+                                    tokenValue.text = ""
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        walletViewModel.grc20Balance(chain, token)
+                                    }
                                 }
                             }
                     }

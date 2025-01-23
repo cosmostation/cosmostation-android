@@ -45,7 +45,7 @@ class CoinCosmosLineViewHolder(
                     chain.stakeDenom.let { stakeDenom ->
                         BaseData.getAsset(chain.apiName, stakeDenom)?.let { asset ->
                             tokenImg.setTokenImg(asset)
-                            tokenName.text = asset.symbol?.uppercase()
+                            tokenName.text = asset.symbol
 
                             tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                             BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
@@ -142,7 +142,7 @@ class CoinCosmosLineViewHolder(
             stakedTitle.text = "Vault deposited"
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                 tokenImg.setTokenImg(asset)
-                tokenName.text = asset.symbol?.uppercase()
+                tokenName.text = asset.symbol
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                 BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->

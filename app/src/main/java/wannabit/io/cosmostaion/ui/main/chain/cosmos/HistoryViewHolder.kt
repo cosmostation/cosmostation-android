@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToMonth
@@ -294,14 +294,21 @@ class HistoryViewHolder(
             txTime.text = dpTimeToMonth(historyGroup.second["txTime"].asString.toLong())
 
             if (historyGroup.second["tokenAddress"].asString.isEmpty()) {
-                val amount = historyGroup.second["amount"].asString.toBigDecimal()
-                if (amount > BigDecimal.ZERO) {
-                    txAmount.text = formatAmount(
-                        historyGroup.second["amount"].asString, 18
-                    )
-                    txDenom.text = chain.coinSymbol.uppercase()
-                    txDenom.setTextColor(Color.parseColor("#ffffff"))
+                if (historyGroup.second["amount"].asString.isNotEmpty()) {
+                    val amount = historyGroup.second["amount"].asString.toBigDecimal()
+                    if (amount > BigDecimal.ZERO) {
+                        txAmount.text = formatAmount(
+                            historyGroup.second["amount"].asString, 18
+                        )
+                        txDenom.text = chain.coinSymbol.uppercase()
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
 
+                    } else {
+                        txAmount.text = ""
+                        txDenom.text = "-"
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
+                        txCnt.visibility = View.GONE
+                    }
                 } else {
                     txAmount.text = ""
                     txDenom.text = "-"
@@ -327,7 +334,7 @@ class HistoryViewHolder(
     }
 
     fun bindBitHistory(
-        chain: ChainBitCoin84,
+        chain: ChainBitCoin86,
         historyBitGroup: Pair<String, JsonObject>,
         headerIndex: Int,
         cnt: Int,
@@ -409,7 +416,7 @@ class HistoryViewHolder(
             txAmount.text = formatAmount(
                 displayAmount.toString(), 8
             )
-            txDenom.text = chain.coinSymbol.uppercase()
+            txDenom.text = chain.coinSymbol
             txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }

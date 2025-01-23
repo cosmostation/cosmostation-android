@@ -180,6 +180,7 @@
     <string name="str_legacy" translatable="false">Legacy</string>
     <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
     <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
+    <string name="str_taproot" translatable="false">TAPROOT</string>
 
 
     //title
@@ -440,6 +441,7 @@
     <string name="str_erc20_tokens" translatable="false">Erc20 tokens</string>
     <string name="str_kip10_coins" translatable="false">Kip10 coins</string>
     <string name="str_kip20_tokens" translatable="false">Kip20 tokens</string>
+    <string name="str_grc20_tokens" translatable="false">Grc20 tokens</string>
     <string name="str_unknown_coins" translatable="false">Unknown coins</string>
     <string name="str_reward_address">Reward address</string>
     <string name="str_my_staking">My staking</string>
@@ -497,6 +499,7 @@
     <string name="error_not_enough_balance_to_send">No enough balance for send.</string>
     <string name="error_memo_count">Please check your memo size.</string>
     <string name="error_pending_balance">Waiting for the previous transaction to be processed</string>
+    <string name="error_js">The data cannot be read because it is not in the correct format</string>
 
 
     // tx

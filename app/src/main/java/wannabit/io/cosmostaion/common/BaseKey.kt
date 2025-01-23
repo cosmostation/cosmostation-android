@@ -1,5 +1,9 @@
 package wannabit.io.cosmostaion.common
 
+import android.content.Context
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.EdDSAPrivateKey
 import net.i2p.crypto.eddsa.EdDSAPublicKey
 import net.i2p.crypto.eddsa.Utils
@@ -21,8 +25,7 @@ import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.common.ByteUtils.encodeSegWitAddress
-import wannabit.io.cosmostaion.common.ByteUtils.segWitOutputScript
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import java.security.SecureRandom
 
 object BaseKey {
@@ -112,12 +115,12 @@ object BaseKey {
         }
     }
 
-    fun getAddressFromPubKey(
+    suspend fun getAddressFromPubKey(
+        context: Context,
         pubKey: ByteArray?,
         pubKeyType: PubKeyType,
         prefix: String? = null,
-        pubKeyHash: Byte? = null,
-        scriptHash: Byte? = null
+        network: String? = null
     ): String {
         var result = ""
         when (pubKeyType) {
@@ -126,6 +129,7 @@ object BaseKey {
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
                 val converted = ByteUtils.convertBits(ripemd160, 8, 5, true)
                 result = Bech32.encode(Bech32.Encoding.BECH32, prefix, converted)
+
             }
 
             PubKeyType.ETH_KECCAK256, PubKeyType.BERA_SECP256K1 -> {
@@ -133,28 +137,7 @@ object BaseKey {
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
                 result = "0x" + Keys.getAddress(pub).toHex()
-            }
 
-            PubKeyType.BTC_LEGACY -> {
-                val sha256Hash = Sha256Hash.hash(pubKey)
-                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
-                val networkAndHash = byteArrayOf(pubKeyHash!!) + ripemd160
-                return ByteUtils.base58ChecksumEncode(networkAndHash)
-            }
-
-            PubKeyType.BTC_NESTED_SEGWIT -> {
-                val sha256Hash = Sha256Hash.hash(pubKey)
-                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
-                val segWitScript = segWitOutputScript(ripemd160, 0x00)
-                val hashP2WrappedInP2sh = ByteUtils.hashToRIPMD160(Sha256Hash.hash(segWitScript))
-                val networkAndHash = byteArrayOf(scriptHash!!) + hashP2WrappedInP2sh
-                return ByteUtils.base58ChecksumEncode(networkAndHash)
-            }
-
-            PubKeyType.BTC_NATIVE_SEGWIT -> {
-                val sha256Hash = Sha256Hash.hash(pubKey)
-                val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
-                return encodeSegWitAddress(ripemd160, prefix)
             }
 
             PubKeyType.SUI_ED25519 -> {
@@ -163,11 +146,37 @@ object BaseKey {
                     val blake2b = Blake2b.Blake2b256()
                     blake2b.update(data)
                     val hex = Utils.bytesToHex(blake2b.digest())
-                    return "0x${hex.substring(0, 64)}"
+                    result = "0x${hex.substring(0, 64)}"
                 }
+
             }
 
-            else -> return result
+            else -> {
+                val deferredResult = CompletableDeferred<String>()
+                withContext(Dispatchers.IO) {
+                    if (!BitcoinJs.isInitialized()) {
+                        BitcoinJs.initialize(context).await()
+                    }
+
+                    try {
+                        val publicKey = pubKey?.toHex()
+                        val unique = System.nanoTime()
+                        val uniqueFunctionName = "addressFunction_${unique}"
+
+                        val addressFunction = """function $uniqueFunctionName() {
+                                    const address = getAddress('${publicKey}', '${bitType(pubKeyType)}', '${network}');
+                                    return address;
+                                }""".trimMargin()
+                        BitcoinJs.mergeFunction(addressFunction)
+                        val address = BitcoinJs.executeFunction("$uniqueFunctionName()").toString()
+                        deferredResult.complete(address)
+
+                    } catch (e: Exception) {
+                        deferredResult.completeExceptionally(e)
+                    }
+                    result = deferredResult.await()
+                }
+            }
         }
         return result
     }

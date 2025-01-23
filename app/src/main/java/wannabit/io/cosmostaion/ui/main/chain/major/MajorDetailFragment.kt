@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.squareup.okhttp.Interceptor.Chain
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -25,6 +24,7 @@ import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
@@ -65,6 +65,16 @@ class MajorDetailFragment : Fragment() {
         initData()
         initTab()
         setUpClickAction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (selectedChain.mainAddress.isEmpty()) {
+            Intent(requireContext(), IntroActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
+            }
+        }
     }
 
     private fun initData() {

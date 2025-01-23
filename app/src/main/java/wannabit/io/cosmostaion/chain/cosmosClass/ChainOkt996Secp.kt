@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
@@ -20,10 +21,10 @@ class ChainOkt996Secp : ChainOkt996Keccak(), Parcelable {
         ChildNumber(44, true), ChildNumber(996, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        address = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+        address = BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
         evmAddress = ByteUtils.convertBech32ToEvm(address)
     }
 }

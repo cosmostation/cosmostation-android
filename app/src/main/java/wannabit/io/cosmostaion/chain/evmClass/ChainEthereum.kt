@@ -15,7 +15,6 @@ class ChainEthereum : BaseChain(), Parcelable {
     override var name: String = "Ethereum"
     override var tag: String = "ethereum60"
     override var logo: Int = R.drawable.chain_ethereum
-    override var swipeLogo: Int = R.drawable.chain_swipe_ethereum
     override var apiName: String = "ethereum"
 
     override var supportEvm: Boolean = true

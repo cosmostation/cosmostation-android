@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.HistoryAdapter
 import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.HistoryAdapter
 
 class MajorHistoryFragment : Fragment() {
 
@@ -75,8 +75,8 @@ class MajorHistoryFragment : Fragment() {
                 selectedChain = it
             }
         }
-        if (selectedChain is ChainBitCoin84) {
-            historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
+        if (selectedChain is ChainBitCoin86) {
+            historyViewModel.bitHistory(selectedChain as ChainBitCoin86)
         } else {
             historyViewModel.suiHistory(selectedChain as ChainSui)
         }
@@ -84,9 +84,9 @@ class MajorHistoryFragment : Fragment() {
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (selectedChain is ChainBitCoin84) {
+            if (selectedChain is ChainBitCoin86) {
                 bitHistoryGroup.clear()
-                historyViewModel.bitHistory(selectedChain as ChainBitCoin84)
+                historyViewModel.bitHistory(selectedChain as ChainBitCoin86)
             } else {
                 suiHistoryGroup.clear()
                 historyViewModel.suiHistory(selectedChain as ChainSui)

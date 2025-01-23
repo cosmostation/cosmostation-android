@@ -13,6 +13,7 @@ import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto
 import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import io.grpc.stub.StreamObserver
@@ -25,13 +26,15 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
+import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
@@ -114,8 +117,7 @@ class TransferTxResultActivity : BaseActivity() {
             toMemo = intent.getStringExtra("memo") ?: ""
 
             intent.getStringExtra("suiResult")?.let { intentData ->
-                suiResult = JsonParser.parseString(intentData).asJsonObject
-                    ?: JsonObject()
+                suiResult = JsonParser.parseString(intentData).asJsonObject ?: JsonObject()
             }
 
             transferStyle = enumValues<TransferStyle>()[intent.getIntExtra("transferStyle", -1)]
@@ -187,7 +189,7 @@ class TransferTxResultActivity : BaseActivity() {
                 }
 
             } else {
-                if (isSuccess) {
+                if (isSuccess && txResponse?.txResponse?.code == 0) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
                     successHash.text = txHash
@@ -248,7 +250,67 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             fromChain.apply {
-                if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_GRPC) {
+                if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_RPC) {
+                    val txStatusRequest = JsonRpcRequest(
+                        method = "tx", params = listOf(txHash)
+                    )
+                    val txStatusResponse = jsonRpcResponse(mainUrl, txStatusRequest)
+                    if (txStatusResponse.isSuccessful) {
+                        val txStatusJsonObject = Gson().fromJson(
+                            txStatusResponse.body?.string(), JsonObject::class.java
+                        )
+
+                        if (!txStatusJsonObject.has("error")) {
+                            val txResult =
+                                txStatusJsonObject["result"].asJsonObject["tx_result"].asJsonObject["ResponseBase"].asJsonObject
+                            val txResultResponse = if (txResult["Error"].isJsonNull) {
+                                TxResponse.newBuilder().setTxhash(txHash).setCode(0).setRawLog("")
+                                    .build()
+
+                            } else {
+                                errorMsg = try {
+                                    txResult["Error"].asJsonObject["value"].asString
+                                } catch (e: Exception) {
+                                    txResult["Log"].asString
+                                }
+                                TxResponse.newBuilder().setTxhash(txHash).setCode(-1)
+                                    .setRawLog(errorMsg).build()
+                            }
+                            txResponse =
+                                GetTxResponse.newBuilder().setTxResponse(txResultResponse).build()
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                updateView()
+                            }, 0)
+
+                        } else {
+                            fetchCnt -= 1
+                            if (isSuccess && fetchCnt > 0) {
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    loadHistoryTx()
+                                }, 6000)
+
+                            } else {
+                                runOnUiThread {
+                                    showMoreWait()
+                                }
+                            }
+                        }
+
+                    } else {
+                        fetchCnt -= 1
+                        if (isSuccess && fetchCnt > 0) {
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                loadHistoryTx()
+                            }, 6000)
+
+                        } else {
+                            runOnUiThread {
+                                showMoreWait()
+                            }
+                        }
+                    }
+
+                } else if (cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_GRPC) {
                     val channel = fromChain.cosmosFetcher?.getChannel()
                     val stub = ServiceGrpc.newStub(channel)
                     val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
@@ -357,7 +419,7 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadBitTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.bitApi(fromChain as ChainBitCoin84).bitTx(txHash)
+                val response = RetrofitInstance.bitApi(fromChain as ChainBitCoin86).bitTx(txHash)
                 if (response.isSuccessful) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.apply {

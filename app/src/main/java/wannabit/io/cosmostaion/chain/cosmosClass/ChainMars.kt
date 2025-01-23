@@ -16,7 +16,6 @@ class ChainMars : BaseChain(), Parcelable {
     override var name: String = "Mars"
     override var tag: String = "mars-protocol118"
     override var logo: Int = R.drawable.chain_mars
-    override var swipeLogo: Int = R.drawable.chain_swipe_mars
     override var apiName: String = "mars-protocol"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

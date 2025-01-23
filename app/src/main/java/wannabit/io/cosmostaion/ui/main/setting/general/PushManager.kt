@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.general
 
+import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ import wannabit.io.cosmostaion.database.model.BaseAccountType
 object PushManager {
     @JvmStatic
     fun updateStatus(
-        enable: Boolean, completion: (Boolean, String) -> Unit
+        context: Context, enable: Boolean, completion: (Boolean, String) -> Unit
     ) {
         if (Prefs.fcmToken.isEmpty()) {
             Prefs.alarmEnable = false
@@ -30,7 +31,7 @@ object PushManager {
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val param = pushInfo(enable, Prefs.fcmToken)
+            val param = pushInfo(context, enable, Prefs.fcmToken)
             RetrofitInstance.mintscanApi.syncPush(param).enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     Prefs.alarmEnable = enable
@@ -48,12 +49,12 @@ object PushManager {
         }
     }
 
-    private suspend fun pushInfo(enable: Boolean, fcmToken: String): PushSyncReq {
+    private suspend fun pushInfo(context: Context, enable: Boolean, fcmToken: String): PushSyncReq {
         val wallets: MutableList<PushWallet> = mutableListOf()
         withContext(Dispatchers.IO) {
             if (enable) {
                 AppDatabase.getInstance().baseAccountDao().selectAll().forEach { account ->
-                    pushWallet(account)?.let { wallet ->
+                    pushWallet(context, account)?.let { wallet ->
                         wallets.add(wallet)
                     }
                 }
@@ -62,11 +63,11 @@ object PushManager {
         return PushSyncReq(fcmToken, enable, wallets)
     }
 
-    private suspend fun pushWallet(account: BaseAccount): PushWallet? {
+    private suspend fun pushWallet(context: Context, account: BaseAccount): PushWallet? {
         var pushWallet: PushWallet? = null
         withContext(Dispatchers.IO) {
             val pushAccounts: MutableList<PushAccount> = mutableListOf()
-            initAllKeyData(account).filter { !it.isTestnet }.forEach { chain ->
+            initAllKeyData(context, account).filter { !it.isTestnet }.forEach { chain ->
                 if (chain.supportCosmos()) {
                     val pushAccount = PushAccount(chain.apiName, chain.address)
                     pushAccounts.add(pushAccount)
@@ -84,21 +85,21 @@ object PushManager {
         return pushWallet
     }
 
-    private suspend fun initAllKeyData(account: BaseAccount): MutableList<BaseChain> {
+    private suspend fun initAllKeyData(context: Context, account: BaseAccount): MutableList<BaseChain> {
         val result = allChains()
         withContext(Dispatchers.IO) {
             account.apply {
                 if (type == BaseAccountType.MNEMONIC) {
                     result.forEach { chain ->
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(context, seed, chain.setParentPath, lastHDPath)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
                     result.forEach { chain ->
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
+                            chain.setInfoWithPrivateKey(context, privateKey)
                         }
                     }
                 }

@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
+import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosDetailFragment.DetailPagerAdapter
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
@@ -61,6 +62,16 @@ class EvmDetailFragment : Fragment() {
         initTab()
         setUpClickAction()
         setUpObserve()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (selectedEvmChain.evmAddress.isEmpty()) {
+            Intent(requireContext(), IntroActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(this)
+            }
+        }
     }
 
     private fun initData() {

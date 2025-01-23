@@ -1,9 +1,11 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +21,9 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
@@ -28,6 +31,7 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
@@ -81,15 +85,24 @@ class MajorCryptoFragment : Fragment() {
             arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable(
-                "selectedChain" + ""
-            ) as? BaseChain)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
+            bitStaking.visibleOrGone(selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT))
+
+            bitStaking.setOnClickListener {
+                if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", selectedChain.btcStakingDapp())
+                        putExtra("selectedChain", selectedChain as Parcelable)
+                        startActivity(this)
+                    }
+                }
+            }
         }
     }
 
@@ -133,7 +146,7 @@ class MajorCryptoFragment : Fragment() {
                 }
 
             } else {
-                (selectedChain as ChainBitCoin84).btcFetcher()?.let {
+                (selectedChain as ChainBitCoin86).btcFetcher()?.let {
                     withContext(Dispatchers.Main) {
                         initRecyclerView()
                         binding.searchBar.visibility = View.GONE
@@ -161,7 +174,7 @@ class MajorCryptoFragment : Fragment() {
                         SendAssetType.BIT_COIN
                     }
 
-                    if (chain is ChainBitCoin84) {
+                    if (chain is ChainBitCoin86) {
                         chain.btcFetcher()?.let { fetcher ->
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val btcFee = fetcher.initFee()
@@ -280,7 +293,7 @@ class MajorCryptoFragment : Fragment() {
                         ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
                     } else {
                         ApplicationViewModel.shared.loadBtcData(
-                            account.id, selectedChain as ChainBitCoin84, false
+                            account.id, selectedChain as ChainBitCoin86, false
                         )
                     }
                 }

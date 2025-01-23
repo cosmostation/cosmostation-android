@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.cosmosClass
 
+import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
@@ -18,7 +19,6 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
     override var name: String = "OKT"
     override var tag: String = "okt996_Keccak"
     override var logo: Int = R.drawable.chain_okt
-    override var swipeLogo: Int = R.drawable.chain_swipe_okt
     override var isDefault: Boolean = false
     override var apiName: String = "okc"
 
@@ -34,11 +34,11 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
 
     override var supportEvm: Boolean = false
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         evmAddress =
-            BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, accountPrefix)
+            BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
         address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
     }
 }

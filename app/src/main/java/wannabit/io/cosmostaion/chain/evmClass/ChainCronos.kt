@@ -15,7 +15,6 @@ class ChainCronos : BaseChain(), Parcelable {
     override var name: String = "Cronos"
     override var tag: String = "cronos60"
     override var logo: Int = R.drawable.chain_cronos
-    override var swipeLogo: Int = R.drawable.chain_swipe_cronos
     override var apiName: String = "cronos"
 
     override var supportEvm: Boolean = true

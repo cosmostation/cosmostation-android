@@ -27,6 +27,10 @@ import com.cosmos.tx.v1beta1.TxProto.TxBody
 import com.cosmos.tx.v1beta1.TxProto.TxRaw
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.gno.bank.BankProto
+import com.gno.vm.VmProto.MsgCall
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -44,6 +48,9 @@ import com.kava.incentive.v1beta1.TxProto.MsgClaimHardReward
 import com.kava.incentive.v1beta1.TxProto.MsgClaimSwapReward
 import com.kava.incentive.v1beta1.TxProto.MsgClaimUSDXMintingReward
 import com.kava.incentive.v1beta1.TxProto.Selection
+import com.tm2.tx.TxProto.Tx
+import com.tm2.tx.TxProto.TxFee
+import com.tm2.tx.TxProto.TxSignature
 import net.i2p.crypto.eddsa.EdDSAEngine
 import net.i2p.crypto.eddsa.EdDSAPrivateKey
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
@@ -73,6 +80,7 @@ import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -87,6 +95,8 @@ import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
+import wannabit.io.cosmostaion.data.model.req.Msgs
+import wannabit.io.cosmostaion.data.model.req.SignPayload
 import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.req.StdSignMsg
 import wannabit.io.cosmostaion.data.model.req.StdTx
@@ -96,7 +106,9 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
+import java.util.TreeMap
 import java.util.concurrent.TimeUnit
 
 object Signer {
@@ -125,8 +137,15 @@ object Signer {
     fun thorchainSendMsg(msgSend: com.types.MsgSendProto.MsgSend?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
-            Any.newBuilder().setTypeUrl("/types.MsgSend")
-                .setValue(msgSend?.toByteString()).build()
+            Any.newBuilder().setTypeUrl("/types.MsgSend").setValue(msgSend?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    private fun gnoSendMsg(msgSend: BankProto.MsgSend?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/bank.MsgSend").setValue(msgSend?.toByteString()).build()
         )
         return msgAnys
     }
@@ -160,6 +179,14 @@ object Signer {
                     .setValue(msgWasm?.toByteString()).build()
             )
         }
+        return msgAnys
+    }
+
+    fun msgCallMsg(msgCall: MsgCall?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/vm.m_call").setValue(msgCall?.toByteString()).build()
+        )
         return msgAnys
     }
 
@@ -560,7 +587,13 @@ object Signer {
 
     private fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (chain is ChainInjective) {
+        return if (chain is ChainGnoTestnet) {
+            val pubKey = com.tm2.tx.TxProto.PubKeySecp256k1.newBuilder()
+                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/tm.PubKeySecp256k1").setValue(pubKey.toByteString())
+                .build()
+
+        } else if (chain is ChainInjective) {
             val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
                 .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
@@ -630,6 +663,92 @@ object Signer {
         return null
     }
 
+    fun signRpcSendBroadcastTx(
+        msgSend: BankProto.MsgSend, fee: Fee?, memo: String, chain: BaseChain
+    ): Tx {
+        val msgs: MutableList<Msgs> = mutableListOf()
+        val msg = Msgs(
+            "/bank.MsgSend",
+            from_address = chain.address,
+            to_address = msgSend.toAddress,
+            amount = msgSend.amount
+        )
+        msgs.add(msg)
+        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 10000000L)
+            .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val pubKey =
+            generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain.privateKey).privateKeyAsHex)
+
+        val signPayload = SignPayload(
+            chain.chainIdCosmos,
+            chain.cosmosFetcher()?.cosmosAccountNumber.toString(),
+            chain.cosmosFetcher()?.cosmosSequence.toString(),
+            wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
+            msgs
+        )
+
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+        val signPayloadDoc = mapper.writeValueAsString(
+            mapper.readValue(signPayload.toJson(), TreeMap::class.java)
+        )
+
+        val sigByte = grpcByteSignature(chain, signPayloadDoc.toByteArray(StandardCharsets.UTF_8))
+        val signatures =
+            TxSignature.newBuilder().setPubKey(pubKey).setSignature(ByteString.copyFrom(sigByte))
+                .build()
+
+        val builder = Tx.newBuilder()
+        gnoSendMsg(msgSend).forEach { msgAny ->
+            builder.addMessages(msgAny)
+        }
+        return builder.setFee(txFee).addSignatures(signatures).setMemo(memo).build()
+    }
+
+    fun signRpcCallBroadcastTx(
+        msgCall: MsgCall?, fee: Fee?, memo: String, chain: BaseChain
+    ): Tx {
+        val msgs: MutableList<Msgs> = mutableListOf()
+        val msg = Msgs(
+            "/vm.m_call",
+            send = "",
+            caller = chain.address,
+            pkg_path = msgCall?.pkgPath,
+            func = "Transfer",
+            args = listOf(msgCall?.getArgs(0).toString(), msgCall?.getArgs(1).toString())
+        )
+        msgs.add(msg)
+        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 10000000L)
+            .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val pubKey =
+            generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain.privateKey).privateKeyAsHex)
+
+        val signPayload = SignPayload(
+            chain.chainIdCosmos,
+            chain.cosmosFetcher()?.cosmosAccountNumber.toString(),
+            chain.cosmosFetcher()?.cosmosSequence.toString(),
+            wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
+            msgs
+        )
+
+        val mapper = ObjectMapper()
+        mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+        val signPayloadDoc = mapper.writeValueAsString(
+            mapper.readValue(signPayload.toJson(), TreeMap::class.java)
+        )
+
+        val sigByte = grpcByteSignature(chain, signPayloadDoc.toByteArray(StandardCharsets.UTF_8))
+        val signatures =
+            TxSignature.newBuilder().setPubKey(pubKey).setSignature(ByteString.copyFrom(sigByte))
+                .build()
+
+        val builder = Tx.newBuilder()
+        msgCallMsg(msgCall).forEach { msgAny ->
+            builder.addMessages(msgAny)
+        }
+        return builder.setFee(txFee).addSignatures(signatures).setMemo(memo).build()
+    }
+
     private fun grpcTxBody(
         msgsAny: List<Any>?, memo: String, height: Long, chain: BaseChain?
     ): TxBody? {
@@ -643,7 +762,8 @@ object Signer {
     private fun grpcSignerInfo(
         chain: BaseChain?
     ): SignerInfo {
-        val pubKey = generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain?.privateKey).privateKeyAsHex)
+        val pubKey =
+            generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain?.privateKey).privateKeyAsHex)
         val singleMode =
             ModeInfo.Single.newBuilder().setMode(SigningProto.SignMode.SIGN_MODE_DIRECT).build()
         val modeInfo = ModeInfo.newBuilder().setSingle(singleMode).build()

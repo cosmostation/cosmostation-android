@@ -12,7 +12,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -81,7 +81,7 @@ class MajorAboutFragment : Fragment() {
             }
             chainParam = selectedChain.getChainParam()
 
-            chainName.text = selectedChain.name.uppercase()
+            chainName.text = selectedChain.name
             chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")?.let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     chainDescription.text = it.getAsJsonObject("description")?.get("ko")?.asString
@@ -116,8 +116,8 @@ class MajorAboutFragment : Fragment() {
                     getString(R.string.str_mainnet)
                 }
 
-                stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin84)
-                stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin84)
+                stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin86)
+                stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin86)
 
                 stakingDenom.text = if (selectedChain is ChainSui) {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol

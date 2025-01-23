@@ -55,6 +55,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
@@ -890,6 +891,44 @@ fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: Chain
         }
     } else {
         this.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED
+    }
+}
+
+fun String.regexWithNumberAndChar(): Pair<String, String> {
+    val regex = Regex("[0-9]*\\.?[0-9]*")
+    val matchResult = regex.find(this)
+    return if (matchResult != null) {
+        val amount = matchResult.value
+        val denomIndex = amount.length
+        val denom = this.substring(denomIndex)
+        Pair(denom, amount)
+
+    } else {
+        Pair("", "")
+    }
+}
+
+fun bitType(pubKeyType: PubKeyType): String {
+    return when (pubKeyType) {
+        PubKeyType.BTC_NATIVE_SEGWIT -> {
+            "p2wpkh"
+        }
+
+        PubKeyType.BTC_NESTED_SEGWIT -> {
+            "p2sh"
+        }
+
+        PubKeyType.BTC_LEGACY -> {
+            "p2pkh"
+        }
+
+        PubKeyType.BTC_TAPROOT -> {
+            "p2tr"
+        }
+
+        else -> {
+            ""
+        }
     }
 }
 

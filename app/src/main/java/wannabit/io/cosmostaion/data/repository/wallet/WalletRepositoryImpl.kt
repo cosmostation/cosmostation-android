@@ -50,12 +50,12 @@ import wannabit.io.cosmostaion.chain.fetcher.rewards
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.fetcher.unDelegations
 import wannabit.io.cosmostaion.chain.fetcher.validators
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
+import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.baseApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
@@ -134,6 +134,8 @@ class WalletRepositoryImpl : WalletRepository {
                 mintscanApi.cw20token(chain.apiName)
             } else if (chain.isSupportErc20()) {
                 mintscanApi.erc20token(chain.apiName)
+            } else if (chain.isSupportGrc20()) {
+                mintscanApi.grc20token(chain.apiName)
             } else {
                 mutableListOf()
             }
@@ -306,9 +308,11 @@ class WalletRepositoryImpl : WalletRepository {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             channel?.let { managedChannel ->
                 val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-                val stub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-                val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-                    .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
+                val stub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                val request =
+                    com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                        .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDED").build()
                 safeApiCall(Dispatchers.IO) {
                     stub.validators(request).validatorsList
                 }
@@ -333,9 +337,11 @@ class WalletRepositoryImpl : WalletRepository {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             channel?.let { managedChannel ->
                 val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-                val stub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-                val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-                    .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
+                val stub =
+                    newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                val request =
+                    com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                        .setPagination(pageRequest).setStatus("BOND_STATUS_UNBONDING").build()
                 safeApiCall(Dispatchers.IO) {
                     stub.validators(request).validatorsList
                 }
@@ -422,6 +428,44 @@ class WalletRepositoryImpl : WalletRepository {
         } catch (e: Exception) {
             token.amount = "0"
             token.fetched = false
+        }
+    }
+
+    override suspend fun grc20Balance(chain: BaseChain, grc20Token: Token) {
+        val queryData = grc20Token.contract + ".BalanceOf(\"${chain.address}\")"
+        val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+        val grc20BalanceRequest = JsonRpcRequest(
+            method = "abci_query", params = listOf("vm/qeval", queryDataBase64, "0", false)
+        )
+        val grc20BalanceResponse = jsonRpcResponse(chain.mainUrl, grc20BalanceRequest)
+        try {
+            if (grc20BalanceResponse.isSuccessful) {
+                val grc20BalanceJsonObject = Gson().fromJson(
+                    grc20BalanceResponse.body?.string(), JsonObject::class.java
+                )
+                if (!grc20BalanceJsonObject.has("error")) {
+                    val balanceResult =
+                        grc20BalanceJsonObject["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject
+                    val balanceData = balanceResult["Data"].asString
+                    val decodeData = formatJsonString(String(Base64.decode(balanceData)))
+                    val regex = "\\d+".toRegex()
+                    val match = regex.find(decodeData)
+                    grc20Token.amount = match?.value?.toLong().toString()
+                    grc20Token.fetched = true
+
+                } else {
+                    grc20Token.amount = "0"
+                    grc20Token.fetched = true
+                }
+
+            } else {
+                grc20Token.amount = "0"
+                grc20Token.fetched = true
+            }
+
+        } catch (e: Exception) {
+            grc20Token.amount = "0"
+            grc20Token.fetched = true
         }
     }
 
@@ -525,8 +569,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaBondedValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -540,14 +583,14 @@ class WalletRepositoryImpl : WalletRepository {
 
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED)
+                lcdApi(chain).lcdInitiaBondedValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED)
             }
         }
     }
 
     override suspend fun initiaUnBondedValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -560,14 +603,14 @@ class WalletRepositoryImpl : WalletRepository {
             }
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaUnBondedValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
+                lcdApi(chain).lcdInitiaUnBondedValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
             }
         }
     }
 
     override suspend fun initiaUnBondingValidator(
-        channel: ManagedChannel?,
-        chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -580,7 +623,8 @@ class WalletRepositoryImpl : WalletRepository {
             }
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdInitiaUnBondingValidatorInfo().initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDING)
+                lcdApi(chain).lcdInitiaUnBondingValidatorInfo()
+                    .initiaValidators(com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_UNBONDING)
             }
         }
     }
@@ -881,9 +925,18 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject> {
+    override suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitBalance(chain.mainAddress)
+        }
+    }
+
+    override suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response> {
+        val authRequest = JsonRpcRequest(
+            method = "abci_query", params = listOf("auth/accounts/${chain.address}", "", "0", false)
+        )
+        return safeApiCall(Dispatchers.IO) {
+            jsonRpcResponse(chain.mainUrl, authRequest)
         }
     }
 }

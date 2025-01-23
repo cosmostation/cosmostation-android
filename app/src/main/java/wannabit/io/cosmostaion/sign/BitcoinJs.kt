@@ -3,52 +3,60 @@ package wannabit.io.cosmostaion.sign
 import android.content.Context
 import androidx.javascriptengine.JavaScriptIsolate
 import androidx.javascriptengine.JavaScriptSandbox
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+object BitcoinJs {
+    private var sandbox: JavaScriptSandbox? = null
+    private var jsIsolate: JavaScriptIsolate? = null
+    private var initializationDeferred: CompletableDeferred<Boolean>? = null
+    private var isInitialized: Boolean = false // 초기화 상태 추적
 
-class BitCoinJS(private val context: Context) {
+    fun initialize(context: Context): CompletableDeferred<Boolean> {
+        if (initializationDeferred == null) {
+            initializationDeferred = CompletableDeferred()
 
-    private var isServiceBind = false
-    private lateinit var sandbox: JavaScriptSandbox
-    private lateinit var jsIsolate: JavaScriptIsolate
-
-    init {
-        if (!isServiceBind) {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    if (!isServiceBind) {
-                        sandbox = JavaScriptSandbox.createConnectedInstanceAsync(context).get()
-                        jsIsolate = sandbox.createIsolate()
-                        isServiceBind = true
-                    }
-                    val jsCode = readJavaScriptFile()
-                    jsIsolate.evaluateJavaScriptAsync(jsCode).get()
+                    sandbox =
+                        JavaScriptSandbox.createConnectedInstanceAsync(context.applicationContext)
+                            .get()
+                    jsIsolate = sandbox?.createIsolate()
 
+                    val jsCode =
+                        context.assets.open("bitcoin.js").bufferedReader().use { it.readText() }
+                    jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
+
+                    isInitialized = true
+                    initializationDeferred?.complete(true)
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    isInitialized = false
+                    initializationDeferred?.complete(false)
                 }
             }
         }
+        return initializationDeferred!!
     }
 
-    private fun readJavaScriptFile(): String {
-        return context.assets.open("bitcoin.js").bufferedReader().use { it.readText() }
-    }
-
-    fun executeFunction(functionCall: String): String {
-        return jsIsolate.evaluateJavaScriptAsync(functionCall).get()
+    fun executeFunction(functionCall: String): String? {
+        return jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
     }
 
     fun mergeFunction(createTx: String) {
-        jsIsolate.evaluateJavaScriptAsync(createTx).get()
+        jsIsolate?.evaluateJavaScriptAsync(createTx)?.get()
     }
 
-    fun unbindService() {
-        if (isServiceBind) {
-            sandbox.close()
-            isServiceBind = false
-        }
+    fun terminate() {
+        jsIsolate?.close()
+        jsIsolate = null
+        sandbox?.close()
+        sandbox = null
+        initializationDeferred = null
+    }
+
+    fun isInitialized(): Boolean {
+        return isInitialized
     }
 }

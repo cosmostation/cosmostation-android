@@ -17,7 +17,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -143,8 +143,12 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
             }
 
             btnAddressBook.setOnClickListener {
-                val address = fromChain.address.ifEmpty {
+                val address = if (fromChain.mainAddress.isNotEmpty()) {
+                    fromChain.mainAddress
+                } else if (fromChain.address.isEmpty()) {
                     fromChain.evmAddress
+                } else {
+                    fromChain.address
                 }
                 handleOneClickWithDelay(
                     AddressBookFragment.newInstance(fromChain,
@@ -200,7 +204,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
+                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
                         if (BaseUtils.isValidBechAddress(
                                 toChain, address
                             )
@@ -239,7 +243,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     } else if (sendAssetType == SendAssetType.BIT_COIN) {
                         if (BaseUtils.isValidBitAddress(
-                                toChain as ChainBitCoin84, address
+                                toChain as ChainBitCoin86, address
                             )
                         ) {
                             addressListener?.selectAddress(

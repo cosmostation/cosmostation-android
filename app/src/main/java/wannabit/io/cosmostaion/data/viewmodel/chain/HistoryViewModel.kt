@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -130,7 +130,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _btcHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
     val btcHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _btcHistoryResult
 
-    fun bitHistory(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+    fun bitHistory(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
         chain.btcFetcher()?.let { fetcher ->
             fetcher.btcBlockHeight = 0
             fetcher.btcHistory.clear()
@@ -146,6 +146,20 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                     fetcher.btcBlockHeight = blockHeightResult.data ?: 0
                     val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
                     fetcher.btcHistory.addAll(historyResult.data ?: mutableListOf())
+                    fetcher.btcHistory = fetcher.btcHistory.sortedWith { o1, o2 ->
+                        val time1 =
+                            o1["status"]?.asJsonObject?.get("block_time")?.asLong?.times(1000)
+                        val time2 =
+                            o2["status"]?.asJsonObject?.get("block_time")?.asLong?.times(1000)
+
+                        when {
+                            time1 == null && time2 == null -> 0
+                            time1 == null -> -1
+                            time2 == null -> 1
+                            else -> time2.compareTo(time1)
+                        }
+                    }.toMutableList()
+
                     fetcher.btcHistory.forEach { history ->
                         val headerDate = if (history["status"].asJsonObject["block_time"] != null) {
                             dpTimeToYear(history["status"].asJsonObject["block_time"].asLong * 1000)

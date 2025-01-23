@@ -16,7 +16,6 @@ class ChainTeritori : BaseChain(), Parcelable {
     override var name: String = "Teritori"
     override var tag: String = "teritori118"
     override var logo: Int = R.drawable.chain_teritori
-    override var swipeLogo: Int = R.drawable.chain_swipe_teritori
     override var apiName: String = "teritori"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

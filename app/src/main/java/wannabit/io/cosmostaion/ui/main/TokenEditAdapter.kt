@@ -18,7 +18,7 @@ class TokenEditAdapter(
     private val selectChain: BaseChain,
     private val tokens: MutableList<Token>?,
     private val displayTokens: MutableList<String>?
-): RecyclerView.Adapter<TokenEditViewHolder>() {
+) : RecyclerView.Adapter<TokenEditViewHolder>() {
 
     private var onItemClickListener: ((MutableList<String>) -> Unit)? = null
 
@@ -48,6 +48,14 @@ class TokenEditAdapter(
             }
 
             walletViewModel.editCw20Balance.observe(lifecycleOwner) { contract ->
+                if (contract == token.contract) {
+                    Handler(Looper.getMainLooper()).post {
+                        notifyItemChanged(position)
+                    }
+                }
+            }
+
+            walletViewModel.editGrc20Balance.observe(lifecycleOwner) { contract ->
                 if (contract == token.contract) {
                     Handler(Looper.getMainLooper()).post {
                         notifyItemChanged(position)

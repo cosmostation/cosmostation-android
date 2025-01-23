@@ -16,7 +16,6 @@ open class ChainKava459 : ChainKavaEvm(), Parcelable {
     override var name: String = "Kava"
     override var tag: String = "kava459"
     override var logo: Int = R.drawable.chain_kava
-    override var swipeLogo: Int = R.drawable.chain_swipe_kava
     override var isDefault: Boolean = false
     override var apiName: String = "kava"
 

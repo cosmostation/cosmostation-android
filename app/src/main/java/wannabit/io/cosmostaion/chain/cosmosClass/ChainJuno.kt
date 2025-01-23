@@ -16,7 +16,6 @@ class ChainJuno : BaseChain(), Parcelable {
     override var name: String = "Juno"
     override var tag: String = "juno118"
     override var logo: Int = R.drawable.chain_juno
-    override var swipeLogo: Int = R.drawable.chain_swipe_juno
     override var apiName: String = "juno"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
@@ -17,9 +17,9 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "API"
                 rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
@@ -71,12 +71,17 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "API"
                 rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
+
+            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "RPC"
+                rpcEndpoint.text = chain.mainUrl
 
             } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 if (chain.isEvmCosmos()) {

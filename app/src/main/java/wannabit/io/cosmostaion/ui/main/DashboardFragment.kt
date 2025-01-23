@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
@@ -171,7 +171,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) return
             if (chain.fetchState == FetchState.SUCCESS) {
-                if (chain is ChainSui || chain is ChainBitCoin84) {
+                if (chain is ChainSui || chain is ChainBitCoin86) {
                     Intent(requireContext(), MajorActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)
@@ -204,8 +204,9 @@ class DashboardFragment : Fragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
                             }
                             if (Prefs.style == 1) {
                                 if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
@@ -226,8 +227,9 @@ class DashboardFragment : Fragment() {
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(privateKey)
+                                chain.setInfoWithPrivateKey(safeContext, privateKey)
                             }
                             if (Prefs.style == 1) {
                                 if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
@@ -440,7 +442,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 override fun changeEndpoint(tag: String?) {
-                    if (chain is ChainOktEvm || chain is ChainBitCoin84) return
+                    if (chain is ChainOktEvm || chain is ChainBitCoin86) return
                     val settingType = if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         SettingType.END_POINT_COSMOS
                     } else if (chain is ChainSui) {

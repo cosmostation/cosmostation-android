@@ -201,7 +201,13 @@ class TokenEditFragment : BottomSheetDialogFragment() {
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             tokenEditAdapter =
-                TokenEditAdapter(walletViewModel, viewLifecycleOwner, fromChain, searchTokens, displayTokens)
+                TokenEditAdapter(
+                    walletViewModel,
+                    viewLifecycleOwner,
+                    fromChain,
+                    searchTokens,
+                    displayTokens
+                )
             recycler.adapter = tokenEditAdapter
 
             tokenEditAdapter.setOnItemClickListener { selectDisplayTokens ->
@@ -230,7 +236,10 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                             newText?.let { searchTxt ->
                                 allTokens?.filter { it.type == tokenTypes[tokenSegment.position] }
                                     ?.filter { token ->
-                                        token.symbol.contains(searchTxt, ignoreCase = true) || token.contract.contains(searchTxt, ignoreCase = true)
+                                        token.symbol.contains(
+                                            searchTxt,
+                                            ignoreCase = true
+                                        ) || token.contract.contains(searchTxt, ignoreCase = true)
                                     }?.let { searchTokens?.addAll(it) }
                             }
                         }
@@ -251,7 +260,10 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                             newText?.let { searchTxt ->
                                 allTokens?.let { tokens ->
                                     searchTokens?.addAll(tokens.filter {
-                                        it.symbol.contains(searchTxt, ignoreCase = true) || it.contract.contains(searchTxt, ignoreCase = true)
+                                        it.symbol.contains(
+                                            searchTxt,
+                                            ignoreCase = true
+                                        ) || it.contract.contains(searchTxt, ignoreCase = true)
                                     })
                                 }
                             }
@@ -297,6 +309,9 @@ class TokenEditFragment : BottomSheetDialogFragment() {
 
                         } else if (fromChain.isSupportCw20()) {
                             Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)
+
+                        } else if (fromChain.isSupportGrc20()) {
+                            Prefs.setDisplayGrc20s(account.id, fromChain.tag, tokenList)
 
                         } else {
                             Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
