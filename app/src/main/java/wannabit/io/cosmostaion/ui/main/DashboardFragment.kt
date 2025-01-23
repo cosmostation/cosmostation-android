@@ -204,8 +204,9 @@ class DashboardFragment : Fragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (type == BaseAccountType.MNEMONIC) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
                             }
                             if (Prefs.style == 1) {
                                 if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
@@ -226,8 +227,9 @@ class DashboardFragment : Fragment() {
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(requireContext(), privateKey)
+                                chain.setInfoWithPrivateKey(safeContext, privateKey)
                             }
                             if (Prefs.style == 1) {
                                 if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {

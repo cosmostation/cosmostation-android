@@ -18,7 +18,6 @@ open class ChainNeutron : BaseChain(), Parcelable {
     override var name: String = "Neutron"
     override var tag: String = "neutron118"
     override var logo: Int = R.drawable.chain_neutron
-    override var swipeLogo: Int = R.drawable.chain_swipe_neutron
     override var apiName: String = "neutron"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

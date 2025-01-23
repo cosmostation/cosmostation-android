@@ -16,7 +16,6 @@ class ChainNibiru : BaseChain(), Parcelable {
     override var name: String = "Nibiru"
     override var tag: String = "nibiru118"
     override var logo: Int = R.drawable.chain_nibiru
-    override var swipeLogo: Int = R.drawable.chain_swipe_nibiru
     override var apiName: String = "nibiru"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

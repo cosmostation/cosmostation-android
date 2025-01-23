@@ -16,7 +16,6 @@ class ChainOnomy : BaseChain(), Parcelable {
     override var name: String = "Onomy"
     override var tag: String = "onomy-protocol118"
     override var logo: Int = R.drawable.chain_onomy
-    override var swipeLogo: Int = R.drawable.chain_swipe_onomy
     override var apiName: String = "onomy-protocol"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

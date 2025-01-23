@@ -16,7 +16,6 @@ class ChainInjective : BaseChain(), Parcelable {
     override var name: String = "Injective"
     override var tag: String = "injective60"
     override var logo: Int = R.drawable.chain_injective
-    override var swipeLogo: Int = R.drawable.chain_swipe_injective
     override var apiName: String = "injective"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

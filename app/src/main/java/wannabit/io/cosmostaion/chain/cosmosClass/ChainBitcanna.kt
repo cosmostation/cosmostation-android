@@ -16,7 +16,6 @@ class ChainBitcanna : BaseChain(), Parcelable {
     override var name: String = "Bitcanna"
     override var tag: String = "bitcanna118"
     override var logo: Int = R.drawable.chain_bitcanna
-    override var swipeLogo: Int = R.drawable.chain_swipe_bitcanna
     override var apiName: String = "bitcanna"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
@@ -27,6 +26,6 @@ class ChainBitcanna : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubcna"
     override var accountPrefix: String = "bcna"
-    override var grpcHost: String = "grpc-bitcanna.io"
-    override var lcdUrl: String = "https://lcd-bitcanna.io/"
+    override var grpcHost: String = "grpc.bitcanna.io"
+    override var lcdUrl: String = "https://lcd.bitcanna.io/"
 }

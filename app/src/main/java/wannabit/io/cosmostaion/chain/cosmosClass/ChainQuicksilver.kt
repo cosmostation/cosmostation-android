@@ -16,7 +16,6 @@ class ChainQuicksilver : BaseChain(), Parcelable {
     override var name: String = "Quicksilver"
     override var tag: String = "quicksilver118"
     override var logo: Int = R.drawable.chain_quicksilver
-    override var swipeLogo: Int = R.drawable.chain_swipe_quicksilver
     override var apiName: String = "quicksilver"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

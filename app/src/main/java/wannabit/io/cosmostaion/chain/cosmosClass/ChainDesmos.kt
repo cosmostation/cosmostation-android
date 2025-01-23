@@ -16,7 +16,6 @@ class ChainDesmos : BaseChain(), Parcelable {
     override var name: String = "Desmos"
     override var tag: String = "desmos852"
     override var logo: Int = R.drawable.chain_desmos
-    override var swipeLogo: Int = R.drawable.chain_swipe_desmos
     override var apiName: String = "desmos"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/852'/0'/0/X")

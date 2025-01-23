@@ -16,7 +16,6 @@ class ChainCosmos : BaseChain(), Parcelable {
     override var name: String = "Cosmos Hub"
     override var tag: String = "cosmos118"
     override var logo: Int = R.drawable.chain_cosmos
-    override var swipeLogo: Int = R.drawable.chain_swipe_cosmos
     override var apiName: String = "cosmos"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

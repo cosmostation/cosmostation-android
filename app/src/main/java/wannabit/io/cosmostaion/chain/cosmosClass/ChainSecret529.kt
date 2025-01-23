@@ -16,7 +16,6 @@ class ChainSecret529 : BaseChain(), Parcelable {
     override var name: String = "Secret"
     override var tag: String = "secret529"
     override var logo: Int = R.drawable.chain_secret
-    override var swipeLogo: Int = R.drawable.chain_swipe_secret
     override var apiName: String = "secret"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/529'/0'/0/X")

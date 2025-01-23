@@ -16,7 +16,6 @@ class ChainCryptoorg : BaseChain(), Parcelable {
     override var name: String = "Cronos POS"
     override var tag: String = "crypto-org394"
     override var logo: Int = R.drawable.chain_cryptoorg
-    override var swipeLogo: Int = R.drawable.chain_swipe_cryptoorg
     override var apiName: String = "crypto-org"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/394'/0'/0/X")

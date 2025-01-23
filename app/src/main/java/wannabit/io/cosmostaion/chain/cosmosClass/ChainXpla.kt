@@ -16,7 +16,6 @@ class ChainXpla : BaseChain(), Parcelable {
     override var name: String = "Xpla"
     override var tag: String = "xpla60"
     override var logo: Int = R.drawable.chain_xpla
-    override var swipeLogo: Int = R.drawable.chain_swipe_xpla
     override var isDefault: Boolean = false
     override var apiName: String = "xpla"
 

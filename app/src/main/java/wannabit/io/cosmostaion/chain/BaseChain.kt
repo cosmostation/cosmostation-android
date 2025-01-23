@@ -168,7 +168,6 @@ open class BaseChain : Parcelable {
     open var name: String = ""
     open var tag: String = ""
     open var logo: Int = R.drawable.token_default
-    open var swipeLogo: Int = -1
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
     open var apiName: String = ""
@@ -602,8 +601,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBitcanna())
-//    chains.add(ChainBitCoin44())
-//    chains.add(ChainBitCoin49())
+    chains.add(ChainBitCoin44())
+    chains.add(ChainBitCoin49())
     chains.add(ChainBitCoin84())
     chains.add(ChainBitCoin86())
     chains.add(ChainBitsong())

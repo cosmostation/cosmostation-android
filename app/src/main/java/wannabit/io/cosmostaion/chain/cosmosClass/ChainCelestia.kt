@@ -16,7 +16,6 @@ class ChainCelestia : BaseChain(), Parcelable {
     override var name: String = "Celestia"
     override var tag: String = "celestia118"
     override var logo: Int = R.drawable.chain_celestia
-    override var swipeLogo: Int = R.drawable.chain_swipe_celestia
     override var apiName: String = "celestia"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

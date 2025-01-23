@@ -16,7 +16,6 @@ class ChainHumansEvm : BaseChain(), Parcelable {
     override var name: String = "Humans"
     override var tag: String = "humans60"
     override var logo: Int = R.drawable.chain_humans
-    override var swipeLogo: Int = R.drawable.chain_swipe_humans
     override var apiName: String = "humans"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

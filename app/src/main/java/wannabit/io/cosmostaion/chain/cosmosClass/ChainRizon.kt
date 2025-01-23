@@ -16,7 +16,6 @@ class ChainRizon : BaseChain(), Parcelable {
     override var name: String = "Rizon"
     override var tag: String = "rizon118"
     override var logo: Int = R.drawable.chain_rizon
-    override var swipeLogo: Int = R.drawable.chain_swipe_rizon
     override var apiName: String = "rizon"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

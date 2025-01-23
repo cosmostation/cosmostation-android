@@ -16,7 +16,6 @@ class ChainAltheaEvm : BaseChain(), Parcelable {
     override var name: String = "Althea"
     override var tag: String = "althea60"
     override var logo: Int = R.drawable.chain_evm_althea
-    override var swipeLogo: Int = R.drawable.chain_swipe_evm_althea
     override var apiName: String = "althea"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

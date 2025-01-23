@@ -112,8 +112,9 @@ class ChainEditFragment : BaseTxFragment() {
                 account.apply {
                     if (type == BaseAccountType.MNEMONIC) {
                         allChains.asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
                             }
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, true)
@@ -122,8 +123,9 @@ class ChainEditFragment : BaseTxFragment() {
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         allChains.asSequence().concurrentForEach { chain ->
+                            val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(requireContext(), privateKey)
+                                chain.setInfoWithPrivateKey(safeContext, privateKey)
                             }
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
                                 ApplicationViewModel.shared.loadChainData(chain, id, true)

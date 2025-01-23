@@ -16,7 +16,6 @@ class ChainSentinel : BaseChain(), Parcelable {
     override var name: String = "Sentinel"
     override var tag: String = "sentinel118"
     override var logo: Int = R.drawable.chain_sentinel
-    override var swipeLogo: Int = R.drawable.chain_swipe_sentinel
     override var apiName: String = "sentinel"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

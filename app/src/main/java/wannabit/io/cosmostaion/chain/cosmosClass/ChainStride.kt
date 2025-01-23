@@ -16,7 +16,6 @@ class ChainStride : BaseChain(), Parcelable {
     override var name: String = "Stride"
     override var tag: String = "stride118"
     override var logo: Int = R.drawable.chain_stride
-    override var swipeLogo: Int = R.drawable.chain_swipe_stride
     override var apiName: String = "stride"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

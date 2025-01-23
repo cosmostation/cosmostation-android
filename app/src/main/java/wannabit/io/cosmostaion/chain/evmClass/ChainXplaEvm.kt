@@ -16,7 +16,6 @@ class ChainXplaEvm : BaseChain(), Parcelable {
     override var name: String = "Xpla"
     override var tag: String = "xplaKeccak256"
     override var logo: Int = R.drawable.chain_evm_xpla
-    override var swipeLogo: Int = R.drawable.chain_swipe_evm_xpla
     override var apiName: String = "xpla"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

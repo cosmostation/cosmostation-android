@@ -16,7 +16,6 @@ class ChainStargaze : BaseChain(), Parcelable {
     override var name: String = "Stargaze"
     override var tag: String = "stargaze118"
     override var logo: Int = R.drawable.chain_stargaze
-    override var swipeLogo: Int = R.drawable.chain_swipe_stargaze
     override var apiName: String = "stargaze"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

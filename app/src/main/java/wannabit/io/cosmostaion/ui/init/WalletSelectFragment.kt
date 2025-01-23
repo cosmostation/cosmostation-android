@@ -183,8 +183,9 @@ class WalletSelectFragment : Fragment() {
                     val wordList = mnemonic.split(" ")
                     val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
                     allChains.asSequence().concurrentForEach { chain ->
+                        val safeContext = context ?: return@concurrentForEach
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -205,8 +206,9 @@ class WalletSelectFragment : Fragment() {
 
                 } else {
                     allChains.asSequence().concurrentForEach { chain ->
+                        val safeContext = context ?: return@concurrentForEach
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(requireContext(), Utils.hexToBytes(pKey))
+                            chain.setInfoWithPrivateKey(safeContext, Utils.hexToBytes(pKey))
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
