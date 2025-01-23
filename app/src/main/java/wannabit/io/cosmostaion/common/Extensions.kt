@@ -55,6 +55,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
@@ -904,6 +905,30 @@ fun String.regexWithNumberAndChar(): Pair<String, String> {
 
     } else {
         Pair("", "")
+    }
+}
+
+fun bitType(pubKeyType: PubKeyType): String {
+    return when (pubKeyType) {
+        PubKeyType.BTC_NATIVE_SEGWIT -> {
+            "p2wpkh"
+        }
+
+        PubKeyType.BTC_NESTED_SEGWIT -> {
+            "p2sh"
+        }
+
+        PubKeyType.BTC_LEGACY -> {
+            "p2pkh"
+        }
+
+        PubKeyType.BTC_TAPROOT -> {
+            "p2tr"
+        }
+
+        else -> {
+            ""
+        }
     }
 }
 

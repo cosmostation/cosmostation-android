@@ -180,6 +180,7 @@
     <string name="str_legacy" translatable="false">Legacy</string>
     <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
     <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
+    <string name="str_taproot" translatable="false">TAPROOT</string>
 
 
     //title

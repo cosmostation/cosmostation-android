@@ -24,7 +24,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -608,7 +608,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     private var _bitTxDataResult = MutableLiveData<Pair<MutableList<JsonObject>?, String>>()
     val bitTxDataResult: LiveData<Pair<MutableList<JsonObject>?, String>> get() = _bitTxDataResult
-    fun bitTxData(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+    fun bitTxData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val loadUtxoDeferred = async { txRepository.mempoolUtxo(chain) }
             val utxoResult = loadUtxoDeferred.await()
@@ -636,7 +636,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun bitSendBroadcast(
-        chain: ChainBitCoin84, txHex: String
+        chain: ChainBitCoin86, txHex: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastBitSend(
@@ -655,7 +655,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun bitSendSimulate(
-        chain: ChainBitCoin84,
+        chain: ChainBitCoin86,
         bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,

@@ -16,8 +16,8 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -62,40 +62,41 @@ class PopUpBitSignFragment(
 
     private fun initViewResource() {
         binding.apply {
-            BitcoinJs.initialize(requireContext(), lifecycleScope) {
-                if (BitcoinJs.isInitialized()) {
-                    signView.setBackgroundResource(R.drawable.cell_bg)
-                    feeView.setBackgroundResource(R.drawable.cell_bg)
-                    if (method == "bit_signMessage") {
-                        dialogTitle.text = getString(R.string.str_permit_request)
-                        warnMsg.visibility = View.GONE
-                        feeView.visibility = View.INVISIBLE
+            signView.setBackgroundResource(R.drawable.cell_bg)
+            feeView.setBackgroundResource(R.drawable.cell_bg)
+            if (method == "bit_signMessage") {
+                dialogTitle.text = getString(R.string.str_permit_request)
+                warnMsg.visibility = View.GONE
+                feeView.visibility = View.INVISIBLE
 
-                    } else {
-                        dialogTitle.text = getString(R.string.str_tx_request)
-                        warnMsg.visibility = View.VISIBLE
-                        warnMsg.text = getString(R.string.str_affect_danger_msg)
-                        warnMsg.setTextColor(
-                            ContextCompat.getColorStateList(
-                                requireContext(), R.color.color_accent_red
-                            )
-                        )
-                        dappFeeTokenImg.setImg(R.drawable.token_btc)
-                        dappFeeToken.text = selectedChain?.coinSymbol
-                    }
-                    parsingRequest()
-                    setUpObserve()
-                    setUpClickAction()
-
-                } else {
-                    initViewResource()
-                }
+            } else {
+                dialogTitle.text = getString(R.string.str_tx_request)
+                warnMsg.visibility = View.VISIBLE
+                warnMsg.text = getString(R.string.str_affect_danger_msg)
+                warnMsg.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(), R.color.color_accent_red
+                    )
+                )
+                dappFeeTokenImg.setImg(R.drawable.token_btc)
+                dappFeeToken.text = selectedChain?.coinSymbol
             }
+            parsingRequest()
+            setUpObserve()
+            setUpClickAction()
+//            lifecycleScope.launch(Dispatchers.IO) {
+//                val isInitialized = BitcoinJs.initialize(requireContext()).await()
+//                withContext(Dispatchers.Main) {
+//                    if (isInitialized) {
+//
+//                    }
+//                }
+//            }
         }
     }
 
     private fun parsingRequest() {
-        (selectedChain as ChainBitCoin84).apply {
+        (selectedChain as ChainBitCoin86).apply {
             when (method) {
                 "bit_sendBitcoin" -> {
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
@@ -121,7 +122,7 @@ class PopUpBitSignFragment(
 
     private fun setUpObserve() {
         txViewModel.bitTxDataResult.observe(this) { bitData ->
-            (selectedChain as ChainBitCoin84).apply {
+            (selectedChain as ChainBitCoin86).apply {
                 lifecycleScope.launch(Dispatchers.IO) {
                     when (method) {
                         "bit_sendBitcoin" -> {
@@ -154,7 +155,7 @@ class PopUpBitSignFragment(
                                         noTxTxt.visibility = View.GONE
 
                                         txViewModel.bitSendSimulate(
-                                            (selectedChain as ChainBitCoin84),
+                                            (selectedChain as ChainBitCoin86),
                                             BitcoinJs,
                                             mainAddress,
                                             bitToAddress,
@@ -216,7 +217,7 @@ class PopUpBitSignFragment(
 
                         "bit_signPsbt" -> {
                             val privateKey = selectedChain?.privateKey?.bytesToHex()
-                            val network = if (selectedChain is ChainBitcoin84Testnet) {
+                            val network = if (selectedChain is ChainBitcoin86Testnet) {
                                 "testnet"
                             } else {
                                 "mainnet"
@@ -231,7 +232,7 @@ class PopUpBitSignFragment(
 
                             try {
                                 val signPsbtFunction = """function signPsbtFunction() {
-                                            const txHex = signPsbt('${data}', '${privateKey}');
+                                            const txHex = signPsbt('${data}', '${privateKey}', '${network}');
                                             return txHex;
                                         }""".trimMargin()
                                 BitcoinJs.mergeFunction(signPsbtFunction)
@@ -331,7 +332,6 @@ class PopUpBitSignFragment(
                 listener.cancel(id)
             }
         }
-        BitcoinJs.unbindService()
     }
 
     interface WcSignRawDataListener {
@@ -342,6 +342,5 @@ class PopUpBitSignFragment(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        BitcoinJs.unbindService()
     }
 }

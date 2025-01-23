@@ -57,9 +57,9 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -158,7 +158,11 @@ class DappActivity : BaseActivity() {
         } else {
             (intent.getParcelableExtra("selectedChain")) as? BaseChain
         }
-        selectBitcoin = allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
+        selectBitcoin = if (ecoMajorChain?.tag == "babylon118_T") {
+            allChains?.find { it is ChainBitCoin86 && it.isDefault }
+        } else {
+            allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
+        }
     }
 
     private fun initViewModel() {
@@ -183,19 +187,22 @@ class DappActivity : BaseActivity() {
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(
+                                    this@DappActivity, seed, chain.setParentPath, lastHDPath
+                                )
                             }
                         }
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
                         result.forEach { chain ->
                             if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(privateKey)
+                                chain.setInfoWithPrivateKey(this@DappActivity, privateKey)
                             }
                         }
                     }
                 }
             }
+
             withContext(Dispatchers.Main) {
                 binding.loading.visibility = View.GONE
                 setUpDappView()
@@ -214,9 +221,12 @@ class DappActivity : BaseActivity() {
                     userAgentString =
                         "$userAgentString Cosmostation/APP/Android/${BuildConfig.VERSION_NAME}"
                     domStorageEnabled = true
+                    useWideViewPort = true
+                    loadWithOverviewMode = true
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                     webViewClient = dappWebViewClient
                     webChromeClient = dappWebChromeClient
+                    cacheMode = WebSettings.LOAD_NO_CACHE
                 }
             }
 
@@ -313,7 +323,9 @@ class DappActivity : BaseActivity() {
                     connectWalletConnect(walletConnectURI)
 
                 } else if (WC_URL_SCHEME_HOST_DAPP_EXTERNAL == data.host || WC_URL_SCHEME_HOST_DAPP_INTERNAL == data.host) {
-                    data.query?.let { url -> binding.dappWebView.loadUrl(url) }
+                    data.query?.let { url ->
+                        binding.dappWebView.loadUrl(url)
+                    }
                 }
             }
         }
@@ -690,16 +702,11 @@ class DappActivity : BaseActivity() {
     }
 
     private fun showBitSignDialog(
-        bundle: Bundle,
-        signListener: PopUpBitSignFragment.WcSignRawDataListener
+        bundle: Bundle, signListener: PopUpBitSignFragment.WcSignRawDataListener
     ) {
         bundle.getString("data")?.let { data ->
             PopUpBitSignFragment(
-                selectBitcoin,
-                bundle.getLong("id"),
-                data,
-                bundle.getString("method"),
-                signListener
+                selectBitcoin, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpSuiSignFragment::class.java.name
             )
@@ -876,39 +883,44 @@ class DappActivity : BaseActivity() {
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
-                    val params = messageJson.getJSONObject("params")
-                    val chainId = params.getString("chainName")
-                    BaseData.baseAccount?.let { account ->
-                        selectedChain(allChains, chainId)?.let { chain ->
-                            selectChain = chain
-                            val accountJson = JSONObject()
-                            accountJson.put("isEthermint", selectChain?.supportEvm)
-                            accountJson.put("isLedger", false)
-                            accountJson.put("address", selectChain?.address)
-                            accountJson.put("name", account.name)
-                            accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
-                            appToWebResult(messageJson, accountJson, messageId)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val chainId = params.getString("chainName")
+                        BaseData.baseAccount?.let { account ->
+                            selectedChain(allChains, chainId)?.let { chain ->
+                                selectChain = chain
+                                val accountJson = JSONObject()
+                                accountJson.put("isEthermint", selectChain?.supportEvm)
+                                accountJson.put("isLedger", false)
+                                accountJson.put("address", selectChain?.address)
+                                accountJson.put("name", account.name)
+                                accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+                                appToWebResult(messageJson, accountJson, messageId)
 
-                        } ?: run {
-                            appToWebError(
-                                messageJson, messageId, "Invalid method parameter(s)."
-                            )
+                            } ?: run {
+                                appToWebError(
+                                    messageJson, messageId, "Invalid method parameter(s)."
+                                )
+                            }
                         }
                     }
                 }
 
                 "cos_supportedChainIds" -> {
-                    val supportChainIds =
-                        allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
-                            ?.map { it.chainIdCosmos }?.distinct()
-                    if (supportChainIds?.isNotEmpty() == true) {
-                        val dataJson = JSONObject()
-                        dataJson.put("official", JSONArray(supportChainIds))
-                        dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
-                        appToWebResult(messageJson, dataJson, messageId)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val supportChainIds =
+                            allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
+                                ?.map { it.chainIdCosmos }?.distinct()
 
-                    } else {
-                        appToWebError("Error")
+                        if (supportChainIds?.isNotEmpty() == true) {
+                            val dataJson = JSONObject()
+                            dataJson.put("official", JSONArray(supportChainIds))
+                            dataJson.put("unofficial", JSONArray(arrayListOf<String>()))
+                            appToWebResult(messageJson, dataJson, messageId)
+
+                        } else {
+                            appToWebError("Error")
+                        }
                     }
                 }
 
@@ -1480,81 +1492,93 @@ class DappActivity : BaseActivity() {
 
                 //babylon
                 "bit_requestAccount" -> {
-                    if (selectBitcoin == null) {
-                        selectBitcoin =
-                            allChains?.find { it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT }
-                    }
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
 
-                    if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
-                        appToWebResult(
-                            messageJson, listOf(selectBitcoin?.mainAddress), messageId
-                        )
-                    } else {
-                        appToWebError(messageJson, messageId, "None Address")
+                        if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
+                            appToWebResult(
+                                messageJson, listOf(selectBitcoin?.mainAddress), messageId
+                            )
+                        } else {
+                            appToWebError(messageJson, messageId, "None Address")
+                        }
                     }
                 }
 
                 "bit_getPublicKeyHex" -> {
-                    if (selectBitcoin == null) {
-                        selectBitcoin =
-                            allChains?.find { it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT }
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
+                        appToWebResult(
+                            messageJson, selectBitcoin?.publicKey?.bytesToHex(), messageId
+                        )
                     }
-                    appToWebResult(
-                        messageJson,
-                        selectBitcoin?.publicKey?.bytesToHex(),
-                        messageId
-                    )
                 }
 
                 "bit_getNetwork" -> {
-                    if (selectBitcoin == null) {
-                        selectBitcoin =
-                            allChains?.find { it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT }
-                    }
-                    bitNetwork = if (selectBitcoin is ChainBitcoin84Testnet) {
-                        "signet"
-                    } else {
-                        "mainnet"
-                    }
-                    appToWebResult(
-                        messageJson, bitNetwork, messageId
-                    )
-                }
-
-                "bit_switchNetwork" -> {
-                    val params = messageJson.getJSONArray("params")
-                    if (params.length() > 0) {
-                        bitNetwork = params.get(0).toString()
-                        selectBitcoin = if (bitNetwork == "mainnet") {
-                            allChains?.find {
-                                it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT && it.isDefault
-                            }
-                        } else {
-                            allChains?.find {
-                                it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT && it.name.uppercase()
-                                    .contains(bitNetwork.uppercase())
-                            }
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
                         appToWebResult(
                             messageJson, bitNetwork, messageId
                         )
-                    } else {
-                        appToWebError(messageJson, messageId, "Error : No Network")
+                    }
+                }
+
+                "bit_switchNetwork" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONArray("params")
+                        if (params.length() > 0) {
+                            bitNetwork = params.get(0).toString()
+                            if (selectBitcoin == null) {
+                                selectBitcoin = if (bitNetwork == "mainnet") {
+                                    allChains?.find {
+                                        it is ChainBitCoin86 && it.isDefault
+                                    }
+                                } else {
+                                    allChains?.find {
+                                        it is ChainBitcoin86Testnet && it.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT && it.isTestnet
+                                    }
+                                }
+
+                            } else {
+                                if (bitNetwork == "signet" && selectBitcoin?.isTestnet == false) {
+                                    selectBitcoin = allChains?.find {
+                                        it is ChainBitcoin86Testnet && it.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT && it.isTestnet
+                                    }
+                                } else if (bitNetwork == "mainnet" && selectBitcoin?.isTestnet == true) {
+                                    selectBitcoin = allChains?.find {
+                                        it is ChainBitCoin86 && it.isDefault
+                                    }
+                                }
+                            }
+                            appToWebResult(
+                                messageJson, bitNetwork, messageId
+                            )
+
+                        } else {
+                            appToWebError(messageJson, messageId, "Error : No Network")
+                        }
                     }
                 }
 
                 "bit_getAddress" -> {
-                    if (selectBitcoin == null) {
-                        selectBitcoin =
-                            allChains?.find { it is ChainBitCoin84 && it.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT }
-                    }
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        if (selectBitcoin == null) {
+                            selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
+                        }
 
-                    if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
-                        appToWebResult(
-                            messageJson, selectBitcoin?.mainAddress, messageId
-                        )
-                    } else {
-                        appToWebError(messageJson, messageId, "None Address")
+                        if (selectBitcoin?.mainAddress?.isNotEmpty() == true) {
+                            appToWebResult(
+                                messageJson, selectBitcoin?.mainAddress, messageId
+                            )
+                        } else {
+                            appToWebError(messageJson, messageId, "None Address")
+                        }
                     }
                 }
 
@@ -1626,11 +1650,9 @@ class DappActivity : BaseActivity() {
                                         val bitSendTxRequest = JsonRpcRequest(
                                             method = "sendrawtransaction", params = listOf(txHex)
                                         )
-                                        val bitSendTxResponse =
-                                            jsonRpcResponse(
-                                                selectBitcoin?.mainUrl ?: "",
-                                                bitSendTxRequest
-                                            )
+                                        val bitSendTxResponse = jsonRpcResponse(
+                                            selectBitcoin?.mainUrl ?: "", bitSendTxRequest
+                                        )
                                         val bitSendTxJsonObject = Gson().fromJson(
                                             bitSendTxResponse.body?.string(), JsonObject::class.java
                                         )
@@ -1652,9 +1674,7 @@ class DappActivity : BaseActivity() {
 
                                 override fun cancel(id: Long) {
                                     appToWebError(
-                                        messageJson,
-                                        messageId,
-                                        "User rejected the request."
+                                        messageJson, messageId, "User rejected the request."
                                     )
                                 }
                             })
@@ -1676,9 +1696,7 @@ class DappActivity : BaseActivity() {
 
                                 override fun cancel(id: Long) {
                                     appToWebError(
-                                        messageJson,
-                                        messageId,
-                                        "User rejected the request."
+                                        messageJson, messageId, "User rejected the request."
                                     )
                                 }
                             })
@@ -1700,9 +1718,7 @@ class DappActivity : BaseActivity() {
 
                                 override fun cancel(id: Long) {
                                     appToWebError(
-                                        messageJson,
-                                        messageId,
-                                        "User rejected the request."
+                                        messageJson, messageId, "User rejected the request."
                                     )
                                 }
                             })
@@ -1979,7 +1995,7 @@ class DappActivity : BaseActivity() {
         walletViewModel.balanceResult.observe(this) {
             appToWebResult(
                 currentMessageJson,
-                (selectBitcoin as ChainBitCoin84).btcFetcher()?.btcBalances,
+                (selectBitcoin as ChainBitCoin86).btcFetcher()?.btcBalances,
                 currentMessageId
             )
         }
@@ -1988,7 +2004,9 @@ class DappActivity : BaseActivity() {
     inner class DappJavascriptInterface {
         @JavascriptInterface
         fun request(message: String) {
-            processRequest(message)
+            lifecycleScope.launch(Dispatchers.IO) {
+                processRequest(message)
+            }
         }
     }
 

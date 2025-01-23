@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -53,7 +53,7 @@ class ChainEditViewHolder(
             chainValue.visibility = View.GONE
             assetCnt.visibility = View.GONE
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -66,7 +66,7 @@ class ChainEditViewHolder(
                         chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
                         chainLegacy.setTextColor(
                             ContextCompat.getColorStateList(
@@ -74,6 +74,16 @@ class ChainEditViewHolder(
                             )
                         )
                         chainLegacy.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -164,7 +174,7 @@ class ChainEditViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -177,7 +187,7 @@ class ChainEditViewHolder(
                         chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
                         chainLegacy.setTextColor(
                             ContextCompat.getColorStateList(
@@ -185,6 +195,16 @@ class ChainEditViewHolder(
                             )
                         )
                         chainLegacy.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -214,7 +234,7 @@ class ChainEditViewHolder(
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
             } else {
-                chainAddress.text = if (chain is ChainBitCoin84) {
+                chainAddress.text = if (chain is ChainBitCoin86) {
                     chain.mainAddress
                 } else if (chain.isSupportErc20()) {
                     chain.evmAddress

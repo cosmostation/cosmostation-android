@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 
@@ -26,7 +26,7 @@ interface HistoryRepository {
         chain: BaseChain, limit: String, searchAfter: String
     ): NetworkResult<Response<JsonObject?>>
 
-    suspend fun bitHistory(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>?>
+    suspend fun bitHistory(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>?>
 
-    suspend fun bitBlockHeight(chain: ChainBitCoin84): NetworkResult<Long?>
+    suspend fun bitBlockHeight(chain: ChainBitCoin86): NetworkResult<Long?>
 }

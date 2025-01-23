@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -130,7 +130,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _btcHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
     val btcHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _btcHistoryResult
 
-    fun bitHistory(chain: ChainBitCoin84) = viewModelScope.launch(Dispatchers.IO) {
+    fun bitHistory(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
         chain.btcFetcher()?.let { fetcher ->
             fetcher.btcBlockHeight = 0
             fetcher.btcHistory.clear()

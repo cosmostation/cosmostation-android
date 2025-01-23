@@ -108,24 +108,26 @@ class ChainEditFragment : BaseTxFragment() {
 
     private fun initAllData(account: BaseAccount) {
         lifecycleScope.launch(Dispatchers.IO) {
-            account.apply {
-                if (type == BaseAccountType.MNEMONIC) {
-                    allChains.asSequence().concurrentForEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+            if (isAdded) {
+                account.apply {
+                    if (type == BaseAccountType.MNEMONIC) {
+                        allChains.asSequence().concurrentForEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                            }
+                            if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
+                                ApplicationViewModel.shared.loadChainData(chain, id, true)
+                            }
                         }
-                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
-                            ApplicationViewModel.shared.loadChainData(chain, id, true)
-                        }
-                    }
 
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    allChains.asSequence().concurrentForEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
-                        }
-                        if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
-                            ApplicationViewModel.shared.loadChainData(chain, id, true)
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        allChains.asSequence().concurrentForEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithPrivateKey(requireContext(), privateKey)
+                            }
+                            if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
+                                ApplicationViewModel.shared.loadChainData(chain, id, true)
+                            }
                         }
                     }
                 }

@@ -16,9 +16,9 @@ import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -222,7 +222,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 when (addressBookType) {
                     AddressBookType.ManualNew -> {
                         getRecipientChain(addressInput)?.let { targetChain ->
-                            if (targetChain is ChainBitCoin84) {
+                            if (targetChain is ChainBitCoin86) {
                                 val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
                                 if (memoByteLength > 80) {
                                     requireContext().makeToast(R.string.error_memo_count)
@@ -325,10 +325,10 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         try {
             return try {
                 Address.fromString(MainNetParams.get(), address)
-                ChainBitCoin84()
+                ChainBitCoin86()
             } catch (e: Exception) {
                 Address.fromString(TestNet3Params.get(), address)
-                ChainBitcoin84Testnet()
+                ChainBitcoin86Testnet()
             }
 
         } catch (e: Exception) {

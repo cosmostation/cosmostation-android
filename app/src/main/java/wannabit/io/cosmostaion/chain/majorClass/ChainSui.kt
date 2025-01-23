@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.majorClass
 
+import android.content.Context
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
@@ -33,10 +34,10 @@ class ChainSui : BaseChain(), Parcelable {
 
     override var mainUrl: String = "https://sui-mainnet-us-2.cosmostation.io"
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType)
+        mainAddress = BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType)
     }
 
     fun suiFetcher(): SuiFetcher? {

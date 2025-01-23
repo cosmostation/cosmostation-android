@@ -1,30 +1,22 @@
 package wannabit.io.cosmostaion.chain.majorClass
 
+import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.fetcher.BtcFetcher
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
-open class ChainBitCoin84 : BaseChain(), Parcelable {
-
-    @IgnoredOnParcel
-    var btcFetcher: BtcFetcher? = null
-
-    open var pubKeyHash: Byte = 0x00
-    open var scriptHash: Byte = 0x05
-    open var bech32PrefixPattern: String = "bc"
+class ChainBitCoin84 : ChainBitCoin86(), Parcelable {
 
     override var name: String = "Bitcoin"
     override var tag: String = "bitcoin84"
     override var logo: Int = R.drawable.chain_bitcoin
+    override var isDefault: Boolean = false
     override var apiName: String = "bitcoin"
 
     override var accountKeyType = AccountKeyType(PubKeyType.BTC_NATIVE_SEGWIT, "m/84'/0'/0'/0/X")
@@ -38,15 +30,11 @@ open class ChainBitCoin84 : BaseChain(), Parcelable {
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-mainnet"
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, bech32PrefixPattern, pubKeyHash, scriptHash)
-    }
-
-    fun btcFetcher(): BtcFetcher? {
-        if (btcFetcher != null) return btcFetcher
-        btcFetcher = BtcFetcher(this)
-        return btcFetcher
+        mainAddress = BaseKey.getAddressFromPubKey(
+            context, publicKey, accountKeyType.pubkeyType, network = "mainnet"
+        )
     }
 }

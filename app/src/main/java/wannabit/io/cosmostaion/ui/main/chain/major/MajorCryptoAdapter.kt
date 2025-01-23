@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
@@ -70,7 +70,7 @@ class MajorCryptoAdapter(
                         }
 
                     } else {
-                        holder.bitcoinBind(selectedChain as ChainBitCoin84)
+                        holder.bitcoinBind(selectedChain as ChainBitCoin86)
                         holder.itemView.setOnClickListener {
                             onItemClickListener?.let {
                                 it(selectedChain, "")

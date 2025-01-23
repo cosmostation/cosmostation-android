@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
@@ -386,7 +386,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     fun balance(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
         when (chain) {
-            is ChainBitCoin84 -> {
+            is ChainBitCoin86 -> {
                 chain.apply {
                     btcFetcher()?.let { fetcher ->
                         when (val response = walletRepository.bitBalance(chain)) {
@@ -523,14 +523,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     } else {
                                         val dataJson =
                                             Gson().fromJson(decodeData, JsonObject::class.java)
-
                                         val accountData = dataJson["BaseAccount"].asJsonObject
-                                        tempBalances.add(
-                                            CoinProto.Coin.newBuilder()
-                                                .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
-                                                .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
-                                                .build()
-                                        )
+                                        if (accountData["coins"].asString.isNotEmpty()) {
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                                    .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                    .build()
+                                            )
+
+                                        } else {
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(chain.stakeDenom)
+                                                    .setAmount("0")
+                                                    .build()
+                                            )
+                                        }
+
                                         cosmosFetcher.cosmosBalances = tempBalances
                                         chain.fetchState = FetchState.SUCCESS
                                         chain.coinCnt =

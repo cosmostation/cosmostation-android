@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
@@ -85,16 +85,14 @@ class MajorCryptoFragment : Fragment() {
             arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
         } else {
-            (arguments?.getParcelable(
-                "selectedChain" + ""
-            ) as? BaseChain)?.let {
+            (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
             }
         }
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
-            bitStaking.visibleOrGone(selectedChain.isSupportStaking() && selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT)
+            bitStaking.visibleOrGone(selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT))
 
             bitStaking.setOnClickListener {
                 if (selectedChain.btcStakingDapp().isNotEmpty()) {
@@ -148,7 +146,7 @@ class MajorCryptoFragment : Fragment() {
                 }
 
             } else {
-                (selectedChain as ChainBitCoin84).btcFetcher()?.let {
+                (selectedChain as ChainBitCoin86).btcFetcher()?.let {
                     withContext(Dispatchers.Main) {
                         initRecyclerView()
                         binding.searchBar.visibility = View.GONE
@@ -176,7 +174,7 @@ class MajorCryptoFragment : Fragment() {
                         SendAssetType.BIT_COIN
                     }
 
-                    if (chain is ChainBitCoin84) {
+                    if (chain is ChainBitCoin86) {
                         chain.btcFetcher()?.let { fetcher ->
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val btcFee = fetcher.initFee()
@@ -295,7 +293,7 @@ class MajorCryptoFragment : Fragment() {
                         ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
                     } else {
                         ApplicationViewModel.shared.loadBtcData(
-                            account.id, selectedChain as ChainBitCoin84, false
+                            account.id, selectedChain as ChainBitCoin86, false
                         )
                     }
                 }

@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
@@ -78,7 +78,7 @@ class WalletSelectViewHolder(
             }
             updateView(chain, selectedTags)
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
                 chainTypeBadge.visibility = View.GONE
                 when (chain.accountKeyType.pubkeyType) {
@@ -92,15 +92,24 @@ class WalletSelectViewHolder(
                         chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
                         chainLegacy.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainLegacy.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -151,13 +160,12 @@ class WalletSelectViewHolder(
                     }
                     chainAssetCnt.text = chain.coinCnt.toString() + " Coins"
 
-                    if (chain is ChainBitCoin84) {
+                    if (chain is ChainBitCoin86) {
                         chain.btcFetcher()?.let { fetcher ->
                             val availableAmount =
                                 fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                            val pendingInputAmount =
-                                fetcher.btcPendingInput.movePointLeft(8)
-                                    .setScale(8, RoundingMode.DOWN)
+                            val pendingInputAmount = fetcher.btcPendingInput.movePointLeft(8)
+                                .setScale(8, RoundingMode.DOWN)
                             val totalAmount = availableAmount.add(pendingInputAmount)
                             chainBalance.text = formatAmount(totalAmount.toString(), 8)
                             chainDenom.text = chain.coinSymbol
@@ -247,7 +255,7 @@ class WalletSelectViewHolder(
                 handler.postDelayed(starEvmAddressAnimation, 5000)
 
             } else {
-                chainAddress.text = if (chain is ChainBitCoin84) {
+                chainAddress.text = if (chain is ChainBitCoin86) {
                     chain.mainAddress
                 } else if (chain.isSupportErc20()) {
                     chain.evmAddress
@@ -261,7 +269,7 @@ class WalletSelectViewHolder(
             }
             updateView(chain, selectedTags)
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
                 when (chain.accountKeyType.pubkeyType) {
                     PubKeyType.BTC_NESTED_SEGWIT -> {
@@ -274,15 +282,24 @@ class WalletSelectViewHolder(
                         chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
                         chainLegacy.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainLegacy.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = context.getString(R.string.str_taproot)
                     }
                 }
 
@@ -309,19 +326,20 @@ class WalletSelectViewHolder(
                     }
                     chainAssetCnt.text = chain.coinCnt.toString() + " Coins"
 
-                    if (chain is ChainBitCoin84) {
+                    if (chain is ChainBitCoin86) {
                         chain.btcFetcher()?.let { fetcher ->
                             val availableAmount =
                                 fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                            val pendingInputAmount =
-                                fetcher.btcPendingInput.movePointLeft(8)
-                                    .setScale(8, RoundingMode.DOWN)
+                            val pendingInputAmount = fetcher.btcPendingInput.movePointLeft(8)
+                                .setScale(8, RoundingMode.DOWN)
                             val totalAmount = availableAmount.add(pendingInputAmount)
                             chainBalance.text = formatAmount(totalAmount.toString(), 8)
                             chainDenom.text = chain.coinSymbol
                         }
 
-                    } else if (chain.supportCosmos() || chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                    } else if (chain.supportCosmos() || chain.cosmosFetcher()
+                            ?.endPointType(chain) == CosmosEndPointType.USE_RPC
+                    ) {
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             val availableAmount =
                                 chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)

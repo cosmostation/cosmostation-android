@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.majorClass
 
+import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
@@ -10,7 +11,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
-class ChainBitCoin49 : ChainBitCoin84(), Parcelable {
+class ChainBitCoin49 : ChainBitCoin86(), Parcelable {
 
     override var name: String = "Bitcoin"
     override var tag: String = "bitcoin49"
@@ -29,9 +30,9 @@ class ChainBitCoin49 : ChainBitCoin84(), Parcelable {
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-mainnet"
 
-    override fun setInfoWithPrivateKey(privateKey: ByteArray?) {
+    override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
-        mainAddress = BaseKey.getAddressFromPubKey(publicKey, accountKeyType.pubkeyType, bech32PrefixPattern, pubKeyHash, scriptHash)
+        mainAddress = BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, network = "mainnet")
     }
 }

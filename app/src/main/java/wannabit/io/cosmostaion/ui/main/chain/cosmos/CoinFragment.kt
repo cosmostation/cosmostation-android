@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -701,6 +702,17 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 )
             }
             bitStaking.visibility = View.GONE
+            babylonStaking.visibleOrGone(selectedChain.isSupportStaking())
+
+            babylonStaking.setOnClickListener {
+                if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", selectedChain.btcStakingDapp())
+                        putExtra("selectedChain", selectedChain as Parcelable)
+                        startActivity(this)
+                    }
+                }
+            }
         }
     }
 

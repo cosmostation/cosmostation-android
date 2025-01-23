@@ -17,7 +17,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentMemoBinding
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
@@ -81,14 +81,14 @@ class MemoFragment : BottomSheetDialogFragment() {
                         fromChain = it
                     }
                 }
-                binding.title.text = if (fromChain is ChainBitCoin84) {
+                binding.title.text = if (fromChain is ChainBitCoin86) {
                     "OP_RETURN"
                 } else {
                     "Memo"
                 }
-                binding.memoByte.visibleOrGone(fromChain is ChainBitCoin84)
-                binding.memoMaxByte.visibleOrGone(fromChain is ChainBitCoin84)
-                binding.bytesTxt.visibleOrGone(fromChain is ChainBitCoin84)
+                binding.memoByte.visibleOrGone(fromChain is ChainBitCoin86)
+                binding.memoMaxByte.visibleOrGone(fromChain is ChainBitCoin86)
+                binding.bytesTxt.visibleOrGone(fromChain is ChainBitCoin86)
 
                 getString("memo")?.let { memo ->
                     val byteLength = memo.toByteArray(Charsets.UTF_8).size
@@ -105,7 +105,7 @@ class MemoFragment : BottomSheetDialogFragment() {
         var originalText = ""
 
         binding.apply {
-            if (fromChain is ChainBitCoin84) {
+            if (fromChain is ChainBitCoin86) {
                 memoTxt.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         originalText = s.toString()

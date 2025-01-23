@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
@@ -235,7 +235,7 @@ class ApplicationViewModel(
                 }
             }
 
-            if (this is ChainBitCoin84) {
+            if (this is ChainBitCoin86) {
                 loadBtcData(baseAccountId, this, isEdit)
             } else if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
@@ -1177,7 +1177,7 @@ class ApplicationViewModel(
     }
 
     fun loadBtcData(
-        id: Long, chain: ChainBitCoin84, isEdit: Boolean
+        id: Long, chain: ChainBitCoin86, isEdit: Boolean
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.btcFetcher()?.let { fetcher ->
             chain.apply {

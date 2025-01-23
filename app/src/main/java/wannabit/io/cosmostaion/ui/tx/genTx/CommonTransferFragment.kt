@@ -39,7 +39,7 @@ import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils.convertBits
@@ -193,7 +193,7 @@ class CommonTransferFragment : BaseTxFragment() {
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             chainImg.alpha = 0.2f
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
-            memoTitle.text = if (fromChain is ChainBitCoin84) {
+            memoTitle.text = if (fromChain is ChainBitCoin86) {
                 getString(R.string.title_bit_memo)
             } else {
                 getString(R.string.title_memo)
@@ -310,14 +310,12 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.BIT_COIN -> {
                     backdropLayout.visibility = View.VISIBLE
-                    (fromChain as ChainBitCoin84).apply {
-                        BitcoinJs.initialize(requireContext(), lifecycleScope) {
-                            txViewModel.bitTxData(fromChain as ChainBitCoin84)
-                            transferImg.setImageResource(fromChain.coinLogo)
-                            sendTitle.text = getString(
-                                R.string.title_asset_send, fromChain.coinSymbol
-                            )
-                        }
+                    (fromChain as ChainBitCoin86).apply {
+                        txViewModel.bitTxData(fromChain as ChainBitCoin86)
+                        transferImg.setImageResource(fromChain.coinLogo)
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, fromChain.coinSymbol
+                        )
                     }
                 }
 
@@ -737,7 +735,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
 
                     SendAssetType.BIT_COIN -> {
-                        (fromChain as ChainBitCoin84).apply {
+                        (fromChain as ChainBitCoin86).apply {
                             val price = BaseData.getPrice(fromChain.coinGeckoId)
                             val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
                             val value = price.multiply(dpAmount)
@@ -809,7 +807,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 TransferStyle.BIT_COIN_STYLE -> {
-                    (fromChain as ChainBitCoin84).apply {
+                    (fromChain as ChainBitCoin86).apply {
                         feeTokenImg.setImageResource(coinLogo)
                         feeToken.text = coinSymbol
 
@@ -1066,9 +1064,9 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 TransferStyle.BIT_COIN_STYLE -> {
-                    (fromChain as ChainBitCoin84).apply {
+                    (fromChain as ChainBitCoin86).apply {
                         val dpVByteFee = if (txMemo.isNotEmpty()) {
-                            (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
+                            btcFetcher()?.bitVBytesFee(utxo, txMemo)
                                 ?.add(OP_RETURN.toBigDecimal())
                         } else {
                             bitVBytesFee
@@ -1321,7 +1319,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
 
                     TransferStyle.BIT_COIN_STYLE -> {
-                        (fromChain as ChainBitCoin84).apply {
+                        (fromChain as ChainBitCoin86).apply {
                             txViewModel.bitSendBroadcast(this, bitTxHex)
                         }
                     }
@@ -1401,19 +1399,18 @@ class CommonTransferFragment : BaseTxFragment() {
     private fun setUpUtxo() {
         txViewModel.bitTxDataResult.observe(viewLifecycleOwner) { bitData ->
             lifecycleScope.launch(Dispatchers.IO) {
-                (fromChain as ChainBitCoin84).apply {
+                (fromChain as ChainBitCoin86).apply {
                     utxo = bitData.first
                     bitGasRate = bitData.second.toBigDecimal()
-                    bitVBytesFee =
-                        (fromChain as ChainBitCoin84).btcFetcher()?.bitVBytesFee(utxo, txMemo)
+                    bitVBytesFee = btcFetcher()?.bitVBytesFee(utxo, txMemo)
                     bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                         .setScale(0, RoundingMode.UP)
 
                     availableAmount =
-                        if (bitFee >= (fromChain as ChainBitCoin84).btcFetcher?.btcBalances) {
+                        if (bitFee >= btcFetcher?.btcBalances) {
                             BigDecimal.ZERO
                         } else {
-                            (fromChain as ChainBitCoin84).btcFetcher?.btcBalances?.subtract(bitFee)
+                            btcFetcher?.btcBalances?.subtract(bitFee)
                         }
                 }
                 withContext(Dispatchers.Main) {
@@ -1592,7 +1589,6 @@ class CommonTransferFragment : BaseTxFragment() {
 
     override fun onDestroyView() {
         _binding = null
-        BitcoinJs.unbindService()
         super.onDestroyView()
     }
 }

@@ -9,7 +9,7 @@ import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -185,7 +185,7 @@ interface WalletRepository {
         fetcher: SuiFetcher, chain: ChainSui
     ): NetworkResult<MutableList<JsonObject>>
 
-    suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject>
+    suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject>
 
     suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response>
 }

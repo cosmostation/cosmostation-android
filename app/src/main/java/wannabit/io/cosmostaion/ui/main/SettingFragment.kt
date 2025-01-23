@@ -131,7 +131,7 @@ class SettingFragment : Fragment() {
 
             if (BaseData.pushRefreshIfNeed()) {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    PushManager.updateStatus(Prefs.alarmEnable) { _, _ -> }
+                    PushManager.updateStatus(requireContext(), Prefs.alarmEnable) { _, _ -> }
                 }
             }
 
@@ -551,7 +551,7 @@ class SettingFragment : Fragment() {
                 }
                 setVibrate()
                 waitingDialog?.show(requireActivity().supportFragmentManager, "dialog")
-                PushManager.updateStatus(isChecked) { _, msg ->
+                PushManager.updateStatus(requireContext(), isChecked) { _, msg ->
                     requireActivity().makeToast(msg)
                     if (waitingDialog?.isVisible == true) {
                         waitingDialog?.dismissAllowingStateLoss()

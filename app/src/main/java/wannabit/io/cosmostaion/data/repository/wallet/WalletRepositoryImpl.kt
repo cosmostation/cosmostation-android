@@ -50,7 +50,7 @@ import wannabit.io.cosmostaion.chain.fetcher.rewards
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.fetcher.unDelegations
 import wannabit.io.cosmostaion.chain.fetcher.validators
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
@@ -925,7 +925,7 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun bitBalance(chain: ChainBitCoin84): NetworkResult<JsonObject> {
+    override suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitBalance(chain.mainAddress)
         }

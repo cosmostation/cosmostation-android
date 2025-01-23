@@ -166,24 +166,26 @@ class SwapFragment : BaseTxFragment() {
 
     private fun initAllKeyData(): MutableList<BaseChain> {
         val result = mutableListOf<BaseChain>()
-        BaseData.baseAccount?.let { account ->
-            account.apply {
-                allChains().filter { it.isDefault && it.supportCosmos() && !it.isTestnet }
-                    .forEach { chain ->
-                        result.add(chain)
-                    }
-
-                if (type == BaseAccountType.MNEMONIC) {
-                    result.forEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+        lifecycleScope.launch(Dispatchers.IO) {
+            BaseData.baseAccount?.let { account ->
+                account.apply {
+                    allChains().filter { it.isDefault && it.supportCosmos() && !it.isTestnet }
+                        .forEach { chain ->
+                            result.add(chain)
                         }
-                    }
 
-                } else if (type == BaseAccountType.PRIVATE_KEY) {
-                    result.forEach { chain ->
-                        if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
+                    if (type == BaseAccountType.MNEMONIC) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                            }
+                        }
+
+                    } else if (type == BaseAccountType.PRIVATE_KEY) {
+                        result.forEach { chain ->
+                            if (chain.publicKey == null) {
+                                chain.setInfoWithPrivateKey(requireContext(), privateKey)
+                            }
                         }
                     }
                 }

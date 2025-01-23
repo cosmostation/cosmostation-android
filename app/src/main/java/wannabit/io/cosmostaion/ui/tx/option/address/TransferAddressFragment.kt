@@ -17,7 +17,7 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -239,7 +239,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     } else if (sendAssetType == SendAssetType.BIT_COIN) {
                         if (BaseUtils.isValidBitAddress(
-                                toChain as ChainBitCoin84, address
+                                toChain as ChainBitCoin86, address
                             )
                         ) {
                             addressListener?.selectAddress(

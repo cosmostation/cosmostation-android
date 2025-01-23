@@ -111,14 +111,14 @@ class PrivateCheckFragment : Fragment() {
                 if (type == BaseAccountType.MNEMONIC) {
                     for (chain in allChains) {
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
                         }
                     }
 
                 } else if (type == BaseAccountType.PRIVATE_KEY) {
                     for (chain in allChains) {
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(privateKey)
+                            chain.setInfoWithPrivateKey(requireContext(), privateKey)
                         }
                     }
                 }

@@ -26,7 +26,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
@@ -419,7 +419,7 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadBitTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {
-                val response = RetrofitInstance.bitApi(fromChain as ChainBitCoin84).bitTx(txHash)
+                val response = RetrofitInstance.bitApi(fromChain as ChainBitCoin86).bitTx(txHash)
                 if (response.isSuccessful) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.apply {

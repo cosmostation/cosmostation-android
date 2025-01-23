@@ -13,7 +13,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -63,7 +63,7 @@ class QrCodeViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            val address = if (selectChain is ChainSui || selectChain is ChainBitCoin84) {
+            val address = if (selectChain is ChainSui || selectChain is ChainBitCoin86) {
                 selectChain.mainAddress
             } else {
                 selectChain.address
@@ -74,7 +74,7 @@ class QrCodeViewHolder(
             setQrAddress(context, address)
             chainImg.setImageResource(selectChain.logo)
 
-            if (selectChain is ChainBitCoin84) {
+            if (selectChain is ChainBitCoin86) {
                 chainTypeBadge.visibility = View.GONE
                 chainBadge.visibility = View.VISIBLE
                 when (selectChain.accountKeyType.pubkeyType) {
@@ -88,7 +88,7 @@ class QrCodeViewHolder(
                         chainBadge.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainBadge.setBackgroundResource(R.drawable.round_box_bit)
                         chainBadge.setTextColor(
                             ContextCompat.getColorStateList(
@@ -96,6 +96,16 @@ class QrCodeViewHolder(
                             )
                         )
                         chainBadge.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainBadge.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+                        chainBadge.text = context.getString(R.string.str_taproot)
                     }
                 }
 

@@ -100,7 +100,7 @@ class DeleteFragment : BottomSheetDialogFragment() {
     private val deleteAccountResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                accountViewModel.deleteAccount(account)
+                accountViewModel.deleteAccount(requireContext(), account)
 
                 lifecycleScope.launch(Dispatchers.IO) {
                     if (AppDatabase.getInstance().baseAccountDao().selectAll().isNotEmpty()) {

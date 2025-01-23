@@ -6,16 +6,13 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.trustwallet.walletconnect.extensions.toHex
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin49Testnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -36,7 +33,7 @@ class PrivateViewHolder(
 
             chainLegacy.visibleOrGone(!chain.isDefault)
 
-            if (chain is ChainBitCoin84) {
+            if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
                 chainName.maxWidth = 300
                 when (chain.accountKeyType.pubkeyType) {
@@ -50,7 +47,7 @@ class PrivateViewHolder(
                         chainLegacy.text = context.getString(R.string.str_legacy)
                     }
 
-                    else -> {
+                    PubKeyType.BTC_NATIVE_SEGWIT -> {
                         chainLegacy.setBackgroundResource(R.drawable.round_box_bit)
                         chainLegacy.setTextColor(
                             ContextCompat.getColorStateList(
@@ -59,6 +56,17 @@ class PrivateViewHolder(
                             )
                         )
                         chainLegacy.text = context.getString(R.string.str_native_segwit)
+                    }
+
+                    else -> {
+                        chainLegacy.setBackgroundResource(R.drawable.round_box_bit_taproot)
+                        chainLegacy.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context,
+                                R.color.color_base01
+                            )
+                        )
+                        chainLegacy.text = context.getString(R.string.str_taproot)
                     }
                 }
 

@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -42,15 +43,17 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
+import wannabit.io.cosmostaion.common.bitType
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
@@ -1899,13 +1902,13 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
-    override suspend fun mempoolUtxo(chain: ChainBitCoin84): NetworkResult<MutableList<JsonObject>> {
+    override suspend fun mempoolUtxo(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.bitApi(chain).bitUtxo(chain.mainAddress)
         }
     }
 
-    override suspend fun estimateSmartFee(chain: ChainBitCoin84): NetworkResult<String> {
+    override suspend fun estimateSmartFee(chain: ChainBitCoin86): NetworkResult<String> {
         return try {
             val estimateSmartFeeRequest = JsonRpcRequest(
                 method = "estimatesmartfee", params = listOf(2)
@@ -1927,7 +1930,7 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun broadcastBitSend(chain: ChainBitCoin84, txHex: String): String? {
+    override suspend fun broadcastBitSend(chain: ChainBitCoin86, txHex: String): String? {
         val sendRawTransactionRequest = JsonRpcRequest(
             method = "sendrawtransaction", params = listOf(txHex)
         )
@@ -1943,7 +1946,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateBitSend(
-        chain: ChainBitCoin84,
+        chain: ChainBitCoin86,
         bitcoinJS: BitcoinJs?,
         sender: String,
         receiver: String,
@@ -1957,11 +1960,35 @@ class TxRepositoryImpl : TxRepository {
                 val privateKey = chain.privateKey?.toHex()
                 val publicKey = chain.publicKey?.toHex()
 
-                val createTxFunction = """function createTxFunction() {
+                if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT) {
+                    val createTxFunction = """function createTxFunction() {
                         const privateKey = '${privateKey}';
                         const publicKey = '${publicKey}';
 
-                        const senderPayment = getPayment('${publicKey}', '${fetcher.bitType()}', '${fetcher.network()}');
+                        const senderPayment = getPayment('${publicKey}', '${bitType(chain.accountKeyType.pubkeyType)}', '${fetcher.network()}');
+
+                        const inputs = [
+                          ${fetcher.txInputString(utxo)}
+                        ];
+
+                        const outputs = [
+                          ${fetcher.txOutputString(receiver, toAmount, changedValue, opReturn)}
+                        ];
+
+                        const txHex = createTaprootTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
+                        return txHex;
+                    }""".trimIndent()
+                    bitcoinJS?.mergeFunction(createTxFunction)
+                    val hex = bitcoinJS?.executeFunction("createTxFunction()").toString()
+                    Log.e("Test12345 : ", hex)
+                    return hex
+
+                } else {
+                    val createTxFunction = """function createTxFunction() {
+                        const privateKey = '${privateKey}';
+                        const publicKey = '${publicKey}';
+
+                        const senderPayment = getPayment('${publicKey}', '${bitType(chain.accountKeyType.pubkeyType)}', '${fetcher.network()}');
 
                         const inputs = [
                           ${fetcher.txInputString(utxo)}
@@ -1974,8 +2001,9 @@ class TxRepositoryImpl : TxRepository {
                         const txHex = createTx(inputs, outputs, '${privateKey}', '${fetcher.network()}');
                         return txHex;
                     }""".trimIndent()
-                bitcoinJS?.mergeFunction(createTxFunction)
-                return bitcoinJS?.executeFunction("createTxFunction()")
+                    bitcoinJS?.mergeFunction(createTxFunction)
+                    return bitcoinJS?.executeFunction("createTxFunction()")
+                }
 
             } catch (e: Exception) {
                 return e.message.toString()

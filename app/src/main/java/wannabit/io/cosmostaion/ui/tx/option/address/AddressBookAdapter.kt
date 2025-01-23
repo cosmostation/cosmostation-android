@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.databinding.ItemAddressBookBinding
 class AddressBookAdapter(
     private val refAddresses: MutableList<RefAddress>,
     private val addressBooks: MutableList<AddressBook>
-) : RecyclerView.Adapter<wannabit.io.cosmostaion.ui.tx.option.address.AddressBookViewHolder>() {
+) : RecyclerView.Adapter<AddressBookViewHolder>() {
 
     private var onItemClickListener: ((String, String) -> Unit)? = null
 
@@ -19,19 +19,19 @@ class AddressBookAdapter(
         const val VIEW_TYPE_MY_ACCOUNT_ITEM = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): wannabit.io.cosmostaion.ui.tx.option.address.AddressBookViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressBookViewHolder {
         val binding = ItemAddressBookBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return wannabit.io.cosmostaion.ui.tx.option.address.AddressBookViewHolder(
+        return AddressBookViewHolder(
             parent.context,
             binding
         )
     }
 
-    override fun onBindViewHolder(holder: wannabit.io.cosmostaion.ui.tx.option.address.AddressBookViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AddressBookViewHolder, position: Int) {
         when (holder.itemViewType) {
-            wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter.Companion.VIEW_TYPE_ADDRESS_BOOK_ITEM -> {
+            VIEW_TYPE_ADDRESS_BOOK_ITEM -> {
                 val addressBook = addressBooks[position]
                 holder.bookBind(addressBook, addressBooks.size)
 
@@ -42,7 +42,7 @@ class AddressBookAdapter(
                 }
             }
 
-            wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter.Companion.VIEW_TYPE_MY_ACCOUNT_ITEM -> {
+            VIEW_TYPE_MY_ACCOUNT_ITEM -> {
                 val index = position - addressBooks.size
                 val refAddress = refAddresses[index]
                 holder.accountBind(refAddress, index, refAddresses.size)
@@ -59,8 +59,8 @@ class AddressBookAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < addressBooks.size) wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter.Companion.VIEW_TYPE_ADDRESS_BOOK_ITEM
-        else wannabit.io.cosmostaion.ui.tx.option.address.AddressBookAdapter.Companion.VIEW_TYPE_MY_ACCOUNT_ITEM
+        return if (position < addressBooks.size) VIEW_TYPE_ADDRESS_BOOK_ITEM
+        else VIEW_TYPE_MY_ACCOUNT_ITEM
     }
 
     override fun getItemCount(): Int {

@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -184,7 +184,7 @@ class WalletSelectFragment : Fragment() {
                     val seed = BaseKey.getHDSeed(BaseKey.toEntropy(wordList))
                     allChains.asSequence().concurrentForEach { chain ->
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -193,7 +193,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84 || chain.cosmosFetcher()
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
                                     ?.endPointType(chain) == CosmosEndPointType.USE_RPC
                             ) {
                                 walletViewModel.balance(chain)
@@ -206,7 +206,7 @@ class WalletSelectFragment : Fragment() {
                 } else {
                     allChains.asSequence().concurrentForEach { chain ->
                         if (chain.publicKey == null) {
-                            chain.setInfoWithPrivateKey(Utils.hexToBytes(pKey))
+                            chain.setInfoWithPrivateKey(requireContext(), Utils.hexToBytes(pKey))
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -215,7 +215,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin84 || chain.cosmosFetcher()
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
                                     ?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
                                 walletViewModel.balance(chain)
                             } else {
