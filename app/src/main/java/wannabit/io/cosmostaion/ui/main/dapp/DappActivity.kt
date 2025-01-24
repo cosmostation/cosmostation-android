@@ -42,6 +42,8 @@ import com.walletconnect.sign.client.SignClient
 import com.walletconnect.sign.client.SignInterface
 import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
@@ -136,14 +138,16 @@ class DappActivity : BaseActivity() {
     }
 
     private suspend fun initData() {
-        if (BaseData.baseAccount == null && BaseData.getLastAccount() != null) {
-            BaseData.baseAccount = BaseData.getLastAccount()
-        }
-        if (BaseData.chainParam == null) {
-            loadParam()
-        }
-        if (BaseData.assets?.isEmpty() == true) {
-            loadAsset()
+        withContext(Dispatchers.IO) {
+            if (BaseData.baseAccount == null && BaseData.getLastAccount() != null) {
+                BaseData.baseAccount = BaseData.getLastAccount()
+            }
+            if (BaseData.chainParam == null) {
+                loadParam()
+            }
+            if (BaseData.assets?.isEmpty() == true) {
+                loadAsset()
+            }
         }
 
         val ecoChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -185,20 +189,24 @@ class DappActivity : BaseActivity() {
             BaseData.baseAccount?.let { account ->
                 account.apply {
                     if (type == BaseAccountType.MNEMONIC) {
-                        result.forEach { chain ->
-                            if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(
-                                    this@DappActivity, seed, chain.setParentPath, lastHDPath
-                                )
+                        result.map { chain ->
+                            async(Dispatchers.IO) {
+                                if (chain.publicKey == null) {
+                                    chain.setInfoWithSeed(
+                                        this@DappActivity, seed, chain.setParentPath, lastHDPath
+                                    )
+                                }
                             }
-                        }
+                        }.awaitAll()
 
                     } else if (type == BaseAccountType.PRIVATE_KEY) {
-                        result.forEach { chain ->
-                            if (chain.publicKey == null) {
-                                chain.setInfoWithPrivateKey(this@DappActivity, privateKey)
+                        result.map { chain ->
+                            async(Dispatchers.IO ){
+                                if (chain.publicKey == null) {
+                                    chain.setInfoWithPrivateKey(this@DappActivity, privateKey)
+                                }
                             }
-                        }
+                        }.awaitAll()
                     }
                 }
             }
@@ -221,12 +229,9 @@ class DappActivity : BaseActivity() {
                     userAgentString =
                         "$userAgentString Cosmostation/APP/Android/${BuildConfig.VERSION_NAME}"
                     domStorageEnabled = true
-                    useWideViewPort = true
-                    loadWithOverviewMode = true
                     mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                     webViewClient = dappWebViewClient
                     webChromeClient = dappWebChromeClient
-                    cacheMode = WebSettings.LOAD_NO_CACHE
                 }
             }
 
@@ -870,7 +875,7 @@ class DappActivity : BaseActivity() {
         }
     }
 
-    fun processRequest(message: String) {
+    suspend fun processRequest(message: String) {
         var isCosmostation = false
         try {
             val requestJson = JSONObject(message)
@@ -890,8 +895,8 @@ class DappActivity : BaseActivity() {
                             selectedChain(allChains, chainId)?.let { chain ->
                                 selectChain = chain
                                 val accountJson = JSONObject()
-                                accountJson.put("isEthermint", selectChain?.supportEvm)
                                 accountJson.put("isLedger", false)
+                                accountJson.put("isEthermint", selectChain?.supportEvm)
                                 accountJson.put("address", selectChain?.address)
                                 accountJson.put("name", account.name)
                                 accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
@@ -1492,7 +1497,7 @@ class DappActivity : BaseActivity() {
 
                 //babylon
                 "bit_requestAccount" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1508,7 +1513,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_getPublicKeyHex" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1519,7 +1524,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_getNetwork" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1530,7 +1535,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_switchNetwork" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         val params = messageJson.getJSONArray("params")
                         if (params.length() > 0) {
                             bitNetwork = params.get(0).toString()
@@ -1567,7 +1572,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_getAddress" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1629,7 +1634,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_sendBitcoin" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
                         currentMessageJson = messageJson
                         currentMessageId = messageId
@@ -1638,7 +1643,7 @@ class DappActivity : BaseActivity() {
 
                         if (selectBitcoin?.mainAddress?.lowercase() == bitToAddress.lowercase()) {
                             appToWebError(messageJson, messageId, "Wrong address")
-                            return@launch
+                            return@withContext
                         }
 
                         val signBundle = signBundle(0, params.toString(), "bit_sendBitcoin")
@@ -1682,7 +1687,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_signMessage" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
                         val signBundle = signBundle(0, params.toString(), "bit_signMessage")
                         showBitSignDialog(
@@ -1704,7 +1709,7 @@ class DappActivity : BaseActivity() {
                 }
 
                 "bit_signPsbt" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
+                    withContext(Dispatchers.IO) {
                         val params = messageJson.getString("params")
                         val signBundle = signBundle(0, params, "bit_signPsbt")
                         showBitSignDialog(

@@ -88,8 +88,8 @@ data class BaseAccount(
             } else {
                 allChains.sortWith { o1, o2 ->
                     when {
-                        o1.tag == "cosmos118" -> -1
-                        o2.tag == "cosmos118" -> 1
+                        o1.tag == "cosmos118" && o2.tag != "cosmos118" -> -1
+                        o1.tag != "cosmos118" && o2.tag == "cosmos118" -> 1
                         lastValue(o1.tag) > lastValue(o2.tag) -> -1
                         lastValue(o1.tag) < lastValue(o2.tag) -> 1
                         else -> 0
@@ -98,8 +98,8 @@ data class BaseAccount(
 
                 allChains.sortWith { o1, o2 ->
                     when {
-                        o1.tag == "cosmos118" -> -1
-                        o2.tag == "cosmos118" -> 1
+                        o1.tag == "cosmos118" && o2.tag != "cosmos118" -> -1
+                        o1.tag != "cosmos118" && o2.tag == "cosmos118" -> 1
                         displayChains.contains(o1.tag) && !displayChains.contains(o2.tag) -> -1
                         displayChains.contains(o2.tag) && !displayChains.contains(o1.tag) -> 1
                         else -> 0
