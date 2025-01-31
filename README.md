@@ -1127,50 +1127,12 @@ You can download each store.
   <tr> 
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/bitcoin/resource/chain_bitcoin.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">BITCOIN</span></td>
-    <td><span>m/84'/0'/0'/0/X</span><br/>
+    <td><span>m/86'/0'/0'/0/X</span><br/>
+        <span>m/84'/0'/0'/0/X</span><br/>
         <span>m/49'/0'/0'/0/X</span><br/>
         <span>m/44'/0'/0'/0/X</span></td>
-    <td><span>p2wpkh</span><br/>
-        <span>p2sh</span><br/>
-        <span>p2pkh</span></td>
-    <td>Rest</td>
-    <td></td>
-  </tr>
-
-  <tr> 
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/sui/resource/chain_sui.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">SUI</span></td>
-    <td>m/44'/784'/0'/0'/X'</td>
-    <td>ed25519</td>
-    <td>Rest</td>
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/resource/static/tag_dapp.png?raw=true" width="48" height = "22"></td>
-  </tr>
-</table>
-</details>
-<br>
-
-
-
-<details >
-<summary><h2 style='display: inline; font-size: 24px'>Supporting Major Chains</h2></summary>
-<br>
-<table border="1">
-  <tr>
-    <th style="text-align:center">Image</th>
-    <th style="text-align:center">Name</th>
-    <th style="text-align:center" >HD Path</th>
-    <th style="text-align:center">Public-Key Type</th>
-    <th style="text-align:center">Call Method</th>
-    <th style="text-align:center">Support</th>
-  </tr>
-
-  <tr> 
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/bitcoin/resource/chain_bitcoin.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">BITCOIN</span></td>
-    <td><span>m/84'/0'/0'/0/X</span><br/>
-        <span>m/49'/0'/0'/0/X</span><br/>
-        <span>m/44'/0'/0'/0/X</span></td>
-    <td><span>p2wpkh</span><br/>
+    <td><span>p2tr</span><br/>
+        <span>p2wpkh</span>
         <span>p2sh</span><br/>
         <span>p2pkh</span></td>
     <td>Rest</td>
