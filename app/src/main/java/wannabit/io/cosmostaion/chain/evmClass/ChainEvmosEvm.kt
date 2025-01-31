@@ -34,5 +34,5 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
     override var coinGeckoId: String = "evmos"
     override var coinLogo: Int = R.drawable.token_evmos
     override var addressLogo: Int = R.drawable.icon_evmos_address
-    override var evmRpcURL: String = "https://rpc-evmos-evm.cosmostation.io"
+    override var evmRpcURL: String = "https://evmos-evm.publicnode.com"
 }
