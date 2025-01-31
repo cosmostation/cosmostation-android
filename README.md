@@ -1132,7 +1132,7 @@ You can download each store.
         <span>m/49'/0'/0'/0/X</span><br/>
         <span>m/44'/0'/0'/0/X</span></td>
     <td><span>p2tr</span><br/>
-        <span>p2wpkh</span>
+        <span>p2wpkh</span><br/>
         <span>p2sh</span><br/>
         <span>p2pkh</span></td>
     <td>Rest</td>
