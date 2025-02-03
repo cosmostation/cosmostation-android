@@ -346,7 +346,7 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
 
                 when (i) {
                     0 -> {
-                        segmentView.btnTitle.text = "gRPC Endpoint"
+                        segmentView.btnTitle.text = "Cosmos Endpoint"
                     }
 
                     else -> {

@@ -81,7 +81,7 @@ class ChainManageViewHolder(
             } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "RPC"
-                rpcEndpoint.text = chain.mainUrl
+                rpcEndpoint.text = chain.mainUrl.replace("https://", "")
 
             } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 if (chain.isEvmCosmos()) {
@@ -101,22 +101,23 @@ class ChainManageViewHolder(
                             ?.getGrpc()?.second
                 }
 
-            } else {
+            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_LCD) {
                 if (chain.isEvmCosmos()) {
                     grpcLayout.visibility = View.VISIBLE
                     rpcEndpointType.text = "EVM RPC"
-                    grpcEndpointType.text = "GRPC"
+                    grpcEndpointType.text = "REST"
                     rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                    grpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
+                    grpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                 } else {
                     grpcLayout.visibility = View.GONE
-                    rpcEndpointType.text = "GRPC"
-                    rpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
+                    rpcEndpointType.text = "Rest"
+                    rpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                 }
+
+            } else {
+                grpcLayout.visibility = View.GONE
+                rpcEndpointType.text = "EVM RPC"
+                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
             }
         }
     }
