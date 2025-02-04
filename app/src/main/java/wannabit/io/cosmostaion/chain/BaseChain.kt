@@ -135,6 +135,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
+import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -199,6 +200,7 @@ open class BaseChain : Parcelable {
 
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
+    var gnoRpcFetcher: GnoFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
@@ -225,7 +227,12 @@ open class BaseChain : Parcelable {
         return accountKeyType.hdPath.replace("X", lastPath)
     }
 
-    suspend fun setInfoWithSeed(context: Context, seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
+    suspend fun setInfoWithSeed(
+        context: Context,
+        seed: ByteArray?,
+        parentPath: List<ChildNumber>,
+        lastPath: String
+    ) {
         privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(context, privateKey)
     }
@@ -235,11 +242,21 @@ open class BaseChain : Parcelable {
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address =
-                BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
+                BaseKey.getAddressFromPubKey(
+                    context,
+                    publicKey,
+                    accountKeyType.pubkeyType,
+                    accountPrefix
+                )
 
         } else {
             evmAddress =
-                BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
+                BaseKey.getAddressFromPubKey(
+                    context,
+                    publicKey,
+                    accountKeyType.pubkeyType,
+                    accountPrefix
+                )
             if (supportCosmos()) {
                 address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
             }
@@ -302,9 +319,15 @@ open class BaseChain : Parcelable {
         var feeCoin: CoinProto.Coin? = null
         for (i in 0 until getDefaultFeeCoins(c).size) {
             val minFee = getDefaultFeeCoins(c)[i]
-            if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+            if (this is ChainGnoTestnet && minFee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(minFee.denom))  {
                 feeCoin = minFee
                 break
+
+            } else {
+                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+                    feeCoin = minFee
+                    break
+                }
             }
         }
         if (feeCoin != null) {
@@ -400,6 +423,13 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun simulatedGasAdjustment(): Double {
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
+            ?.get("simulated_gas_adjustment")?.asDouble ?: run {
+            1.6
+        }
+    }
+
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -433,8 +463,15 @@ open class BaseChain : Parcelable {
 
     fun isTxFeePayable(c: Context): Boolean {
         getDefaultFeeCoins(c).forEach { fee ->
-            if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
-                return true
+            if (this is ChainGnoTestnet) {
+                if (fee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(fee.denom)) {
+                    return true
+                }
+
+            } else {
+                if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
+                    return true
+                }
             }
         }
         return false
@@ -491,7 +528,8 @@ open class BaseChain : Parcelable {
     }
 
     fun isSupportStaking(): Boolean {
-        return getChainListParam()?.getAsJsonObject("btc_staking")?.get("is_support_staking")?.asBoolean ?: false
+        return getChainListParam()?.getAsJsonObject("btc_staking")
+            ?.get("is_support_staking")?.asBoolean ?: false
     }
 
     fun btcStakingDapp(): String {
@@ -559,6 +597,13 @@ open class BaseChain : Parcelable {
             } else if (this is ChainOktEvm) {
                 return oktFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
                     ?: BigDecimal.ZERO
+
+            } else if (this is ChainGnoTestnet) {
+                val allValue =
+                    gnoRpcFetcher?.allAssetValue(isUsd)
+                        ?.add(gnoRpcFetcher?.allGrc20TokenValue(isUsd))
+                        ?: BigDecimal.ZERO
+                return allValue
 
             } else if (isEvmCosmos()) {
                 val allValue =
@@ -658,7 +703,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
-    chains.add(ChainMilkyway ())
+    chains.add(ChainMilkyway())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())

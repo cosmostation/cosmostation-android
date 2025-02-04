@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
@@ -78,7 +79,7 @@ class ChainManageViewHolder(
                 rpcEndpointType.text = "API"
                 rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
 
-            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+            } else if (chain is ChainGnoTestnet) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "RPC"
                 rpcEndpoint.text = chain.mainUrl.replace("https://", "")

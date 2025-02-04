@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.common
 import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -53,7 +54,9 @@ object BaseData {
     }
 
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
-        return if (chain.isSupportCw20()) {
+        return if (chain.isSupportGrc20()) {
+            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
+        } else if (chain.isSupportCw20()) {
             chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
         } else {
             chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }

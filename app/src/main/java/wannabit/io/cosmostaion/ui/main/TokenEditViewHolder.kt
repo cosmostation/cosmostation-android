@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -73,7 +74,7 @@ class TokenEditViewHolder(
                     }
 
             } ?: run {
-                chain.cosmosFetcher()?.grc20Tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
+                (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
                     ?.let { token ->
                         token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
                             ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
@@ -81,7 +82,7 @@ class TokenEditViewHolder(
                                     skeletonTokenAmount.visibility = View.GONE
                                     skeletonTokenValue.visibility = View.GONE
                                     tokenAmount.text = formatAmount(amount.toPlainString(), 6)
-                                    chain.cosmosFetcher?.let {
+                                    chain.gnoRpcFetcher?.let {
                                         tokenValue.text =
                                             formatAssetValue(it.grc20TokenValue(token.contract))
                                     }

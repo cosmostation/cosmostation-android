@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
 import wannabit.io.cosmostaion.chain.fetcher.sequence
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -177,7 +178,9 @@ class SwapFragment : BaseTxFragment() {
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(requireContext(), seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(
+                                    requireContext(), seed, chain.setParentPath, lastHDPath
+                                )
                             }
                         }
 
@@ -1098,9 +1101,15 @@ class SwapFragment : BaseTxFragment() {
                     tempInputAssets[index].geckoId = asset.coinGeckoId
                     tempInputAssets[index].description = asset.name
                     tempInputAssets[index].image = asset.image ?: ""
-                    if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
+                    if (inputChain is ChainGnoTestnet) {
+                        tempInputAssets[index].balance =
+                            (inputChain as ChainGnoTestnet).gnoRpcFetcher()
+                                ?.balanceAmount(tempInputAssets[index].denom) ?: BigDecimal.ZERO
+
+                    } else if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
                         tempInputAssets[index].balance =
                             inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
+
                     } else {
                         tempInputAssets[index].balance =
                             inputChain?.cosmosFetcher()?.balanceAmount(tempInputAssets[index].denom)
@@ -1166,9 +1175,15 @@ class SwapFragment : BaseTxFragment() {
                     tempOutputAssets[index].geckoId = asset.coinGeckoId
                     tempOutputAssets[index].description = asset.name
                     tempOutputAssets[index].image = asset.image ?: ""
-                    if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
+                    if (outputChain is ChainGnoTestnet) {
+                        tempOutputAssets[index].balance =
+                            (outputChain as ChainGnoTestnet).gnoRpcFetcher()
+                                ?.balanceAmount(tempOutputAssets[index].denom) ?: BigDecimal.ZERO
+
+                    } else if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
                         tempOutputAssets[index].balance =
                             outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
+
                     } else {
                         tempOutputAssets[index].balance = outputChain?.cosmosFetcher()
                             ?.balanceAmount(tempOutputAssets[index].denom) ?: BigDecimal.ZERO
@@ -1197,7 +1212,11 @@ class SwapFragment : BaseTxFragment() {
         } else if (inputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
+            if (inputChain is ChainGnoTestnet) {
+                inputAsset.balance =
+                    (inputChain as ChainGnoTestnet).gnoRpcFetcher()?.balanceAmount(inputAsset.denom)
+                        ?: BigDecimal.ZERO
+            } else if (inputChain?.supportCosmos() == false && inputChain?.supportEvm == true) {
                 inputAsset.balance = inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 inputAsset.balance =
@@ -1212,7 +1231,10 @@ class SwapFragment : BaseTxFragment() {
         } else if (outputAsset.type == TargetAssetType.ERC20) {
 
         } else {
-            if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
+            if (inputChain is ChainGnoTestnet) {
+                outputAsset.balance = (outputChain as ChainGnoTestnet).gnoRpcFetcher()
+                    ?.balanceAmount(outputAsset.denom) ?: BigDecimal.ZERO
+            } else if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
                 outputAsset.balance = outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 outputAsset.balance = outputChain?.cosmosFetcher()?.balanceAmount(outputAsset.denom)

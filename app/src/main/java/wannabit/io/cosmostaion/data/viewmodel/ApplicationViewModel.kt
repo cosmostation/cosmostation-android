@@ -20,7 +20,6 @@ import org.bouncycastle.util.encoders.Base64
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -29,6 +28,7 @@ import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -210,7 +210,7 @@ class ApplicationViewModel(
                 if (isSupportGrc20()) {
                     when (val response = walletRepository.token(this)) {
                         is NetworkResult.Success -> {
-                            cosmosFetcher?.grc20Tokens = response.data
+                            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens = response.data
                         }
 
                         is NetworkResult.Error -> {
@@ -242,7 +242,7 @@ class ApplicationViewModel(
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit)
             } else {
-                if (this.cosmosFetcher?.endPointType(this) == CosmosEndPointType.USE_RPC) {
+                if (this is ChainGnoTestnet) {
                     loadRpcData(this, baseAccountId, isEdit)
                 } else if (supportCosmos() && this !is ChainOktEvm) {
                     loadGrpcAuthData(this, baseAccountId, isEdit)
@@ -1253,7 +1253,7 @@ class ApplicationViewModel(
             chain.apply {
                 when (val response = walletRepository.rpcAuth(chain)) {
                     is NetworkResult.Success -> {
-                        cosmosFetcher()?.let { fetcher ->
+                        (chain as ChainGnoTestnet).gnoRpcFetcher()?.let { fetcher ->
                             if (response.data.isSuccessful) {
                                 val tempBalances: MutableList<CoinProto.Coin> = mutableListOf()
                                 val jsonResponse = Gson().fromJson(
@@ -1268,7 +1268,7 @@ class ApplicationViewModel(
                                         CoinProto.Coin.newBuilder().setDenom(stakeDenom)
                                             .setAmount("0").build()
                                     )
-                                    fetcher.cosmosBalances = tempBalances
+                                    fetcher.gnoBalances = tempBalances
 
                                     val refAddress = RefAddress(
                                         id,
@@ -1303,10 +1303,10 @@ class ApplicationViewModel(
                                         )
                                     }
 
-                                    fetcher.cosmosBalances = tempBalances
-                                    fetcher.cosmosAccountNumber =
+                                    fetcher.gnoBalances = tempBalances
+                                    fetcher.gnoAccountNumber =
                                         accountData["account_number"].asString.toLong()
-                                    fetcher.cosmosSequence =
+                                    fetcher.gnoSequence =
                                         accountData["sequence"].asString.toLong()
 
                                     val refAddress = RefAddress(
@@ -1317,11 +1317,11 @@ class ApplicationViewModel(
                                         fetcher.allAssetValue(true).toString(),
                                         "0",
                                         "0",
-                                        if (fetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                        if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                     )
                                     BaseData.updateRefAddressesMain(refAddress)
                                     coinCnt =
-                                        if (fetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                        if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                 }
 
                                 withContext(Dispatchers.Main) {
@@ -1336,19 +1336,29 @@ class ApplicationViewModel(
                                 if (isSupportGrc20()) {
                                     val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
                                     val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                        cosmosFetcher?.grc20Tokens?.filter { it.wallet_preload ?: false }
-                                            ?.map { token ->
-                                                async { walletRepository.grc20Balance(chain, token) }
+                                        fetcher.grc20Tokens.filter { it.wallet_preload ?: false }
+                                            .map { token ->
+                                                async {
+                                                    walletRepository.grc20Balance(
+                                                        chain,
+                                                        token
+                                                    )
+                                                }
                                             }
 
                                     } else {
-                                        cosmosFetcher?.grc20Tokens?.filter { userDisplayToken.contains(it.contract) }
-                                            ?.map { token ->
-                                                async { walletRepository.grc20Balance(chain, token) }
+                                        fetcher.grc20Tokens.filter { userDisplayToken.contains(it.contract) }
+                                            .map { token ->
+                                                async {
+                                                    walletRepository.grc20Balance(
+                                                        chain,
+                                                        token
+                                                    )
+                                                }
                                             }
                                     }
 
-                                    tokenBalanceDeferredList?.awaitAll()
+                                    tokenBalanceDeferredList.awaitAll()
                                     val grcRefAddress = RefAddress(
                                         id,
                                         tag,
@@ -1356,11 +1366,11 @@ class ApplicationViewModel(
                                         "",
                                         "0",
                                         "0",
-                                        cosmosFetcher?.allTokenValue(true)?.toPlainString(),
+                                        gnoRpcFetcher?.allGrc20TokenValue(true)?.toPlainString(),
                                         0
                                     )
                                     BaseData.updateRefAddressesToken(grcRefAddress)
-                                    tokenCnt = chain.cosmosFetcher()?.valueGrc20TokenCnt() ?: 0
+                                    tokenCnt = fetcher.valueGrc20TokenCnt()
                                     fetchState = FetchState.SUCCESS
 
                                     withContext(Dispatchers.Main) {
