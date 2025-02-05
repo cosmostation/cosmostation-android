@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -106,6 +107,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainAiozEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
@@ -680,6 +682,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFirma())
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
+    chains.add(ChainGgezchain())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -756,6 +759,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
+    chains.add(ChainZenrock())
     chains.add(ChainZetaEvm())
 
 //    chains.add(ChainCosmosTestnet())
