@@ -13,13 +13,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 
 
 class SettingBottomFragment : BottomSheetDialogFragment() {
@@ -177,21 +178,37 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                 }
 
                 SettingType.END_POINT_SUI -> {
-                    selectTitle.text = getString(R.string.title_select_end_point_sui_rpc)
                     val rpcEndpoints: MutableList<Any> = ArrayList()
-                    fromChain?.getChainListParam()?.getAsJsonArray("rpc_endpoint")?.let {
-                        for (jsonElement in it) {
-                            rpcEndpoints.add(jsonElement.asJsonObject)
+                    if (fromChain is ChainGnoTestnet) {
+                        selectTitle.text = getString(R.string.title_select_end_point_grpc)
+                        fromChain?.getChainListParam()?.getAsJsonArray("cosmos_rpc_endpoint")?.let {
+                            for (jsonElement in it) {
+                                rpcEndpoints.add(jsonElement.asJsonObject)
+                            }
                         }
-                    }
+                        settingAdapter = SettingBottomAdapter(
+                            fromChain,
+                            rpcEndpoints,
+                            mutableListOf(),
+                            SettingType.END_POINT_SUI,
+                            endpointClickAction
+                        )
 
-                    settingAdapter = SettingBottomAdapter(
-                        fromChain,
-                        rpcEndpoints,
-                        mutableListOf(),
-                        SettingType.END_POINT_SUI,
-                        endpointClickAction
-                    )
+                    } else {
+                        selectTitle.text = getString(R.string.title_select_end_point_sui_rpc)
+                        fromChain?.getChainListParam()?.getAsJsonArray("rpc_endpoint")?.let {
+                            for (jsonElement in it) {
+                                rpcEndpoints.add(jsonElement.asJsonObject)
+                            }
+                        }
+                        settingAdapter = SettingBottomAdapter(
+                            fromChain,
+                            rpcEndpoints,
+                            mutableListOf(),
+                            SettingType.END_POINT_SUI,
+                            endpointClickAction
+                        )
+                    }
                     recycler.setHasFixedSize(true)
                     recycler.layoutManager = LinearLayoutManager(requireActivity())
                     recycler.adapter = settingAdapter

@@ -90,9 +90,7 @@ data class BaseAccount(
                     when {
                         o1.tag == "cosmos118" && o2.tag != "cosmos118" -> -1
                         o1.tag != "cosmos118" && o2.tag == "cosmos118" -> 1
-                        lastValue(o1.tag) > lastValue(o2.tag) -> -1
-                        lastValue(o1.tag) < lastValue(o2.tag) -> 1
-                        else -> 0
+                        else -> lastValue(o2.tag).compareTo(lastValue(o1.tag))
                     }
                 }
 

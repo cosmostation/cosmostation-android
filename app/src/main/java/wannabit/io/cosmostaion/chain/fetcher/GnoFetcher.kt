@@ -4,6 +4,7 @@ import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -77,5 +78,14 @@ class GnoFetcher(private val chain: BaseChain) {
             }
         }
         return sum
+    }
+
+    fun gnoRpc(): String {
+        val endpoint = Prefs.getEvmRpcEndpoint(chain)
+        return if (endpoint?.isNotEmpty() == true) {
+            endpoint
+        } else {
+            chain.mainUrl
+        }
     }
 }

@@ -82,7 +82,7 @@ class ChainManageViewHolder(
             } else if (chain is ChainGnoTestnet) {
                 grpcLayout.visibility = View.GONE
                 rpcEndpointType.text = "RPC"
-                rpcEndpoint.text = chain.mainUrl.replace("https://", "")
+                rpcEndpoint.text = chain.gnoRpcFetcher()?.gnoRpc()?.replace("https://", "")
 
             } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 if (chain.isEvmCosmos()) {

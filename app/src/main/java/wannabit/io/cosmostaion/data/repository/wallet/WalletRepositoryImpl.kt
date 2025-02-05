@@ -437,7 +437,7 @@ class WalletRepositoryImpl : WalletRepository {
         val grc20BalanceRequest = JsonRpcRequest(
             method = "abci_query", params = listOf("vm/qeval", queryDataBase64, "0", false)
         )
-        val grc20BalanceResponse = jsonRpcResponse(chain.mainUrl, grc20BalanceRequest)
+        val grc20BalanceResponse = jsonRpcResponse(chain.gnoRpcFetcher?.gnoRpc() ?: chain.mainUrl, grc20BalanceRequest)
         try {
             if (grc20BalanceResponse.isSuccessful) {
                 val grc20BalanceJsonObject = Gson().fromJson(
@@ -936,7 +936,7 @@ class WalletRepositoryImpl : WalletRepository {
             method = "abci_query", params = listOf("auth/accounts/${chain.address}", "", "0", false)
         )
         return safeApiCall(Dispatchers.IO) {
-            jsonRpcResponse(chain.mainUrl, authRequest)
+            jsonRpcResponse(chain.gnoRpcFetcher?.gnoRpc() ?: chain.mainUrl, authRequest)
         }
     }
 }

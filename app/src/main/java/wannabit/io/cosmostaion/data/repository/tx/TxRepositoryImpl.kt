@@ -157,7 +157,7 @@ class TxRepositoryImpl : TxRepository {
                 method = "abci_query",
                 params = listOf("auth/accounts/${chain.address}", "", "0", true)
             )
-            val authResponse = jsonRpcResponse(chain.mainUrl, authRequest)
+            val authResponse = jsonRpcResponse(chain.gnoRpcFetcher()?.gnoRpc() ?: chain.mainUrl, authRequest)
             val jsonResponse = Gson().fromJson(
                 authResponse.body?.string(), JsonObject::class.java
             )
@@ -2020,7 +2020,7 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2044,7 +2044,7 @@ class TxRepositoryImpl : TxRepository {
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
             )
-            val simulateResponse = jsonRpcResponse(selectedChain.mainUrl, simulateRequest)
+            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
             val simulateJsonObject = Gson().fromJson(
                 simulateResponse.body?.string(), JsonObject::class.java
             )
@@ -2079,7 +2079,7 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2103,7 +2103,7 @@ class TxRepositoryImpl : TxRepository {
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
             )
-            val simulateResponse = jsonRpcResponse(selectedChain.mainUrl, simulateRequest)
+            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
             val simulateJsonObject = Gson().fromJson(
                 simulateResponse.body?.string(), JsonObject::class.java
             )

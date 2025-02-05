@@ -255,7 +255,7 @@ class TransferTxResultActivity : BaseActivity() {
                     val txStatusRequest = JsonRpcRequest(
                         method = "tx", params = listOf(txHash)
                     )
-                    val txStatusResponse = jsonRpcResponse(mainUrl, txStatusRequest)
+                    val txStatusResponse = jsonRpcResponse(gnoRpcFetcher?.gnoRpc() ?: mainUrl, txStatusRequest)
                     if (txStatusResponse.isSuccessful) {
                         val txStatusJsonObject = Gson().fromJson(
                             txStatusResponse.body?.string(), JsonObject::class.java

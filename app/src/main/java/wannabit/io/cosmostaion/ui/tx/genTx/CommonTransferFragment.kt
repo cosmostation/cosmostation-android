@@ -1192,8 +1192,11 @@ class CommonTransferFragment : BaseTxFragment() {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
-                        val gasLimit =
+                        val gasLimit = if (gas == 0L) {
+                            (fromChain.getInitGasLimit().toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
+                        } else {
                             (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
+                        }
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
