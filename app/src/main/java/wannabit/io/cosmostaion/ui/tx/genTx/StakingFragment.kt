@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -64,6 +65,7 @@ class StakingFragment : BaseTxFragment() {
     private lateinit var selectedChain: BaseChain
     private var toValidator: Validator? = null
     private var initiaToValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
+    private var zenrockToValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -80,13 +82,15 @@ class StakingFragment : BaseTxFragment() {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain,
-            toValidator: Validator?,
-            initiaToValidator: com.initia.mstaking.v1.StakingProto.Validator?
+            toValidator: Validator? = null,
+            initiaToValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
+            zenrockToValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null
         ): StakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("toValidator", toValidator)
                 putSerializable("initiaToValidator", initiaToValidator)
+                putSerializable("zenrockToValidator", zenrockToValidator)
             }
             val fragment = StakingFragment()
             fragment.arguments = args
@@ -120,6 +124,11 @@ class StakingFragment : BaseTxFragment() {
                 initiaToValidator = arguments?.getSerializable(
                     "initiaToValidator", com.initia.mstaking.v1.StakingProto.Validator::class.java
                 )
+                zenrockToValidator = arguments?.getSerializable(
+                    "zenrockToValidator",
+                    com.zrchain.validation.HybridValidationProto.ValidatorHV::class.java
+                )
+
             } else {
                 (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
@@ -127,6 +136,8 @@ class StakingFragment : BaseTxFragment() {
                 toValidator = arguments?.getSerializable("toValidator") as? Validator?
                 initiaToValidator =
                     arguments?.getSerializable("initiaToValidator") as? com.initia.mstaking.v1.StakingProto.Validator?
+                zenrockToValidator =
+                    arguments?.getSerializable("zenrockToValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
             listOf(validatorView, amountView, memoView, feeView).forEach {
@@ -136,26 +147,43 @@ class StakingFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (selectedChain is ChainInitiaTestnet) {
-                if (initiaToValidator == null) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
-                        ?.let { validator ->
-                            initiaToValidator = validator
-                        } ?: run {
-                        initiaToValidator =
-                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.get(
-                                0
-                            )
+            when (selectedChain) {
+                is ChainInitiaTestnet -> {
+                    if (initiaToValidator == null) {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                            ?.let { validator ->
+                                initiaToValidator = validator
+                            } ?: run {
+                            initiaToValidator =
+                                (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.get(
+                                    0
+                                )
+                        }
                     }
                 }
 
-            } else {
-                if (toValidator == null) {
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
-                        ?.let { validator ->
-                            toValidator = validator
-                        } ?: run {
-                        toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
+                is ChainZenrock -> {
+                    if (zenrockToValidator == null) {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                            ?.let { validator ->
+                                zenrockToValidator = validator
+                            } ?: run {
+                            zenrockToValidator =
+                                (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.get(
+                                    0
+                                )
+                        }
+                    }
+                }
+
+                else -> {
+                    if (toValidator == null) {
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                            ?.let { validator ->
+                                toValidator = validator
+                            } ?: run {
+                            toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
+                        }
                     }
                 }
             }
@@ -239,20 +267,38 @@ class StakingFragment : BaseTxFragment() {
                 commissionPercent.text = formatString("$commissionRate%", 3)
             }
 
-            initiaToValidator?.let { initiaValidator ->
-                monikerImg.setMonikerImg(selectedChain, initiaValidator.operatorAddress)
-                monikerName.text = initiaValidator.description?.moniker
+            initiaToValidator?.let { validator ->
+                monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                monikerName.text = validator.description?.moniker
 
                 val statusImage = when {
-                    initiaValidator.jailed -> R.drawable.icon_jailed
-                    !initiaValidator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                    validator.jailed -> R.drawable.icon_jailed
+                    !validator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
                     else -> 0
                 }
                 jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
                 jailedImg.setImageResource(statusImage)
 
                 val commissionRate =
-                    initiaValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
+                    validator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
+                        .setScale(2, RoundingMode.DOWN)
+                commissionPercent.text = formatString("$commissionRate%", 3)
+            }
+
+            zenrockToValidator?.let { validator ->
+                monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                monikerName.text = validator.description?.moniker
+
+                val statusImage = when {
+                    validator.jailed -> R.drawable.icon_jailed
+                    !validator.isActiveValidator(selectedChain as ChainZenrock) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                jailedImg.setImageResource(statusImage)
+
+                val commissionRate =
+                    validator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                         .setScale(2, RoundingMode.DOWN)
                 commissionPercent.text = formatString("$commissionRate%", 3)
             }
@@ -351,18 +397,17 @@ class StakingFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(
-                        selectedChain,
-                        null,
-                        null,
-                        null,
-                        object : ValidatorDefaultListener {
+                    ValidatorDefaultFragment(selectedChain,
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
-                                if (selectedChain is ChainInitiaTestnet) {
-                                    initiaToValidator =
+                                when (selectedChain) {
+                                    is ChainInitiaTestnet -> initiaToValidator =
                                         (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
-                                } else {
-                                    toValidator =
+
+                                    is ChainZenrock -> zenrockToValidator =
+                                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+
+                                    else -> toValidator =
                                         selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 }
                                 updateValidatorView()
@@ -433,8 +478,8 @@ class StakingFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -626,15 +671,29 @@ class StakingFragment : BaseTxFragment() {
     }
 
     private fun onBindDelegateMsg(): MutableList<Any> {
-        return if (selectedChain is ChainInitiaTestnet) {
-            val msgDelegate = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
-                .setDelegatorAddress(selectedChain.address)
-                .setValidatorAddress(initiaToValidator?.operatorAddress).addAmount(toCoin).build()
-            Signer.initiaDelegateMsg(msgDelegate)
-        } else {
-            val msgDelegate = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
-                .setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
-            Signer.delegateMsg(msgDelegate)
+        return when (selectedChain) {
+            is ChainInitiaTestnet -> {
+                val msgDelegate = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(initiaToValidator?.operatorAddress).addAmount(toCoin)
+                    .build()
+                Signer.initiaDelegateMsg(msgDelegate)
+            }
+
+            is ChainZenrock -> {
+                val msgDelegate = com.zrchain.validation.TxProto.MsgDelegate.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
+                    .setValidatorAddress(zenrockToValidator?.operatorAddress).setAmount(toCoin)
+                    .build()
+                Signer.zenrockDelegateMsg(msgDelegate)
+            }
+
+            else -> {
+                val msgDelegate =
+                    MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+                        .setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
+                Signer.delegateMsg(msgDelegate)
+            }
         }
     }
 

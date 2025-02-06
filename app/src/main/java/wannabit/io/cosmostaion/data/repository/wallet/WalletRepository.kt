@@ -8,6 +8,7 @@ import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -120,6 +121,27 @@ interface WalletRepository {
     suspend fun initiaUnBondingValidator(
         channel: ManagedChannel?, chain: ChainInitiaTestnet
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>>
+
+    //zenrock
+    suspend fun zenrockDelegation(
+        channel: ManagedChannel?, chain: ChainZenrock
+    ): NetworkResult<MutableList<com.zrchain.validation.StakingProto.DelegationResponse>>
+
+    suspend fun zenrockUnBonding(
+        channel: ManagedChannel?, chain: ChainZenrock
+    ): NetworkResult<MutableList<com.zrchain.validation.StakingProto.UnbondingDelegation>>
+
+    suspend fun zenrockBondedValidator(
+        channel: ManagedChannel?, chain: ChainZenrock
+    ): NetworkResult<MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV>>
+
+    suspend fun zenrockUnBondedValidator(
+        channel: ManagedChannel?, chain: ChainZenrock
+    ): NetworkResult<MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV>>
+
+    suspend fun zenrockUnBondingValidator(
+        channel: ManagedChannel?, chain: ChainZenrock
+    ): NetworkResult<MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV>>
 
     //okt
     suspend fun oktAccountInfo(

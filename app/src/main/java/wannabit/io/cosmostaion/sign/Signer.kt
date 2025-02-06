@@ -208,6 +208,15 @@ object Signer {
         return msgAnys
     }
 
+    fun zenrockDelegateMsg(msgDelegate: com.zrchain.validation.TxProto.MsgDelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgDelegate")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(

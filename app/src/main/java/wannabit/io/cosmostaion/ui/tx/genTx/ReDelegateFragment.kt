@@ -445,10 +445,8 @@ class ReDelegateFragment : BaseTxFragment() {
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        fromValidator,
-                        null,
-                        null,
-                        object : ValidatorDefaultListener {
+                        fromValidator = fromValidator,
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 if (selectedChain is ChainInitiaTestnet) {
                                     initiaToValidator =
@@ -525,8 +523,8 @@ class ReDelegateFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(

@@ -33,14 +33,14 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
-import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -303,9 +303,10 @@ class EvmReDelegateFragment : BaseTxFragment() {
 
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
-                        fromValidator, null, null,
-                        object : ValidatorDefaultListener {
+                    ValidatorDefaultFragment(
+                        selectedChain,
+                        fromValidator,
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
                                     selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }

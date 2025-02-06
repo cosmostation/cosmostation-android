@@ -18,12 +18,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -38,13 +38,13 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
+import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
-import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
-import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -218,10 +218,9 @@ class SuiStakingFragment : BaseTxFragment() {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        null,
-                        null,
-                        (selectedChain as ChainSui).suiFetcher()?.suiValidators ?: mutableListOf(),
-                        object : ValidatorDefaultListener {
+                        suiFromValidator = (selectedChain as ChainSui).suiFetcher()?.suiValidators
+                            ?: mutableListOf(),
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
                                     (selectedChain as ChainSui).suiFetcher()?.suiValidators?.firstOrNull { it["suiAddress"].asString == validatorAddress }

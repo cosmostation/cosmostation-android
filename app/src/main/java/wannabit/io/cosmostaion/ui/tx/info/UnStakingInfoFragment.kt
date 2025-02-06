@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zrchain.validation.HybridValidationProto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -97,6 +98,9 @@ class UnStakingInfoFragment : Fragment() {
                                 validators,
                                 mutableListOf(),
                                 unBondings,
+                                mutableListOf(),
+                                mutableListOf(),
+                                mutableListOf(),
                                 OptionType.UNSTAKE,
                                 selectClickAction
                             )
@@ -130,6 +134,9 @@ class UnStakingInfoFragment : Fragment() {
                                 validators,
                                 mutableListOf(),
                                 unBondings,
+                                mutableListOf(),
+                                mutableListOf(),
+                                mutableListOf(),
                                 mutableListOf(),
                                 mutableListOf(),
                                 mutableListOf(),
@@ -167,7 +174,7 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, validator, null, null, null, OptionType.STAKE
+                    selectedChain, validator = validator, optionType = OptionType.STAKE
                 )
             )
         }
@@ -175,7 +182,15 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectInitiaStakingAction(validator: com.initia.mstaking.v1.StakingProto.Validator?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, validator, null, null, OptionType.STAKE
+                    selectedChain, initiaValidator = validator, optionType = OptionType.STAKE
+                )
+            )
+        }
+
+        override fun selectZenrockStakingAction(validator: HybridValidationProto.ValidatorHV?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, zenrockValidator = validator, optionType = OptionType.STAKE
                 )
             )
         }
@@ -183,7 +198,7 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, null, unBondingEntry, null, OptionType.UNSTAKE
+                    selectedChain, unBondingEntry = unBondingEntry, optionType = OptionType.UNSTAKE
                 )
             )
         }
@@ -191,7 +206,9 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, null, null, initiaUnBondingEntry, OptionType.UNSTAKE
+                    selectedChain,
+                    initiaUnBondingEntry = initiaUnBondingEntry,
+                    optionType = OptionType.UNSTAKE
                 )
             )
         }

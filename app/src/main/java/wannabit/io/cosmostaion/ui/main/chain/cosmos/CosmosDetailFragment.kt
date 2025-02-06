@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -238,7 +239,8 @@ class CosmosDetailFragment : Fragment() {
                 }
             }
 
-            val supportToken = selectedChain.isSupportCw20() || selectedChain.isSupportErc20() || selectedChain.isSupportGrc20()
+            val supportToken =
+                selectedChain.isSupportCw20() || selectedChain.isSupportErc20() || selectedChain.isSupportGrc20()
             btnAddToken.visibleOrGone(supportToken)
 
             val tableTitles = mutableListOf<String>()
@@ -445,6 +447,13 @@ class CosmosDetailFragment : Fragment() {
             fabStake.setOnClickListener {
                 if (selectedChain is ChainInitiaTestnet) {
                     if ((selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.isEmpty() == true) {
+                        requireContext().makeToast(R.string.error_wait_moment)
+                        fabMenu.close(true)
+                        return@setOnClickListener
+                    }
+
+                } else if (selectedChain is ChainZenrock) {
+                    if ((selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.isEmpty() == true) {
                         requireContext().makeToast(R.string.error_wait_moment)
                         fabMenu.close(true)
                         return@setOnClickListener

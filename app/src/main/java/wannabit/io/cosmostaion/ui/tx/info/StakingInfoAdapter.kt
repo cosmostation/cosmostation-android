@@ -5,18 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
 class StakingInfoAdapter(
     val selectedChain: BaseChain,
-    private val validators: MutableList<StakingProto.Validator>,
-    private val delegations: MutableList<StakingProto.DelegationResponse>,
-    private val unBondings: MutableList<UnBondingEntry>,
-    private val initiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator>,
-    private val initiaDelegations: MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>,
-    private val initiaUnBondings: MutableList<InitiaUnBondingEntry>,
+    private val validators: MutableList<StakingProto.Validator>? = mutableListOf(),
+    private val delegations: MutableList<StakingProto.DelegationResponse>? = mutableListOf(),
+    private val unBondings: MutableList<UnBondingEntry>? = mutableListOf(),
+    private val initiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator>? = mutableListOf(),
+    private val initiaDelegations: MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>? = mutableListOf(),
+    private val initiaUnBondings: MutableList<InitiaUnBondingEntry>? = mutableListOf(),
+    private val zenrockValidators: MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV>? = mutableListOf(),
+    private val zenrockDelegations: MutableList<com.zrchain.validation.StakingProto.DelegationResponse>? = mutableListOf(),
+    private val zenrockUnBondings: MutableList<ZenrockUnBondingEntry>? = mutableListOf(),
     private val optionType: OptionType,
     private var listener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -43,23 +47,39 @@ class StakingInfoAdapter(
         when (optionType) {
             OptionType.STAKE -> {
                 if (holder is StakingViewHolder) {
-                    if (selectedChain is ChainInitiaTestnet) {
-                        val delegation = initiaDelegations[position]
-                        initiaValidators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
-                            ?.let { validator ->
-                                holder.initiaBind(
-                                    selectedChain, validator, delegation, listener
-                                )
+                    when (selectedChain) {
+                        is ChainInitiaTestnet -> {
+                            initiaDelegations?.get(position)?.let { delegation ->
+                                initiaValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.initiaBind(
+                                            selectedChain, validator, delegation, listener
+                                        )
+                                    }
                             }
+                        }
 
-                    } else {
-                        val delegation = delegations[position]
-                        validators.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
-                            ?.let { validator ->
-                                holder.bind(
-                                    selectedChain, validator, delegation, listener
-                                )
+                        is ChainZenrock -> {
+                            zenrockDelegations?.get(position)?.let { delegation ->
+                                zenrockValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.zenrockBind(
+                                            selectedChain, validator, delegation, listener
+                                        )
+                                    }
                             }
+                        }
+
+                        else -> {
+                            delegations?.get(position)?.let { delegation ->
+                                validators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.bind(
+                                            selectedChain, validator, delegation, listener
+                                        )
+                                    }
+                            }
+                        }
                     }
                 }
             }
@@ -67,27 +87,27 @@ class StakingInfoAdapter(
             OptionType.UNSTAKE -> {
                 if (holder is UnstakingViewHolder) {
                     if (selectedChain is ChainInitiaTestnet) {
-                        val entry = initiaUnBondings[position]
-                        initiaValidators.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                            ?.let { validator ->
-                                holder.initiaBind(
-                                    selectedChain, validator, entry, listener
-                                )
-
-                            } ?: run {
-                            holder.notBind()
+                        initiaUnBondings?.get(position)?.let { entry ->
+                            initiaValidators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                                ?.let { validator ->
+                                    holder.initiaBind(
+                                        selectedChain, validator, entry, listener
+                                    )
+                                } ?: run {
+                                holder.notBind()
+                            }
                         }
 
                     } else {
-                        val entry = unBondings[position]
-                        validators.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                            ?.let { validator ->
-                                holder.bind(
-                                    selectedChain, validator, entry, listener
-                                )
-
-                            } ?: run {
-                            holder.notBind()
+                        unBondings?.get(position)?.let { entry ->
+                            validators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                                ?.let { validator ->
+                                    holder.bind(
+                                        selectedChain, validator, entry, listener
+                                    )
+                                } ?: run {
+                                holder.notBind()
+                            }
                         }
                     }
                 }
@@ -97,17 +117,17 @@ class StakingInfoAdapter(
 
     override fun getItemCount(): Int {
         return if (optionType == OptionType.STAKE) {
-            if (selectedChain is ChainInitiaTestnet) {
-                initiaDelegations.size
-            } else {
-                delegations.size
+            when (selectedChain) {
+                is ChainInitiaTestnet -> initiaDelegations?.size ?: 0
+                is ChainZenrock -> zenrockDelegations?.size ?: 0
+                else -> delegations?.size ?: 0
             }
 
         } else {
-            if (selectedChain is ChainInitiaTestnet) {
-                initiaUnBondings.size
-            } else {
-                unBondings.size
+            when (selectedChain) {
+                is ChainInitiaTestnet -> initiaUnBondings?.size ?: 0
+                is ChainZenrock -> zenrockUnBondings?.size ?: 0
+                else -> unBondings?.size ?: 0
             }
         }
     }
@@ -115,6 +135,7 @@ class StakingInfoAdapter(
     interface ClickListener {
         fun selectStakingAction(validator: StakingProto.Validator?)
         fun selectInitiaStakingAction(validator: com.initia.mstaking.v1.StakingProto.Validator?)
+        fun selectZenrockStakingAction(validator: com.zrchain.validation.HybridValidationProto.ValidatorHV?)
         fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?)
         fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?)
     }

@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -512,6 +513,35 @@ class ApplicationViewModel(
 
                         if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
                             chain.initiaFetcher()?.initiaUnbondings = unBondingResult.data
+                        } else if (unBondingResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
+                        }
+
+                    } else if (chain is ChainZenrock) {
+                        val loadDelegationDeferred =
+                            async { walletRepository.zenrockDelegation(channel, chain) }
+                        val loadUnBondingDeferred =
+                            async { walletRepository.zenrockUnBonding(channel, chain) }
+
+                        val delegationResult = loadDelegationDeferred.await()
+                        val unBondingResult = loadUnBondingDeferred.await()
+
+                        if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
+                            chain.zenrockFetcher()?.zenrockDelegations?.clear()
+                            delegationResult.data.forEach { delegation ->
+                                if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
+                                    chain.zenrockFetcher()?.zenrockDelegations?.add(
+                                        delegation
+                                    )
+                                }
+                            }
+
+                        } else if (delegationResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
+                        }
+
+                        if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
+                            chain.zenrockFetcher()?.zenrockUnbondings = unBondingResult.data
                         } else if (unBondingResult is NetworkResult.Error) {
                             _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
                         }
