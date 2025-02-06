@@ -178,44 +178,70 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             unstakeLayout.setOnClickListener {
-                if (selectedChain is ChainInitiaTestnet) {
-                    handleOneClickWithDelay(
-                        UnStakingFragment.newInstance(
-                            selectedChain, null, initiaValidator
+                when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        handleOneClickWithDelay(
+                            UnStakingFragment.newInstance(
+                                selectedChain, initiaValidator = initiaValidator
+                            )
                         )
-                    )
-                } else {
-                    handleOneClickWithDelay(
-                        UnStakingFragment.newInstance(
-                            selectedChain, validator, null
+                    }
+
+                    is ChainZenrock -> {
+                        handleOneClickWithDelay(
+                            UnStakingFragment.newInstance(
+                                selectedChain, zenrockValidator = zenrockValidator
+                            )
                         )
-                    )
+                    }
+
+                    else -> {
+                        handleOneClickWithDelay(
+                            UnStakingFragment.newInstance(
+                                selectedChain, validator = validator
+                            )
+                        )
+                    }
                 }
             }
 
             switchValidatorLayout.setOnClickListener {
-                if (selectedChain is ChainInitiaTestnet) {
-                    handleOneClickWithDelay(
-                        ReDelegateFragment.newInstance(
-                            selectedChain, null, initiaValidator
+                when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        handleOneClickWithDelay(
+                            ReDelegateFragment.newInstance(
+                                selectedChain, initiaFromValidator = initiaValidator
+                            )
                         )
-                    )
-                } else {
-                    handleOneClickWithDelay(
-                        ReDelegateFragment.newInstance(
-                            selectedChain, validator, null
+                    }
+
+                    is ChainZenrock -> {
+                        handleOneClickWithDelay(
+                            ReDelegateFragment.newInstance(
+                                selectedChain, zenrockFromValidator = zenrockValidator
+                            )
                         )
-                    )
+                    }
+
+                    else -> {
+                        handleOneClickWithDelay(
+                            ReDelegateFragment.newInstance(
+                                selectedChain, fromValidator = validator
+                            )
+                        )
+                    }
                 }
             }
 
             claimRewardsLayout.setOnClickListener {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
-                    if (selectedChain is ChainInitiaTestnet) {
-                        it.validatorAddress == initiaValidator?.operatorAddress
-                    } else {
-                        it.validatorAddress == validator?.operatorAddress
+                    when (selectedChain) {
+                        is ChainInitiaTestnet -> it.validatorAddress == initiaValidator?.operatorAddress
+
+                        is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
+
+                        else -> it.validatorAddress == validator?.operatorAddress
                     }
                 }?.let { claimableReward ->
                     if (claimableReward.rewardCount > 0) {
@@ -244,10 +270,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosFetcher?.claimableRewards()?.firstOrNull {
-                    if (selectedChain is ChainInitiaTestnet) {
-                        it?.validatorAddress == initiaValidator?.operatorAddress
-                    } else {
-                        it?.validatorAddress == validator?.operatorAddress
+                    when (selectedChain) {
+                        is ChainInitiaTestnet -> it?.validatorAddress == initiaValidator?.operatorAddress
+
+                        is ChainZenrock -> it?.validatorAddress == zenrockValidator?.operatorAddress
+
+                        else -> it?.validatorAddress == validator?.operatorAddress
                     }
                 }?.let { claimableReward ->
                     if (claimableReward.rewardCount > 0) {
@@ -269,18 +297,30 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             }
 
             unstakeCancelLayout.setOnClickListener {
-                if (selectedChain is ChainInitiaTestnet) {
-                    handleOneClickWithDelay(
-                        CancelUnBondingFragment.newInstance(
-                            selectedChain, null, initiaUnBondingEntry
+                when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        handleOneClickWithDelay(
+                            CancelUnBondingFragment.newInstance(
+                                selectedChain, initiaUnBondingEntry = initiaUnBondingEntry
+                            )
                         )
-                    )
-                } else {
-                    handleOneClickWithDelay(
-                        CancelUnBondingFragment.newInstance(
-                            selectedChain, unBondingEntry, null
+                    }
+
+                    is ChainZenrock -> {
+                        handleOneClickWithDelay(
+                            CancelUnBondingFragment.newInstance(
+                                selectedChain, zenrockUnBondingEntry = zenrockUnBondingEntry
+                            )
                         )
-                    )
+                    }
+
+                    else -> {
+                        handleOneClickWithDelay(
+                            CancelUnBondingFragment.newInstance(
+                                selectedChain, unBondingEntry = unBondingEntry
+                            )
+                        )
+                    }
                 }
             }
         }

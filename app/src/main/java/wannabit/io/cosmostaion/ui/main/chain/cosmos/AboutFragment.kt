@@ -307,9 +307,16 @@ class AboutFragment : Fragment() {
     }
 
     private fun unBondingTime(): String {
-        val unBondingTime = chainParam?.getAsJsonObject("params")
-            ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
-            ?.get("unbonding_time")?.asString ?: ""
+        val stakeParams = if (chainParam?.getAsJsonObject("params")
+                ?.getAsJsonObject("staking_params")?.has("params") == true) {
+            chainParam?.getAsJsonObject("params")
+                ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
+        } else {
+            chainParam?.getAsJsonObject("params")
+                ?.getAsJsonObject("staking_params")?.getAsJsonObject("Params")
+        }
+        val unBondingTime = stakeParams?.get("unbonding_time")?.asString ?: ""
+
         return if (unBondingTime.isNotEmpty()) {
             unBondingTime.replace("s", "").toInt().div(60).div(60).div(24).toString()
         } else {

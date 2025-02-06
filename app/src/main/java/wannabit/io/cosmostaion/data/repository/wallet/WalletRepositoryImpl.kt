@@ -714,7 +714,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             safeApiCall(Dispatchers.IO) {
                 lcdApi(chain).lcdUnBondedValidatorInfo()
-                    .validators(com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_BONDED)
+                    .validators(com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_UNBONDED)
             }
         }
     }
@@ -723,7 +723,7 @@ class WalletRepositoryImpl : WalletRepository {
         channel: ManagedChannel?, chain: ChainZenrock
     ): NetworkResult<MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV>> {
         return if (chain.zenrockFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-            channel?.let { managedChannel ->
+            channel?.let {
                 val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
                 val stub = com.zrchain.validation.QueryGrpc.newBlockingStub(channel)
                     .withDeadlineAfter(duration, TimeUnit.SECONDS)

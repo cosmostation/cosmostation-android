@@ -22,6 +22,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -41,6 +42,7 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.info.InitiaUnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
+import wannabit.io.cosmostaion.ui.tx.info.ZenrockUnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetFragment
@@ -58,6 +60,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
     private lateinit var selectedChain: BaseChain
     private lateinit var unBondingEntry: UnBondingEntry
     private lateinit var initiaUnBondingEntry: InitiaUnBondingEntry
+    private lateinit var zenrockUnBondingEntry: ZenrockUnBondingEntry
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -70,13 +73,15 @@ class CancelUnBondingFragment : BaseTxFragment() {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain,
-            unBondingEntry: UnBondingEntry?,
-            initiaUnBondingEntry: InitiaUnBondingEntry?
+            unBondingEntry: UnBondingEntry? = null,
+            initiaUnBondingEntry: InitiaUnBondingEntry? = null,
+            zenrockUnBondingEntry: ZenrockUnBondingEntry? = null
         ): CancelUnBondingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putParcelable("unBondingEntry", unBondingEntry)
                 putParcelable("initiaUnBondingEntry", initiaUnBondingEntry)
+                putParcelable("zenrockUnBondingEntry", zenrockUnBondingEntry)
             }
             val fragment = CancelUnBondingFragment()
             fragment.arguments = args
@@ -115,6 +120,9 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     getParcelable("initiaUnBondingEntry", InitiaUnBondingEntry::class.java)?.let {
                         initiaUnBondingEntry = it
                     }
+                    getParcelable("zenrockUnBondingEntry", ZenrockUnBondingEntry::class.java)?.let {
+                        zenrockUnBondingEntry = it
+                    }
                 }
 
             } else {
@@ -128,6 +136,9 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     (getParcelable("initiaUnBondingEntry") as? InitiaUnBondingEntry)?.let {
                         initiaUnBondingEntry = it
                     }
+                    (getParcelable("zenrockUnBondingEntry") as? ZenrockUnBondingEntry)?.let {
+                        zenrockUnBondingEntry = it
+                    }
                 }
             }
 
@@ -138,24 +149,33 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
             var unBondingAmount: BigDecimal?
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                if (selectedChain is ChainInitiaTestnet) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
-                        ?.let { validator ->
-                            validatorName.text = validator.description.moniker
-                        }
-
-                    unBondingAmount =
+                unBondingAmount = when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
+                            ?.let { validator ->
+                                validatorName.text = validator.description.moniker
+                            }
                         initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                    }
 
-                } else {
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
-                        ?.let { validator ->
-                            validatorName.text = validator.description.moniker
-                        }
+                    is ChainZenrock -> {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == zenrockUnBondingEntry.validatorAddress }
+                            ?.let { validator ->
+                                validatorName.text = validator.description.moniker
+                            }
+                        zenrockUnBondingEntry.entry?.balance?.toBigDecimal()
+                            ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                    }
 
-                    unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
-                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                    else -> {
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
+                            ?.let { validator ->
+                                validatorName.text = validator.description.moniker
+                            }
+                        unBondingEntry.entry?.balance?.toBigDecimal()
+                            ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
+                    }
                 }
 
                 cancelAmount.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
@@ -310,8 +330,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -484,27 +504,42 @@ class CancelUnBondingFragment : BaseTxFragment() {
     }
 
     private fun onBindCancelUnBondingMsg(): MutableList<Any> {
-        return if (selectedChain is ChainInitiaTestnet) {
-            val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-                .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount)
-                .build()
-            val msgCancelUnbondingDelegation =
-                com.initia.mstaking.v1.TxProto.MsgCancelUnbondingDelegation.newBuilder()
-                    .setDelegatorAddress(selectedChain.address)
-                    .setValidatorAddress(initiaUnBondingEntry.validatorAddress)
-                    .setCreationHeight(initiaUnBondingEntry.entry!!.creationHeight)
-                    .addAmount(toCoin).build()
-            Signer.initiaCancelUnbondingMsg(msgCancelUnbondingDelegation)
+        return when (selectedChain) {
+            is ChainInitiaTestnet -> {
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                    .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount)
+                    .build()
+                val msgCancelUnbondingDelegation =
+                    com.initia.mstaking.v1.TxProto.MsgCancelUnbondingDelegation.newBuilder()
+                        .setDelegatorAddress(selectedChain.address)
+                        .setValidatorAddress(initiaUnBondingEntry.validatorAddress)
+                        .setCreationHeight(initiaUnBondingEntry.entry!!.creationHeight)
+                        .addAmount(toCoin).build()
+                Signer.initiaCancelUnbondingMsg(msgCancelUnbondingDelegation)
+            }
 
-        } else {
-            val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-                .setAmount(unBondingEntry.entry?.balance).build()
-            val msgCancelUnbondingDelegation =
-                MsgCancelUnbondingDelegation.newBuilder().setDelegatorAddress(selectedChain.address)
+            is ChainZenrock -> {
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                    .setAmount(zenrockUnBondingEntry.entry?.balance).build()
+                val msgCancelUnbondingDelegation =
+                    com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation.newBuilder()
+                        .setDelegatorAddress(selectedChain.address)
+                        .setValidatorAddress(zenrockUnBondingEntry.validatorAddress)
+                        .setCreationHeight(zenrockUnBondingEntry.entry!!.creationHeight).setAmount(toCoin)
+                        .build()
+                Signer.zenrockCancelUnbondingMsg(msgCancelUnbondingDelegation)
+            }
+
+            else -> {
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                    .setAmount(unBondingEntry.entry?.balance).build()
+                val msgCancelUnbondingDelegation = MsgCancelUnbondingDelegation.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
                     .setValidatorAddress(unBondingEntry.validatorAddress)
                     .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin)
                     .build()
-            Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+                Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+            }
         }
     }
 

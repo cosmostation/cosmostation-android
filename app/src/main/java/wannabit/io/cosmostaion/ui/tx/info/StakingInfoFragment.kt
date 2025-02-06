@@ -265,6 +265,16 @@ class StakingInfoFragment : Fragment() {
                 )
             )
         }
+
+        override fun selectZenrockUnStakingCancelAction(zenrockUnBondingEntry: ZenrockUnBondingEntry?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain,
+                    zenrockUnBondingEntry = zenrockUnBondingEntry,
+                    optionType = OptionType.UNSTAKE
+                )
+            )
+        }
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {

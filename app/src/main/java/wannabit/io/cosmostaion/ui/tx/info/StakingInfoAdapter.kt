@@ -86,27 +86,43 @@ class StakingInfoAdapter(
 
             OptionType.UNSTAKE -> {
                 if (holder is UnstakingViewHolder) {
-                    if (selectedChain is ChainInitiaTestnet) {
-                        initiaUnBondings?.get(position)?.let { entry ->
-                            initiaValidators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                                ?.let { validator ->
-                                    holder.initiaBind(
-                                        selectedChain, validator, entry, listener
-                                    )
-                                } ?: run {
-                                holder.notBind()
+                    when (selectedChain) {
+                        is ChainInitiaTestnet -> {
+                            initiaUnBondings?.get(position)?.let { entry ->
+                                initiaValidators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.initiaBind(
+                                            selectedChain, validator, entry, listener
+                                        )
+                                    } ?: run {
+                                    holder.notBind()
+                                }
                             }
                         }
 
-                    } else {
-                        unBondings?.get(position)?.let { entry ->
-                            validators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
-                                ?.let { validator ->
-                                    holder.bind(
-                                        selectedChain, validator, entry, listener
-                                    )
-                                } ?: run {
-                                holder.notBind()
+                        is ChainZenrock -> {
+                            zenrockUnBondings?.get(position)?.let { entry ->
+                                zenrockValidators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.zenrockBind(
+                                            selectedChain, validator, entry, listener
+                                        )
+                                    } ?: run {
+                                    holder.notBind()
+                                }
+                            }
+                        }
+
+                        else -> {
+                            unBondings?.get(position)?.let { entry ->
+                                validators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
+                                    ?.let { validator ->
+                                        holder.bind(
+                                            selectedChain, validator, entry, listener
+                                        )
+                                    } ?: run {
+                                    holder.notBind()
+                                }
                             }
                         }
                     }
@@ -138,5 +154,6 @@ class StakingInfoAdapter(
         fun selectZenrockStakingAction(validator: com.zrchain.validation.HybridValidationProto.ValidatorHV?)
         fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?)
         fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?)
+        fun selectZenrockUnStakingCancelAction(zenrockUnBondingEntry: ZenrockUnBondingEntry?)
     }
 }

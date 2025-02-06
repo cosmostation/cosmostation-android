@@ -235,6 +235,15 @@ object Signer {
         return msgAnys
     }
 
+    fun zenrockUnDelegateMsg(msgUndelegate: com.zrchain.validation.TxProto.MsgUndelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgUndelegate")
+                .setValue(msgUndelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -253,6 +262,15 @@ object Signer {
         return msgAnys
     }
 
+    fun zenrockReDelegateMsg(msgReDelegate: com.zrchain.validation.TxProto.MsgBeginRedelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgBeginRedelegate")
+                .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -266,6 +284,15 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgCancelUnbondingDelegation")
+                .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun zenrockCancelUnbondingMsg(msgCancelUnbondingDelegation: com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgCancelUnbondingDelegation")
                 .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
         )
         return msgAnys

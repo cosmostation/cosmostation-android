@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto.Validator
+import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTime
@@ -89,6 +91,41 @@ class UnstakingViewHolder(
                         remainDay.text = gapTime(it.seconds * 1000)
                         unstakingDay.text = dpTime(it.seconds * 1000)
                     }
+                }
+            }
+        }
+    }
+
+    fun zenrockBind(
+        chain: ChainZenrock,
+        validator: HybridValidationProto.ValidatorHV,
+        entry: ZenrockUnBondingEntry,
+        listener: StakingInfoAdapter.ClickListener
+    ) {
+        binding.apply {
+            unstakingView.setBackgroundResource(R.drawable.item_bg)
+            unstakingView.setOnClickListener {
+                listener.selectZenrockUnStakingCancelAction(entry)
+            }
+
+            monikerImg.setMonikerImg(chain, validator.operatorAddress)
+            moniker.text = validator.description?.moniker
+            val statusImage = when {
+                validator.jailed -> R.drawable.icon_jailed
+                !validator.isActiveValidator(chain) -> R.drawable.icon_inactive
+                else -> 0
+            }
+            jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+            jailedImg.setImageResource(statusImage)
+
+            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                val unBondingAmount =
+                    entry.entry?.balance?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
+                unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
+
+                entry.entry?.completionTime?.let {
+                    remainDay.text = gapTime(it.seconds * 1000)
+                    unstakingDay.text = dpTime(it.seconds * 1000)
                 }
             }
         }
