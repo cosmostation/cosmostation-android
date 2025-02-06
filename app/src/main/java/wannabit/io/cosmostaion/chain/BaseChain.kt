@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAaron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
@@ -153,6 +154,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -637,6 +639,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAgoric118())
     chains.add(ChainAiozEvm())
     chains.add(ChainAkash())
+    chains.add(ChainAllora())
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainArbitrum())
@@ -776,6 +779,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNillionTestnet())
     chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
+    chains.add(ChainXionTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
