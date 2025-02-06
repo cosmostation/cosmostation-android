@@ -68,7 +68,13 @@ class TokenEditViewHolder(
                                     }
 
                                 } else {
-                                    walletViewModel.erc20Balance(chain, token)
+                                    skeletonTokenAmount.visibility = View.VISIBLE
+                                    skeletonTokenValue.visibility = View.VISIBLE
+                                    tokenAmount.text = ""
+                                    tokenValue.text = ""
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        walletViewModel.erc20Balance(chain, token)
+                                    }
                                 }
                             }
                     }
