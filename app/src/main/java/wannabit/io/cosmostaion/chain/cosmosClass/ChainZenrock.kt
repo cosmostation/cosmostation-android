@@ -28,8 +28,8 @@ class ChainZenrock : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "urock"
     override var accountPrefix: String = "zen"
-    override var grpcHost: String = "grpc.diamond.zenrocklabs.io"
-    override var lcdUrl: String = "https://api.diamond.zenrocklabs.io/"
+    override var grpcHost: String = "grpc.zenrock.nodestake.org"
+    override var lcdUrl: String = "https://api.zenrock.nodestake.org/"
 
     override fun cosmosFetcher(): CosmosFetcher? {
         if (cosmosFetcher == null) {

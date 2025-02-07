@@ -413,7 +413,11 @@ class WalletRepositoryImpl : WalletRepository {
 
         try {
             val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
-            val function = Function("balanceOf", params, returnTypes)
+            val function = if (token.symbol == "BGT") {
+                Function("unboostedBalanceOf", params, returnTypes)
+            } else {
+                Function("balanceOf", params, returnTypes)
+            }
 
             val txData = FunctionEncoder.encode(function)
             val response = chain.web3j?.ethCall(
@@ -428,6 +432,7 @@ class WalletRepositoryImpl : WalletRepository {
                 token.amount = "0"
             }
             token.fetched = true
+
         } catch (e: Exception) {
             token.amount = "0"
             token.fetched = false
