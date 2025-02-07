@@ -23,16 +23,16 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "aevmos"
     override var accountPrefix: String = "evmos"
-    override var grpcHost: String = "grpc-evmos.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-evmos.cosmostation.io/"
+    override var grpcHost: String = "evmos-grpc.stake-town.com"
+    override var lcdUrl: String = "https://evmos-api.polkachu.com/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "EVMOS"
     override var coinGeckoId: String = "evmos"
     override var coinLogo: Int = R.drawable.token_evmos
     override var addressLogo: Int = R.drawable.icon_evmos_address
-    override var evmRpcURL: String = "https://rpc-evmos-evm.cosmostation.io"
+    override var evmRpcURL: String = "https://evmos-evm.publicnode.com"
 }

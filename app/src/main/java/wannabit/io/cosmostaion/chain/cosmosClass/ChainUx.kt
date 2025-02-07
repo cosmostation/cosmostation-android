@@ -23,9 +23,9 @@ class ChainUx : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uumee"
     override var accountPrefix: String = "umee"
-    override var grpcHost: String = "grpc-umee.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-umee.cosmostation.io/"
+    override var grpcHost: String = "umee-grpc.stake-town.com"
+    override var lcdUrl: String = "https://umee-api.polkachu.com/"
 }

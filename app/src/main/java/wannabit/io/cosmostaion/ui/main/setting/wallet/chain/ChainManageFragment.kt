@@ -91,11 +91,11 @@ class ChainManageFragment : Fragment() {
         if (isClickable) {
             isClickable = false
 
-            if (chain is ChainOktEvm || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
+            if (chain is ChainOktEvm || chain is ChainBitCoin86) {
                 isClickable = true
                 return
             }
-            val settingType = if (chain is ChainSui) {
+            val settingType = if (chain is ChainSui || chain is ChainGnoTestnet) {
                 SettingType.END_POINT_SUI
             } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                 SettingType.END_POINT_COSMOS

@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.StakingFragment
@@ -83,25 +84,46 @@ class StakeInfoFragment : Fragment() {
             }.attach()
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val delegations = if (selectedChain is ChainInitiaTestnet) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
-                        ?: mutableListOf()
-                } else {
-                    selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
-                }
-                val unBondings = if (selectedChain is ChainInitiaTestnet) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unbonding ->
-                        unbonding.entriesList.map { entry ->
-                            InitiaUnBondingEntry(unbonding.validatorAddress, entry)
-                        }
-                    }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                val delegations = when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
+                            ?: mutableListOf()
+                    }
 
-                } else {
-                    selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
-                        unBonding.entriesList.map { entry ->
-                            UnBondingEntry(unBonding.validatorAddress, entry)
-                        }
-                    }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                    is ChainZenrock -> {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockDelegations
+                            ?: mutableListOf()
+                    }
+
+                    else -> {
+                        selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                    }
+                }
+
+                val unBondings = when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unBonding ->
+                            unBonding.entriesList.map { entry ->
+                                InitiaUnBondingEntry(unBonding.validatorAddress, entry)
+                            }
+                        }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                    }
+
+                    is ChainZenrock -> {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockUnbondings?.flatMap { unBonding ->
+                            unBonding.entriesList.map { entry ->
+                                ZenrockUnBondingEntry(unBonding.validatorAddress, entry)
+                            }
+                        }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                    }
+
+                    else -> {
+                        selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                            unBonding.entriesList.map { entry ->
+                                UnBondingEntry(unBonding.validatorAddress, entry)
+                            }
+                        }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                    }
                 }
 
                 withContext(Dispatchers.Main) {
@@ -173,6 +195,12 @@ data class UnBondingEntry(
 data class InitiaUnBondingEntry(
     val validatorAddress: String?,
     val entry: com.initia.mstaking.v1.StakingProto.UnbondingDelegationEntry?
+) : Parcelable
+
+@Parcelize
+data class ZenrockUnBondingEntry(
+    val validatorAddress: String?,
+    val entry: com.zrchain.validation.StakingProto.UnbondingDelegationEntry?
 ) : Parcelable
 
 enum class OptionType { STAKE, UNSTAKE }

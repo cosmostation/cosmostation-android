@@ -35,13 +35,14 @@ import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentDepositEarningBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
@@ -50,7 +51,6 @@ import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -285,12 +285,8 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(
-                        selectedChain,
-                        null,
-                        null,
-                        null,
-                        object : ValidatorDefaultListener {
+                    ValidatorDefaultFragment(selectedChain,
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
                                     selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
@@ -318,14 +314,11 @@ class DepositEarningFragment : BaseTxFragment() {
 
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
-                    MemoFragment.newInstance(
-                        selectedChain,
-                        txMemo,
-                        object : MemoListener {
-                            override fun memo(memo: String) {
-                                updateMemoView(memo)
-                            }
-                        })
+                    MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
+                        override fun memo(memo: String) {
+                            updateMemoView(memo)
+                        }
+                    })
                 )
             }
 
@@ -374,8 +367,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

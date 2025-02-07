@@ -318,7 +318,7 @@
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
     <string name="title_select_end_point">Select End-Point</string>
-    <string name="title_select_end_point_grpc">Select End-Point (gRPC)</string>
+    <string name="title_select_end_point_grpc">Select End-Point</string>
     <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
     <string name="title_select_end_point_sui_rpc">Select End-Point (Sui RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>

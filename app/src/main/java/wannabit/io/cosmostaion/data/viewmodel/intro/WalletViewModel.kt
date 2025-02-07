@@ -19,12 +19,13 @@ import org.bouncycastle.util.encoders.Base64
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -185,136 +186,209 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         chain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         val channel = chain.cosmosFetcher?.getChannel()
-        if (chain is ChainInitiaTestnet) {
-            if (chain.initiaFetcher()?.initiaValidators?.isNotEmpty() == true) {
-                return@launch
-            }
-            val tempValidators = mutableListOf<com.initia.mstaking.v1.StakingProto.Validator>()
-            try {
-                val loadBondedDeferred =
-                    async { walletRepository.initiaBondedValidator(channel, chain) }
-                val loadUnBondedDeferred =
-                    async { walletRepository.initiaUnBondedValidator(channel, chain) }
-                val loadUnBondingDeferred =
-                    async { walletRepository.initiaUnBondingValidator(channel, chain) }
-
-                val bondedValidatorsResult = loadBondedDeferred.await()
-                if (bondedValidatorsResult is NetworkResult.Success) {
-                    bondedValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
-                        }
-                    }
+        when (chain) {
+            is ChainInitiaTestnet -> {
+                if (chain.initiaFetcher()?.initiaValidators?.isNotEmpty() == true) {
+                    return@launch
                 }
-
-                val unBondedValidatorsResult = loadUnBondedDeferred.await()
-                if (unBondedValidatorsResult is NetworkResult.Success) {
-                    unBondedValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
-                        }
-                    }
-                }
-
-                val unBondingValidatorsResult = loadUnBondingDeferred.await()
-                if (unBondingValidatorsResult is NetworkResult.Success) {
-                    unBondingValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
-                        }
-                    }
-                }
-
-                chain.initiaFetcher()?.initiaOriginValidators?.addAll(tempValidators)
-
-                val dataTempValidators = tempValidators.toMutableList()
-                dataTempValidators.sortWith { o1, o2 ->
-                    when {
-                        o1.description.moniker == "Cosmostation" -> -1
-                        o2.description.moniker == "Cosmostation" -> 1
-                        o1.jailed && !o2.jailed -> 1
-                        !o1.jailed && o2.jailed -> -1
-                        o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() > o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> -1
-                        o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() < o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> 1
-                        else -> 0
-                    }
-                }
-                chain.initiaFetcher()?.initiaValidators = dataTempValidators
-
-            } finally {
-                channel?.shutdown()
+                val tempValidators = mutableListOf<com.initia.mstaking.v1.StakingProto.Validator>()
                 try {
-                    if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
-                        channel.shutdownNow()
+                    val loadBondedDeferred =
+                        async { walletRepository.initiaBondedValidator(channel, chain) }
+                    val loadUnBondedDeferred =
+                        async { walletRepository.initiaUnBondedValidator(channel, chain) }
+                    val loadUnBondingDeferred =
+                        async { walletRepository.initiaUnBondingValidator(channel, chain) }
+
+                    val bondedValidatorsResult = loadBondedDeferred.await()
+                    if (bondedValidatorsResult is NetworkResult.Success) {
+                        bondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
+                            }
+                        }
                     }
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+
+                    val unBondedValidatorsResult = loadUnBondedDeferred.await()
+                    if (unBondedValidatorsResult is NetworkResult.Success) {
+                        unBondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
+                            }
+                        }
+                    }
+
+                    val unBondingValidatorsResult = loadUnBondingDeferred.await()
+                    if (unBondingValidatorsResult is NetworkResult.Success) {
+                        unBondingValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.initia.mstaking.v1.StakingProto.Validator>)
+                            }
+                        }
+                    }
+
+                    chain.initiaFetcher()?.initiaOriginValidators?.addAll(tempValidators)
+
+                    val dataTempValidators = tempValidators.toMutableList()
+                    dataTempValidators.sortWith { o1, o2 ->
+                        when {
+                            o1.description.moniker == "Cosmostation" -> -1
+                            o2.description.moniker == "Cosmostation" -> 1
+                            o1.jailed && !o2.jailed -> 1
+                            !o1.jailed && o2.jailed -> -1
+                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() > o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> -1
+                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() < o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> 1
+                            else -> 0
+                        }
+                    }
+                    chain.initiaFetcher()?.initiaValidators = dataTempValidators
+
+                } finally {
+                    channel?.shutdown()
+                    try {
+                        if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
+                            channel.shutdownNow()
+                        }
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
                 }
             }
 
-        } else {
-            if (chain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
-                return@launch
-            }
-            val tempValidators = mutableListOf<StakingProto.Validator>()
-            try {
-                val loadBondedDeferred = async { walletRepository.bondedValidator(channel, chain) }
-                val loadUnBondedDeferred =
-                    async { walletRepository.unBondedValidator(channel, chain) }
-                val loadUnBondingDeferred =
-                    async { walletRepository.unBondingValidator(channel, chain) }
-
-                val bondedValidatorsResult = loadBondedDeferred.await()
-                if (bondedValidatorsResult is NetworkResult.Success) {
-                    bondedValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<StakingProto.Validator>)
-                        }
-                    }
+            is ChainZenrock -> {
+                if (chain.zenrockFetcher()?.zenrockValidators?.isNotEmpty() == true) {
+                    return@launch
                 }
-
-                val unBondedValidatorsResult = loadUnBondedDeferred.await()
-                if (unBondedValidatorsResult is NetworkResult.Success) {
-                    unBondedValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<StakingProto.Validator>)
-                        }
-                    }
-                }
-
-                val unBondingValidatorsResult = loadUnBondingDeferred.await()
-                if (unBondingValidatorsResult is NetworkResult.Success) {
-                    unBondingValidatorsResult.data.let { data ->
-                        if (data is Collection<*>) {
-                            tempValidators.addAll(data as Collection<StakingProto.Validator>)
-                        }
-                    }
-                }
-
-                chain.cosmosFetcher?.cosmosOriginValidators?.addAll(tempValidators)
-
-                val dataTempValidators = tempValidators.toMutableList()
-                dataTempValidators.sortWith { o1, o2 ->
-                    when {
-                        o1.description.moniker == "Cosmostation" -> -1
-                        o2.description.moniker == "Cosmostation" -> 1
-                        o1.jailed && !o2.jailed -> 1
-                        !o1.jailed && o2.jailed -> -1
-                        o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
-                        o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
-                        else -> 0
-                    }
-                }
-                chain.cosmosFetcher?.cosmosValidators = dataTempValidators
-
-            } finally {
-                channel?.shutdown()
+                val tempValidators =
+                    mutableListOf<com.zrchain.validation.HybridValidationProto.ValidatorHV>()
                 try {
-                    if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
-                        channel.shutdownNow()
+                    val loadBondedDeferred =
+                        async { walletRepository.zenrockBondedValidator(channel, chain) }
+                    val loadUnBondedDeferred =
+                        async { walletRepository.zenrockUnBondedValidator(channel, chain) }
+                    val loadUnBondingDeferred =
+                        async { walletRepository.zenrockUnBondingValidator(channel, chain) }
+
+                    val bondedValidatorsResult = loadBondedDeferred.await()
+                    if (bondedValidatorsResult is NetworkResult.Success) {
+                        bondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
+                            }
+                        }
                     }
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+
+                    val unBondedValidatorsResult = loadUnBondedDeferred.await()
+                    if (unBondedValidatorsResult is NetworkResult.Success) {
+                        unBondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
+                            }
+                        }
+                    }
+
+                    val unBondingValidatorsResult = loadUnBondingDeferred.await()
+                    if (unBondingValidatorsResult is NetworkResult.Success) {
+                        unBondingValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
+                            }
+                        }
+                    }
+
+                    chain.zenrockFetcher()?.zenrockOriginValidators?.addAll(tempValidators)
+
+                    val dataTempValidators = tempValidators.toMutableList()
+                    dataTempValidators.sortWith { o1, o2 ->
+                        when {
+                            o1.description.moniker == "Cosmostation" -> -1
+                            o2.description.moniker == "Cosmostation" -> 1
+                            o1.jailed && !o2.jailed -> 1
+                            !o1.jailed && o2.jailed -> -1
+                            o1.tokensNative.toDouble() > o2.tokensNative.toDouble() -> -1
+                            o1.tokensNative.toDouble() < o2.tokensNative.toDouble() -> 1
+                            else -> 0
+                        }
+                    }
+                    chain.zenrockFetcher()?.zenrockValidators = dataTempValidators
+
+                } finally {
+                    channel?.shutdown()
+                    try {
+                        if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
+                            channel.shutdownNow()
+                        }
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+            else -> {
+                if (chain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
+                    return@launch
+                }
+                val tempValidators = mutableListOf<StakingProto.Validator>()
+                try {
+                    val loadBondedDeferred =
+                        async { walletRepository.bondedValidator(channel, chain) }
+                    val loadUnBondedDeferred =
+                        async { walletRepository.unBondedValidator(channel, chain) }
+                    val loadUnBondingDeferred =
+                        async { walletRepository.unBondingValidator(channel, chain) }
+
+                    val bondedValidatorsResult = loadBondedDeferred.await()
+                    if (bondedValidatorsResult is NetworkResult.Success) {
+                        bondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<StakingProto.Validator>)
+                            }
+                        }
+                    }
+
+                    val unBondedValidatorsResult = loadUnBondedDeferred.await()
+                    if (unBondedValidatorsResult is NetworkResult.Success) {
+                        unBondedValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<StakingProto.Validator>)
+                            }
+                        }
+                    }
+
+                    val unBondingValidatorsResult = loadUnBondingDeferred.await()
+                    if (unBondingValidatorsResult is NetworkResult.Success) {
+                        unBondingValidatorsResult.data.let { data ->
+                            if (data is Collection<*>) {
+                                tempValidators.addAll(data as Collection<StakingProto.Validator>)
+                            }
+                        }
+                    }
+
+                    chain.cosmosFetcher?.cosmosOriginValidators?.addAll(tempValidators)
+
+                    val dataTempValidators = tempValidators.toMutableList()
+                    dataTempValidators.sortWith { o1, o2 ->
+                        when {
+                            o1.description.moniker == "Cosmostation" -> -1
+                            o2.description.moniker == "Cosmostation" -> 1
+                            o1.jailed && !o2.jailed -> 1
+                            !o1.jailed && o2.jailed -> -1
+                            o1.tokens.toDouble() > o2.tokens.toDouble() -> -1
+                            o1.tokens.toDouble() < o2.tokens.toDouble() -> 1
+                            else -> 0
+                        }
+                    }
+                    chain.cosmosFetcher?.cosmosValidators = dataTempValidators
+
+                } finally {
+                    channel?.shutdown()
+                    try {
+                        if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
+                            channel.shutdownNow()
+                        }
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }
@@ -496,8 +570,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             else -> {
-                chain.cosmosFetcher()?.let { cosmosFetcher ->
-                    if (cosmosFetcher.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                if (chain is ChainGnoTestnet) {
+                    chain.gnoRpcFetcher()?.let { fetcher ->
                         when (val response = walletRepository.rpcAuth(chain)) {
                             is NetworkResult.Success -> {
                                 if (response.data.isSuccessful) {
@@ -513,7 +587,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                             CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
                                                 .setAmount("0").build()
                                         )
-                                        cosmosFetcher.cosmosBalances = tempBalances
+                                        fetcher.gnoBalances = tempBalances
                                         chain.fetchState = FetchState.SUCCESS
                                         chain.coinCnt = 0
                                         withContext(Dispatchers.Main) {
@@ -535,23 +609,22 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         } else {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
-                                                    .setDenom(chain.stakeDenom)
-                                                    .setAmount("0")
+                                                    .setDenom(chain.stakeDenom).setAmount("0")
                                                     .build()
                                             )
                                         }
 
-                                        cosmosFetcher.cosmosBalances = tempBalances
+                                        fetcher.gnoBalances = tempBalances
                                         chain.fetchState = FetchState.SUCCESS
                                         chain.coinCnt =
-                                            if (cosmosFetcher.cosmosBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
+                                            if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                         withContext(Dispatchers.Main) {
                                             _balanceResult.value = chain.tag
                                         }
                                     }
 
                                 } else {
-                                    chain.cosmosFetcher?.cosmosBalances = null
+                                    fetcher.gnoBalances = null
                                     chain.fetchState = FetchState.FAIL
                                     withContext(Dispatchers.Main) {
                                         _balanceResult.value = chain.tag
@@ -560,15 +633,17 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
 
                             is NetworkResult.Error -> {
-                                chain.cosmosFetcher?.cosmosBalances = null
+                                fetcher.gnoBalances = null
                                 chain.fetchState = FetchState.FAIL
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }
                             }
                         }
+                    }
 
-                    } else {
+                } else {
+                    chain.cosmosFetcher()?.let { cosmosFetcher ->
                         val channel = cosmosFetcher.getChannel()
                         when (val response = walletRepository.balance(channel, chain)) {
                             is NetworkResult.Success -> {

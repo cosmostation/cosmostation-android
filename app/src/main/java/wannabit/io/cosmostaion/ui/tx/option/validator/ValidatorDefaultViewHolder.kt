@@ -5,8 +5,10 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
+import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
@@ -43,8 +45,9 @@ class ValidatorDefaultViewHolder(
                 val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
                 votingPower.text = formatAmount(vpAmount.toString(), 0)
 
-                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                val commissionRate =
+                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
+                        ?.setScale(2, RoundingMode.DOWN)
                 commission.text = formatString("$commissionRate%", 3)
             }
         }
@@ -72,8 +75,36 @@ class ValidatorDefaultViewHolder(
                         ?.movePointLeft(asset.decimals ?: 6)
                 votingPower.text = formatAmount(vpAmount.toString(), 0)
 
-                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
+                val commissionRate =
+                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
+                        ?.setScale(2, RoundingMode.DOWN)
+                commission.text = formatString("$commissionRate%", 3)
+            }
+        }
+    }
+
+    fun zenrockBind(chain: ChainZenrock, validator: HybridValidationProto.ValidatorHV) {
+        binding.apply {
+            monikerImg.setMonikerImg(chain, validator.operatorAddress)
+            monikerName.text = validator.description?.moniker
+            if (validator.jailed) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_jailed)
+            } else if (!validator.isActiveValidator(chain)) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            } else {
+                jailedImg.visibility = View.GONE
+            }
+
+            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                val vpAmount =
+                    validator.tokensNative?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
+                votingPower.text = formatAmount(vpAmount.toString(), 0)
+
+                val commissionRate =
+                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
+                        ?.setScale(2, RoundingMode.DOWN)
                 commission.text = formatString("$commissionRate%", 3)
             }
         }

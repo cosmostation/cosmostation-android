@@ -12,6 +12,7 @@ import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
@@ -23,9 +24,10 @@ interface ValidatorDefaultListener {
 
 class ValidatorDefaultFragment(
     private val selectedChain: BaseChain,
-    private val fromValidator: StakingProto.Validator?,
-    private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator?,
-    private val suiFromValidator: MutableList<JsonObject>?,
+    private val fromValidator: StakingProto.Validator? = null,
+    private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
+    private val fromZenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null,
+    private val suiFromValidator: MutableList<JsonObject>? = null,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
 
@@ -37,6 +39,8 @@ class ValidatorDefaultFragment(
 
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
     private var searchInitiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator> =
+        mutableListOf()
+    private var searchZenrockValidators: MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV> =
         mutableListOf()
     private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
 
@@ -59,13 +63,16 @@ class ValidatorDefaultFragment(
             selectTitle.text = getString(R.string.title_select_validator)
             searchBar.visibility = View.VISIBLE
             searchView.queryHint = getString(R.string.str_search_validator)
-            if (selectedChain is ChainInitiaTestnet) {
-                selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
+            when (selectedChain) {
+                is ChainInitiaTestnet -> selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                     ?.let {
                         searchInitiaValidators.addAll(it)
                     }
-            } else {
-                selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+
+                is ChainZenrock -> selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
+                    ?.let { searchZenrockValidators.addAll(it) }
+
+                else -> selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                     ?.let { searchValidators.addAll(it) }
             }
             if (suiFromValidator != null) {
@@ -96,18 +103,29 @@ class ValidatorDefaultFragment(
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = validatorDefaultAdapter
 
-                if (selectedChain is ChainInitiaTestnet) {
-                    validatorDefaultAdapter.submitList(searchInitiaValidators as List<Any>?)
-                    validatorDefaultAdapter.setOnItemClickListener {
-                        listener.select(it)
-                        dismiss()
+                when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        validatorDefaultAdapter.submitList(searchInitiaValidators as List<Any>?)
+                        validatorDefaultAdapter.setOnItemClickListener {
+                            listener.select(it)
+                            dismiss()
+                        }
                     }
 
-                } else {
-                    validatorDefaultAdapter.submitList(searchValidators as List<Any>?)
-                    validatorDefaultAdapter.setOnItemClickListener {
-                        listener.select(it)
-                        dismiss()
+                    is ChainZenrock -> {
+                        validatorDefaultAdapter.submitList(searchZenrockValidators as List<Any>?)
+                        validatorDefaultAdapter.setOnItemClickListener {
+                            listener.select(it)
+                            dismiss()
+                        }
+                    }
+
+                    else -> {
+                        validatorDefaultAdapter.submitList(searchValidators as List<Any>?)
+                        validatorDefaultAdapter.setOnItemClickListener {
+                            listener.select(it)
+                            dismiss()
+                        }
                     }
                 }
             }
@@ -125,6 +143,8 @@ class ValidatorDefaultFragment(
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
+                    searchInitiaValidators.clear()
+                    searchZenrockValidators.clear()
                     searchSuiValidators.clear()
 
                     if (StringUtils.isEmpty(newText)) {
@@ -132,8 +152,25 @@ class ValidatorDefaultFragment(
                             searchSuiValidators.addAll(suiFromValidator)
                             suiValidatorDefaultAdapter.notifyDataSetChanged()
                         } else {
-                            selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
-                                ?.let { searchValidators.addAll(it) }
+                            when (selectedChain) {
+                                is ChainInitiaTestnet -> {
+                                    selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
+                                        ?.let {
+                                            searchInitiaValidators.addAll(it)
+                                        }
+                                }
+
+                                is ChainZenrock -> {
+                                    selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
+                                        ?.let { searchZenrockValidators.addAll(it) }
+                                }
+
+                                else -> {
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                                        ?.let { searchValidators.addAll(it) }
+
+                                }
+                            }
                             validatorDefaultAdapter.notifyDataSetChanged()
                         }
 
@@ -147,12 +184,35 @@ class ValidatorDefaultFragment(
                                 suiValidatorDefaultAdapter.notifyDataSetChanged()
 
                             } else {
-                                selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
-                                    ?.filter { validator ->
-                                        validator.description.moniker.contains(
-                                            searchTxt, ignoreCase = true
-                                        )
-                                    }?.let { searchValidators.addAll(it) }
+                                when (selectedChain) {
+                                    is ChainInitiaTestnet -> {
+                                        selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
+                                            ?.filter { validator ->
+                                                validator.description.moniker.contains(
+                                                    searchTxt, ignoreCase = true
+                                                )
+                                            }?.let { searchInitiaValidators.addAll(it) }
+
+                                    }
+
+                                    is ChainZenrock -> {
+                                        selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
+                                            ?.filter { validator ->
+                                                validator.description.moniker.contains(
+                                                    searchTxt, ignoreCase = true
+                                                )
+                                            }?.let { searchZenrockValidators.addAll(it) }
+                                    }
+
+                                    else -> {
+                                        selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
+                                            ?.filter { validator ->
+                                                validator.description.moniker.contains(
+                                                    searchTxt, ignoreCase = true
+                                                )
+                                            }?.let { searchValidators.addAll(it) }
+                                    }
+                                }
                                 validatorDefaultAdapter.notifyDataSetChanged()
                             }
                         }

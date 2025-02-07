@@ -208,6 +208,15 @@ object Signer {
         return msgAnys
     }
 
+    fun zenrockDelegateMsg(msgDelegate: com.zrchain.validation.TxProto.MsgDelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgDelegate")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -221,6 +230,15 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgUndelegate")
+                .setValue(msgUndelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun zenrockUnDelegateMsg(msgUndelegate: com.zrchain.validation.TxProto.MsgUndelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgUndelegate")
                 .setValue(msgUndelegate?.toByteString()).build()
         )
         return msgAnys
@@ -244,6 +262,15 @@ object Signer {
         return msgAnys
     }
 
+    fun zenrockReDelegateMsg(msgReDelegate: com.zrchain.validation.TxProto.MsgBeginRedelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgBeginRedelegate")
+                .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun cancelUnbondingMsg(msgCancelUnbondingDelegation: MsgCancelUnbondingDelegation?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -257,6 +284,15 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgCancelUnbondingDelegation")
+                .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun zenrockCancelUnbondingMsg(msgCancelUnbondingDelegation: com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgCancelUnbondingDelegation")
                 .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
         )
         return msgAnys
@@ -674,15 +710,15 @@ object Signer {
             amount = msgSend.amount
         )
         msgs.add(msg)
-        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 10000000L)
+        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
         val pubKey =
             generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain.privateKey).privateKeyAsHex)
 
         val signPayload = SignPayload(
             chain.chainIdCosmos,
-            chain.cosmosFetcher()?.cosmosAccountNumber.toString(),
-            chain.cosmosFetcher()?.cosmosSequence.toString(),
+            (chain as ChainGnoTestnet).gnoRpcFetcher()?.gnoAccountNumber.toString(),
+            chain.gnoRpcFetcher()?.gnoSequence.toString(),
             wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
             msgs
         )
@@ -705,6 +741,28 @@ object Signer {
         return builder.setFee(txFee).addSignatures(signatures).setMemo(memo).build()
     }
 
+    fun signRpcSendSimulateTx(
+        msgSend: BankProto.MsgSend, fee: Fee?, memo: String, chain: BaseChain
+    ): Tx {
+        val msgs: MutableList<Msgs> = mutableListOf()
+        val msg = Msgs(
+            "/bank.MsgSend",
+            from_address = chain.address,
+            to_address = msgSend.toAddress,
+            amount = msgSend.amount
+        )
+        msgs.add(msg)
+        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
+            .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val builder = Tx.newBuilder()
+        gnoSendMsg(msgSend).forEach { msgAny ->
+            builder.addMessages(msgAny)
+        }
+
+        return builder.setFee(txFee).setMemo(memo).addSignatures(TxSignature.newBuilder().build())
+            .build()
+    }
+
     fun signRpcCallBroadcastTx(
         msgCall: MsgCall?, fee: Fee?, memo: String, chain: BaseChain
     ): Tx {
@@ -725,8 +783,8 @@ object Signer {
 
         val signPayload = SignPayload(
             chain.chainIdCosmos,
-            chain.cosmosFetcher()?.cosmosAccountNumber.toString(),
-            chain.cosmosFetcher()?.cosmosSequence.toString(),
+            (chain as ChainGnoTestnet).gnoRpcFetcher()?.gnoAccountNumber.toString(),
+            chain.gnoRpcFetcher()?.gnoSequence.toString(),
             wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
             msgs
         )
@@ -747,6 +805,30 @@ object Signer {
             builder.addMessages(msgAny)
         }
         return builder.setFee(txFee).addSignatures(signatures).setMemo(memo).build()
+    }
+
+    fun signRpcCallSimulateTx(
+        msgCall: MsgCall?, fee: Fee?, memo: String, chain: BaseChain
+    ): Tx {
+        val msgs: MutableList<Msgs> = mutableListOf()
+        val msg = Msgs(
+            "/vm.m_call",
+            send = "",
+            caller = chain.address,
+            pkg_path = msgCall?.pkgPath,
+            func = "Transfer",
+            args = listOf(msgCall?.getArgs(0).toString(), msgCall?.getArgs(1).toString())
+        )
+        msgs.add(msg)
+        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
+            .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val builder = Tx.newBuilder()
+        msgCallMsg(msgCall).forEach { msgAny ->
+            builder.addMessages(msgAny)
+        }
+
+        return builder.setFee(txFee).setMemo(memo).addSignatures(TxSignature.newBuilder().build())
+            .build()
     }
 
     private fun grpcTxBody(

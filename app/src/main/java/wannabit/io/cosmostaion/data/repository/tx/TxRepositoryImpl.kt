@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -50,6 +49,7 @@ import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -152,12 +152,12 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+        return if (chain is ChainGnoTestnet) {
             val authRequest = JsonRpcRequest(
                 method = "abci_query",
                 params = listOf("auth/accounts/${chain.address}", "", "0", true)
             )
-            val authResponse = jsonRpcResponse(chain.mainUrl, authRequest)
+            val authResponse = jsonRpcResponse(chain.gnoRpcFetcher()?.gnoRpc() ?: chain.mainUrl, authRequest)
             val jsonResponse = Gson().fromJson(
                 authResponse.body?.string(), JsonObject::class.java
             )
@@ -166,9 +166,9 @@ class TxRepositoryImpl : TxRepository {
             val decodeData = formatJsonString(String(Base64.decode(data)))
             val dataJson = Gson().fromJson(decodeData, JsonObject::class.java)
             val accountData = dataJson["BaseAccount"].asJsonObject
-            chain.cosmosFetcher()?.cosmosAccountNumber =
+            chain.gnoRpcFetcher()?.gnoAccountNumber =
                 accountData["account_number"].asString.toLong()
-            chain.cosmosFetcher()?.cosmosSequence = accountData["sequence"].asString.toLong()
+            chain.gnoRpcFetcher()?.gnoSequence = accountData["sequence"].asString.toLong()
 
         } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = QueryGrpc.newBlockingStub(managedChannel)
@@ -1980,7 +1980,6 @@ class TxRepositoryImpl : TxRepository {
                     }""".trimIndent()
                     bitcoinJS?.mergeFunction(createTxFunction)
                     val hex = bitcoinJS?.executeFunction("createTxFunction()").toString()
-                    Log.e("Test12345 : ", hex)
                     return hex
 
                 } else {
@@ -2021,7 +2020,7 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2036,11 +2035,43 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun simulateSendRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): String {
+        return try {
+            val simulateTx = Signer.signRpcSendSimulateTx(msgSend, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(simulateTx.toByteArray())
+            val simulateRequest = JsonRpcRequest(
+                method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
+            )
+            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
+            val simulateJsonObject = Gson().fromJson(
+                simulateResponse.body?.string(), JsonObject::class.java
+            )
+
+            if (simulateResponse.isSuccessful) {
+                if (!simulateJsonObject.has("error")) {
+                    val value =
+                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                    val responseBase =
+                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+                    responseBase.gasUsed.toString()
+
+                } else {
+                    simulateJsonObject["error"].asJsonObject["message"].asString
+                }
+
+            } else {
+                "Rpc Error"
+            }
+
+        } catch (e: Exception) {
+            e.message.toString()
+        }
+    }
+
     override suspend fun broadcastCallRpcTx(
-        msgCall: VmProto.MsgCall,
-        fee: Fee?,
-        memo: String,
-        selectedChain: BaseChain
+        msgCall: VmProto.MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ): TxResponse? {
         return try {
             val broadcastTx = Signer.signRpcCallBroadcastTx(msgCall, fee, memo, selectedChain)
@@ -2048,7 +2079,7 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2060,6 +2091,41 @@ class TxRepositoryImpl : TxRepository {
             }
         } catch (e: Exception) {
             null
+        }
+    }
+
+    override suspend fun simulateCallRpcTx(
+        msgCall: VmProto.MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): String {
+        return try {
+            val simulateTx = Signer.signRpcCallSimulateTx(msgCall, fee, memo, selectedChain)
+            val txByte = Base64.toBase64String(simulateTx.toByteArray())
+            val simulateRequest = JsonRpcRequest(
+                method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
+            )
+            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
+            val simulateJsonObject = Gson().fromJson(
+                simulateResponse.body?.string(), JsonObject::class.java
+            )
+
+            if (simulateResponse.isSuccessful) {
+                if (!simulateJsonObject.has("error")) {
+                    val value =
+                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                    val responseBase =
+                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+                    responseBase.gasUsed.toString()
+
+                } else {
+                    simulateJsonObject["error"].asJsonObject["message"].asString
+                }
+
+            } else {
+                "Rpc Error"
+            }
+
+        } catch (e: Exception) {
+            e.message.toString()
         }
     }
 }

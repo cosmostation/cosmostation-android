@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
 
 @Parcelize
 class ChainGnoTestnet : BaseChain(), Parcelable {
@@ -27,5 +28,12 @@ class ChainGnoTestnet : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_RPC
     override var stakeDenom: String = "ugnot"
     override var accountPrefix: String = "g"
-    override var mainUrl: String = "https://rpc.test5.gno.land"
+    override var mainUrl: String = "https://rpc.gno.land"
+
+    fun gnoRpcFetcher(): GnoFetcher? {
+        if (gnoRpcFetcher == null) {
+            gnoRpcFetcher = GnoFetcher(this)
+        }
+        return gnoRpcFetcher
+    }
 }

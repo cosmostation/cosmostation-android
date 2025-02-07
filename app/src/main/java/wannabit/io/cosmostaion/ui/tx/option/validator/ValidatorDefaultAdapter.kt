@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.initia.mstaking.v1.StakingProto
+import com.zrchain.validation.HybridValidationProto.ValidatorHV
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
 
@@ -24,23 +26,32 @@ class ValidatorDefaultAdapter(
     }
 
     override fun onBindViewHolder(holder: ValidatorDefaultViewHolder, position: Int) {
-        if (selectedChain is ChainInitiaTestnet) {
-            val validator = currentList[position]
-            holder.initiaBind(selectedChain, validator as StakingProto.Validator)
-
-            holder.itemView.setOnClickListener {
-                onItemClickListener?.let {
-                    it(validator.operatorAddress)
+        val validator = currentList[position]
+        when (selectedChain) {
+            is ChainInitiaTestnet -> {
+                holder.initiaBind(selectedChain, validator as StakingProto.Validator)
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(validator.operatorAddress)
+                    }
                 }
             }
 
-        } else {
-            val validator = currentList[position]
-            holder.bind(selectedChain, validator as Validator)
+            is ChainZenrock -> {
+                holder.zenrockBind(selectedChain, validator as ValidatorHV)
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(validator.operatorAddress)
+                    }
+                }
+            }
 
-            holder.itemView.setOnClickListener {
-                onItemClickListener?.let {
-                    it(validator.operatorAddress)
+            else -> {
+                holder.bind(selectedChain, validator as Validator)
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(validator.operatorAddress)
+                    }
                 }
             }
         }

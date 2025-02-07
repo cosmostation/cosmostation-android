@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.assetImg
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -54,8 +55,13 @@ class CoinViewHolder(
                     hideValue.visibility = View.GONE
 
                     coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                    coinAmountValue.text = chain.cosmosFetcher?.denomValue(coin.denom)
-                        ?.let { formatAssetValue(it) }
+                    coinAmountValue.text = if (chain is ChainGnoTestnet) {
+                        chain.gnoRpcFetcher?.denomValue(coin.denom)
+                            ?.let { formatAssetValue(it) }
+                    } else {
+                        chain.cosmosFetcher?.denomValue(coin.denom)
+                            ?.let { formatAssetValue(it) }
+                    }
                 }
             }
         }

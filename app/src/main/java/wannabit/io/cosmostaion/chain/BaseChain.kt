@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAaron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
@@ -106,11 +108,13 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainAiozEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBase
+import wannabit.io.cosmostaion.chain.evmClass.ChainBerachain
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
@@ -135,12 +139,14 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
+import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBerachainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -150,6 +156,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -199,6 +206,7 @@ open class BaseChain : Parcelable {
 
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
+    var gnoRpcFetcher: GnoFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
@@ -225,7 +233,12 @@ open class BaseChain : Parcelable {
         return accountKeyType.hdPath.replace("X", lastPath)
     }
 
-    suspend fun setInfoWithSeed(context: Context, seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String) {
+    suspend fun setInfoWithSeed(
+        context: Context,
+        seed: ByteArray?,
+        parentPath: List<ChildNumber>,
+        lastPath: String
+    ) {
         privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(context, privateKey)
     }
@@ -235,11 +248,21 @@ open class BaseChain : Parcelable {
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address =
-                BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
+                BaseKey.getAddressFromPubKey(
+                    context,
+                    publicKey,
+                    accountKeyType.pubkeyType,
+                    accountPrefix
+                )
 
         } else {
             evmAddress =
-                BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
+                BaseKey.getAddressFromPubKey(
+                    context,
+                    publicKey,
+                    accountKeyType.pubkeyType,
+                    accountPrefix
+                )
             if (supportCosmos()) {
                 address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
             }
@@ -302,9 +325,15 @@ open class BaseChain : Parcelable {
         var feeCoin: CoinProto.Coin? = null
         for (i in 0 until getDefaultFeeCoins(c).size) {
             val minFee = getDefaultFeeCoins(c)[i]
-            if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+            if (this is ChainGnoTestnet && minFee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(minFee.denom))  {
                 feeCoin = minFee
                 break
+
+            } else {
+                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+                    feeCoin = minFee
+                    break
+                }
             }
         }
         if (feeCoin != null) {
@@ -400,6 +429,13 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun simulatedGasAdjustment(): Double {
+        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
+            ?.get("simulated_gas_adjustment")?.asDouble ?: run {
+            1.6
+        }
+    }
+
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -433,8 +469,15 @@ open class BaseChain : Parcelable {
 
     fun isTxFeePayable(c: Context): Boolean {
         getDefaultFeeCoins(c).forEach { fee ->
-            if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
-                return true
+            if (this is ChainGnoTestnet) {
+                if (fee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(fee.denom)) {
+                    return true
+                }
+
+            } else {
+                if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
+                    return true
+                }
             }
         }
         return false
@@ -491,7 +534,8 @@ open class BaseChain : Parcelable {
     }
 
     fun isSupportStaking(): Boolean {
-        return getChainListParam()?.getAsJsonObject("btc_staking")?.get("is_support_staking")?.asBoolean ?: false
+        return getChainListParam()?.getAsJsonObject("btc_staking")
+            ?.get("is_support_staking")?.asBoolean ?: false
     }
 
     fun btcStakingDapp(): String {
@@ -560,6 +604,13 @@ open class BaseChain : Parcelable {
                 return oktFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
                     ?: BigDecimal.ZERO
 
+            } else if (this is ChainGnoTestnet) {
+                val allValue =
+                    gnoRpcFetcher?.allAssetValue(isUsd)
+                        ?.add(gnoRpcFetcher?.allGrc20TokenValue(isUsd))
+                        ?: BigDecimal.ZERO
+                return allValue
+
             } else if (isEvmCosmos()) {
                 val allValue =
                     cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
@@ -590,6 +641,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAgoric118())
     chains.add(ChainAiozEvm())
     chains.add(ChainAkash())
+    chains.add(ChainAllora())
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainArbitrum())
@@ -600,6 +652,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAxelar())
     chains.add(ChainBand())
     chains.add(ChainBase())
+    chains.add(ChainBerachain())
     chains.add(ChainBitcanna())
     chains.add(ChainBitCoin44())
     chains.add(ChainBitCoin49())
@@ -635,6 +688,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFirma())
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
+    chains.add(ChainGgezchain())
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -658,7 +712,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
-    chains.add(ChainMilkyway ())
+    chains.add(ChainMilkyway())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNoble())
@@ -711,6 +765,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
+    chains.add(ChainZenrock())
     chains.add(ChainZetaEvm())
 
 //    chains.add(ChainCosmosTestnet())
@@ -718,6 +773,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainBitcoin44Testnet())
 //    chains.add(ChainBitcoin49Testnet())
     chains.add(ChainBabylonTestnet())
+    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainBitcoin86Testnet())
     chains.add(ChainGnoTestnet())
@@ -727,6 +783,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNillionTestnet())
     chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
+    chains.add(ChainXionTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

@@ -699,7 +699,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             txRepository.auth(null, selectedChain)
-            val response = txRepository.broadcastSendRpcTx(msgSend,fee, memo, selectedChain)
+            val response = txRepository.broadcastSendRpcTx(msgSend, fee, memo, selectedChain)
             broadcast.postValue(response)
         } catch (e: Exception) {
             val errorResponse = txRepository.broadcastSendRpcTx(
@@ -709,18 +709,56 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    fun rpcSendSimulate(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.simulateSendRpcTx(msgSend, fee, memo, selectedChain)
+            if (response.toDoubleOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+        } catch (e: Exception) {
+            val errorResponse = txRepository.simulateSendRpcTx(
+                msgSend, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse)
+        }
+    }
+
     fun rpcCallBroadcast(
         msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             txRepository.auth(null, selectedChain)
-            val response = txRepository.broadcastCallRpcTx(msgCall,fee, memo, selectedChain)
+            val response = txRepository.broadcastCallRpcTx(msgCall, fee, memo, selectedChain)
             broadcast.postValue(response)
         } catch (e: Exception) {
             val errorResponse = txRepository.broadcastCallRpcTx(
                 msgCall, fee, memo, selectedChain
             )
             errorMessage.postValue(errorResponse?.rawLog)
+        }
+    }
+
+    fun rpcCallSimulate(
+        msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(null, selectedChain)
+            val response = txRepository.simulateCallRpcTx(msgCall, fee, memo, selectedChain)
+            if (response.toDoubleOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+        } catch (e: Exception) {
+            val errorResponse = txRepository.simulateCallRpcTx(
+                msgCall, fee, memo, selectedChain
+            )
+            errorMessage.postValue(errorResponse)
         }
     }
 }

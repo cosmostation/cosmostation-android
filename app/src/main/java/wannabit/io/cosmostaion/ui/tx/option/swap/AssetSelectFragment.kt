@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.TargetAsset
 import java.math.BigDecimal
@@ -116,11 +117,21 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 val assetAmounts = mutableMapOf<String, BigDecimal>()
 
                 swapAssets?.forEach { asset ->
-                    selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
-                        assetValues[asset.denom] = value
-                    }
-                    selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount ->
-                        assetAmounts[asset.denom] = amount
+                    if (selectedChain is ChainGnoTestnet) {
+                        selectedChain.gnoRpcFetcher?.balanceValue(asset.denom)?.let { value ->
+                            assetValues[asset.denom] = value
+                        }
+                        selectedChain.gnoRpcFetcher?.balanceAmount(asset.denom)?.let { amount ->
+                            assetAmounts[asset.denom] = amount
+                        }
+
+                    } else {
+                        selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
+                            assetValues[asset.denom] = value
+                        }
+                        selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount ->
+                            assetAmounts[asset.denom] = amount
+                        }
                     }
                 }
 
@@ -177,11 +188,25 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                         val assetAmounts = mutableMapOf<String, BigDecimal>()
 
                         filteredAssets?.forEach { asset ->
-                            selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
-                                assetValues[asset.denom] = value
-                            }
-                            selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount->
-                                assetAmounts[asset.denom] = amount
+                            if (selectedChain is ChainGnoTestnet) {
+                                selectedChain.gnoRpcFetcher?.balanceValue(asset.denom)
+                                    ?.let { value ->
+                                        assetValues[asset.denom] = value
+                                    }
+                                selectedChain.gnoRpcFetcher?.balanceAmount(asset.denom)
+                                    ?.let { amount ->
+                                        assetAmounts[asset.denom] = amount
+                                    }
+
+                            } else {
+                                selectedChain.cosmosFetcher?.balanceValue(asset.denom)
+                                    ?.let { value ->
+                                        assetValues[asset.denom] = value
+                                    }
+                                selectedChain.cosmosFetcher?.balanceAmount(asset.denom)
+                                    ?.let { amount ->
+                                        assetAmounts[asset.denom] = amount
+                                    }
                             }
                         }
 

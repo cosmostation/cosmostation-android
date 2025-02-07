@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -102,7 +103,7 @@ class TokenViewHolder(
                     }
 
             } ?: run {
-                chain.cosmosFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chain.apiName && token.contract == coin.denom }
+                (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chain.apiName && token.contract == coin.denom }
                     ?.let { token ->
                         tokenImg.setTokenImg(token.image)
                         tokenImg.clipToOutline = true
@@ -126,7 +127,7 @@ class TokenViewHolder(
                                     hideValue.visibility = View.GONE
 
                                     coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                                    chain.cosmosFetcher?.let {
+                                    chain.gnoRpcFetcher?.let {
                                         coinAmountValue.text =
                                             formatAssetValue(it.grc20TokenValue(token.contract))
                                     }

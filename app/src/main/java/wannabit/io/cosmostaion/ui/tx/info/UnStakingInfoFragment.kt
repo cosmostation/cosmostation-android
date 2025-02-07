@@ -12,11 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zrchain.validation.HybridValidationProto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
@@ -73,76 +75,108 @@ class UnStakingInfoFragment : Fragment() {
 
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                if (selectedChain is ChainInitiaTestnet) {
-                    val validators =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators
-                            ?: mutableListOf()
-                    val unBondings =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unbonding ->
-                            unbonding.entriesList.map { entry ->
-                                InitiaUnBondingEntry(unbonding.validatorAddress, entry)
+                when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        val validators =
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators
+                                ?: mutableListOf()
+                        val unBondings =
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unBonding ->
+                                unBonding.entriesList.map { entry ->
+                                    InitiaUnBondingEntry(unBonding.validatorAddress, entry)
+                                }
+                            }?.sortedBy { it.entry?.creationHeight }?.toMutableList()
+                                ?: mutableListOf()
+
+                        withContext(Dispatchers.Main) {
+                            refresher.isRefreshing = false
+                            if (unBondings.isNotEmpty()) {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                stakingInfoAdapter = StakingInfoAdapter(
+                                    selectedChain,
+                                    initiaValidators = validators,
+                                    initiaUnBondings = unBondings,
+                                    optionType = OptionType.UNSTAKE,
+                                    listener = selectClickAction
+                                )
+                                recycler.setHasFixedSize(true)
+                                recycler.layoutManager = LinearLayoutManager(requireContext())
+                                recycler.adapter = stakingInfoAdapter
+
+                            } else {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
                             }
-                        }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
-
-                    withContext(Dispatchers.Main) {
-                        refresher.isRefreshing = false
-                        if (unBondings.isNotEmpty()) {
-                            recycler.visibility = View.VISIBLE
-                            emptyLayout.visibility = View.GONE
-                            stakingInfoAdapter = StakingInfoAdapter(
-                                selectedChain,
-                                mutableListOf(),
-                                mutableListOf(),
-                                mutableListOf(),
-                                validators,
-                                mutableListOf(),
-                                unBondings,
-                                OptionType.UNSTAKE,
-                                selectClickAction
-                            )
-                            recycler.setHasFixedSize(true)
-                            recycler.layoutManager = LinearLayoutManager(requireContext())
-                            recycler.adapter = stakingInfoAdapter
-
-                        } else {
-                            recycler.visibility = View.GONE
-                            emptyLayout.visibility = View.VISIBLE
                         }
                     }
 
-                } else {
-                    val validators =
-                        selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
-                    val unBondings =
-                        selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
-                            unBonding.entriesList.map { entry ->
-                                UnBondingEntry(unBonding.validatorAddress, entry)
+                    is ChainZenrock -> {
+                        val validators =
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators
+                                ?: mutableListOf()
+                        val unBondings =
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockUnbondings?.flatMap { unBonding ->
+                                unBonding.entriesList.map { entry ->
+                                    ZenrockUnBondingEntry(unBonding.validatorAddress, entry)
+                                }
+                            }?.sortedBy { it.entry?.creationHeight }?.toMutableList()
+                                ?: mutableListOf()
+
+                        withContext(Dispatchers.Main) {
+                            refresher.isRefreshing = false
+                            if (unBondings.isNotEmpty()) {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                stakingInfoAdapter = StakingInfoAdapter(
+                                    selectedChain,
+                                    zenrockValidators = validators,
+                                    zenrockUnBondings = unBondings,
+                                    optionType = OptionType.UNSTAKE,
+                                    listener = selectClickAction
+                                )
+                                recycler.setHasFixedSize(true)
+                                recycler.layoutManager = LinearLayoutManager(requireContext())
+                                recycler.adapter = stakingInfoAdapter
+
+                            } else {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
                             }
-                        }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
+                        }
+                    }
 
-                    withContext(Dispatchers.Main) {
-                        refresher.isRefreshing = false
-                        if (unBondings.isNotEmpty()) {
-                            recycler.visibility = View.VISIBLE
-                            emptyLayout.visibility = View.GONE
-                            stakingInfoAdapter = StakingInfoAdapter(
-                                selectedChain,
-                                validators,
-                                mutableListOf(),
-                                unBondings,
-                                mutableListOf(),
-                                mutableListOf(),
-                                mutableListOf(),
-                                OptionType.UNSTAKE,
-                                selectClickAction
-                            )
-                            recycler.setHasFixedSize(true)
-                            recycler.layoutManager = LinearLayoutManager(requireContext())
-                            recycler.adapter = stakingInfoAdapter
+                    else -> {
+                        val validators =
+                            selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
+                        val unBondings =
+                            selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                                unBonding.entriesList.map { entry ->
+                                    UnBondingEntry(unBonding.validatorAddress, entry)
+                                }
+                            }?.sortedBy { it.entry?.creationHeight }?.toMutableList()
+                                ?: mutableListOf()
 
-                        } else {
-                            recycler.visibility = View.GONE
-                            emptyLayout.visibility = View.VISIBLE
+                        withContext(Dispatchers.Main) {
+                            refresher.isRefreshing = false
+                            if (unBondings.isNotEmpty()) {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                                stakingInfoAdapter = StakingInfoAdapter(
+                                    selectedChain,
+                                    validators = validators,
+                                    unBondings = unBondings,
+                                    optionType = OptionType.UNSTAKE,
+                                    listener = selectClickAction
+                                )
+                                recycler.setHasFixedSize(true)
+                                recycler.layoutManager = LinearLayoutManager(requireContext())
+                                recycler.adapter = stakingInfoAdapter
+
+                            } else {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
@@ -167,7 +201,7 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectStakingAction(validator: StakingProto.Validator?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, validator, null, null, null, OptionType.STAKE
+                    selectedChain, validator = validator, optionType = OptionType.STAKE
                 )
             )
         }
@@ -175,7 +209,15 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectInitiaStakingAction(validator: com.initia.mstaking.v1.StakingProto.Validator?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, validator, null, null, OptionType.STAKE
+                    selectedChain, initiaValidator = validator, optionType = OptionType.STAKE
+                )
+            )
+        }
+
+        override fun selectZenrockStakingAction(validator: HybridValidationProto.ValidatorHV?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain, zenrockValidator = validator, optionType = OptionType.STAKE
                 )
             )
         }
@@ -183,7 +225,7 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, null, unBondingEntry, null, OptionType.UNSTAKE
+                    selectedChain, unBondingEntry = unBondingEntry, optionType = OptionType.UNSTAKE
                 )
             )
         }
@@ -191,7 +233,19 @@ class UnStakingInfoFragment : Fragment() {
         override fun selectInitiaUnStakingCancelAction(initiaUnBondingEntry: InitiaUnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, null, null, null, initiaUnBondingEntry, OptionType.UNSTAKE
+                    selectedChain,
+                    initiaUnBondingEntry = initiaUnBondingEntry,
+                    optionType = OptionType.UNSTAKE
+                )
+            )
+        }
+
+        override fun selectZenrockUnStakingCancelAction(zenrockUnBondingEntry: ZenrockUnBondingEntry?) {
+            handleOneClickWithDelay(
+                StakingOptionFragment.newInstance(
+                    selectedChain,
+                    zenrockUnBondingEntry = zenrockUnBondingEntry,
+                    optionType = OptionType.UNSTAKE
                 )
             )
         }

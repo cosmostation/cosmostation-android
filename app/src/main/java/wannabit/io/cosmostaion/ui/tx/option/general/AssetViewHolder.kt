@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.tx.option.general
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
@@ -23,18 +24,20 @@ class AssetViewHolder(
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
-                    chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
-                        ?.let { feeCoin ->
-                            val amount =
-                                feeCoin.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
-                            val price = BaseData.getPrice(asset.coinGeckoId)
-                            val value = price.multiply(amount)
+                    val feeCoin = if (chain is ChainGnoTestnet) {
+                        chain.gnoRpcFetcher?.gnoBalances?.firstOrNull { it.denom == denom }
+                    } else {
+                        chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
+                    }
 
-                            feeBalance.text =
-                                formatAmount(amount.toPlainString(), asset.decimals ?: 6)
-                            feeValue.text = formatAssetValue(value)
+                    feeCoin?.let {
+                        val amount = it.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)
+                        val price = BaseData.getPrice(asset.coinGeckoId)
+                        val value = price.multiply(amount)
 
-                        } ?: run {
+                        feeBalance.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                        feeValue.text = formatAssetValue(value)
+                    } ?: run {
                         feeBalance.text = formatAssetValue(BigDecimal.ZERO)
                         feeValue.text = formatAssetValue(BigDecimal.ZERO)
                     }

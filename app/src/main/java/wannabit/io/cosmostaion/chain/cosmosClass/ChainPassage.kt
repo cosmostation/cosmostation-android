@@ -23,9 +23,9 @@ class ChainPassage : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "upasg"
     override var accountPrefix: String = "pasg"
-    override var grpcHost: String = "grpc-passage.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-passage.cosmostation.io/"
+    override var grpcHost: String = "passage-grpc.stakerhouse.com"
+    override var lcdUrl: String = "https://rest-passage.ecostake.com/"
 }

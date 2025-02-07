@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -18,6 +17,7 @@ import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -189,6 +189,17 @@ class WalletSelectViewHolder(
                             )
                         )
 
+                    } else if (chain is ChainGnoTestnet) {
+                        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                            val availableAmount =
+                                chain.gnoRpcFetcher?.balanceAmount(chain.stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                            chainBalance.text =
+                                formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                            chainDenom.text = asset.symbol
+                            chainDenom.setTextColor(asset.assetColor())
+                        }
+
                     } else if (chain.supportCosmos()) {
                         if (chain is ChainOktEvm) {
                             updateOktInfo(chain, chain.oktFetcher)
@@ -337,9 +348,18 @@ class WalletSelectViewHolder(
                             chainDenom.text = chain.coinSymbol
                         }
 
-                    } else if (chain.supportCosmos() || chain.cosmosFetcher()
-                            ?.endPointType(chain) == CosmosEndPointType.USE_RPC
-                    ) {
+                    } else if (chain is ChainGnoTestnet) {
+                        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                            val availableAmount =
+                                chain.gnoRpcFetcher?.balanceAmount(chain.stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                            chainBalance.text =
+                                formatAmount(availableAmount.toString(), asset.decimals ?: 6)
+                            chainDenom.text = asset.symbol
+                            chainDenom.setTextColor(asset.assetColor())
+                        }
+
+                    } else if (chain.supportCosmos()) {
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             val availableAmount =
                                 chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)

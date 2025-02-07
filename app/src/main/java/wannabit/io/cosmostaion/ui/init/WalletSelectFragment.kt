@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -185,7 +185,9 @@ class WalletSelectFragment : Fragment() {
                     allChains.asSequence().concurrentForEach { chain ->
                         val safeContext = context ?: return@concurrentForEach
                         if (chain.publicKey == null) {
-                            chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
+                            chain.setInfoWithSeed(
+                                safeContext, seed, chain.setParentPath, lastHDPath
+                            )
                         }
                         if (chain.address.isNotEmpty()) {
                             withContext(Dispatchers.Main) {
@@ -194,9 +196,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
-                                    ?.endPointType(chain) == CosmosEndPointType.USE_RPC
-                            ) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -217,8 +217,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain.cosmosFetcher()
-                                    ?.endPointType(chain) == CosmosEndPointType.USE_RPC) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

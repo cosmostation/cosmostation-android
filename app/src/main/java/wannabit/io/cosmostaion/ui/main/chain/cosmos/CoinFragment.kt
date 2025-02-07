@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -192,36 +193,74 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             }
 
             else -> {
-                selectedChain.cosmosFetcher?.cosmosBalances?.forEach { coin ->
-                    val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                    coinType?.let {
-                        when (it) {
-                            "staking", "native" -> {
-                                if (coin.denom == selectedChain.stakeDenom) {
-                                    stakeCoins.add(
-                                        Coin(
-                                            coin.denom, coin.amount, CoinType.STAKE
+                if (selectedChain is ChainGnoTestnet) {
+                    selectedChain.gnoRpcFetcher?.gnoBalances?.forEach { coin ->
+                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                        coinType?.let {
+                            when (it) {
+                                "staking", "native" -> {
+                                    if (coin.denom == selectedChain.stakeDenom) {
+                                        stakeCoins.add(
+                                            Coin(
+                                                coin.denom, coin.amount, CoinType.STAKE
+                                            )
                                         )
-                                    )
-                                } else {
-                                    nativeCoins.add(
+                                    } else {
+                                        nativeCoins.add(
+                                            Coin(
+                                                coin.denom, coin.amount, CoinType.NATIVE
+                                            )
+                                        )
+                                    }
+                                }
+
+                                "bep", "bridge" -> {
+                                    bridgeCoins.add(
                                         Coin(
-                                            coin.denom, coin.amount, CoinType.NATIVE
+                                            coin.denom, coin.amount, CoinType.BRIDGE
                                         )
                                     )
                                 }
-                            }
 
-                            "bep", "bridge" -> {
-                                bridgeCoins.add(
-                                    Coin(
-                                        coin.denom, coin.amount, CoinType.BRIDGE
+                                "ibc" -> {
+                                    ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+                                }
+                            }
+                        }
+                    }
+
+                } else {
+                    selectedChain.cosmosFetcher?.cosmosBalances?.forEach { coin ->
+                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                        coinType?.let {
+                            when (it) {
+                                "staking", "native" -> {
+                                    if (coin.denom == selectedChain.stakeDenom) {
+                                        stakeCoins.add(
+                                            Coin(
+                                                coin.denom, coin.amount, CoinType.STAKE
+                                            )
+                                        )
+                                    } else {
+                                        nativeCoins.add(
+                                            Coin(
+                                                coin.denom, coin.amount, CoinType.NATIVE
+                                            )
+                                        )
+                                    }
+                                }
+
+                                "bep", "bridge" -> {
+                                    bridgeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.BRIDGE
+                                        )
                                     )
-                                )
-                            }
+                                }
 
-                            "ibc" -> {
-                                ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+                                "ibc" -> {
+                                    ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+                                }
                             }
                         }
                     }
@@ -232,25 +271,46 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 }
                 searchStakeCoins.addAll(stakeCoins)
 
-                nativeCoins.sortWith(compareByDescending {
-                    selectedChain.cosmosFetcher?.balanceValue(
-                        it.denom
-                    )
-                })
+                if (selectedChain is ChainGnoTestnet) {
+                    nativeCoins.sortWith(compareByDescending {
+                        selectedChain.gnoRpcFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+
+                    ibcCoins.sortWith(compareByDescending {
+                        selectedChain.gnoRpcFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+
+                    bridgeCoins.sortWith(compareByDescending {
+                        selectedChain.gnoRpcFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+
+                } else {
+                    nativeCoins.sortWith(compareByDescending {
+                        selectedChain.cosmosFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+
+                    ibcCoins.sortWith(compareByDescending {
+                        selectedChain.cosmosFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+
+                    bridgeCoins.sortWith(compareByDescending {
+                        selectedChain.cosmosFetcher?.balanceValue(
+                            it.denom
+                        )
+                    })
+                }
                 searchNativeCoins.addAll(nativeCoins)
-
-                ibcCoins.sortWith(compareByDescending {
-                    selectedChain.cosmosFetcher?.balanceValue(
-                        it.denom
-                    )
-                })
                 searchIbcCoins.addAll(ibcCoins)
-
-                bridgeCoins.sortWith(compareByDescending {
-                    selectedChain.cosmosFetcher?.balanceValue(
-                        it.denom
-                    )
-                })
                 searchBridgeCoins.addAll(bridgeCoins)
             }
         }
@@ -403,8 +463,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 }
             }
 
-            if (selectedChain.cosmosFetcher?.grc20Tokens?.isNotEmpty() == true) {
-                selectedChain.cosmosFetcher?.grc20Tokens?.let { grc20Tokens.addAll(it) }
+            if (selectedChain.gnoRpcFetcher?.grc20Tokens?.isNotEmpty() == true) {
+                selectedChain.gnoRpcFetcher?.grc20Tokens?.let { grc20Tokens.addAll(it) }
                 grc20Tokens.sortBy { it.symbol.lowercase() }
 
                 Prefs.getDisplayGrc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
@@ -419,9 +479,9 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                             containsToken0 && !containsToken1 -> -1
                             !containsToken0 && containsToken1 -> 1
                             else -> {
-                                val value0 = selectedChain.cosmosFetcher?.grc20TokenValue(address0)
+                                val value0 = selectedChain.gnoRpcFetcher?.grc20TokenValue(address0)
                                     ?: BigDecimal.ZERO
-                                val value1 = selectedChain.cosmosFetcher?.grc20TokenValue(address1)
+                                val value1 = selectedChain.gnoRpcFetcher?.grc20TokenValue(address1)
                                     ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
@@ -450,10 +510,12 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
-                                val value0 = selectedChain.cosmosFetcher?.grc20TokenValue(o1.contract)
-                                    ?: BigDecimal.ZERO
-                                val value1 = selectedChain.cosmosFetcher?.grc20TokenValue(o2.contract)
-                                    ?: BigDecimal.ZERO
+                                val value0 =
+                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o1.contract)
+                                        ?: BigDecimal.ZERO
+                                val value1 =
+                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o2.contract)
+                                        ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
                         }
@@ -696,8 +758,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             dydxTrade.setOnClickListener {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=trade.opsdao.dydxchain")
+                        Intent.ACTION_VIEW, Uri.parse("market://details?id=trade.opsdao.dydxchain")
                     )
                 )
             }
@@ -800,7 +861,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             displayErc20TokenCoins.map { it.contract }
         }
 
-        TokenEditFragment.newInstance(selectedChain,
+        TokenEditFragment.newInstance(
+            selectedChain,
             allTokens,
             displayTokens.toMutableList(),
             object : TokenEditListener {

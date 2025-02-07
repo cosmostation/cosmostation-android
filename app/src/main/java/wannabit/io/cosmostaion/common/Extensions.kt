@@ -56,6 +56,7 @@ import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
@@ -891,6 +892,26 @@ fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: Chain
         }
     } else {
         this.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED
+    }
+}
+
+fun com.zrchain.validation.HybridValidationProto.ValidatorHV.isActiveValidator(chain: ChainZenrock): Boolean {
+    return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
+        val maxProviderConsensusCnt = chain.getInterchainProviderParams()
+            ?.get("max_provider_consensus_validators")?.asString.toString().toInt()
+        val sortedValidators =
+            chain.zenrockFetcher()?.zenrockOriginValidators?.filter { it.status == com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_BONDED }
+                ?.sortedWith { o1, o2 ->
+                    o2.tokensNative.toDouble().compareTo(o1.tokensNative.toDouble())
+                }
+        val index = sortedValidators?.indexOf(this) ?: -1
+        if (index != -1) {
+            index < maxProviderConsensusCnt
+        } else {
+            false
+        }
+    } else {
+        this.status == com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_BONDED
     }
 }
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
@@ -145,9 +146,13 @@ class SettingBottomAdapter(
                     }
 
                     SettingType.END_POINT_SUI.ordinal -> {
-                        val endPoint = currentList[position] as JsonObject
                         if (holder is EndPointViewHolder) {
-                            holder.suiBind(fromChain, endPoint, listener)
+                            val endPoint = currentList[position] as JsonObject
+                            if (fromChain is ChainGnoTestnet) {
+                                holder.rpcBind(fromChain, endPoint, listener)
+                            } else {
+                                holder.suiBind(fromChain, endPoint, listener)
+                            }
                         }
                     }
 

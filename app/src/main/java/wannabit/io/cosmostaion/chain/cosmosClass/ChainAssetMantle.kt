@@ -23,9 +23,9 @@ class ChainAssetMantle : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "umntl"
     override var accountPrefix: String = "mantle"
-    override var grpcHost: String = "grpc-asset-mantle.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-asset-mantle.cosmostation.io/"
+    override var grpcHost: String = "assetmantle-grpc.stakerhouse.com"
+    override var lcdUrl: String = "https://assetmantle-api.polkachu.com/"
 }

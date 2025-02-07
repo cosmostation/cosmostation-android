@@ -5,11 +5,12 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -53,77 +54,90 @@ class CoinCosmosLineViewHolder(
                                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
                             }
 
-                            asset.decimals?.let { decimal ->
-                                val availableAmount = chain.cosmosFetcher?.balanceAmount(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                            val availableAmount = if (chain is ChainGnoTestnet) {
+                                chain.gnoRpcFetcher?.balanceAmount(stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
-                                val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
+                            } else {
+                                chain.cosmosFetcher?.balanceAmount(stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
-                                val stakedAmount =
-                                    chain.cosmosFetcher?.delegationAmountSum()
-                                        ?.movePointLeft(decimal)
-                                        ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-                                val unStakingAmount =
-                                    chain.cosmosFetcher?.unbondingAmountSum()
-                                        ?.movePointLeft(decimal)
-                                        ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-                                val rewardAmount = chain.cosmosFetcher?.rewardAmountSum(stakeDenom)
-                                    ?.movePointLeft(decimal)?.setScale(6, RoundingMode.DOWN)
-                                    ?: BigDecimal.ZERO
+                            }
+                            val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
+                            val stakedAmount =
+                                chain.cosmosFetcher?.delegationAmountSum()
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                            val unStakingAmount =
+                                chain.cosmosFetcher?.unbondingAmountSum()
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                            val rewardAmount = chain.cosmosFetcher?.rewardAmountSum(stakeDenom)
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
 
-                                vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
-                                unstakingLayout.goneOrVisible(unStakingAmount?.compareTo(BigDecimal.ZERO) == 0)
-                                rewardLayout.visibleOrGone(
-                                    chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true
+                            vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
+                            unstakingLayout.goneOrVisible(unStakingAmount?.compareTo(BigDecimal.ZERO) == 0)
+                            rewardLayout.visibleOrGone(
+                                chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true
+                            )
+
+                            if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
+                                rewardTitle.text =
+                                    context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
+                            }
+
+                            with(Prefs) {
+                                total.visibility = if (hideValue) View.GONE else View.VISIBLE
+                                totalValue.visibility =
+                                    if (hideValue) View.GONE else View.VISIBLE
+                                hidingValue.visibility =
+                                    if (hideValue) View.VISIBLE else View.GONE
+
+                                available.hiddenStatus(
+                                    formatAmount(
+                                        availableAmount.toPlainString(), 6
+                                    )
+                                )
+                                vesting.hiddenStatus(
+                                    formatAmount(
+                                        vestingAmount.toPlainString(), 6
+                                    )
+                                )
+                                staked.hiddenStatus(
+                                    formatAmount(
+                                        stakedAmount.toPlainString(), 6
+                                    )
+                                )
+                                unstaking.hiddenStatus(
+                                    formatAmount(
+                                        unStakingAmount.toPlainString(), 6
+                                    )
+                                )
+                                reward.hiddenStatus(
+                                    formatAmount(
+                                        rewardAmount.toPlainString(), 6
+                                    )
                                 )
 
-                                if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
-                                    rewardTitle.text =
-                                        context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
-                                }
-
-                                with(Prefs) {
-                                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                                    totalValue.visibility =
-                                        if (hideValue) View.GONE else View.VISIBLE
-                                    hidingValue.visibility =
-                                        if (hideValue) View.VISIBLE else View.GONE
-
-                                    available.hiddenStatus(
-                                        formatAmount(
-                                            availableAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    vesting.hiddenStatus(
-                                        formatAmount(
-                                            vestingAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    staked.hiddenStatus(
-                                        formatAmount(
-                                            stakedAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    unstaking.hiddenStatus(
-                                        formatAmount(
-                                            unStakingAmount.toPlainString(), 6
-                                        )
-                                    )
-                                    reward.hiddenStatus(
-                                        formatAmount(
-                                            rewardAmount.toPlainString(), 6
-                                        )
-                                    )
-
-                                    total.text = if (hideValue) "" else formatAmount(
-                                        (availableAmount + vestingAmount + stakedAmount + unStakingAmount + rewardAmount).toPlainString(),
-                                        6
-                                    )
-                                    totalValue.text = if (hideValue) "" else formatAssetValue(
-                                        chain.cosmosFetcher?.denomValue(stakeDenom)
-                                            ?: BigDecimal.ZERO
-                                    )
+                                total.text = if (hideValue) "" else formatAmount(
+                                    (availableAmount + vestingAmount + stakedAmount + unStakingAmount + rewardAmount).toPlainString(),
+                                    6
+                                )
+                                totalValue.text = if (hideValue) {
+                                    ""
+                                } else {
+                                    if (chain is ChainGnoTestnet) {
+                                        formatAssetValue(
+                                            chain.gnoRpcFetcher?.denomValue(stakeDenom)
+                                                ?: BigDecimal.ZERO)
+                                    } else {
+                                        formatAssetValue(
+                                            chain.cosmosFetcher?.denomValue(stakeDenom)
+                                                ?: BigDecimal.ZERO)
+                                    }
                                 }
                             }
                         }

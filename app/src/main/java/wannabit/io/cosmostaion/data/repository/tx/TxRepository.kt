@@ -258,7 +258,15 @@ interface TxRepository {
         msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
     ): AbciProto.TxResponse?
 
+    suspend fun simulateSendRpcTx(
+        msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): String
+
     suspend fun broadcastCallRpcTx(
         msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ): AbciProto.TxResponse?
+
+    suspend fun simulateCallRpcTx(
+        msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
+    ): String
 }

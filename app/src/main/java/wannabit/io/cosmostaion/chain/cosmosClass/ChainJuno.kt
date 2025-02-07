@@ -23,9 +23,9 @@ class ChainJuno : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ujuno"
     override var accountPrefix: String = "juno"
-    override var grpcHost: String = "grpc-juno.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-juno.cosmostation.io/"
+    override var grpcHost: String = "juno-grpc.lavenderfive.com"
+    override var lcdUrl: String = "https://juno-api.lavenderfive.com/"
 }

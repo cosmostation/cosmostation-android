@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -68,6 +69,9 @@ class ReDelegateFragment : BaseTxFragment() {
     private var toValidator: Validator? = null
     private var initiaFromValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
     private var initiaToValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
+    private var zenrockFromValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? =
+        null
+    private var zenrockToValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -84,13 +88,15 @@ class ReDelegateFragment : BaseTxFragment() {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain,
-            fromValidator: Validator?,
-            initiaFromValidator: com.initia.mstaking.v1.StakingProto.Validator?
+            fromValidator: Validator? = null,
+            initiaFromValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
+            zenrockFromValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null
         ): ReDelegateFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("fromValidator", fromValidator)
                 putSerializable("initiaFromValidator", initiaFromValidator)
+                putSerializable("zenrockFromValidator", zenrockFromValidator)
             }
             val fragment = ReDelegateFragment()
             fragment.arguments = args
@@ -124,6 +130,10 @@ class ReDelegateFragment : BaseTxFragment() {
                 initiaFromValidator = arguments?.getSerializable(
                     "initiaFromValidator", com.initia.mstaking.v1.StakingProto.Validator::class.java
                 )
+                zenrockFromValidator = arguments?.getSerializable(
+                    "zenrockFromValidator",
+                    com.zrchain.validation.HybridValidationProto.ValidatorHV::class.java
+                )
             } else {
                 (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
@@ -131,6 +141,8 @@ class ReDelegateFragment : BaseTxFragment() {
                 fromValidator = arguments?.getSerializable("fromValidator") as? Validator?
                 initiaFromValidator =
                     arguments?.getSerializable("initiaFromValidator") as? com.initia.mstaking.v1.StakingProto.Validator?
+                zenrockFromValidator =
+                    arguments?.getSerializable("zenrockFromValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
             listOf(fromValidatorView, toValidatorView, amountView, memoView, feeView).forEach {
@@ -140,41 +152,65 @@ class ReDelegateFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (selectedChain is ChainInitiaTestnet) {
-                if (initiaFromValidator != null) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull {
-                        it.operatorAddress == (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.get(
-                            0
-                        )?.delegation?.validatorAddress
+            when (selectedChain) {
+                is ChainInitiaTestnet -> {
+                    if (initiaFromValidator != null) {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull {
+                            it.operatorAddress == (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.get(
+                                0
+                            )?.delegation?.validatorAddress
+                        }
                     }
+
+                    val cosmostation =
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                    initiaToValidator =
+                        if (initiaFromValidator?.operatorAddress == cosmostation?.operatorAddress) {
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                        } else {
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaFromValidator?.operatorAddress }
+                        }
                 }
 
-                val cosmostation =
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
-                initiaToValidator =
-                    if (initiaFromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
-                    } else {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaFromValidator?.operatorAddress }
+                is ChainZenrock -> {
+                    if (zenrockFromValidator != null) {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull {
+                            it.operatorAddress == (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockDelegations?.get(
+                                0
+                            )?.delegation?.validatorAddress
+                        }
                     }
 
-            } else {
-                if (fromValidator != null) {
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
-                        it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
-                            0
-                        )?.delegation?.validatorAddress
-                    }
+                    val cosmostation =
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                    zenrockToValidator =
+                        if (zenrockFromValidator?.operatorAddress == cosmostation?.operatorAddress) {
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                        } else {
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                        }
                 }
 
-                val cosmostation =
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
-                toValidator = if (fromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
-                } else {
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                else -> {
+                    if (fromValidator != null) {
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull {
+                            it.operatorAddress == selectedChain.cosmosFetcher?.cosmosDelegations?.get(
+                                0
+                            )?.delegation?.validatorAddress
+                        }
+                    }
+
+                    val cosmostation =
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                    toValidator =
+                        if (fromValidator?.operatorAddress == cosmostation?.operatorAddress) {
+                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                        } else {
+                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != fromValidator?.operatorAddress }
+                        }
                 }
             }
+
             updateFromValidatorView()
             updateToValidatorView()
         }
@@ -274,6 +310,24 @@ class ReDelegateFragment : BaseTxFragment() {
                         stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
                 }
+
+                zenrockFromValidator?.let { fromValidator ->
+                    fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
+                    fromMonikerName.text = fromValidator.description?.moniker
+                    val statusImage = when {
+                        fromValidator.jailed -> R.drawable.icon_jailed
+                        !fromValidator.isActiveValidator(selectedChain as ChainZenrock) -> R.drawable.icon_inactive
+                        else -> 0
+                    }
+                    fromJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                    fromJailedImg.setImageResource(statusImage)
+
+                    val staked =
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator.operatorAddress }?.balance?.amount
+                    staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
+                        stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
+                    }
+                }
             }
         }
         txSimulate()
@@ -312,6 +366,25 @@ class ReDelegateFragment : BaseTxFragment() {
                 toJailedImg.setImageResource(statusImage)
 
                 initiaToValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
+                    .setScale(2, RoundingMode.DOWN).let {
+                        commission.text = formatString("$it%", 3)
+
+                        txSimulate()
+                    }
+            }
+
+            zenrockToValidator?.let { toValidator ->
+                toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
+                toMonikerName.text = toValidator.description?.moniker
+                val statusImage = when {
+                    toValidator.jailed -> R.drawable.icon_jailed
+                    !toValidator.isActiveValidator(selectedChain as ChainZenrock) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                toJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                toJailedImg.setImageResource(statusImage)
+
+                toValidator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
                     .setScale(2, RoundingMode.DOWN).let {
                         commission.text = formatString("$it%", 3)
 
@@ -386,17 +459,21 @@ class ReDelegateFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                if (selectedChain is ChainInitiaTestnet) {
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator?.operatorAddress }
-                        ?.let {
-                            availableAmount =
+                availableAmount = when (selectedChain) {
+                    is ChainInitiaTestnet -> {
+                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator?.operatorAddress }
+                            ?.let {
                                 it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
-                        }
-                } else {
-                    selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }
-                        ?.let {
-                            availableAmount = it.balance.amount.toBigDecimal()
-                        }
+                            }
+                    }
+
+                    is ChainZenrock -> {
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockDelegations?.firstOrNull { it.delegation.validatorAddress == zenrockFromValidator?.operatorAddress }?.balance?.amount?.toBigDecimal()
+                    }
+
+                    else -> {
+                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount?.toBigDecimal()
+                    }
                 }
             }
         }
@@ -409,32 +486,50 @@ class ReDelegateFragment : BaseTxFragment() {
                 handleOneClickWithDelay(
                     ValidatorFragment(selectedChain, object : ValidatorListener {
                         override fun select(validatorAddress: String) {
-                            if (selectedChain is ChainInitiaTestnet) {
-                                if (initiaFromValidator?.operatorAddress != validatorAddress) {
-                                    initiaFromValidator =
-                                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
-                                    updateFeeView()
-                                    updateFromValidatorView()
+                            when (selectedChain) {
+                                is ChainInitiaTestnet -> {
+                                    if (initiaFromValidator?.operatorAddress != validatorAddress) {
+                                        initiaFromValidator =
+                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                        updateFeeView()
+                                        updateFromValidatorView()
+                                    }
+
+                                    if (initiaFromValidator?.operatorAddress == initiaToValidator?.operatorAddress) {
+                                        initiaToValidator =
+                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaToValidator?.operatorAddress }
+                                        updateToValidatorView()
+                                    }
                                 }
 
-                                if (initiaFromValidator?.operatorAddress == initiaToValidator?.operatorAddress) {
-                                    initiaToValidator =
-                                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaToValidator?.operatorAddress }
-                                    updateToValidatorView()
+                                is ChainZenrock -> {
+                                    if (zenrockFromValidator?.operatorAddress != validatorAddress) {
+                                        zenrockFromValidator =
+                                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                        updateFeeView()
+                                        updateFromValidatorView()
+                                    }
+
+                                    if (zenrockFromValidator?.operatorAddress == toValidator?.operatorAddress) {
+                                        zenrockToValidator =
+                                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                                        updateToValidatorView()
+                                    }
                                 }
 
-                            } else {
-                                if (fromValidator?.operatorAddress != validatorAddress) {
-                                    fromValidator =
-                                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
-                                    updateFeeView()
-                                    updateFromValidatorView()
-                                }
+                                else -> {
+                                    if (fromValidator?.operatorAddress != validatorAddress) {
+                                        fromValidator =
+                                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                        updateFeeView()
+                                        updateFromValidatorView()
+                                    }
 
-                                if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
-                                    toValidator =
-                                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
-                                    updateToValidatorView()
+                                    if (fromValidator?.operatorAddress == toValidator?.operatorAddress) {
+                                        toValidator =
+                                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress != toValidator?.operatorAddress }
+                                        updateToValidatorView()
+                                    }
                                 }
                             }
                         }
@@ -445,17 +540,24 @@ class ReDelegateFragment : BaseTxFragment() {
             toValidatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        fromValidator,
-                        null,
-                        null,
-                        object : ValidatorDefaultListener {
+                        fromValidator = fromValidator,
+                        listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
-                                if (selectedChain is ChainInitiaTestnet) {
-                                    initiaToValidator =
-                                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
-                                } else {
-                                    toValidator =
-                                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                when (selectedChain) {
+                                    is ChainInitiaTestnet -> {
+                                        initiaToValidator =
+                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    }
+
+                                    is ChainZenrock -> {
+                                        zenrockToValidator =
+                                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    }
+
+                                    else -> {
+                                        toValidator =
+                                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    }
                                 }
                                 updateToValidatorView()
                             }
@@ -525,8 +627,8 @@ class ReDelegateFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -718,19 +820,33 @@ class ReDelegateFragment : BaseTxFragment() {
     }
 
     private fun onBindReDelegateMsg(): MutableList<Any> {
-        return if (selectedChain is ChainInitiaTestnet) {
-            val msgReDelegate = com.initia.mstaking.v1.TxProto.MsgBeginRedelegate.newBuilder()
-                .setDelegatorAddress(selectedChain.address)
-                .setValidatorSrcAddress(initiaFromValidator?.operatorAddress)
-                .setValidatorDstAddress(initiaToValidator?.operatorAddress).addAmount(toCoin)
-                .build()
-            Signer.initiaReDelegateMsg(msgReDelegate)
-        } else {
-            val msgReDelegate =
-                MsgBeginRedelegate.newBuilder().setDelegatorAddress(selectedChain.address)
-                    .setValidatorSrcAddress(fromValidator?.operatorAddress)
-                    .setValidatorDstAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
-            Signer.reDelegateMsg(msgReDelegate)
+        return when (selectedChain) {
+            is ChainInitiaTestnet -> {
+                val msgReDelegate = com.initia.mstaking.v1.TxProto.MsgBeginRedelegate.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
+                    .setValidatorSrcAddress(initiaFromValidator?.operatorAddress)
+                    .setValidatorDstAddress(initiaToValidator?.operatorAddress).addAmount(toCoin)
+                    .build()
+                Signer.initiaReDelegateMsg(msgReDelegate)
+            }
+
+            is ChainZenrock -> {
+                val msgReDelegate = com.zrchain.validation.TxProto.MsgBeginRedelegate.newBuilder()
+                    .setDelegatorAddress(selectedChain.address)
+                    .setValidatorSrcAddress(zenrockFromValidator?.operatorAddress)
+                    .setValidatorDstAddress(zenrockToValidator?.operatorAddress).setAmount(toCoin)
+                    .build()
+                Signer.zenrockReDelegateMsg(msgReDelegate)
+            }
+
+            else -> {
+                val msgReDelegate =
+                    MsgBeginRedelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+                        .setValidatorSrcAddress(fromValidator?.operatorAddress)
+                        .setValidatorDstAddress(toValidator?.operatorAddress).setAmount(toCoin)
+                        .build()
+                Signer.reDelegateMsg(msgReDelegate)
+            }
         }
     }
 
