@@ -16,11 +16,11 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentMajorNftBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiNftTransferFragment
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentMajorNftBinding
+import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiNftTransferFragment
 
 class MajorNftFragment : Fragment() {
 
@@ -136,7 +136,7 @@ class MajorNftFragment : Fragment() {
             }
             BaseData.baseAccount?.let { account ->
                 selectedChain.fetchState = FetchState.IDLE
-                ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                ApplicationViewModel.shared.loadSuiData(account.id, selectedChain)
             }
         }
     }

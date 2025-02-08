@@ -127,7 +127,11 @@ class SuiPendingFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    ApplicationViewModel.shared.loadSuiData(
+                        account.id,
+                        selectedChain,
+                        isRefresh = true
+                    )
                 }
             }
         }

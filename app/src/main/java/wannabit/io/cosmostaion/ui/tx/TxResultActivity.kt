@@ -29,12 +29,12 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
-import wannabit.io.cosmostaion.databinding.DialogWaitBinding
-import wannabit.io.cosmostaion.ui.main.MainActivity
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
+import wannabit.io.cosmostaion.databinding.DialogWaitBinding
+import wannabit.io.cosmostaion.ui.main.MainActivity
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -169,7 +169,7 @@ class TxResultActivity : BaseActivity() {
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
                                 ApplicationViewModel.shared.loadChainData(
-                                    chain, account.id, false
+                                    chain, account.id, isTx = true
                                 )
                             }
                         }

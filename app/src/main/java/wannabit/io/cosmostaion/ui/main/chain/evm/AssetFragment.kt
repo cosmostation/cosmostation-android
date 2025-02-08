@@ -199,9 +199,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    ApplicationViewModel.shared.loadEvmChainData(
-                        selectedEvmChain, account.id, false
-                    )
+                    ApplicationViewModel.shared.loadEvmChainData(selectedEvmChain, account.id)
                 }
             }
         }
@@ -291,9 +289,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             object : TokenEditListener {
                 override fun edit() {
                     BaseData.baseAccount?.let { account ->
-                        ApplicationViewModel.shared.loadEvmChainData(
-                            selectedEvmChain, account.id, false
-                        )
+                        ApplicationViewModel.shared.loadEvmChainData(selectedEvmChain, account.id)
                     }
                 }
             }).show(
