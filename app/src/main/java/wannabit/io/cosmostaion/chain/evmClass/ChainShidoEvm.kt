@@ -27,12 +27,12 @@ class ChainShidoEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "shido"
     override var accountPrefix: String = "shido"
     override var grpcHost: String = "grpc.shidoscan.com"
-    override var lcdUrl: String = "https://swagger.shidoscan.com/"
+    override var lcdUrl: String = "https://api.shido.indonode.net/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "SHIDO"
     override var coinGeckoId: String = "shido"
     override var coinLogo: Int = R.drawable.token_shido
     override var addressLogo: Int = R.drawable.icon_ethereum_address
-    override var evmRpcURL: String = "https://rpc-delta-nodes.shidoscan.com"
+    override var evmRpcURL: String = "https://rpc-nodes.shidoscan.com"
 }
