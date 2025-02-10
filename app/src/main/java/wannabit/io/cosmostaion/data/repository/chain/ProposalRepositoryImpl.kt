@@ -151,7 +151,7 @@ class ProposalRepositoryImpl : ProposalRepository {
                         proposal.asJsonObject["title"].asString.ifEmpty {
                             val messages = proposal.asJsonObject["messages"].asJsonArray
                             if (messages.size() > 0) {
-                                if (messages[0].asJsonObject["content"].isJsonNull) {
+                                if (!messages[0].asJsonObject.has("content")) {
                                     messages[0].asJsonObject["@type"].asString.split(".").last()
                                 } else {
                                     messages[0].asJsonObject["content"].asJsonObject["title"].asString

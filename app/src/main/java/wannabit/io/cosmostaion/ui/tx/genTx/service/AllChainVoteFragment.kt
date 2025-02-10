@@ -37,6 +37,7 @@ import kotlinx.coroutines.withContext
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -609,7 +610,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             val simulateTx = Signer.genSimulate(
                 Signer.voteMsg(chain, toVotes), chain.getInitPayableFee(requireContext()), "", chain
             )
-            if (chain.supportCosmos()) {
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 chain.cosmosFetcher()?.getChannel()?.let { channel ->
                     loadAuth(channel, chain)
                     val simulStub =
@@ -643,7 +644,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 val txFee = voteAllModel.txFee
                 val broadcastTx = Signer.genBroadcast(Signer.voteMsg(chain, toVotes), txFee, "", chain)
 
-                val txResponse = if (chain.supportCosmos()) {
+                val txResponse = if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                     val channel = chain.cosmosFetcher?.getChannel()
                     val txStub =
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
