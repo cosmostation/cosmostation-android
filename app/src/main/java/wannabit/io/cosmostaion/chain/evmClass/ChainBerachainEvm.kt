@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainBerachain : BaseChain(), Parcelable {
+class ChainBerachainEvm : BaseChain(), Parcelable {
 
     override var name: String = "Berachain"
     override var tag: String = "berachain60"

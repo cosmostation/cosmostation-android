@@ -35,12 +35,13 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.protobuf.ByteString
 import com.google.protobuf.util.JsonFormat
-import com.walletconnect.android.Core
-import com.walletconnect.android.CoreClient
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.sign.client.SignClient
-import com.walletconnect.sign.client.SignInterface
-import com.walletconnect.util.bytesToHex
+import com.reown.android.Core
+import com.reown.android.CoreClient
+import com.reown.sign.client.Sign
+import com.reown.sign.client.Sign.Model.Namespace
+import com.reown.sign.client.SignClient
+import com.reown.sign.client.SignInterface
+import com.reown.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -67,7 +68,6 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.CosmostationConstants.DAPP_ADDITIONAL_SCRIPT
 import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -355,10 +355,7 @@ class DappActivity : BaseActivity() {
     }
 
     private fun isSessionConnected(): Boolean {
-        if (walletConnectURI != null && currentV2PairingUri == walletConnectURI) {
-            return true
-        }
-        return false
+        return walletConnectURI != null && currentV2PairingUri == walletConnectURI
     }
 
     private fun initInjectScript(view: WebView?) {
@@ -366,7 +363,7 @@ class DappActivity : BaseActivity() {
             val inputStream = assets.open("injectScript.js")
             val existingScript = inputStream.bufferedReader().use(BufferedReader::readText)
             val script = if (wcUrl?.contains("astroport") == true) {
-                existingScript + "\n" + DAPP_ADDITIONAL_SCRIPT
+                existingScript
             } else {
                 existingScript
             }
@@ -401,11 +398,14 @@ class DappActivity : BaseActivity() {
                 currentV2PairingUri = null
             }
 
-            override fun onSessionProposal(sessionProposal: Sign.Model.SessionProposal) {
+            override fun onSessionExtend(session: Sign.Model.Session) {}
+
+            override fun onSessionProposal(
+                sessionProposal: Sign.Model.SessionProposal, verifyContext: Sign.Model.VerifyContext
+            ) {
                 if (isFinishing) return
 
-                val sessionNamespaces = mutableMapOf<String, Sign.Model.Namespace.Session>()
-
+                val sessionNamespaces = mutableMapOf<String, Namespace.Session>()
                 runOnUiThread {
                     if (dAppType == DAppType.DEEPLINK_WC2) {
                         binding.dappWebView.loadUrl(sessionProposal.url)
@@ -418,53 +418,22 @@ class DappActivity : BaseActivity() {
                         dAppType = DAppType.INTERNAL_URL
 
                     } else {
-                        val methods =
-                            sessionProposal.requiredNamespaces.values.flatMap { it.methods }
-                        val events = sessionProposal.requiredNamespaces.values.flatMap { it.events }
-
-                        sessionProposal.requiredNamespaces.values.flatMap { it.chains }
-                            .map { chain ->
-                                val chainId = chain.split(":")[1]
-                                val chainName = chain.split(":")[0]
-
-                                allChains?.find { it.chainIdCosmos.lowercase() == chainId.lowercase() }
-                                    ?.let { line ->
-                                        selectChain = line
-                                        sessionNamespaces[chainName] = Sign.Model.Namespace.Session(
-                                            accounts = listOf("$chain:${line.address}"),
-                                            methods = methods,
-                                            events = events,
-                                            extensions = null
-                                        )
-                                        val approveProposal = Sign.Params.Approve(
-                                            proposerPublicKey = sessionProposal.proposerPublicKey,
-                                            namespaces = sessionNamespaces
-                                        )
-
-                                        binding.loadingLayer.apply {
-                                            postDelayed({
-                                                visibility = View.GONE
-                                            }, 2500)
-                                        }
-
-                                        SignClient.approveSession(approveProposal) { error ->
-                                            Log.e("WCV2", error.throwable.stackTraceToString())
-                                        }
-
-                                    } ?: run {
-                                    binding.loadingLayer.visibility = View.GONE
-                                    makeToast(getString(R.string.error_not_support, chainId))
-                                    return@runOnUiThread
-                                }
-                            }
+                        processNamespaces(
+                            sessionNamespaces, sessionProposal, sessionProposal.requiredNamespaces
+                        )
+                        processNamespaces(
+                            sessionNamespaces, sessionProposal, sessionProposal.optionalNamespaces
+                        )
                     }
                 }
             }
 
-            override fun onSessionRequest(sessionRequest: Sign.Model.SessionRequest) {
+            override fun onSessionRequest(
+                sessionRequest: Sign.Model.SessionRequest, verifyContext: Sign.Model.VerifyContext
+            ) {
                 if (isFinishing) return
-
                 if (sessionRequest.request.id == processingRequestID) return
+
                 processingRequestID = sessionRequest.request.id
                 processV2SessionRequest(sessionRequest)
             }
@@ -476,9 +445,67 @@ class DappActivity : BaseActivity() {
         return
     }
 
+    private fun processNamespaces(
+        sessionNamespaces: MutableMap<String, Namespace.Session>,
+        sessionProposal: Sign.Model.SessionProposal,
+        namespaces: Map<String, Namespace.Proposal>
+    ) {
+        if (namespaces.isEmpty()) return
+
+        val methods = namespaces.values.flatMap { it.methods }
+        val events = namespaces.values.flatMap { it.events }
+        val chains = namespaces.values.flatMap { it.chains!! }
+
+        chains.forEach { chain ->
+            var chainId = chain.split(":").getOrNull(1) ?: return@forEach
+            val chainName = chain.split(":").getOrNull(0) ?: return@forEach
+
+            chainId = if (chainId.toIntOrNull() != null) {
+                "0x" + chainId.toInt().toString(16).uppercase()
+            } else {
+                chainId
+            }
+
+            allChains?.find { it.chainIdCosmos.equals(chainId, ignoreCase = true) }
+                ?: allChains?.find { it.chainIdEvm.equals(chainId, ignoreCase = true) }
+                    ?.let { line ->
+                        selectChain = line
+                        val address = if (selectChain?.supportCosmos() == true) {
+                            selectChain?.address
+                        } else {
+                            selectChain?.evmAddress
+                        }
+                        sessionNamespaces[chainName] = Namespace.Session(
+                            chains = chains,
+                            accounts = listOf("$chain:${address}"),
+                            methods = methods,
+                            events = events,
+                        )
+
+                        val approveProposal = Sign.Params.Approve(
+                            proposerPublicKey = sessionProposal.proposerPublicKey,
+                            namespaces = sessionNamespaces
+                        )
+
+                        binding.loadingLayer.postDelayed(
+                            { binding.loadingLayer.visibility = View.GONE }, 2500
+                        )
+
+                        SignClient.approveSession(approveProposal) { error ->
+                            Log.e("WCV2", error.throwable.stackTraceToString())
+                        }
+                    } ?: run {
+                    binding.loadingLayer.visibility = View.GONE
+                    makeToast(getString(R.string.error_not_support, chainId))
+                    return@forEach
+                }
+        }
+    }
+
     private fun processV2SessionRequest(sessionRequest: Sign.Model.SessionRequest) {
         runOnUiThread {
             sessionRequest.request.apply {
+                Log.e("Test12345 : ", method)
                 when (method) {
                     "cosmos_getAccounts" -> {
                         val v2Accounts = selectChain?.address?.let { address ->
@@ -513,8 +540,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -528,11 +554,47 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
+                                }
+
+                                override fun cancel(id: Long) {
+                                    cancelV2SignRequest(id, sessionRequest)
+                                }
+                            })
+                    }
+
+                    "eth_sendTransaction" -> {
+                        val requestJson = JSONArray(params)
+                        val signBundle = signBundle(
+                            id, requestJson.get(0).toString(), "eth_sendTransaction"
+                        )
+                        showEvmSignDialog(
+                            signBundle,
+                            object : PopUpEvmSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    lifecycleScope.launch(Dispatchers.IO) {
+                                        if (web3j == null) {
+                                            rpcUrl = selectChain?.evmRpcURL
+                                            web3j = Web3j.build(HttpService(rpcUrl))
+                                        }
+                                        web3j?.ethSendRawTransaction(data)?.send()
+                                            ?.let { ethSendTransaction ->
+                                                val response = Sign.Params.Response(
+                                                    sessionTopic = sessionRequest.topic,
+                                                    jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                                                        id, ethSendTransaction.transactionHash
+                                                    )
+                                                )
+                                                SignClient.respond(response) { error ->
+                                                    Log.e(
+                                                        "WCV2", error.throwable.message.toString()
+                                                    )
+                                                }
+                                            }
+                                    }
                                 }
 
                                 override fun cancel(id: Long) {
@@ -665,9 +727,12 @@ class DappActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
-        val pairingList = CoreClient.Pairing.getPairings()
-        pairingList.forEach { CoreClient.Pairing.disconnect(it.topic) }
         super.onDestroy()
+        val pairingList = CoreClient.Pairing.getPairings()
+        pairingList.forEach {
+            Core.Params.Disconnect(it.topic)
+            Core.Params.Delete(it.topic)
+        }
         binding.apply {
             dappWebView.removeJavascriptInterface("station")
         }
