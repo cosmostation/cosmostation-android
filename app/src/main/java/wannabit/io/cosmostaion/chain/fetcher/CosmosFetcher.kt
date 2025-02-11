@@ -612,6 +612,11 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
             return Triple(account.address, account.accountNumber, account.sequence)
         }
 
+    } else if (rawAccount.typeUrl.contains(com.eth.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
+        com.eth.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
     } else {
         return Triple("", -1, -1)
     }
