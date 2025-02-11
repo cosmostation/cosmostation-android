@@ -38,7 +38,8 @@ class OnChainProposalListViewHolder(
                 voteStatusImg.visibility = View.GONE
                 voteRemainTime.visibility = View.VISIBLE
                 switchView.visibility = View.VISIBLE
-                voteRemainTime.text = "${voteDpTime(proposal.voting_end_time?.toLong() ?: 0L)} (${gapTime(proposal.voting_end_time?.toLong() ?: 0L)})"
+                voteRemainTime.text =
+                    "${voteDpTime(proposal.voting_end_time?.toLong() ?: 0L)} (${gapTime(proposal.voting_end_time?.toLong() ?: 0L)})"
                 selectSwitch.thumbDrawable =
                     ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
             } else {
@@ -71,6 +72,9 @@ class OnChainProposalListViewHolder(
 
             proposalView.setOnClickListener {
                 selectedChain.explorerProposal(proposal.id)?.let { url ->
+                    if (url.toString().isEmpty()) {
+                        return@setOnClickListener
+                    }
                     context.startActivity(Intent(Intent.ACTION_VIEW, url))
                     Prefs.foreToBack = false
 

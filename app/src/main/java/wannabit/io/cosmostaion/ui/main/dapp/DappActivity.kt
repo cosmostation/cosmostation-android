@@ -72,10 +72,10 @@ import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.safeApiCall
+import wannabit.io.cosmostaion.common.toObjectNode
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
-import wannabit.io.cosmostaion.data.model.req.EthCall
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.PubKey
 import wannabit.io.cosmostaion.data.model.req.Signature
@@ -1298,9 +1298,7 @@ class DappActivity : BaseActivity() {
                         rpcUrl?.let {
                             val ethCallRequest = JsonRpcRequest(
                                 method = "eth_call", params = listOf(
-                                    EthCall(
-                                        null, param.getString("to"), param.getString("data")
-                                    ), DefaultBlockParameterName.LATEST
+                                    param.toObjectNode(), DefaultBlockParameterName.LATEST
                                 )
                             )
 

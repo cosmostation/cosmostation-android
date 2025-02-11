@@ -40,7 +40,7 @@ class TokenEditAdapter(
             updateView(holder, token, displayTokens)
 
             walletViewModel.editCw20Balance.observe(lifecycleOwner) { contract ->
-                if (contract == token.contract) {
+                if (contract == token.contract && token.fetched) {
                     Handler(Looper.getMainLooper()).post {
                         notifyItemChanged(position)
                     }
@@ -56,7 +56,7 @@ class TokenEditAdapter(
             }
 
             walletViewModel.editGrc20Balance.observe(lifecycleOwner) { contract ->
-                if (contract == token.contract) {
+                if (contract == token.contract && token.fetched) {
                     Handler(Looper.getMainLooper()).post {
                         notifyItemChanged(position)
                     }
