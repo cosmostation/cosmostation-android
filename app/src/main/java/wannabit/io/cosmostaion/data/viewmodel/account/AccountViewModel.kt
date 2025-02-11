@@ -38,14 +38,13 @@ class AccountViewModel(private val accountRepository: AccountRepository) : ViewM
             withContext(Dispatchers.IO) {
                 accountRepository.createByMnemonic(name, mnemonic, lastHDPath)
             }
-            create.call()
+            create.postValue(Any())
         }
 
     fun createByPrivate(name: String, privateKey: String) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
             accountRepository.createByPrivate(name, privateKey)
         }
-        create.call()
+        create.postValue(Any())
     }
-
 }
