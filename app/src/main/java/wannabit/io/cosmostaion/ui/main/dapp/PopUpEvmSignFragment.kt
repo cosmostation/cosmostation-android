@@ -163,24 +163,51 @@ class PopUpEvmSignFragment(
 
             } else if (method == "eth_signTypedData") {
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
-                val signTypedData = txJsonArray[1].asString
-                withContext(Dispatchers.Main) {
-                    if (signTypedData.contains("to") || signTypedData.contains("gas")) {
-                        binding.warnMsg.text = getString(R.string.str_affect_danger_msg)
-                        binding.warnMsg.setTextColor(
-                            ContextCompat.getColorStateList(
-                                requireContext(),
-                                R.color.color_accent_red
-                            )
-                        )
-                    } else {
-                        binding.warnMsg.text = getString(R.string.str_affect_safe_msg)
-                        binding.warnMsg.setTextColor(
-                            ContextCompat.getColorStateList(
-                                requireContext(),
-                                R.color.color_accent_green
-                            )
-                        )
+                when (txJsonArray[1]) {
+                    is JsonObject -> {
+                        val signTypedData = txJsonArray[1].asJsonObject
+                        withContext(Dispatchers.Main) {
+                            if (signTypedData.toString().contains("to") || signTypedData.toString().contains("gas")) {
+                                binding.warnMsg.text = getString(R.string.str_affect_danger_msg)
+                                binding.warnMsg.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_accent_red
+                                    )
+                                )
+                            } else {
+                                binding.warnMsg.text = getString(R.string.str_affect_safe_msg)
+                                binding.warnMsg.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_accent_green
+                                    )
+                                )
+                            }
+                        }
+                    }
+
+                    else -> {
+                        val signTypedData = txJsonArray[1].asString
+                        withContext(Dispatchers.Main) {
+                            if (signTypedData.contains("to") || signTypedData.contains("gas")) {
+                                binding.warnMsg.text = getString(R.string.str_affect_danger_msg)
+                                binding.warnMsg.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_accent_red
+                                    )
+                                )
+                            } else {
+                                binding.warnMsg.text = getString(R.string.str_affect_safe_msg)
+                                binding.warnMsg.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        requireContext(),
+                                        R.color.color_accent_green
+                                    )
+                                )
+                            }
+                        }
                     }
                 }
 
@@ -257,7 +284,11 @@ class PopUpEvmSignFragment(
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 val txJsonArray = JsonParser.parseString(data).asJsonArray
-                val txJsonObject = Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
+                val txJsonObject = if (txJsonArray[1] !is JsonObject) {
+                    Gson().fromJson(txJsonArray[1].asString, JsonObject::class.java)
+                } else {
+                    txJsonArray[1].asJsonObject
+                }
 
                 val encoder = StructuredDataEncode(Gson().toJson(txJsonObject))
                 val hashStructuredData = encoder.hashStructuredData()
