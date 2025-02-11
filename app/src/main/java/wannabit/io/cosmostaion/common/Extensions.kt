@@ -37,6 +37,7 @@ import coil.request.CachePolicy
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
@@ -951,5 +952,10 @@ fun bitType(pubKeyType: PubKeyType): String {
             ""
         }
     }
+}
+
+fun JSONObject.toObjectNode(): ObjectNode {
+    val objectMapper = ObjectMapper()
+    return objectMapper.readTree(this.toString()) as ObjectNode
 }
 

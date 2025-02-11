@@ -388,8 +388,8 @@ class WalletRepositoryImpl : WalletRepository {
                     token.fetched = true
                 }
             } catch (e: Exception) {
-                token.fetched = false
-                null
+                token.fetched = true
+                token.amount = "0"
             }
 
         } else {
@@ -401,8 +401,8 @@ class WalletRepositoryImpl : WalletRepository {
                 }
 
             } catch (e: Exception) {
-                token.fetched = false
-                null
+                token.fetched = true
+                token.amount = "0"
             }
         }
     }
