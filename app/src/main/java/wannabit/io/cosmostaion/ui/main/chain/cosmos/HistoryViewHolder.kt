@@ -182,26 +182,19 @@ class HistoryViewHolder(
 
                 txs.forEach { tx ->
                     if (tx.asJsonObject["MoveCall"] != null) {
-                        when (tx.asJsonObject["MoveCall"].asJsonObject["function"].asString) {
-                            "request_withdraw_stake" -> {
-                                title = context.getString(R.string.str_unstake)
-                            }
-
-                            "request_add_stake" -> {
-                                title = context.getString(R.string.str_stake)
-                            }
-
-                            "swap" -> {
-                                title = context.getString(R.string.title_swap)
-                            }
-
-                            "mint" -> {
-                                title = "Supply"
-                            }
-
-                            "redeem" -> {
-                                title = "Redeem"
-                            }
+                        val txType = tx.asJsonObject["MoveCall"].asJsonObject["function"].asString
+                        if (txType.contains("request_withdraw_stake")) {
+                            title = context.getString(R.string.str_unstake)
+                        } else if (txType.contains("request_add_stake")) {
+                            title = context.getString(R.string.str_stake)
+                        } else if (txType.contains("swap")) {
+                            title = context.getString(R.string.title_swap)
+                        } else if (txType.contains("mint")) {
+                            title = "Supply"
+                        } else if (txType.contains("redeem")) {
+                            title = "Redeem"
+                        } else if (txType.contains("unwrap")) {
+                            title = "unwrap"
                         }
                     }
                 }
@@ -260,7 +253,7 @@ class HistoryViewHolder(
                     }
                 }
 
-                context.getString(R.string.str_unstake), context.getString(
+                context.getString(
                     R.string.str_stake
                 ) -> {
                     historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["inputs"].asJsonArray?.let { inputs ->
@@ -276,6 +269,29 @@ class HistoryViewHolder(
                                     txDenom.text = asset.symbol
                                 }
                             }
+                        }
+                    }
+                }
+
+                context.getString(R.string.str_unstake) -> {
+                    historySuiGroup.second["effects"].asJsonObject["gasUsed"].asJsonObject?.let { gasUsed ->
+                        val computationCost = gasUsed["computationCost"].asString.toBigDecimal()
+                        val storageCost = gasUsed["storageCost"].asString.toBigDecimal()
+                        val storageRebate = gasUsed["storageRebate"].asString.toBigDecimal()
+                        val gasFee = computationCost.add(storageCost).subtract(storageRebate)
+
+                        BaseData.getAsset(chain.apiName, SUI_MAIN_DENOM)?.let { asset ->
+                            historySuiGroup.second["balanceChanges"].asJsonArray.firstOrNull { it.asJsonObject["coinType"].asString == SUI_MAIN_DENOM }
+                                ?.let { balance ->
+                                    val amount =
+                                        balance.asJsonObject["amount"].asString.toBigDecimal()
+                                    val dpAmount =
+                                        amount.add(gasFee).movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
+                                }
                         }
                     }
                 }
