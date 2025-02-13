@@ -16,6 +16,7 @@ object BaseConstant {
     const val CONST_NEW_ACCOUNT = 2000
     const val CONST_RESTORE_MNEMONIC_ACCOUNT = 2001
     const val CONST_RESTORE_PRIVATE_ACCOUNT = 2002
+    const val CONST_RESTORE_QR_ACCOUNT = 2003
 
     const val COSMOS_AUTH_TYPE_STDTX = "auth/StdTx"
     const val OK_MSG_TYPE_TRANSFER = "okexchain/token/MsgTransfer"

@@ -150,7 +150,6 @@
     <string name="title_amount">数量</string>
     <string name="title_account_name">アカウント名</string>
     <string name="title_add_account">アカウントを追加</string>
-    <string name="title_import_qr">QRスキャンでアカウントをインポート</string>
     <string name="title_legacy_enabled">旧住所の活性化</string>
     <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
@@ -171,8 +170,9 @@
     <string name="title_check_private_each_chain">チェーンによる秘密鍵の確認</string>
     <string name="title_create_account">アカウント作成</string>
     <string name="title_create_wallet">新しいアカウントを作成する</string>
-    <string name="title_import_mnemonic">財布の復元</string>
-    <string name="title_import_private_key">秘密鍵で復元</string>
+    <string name="title_import_mnemonic">アカウント復元（ニーモニック）</string>
+    <string name="title_import_private_key">アカウント復元（秘密鍵）</string>
+    <string name="title_import_qr">アカウント復元（QR）</string>
     <string name="title_set_account_name">Set account name</string>
     <string name="title_mnemonic_created">Mnemonic created</string>
     <string name="title_restore_mnemonic">Restore with mnemonic</string>
@@ -284,8 +284,9 @@
     <string name="str_empty_account_name">アカウント名を入力してください。</string>
     <string name="str_delete_account_msg">アカウントのすべての情報が削除されます。\ nニーモニックまたは秘密鍵をバックアップしていない場合、そのウォレットを永久に復元することはできません！</string>
     <string name="str_create_wallet_msg">一連のニーモニックを使用してアカウントを作成する</string>
-    <string name="str_import_mnemonic_msg">ニーモニックを使用してアカウントを復元する</string>
-    <string name="str_import_private_key_msg">秘密キーを使用してアカウントを復元する</string>
+    <string name="str_import_mnemonic_msg">既存のニーモニックでアカウントを復元</string>
+    <string name="str_import_private_key_msg">既存の秘密鍵でアカウントを復元</string>
+    <string name="str_import_qr_msg">QRコードをスキャンしてアカウントを復元</string>
     <string name="str_warning_mnemonic_msg">このフレーズがアカウントを回復する唯一の方法です。 誰とも共有しないでください。 このニーモニックを失うと、資産の損失につながる可能性があります。</string>
     <string name="str_tap_for_add_amount_msg">タップして金額を追加します。</string>
     <string name="str_tap_for_add_address_msg">タップしてアドレスを追加します。</string>

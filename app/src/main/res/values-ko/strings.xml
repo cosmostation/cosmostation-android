@@ -143,7 +143,6 @@
     <string name="title_account">계정 관리</string>
     <string name="title_amount">수량</string>
     <string name="title_add_account">계정 추가</string>
-    <string name="title_import_qr">QR로 계정 추가</string>
     <string name="title_legacy_enabled">구 주소 활성화</string>
     <string name="title_testnet_enabled">테스트넷 활성화</string>
     <string name="title_chain">체인 관리</string>
@@ -166,7 +165,8 @@
     <string name="title_create_account">계정 생성</string>
     <string name="title_create_wallet">신규 계정 만들기</string>
     <string name="title_import_mnemonic">계정 복구 (니모닉)</string>
-    <string name="title_import_private_key">개인키로 복원</string>
+    <string name="title_import_private_key">계정 복구 (개인키)</string>
+    <string name="title_import_qr">계정 복구 (QR)</string>
     <string name="title_set_account_name">계정 이름 설정</string>
     <string name="title_mnemonic_created">니모닉 생성</string>
     <string name="title_restore_mnemonic">니모닉으로 지갑복원</string>
@@ -282,6 +282,7 @@
     <string name="str_create_wallet_msg">새 니모닉으로 신규 계정 만들기</string>
     <string name="str_import_mnemonic_msg">기존 니모닉으로 계정 복구하기</string>
     <string name="str_import_private_key_msg">기존 개인키로 계정 복구하기</string>
+    <string name="str_import_qr_msg">QR 코드를 스캔하여 계정 복구하기</string>
     <string name="str_warning_mnemonic_msg">이 문구는 계정을 복구하는 유일한 방법입니다. 누구와도 공유하지 마십시오. 이 니모닉을 분실하면 자산 손실로 이어질 수 있습니다.</string>
     <string name="str_tap_for_add_amount_msg">수량을 입력하시려면 탭하세요</string>
     <string name="str_tap_for_add_address_msg">주소를 입력하시려면 탭하세요</string>

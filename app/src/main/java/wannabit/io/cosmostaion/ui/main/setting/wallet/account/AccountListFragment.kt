@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.account
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -10,14 +12,17 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -25,19 +30,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.FragmentAccountListBinding
-import wannabit.io.cosmostaion.ui.main.AccountManageListener
-import wannabit.io.cosmostaion.ui.main.AccountManageOptionFragment
-import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.ui.init.CreateMnemonicFragment
+import wannabit.io.cosmostaion.ui.init.RestoreMnemonicConfirmFragment
 import wannabit.io.cosmostaion.ui.init.RestoreMnemonicFragment
 import wannabit.io.cosmostaion.ui.init.RestorePrivateFragment
+import wannabit.io.cosmostaion.ui.main.AccountManageListener
+import wannabit.io.cosmostaion.ui.main.AccountManageOptionFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportBarcodeActivity
+import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportCheckKeyFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.QrImportConfirmListener
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 
 class AccountListFragment : Fragment() {
 
@@ -165,10 +175,22 @@ class AccountListFragment : Fragment() {
                     pendingTransition()
                 }
 
-                else -> {
+                BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT -> {
                     val intent = Intent(requireContext(), PasswordCheckActivity::class.java)
                     restorePrivateResultLauncher.launch(intent)
                     pendingTransition()
+                }
+
+                else -> {
+                    if (ActivityCompat.checkSelfPermission(
+                            requireActivity(), Manifest.permission.CAMERA
+                        ) == PackageManager.PERMISSION_DENIED
+                    ) {
+                        cameraPermissionRequest.launch(Manifest.permission.CAMERA)
+
+                    } else {
+                        startImportBarcodeActivity()
+                    }
                 }
             }
         }
@@ -279,12 +301,74 @@ class AccountListFragment : Fragment() {
             }
         }
 
+    private val cameraPermissionRequest =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startImportBarcodeActivity()
+            } else {
+                return@registerForActivityResult
+            }
+        }
+
+    private fun startImportBarcodeActivity() {
+        val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
+        qrCodeResultLauncher.launch(intent)
+        if (Build.VERSION.SDK_INT >= 34) {
+            requireActivity().overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
+        } else {
+            requireActivity().overridePendingTransition(
+                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
+        }
+    }
+
+    private val qrCodeResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.getStringExtra("import")?.let { scanStr ->
+                    lifecycleScope.launch {
+                        delay(300)
+                        dismissInitSelectFragment()
+                        val scanHexData = scanStr.toByteArray(Charsets.UTF_8).bytesToHex()
+                        withContext(Dispatchers.Main) {
+                            if (scanHexData.startsWith("55324673")) {
+                                ImportCheckKeyFragment.newInstance(scanStr, qrImportConfirmAction)
+                                    .show(
+                                        requireActivity().supportFragmentManager,
+                                        ImportCheckKeyFragment::class.java.name
+                                    )
+                            } else {
+                                requireActivity().makeToast(R.string.error_unknown_qr_code)
+                                return@withContext
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    private val qrImportConfirmAction = object : QrImportConfirmListener {
+        override fun qrImportConfirm(mnemonic: String) {
+            requireActivity().toMoveFragment(
+                this@AccountListFragment, RestoreMnemonicConfirmFragment(
+                    mnemonic, BaseConstant.CONST_RESTORE_QR_ACCOUNT
+                ), "RestorePath"
+            )
+        }
+    }
+
     @SuppressLint("WrongConstant")
     private fun pendingTransition() {
         if (Build.VERSION.SDK_INT >= 34) {
-            requireActivity().overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+            requireActivity().overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
         } else {
-            requireActivity().overridePendingTransition(R.anim.anim_slide_in_bottom, R.anim.anim_fade_out)
+            requireActivity().overridePendingTransition(
+                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+            )
         }
     }
 

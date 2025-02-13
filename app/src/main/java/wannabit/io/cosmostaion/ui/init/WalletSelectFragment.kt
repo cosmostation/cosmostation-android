@@ -358,7 +358,7 @@ class WalletSelectFragment : Fragment() {
 
     @SuppressLint("WrongConstant")
     private fun startToActivity() {
-        if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT) {
+        if (initType == BaseConstant.CONST_RESTORE_MNEMONIC_ACCOUNT || initType == BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT || initType == BaseConstant.CONST_RESTORE_QR_ACCOUNT) {
             if (Build.VERSION.SDK_INT >= 34) {
                 requireActivity().overrideActivityTransition(
                     Activity.OVERRIDE_TRANSITION_CLOSE, 0, 0
