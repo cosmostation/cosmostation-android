@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -1154,9 +1155,18 @@ class ApplicationViewModel(
                             val coinMetadataResult = deferred.await()
                             if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
                                 fetcher.suiBalances[index].first?.let { type ->
-                                    val result = coinMetadataResult.data["result"]?.asJsonObject
-                                    if (result != null) {
-                                        fetcher.suiCoinMeta[type] = result
+                                    val result = coinMetadataResult.data["result"]
+                                    val resultData = when (result) {
+                                        is JsonObject -> {
+                                            result.asJsonObject
+                                        }
+
+                                        else -> {
+                                            null
+                                        }
+                                    }
+                                    if (resultData != null) {
+                                        fetcher.suiCoinMeta[type] = resultData
                                     }
                                 }
 
@@ -1326,18 +1336,15 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder()
-                                                .setDenom(stakeDenom)
-                                                .setAmount("0")
-                                                .build()
+                                            CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                                .setAmount("0").build()
                                         )
                                     }
 
                                     fetcher.gnoBalances = tempBalances
                                     fetcher.gnoAccountNumber =
                                         accountData["account_number"].asString.toLong()
-                                    fetcher.gnoSequence =
-                                        accountData["sequence"].asString.toLong()
+                                    fetcher.gnoSequence = accountData["sequence"].asString.toLong()
 
                                     val refAddress = RefAddress(
                                         id,
@@ -1370,8 +1377,7 @@ class ApplicationViewModel(
                                             .map { token ->
                                                 async {
                                                     walletRepository.grc20Balance(
-                                                        chain,
-                                                        token
+                                                        chain, token
                                                     )
                                                 }
                                             }
@@ -1381,8 +1387,7 @@ class ApplicationViewModel(
                                             .map { token ->
                                                 async {
                                                     walletRepository.grc20Balance(
-                                                        chain,
-                                                        token
+                                                        chain, token
                                                     )
                                                 }
                                             }

@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToMonth
 import wannabit.io.cosmostaion.common.dpTimeToYear
@@ -162,21 +164,22 @@ class HistoryViewHolder(
             var description = ""
             val txs =
                 historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["transactions"].asJsonArray
-            description = txs.last().asJsonObject.entrySet().first().key ?: ""
+            val sender =
+                historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["sender"].asString
+            title = if (sender == chain.mainAddress) {
+                context.getString(R.string.tx_send)
+            } else {
+                context.getString(R.string.tx_receive)
+            }
+
             if (txs.size() > 0) {
+                description = txs.last().asJsonObject.entrySet().first().key ?: ""
                 description = if (txs.size() > 1) {
                     description + " + " + txs.size()
                 } else {
                     description
                 }
 
-                val sender =
-                    historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["sender"].asString
-                title = if (sender == chain.mainAddress) {
-                    context.getString(R.string.tx_send)
-                } else {
-                    context.getString(R.string.tx_receive)
-                }
                 txs.forEach { tx ->
                     if (tx.asJsonObject["MoveCall"] != null) {
                         when (tx.asJsonObject["MoveCall"].asJsonObject["function"].asString) {
@@ -202,6 +205,10 @@ class HistoryViewHolder(
                         }
                     }
                 }
+
+            } else {
+                txDenom.text = "-"
+                txAmount.text = ""
             }
 
             txMessage.text = title.ifEmpty {
@@ -211,40 +218,72 @@ class HistoryViewHolder(
             txTime.text = dpTimeToMonth(historySuiGroup.second["timestampMs"].asString.toLong())
             txHeight.text = "(" + historySuiGroup.second["checkpoint"].asString + ")"
 
-            historySuiGroup.second["balanceChanges"]?.let { balanceChanges ->
-                balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString == chain.mainAddress }
-                    ?.let { change ->
-                        val symbol = change.asJsonObject["coinType"].asString
-                        val amount = change.asJsonObject["amount"].asString
-                        val intAmount = abs(amount.toLong())
+            when (title) {
+                context.getString(R.string.tx_send), context.getString(R.string.tx_receive) -> {
+                    historySuiGroup.second["balanceChanges"]?.let { balanceChanges ->
+                        if (title == context.getString(R.string.tx_send)) {
+                            balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString != chain.mainAddress }
+                        } else {
+                            balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString == chain.mainAddress }
+                        }?.let { change ->
+                            val symbol = change.asJsonObject["coinType"].asString
+                            val amount = change.asJsonObject["amount"].asString
+                            val intAmount = abs(amount.toLong())
 
-                        chain.suiFetcher()?.let { fetcher ->
-                            val asset = BaseData.getAsset(chain.apiName, symbol)
-                            val metaData = fetcher.suiCoinMeta[symbol]
+                            chain.suiFetcher?.let { fetcher ->
+                                val asset = BaseData.getAsset(chain.apiName, symbol)
+                                val metaData = fetcher.suiCoinMeta[symbol]
 
-                            if (asset != null) {
-                                val dpAmount =
-                                    intAmount.toBigDecimal().movePointLeft(asset.decimals ?: 9)
-                                        .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
-                                txAmount.text =
-                                    formatAmount(dpAmount.toString(), asset.decimals ?: 9)
-                                txDenom.text = asset.symbol
+                                if (asset != null) {
+                                    val dpAmount =
+                                        intAmount.toBigDecimal().movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
 
-                            } else if (metaData != null) {
-                                txDenom.text = metaData["symbol"].asString
-                                val dpAmount = intAmount.toBigDecimal()
-                                    .movePointLeft(metaData["decimals"].asInt)
-                                    ?.setScale(18, RoundingMode.DOWN)
-                                txAmount.text = formatAmount(dpAmount.toString(), 9)
+                                } else if (metaData != null) {
+                                    txDenom.text = metaData["symbol"].asString
+                                    val dpAmount = intAmount.toBigDecimal()
+                                        .movePointLeft(metaData["decimals"].asInt)
+                                        ?.setScale(18, RoundingMode.DOWN)
+                                    txAmount.text = formatAmount(dpAmount.toString(), 9)
 
-                            } else {
-                                txDenom.text = symbol
-                                val dpAmount = intAmount.toBigDecimal().movePointLeft(9)
-                                    ?.setScale(18, RoundingMode.DOWN)
-                                txAmount.text = formatAmount(dpAmount.toString(), 9)
+                                } else {
+                                    txDenom.text = symbol.suiCoinSymbol()
+                                    val dpAmount = intAmount.toBigDecimal().movePointLeft(9)
+                                        ?.setScale(18, RoundingMode.DOWN)
+                                    txAmount.text = formatAmount(dpAmount.toString(), 9)
+                                }
                             }
                         }
                     }
+                }
+
+                context.getString(R.string.str_unstake), context.getString(
+                    R.string.str_stake
+                ) -> {
+                    historySuiGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["inputs"].asJsonArray?.let { inputs ->
+                        inputs.forEach { input ->
+                            if (input.asJsonObject["type"].asString == "pure" && input.asJsonObject["valueType"].asString == "u64") {
+                                BaseData.getAsset(chain.apiName, SUI_MAIN_DENOM)?.let { asset ->
+                                    val dpAmount =
+                                        input.asJsonObject["value"].asString.toBigDecimal()
+                                            .movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
+                                }
+                            }
+                        }
+                    }
+                }
+
+                else -> {
+                    txDenom.text = "-"
+                    txAmount.text = ""
+                }
             }
         }
     }

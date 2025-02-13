@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -1193,7 +1194,8 @@ class CommonTransferFragment : BaseTxFragment() {
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
                         val gasLimit = if (gas == 0L) {
-                            (fromChain.getInitGasLimit().toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
+                            (fromChain.getInitGasLimit()
+                                .toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         } else {
                             (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         }
@@ -1223,7 +1225,9 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                             val gasRate = selectedFeeData?.gasRate
                             val feeCoinAmount = if (fromChain is ChainGnoTestnet) {
-                                gasRate?.multiply(gasLimit)?.multiply(simulatedGasAdjustment().toBigDecimal())?.setScale(0, RoundingMode.UP)
+                                gasRate?.multiply(gasLimit)
+                                    ?.multiply(simulatedGasAdjustment().toBigDecimal())
+                                    ?.setScale(0, RoundingMode.UP)
                             } else {
                                 gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
                             }
@@ -1253,7 +1257,7 @@ class CommonTransferFragment : BaseTxFragment() {
         val result: MutableList<String> = mutableListOf()
         (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
             fetcher.suiObjects.forEach { suiObject ->
-                if (suiObject["data"].asJsonObject["type"].asString.contains(toSendDenom)) {
+                if (suiObject["data"].asJsonObject["type"].asString.suiCoinType() == toSendDenom) {
                     result.add(suiObject["data"].asJsonObject["objectId"].asString)
                 }
             }
