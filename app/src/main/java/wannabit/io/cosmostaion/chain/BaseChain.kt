@@ -67,6 +67,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNillion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNolus
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
@@ -716,6 +717,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMilkyway())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
+    chains.add(ChainNillion())
     chains.add(ChainNoble())
     chains.add(ChainNolus())
     chains.add(ChainNyx())
