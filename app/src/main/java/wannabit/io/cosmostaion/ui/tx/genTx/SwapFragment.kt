@@ -644,7 +644,7 @@ class SwapFragment : BaseTxFragment() {
             btnSlippage.setOnClickListener {
                 toMsg = null
                 handleOneClickWithDelay(
-                    SlippageFragment.newInstance(object : SlippageListener {
+                    SlippageFragment.newInstance(skipSlippage, object : SlippageListener {
                         override fun slippage(position: Int) {
                             skipSlippage = position.toString()
                             updateAmountView()

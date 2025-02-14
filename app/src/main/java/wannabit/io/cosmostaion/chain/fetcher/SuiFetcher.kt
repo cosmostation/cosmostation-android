@@ -179,22 +179,21 @@ fun String?.suiCoinType(): String? {
     if (this?.suiIsCoinType() == false) {
         return null
     }
-    this?.split("<")?.last()?.let { s1 ->
-        return s1.split(">").first()
+    val regex = Regex("<(.+)>")
+    this?.let {
+        val matchResult = regex.find(it)
+        return matchResult?.groups?.get(1)?.value
     }
     return null
 }
 
 fun String?.suiCoinSymbol(): String? {
-    if (this?.suiIsCoinType() == false) {
-        return null
+    val regex = Regex("::([a-zA-Z0-9_]+)(?:<.*>)?$")
+    this?.let {
+        val matchResult = regex.find(it)
+        return matchResult?.groups?.get(1)?.value
     }
-    this?.split("<")?.last()?.let { s1 ->
-        s1.split(">").first().let { s2 ->
-            return s2.split("::").last()
-        }
-    }
-    return null
+    return "Unknown"
 }
 
 fun JsonObject?.assetImg(): String {

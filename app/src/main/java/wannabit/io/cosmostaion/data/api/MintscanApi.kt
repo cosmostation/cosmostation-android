@@ -61,7 +61,7 @@ interface MintscanApi {
         @Path("chain") chain: String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String
     ): Response<List<CosmosHistory>>
 
-    @GET("v10/{chain}/proposals")
+    @GET("v11/{chain}/proposals")
     suspend fun cosmosProposal(@Path("chain") chain: String): Response<MutableList<CosmosProposal>>
 
     @GET("v10/{chain}/account/{account}/votes")
