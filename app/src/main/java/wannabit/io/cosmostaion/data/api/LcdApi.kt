@@ -138,7 +138,10 @@ interface LcdApi {
     suspend fun bitBalance(@Path("address") address: String): JsonObject
 
     @GET("api/address/{address}/txs")
-    suspend fun bitTxHistory(@Path("address") address: String): MutableList<JsonObject>
+    suspend fun bitTxHistory(
+        @Path("address") address: String,
+        @Query("after_txid") afterTxId: String
+    ): MutableList<JsonObject>
 
     @GET("api/blocks/tip/height")
     suspend fun bitBlockHeight(): Long

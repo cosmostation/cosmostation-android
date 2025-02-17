@@ -26,7 +26,7 @@ interface HistoryRepository {
         chain: BaseChain, limit: String, searchAfter: String
     ): NetworkResult<Response<JsonObject?>>
 
-    suspend fun bitHistory(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>?>
+    suspend fun bitHistory(chain: ChainBitCoin86, afterTxId: String): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun bitBlockHeight(chain: ChainBitCoin86): NetworkResult<Long?>
 }

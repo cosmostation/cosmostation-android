@@ -104,9 +104,9 @@ class HistoryRepositoryImpl : HistoryRepository {
         }
     }
 
-    override suspend fun bitHistory(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>?> {
+    override suspend fun bitHistory(chain: ChainBitCoin86, afterTxId: String): NetworkResult<MutableList<JsonObject>?> {
         return safeApiCall(Dispatchers.IO) {
-            RetrofitInstance.bitApi(chain).bitTxHistory(chain.mainAddress)
+            RetrofitInstance.bitApi(chain).bitTxHistory(chain.mainAddress, afterTxId)
         }
     }
 
