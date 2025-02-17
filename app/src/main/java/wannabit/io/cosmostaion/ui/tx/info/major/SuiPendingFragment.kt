@@ -138,7 +138,7 @@ class SuiPendingFragment : Fragment() {
     }
 
     private fun observeViewModels() {
-        ApplicationViewModel.shared.notifyTxResult.observe(viewLifecycleOwner) {
+        ApplicationViewModel.shared.notifySuiTxResult.observe(viewLifecycleOwner) {
             updateView()
         }
 

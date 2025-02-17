@@ -331,7 +331,7 @@ class SuiStakingFragment : BaseTxFragment() {
                     }
                     putExtra("txHash", response["result"].asJsonObject["digest"].asString)
                     putExtra("fromChainTag", selectedChain.tag)
-                    putExtra("transferStyle", TransferStyle.SUI_STYLE.ordinal)
+                    putExtra("transferStyle", TransferStyle.SUI_ETC_STYLE.ordinal)
                     putExtra("suiResult", response.toString())
                     startActivity(this)
                 }

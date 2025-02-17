@@ -130,7 +130,7 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -178,7 +178,7 @@ class TransferTxResultActivity : BaseActivity() {
                     viewFailMintscan.visibility = View.GONE
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE) {
                 if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
@@ -211,7 +211,7 @@ class TransferTxResultActivity : BaseActivity() {
                         historyToMintscan(fromChain, txHash)
                     }
 
-                    TransferStyle.SUI_STYLE, TransferStyle.BIT_COIN_STYLE -> {
+                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.BIT_COIN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -227,7 +227,7 @@ class TransferTxResultActivity : BaseActivity() {
                         historyToMintscan(fromChain, txHash)
                     }
 
-                    TransferStyle.SUI_STYLE -> {
+                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -238,10 +238,19 @@ class TransferTxResultActivity : BaseActivity() {
             }
 
             btnConfirm.setOnClickListener {
-                BaseData.baseAccount?.let { account ->
-                    ApplicationViewModel.shared.loadChainData(
-                        fromChain, account.id
-                    )
+                if (transferStyle == TransferStyle.SUI_ETC_STYLE) {
+                    BaseData.baseAccount?.let { account ->
+                        ApplicationViewModel.shared.loadChainData(
+                            fromChain, account.id, isTx = true
+                        )
+                    }
+
+                } else {
+                    BaseData.baseAccount?.let { account ->
+                        ApplicationViewModel.shared.loadChainData(
+                            fromChain, account.id
+                        )
+                    }
                 }
                 finish()
             }
@@ -526,7 +535,7 @@ class TransferTxResultActivity : BaseActivity() {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
 
-            if (transferStyle == TransferStyle.SUI_STYLE) {
+            if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE) {
                 val errorMsg =
                     suiResult?.get("result")?.asJsonObject?.get("effects")?.asJsonObject?.get("status")?.asJsonObject?.get(
                         "error"

@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -273,6 +272,7 @@ class ApplicationViewModel(
 
     val notifyTxResult = SingleLiveEvent<Unit>()
     val notifyRefreshResult = SingleLiveEvent<Unit>()
+    val notifySuiTxResult = SingleLiveEvent<Unit>()
 
     fun notifyTxEvent() {
         notifyTxResult.postValue(Unit)
@@ -280,6 +280,10 @@ class ApplicationViewModel(
 
     fun notifyRefreshEvent() {
         notifyRefreshResult.postValue(Unit)
+    }
+
+    fun notifySuiTxEvent() {
+        notifySuiTxResult.postValue(Unit)
     }
 
     private fun loadGrpcAuthData(

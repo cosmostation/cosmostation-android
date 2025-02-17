@@ -152,9 +152,11 @@ class SuiActiveFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
-            ApplicationViewModel.shared.notifyTxEvent()
-            updateView()
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.notifySuiTxEvent()
+                updateView()
+            }
         }
     }
 

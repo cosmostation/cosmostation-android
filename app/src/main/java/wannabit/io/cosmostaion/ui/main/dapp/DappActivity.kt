@@ -68,6 +68,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.INJECTIVE_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.CosmostationConstants.DAPP_ADDITIONAL_SCRIPT
 import wannabit.io.cosmostaion.common.formatJsonOptions
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.makeToast
@@ -363,7 +364,7 @@ class DappActivity : BaseActivity() {
             val inputStream = assets.open("injectScript.js")
             val existingScript = inputStream.bufferedReader().use(BufferedReader::readText)
             val script = if (wcUrl?.contains("astroport") == true) {
-                existingScript
+                existingScript + "\n" + DAPP_ADDITIONAL_SCRIPT
             } else {
                 existingScript
             }
@@ -454,8 +455,6 @@ class DappActivity : BaseActivity() {
 
         val methods = namespaces.values.flatMap { it.methods }
         val events = namespaces.values.flatMap { it.events }
-        Log.e("Test12345 : ", methods.toString())
-        Log.e("Test12345 : ", events.toString())
         val chains = namespaces.values.flatMap { it.chains!! }
 
         chains.forEach { chain ->
@@ -468,45 +467,46 @@ class DappActivity : BaseActivity() {
                 chainId
             }
 
-            allChains?.find { it.chainIdCosmos.equals(chainId, ignoreCase = true) }
+            val line = allChains?.find { it.chainIdCosmos.equals(chainId, ignoreCase = true) }
                 ?: allChains?.find { it.chainIdEvm.equals(chainId, ignoreCase = true) }
-                    ?.let { line ->
-                        selectChain = line
-                        val address = if (selectChain?.supportCosmos() == true) {
-                            selectChain?.address
-                        } else {
-                            selectChain?.evmAddress
-                        }
-                        sessionNamespaces[chainName] = Namespace.Session(
-                            chains = chains,
-                            accounts = listOf("$chain:${address}"),
-                            methods = methods,
-                            events = events,
-                        )
-
-                        val approveProposal = Sign.Params.Approve(
-                            proposerPublicKey = sessionProposal.proposerPublicKey,
-                            namespaces = sessionNamespaces
-                        )
-                        binding.loadingLayer.postDelayed(
-                            { binding.loadingLayer.visibility = View.GONE }, 2500
-                        )
-
-                        SignClient.approveSession(approveProposal) { error ->
-                            Log.e("WCV2", error.throwable.stackTraceToString())
-                        }
-                    } ?: run {
-                    binding.loadingLayer.visibility = View.GONE
-                    makeToast(getString(R.string.error_not_support, chainId))
-                    return@forEach
+            line?.let {
+                selectChain = line
+                val address = if (selectChain?.supportCosmos() == true) {
+                    selectChain?.address
+                } else {
+                    selectChain?.evmAddress
                 }
+
+                sessionNamespaces[chainName] = Namespace.Session(
+                    chains = chains,
+                    accounts = listOf("$chain:${address}"),
+                    methods = methods,
+                    events = events,
+                )
+
+                val approveProposal = Sign.Params.Approve(
+                    proposerPublicKey = sessionProposal.proposerPublicKey,
+                    namespaces = sessionNamespaces
+                )
+                binding.loadingLayer.postDelayed(
+                    { binding.loadingLayer.visibility = View.GONE }, 2500
+                )
+
+                SignClient.approveSession(approveProposal) { error ->
+                    Log.e("WCV2", error.throwable.stackTraceToString())
+                }
+
+            } ?: run {
+                binding.loadingLayer.visibility = View.GONE
+                makeToast(getString(R.string.error_not_support, chainId))
+                return@forEach
+            }
         }
     }
 
     private fun processV2SessionRequest(sessionRequest: Sign.Model.SessionRequest) {
         runOnUiThread {
             sessionRequest.request.apply {
-                Log.e("Test12345 : ", method)
                 when (method) {
                     "cosmos_getAccounts" -> {
                         val v2Accounts = selectChain?.address?.let { address ->
@@ -568,18 +568,22 @@ class DappActivity : BaseActivity() {
                     }
 
                     "eth_chainId" -> {
-//                        currentEvmChainId = selectChain?.chainIdEvm
-//                        if (web3j == null) {
-//                            rpcUrl = selectChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
-//                            web3j = Web3j.build(HttpService(rpcUrl))
-//                        }
-//
-//                        if (currentEvmChainId?.isEmpty() == true) {
-//
-//                        } else {
-//
-//                        }
-//                        appToWebResult(messageJson, currentEvmChainId, messageId)
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            if (web3j == null) {
+                                rpcUrl = selectChain?.evmRpcFetcher?.getEvmRpc()
+                                    ?: selectChain?.evmRpcURL
+                                web3j = Web3j.build(HttpService(rpcUrl))
+                            }
+                            val response = Sign.Params.Response(
+                                sessionTopic = sessionRequest.topic,
+                                jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
+                                    id, selectChain?.chainIdEvm.toString()
+                                )
+                            )
+                            SignClient.respond(response) { error ->
+                                Log.e("WCV2", error.throwable.message.toString())
+                            }
+                        }
                     }
 
                     "personal_sign" -> {
@@ -624,7 +628,7 @@ class DappActivity : BaseActivity() {
                                                 ?: selectChain?.evmRpcURL
                                             web3j = Web3j.build(HttpService(rpcUrl))
                                         }
-                                        Log.e("test12345 : ", data)
+
                                         web3j?.ethSendRawTransaction(data)?.send()
                                             ?.let { ethSendTransaction ->
                                                 val response = Sign.Params.Response(
@@ -1121,7 +1125,6 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-            Log.e("test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
