@@ -15,10 +15,10 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.HistoryAdapter
 import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.HistoryViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentHistoryBinding
+import wannabit.io.cosmostaion.ui.main.chain.cosmos.HistoryAdapter
 
 class EvmHistoryFragment : Fragment() {
 
@@ -119,13 +119,14 @@ class EvmHistoryFragment : Fragment() {
                 historyGroup.add(Pair(headerDate, history.asJsonObject))
             }
             ethHistoryGroup.addAll(historyGroup)
-            if (historyGroup.isNotEmpty()) {
-                historyAdapter.submitList(ethHistoryGroup as List<Any>?)
-                searchAfter = response["search_after"].asString
-                hasMore = historyGroup.size >= BATCH_CNT
-            } else {
-                searchAfter = ""
+            historyAdapter.submitList(ethHistoryGroup as List<Any>?)
+            if (historyGroup.size < 20) {
                 hasMore = false
+            } else {
+                searchAfter = response["search_after"].asString
+                if (searchAfter.isNotEmpty()) {
+                    hasMore = true
+                }
             }
 
             binding.loading.visibility = View.GONE

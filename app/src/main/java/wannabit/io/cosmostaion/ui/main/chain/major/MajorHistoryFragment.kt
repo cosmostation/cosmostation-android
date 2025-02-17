@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.chain.major
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -137,7 +136,6 @@ class MajorHistoryFragment : Fragment() {
                     if (hasMore) {
                         hasMore = false
                         if (selectedChain is ChainBitCoin86) {
-                            Log.e("test12345 : ", afterTxId)
                             historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
                         }
                     } else {
