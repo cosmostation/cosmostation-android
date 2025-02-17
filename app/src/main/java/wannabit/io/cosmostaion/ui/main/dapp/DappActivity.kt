@@ -385,6 +385,11 @@ class DappActivity : BaseActivity() {
 
     private fun connectWalletConnectV2(url: String) {
         currentV2PairingUri = walletConnectURI
+        CoreClient.Pairing.getPairings().forEach {
+            Core.Params.Disconnect(it.topic)
+            Core.Params.Delete(it.topic)
+        }
+
         val pairingParams = Core.Params.Pair(url)
         CoreClient.Pairing.pair(pairingParams) {
             currentV2PairingUri = null
