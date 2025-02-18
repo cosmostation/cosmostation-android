@@ -206,7 +206,9 @@ class DashboardFragment : Fragment() {
                         sortedDisplayChains().asSequence().concurrentForEach { chain ->
                             val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(
+                                    safeContext, seed, chain.setParentPath, lastHDPath
+                                )
                             }
                             if (Prefs.style == 1) {
                                 if (!chain.supportCosmos() && chain.evmAddress.isNotEmpty()) {
@@ -221,7 +223,7 @@ class DashboardFragment : Fragment() {
                             }
 
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                                ApplicationViewModel.shared.loadChainData(chain, id, false)
+                                ApplicationViewModel.shared.loadChainData(chain, id)
                             }
                         }
 
@@ -244,7 +246,7 @@ class DashboardFragment : Fragment() {
                             }
 
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                                ApplicationViewModel.shared.loadChainData(chain, id, false)
+                                ApplicationViewModel.shared.loadChainData(chain, id)
                             }
                         }
                     }
@@ -436,7 +438,7 @@ class DashboardFragment : Fragment() {
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {
                     baseAccount?.let { account ->
-                        ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                        ApplicationViewModel.shared.loadChainData(chain, account.id)
                         updateRowData(tag.toString())
                     }
                 }
@@ -459,7 +461,7 @@ class DashboardFragment : Fragment() {
                         "endpoint", this@DashboardFragment
                     ) { _, _ ->
                         baseAccount?.let { account ->
-                            ApplicationViewModel.shared.loadChainData(chain, account.id, false)
+                            ApplicationViewModel.shared.loadChainData(chain, account.id)
                             updateRowData(tag.toString())
                         }
                     }

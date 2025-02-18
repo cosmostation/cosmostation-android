@@ -147,16 +147,9 @@ class StakeInfoFragment : Fragment() {
             }
 
             btnStake.setOnClickListener {
-//                if (selectedChain is ChainBeraEvm) {
-//                    EvmStakingFragment.newInstance(selectedChain as EthereumLine, null).show(
-//                        requireActivity().supportFragmentManager,
-//                        EvmStakingFragment::class.java.name
-//                    )
-//                } else {
-                StakingFragment.newInstance(selectedChain, null, null).show(
+                StakingFragment.newInstance(selectedChain).show(
                     requireActivity().supportFragmentManager, StakingFragment::class.java.name
                 )
-//                }
             }
         }
     }

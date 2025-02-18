@@ -9,21 +9,20 @@ import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import com.google.common.collect.Lists
 import com.google.firebase.FirebaseApp
-import com.walletconnect.android.Core
-import com.walletconnect.android.CoreClient
-import com.walletconnect.android.CoreClient.initialize
-import com.walletconnect.android.relay.ConnectionType
-import com.walletconnect.sign.client.Sign
-import com.walletconnect.sign.client.SignClient
+import com.reown.android.Core
+import com.reown.android.CoreClient
+import com.reown.android.relay.ConnectionType
+import com.reown.sign.client.Sign
+import com.reown.sign.client.SignClient
 import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModelProviderFactory
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CipherHelper
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModelProviderFactory
 import java.util.UUID
 
 class CosmostationApp : Application(), ViewModelStoreOwner {
@@ -40,9 +39,8 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     lateinit var applicationViewModel: ApplicationViewModel
     var appStatus: AppStatus? = null
 
-    override fun getViewModelStore(): ViewModelStore {
-        return mViewModelStore
-    }
+    override val viewModelStore: ViewModelStore
+        get() = mViewModelStore
 
     override fun onCreate() {
         super.onCreate()
@@ -89,8 +87,8 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
             Lists.newArrayList<String>(),
             "cosmostation://wc"
         )
-        initialize(metaData, serverUrl, connectionType, this, null)
-        SignClient.initialize(Sign.Params.Init(CoreClient)) { error: Sign.Model.Error -> null }
+        CoreClient.initialize(metaData, serverUrl, connectionType, this, null, null, null) { }
+        SignClient.initialize(Sign.Params.Init(CoreClient)) { }
     }
 
     private fun initialize() {

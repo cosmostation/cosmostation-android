@@ -56,6 +56,10 @@ class AccountInitSelectFragment : BottomSheetDialogFragment() {
             privateWalletLayout.setOnClickListener {
                 accountInitListener?.initAction(BaseConstant.CONST_RESTORE_PRIVATE_ACCOUNT)
             }
+
+            qrWalletLayout.setOnClickListener {
+                accountInitListener?.initAction(BaseConstant.CONST_RESTORE_QR_ACCOUNT)
+            }
         }
     }
 

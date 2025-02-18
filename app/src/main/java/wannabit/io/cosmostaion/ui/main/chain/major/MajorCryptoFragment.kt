@@ -290,10 +290,12 @@ class MajorCryptoFragment : Fragment() {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
                     if (selectedChain is ChainSui) {
-                        ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                        ApplicationViewModel.shared.loadSuiData(
+                            account.id, selectedChain
+                        )
                     } else {
                         ApplicationViewModel.shared.loadBtcData(
-                            account.id, selectedChain as ChainBitCoin86, false
+                            account.id, selectedChain as ChainBitCoin86
                         )
                     }
                 }

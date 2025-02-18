@@ -33,15 +33,16 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:background="@color/color_base07"
-        android:layout_marginTop="@dimen/space_24"
         android:layout_marginHorizontal="@dimen/space_12"
-        app:layout_constraintTop_toBottomOf="@+id/title"/>
+        android:layout_marginTop="@dimen/space_24"
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/slippage1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view">
 
@@ -49,24 +50,35 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
             android:layout_marginVertical="@dimen/space_15"
+            android:layout_marginStart="@dimen/space_20"
+            android:text="1%"
             android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            android:text="1%"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/slippage1_select_img"
+            android:layout_width="@dimen/space_16"
+            android:layout_height="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_20"
+            android:src="@drawable/icon_check"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view0"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:background="@color/color_base07"
         android:layout_marginHorizontal="@dimen/space_12"
-        app:layout_constraintTop_toBottomOf="@+id/slippage1"/>
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/slippage1" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/slippage3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,24 +89,36 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
             android:layout_marginVertical="@dimen/space_15"
+            android:layout_marginStart="@dimen/space_20"
+            android:text="3%"
             android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view0"
-            android:text="3%"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/slippage3_select_img"
+            android:layout_width="@dimen/space_16"
+            android:layout_height="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_20"
+            android:src="@drawable/icon_check"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:background="@color/color_base07"
         android:layout_marginHorizontal="@dimen/space_12"
-        app:layout_constraintTop_toBottomOf="@+id/slippage3"/>
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/slippage3" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/slippage5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,14 +129,26 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
             android:layout_marginVertical="@dimen/space_15"
+            android:layout_marginStart="@dimen/space_20"
             android:text="5%"
             android:textColor="@color/color_base01"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view1" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/slippage5_select_img"
+            android:layout_width="@dimen/space_16"
+            android:layout_height="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_20"
+            android:src="@drawable/icon_check"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view2"

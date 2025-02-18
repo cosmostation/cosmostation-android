@@ -214,10 +214,13 @@ class StakingInfoFragment : Fragment() {
         binding.refresher.setOnRefreshListener {
             if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
+
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    ApplicationViewModel.shared.loadChainData(
+                        selectedChain, account.id, isRefresh = true
+                    )
                 }
             }
         }
@@ -292,13 +295,16 @@ class StakingInfoFragment : Fragment() {
     }
 
     private fun setUpStakeInfo() {
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
-            ApplicationViewModel.shared.notifyTxEvent()
-            initData()
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.notifyTxEvent()
+                initData()
+            }
         }
 
         ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.notifyRefreshEvent()
                 initData()
             }
         }

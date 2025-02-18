@@ -1,11 +1,9 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,14 +19,12 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.walletconnect.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,6 +36,8 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentSettingBinding
@@ -52,14 +50,8 @@ import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainActivity
-import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportBarcodeActivity
-import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportCheckKeyFragment
-import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.ImportQrActivity
-import wannabit.io.cosmostaion.ui.main.setting.wallet.importQR.QrImportConfirmListener
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.WaitingDialog
-import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import java.util.Locale
 
 class SettingFragment : Fragment() {
@@ -95,7 +87,6 @@ class SettingFragment : Fragment() {
         binding.apply {
             listOf(
                 accountView,
-                importView,
                 legacyView,
                 testnetView,
                 chainView,
@@ -226,18 +217,6 @@ class SettingFragment : Fragment() {
                 Intent(requireContext(), AccountActivity::class.java).apply {
                     startActivity(this)
                     requireActivity().toMoveAnimation()
-                }
-            }
-
-            importView.setOnClickListener {
-                if (ActivityCompat.checkSelfPermission(
-                        requireActivity(), Manifest.permission.CAMERA
-                    ) == PackageManager.PERMISSION_DENIED
-                ) {
-                    cameraPermissionRequest.launch(Manifest.permission.CAMERA)
-
-                } else {
-                    startImportBarcodeActivity()
                 }
             }
 
@@ -387,36 +366,6 @@ class SettingFragment : Fragment() {
             devView.setOnClickListener {
                 val intent = Intent(requireContext(), DevDialogActivity::class.java)
                 devResultLauncher.launch(intent)
-            }
-        }
-    }
-
-    private val qrCodeResultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.getStringExtra("import")?.let { scanStr ->
-                    val scanHexData = scanStr.toByteArray(Charsets.UTF_8).bytesToHex()
-                    if (scanHexData.startsWith("55324673")) {
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            ImportCheckKeyFragment.newInstance(scanStr, qrImportConfirmAction).show(
-                                parentFragmentManager, ImportCheckKeyFragment::class.java.name
-                            )
-                        }, 500)
-
-                    } else {
-                        requireActivity().makeToast(R.string.error_unknown_qr_code)
-                        return@registerForActivityResult
-                    }
-                }
-            }
-        }
-
-    private val qrImportConfirmAction = object : QrImportConfirmListener {
-        override fun qrImportConfirm(mnemonic: String) {
-            Intent(requireContext(), ImportQrActivity::class.java).apply {
-                putExtra("mnemonic", mnemonic)
-                startActivity(this)
-                requireActivity().toMoveAnimation()
             }
         }
     }
@@ -617,30 +566,6 @@ class SettingFragment : Fragment() {
                 binding.appLockSwitch.thumbDrawable =
                     ContextCompat.getDrawable(requireContext(), R.drawable.switch_thumb_off)
                 Prefs.appLock = false
-            }
-        }
-
-    @SuppressLint("WrongConstant")
-    private fun startImportBarcodeActivity() {
-        val intent = Intent(requireContext(), ImportBarcodeActivity::class.java)
-        qrCodeResultLauncher.launch(intent)
-        if (Build.VERSION.SDK_INT >= 34) {
-            requireActivity().overrideActivityTransition(
-                Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-            )
-        } else {
-            requireActivity().overridePendingTransition(
-                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-            )
-        }
-    }
-
-    private val cameraPermissionRequest =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                startImportBarcodeActivity()
-            } else {
-                return@registerForActivityResult
             }
         }
 

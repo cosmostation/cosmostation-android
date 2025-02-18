@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -29,6 +30,9 @@ class MajorHistoryFragment : Fragment() {
     private lateinit var selectedChain: BaseChain
 
     private lateinit var historyAdapter: HistoryAdapter
+
+    private var afterTxId: String = ""
+    private var hasMore = false
 
     private val suiHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
     private val bitHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
@@ -58,6 +62,7 @@ class MajorHistoryFragment : Fragment() {
 
         checkHistory()
         initRecyclerView()
+        scrollView()
         refreshData()
     }
 
@@ -76,7 +81,7 @@ class MajorHistoryFragment : Fragment() {
             }
         }
         if (selectedChain is ChainBitCoin86) {
-            historyViewModel.bitHistory(selectedChain as ChainBitCoin86)
+            historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
         } else {
             historyViewModel.suiHistory(selectedChain as ChainSui)
         }
@@ -86,7 +91,7 @@ class MajorHistoryFragment : Fragment() {
         binding.refresher.setOnRefreshListener {
             if (selectedChain is ChainBitCoin86) {
                 bitHistoryGroup.clear()
-                historyViewModel.bitHistory(selectedChain as ChainBitCoin86)
+                historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
             } else {
                 suiHistoryGroup.clear()
                 historyViewModel.suiHistory(selectedChain as ChainSui)
@@ -113,6 +118,34 @@ class MajorHistoryFragment : Fragment() {
         }
     }
 
+    private fun scrollView() {
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (binding.refresher.isRefreshing) {
+                    return
+                }
+                if (historyAdapter.itemCount == 0) {
+                    return
+                }
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = historyAdapter.itemCount - 1
+
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    if (hasMore) {
+                        hasMore = false
+                        if (selectedChain is ChainBitCoin86) {
+                            historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
+                        }
+                    } else {
+                        return
+                    }
+                }
+            }
+        })
+    }
+
     private fun checkHistory() {
         historyViewModel.suiHistoryResult.observe(viewLifecycleOwner) { response ->
             suiHistoryGroup.clear()
@@ -131,12 +164,16 @@ class MajorHistoryFragment : Fragment() {
         }
 
         historyViewModel.btcHistoryResult.observe(viewLifecycleOwner) { response ->
-            bitHistoryGroup.clear()
             binding.refresher.isRefreshing = false
             response?.let { historyGroup ->
                 bitHistoryGroup.addAll(historyGroup)
-                if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(bitHistoryGroup as List<Any>?)
+                historyAdapter.submitList(bitHistoryGroup as List<Any>?)
+                if (historyGroup.size < 50) {
+                    hasMore = false
+                } else {
+                    hasMore = true
+                    afterTxId =
+                        historyGroup[historyGroup.size - 1].second.asJsonObject["txid"].asString
                 }
 
                 binding.loading.visibility = View.GONE

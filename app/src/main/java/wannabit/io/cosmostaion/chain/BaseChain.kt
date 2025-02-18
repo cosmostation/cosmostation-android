@@ -67,6 +67,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNillion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNoble
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNolus
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
@@ -114,7 +115,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBase
-import wannabit.io.cosmostaion.chain.evmClass.ChainBerachain
+import wannabit.io.cosmostaion.chain.evmClass.ChainBerachainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
@@ -653,7 +654,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAxelar())
     chains.add(ChainBand())
     chains.add(ChainBase())
-    chains.add(ChainBerachain())
+    chains.add(ChainBerachainEvm())
     chains.add(ChainBitcanna())
     chains.add(ChainBitCoin44())
     chains.add(ChainBitCoin49())
@@ -716,6 +717,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMilkyway())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
+    chains.add(ChainNillion())
     chains.add(ChainNoble())
     chains.add(ChainNolus())
     chains.add(ChainNyx())

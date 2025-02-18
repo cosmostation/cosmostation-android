@@ -738,7 +738,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 binding.refresher.isRefreshing = false
             } else {
                 BaseData.baseAccount?.let { account ->
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id)
                 }
             }
         }
@@ -869,9 +869,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 override fun edit() {
                     binding.loading.visibility = View.VISIBLE
                     BaseData.baseAccount?.let { account ->
-                        ApplicationViewModel.shared.loadChainData(
-                            selectedChain, account.id, false
-                        )
+                        ApplicationViewModel.shared.loadChainData(selectedChain, account.id)
                     }
                 }
             }).show(

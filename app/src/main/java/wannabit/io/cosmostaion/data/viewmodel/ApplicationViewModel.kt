@@ -179,7 +179,11 @@ class ApplicationViewModel(
     }
 
     fun loadChainData(
-        chain: BaseChain, baseAccountId: Long, isEdit: Boolean
+        chain: BaseChain,
+        baseAccountId: Long,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             fetchState = FetchState.BUSY
@@ -241,12 +245,12 @@ class ApplicationViewModel(
             } else if (this is ChainOkt996Keccak) {
                 loadOktLcdData(this, baseAccountId, isEdit)
             } else if (this is ChainSui) {
-                loadSuiData(baseAccountId, this, isEdit)
+                loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
             } else {
                 if (this is ChainGnoTestnet) {
                     loadRpcData(this, baseAccountId, isEdit)
                 } else if (supportCosmos() && this !is ChainOktEvm) {
-                    loadGrpcAuthData(this, baseAccountId, isEdit)
+                    loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
                 } else {
                     loadEvmChainData(this, baseAccountId, isEdit)
                 }
@@ -262,30 +266,38 @@ class ApplicationViewModel(
     var editFetchedResult = SingleLiveEvent<String>()
     var editFetchedTokenResult = SingleLiveEvent<String>()
 
-    var refreshFetchedResult = SingleLiveEvent<String>()
     var refreshStakingInfoFetchedResult = SingleLiveEvent<String>()
 
     var txFetchedResult = SingleLiveEvent<String>()
 
     val notifyTxResult = SingleLiveEvent<Unit>()
     val notifyRefreshResult = SingleLiveEvent<Unit>()
+    val notifySuiTxResult = SingleLiveEvent<Unit>()
 
     fun notifyTxEvent() {
-        notifyTxResult.call()
+        notifyTxResult.postValue(Unit)
     }
 
     fun notifyRefreshEvent() {
-        notifyRefreshResult.call()
+        notifyRefreshResult.postValue(Unit)
+    }
+
+    fun notifySuiTxEvent() {
+        notifySuiTxResult.postValue(Unit)
     }
 
     private fun loadGrpcAuthData(
-        chain: BaseChain, baseAccountId: Long, isEdit: Boolean
+        chain: BaseChain,
+        baseAccountId: Long,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             val channel = cosmosFetcher?.getChannel()
             when (walletRepository.auth(channel, this)) {
                 is NetworkResult.Success -> {
-                    loadGrpcMoreData(channel, baseAccountId, this, isEdit)
+                    loadGrpcMoreData(channel, baseAccountId, this, isEdit, isTx, isRefresh)
                 }
 
                 is NetworkResult.Error -> {
@@ -365,7 +377,7 @@ class ApplicationViewModel(
                         BaseData.updateRefAddressesMain(refAddress)
                     }
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
@@ -377,7 +389,12 @@ class ApplicationViewModel(
     }
 
     private fun loadGrpcMoreData(
-        channel: ManagedChannel?, id: Long, chain: BaseChain, isEdit: Boolean
+        channel: ManagedChannel?,
+        id: Long,
+        chain: BaseChain,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             try {
@@ -645,12 +662,14 @@ class ApplicationViewModel(
                     BaseData.updateRefAddressesMain(refAddress)
                     coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
-                            txFetchedResult.value = tag
-                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
 
@@ -734,7 +753,7 @@ class ApplicationViewModel(
                         }
                     }
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedTokenResult.value = tag
                         } else {
                             fetchedTokenResult.value = tag
@@ -744,11 +763,10 @@ class ApplicationViewModel(
 
                 } else if (fetchState == FetchState.FAIL) {
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
-                            txFetchedResult.value = tag
                         }
                     }
                 }
@@ -766,7 +784,7 @@ class ApplicationViewModel(
         }
     }
 
-    fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean) =
+    fun loadEvmChainData(chain: BaseChain, baseAccountId: Long, isEdit: Boolean? = false) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
                 evmRpcFetcher()?.let { evmRpcFetcher ->
@@ -846,7 +864,7 @@ class ApplicationViewModel(
                                 oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                                     ?: 0
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedResult.value = tag
                                 } else {
                                     fetchedResult.value = tag
@@ -871,7 +889,7 @@ class ApplicationViewModel(
                             BaseData.updateRefAddressesToken(evmRefAddress)
                             tokenCnt = evmRpcFetcher.valueTokenCnt()
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedTokenResult.value = tag
                                 } else {
                                     fetchedTokenResult.value = tag
@@ -885,7 +903,7 @@ class ApplicationViewModel(
                             )
                             BaseData.updateRefAddressesMain(refAddress)
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedResult.value = tag
                                 } else {
                                     fetchedResult.value = tag
@@ -914,7 +932,7 @@ class ApplicationViewModel(
                             BaseData.updateRefAddressesMain(refAddress)
                             coinCnt = evmRpcFetcher.valueCoinCnt()
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedResult.value = tag
                                 } else {
                                     fetchedResult.value = tag
@@ -955,7 +973,7 @@ class ApplicationViewModel(
                                     evmRpcFetcher.valueTokenCnt()
                                 }
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedTokenResult.value = tag
                                 } else {
                                     fetchedTokenResult.value = tag
@@ -965,7 +983,7 @@ class ApplicationViewModel(
 
                         } else {
                             withContext(Dispatchers.Main) {
-                                if (isEdit) {
+                                if (isEdit == true) {
                                     editFetchedTokenResult.value = tag
                                 } else {
                                     fetchedTokenResult.value = tag
@@ -979,7 +997,7 @@ class ApplicationViewModel(
         }
 
     private fun loadOktLcdData(
-        chain: BaseChain, baseAccountId: Long, isEdit: Boolean
+        chain: BaseChain, baseAccountId: Long, isEdit: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             if (this is ChainOkt996Keccak) {
@@ -1032,7 +1050,7 @@ class ApplicationViewModel(
                         oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             ?: 0
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
@@ -1045,7 +1063,7 @@ class ApplicationViewModel(
                     )
                     BaseData.updateRefAddressesMain(refAddress)
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
@@ -1057,7 +1075,11 @@ class ApplicationViewModel(
     }
 
     fun loadSuiData(
-        id: Long, chain: BaseChain, isEdit: Boolean
+        id: Long,
+        chain: BaseChain,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         (chain as ChainSui).suiFetcher()?.let { fetcher ->
             chain.apply {
@@ -1154,9 +1176,18 @@ class ApplicationViewModel(
                             val coinMetadataResult = deferred.await()
                             if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
                                 fetcher.suiBalances[index].first?.let { type ->
-                                    val result = coinMetadataResult.data["result"]?.asJsonObject
-                                    if (result != null) {
-                                        fetcher.suiCoinMeta[type] = result
+                                    val result = coinMetadataResult.data["result"]
+                                    val resultData = when (result) {
+                                        is JsonObject -> {
+                                            result.asJsonObject
+                                        }
+
+                                        else -> {
+                                            null
+                                        }
+                                    }
+                                    if (resultData != null) {
+                                        fetcher.suiCoinMeta[type] = resultData
                                     }
                                 }
 
@@ -1181,24 +1212,28 @@ class ApplicationViewModel(
                     coinCnt = fetcher.suiBalances.size
 
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
-                            txFetchedResult.value = tag
-                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
 
                 } catch (e: Exception) {
                     fetchState = FetchState.FAIL
                     withContext(Dispatchers.Main) {
-                        if (isEdit) {
+                        if (isEdit == true) {
                             editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
                         } else {
                             fetchedResult.value = tag
-                            txFetchedResult.value = tag
-                            refreshStakingInfoFetchedResult.value = tag
                         }
                     }
                 }
@@ -1207,7 +1242,7 @@ class ApplicationViewModel(
     }
 
     fun loadBtcData(
-        id: Long, chain: ChainBitCoin86, isEdit: Boolean
+        id: Long, chain: ChainBitCoin86, isEdit: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.btcFetcher()?.let { fetcher ->
             chain.apply {
@@ -1253,11 +1288,10 @@ class ApplicationViewModel(
                             if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
 
                         withContext(Dispatchers.Main) {
-                            if (isEdit) {
+                            if (isEdit == true) {
                                 editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
-                                txFetchedResult.value = tag
                             }
                         }
                     }
@@ -1265,11 +1299,10 @@ class ApplicationViewModel(
                     is NetworkResult.Error -> {
                         fetchState = FetchState.FAIL
                         withContext(Dispatchers.Main) {
-                            if (isEdit) {
+                            if (isEdit == true) {
                                 editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
-                                txFetchedResult.value = tag
                             }
                         }
                     }
@@ -1278,7 +1311,7 @@ class ApplicationViewModel(
         }
     }
 
-    private fun loadRpcData(chain: BaseChain, id: Long, isEdit: Boolean) =
+    private fun loadRpcData(chain: BaseChain, id: Long, isEdit: Boolean? = false) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
                 when (val response = walletRepository.rpcAuth(chain)) {
@@ -1326,18 +1359,15 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder()
-                                                .setDenom(stakeDenom)
-                                                .setAmount("0")
-                                                .build()
+                                            CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                                .setAmount("0").build()
                                         )
                                     }
 
                                     fetcher.gnoBalances = tempBalances
                                     fetcher.gnoAccountNumber =
                                         accountData["account_number"].asString.toLong()
-                                    fetcher.gnoSequence =
-                                        accountData["sequence"].asString.toLong()
+                                    fetcher.gnoSequence = accountData["sequence"].asString.toLong()
 
                                     val refAddress = RefAddress(
                                         id,
@@ -1355,11 +1385,10 @@ class ApplicationViewModel(
                                 }
 
                                 withContext(Dispatchers.Main) {
-                                    if (isEdit) {
+                                    if (isEdit == true) {
                                         editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
-                                        txFetchedResult.value = tag
                                     }
                                 }
 
@@ -1370,8 +1399,7 @@ class ApplicationViewModel(
                                             .map { token ->
                                                 async {
                                                     walletRepository.grc20Balance(
-                                                        chain,
-                                                        token
+                                                        chain, token
                                                     )
                                                 }
                                             }
@@ -1381,8 +1409,7 @@ class ApplicationViewModel(
                                             .map { token ->
                                                 async {
                                                     walletRepository.grc20Balance(
-                                                        chain,
-                                                        token
+                                                        chain, token
                                                     )
                                                 }
                                             }
@@ -1404,7 +1431,7 @@ class ApplicationViewModel(
                                     fetchState = FetchState.SUCCESS
 
                                     withContext(Dispatchers.Main) {
-                                        if (isEdit) {
+                                        if (isEdit == true) {
                                             editFetchedTokenResult.value = tag
                                         } else {
                                             fetchedTokenResult.value = tag
@@ -1416,11 +1443,10 @@ class ApplicationViewModel(
                             } else {
                                 fetchState = FetchState.FAIL
                                 withContext(Dispatchers.Main) {
-                                    if (isEdit) {
+                                    if (isEdit == true) {
                                         editFetchedResult.value = tag
                                     } else {
                                         fetchedResult.value = tag
-                                        txFetchedResult.value = tag
                                     }
                                 }
                             }
@@ -1430,11 +1456,10 @@ class ApplicationViewModel(
                     is NetworkResult.Error -> {
                         fetchState = FetchState.FAIL
                         withContext(Dispatchers.Main) {
-                            if (isEdit) {
+                            if (isEdit == true) {
                                 editFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
-                                txFetchedResult.value = tag
                             }
                         }
                     }

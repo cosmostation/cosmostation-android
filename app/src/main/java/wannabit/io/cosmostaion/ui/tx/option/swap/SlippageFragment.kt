@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.FragmentSlippageBinding
 
 interface SlippageListener {
@@ -16,12 +17,18 @@ class SlippageFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentSlippageBinding? = null
     private val binding get() = _binding!!
 
+    private var skipSlippage = "1"
+
     companion object {
         @JvmStatic
         fun newInstance(
-            listener: SlippageListener
+            skipSlippage: String, listener: SlippageListener
         ): SlippageFragment {
+            val args = Bundle().apply {
+                putString("skipSlippage", skipSlippage)
+            }
             val fragment = SlippageFragment()
+            fragment.arguments = args
             fragment.slippageListener = listener
             return fragment
         }
@@ -39,7 +46,17 @@ class SlippageFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
         setUpClickAction()
+    }
+
+    private fun initView() {
+        arguments?.getString("skipSlippage")?.let { skipSlippage = it }
+        binding.apply {
+            slippage1SelectImg.visibleOrGone(skipSlippage == "1")
+            slippage3SelectImg.visibleOrGone(skipSlippage == "3")
+            slippage5SelectImg.visibleOrGone(skipSlippage == "5")
+        }
     }
 
     private fun setUpClickAction() {

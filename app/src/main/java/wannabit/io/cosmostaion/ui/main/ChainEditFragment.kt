@@ -114,10 +114,12 @@ class ChainEditFragment : BaseTxFragment() {
                         allChains.asSequence().concurrentForEach { chain ->
                             val safeContext = context ?: return@concurrentForEach
                             if (chain.publicKey == null) {
-                                chain.setInfoWithSeed(safeContext, seed, chain.setParentPath, lastHDPath)
+                                chain.setInfoWithSeed(
+                                    safeContext, seed, chain.setParentPath, lastHDPath
+                                )
                             }
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
-                                ApplicationViewModel.shared.loadChainData(chain, id, true)
+                                ApplicationViewModel.shared.loadChainData(chain, id, isEdit = true)
                             }
                         }
 
@@ -128,7 +130,7 @@ class ChainEditFragment : BaseTxFragment() {
                                 chain.setInfoWithPrivateKey(safeContext, privateKey)
                             }
                             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.FAIL) {
-                                ApplicationViewModel.shared.loadChainData(chain, id, true)
+                                ApplicationViewModel.shared.loadChainData(chain, id, isEdit = true)
                             }
                         }
                     }

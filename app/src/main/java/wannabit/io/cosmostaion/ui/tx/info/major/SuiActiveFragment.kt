@@ -134,7 +134,11 @@ class SuiActiveFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain, false)
+                    ApplicationViewModel.shared.loadSuiData(
+                        account.id,
+                        selectedChain,
+                        isRefresh = true
+                    )
                 }
             }
         }
@@ -148,9 +152,11 @@ class SuiActiveFragment : Fragment() {
             }
         }
 
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
-            ApplicationViewModel.shared.notifyTxEvent()
-            updateView()
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.notifySuiTxEvent()
+                updateView()
+            }
         }
     }
 

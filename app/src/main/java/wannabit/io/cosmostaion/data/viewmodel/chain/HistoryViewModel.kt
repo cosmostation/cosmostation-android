@@ -130,13 +130,13 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
     private var _btcHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
     val btcHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _btcHistoryResult
 
-    fun bitHistory(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
+    fun bitHistory(chain: ChainBitCoin86, afterTxId: String) = viewModelScope.launch(Dispatchers.IO) {
         chain.btcFetcher()?.let { fetcher ->
             fetcher.btcBlockHeight = 0
             fetcher.btcHistory.clear()
 
             try {
-                val loadHistoryDeferred = async { historyRepository.bitHistory(chain) }
+                val loadHistoryDeferred = async { historyRepository.bitHistory(chain, afterTxId) }
                 val loadBlockHeightDeferred = async { historyRepository.bitBlockHeight(chain) }
 
                 val historyResult = loadHistoryDeferred.await()

@@ -207,7 +207,6 @@
     <string name="title_account">Account</string>
     <string name="title_account_name">Account name</string>
     <string name="title_add_account">Add account</string>
-    <string name="title_import_qr">Import account with QR scan</string>
     <string name="title_legacy_enabled">Enable old addresses</string>
     <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
@@ -233,6 +232,7 @@
     <string name="title_create_wallet">Create a new account</string>
     <string name="title_import_mnemonic">Import mnemonics</string>
     <string name="title_import_private_key">Import private Key</string>
+    <string name="title_import_qr">Import Mnemonic Qr</string>
     <string name="title_set_account_name">Set account name</string>
     <string name="title_mnemonic_created">Mnemonic created</string>
     <string name="title_restore_mnemonic">Restore with mnemonic</string>
@@ -355,6 +355,7 @@
     <string name="str_create_wallet_msg">Create an account with a set of mnemonics</string>
     <string name="str_import_mnemonic_msg">Restore an account with your mnemonics</string>
     <string name="str_import_private_key_msg">Restore an account with your private key</string>
+    <string name="str_import_qr_msg">Restore an account with QR Code</string>
     <string name="str_warning_mnemonic_msg">This phrase is the only way to recover your account. Losing this mnemonics could lead to loss of your asset.</string>
     <string name="str_tap_for_add_amount_msg">Tap to add amount</string>
     <string name="str_tap_for_add_address_msg">Tap to add address</string>

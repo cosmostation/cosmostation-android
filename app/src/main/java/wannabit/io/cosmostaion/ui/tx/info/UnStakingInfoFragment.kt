@@ -188,10 +188,15 @@ class UnStakingInfoFragment : Fragment() {
         binding.refresher.setOnRefreshListener {
             if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
+
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadChainData(selectedChain, account.id, false)
+                    ApplicationViewModel.shared.loadChainData(
+                        selectedChain,
+                        account.id,
+                        isRefresh = true
+                    )
                 }
             }
         }
@@ -270,10 +275,8 @@ class UnStakingInfoFragment : Fragment() {
             initData()
         }
 
-        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag) {
-                initData()
-            }
+        ApplicationViewModel.shared.notifyRefreshResult.observe(viewLifecycleOwner) {
+            initData()
         }
     }
 
