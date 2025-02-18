@@ -1844,22 +1844,6 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
-                "bit_getBTCTipHeight" -> {
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        RetrofitInstance.bitApi(selectBitcoin as ChainBitCoin86).bitTipHeight()
-                            .body()?.let { height ->
-                                appToWebResult(
-                                    messageJson, height, messageId
-                                )
-
-                            } ?: run {
-                            appToWebError(
-                                messageJson, messageId, "Api Error"
-                            )
-                        }
-                    }
-                }
-
                 "bit_pushTx" -> {
                     val params = messageJson.getJSONArray("params")
                     if (params.length() > 0) {
