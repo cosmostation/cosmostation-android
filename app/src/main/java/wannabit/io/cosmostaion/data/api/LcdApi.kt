@@ -151,4 +151,7 @@ interface LcdApi {
 
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
+
+    @GET("api/blocks/tip/height")
+    suspend fun bitTipHeight(): Response<Long>
 }
