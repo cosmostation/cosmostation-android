@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoTestApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
@@ -881,6 +882,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             ecoApi.ecoSystemInfo(chain)
+        }
+    }
+
+    override suspend fun ecoSystemTest(): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            ecoTestApi.ecoSystemTestInfo()
         }
     }
 

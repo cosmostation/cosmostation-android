@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_18"
+        android:layout_marginEnd="@dimen/space_20"
+        android:src="@drawable/icon_clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dapp_url"
+        style="@style/font_sb_16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_20"
+        android:textColor="@color/color_base01"
+        android:layout_marginEnd="@dimen/space_24"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toStartOf="@+id/btn_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base08"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dapp_url" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_layout"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/dapp_img"
+                android:layout_width="240dp"
+                android:layout_height="@dimen/space_180"
+                android:layout_marginTop="@dimen/space_16"
+                android:scaleType="centerCrop"
+                android:background="@drawable/item_dapp_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dapp_name"
+                style="@style/font_sb_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:ellipsize="end"
+                android:maxWidth="@dimen/space_200"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dapp_img" />
+
+            <TextView
+                android:id="@+id/dapp_type_badge"
+                style="@style/font_sb_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:background="@drawable/round_box_ecosystem"
+                android:paddingHorizontal="@dimen/space_6"
+                android:paddingVertical="@dimen/space_2"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="@id/dapp_name"
+                app:layout_constraintStart_toEndOf="@id/dapp_name"
+                app:layout_constraintTop_toTopOf="@id/dapp_name" />
+
+            <LinearLayout
+                android:id="@+id/btn_pin_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_20"
+                android:layout_marginEnd="@dimen/space_20"
+                app:layout_constraintBottom_toBottomOf="@+id/dapp_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/dapp_name">
+
+                <ImageView
+                    android:id="@+id/btn_pin"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:src="@drawable/icon_pin" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dapp_description"
+                style="@style/font_sm_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginHorizontal="@dimen/space_20"
+                android:lineSpacingExtra="@dimen/space_4"
+                android:lineSpacingMultiplier="1.0"
+                android:textColor="@color/color_base03"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dapp_name" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_20"
+                android:background="@color/color_base08"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dapp_description" />
+
+            <TextView
+                android:id="@+id/support_network"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:text="@string/str_supported_network"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+            <GridLayout
+                android:id="@+id/support_network_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_12"
+                android:columnCount="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/support_network">
+
+            </GridLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@color/color_base08"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/support_network_view" />
+
+            <TextView
+                android:id="@+id/support_community"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_20"
+                android:text="@string/str_support_community"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <LinearLayout
+                android:id="@+id/socialContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:layout_marginBottom="@dimen/space_40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/support_community">
+
+                <ImageView
+                    android:id="@+id/btn_github"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:src="@drawable/icon_dapp_github" />
+
+                <ImageView
+                    android:id="@+id/btn_telegram"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:src="@drawable/icon_telegram" />
+
+                <ImageView
+                    android:id="@+id/btn_twitter"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:src="@drawable/icon_twitter" />
+
+                <ImageView
+                    android:id="@+id/btn_discord"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:src="@drawable/icon_discord" />
+
+                <ImageView
+                    android:id="@+id/btn_reddit"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginStart="@dimen/space_20"
+                    android:src="@drawable/icon_reddit" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_hide_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_12"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                style="@style/font_sb_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginVertical="@dimen/space_17"
+                android:text="@string/str_hide_7_days"
+                android:textAllCaps="false"
+                android:textColor="@color/color_base01" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_dapp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/font_sb_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/space_17"
+                    android:text="Go To Dapp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base01" />
+
+                <ImageView
+                    android:layout_width="@dimen/space_16"
+                    android:layout_height="@dimen/space_16"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:src="@drawable/icon_redirect" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

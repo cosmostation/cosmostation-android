@@ -54,11 +54,18 @@ interface MintscanApi {
     suspend fun cw721Info(@Path("chain") chain: String): JsonObject
 
     @GET("v10/{chain}/contracts/{contractAddress}/nft-url/{tokenId}")
-    suspend fun cw721Detail(@Path("chain") chain: String, @Path("contractAddress") contractAddress: String, @Path("tokenId") tokenId: String): JsonObject
+    suspend fun cw721Detail(
+        @Path("chain") chain: String,
+        @Path("contractAddress") contractAddress: String,
+        @Path("tokenId") tokenId: String
+    ): JsonObject
 
     @GET("v10/{chain}/account/{address}/txs")
     suspend fun cosmosHistory(
-        @Path("chain") chain: String, @Path("address") address: String?, @Query("limit") limit: String, @Query("search_after") searchAfter: String
+        @Path("chain") chain: String,
+        @Path("address") address: String?,
+        @Query("limit") limit: String,
+        @Query("search_after") searchAfter: String
     ): Response<List<CosmosHistory>>
 
     @GET("v11/{chain}/proposals")
@@ -77,11 +84,17 @@ interface MintscanApi {
     @GET("{chain}/eco_list.json")
     suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
 
+    @GET("eco_list.json")
+    suspend fun ecoSystemTestInfo(): MutableList<JsonObject>
+
     @GET("v10/notice?include_content=true&flatform=MOBILE")
     suspend fun notice(): NoticeResponse
 
     @GET("v10/{chain}/proxy/okx/account/{address}/txs")
     suspend fun evmHistory(
-        @Path("chain") chain: String?, @Path("address") address: String?, @Query("limit") limit: String?, @Query("search_after") searchAfter: String
+        @Path("chain") chain: String?,
+        @Path("address") address: String?,
+        @Query("limit") limit: String?,
+        @Query("search_after") searchAfter: String
     ): Response<JsonObject?>
 }

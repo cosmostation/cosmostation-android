@@ -47,6 +47,8 @@ object Prefs {
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
     private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
     private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
+    private const val DAPP_FILTER = "PRE_DAPP_FILTER"
+    private const val DAPP_PINNED = "PRE_DAPP_PINNED"
 
 
     private val preference =
@@ -194,6 +196,10 @@ object Prefs {
     var chainFilter: Boolean
         get() = preference.getBoolean(CHAIN_FILTER, false)
         set(value) = preference.edit().putBoolean(CHAIN_FILTER, value).apply()
+
+    var dappFilter: Int
+        get() = preference.getInt(DAPP_FILTER, 0)
+        set(value) = preference.edit().putInt(DAPP_FILTER, value).apply()
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>
@@ -366,5 +372,38 @@ object Prefs {
     fun removeLcdEndpoint(chain: BaseChain) {
         val key = LCD_ENDPOINT + ":" + chain.name
         preference.edit().remove(key).apply()
+    }
+
+    fun setPinnedDapps(chains: List<Int>) {
+        val encoded = try {
+            val jsonString = JSONArray(chains).toString()
+            jsonString.toByteArray(Charsets.UTF_8)
+        } catch (e: JSONException) {
+            null
+        }
+
+        if (encoded != null) {
+            val key = DAPP_PINNED
+            preference.edit().putString(key, String(encoded)).apply()
+        }
+    }
+
+    fun getPinnedDapps(): MutableList<Int> {
+        val key = DAPP_PINNED
+        val savedDataString = preference.getString(key, null)
+
+        if (!savedDataString.isNullOrEmpty()) {
+            try {
+                val jsonArray = JSONArray(savedDataString)
+                val result = ArrayList<Int>()
+                for (i in 0 until jsonArray.length()) {
+                    result.add(jsonArray.getInt(i))
+                }
+                return result
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return mutableListOf()
     }
 }

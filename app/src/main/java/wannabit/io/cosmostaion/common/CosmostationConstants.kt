@@ -21,6 +21,9 @@ object CosmostationConstants {
     const val ECO_SYSTEM_URL =
         "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/"
 
+    //test
+    const val ECO_SYSTEM_TEST_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/ecosystem_dev/wallet_mobile/"
+
     //cosmostation
     const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"
     const val COSMOSTATION_TERM_EN = "https://cosmostation.io/service_en"
@@ -35,7 +38,8 @@ object CosmostationConstants {
     const val MOON_PAY_PUBLIC_KEY = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn"
     const val KADO_PUBLIC_KEY = "18e55363-1d76-456c-8d4d-ecee7b9517ea"
 
-    const val DAPP_ADDITIONAL_SCRIPT = """window.navigator.__defineGetter__('userAgent', function () {
+    const val DAPP_ADDITIONAL_SCRIPT =
+        """window.navigator.__defineGetter__('userAgent', function () {
                                         return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36';
                                        });"""
 }

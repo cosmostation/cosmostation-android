@@ -181,6 +181,14 @@
     <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
     <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
     <string name="str_taproot" translatable="false">TAPROOT</string>
+    <string name="str_supported_network">Supported Network</string>
+    <string name="str_support_community">Social Community</string>
+    <string name="str_hide_7_days">Hide for 7 Days</string>
+    <string name="str_sort_alphabet">Alphabetical Asc. (A -> Z)</string>
+    <string name="str_sort_alphabet_description">Sort the list alphabetically</string>
+    <string name="str_sort_multi">Multi-Network Support</string>
+    <string name="str_sort_multi_description">Sort the list by the number of supported networks</string>
+    <string name="str_select_chain">Select chain</string>
 
 
     //title
@@ -332,6 +340,7 @@
     <string name="title_delist">Discontinuation of support</string>
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
+    <string name="title_select_option">Select Sort Option</string>
 
 
     // msg

@@ -138,6 +138,14 @@
     <string name="str_next_reward_distribution">次の報酬分配</string>
     <string name="str_instant">直ちに</string>
     <string name="str_endpoint_reset">エンドポイントの初期化</string>
+    <string name="str_supported_network">サポート対象ネットワーク</string>
+    <string name="str_support_community">ソーシャル·コミュニティ</string>
+    <string name="str_hide_7_days">7日間隠し事</string>
+    <string name="str_sort_alphabet">アルファベット順 Asc.(A->Z)</string>
+    <string name="str_sort_alphabet_description">アルファベット順整列</string>
+    <string name="str_sort_multi">マルチネットワークサポート</string>
+    <string name="str_sort_multi_description">サポートされているネットワーク数を並べ替えます</string>
+    <string name="str_select_chain">チェーン選択</string>
 
 
     //title
@@ -268,6 +276,7 @@
     <string name="title_delist">サポートの終了</string>
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
     <string name="title_support_inject">インジェクションをサポート</string>
+    <string name="title_select_option">ソートオプション選択</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
