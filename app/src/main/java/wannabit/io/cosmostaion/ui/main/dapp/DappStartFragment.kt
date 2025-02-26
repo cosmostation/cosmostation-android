@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -50,12 +49,13 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
     private lateinit var dappListAdapter: DappListAdapter
 
-    private var dappList: MutableList<JsonObject> = mutableListOf()
+    private var ecosystems: MutableList<JsonObject> = mutableListOf()
     private var supportChains: MutableList<String>? = mutableListOf()
     private var selectedIndex: Int = 0
     private var selectedType: String = "Popular"
     private var selectedChain: String = "All Network"
 
+    private var searchTxt: String? = ""
     private var isPinned = false
     private var isClickable = true
 
@@ -215,7 +215,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                             selectedType = type
                             centerButtonInScrollView(buttonScroll, view.root)
                             dappViewModel.sortByType(
-                                selectedType, selectedChain, isPinned = isPinned
+                                ecosystems, selectedType, selectedChain, searchTxt, isPinned
                             )
                         }
                         buttonContainer.addView(view.root)
@@ -225,70 +225,63 @@ class DappStartFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun centerButtonInScrollView(scrollView: HorizontalScrollView, button: View) {
-        val scrollViewCenterX = scrollView.width / 2
-        val buttonX = button.left - scrollView.scrollX
-        val buttonCenterX = buttonX + button.width / 2
-        val scrollToX = buttonCenterX - scrollViewCenterX
-        scrollView.smoothScrollTo(scrollToX, 0)
-    }
-
     private fun initRecyclerView() {
         binding.recycler.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                if (Prefs.dappFilter == 0) {
-                    BaseData.ecosystems?.sortWith(
-                        compareByDescending<JsonObject> {
-                            if (it.has("isPinned")) it["isPinned"].asBoolean else false
-                        }.thenBy {
-                            it["name"].asString
-                        }
-                    )
+            ecosystems.forEach { ecosystem ->
+                val isPinnedValue = Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+                ecosystem.addProperty("isPinned", isPinnedValue)
+            }
+
+            binding.emptyLayout.visibility = View.GONE
+            dappListAdapter = DappListAdapter(requireContext())
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = dappListAdapter
+            dappListAdapter.submitList(ecosystems.filter { ecosystem ->
+                val popular = if (ecosystem.has("is_default")) {
+                    ecosystem["is_default"].asBoolean
+                } else {
+                    false
+                }
+                popular
+            })
+
+            dappListAdapter.setOnItemClickListener { ecosystem ->
+                handleOneClickWithDelay(
+                    DappDetailFragment.newInstance(
+                        ecosystem.toString(),
+                        object : DappPinSelectListener {
+                            override fun pinned(id: Int) {
+                                dappViewModel.pinnedByDetail(
+                                    ecosystems, selectedType, selectedChain, searchTxt, isPinned, id
+                                )
+                            }
+                        })
+                )
+            }
+        }
+    }
+
+    private fun setUpObserve() {
+        dappViewModel.dappList.observe(viewLifecycleOwner) {
+            ecosystems.addAll(it)
+            initRecyclerView()
+        }
+
+        dappViewModel.pinnedByDetail.observe(viewLifecycleOwner) { pinnedList ->
+            dappListAdapter.submitList(pinnedList)
+        }
+
+        dappViewModel.sortedBy.observe(viewLifecycleOwner) { sortList ->
+            binding.apply {
+                if (sortList.isNotEmpty()) {
+                    dappListAdapter.submitList(sortList)
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
 
                 } else {
-                    BaseData.ecosystems?.sortWith(
-                        compareByDescending<JsonObject> {
-                            if (it.has("isPinned")) it["isPinned"].asBoolean else false
-                        }.thenByDescending {
-                            it["chains"].asJsonArray.size()
-                        }.thenBy {
-                            it["name"].asString
-                        }
-                    )
-                }
-
-                withContext(Dispatchers.Main) {
-                    binding.emptyLayout.visibility = View.GONE
-                    dappListAdapter =
-                        DappListAdapter(requireContext())
-                    setHasFixedSize(true)
-                    layoutManager = GridLayoutManager(requireContext(), 2)
-                    adapter = dappListAdapter
-                    dappListAdapter.submitList(BaseData.ecosystems?.filter { ecosystem ->
-                        val popular = if (ecosystem.has("is_default")) {
-                            ecosystem["is_default"].asBoolean
-                        } else {
-                            false
-                        }
-                        popular
-                    })
-
-                    dappListAdapter.setOnItemClickListener { ecosystem ->
-                        handleOneClickWithDelay(
-                            DappDetailFragment.newInstance(
-                                ecosystem.toString(),
-                                object : DappPinSelectListener {
-                                    override fun pinned(id: Int) {
-                                        dappViewModel.sortByType(
-                                            selectedType,
-                                            selectedChain,
-                                            isPinned = isPinned,
-                                            isPinnedId = id
-                                        )
-                                    }
-                                })
-                        )
-                    }
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
                 }
             }
         }
@@ -305,7 +298,9 @@ class DappStartFragment : BottomSheetDialogFragment() {
                     "sort", this@DappStartFragment
                 ) { _, bundle ->
                     Prefs.dappFilter = bundle.getInt("sort")
-                    dappViewModel.sortByType(selectedType, selectedChain, isPinned = isPinned)
+                    dappViewModel.sortByType(
+                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                    )
                 }
             }
 
@@ -325,7 +320,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                                 }
                                 selectedChain = chain
                                 dappViewModel.sortByType(
-                                    selectedType, selectedChain, isPinned = isPinned
+                                    ecosystems, selectedType, selectedChain, searchTxt, isPinned
                                 )
                             }
                         }
@@ -340,7 +335,9 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 } else {
                     checkStatusImg.setImageResource(R.drawable.icon_checkbox_off)
                 }
-                dappViewModel.sortByType(selectedType, selectedChain, isPinned = isPinned)
+                dappViewModel.sortByType(
+                    ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                )
             }
         }
     }
@@ -355,32 +352,22 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    dappViewModel.sortByType(selectedType, selectedChain, newText, isPinned)
+                    searchTxt = newText
+                    dappViewModel.sortByType(
+                        ecosystems, selectedType, selectedChain, newText, isPinned
+                    )
                     return true
                 }
             })
         }
     }
 
-    private fun setUpObserve() {
-        dappViewModel.dappList.observe(viewLifecycleOwner) {
-            dappList.addAll(it)
-        }
-
-        dappViewModel.sortedBy.observe(viewLifecycleOwner) { sortList ->
-            Log.e("Test12345 : ", sortList.second.toString())
-            binding.apply {
-                if (sortList.first.isNotEmpty()) {
-                    dappListAdapter.submitList(sortList.first)
-                    emptyLayout.visibility = View.GONE
-                    recycler.visibility = View.VISIBLE
-
-                } else {
-                    emptyLayout.visibility = View.VISIBLE
-                    recycler.visibility = View.GONE
-                }
-            }
-        }
+    private fun centerButtonInScrollView(scrollView: HorizontalScrollView, button: View) {
+        val scrollViewCenterX = scrollView.width / 2
+        val buttonX = button.left - scrollView.scrollX
+        val buttonCenterX = buttonX + button.width / 2
+        val scrollToX = buttonCenterX - scrollViewCenterX
+        scrollView.smoothScrollTo(scrollToX, 0)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -143,51 +143,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             } else {
                                 val ecoList = response.data as MutableList<JsonObject>
                                 ecoList.forEach { ecosystem ->
-                                    val isPinnedValue = Prefs.getPinnedDapps()
-                                        .contains(ecosystem["id"].asInt)
+                                    val isPinnedValue =
+                                        Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
                                     ecosystem.addProperty("isPinned", isPinnedValue)
                                 }
 
                                 if (Prefs.dappFilter == 0) {
-                                    ecoList.sortWith(
-                                        compareByDescending<JsonObject> {
-                                            if (it.has("isPinned")) it["isPinned"].asBoolean else false
-                                        }.thenBy {
-                                            it["name"].asString
-                                        }
-                                    )
-
+                                    ecoList.sortWith(compareBy { it["name"].asString })
                                 } else {
-                                    ecoList.sortWith(
-                                        compareByDescending<JsonObject> {
-                                            if (it.has("isPinned")) it["isPinned"].asBoolean else false
-                                        }.thenByDescending {
-                                            it["chains"].asJsonArray.size()
-                                        }.thenBy {
-                                            it["name"].asString
-                                        }
-                                    )
+                                    ecoList.sortWith(compareByDescending<JsonObject> { ecosystem ->
+                                        ecosystem["chains"].asJsonArray.size()
+                                    }.thenBy { ecosystem -> ecosystem["name"].asString })
                                 }
-
-//                                ecoList.sortWith(
-//                                    compareByDescending<JsonObject> { ecosystem ->
-//                                        if (ecosystem.has("isPinned")) ecosystem["isPinned"].asBoolean else false
-//                                    }.thenBy { ecosystem ->
-//                                        if (Prefs.dappFilter == 0) {
-//                                            ecosystem["name"].asString
-//                                        } else {
-//                                            ecosystem["name"].asString
-//                                        }
-//                                    }
-//                                )
-//
-//                                if (Prefs.dappFilter == 0) {
-//                                    ecoList.sortWith(compareBy { it["name"].asString })
-//                                } else {
-//                                    ecoList.sortWith(compareByDescending<JsonObject> { ecosystem ->
-//                                        ecosystem["chains"].asJsonArray.size()
-//                                    }.thenBy { ecosystem -> ecosystem["name"].asString })
-//                                }
                                 BaseData.ecosystems = ecoList
                             }
                         }

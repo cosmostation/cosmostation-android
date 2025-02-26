@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.viewmodel.dapp
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,20 +13,23 @@ class DappViewModel : ViewModel() {
     private val _dappList = MutableLiveData<List<JsonObject>>()
     val dappList: LiveData<List<JsonObject>> get() = _dappList
 
-    private val _sortedBy = MutableLiveData<Pair<List<JsonObject>, List<JsonObject>>>()
-    val sortedBy: LiveData<Pair<List<JsonObject>, List<JsonObject>>> get() = _sortedBy
+    private val _pinnedByDetail = MutableLiveData<List<JsonObject>>()
+    val pinnedByDetail: LiveData<List<JsonObject>> get() = _pinnedByDetail
+
+    private val _sortedBy = MutableLiveData<List<JsonObject>>()
+    val sortedBy: LiveData<List<JsonObject>> get() = _sortedBy
 
     fun fetchDappList() {
         if (Prefs.dappFilter == 0) {
             ecosystems?.sortWith(compareByDescending<JsonObject> {
-                if (it.has("isPinned")) it["isPinned"].asBoolean else false
+                it["isPinned"].asBoolean
             }.thenBy {
                 it["name"].asString
             })
 
         } else {
             ecosystems?.sortWith(compareByDescending<JsonObject> {
-                if (it.has("isPinned")) it["isPinned"].asBoolean else false
+                it["isPinned"].asBoolean
             }.thenByDescending {
                 it["chains"].asJsonArray.size()
             }.thenBy {
@@ -37,43 +39,15 @@ class DappViewModel : ViewModel() {
         _dappList.postValue(ecosystems)
     }
 
-    fun sortByType(
+    fun pinnedByDetail(
+        ecosystems: MutableList<JsonObject>,
         type: String,
         chain: String,
-        searchTxt: String? = "",
+        searchTxt: String?,
         isPinned: Boolean? = false,
         isPinnedId: Int? = 0
     ) {
-//        if (Prefs.dappFilter == 0) {
-//            ecosystems?.sortWith(compareBy { it["name"].asString })
-//        } else {
-//            ecosystems?.sortWith(compareByDescending<JsonObject> { ecosystem ->
-//                ecosystem["chains"].asJsonArray.size()
-//            }.thenBy { ecosystem -> ecosystem["name"].asString })
-//        }
-
-//        if (Prefs.dappFilter == 0) {
-//            ecosystems?.sortWith(
-//                compareByDescending<JsonObject> {
-//                    if (it.has("isPinned")) it["isPinned"].asBoolean else false
-//                }.thenBy {
-//                    it["name"].asString
-//                }
-//            )
-//
-//        } else {
-//            ecosystems?.sortWith(
-//                compareByDescending<JsonObject> {
-//                    if (it.has("isPinned")) it["isPinned"].asBoolean else false
-//                }.thenByDescending {
-//                    it["chains"].asJsonArray.size()
-//                }.thenBy {
-//                    it["name"].asString
-//                }
-//            )
-//        }
-
-        val updatedEcosystems = ecosystems?.map { ecosystem ->
+        val updatedEcosystems = ecosystems.map { ecosystem ->
             if (ecosystem["id"].asInt == isPinnedId) {
                 val updatedEcosystem = JsonParser.parseString(ecosystem.toString()).asJsonObject
                 updatedEcosystem.addProperty(
@@ -85,7 +59,7 @@ class DappViewModel : ViewModel() {
             }
         }
 
-        val filtered = updatedEcosystems?.filter { ecosystem ->
+        val filtered = updatedEcosystems.filter { ecosystem ->
             var matches = true
 
             when (type) {
@@ -121,16 +95,28 @@ class DappViewModel : ViewModel() {
             matches
         }
 
+        filtered.toList().let { sortList ->
+            _pinnedByDetail.postValue(sortList)
+        }
+    }
+
+    fun sortByType(
+        ecosystems: MutableList<JsonObject>,
+        type: String,
+        chain: String,
+        searchTxt: String? = "",
+        isPinned: Boolean? = false
+    ) {
         if (Prefs.dappFilter == 0) {
-            updatedEcosystems?.toMutableList()?.sortWith(compareByDescending<JsonObject> {
-                if (it.has("isPinned")) it["isPinned"].asBoolean else false
+            ecosystems.sortWith(compareByDescending<JsonObject> {
+                it["isPinned"].asBoolean
             }.thenBy {
                 it["name"].asString
             })
 
         } else {
-            updatedEcosystems?.toMutableList()?.sortWith(compareByDescending<JsonObject> {
-                if (it.has("isPinned")) it["isPinned"].asBoolean else false
+            ecosystems.sortWith(compareByDescending<JsonObject> {
+                it["isPinned"].asBoolean
             }.thenByDescending {
                 it["chains"].asJsonArray.size()
             }.thenBy {
@@ -138,10 +124,44 @@ class DappViewModel : ViewModel() {
             })
         }
 
-        Log.e("Test12345 : ", updatedEcosystems.toString())
+        val filtered = ecosystems.filter { ecosystem ->
+            var matches = true
 
-        filtered?.toList()?.let { sortList ->
-            _sortedBy.postValue(Pair(sortList, updatedEcosystems))
+            when (type) {
+                "Popular" -> {
+                    val popular = if (ecosystem.has("is_default")) {
+                        ecosystem["is_default"].asBoolean
+                    } else {
+                        false
+                    }
+                    matches = matches && popular
+                }
+
+                "All" -> {}
+
+                else -> {
+                    matches = matches && (ecosystem["type"].asString == type)
+                }
+            }
+
+            if (chain != "All Network") {
+                matches = matches && ecosystem["chains"].asJsonArray.any { it.asString == chain }
+            }
+
+            if (!searchTxt.isNullOrEmpty()) {
+                matches =
+                    matches && ecosystem["name"].asString.contains(searchTxt, ignoreCase = true)
+            }
+
+            if (isPinned == true) {
+                matches = matches && Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+            }
+
+            matches
+        }
+
+        filtered.toList().let { sortList ->
+            _sortedBy.postValue(sortList)
         }
     }
 }

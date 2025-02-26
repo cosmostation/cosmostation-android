@@ -59,7 +59,7 @@ class DappViewHolder(
                     pinnedDapps.add(id)
                 }
 
-                ecosystem.addProperty("isPinned", !pinnedDapps.contains(id))
+                ecosystem.addProperty("isPinned", pinnedDapps.contains(id))
                 Prefs.setPinnedDapps(pinnedDapps)
                 updateView(ecosystem)
             }
