@@ -43,7 +43,7 @@ public final class MsgsDtagRequestsProto {
     /**
      * <pre>
      * Sender contains the address of the request sender that will receive the
-     * receiver DTag if the requet is accepted
+     * receiver DTag if the request is accepted
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -53,7 +53,7 @@ public final class MsgsDtagRequestsProto {
     /**
      * <pre>
      * Sender contains the address of the request sender that will receive the
-     * receiver DTag if the requet is accepted
+     * receiver DTag if the request is accepted
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -159,7 +159,7 @@ public final class MsgsDtagRequestsProto {
     /**
      * <pre>
      * Sender contains the address of the request sender that will receive the
-     * receiver DTag if the requet is accepted
+     * receiver DTag if the request is accepted
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -181,7 +181,7 @@ public final class MsgsDtagRequestsProto {
     /**
      * <pre>
      * Sender contains the address of the request sender that will receive the
-     * receiver DTag if the requet is accepted
+     * receiver DTag if the request is accepted
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -658,7 +658,7 @@ public final class MsgsDtagRequestsProto {
       /**
        * <pre>
        * Sender contains the address of the request sender that will receive the
-       * receiver DTag if the requet is accepted
+       * receiver DTag if the request is accepted
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -679,7 +679,7 @@ public final class MsgsDtagRequestsProto {
       /**
        * <pre>
        * Sender contains the address of the request sender that will receive the
-       * receiver DTag if the requet is accepted
+       * receiver DTag if the request is accepted
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -701,7 +701,7 @@ public final class MsgsDtagRequestsProto {
       /**
        * <pre>
        * Sender contains the address of the request sender that will receive the
-       * receiver DTag if the requet is accepted
+       * receiver DTag if the request is accepted
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -719,7 +719,7 @@ public final class MsgsDtagRequestsProto {
       /**
        * <pre>
        * Sender contains the address of the request sender that will receive the
-       * receiver DTag if the requet is accepted
+       * receiver DTag if the request is accepted
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -734,7 +734,7 @@ public final class MsgsDtagRequestsProto {
       /**
        * <pre>
        * Sender contains the address of the request sender that will receive the
-       * receiver DTag if the requet is accepted
+       * receiver DTag if the request is accepted
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1247,7 +1247,7 @@ public final class MsgsDtagRequestsProto {
 
     /**
      * <pre>
-     * Sender contains the address of the requets sender
+     * Sender contains the address of the requests sender
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1256,7 +1256,7 @@ public final class MsgsDtagRequestsProto {
     java.lang.String getSender();
     /**
      * <pre>
-     * Sender contains the address of the requets sender
+     * Sender contains the address of the requests sender
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1359,7 +1359,7 @@ public final class MsgsDtagRequestsProto {
     private volatile java.lang.Object sender_ = "";
     /**
      * <pre>
-     * Sender contains the address of the requets sender
+     * Sender contains the address of the requests sender
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1380,7 +1380,7 @@ public final class MsgsDtagRequestsProto {
     }
     /**
      * <pre>
-     * Sender contains the address of the requets sender
+     * Sender contains the address of the requests sender
      * </pre>
      *
      * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1851,7 +1851,7 @@ public final class MsgsDtagRequestsProto {
       private java.lang.Object sender_ = "";
       /**
        * <pre>
-       * Sender contains the address of the requets sender
+       * Sender contains the address of the requests sender
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1871,7 +1871,7 @@ public final class MsgsDtagRequestsProto {
       }
       /**
        * <pre>
-       * Sender contains the address of the requets sender
+       * Sender contains the address of the requests sender
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1892,7 +1892,7 @@ public final class MsgsDtagRequestsProto {
       }
       /**
        * <pre>
-       * Sender contains the address of the requets sender
+       * Sender contains the address of the requests sender
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1909,7 +1909,7 @@ public final class MsgsDtagRequestsProto {
       }
       /**
        * <pre>
-       * Sender contains the address of the requets sender
+       * Sender contains the address of the requests sender
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
@@ -1923,7 +1923,7 @@ public final class MsgsDtagRequestsProto {
       }
       /**
        * <pre>
-       * Sender contains the address of the requets sender
+       * Sender contains the address of the requests sender
        * </pre>
        *
        * <code>string sender = 2 [json_name = "sender", (.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
