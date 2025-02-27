@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -205,11 +206,20 @@ class DappDetailFragment : BottomSheetDialogFragment() {
             }
 
             btnHideView.setOnClickListener {
+                val id = ecosystem["id"].asInt
+                Prefs.setDappHideTime(id)
+                dappPinSelectListener?.pinned(id)
                 dismiss()
             }
 
             btnDapp.setOnClickListener {
-
+                val chain =
+                    allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", ecosystem["link"].asString)
+                    putExtra("selectedChain", chain as Parcelable)
+                    startActivity(this)
+                }
             }
         }
     }

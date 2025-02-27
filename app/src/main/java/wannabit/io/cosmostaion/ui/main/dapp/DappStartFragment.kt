@@ -2,11 +2,13 @@ package wannabit.io.cosmostaion.ui.main.dapp
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -233,7 +235,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
             }
 
             binding.emptyLayout.visibility = View.GONE
-            dappListAdapter = DappListAdapter(requireContext())
+            dappListAdapter = DappListAdapter(requireContext(), selectPinAction)
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = dappListAdapter
@@ -247,18 +249,43 @@ class DappStartFragment : BottomSheetDialogFragment() {
             })
 
             dappListAdapter.setOnItemClickListener { ecosystem ->
-                handleOneClickWithDelay(
-                    DappDetailFragment.newInstance(
-                        ecosystem.toString(),
-                        object : DappPinSelectListener {
-                            override fun pinned(id: Int) {
-                                dappViewModel.pinnedByDetail(
-                                    ecosystems, selectedType, selectedChain, searchTxt, isPinned, id
-                                )
-                            }
-                        })
-                )
+                val savedTime = Prefs.getDappHideTime(ecosystem["id"].asInt)
+                val currentTime = System.currentTimeMillis()
+                if (savedTime != 0L && currentTime >= savedTime) {
+                    handleOneClickWithDelay(
+                        DappDetailFragment.newInstance(ecosystem.toString(),
+                            object : DappPinSelectListener {
+                                override fun pinned(id: Int) {
+                                    dappViewModel.pinnedByDetail(
+                                        ecosystems,
+                                        selectedType,
+                                        selectedChain,
+                                        searchTxt,
+                                        isPinned,
+                                        id
+                                    )
+                                }
+                            })
+                    )
+
+                } else {
+                    val chain =
+                        allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", ecosystem["link"].asString)
+                        putExtra("selectedChain", chain as Parcelable)
+                        startActivity(this)
+                    }
+                }
             }
+        }
+    }
+
+    private val selectPinAction = object : DappListAdapter.PinnedListener {
+        override fun select(id: Int) {
+            dappViewModel.pinnedByDetail(
+                ecosystems, selectedType, selectedChain, searchTxt, isPinned, id
+            )
         }
     }
 

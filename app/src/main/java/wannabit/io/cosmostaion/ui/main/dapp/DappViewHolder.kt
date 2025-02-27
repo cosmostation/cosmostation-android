@@ -19,7 +19,7 @@ class DappViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
-        ecosystem: JsonObject
+        ecosystem: JsonObject, listener: DappListAdapter.PinnedListener
     ) {
         binding.apply {
             val url = ecosystem["thumbnail"].asString
@@ -58,10 +58,9 @@ class DappViewHolder(
                 } else {
                     pinnedDapps.add(id)
                 }
-
-                ecosystem.addProperty("isPinned", pinnedDapps.contains(id))
                 Prefs.setPinnedDapps(pinnedDapps)
                 updateView(ecosystem)
+                listener.select(id)
             }
         }
     }

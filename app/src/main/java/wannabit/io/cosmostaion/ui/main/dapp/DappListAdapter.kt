@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.databinding.ItemDappBinding
+import wannabit.io.cosmostaion.ui.main.ChainEditAdapter.SelectListener
 
 class DappListAdapter(
-    val context: Context
+    val context: Context, private var listener: PinnedListener
 ) : ListAdapter<JsonObject, DappViewHolder>(DappListDiffCallback()) {
 
     private var onItemClickListener: ((JsonObject) -> Unit)? = null
@@ -23,7 +24,7 @@ class DappListAdapter(
 
     override fun onBindViewHolder(holder: DappViewHolder, position: Int) {
         val ecosystem = currentList[position]
-        holder.bind(ecosystem)
+        holder.bind(ecosystem, listener)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
@@ -45,5 +46,9 @@ class DappListAdapter(
 
     fun setOnItemClickListener(listener: (JsonObject) -> Unit) {
         onItemClickListener = listener
+    }
+
+    interface PinnedListener {
+        fun select(id: Int)
     }
 }

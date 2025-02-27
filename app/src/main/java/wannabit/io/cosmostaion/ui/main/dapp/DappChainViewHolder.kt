@@ -11,7 +11,7 @@ class DappChainViewHolder(
 
     fun bind(supportChain: String, index: Int) {
         binding.apply {
-            if (index == 0) {
+            if (supportChain.uppercase() == "All Network".uppercase()) {
                 chainImg.setImageResource(R.drawable.icon_all_network)
                 chainName.text = "All Network"
 

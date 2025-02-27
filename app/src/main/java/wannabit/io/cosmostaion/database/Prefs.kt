@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import java.util.Calendar
 
 object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
@@ -49,6 +50,7 @@ object Prefs {
     private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
     private const val DAPP_FILTER = "PRE_DAPP_FILTER"
     private const val DAPP_PINNED = "PRE_DAPP_PINNED"
+    private const val DAPP_HIDE = "PRE_DAPP_HIDE"
 
 
     private val preference =
@@ -200,6 +202,18 @@ object Prefs {
     var dappFilter: Int
         get() = preference.getInt(DAPP_FILTER, 0)
         set(value) = preference.edit().putInt(DAPP_FILTER, value).apply()
+
+    fun setDappHideTime(id: Int) {
+        val key = "$ENDPOINT_TYPE:$id"
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        preference.edit().putLong(key, currentDate.timeInMillis).apply()
+    }
+
+    fun getDappHideTime(id: Int): Long {
+        val key = "$ENDPOINT_TYPE:$id"
+        return preference.getLong(key, 0L)
+    }
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>
