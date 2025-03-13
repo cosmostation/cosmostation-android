@@ -1,14 +1,17 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
 import com.cosmos.staking.v1beta1.StakingProto
+import com.cosmos.tx.v1beta1.TxProto.Tx
 import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -210,4 +213,20 @@ interface WalletRepository {
     suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject>
 
     suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response>
+
+    suspend fun chainHeight(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<Long>
+
+    suspend fun currentEpoch(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<com.babylon.epoching.v1.QueryProto.QueryCurrentEpochResponse>
+
+    suspend fun epochMessage(
+        channel: ManagedChannel?, chain: BaseChain, epoch: Long
+    ): NetworkResult<MutableList<QueuedMessageResponse>>
+
+    suspend fun epochMessageType(
+        channel: ManagedChannel?, chain: BaseChain, epochMsgs: MutableList<QueuedMessageResponse>?
+    ): NetworkResult<MutableList<BabylonFetcher.BabylonEpochTxType>?>
 }

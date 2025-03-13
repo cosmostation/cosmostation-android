@@ -217,6 +217,15 @@ object Signer {
         return msgAnys
     }
 
+    fun babylonDelegateMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedDelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedDelegate")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun unDelegateMsg(msgUndelegate: MsgUndelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -244,6 +253,15 @@ object Signer {
         return msgAnys
     }
 
+    fun babylonUnDelegateMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedUndelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedUndelegate")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun reDelegateMsg(msgReDelegate: MsgBeginRedelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -267,6 +285,15 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/zrchain.validation.MsgBeginRedelegate")
                 .setValue(msgReDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun babylonReDelegateMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedBeginRedelegate")
+                .setValue(msgDelegate?.toByteString()).build()
         )
         return msgAnys
     }

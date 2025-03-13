@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.api
 
+import com.babylon.epoching.v1.QueryProto.QueryCurrentEpochResponse
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.Body
@@ -151,4 +152,18 @@ interface LcdApi {
 
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
+
+
+    //Babylon
+    @GET("cosmos/base/node/v1beta1/status")
+    suspend fun lcdChainHeight(): Long
+
+    @GET("babylon/epoching/v1/current_epoch")
+    suspend fun lcdCurrentEpoch(): JsonObject
+
+    @GET("babylon/epoching/v1/epochs/{epoch_num}/messages?pagination.limit=500")
+    suspend fun lcdEpochMsg(@Path("epoch_num") epochNum: Long): JsonObject
+
+    @GET("cosmos/tx/v1beta1/txs/{hash}")
+    suspend fun lcdEpochTxType(@Path("hash") hash: String?): JsonObject
 }

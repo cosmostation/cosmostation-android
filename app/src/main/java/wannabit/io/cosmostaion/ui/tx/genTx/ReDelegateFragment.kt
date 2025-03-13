@@ -24,6 +24,7 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -845,7 +846,15 @@ class ReDelegateFragment : BaseTxFragment() {
                         .setValidatorSrcAddress(fromValidator?.operatorAddress)
                         .setValidatorDstAddress(toValidator?.operatorAddress).setAmount(toCoin)
                         .build()
-                Signer.reDelegateMsg(msgReDelegate)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    val wrappedMsgReDelegate =
+                        com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate.newBuilder()
+                            .setMsg(msgReDelegate).build()
+                    Signer.babylonReDelegateMsg(wrappedMsgReDelegate)
+                } else {
+                    Signer.reDelegateMsg(msgReDelegate)
+                }
             }
         }
     }

@@ -174,6 +174,7 @@
     <string name="str_retry">Retry</string>
     <string name="str_change_endpoint">Change End-Point</string>
     <string name="str_current_epoch">Current epoch</string>
+    <string name="str_next_epoch">Next epoch</string>
     <string name="str_next_reward_distribution">Next reward</string>
     <string name="str_instant">Instant</string>
     <string name="str_endpoint_reset">Reset End-Point</string>
@@ -332,6 +333,7 @@
     <string name="title_delist">Discontinuation of support</string>
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
+    <string name="title_manage_stake" translatable="false">%1$s Manage Stake</string>
 
 
     // msg
@@ -433,6 +435,8 @@
     <string name="str_sui_guide_msg2">At the end of the next epoch (%1$s), rewards will be distributed. Each subsequent epoch will be repeated</string>
     <string name="str_sui_guide_msg3">Rewards are compounded and can be used immediately after the start of unstaking</string>
     <string name="str_endpoint_reset_msg">(Recommended) Would you like to reset the End-Points for all chains to their default settings?\n\nEnd-Points are servers that manage connections to the blockchain network, ensuring that data can be transmitted and received smoothly when the stable End-Point is used. </string>
+    <string name="str_epoch_type_msg1" translatable="false">%1$s will activate</string>
+    <string name="str_epoch_type_msg2" translatable="false">in Next Epoch %1$s</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>

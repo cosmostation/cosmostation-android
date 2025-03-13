@@ -135,6 +135,7 @@
     <string name="str_retry">リトライ</string>
     <string name="str_change_endpoint">End-Point 変更</string>
     <string name="str_current_epoch">現在 Epoch</string>
+    <string name="str_next_epoch">次 Epoch</string>
     <string name="str_next_reward_distribution">次の報酬分配</string>
     <string name="str_instant">直ちに</string>
     <string name="str_endpoint_reset">エンドポイントの初期化</string>

@@ -129,6 +129,7 @@
     <string name="str_retry">재시도</string>
     <string name="str_change_endpoint">End-Point 변경</string>
     <string name="str_current_epoch">현재 에포치</string>
+    <string name="str_next_epoch">다음 에포치</string>
     <string name="str_next_reward_distribution">다음 보상 분배</string>
     <string name="str_instant">즉시</string>
     <string name="str_endpoint_reset">End-Point 초기화</string>

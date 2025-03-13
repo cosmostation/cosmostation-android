@@ -177,7 +177,7 @@ fun TextView.hiddenStatus(amount: SpannableString) {
         textSize = 10f
     } else {
         text = amount
-        textSize = 12f
+        textSize = 14f
     }
 }
 
@@ -266,8 +266,12 @@ fun ImageView.setImg(resourceId: Int) {
 }
 
 fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
-    Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
-        .into(this)
+    if (chain.getChainListParam()?.get("reported_validators")?.asJsonArray?.any { it.asString == opAddress } == true) {
+        this.setImageResource(R.drawable.icon_fake)
+    } else {
+        Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
+            .into(this)
+    }
 }
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {

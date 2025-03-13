@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -57,6 +58,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
 import wannabit.io.cosmostaion.ui.tx.info.OnChainProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.babylon.BabylonStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
@@ -467,7 +469,12 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                 }
-                handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    handleOneClickWithDelay(BabylonStakeInfoFragment.newInstance(selectedChain), null)
+                } else {
+                    handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+                }
             }
 
             fabClaimReward.setOnClickListener {

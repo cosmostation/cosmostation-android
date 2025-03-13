@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemQrBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.ReceiveAdapter
 
 class QrCodAdapter(
     private val account: BaseAccount, private val selectedChain: BaseChain
@@ -46,7 +45,7 @@ class QrCodAdapter(
             }
 
             is QrCodeViewHolder -> {
-                if (holder.itemViewType == ReceiveAdapter.VIEW_TYPE_EVM_ITEM) {
+                if (holder.itemViewType == VIEW_TYPE_EVM_ITEM) {
                     holder.evmBind(account, selectedChain)
                 } else {
                     holder.bind(account, selectedChain)

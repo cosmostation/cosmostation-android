@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
@@ -19,6 +20,9 @@ import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.bouncycastle.util.encoders.Base64
 import org.json.JSONObject
 import org.web3j.abi.FunctionEncoder
@@ -37,11 +41,14 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
+import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
+import wannabit.io.cosmostaion.chain.fetcher.currentEpoch
 import wannabit.io.cosmostaion.chain.fetcher.delegations
+import wannabit.io.cosmostaion.chain.fetcher.epochMsg
 import wannabit.io.cosmostaion.chain.fetcher.feeMarket
 import wannabit.io.cosmostaion.chain.fetcher.initiaDelegations
 import wannabit.io.cosmostaion.chain.fetcher.initiaUnDelegations
@@ -1060,6 +1067,177 @@ class WalletRepositoryImpl : WalletRepository {
         )
         return safeApiCall(Dispatchers.IO) {
             jsonRpcResponse(chain.gnoRpcFetcher?.gnoRpc() ?: chain.mainUrl, authRequest)
+        }
+    }
+
+    override suspend fun chainHeight(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<Long> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.cosmos.base.node.v1beta1.ServiceGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.cosmos.base.node.v1beta1.QueryProto.StatusRequest.newBuilder().build()
+            safeApiCall(Dispatchers.IO) {
+                stub.status(request).height
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdChainHeight()
+            }
+        }
+    }
+
+    override suspend fun currentEpoch(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<com.babylon.epoching.v1.QueryProto.QueryCurrentEpochResponse> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.babylon.epoching.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.babylon.epoching.v1.QueryProto.QueryCurrentEpochRequest.newBuilder().build()
+            safeApiCall(Dispatchers.IO) {
+                stub.currentEpoch(request)
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdCurrentEpoch().currentEpoch()
+            }
+        }
+    }
+
+    override suspend fun epochMessage(
+        channel: ManagedChannel?,
+        chain: BaseChain,
+        epoch: Long,
+    ): NetworkResult<MutableList<QueuedMessageResponse>> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+            val stub = com.babylon.epoching.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.babylon.epoching.v1.QueryProto.QueryEpochMsgsRequest.newBuilder()
+                .setEpochNum(epoch).setPagination(pageRequest).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.epochMsgs(request).msgsList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdEpochMsg(epoch).epochMsg(chain)
+            }
+        }
+    }
+
+    override suspend fun epochMessageType(
+        channel: ManagedChannel?, chain: BaseChain, epochMsgs: MutableList<QueuedMessageResponse>?
+    ): NetworkResult<MutableList<BabylonFetcher.BabylonEpochTxType>?> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+
+            coroutineScope {
+                val deferredResults = epochMsgs?.map { epochMsg ->
+                    async {
+                        val request = com.cosmos.tx.v1beta1.ServiceProto.GetTxRequest.newBuilder()
+                            .setHash(epochMsg.txId).build()
+                        val tx = stub.getTx(request).tx
+
+                        tx.body.messagesList.mapNotNull { msg ->
+                            val type = msg.typeUrl
+                            val validator: String?
+                            val amount: CoinProto.Coin?
+
+                            when {
+                                type.contains("MsgWrappedDelegate") -> {
+                                    val msgValue =
+                                        com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.parseFrom(
+                                            msg.value
+                                        )
+                                    validator = msgValue.msg.validatorAddress
+                                    amount = msgValue.msg.amount
+                                }
+
+                                type.contains("MsgWrappedUndelegate") -> {
+                                    val msgValue =
+                                        com.babylon.epoching.v1.TxProto.MsgWrappedUndelegate.parseFrom(
+                                            msg.value
+                                        )
+                                    validator = msgValue.msg.validatorAddress
+                                    amount = msgValue.msg.amount
+                                }
+
+                                type.contains("MsgWrappedBeginRedelegate") -> {
+                                    val msgValue =
+                                        com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate.parseFrom(
+                                            msg.value
+                                        )
+                                    validator = msgValue.msg.validatorDstAddress
+                                    amount = msgValue.msg.amount
+                                }
+
+                                else -> return@mapNotNull null
+                            }
+
+                            BabylonFetcher.BabylonEpochTxType(type, validator, amount)
+                        }
+                    }
+                }
+                safeApiCall(Dispatchers.IO) {
+                    val results = deferredResults?.awaitAll()?.flatten()
+                    results?.toMutableList()
+                }
+            }
+
+        } else {
+            coroutineScope {
+                val deferredResults = epochMsgs?.map { epochMsg ->
+                    async {
+                        val txInfo = lcdApi(chain).lcdEpochTxType(epochMsg.txId)
+
+                        txInfo["tx"].asJsonObject["body"].asJsonObject["messages"].asJsonArray.mapNotNull { msg ->
+                            val type = msg.asJsonObject["@type"].asString
+                            val validator: String?
+                            val amount: CoinProto.Coin?
+
+                            when {
+                                type.contains("MsgWrappedDelegate") -> {
+                                    validator =
+                                        msg.asJsonObject["msg"].asJsonObject["validator_address"].asString
+                                    amount = CoinProto.Coin.newBuilder()
+                                        .setDenom(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["denom"].asString)
+                                        .setAmount(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["amount"].asString)
+                                        .build()
+                                }
+
+                                type.contains("MsgWrappedUndelegate") -> {
+                                    validator =
+                                        msg.asJsonObject["msg"].asJsonObject["validator_address"].asString
+                                    amount = CoinProto.Coin.newBuilder()
+                                        .setDenom(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["denom"].asString)
+                                        .setAmount(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["amount"].asString)
+                                        .build()
+                                }
+
+                                type.contains("MsgWrappedBeginRedelegate") -> {
+                                    validator =
+                                        msg.asJsonObject["msg"].asJsonObject["validator_dst_address"].asString
+                                    amount = CoinProto.Coin.newBuilder()
+                                        .setDenom(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["denom"].asString)
+                                        .setAmount(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["amount"].asString)
+                                        .build()
+                                }
+
+                                else -> return@mapNotNull null
+                            }
+
+                            BabylonFetcher.BabylonEpochTxType(type, validator, amount)
+                        }
+                    }
+                }
+
+                safeApiCall(Dispatchers.IO) {
+                    val results = deferredResults?.awaitAll()?.flatten()
+                    results?.toMutableList()
+                }
+            }
         }
     }
 }
