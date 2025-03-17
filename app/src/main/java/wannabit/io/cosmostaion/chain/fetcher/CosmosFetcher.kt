@@ -139,7 +139,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = vestingAmount(denom)
@@ -150,7 +150,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosVestings.forEach { vesting ->
             sum = sum.add(vestingValue(vesting.denom, isUsd))
@@ -171,7 +171,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum
     }
 
-    private fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = delegationAmountSum()
@@ -192,7 +192,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum
     }
 
-    private fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = unbondingAmountSum()
@@ -213,7 +213,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
-    private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)

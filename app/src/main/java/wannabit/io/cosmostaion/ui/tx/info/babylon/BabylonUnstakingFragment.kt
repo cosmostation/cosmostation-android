@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,9 +21,10 @@ import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.BabylonViewModel
 import wannabit.io.cosmostaion.databinding.FragmentBabylonStakingBinding
 import wannabit.io.cosmostaion.ui.tx.info.OptionType
+import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.option.general.StakingOptionFragment
 
-class BabylonStakingFragment(
+class BabylonUnstakingFragment(
     private val selectedChain: BaseChain,
     private val babylonEpochData: BabylonFetcher.BabylonEpochData?,
     private val babylonEpochTxType: MutableList<BabylonFetcher.BabylonEpochTxType>,
@@ -34,7 +34,7 @@ class BabylonStakingFragment(
     private var _binding: FragmentBabylonStakingBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var babylonStakingAdapter: BabylonStakingAdapter
+    private lateinit var babylonUnStakingAdapter: BabylonUnStakingAdapter
 
     private var isClickable = true
 
@@ -56,47 +56,44 @@ class BabylonStakingFragment(
     private fun initData() {
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                var delegations = selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
                 val validators = selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
-                val cosmostationValAddress =
-                    validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                val unBondings =
+                    selectedChain.cosmosFetcher?.cosmosUnbondings?.flatMap { unBonding ->
+                        unBonding.entriesList.map { entry ->
+                            UnBondingEntry(unBonding.validatorAddress, entry)
+                        }
+                    }?.sortedBy { it.entry?.creationHeight }?.toMutableList() ?: mutableListOf()
 
-                val tempDelegations = delegations.toMutableList()
-                tempDelegations.sortWith { o1, o2 ->
-                    when {
-                        o1.delegation.validatorAddress == cosmostationValAddress -> -1
-                        o2.delegation.validatorAddress == cosmostationValAddress -> 1
-                        o1.balance.amount.toDouble() > o2.balance.amount.toDouble() -> -1
-                        else -> 1
-                    }
-                }
-                delegations = tempDelegations
+                val filterUnStakingTx = babylonEpochTxType.filter {
+                    it.type.contains("MsgWrappedUndelegate") || it.type.contains(
+                        "MsgWrappedCancelUnbondingDelegation"
+                    )
+                }.toMutableList()
+                val filteredUnStakings = unBondings.filterNot { unBonding ->
+                    filterUnStakingTx.any { cancel -> cancel.createHeight == unBonding.entry?.creationHeight }
+                }.toMutableList()
 
                 withContext(Dispatchers.Main) {
                     refresher.isRefreshing = false
-                    if (delegations.isEmpty() && babylonEpochTxType.isEmpty()) {
+                    if (unBondings.isEmpty() && babylonEpochTxType.isEmpty()) {
                         recycler.visibility = View.GONE
                         emptyLayout.visibility = View.VISIBLE
 
                     } else {
                         recycler.visibility = View.VISIBLE
                         emptyLayout.visibility = View.GONE
-                        babylonStakingAdapter = BabylonStakingAdapter(
+                        babylonUnStakingAdapter = BabylonUnStakingAdapter(
                             requireContext(),
                             selectedChain,
                             babylonEpochData?.currentEpoch?.currentEpoch,
-                            babylonEpochTxType.filter {
-                                it.type.contains("MsgWrappedDelegate") || it.type.contains(
-                                    "MsgWrappedBeginRedelegate"
-                                )
-                            }.toMutableList(),
+                            filterUnStakingTx,
                             validators = validators,
-                            delegations = delegations,
+                            unBondings = filteredUnStakings,
                             listener = selectClickAction
                         )
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = babylonStakingAdapter
+                        recycler.adapter = babylonUnStakingAdapter
                     }
                 }
             }
@@ -120,30 +117,24 @@ class BabylonStakingFragment(
         }
     }
 
-    private val selectClickAction = object : BabylonStakingAdapter.ClickListener {
-        override fun selectStakingAction(validator: StakingProto.Validator?) {
+    private val selectClickAction = object : BabylonUnStakingAdapter.ClickListener {
+        override fun selectUnStakingAction(unBondingEntry: UnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
-                    selectedChain, validator = validator, optionType = OptionType.STAKE
+                    selectedChain, unBondingEntry = unBondingEntry, optionType = OptionType.UNSTAKE
                 )
             )
         }
     }
 
     private fun observeViewModels() {
-        ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag) {
-                ApplicationViewModel.shared.notifyRefreshEvent()
-                initData()
-            }
+        ApplicationViewModel.shared.notifyTxResult.observe(viewLifecycleOwner) {
+            babylonViewModel.epochData(selectedChain)
+            initData()
         }
 
-        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedChain.tag == tag) {
-                babylonViewModel.epochData(selectedChain)
-                ApplicationViewModel.shared.notifyTxEvent()
-                initData()
-            }
+        ApplicationViewModel.shared.notifyRefreshResult.observe(viewLifecycleOwner) {
+            initData()
         }
     }
 

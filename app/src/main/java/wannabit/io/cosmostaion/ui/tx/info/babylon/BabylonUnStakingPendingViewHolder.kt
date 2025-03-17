@@ -11,15 +11,13 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
-import wannabit.io.cosmostaion.databinding.ItemBabylonStakingPendingInfoBinding
-import java.math.BigDecimal
+import wannabit.io.cosmostaion.databinding.ItemBabylonUnstakingPendingBinding
 import java.math.RoundingMode
 
-class BabylonStakingPendingViewHolder(
-    val context: Context, private val binding: ItemBabylonStakingPendingInfoBinding
+class BabylonUnStakingPendingViewHolder(
+    val context: Context, private val binding: ItemBabylonUnstakingPendingBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -29,7 +27,7 @@ class BabylonStakingPendingViewHolder(
         babylonEpochData: BabylonFetcher.BabylonEpochTxType
     ) {
         binding.apply {
-            delegationView.setBackgroundResource(R.drawable.item_bg)
+            unstakingView.setBackgroundResource(R.drawable.item_bg)
             pendingImg.setColorFilter(
                 ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN
             )
@@ -59,34 +57,18 @@ class BabylonStakingPendingViewHolder(
             epochMsg2.text = context.getString(R.string.str_epoch_type_msg2, "#${epoch?.plus(1)}")
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                val commissionRate =
-                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
-                        ?.setScale(2, RoundingMode.DOWN)
-                commission.text = formatString("$commissionRate%", 3)
-
-                val stakedAmount = babylonEpochData.coin?.amount?.toBigDecimal()
+                val unBondingAmount = babylonEpochData.coin?.amount?.toBigDecimal()
                     ?.movePointLeft(asset.decimals ?: 6)
                     ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                staked.text = formatAmount(stakedAmount.toString(), asset.decimals ?: 6)
-
-                rewardAmount.text = formatAmount(
-                    BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
-                    asset.decimals ?: 6
-                )
-
-                val apr =
-                    chain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString ?: "0"
-                val staked = babylonEpochData.coin?.amount?.toBigDecimal()
-                val comm = BigDecimal.ONE.subtract(
-                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(18)
-                        ?.setScale(18, RoundingMode.DOWN)
-                )
-                val est = staked?.multiply(apr.toBigDecimal())?.multiply(comm)
-                    ?.setScale(0, RoundingMode.DOWN)?.divide(BigDecimal("12"), 0, RoundingMode.DOWN)
-                    ?.movePointLeft(asset.decimals ?: 6)
-                    ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                estimateReward.text = formatAmount(est.toString(), asset.decimals ?: 6)
+                unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
             }
+        }
+    }
+
+    fun notBind() {
+        binding.apply {
+            unstakingView.setBackgroundResource(R.drawable.item_bg)
+            moniker.text = "Unknown"
         }
     }
 }

@@ -45,15 +45,15 @@
             <TextView
                 android:id="@+id/moniker"
                 style="@style/font_sb_14"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_10"
                 android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_4"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:maxWidth="@dimen/space_150"
                 android:textColor="@color/color_base01"
-                app:layout_constraintEnd_toStartOf="@+id/click_img"
                 app:layout_constraintStart_toEndOf="@id/moniker_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,7 +65,7 @@
                 android:layout_marginEnd="@dimen/space_16"
                 android:src="@drawable/icon_front"
                 app:layout_constraintBottom_toBottomOf="@+id/moniker"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/moniker"
                 app:layout_constraintTop_toTopOf="@+id/moniker" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

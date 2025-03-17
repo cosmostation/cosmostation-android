@@ -269,6 +269,7 @@
     <string name="title_delist">サポートの終了</string>
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
     <string name="title_support_inject">インジェクションをサポート</string>
+    <string name="title_progression_of_status">Staking Status Change</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -354,6 +355,8 @@
     <string name="str_sui_guide_msg2">次のEpoch (%1$s) の終了時に報酬が分配されます。後続の各エポックは繰り返されます。</string>
     <string name="str_sui_guide_msg3">報酬は複利で付与され、ステーキング解除開始後すぐに使用できます。</string>
     <string name="str_endpoint_reset_msg">（推奨）すべてのチェーンのエンドポイントをデフォルト設定にリセットしますか？\n\nエンドポイントはブロックチェーンネットワークとの接続を管理するサーバーであり、安定したエンドポイントを使用することでデータの円滑な送受信が可能になります。？</string>
+    <string name="str_pending_state_msg">BABYLONチェーンでは、ステーキング関連の機能（ステーク、アンステーク、バリデーターの切り替え、アンステークのキャンセルなど）を実行すると、最初にPending状態になります。\nその後、現在のエポックが終了し、次のエポックに移行すると、該当するステーキング作業は即座にアクティブな状態へと移行します。</string>
+    <string name="str_active_state_msg">Active状態とは、Pending状態が終了し、実行した機能が正常に有効化されている状態を意味します。\nこの状態では、ユーザーがリクエストしたステーキング関連の機能がすべて正常に動作します。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

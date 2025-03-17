@@ -138,6 +138,8 @@ class BabylonStakeInfoFragment : Fragment() {
             currentEpoch.text = "#${babylonEpochData?.currentEpoch?.currentEpoch}"
             updateTime()
 
+            val currentPage = viewPager.currentItem
+
             babylonStakePagerAdapter = BabylonStakePagerAdapter(
                 this@BabylonStakeInfoFragment,
                 selectedChain,
@@ -149,6 +151,8 @@ class BabylonStakeInfoFragment : Fragment() {
             viewPager.offscreenPageLimit = 1
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
+
+            viewPager.setCurrentItem(currentPage, false)
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
@@ -201,12 +205,12 @@ class BabylonStakeInfoFragment : Fragment() {
             }
 
             btnInfo.setOnClickListener {
-
+                handleOneClickWithDelay(BabylonInfoFragment())
             }
 
             btnStake.setOnClickListener {
-                StakingFragment.newInstance(selectedChain).show(
-                    requireActivity().supportFragmentManager, StakingFragment::class.java.name
+                handleOneClickWithDelay(
+                    StakingFragment.newInstance(selectedChain)
                 )
             }
         }
@@ -238,6 +242,11 @@ class BabylonStakeInfoFragment : Fragment() {
         init {
             fragments.add(
                 BabylonStakingFragment(
+                    selectedChain, babylonEpochData, babylonEpochTxTypes, babylonViewModel
+                )
+            )
+            fragments.add(
+                BabylonUnstakingFragment(
                     selectedChain, babylonEpochData, babylonEpochTxTypes, babylonViewModel
                 )
             )

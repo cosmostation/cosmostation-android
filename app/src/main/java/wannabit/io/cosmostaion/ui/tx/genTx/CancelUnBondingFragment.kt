@@ -23,6 +23,7 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -525,8 +526,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation.newBuilder()
                         .setDelegatorAddress(selectedChain.address)
                         .setValidatorAddress(zenrockUnBondingEntry.validatorAddress)
-                        .setCreationHeight(zenrockUnBondingEntry.entry!!.creationHeight).setAmount(toCoin)
-                        .build()
+                        .setCreationHeight(zenrockUnBondingEntry.entry!!.creationHeight)
+                        .setAmount(toCoin).build()
                 Signer.zenrockCancelUnbondingMsg(msgCancelUnbondingDelegation)
             }
 
@@ -538,7 +539,15 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     .setValidatorAddress(unBondingEntry.validatorAddress)
                     .setCreationHeight(unBondingEntry.entry!!.creationHeight).setAmount(toCoin)
                     .build()
-                Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    val wrappedCancelUnbondingDelegation =
+                        com.babylon.epoching.v1.TxProto.MsgWrappedCancelUnbondingDelegation.newBuilder()
+                            .setMsg(msgCancelUnbondingDelegation).build()
+                    Signer.babylonCancelUnbondingMsg(wrappedCancelUnbondingDelegation)
+                } else {
+                    Signer.cancelUnbondingMsg(msgCancelUnbondingDelegation)
+                }
             }
         }
     }

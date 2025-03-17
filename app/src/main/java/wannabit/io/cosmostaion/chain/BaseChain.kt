@@ -585,7 +585,7 @@ open class BaseChain : Parcelable {
     }
 
     fun monikerImg(opAddress: String?): String {
-        return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/moniker/$opAddress.png"
+        return "${CosmostationConstants.CHAIN_MONIKER_URL}$apiName/64/$opAddress.png"
     }
 
     open fun assetImg(originSymbol: String): String {

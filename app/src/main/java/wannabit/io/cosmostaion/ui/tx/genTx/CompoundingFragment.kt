@@ -498,15 +498,9 @@ class CompoundingFragment : BaseTxFragment() {
     }
 
     private fun onBindCompoundingMsg(): MutableList<Any> {
-        return if (selectedChain is ChainInitiaTestnet) {
-            Signer.initiaCompoundingMsg(
-                selectedChain as ChainInitiaTestnet, claimableRewards
-            )
-        } else {
-            Signer.compoundingMsg(
-                selectedChain, claimableRewards
-            )
-        }
+        return Signer.compoundingMsg(
+            selectedChain, claimableRewards
+        )
     }
 
     override fun onDestroyView() {

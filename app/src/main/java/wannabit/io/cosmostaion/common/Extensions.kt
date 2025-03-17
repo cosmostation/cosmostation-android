@@ -266,7 +266,9 @@ fun ImageView.setImg(resourceId: Int) {
 }
 
 fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
-    if (chain.getChainListParam()?.get("reported_validators")?.asJsonArray?.any { it.asString == opAddress } == true) {
+    if (chain.getChainListParam()
+            ?.get("reported_validators")?.asJsonArray?.any { it.asString == opAddress } == true
+    ) {
         this.setImageResource(R.drawable.icon_fake)
     } else {
         Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
@@ -519,6 +521,29 @@ fun dpTimeToMonth(time: Long): String {
     return outputFormat.format(calendar.timeInMillis)
 }
 
+fun dpTimeNotSecond(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy (HH:mm)"
+            } else {
+                "yyyy-MM-dd HH:mm"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy (HH:mm)"
+            } else {
+                "yyyy-MM-dd HH:mm"
+            }
+        }, locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
 fun voteDpTime(time: Long): String {
     val locale = Locale.getDefault()
     val calendar = Calendar.getInstance()
@@ -575,9 +600,9 @@ fun gapTime(finishTime: Long): String {
         if (after >= CONSTANT_D) {
             (after / CONSTANT_D).toString() + " days ago"
         } else if (after >= BaseConstant.CONSTANT_H) {
-            (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+            (after / BaseConstant.CONSTANT_H).toString() + " hours ago"
         } else if (after >= BaseConstant.CONSTANT_M) {
-            (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+            (after / BaseConstant.CONSTANT_M).toString() + " minutes ago"
         } else {
             "-"
         }

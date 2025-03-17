@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -564,6 +565,18 @@ class ApplicationViewModel(
                         }
 
                     } else {
+                        if (chain is ChainBabylonTestnet) {
+                            val loadRewardGaugeDeferred =
+                                async { walletRepository.btcReward(channel, chain) }
+                            val rewardGaugeResult = loadRewardGaugeDeferred.await()
+
+                            if (rewardGaugeResult is NetworkResult.Success) {
+                                chain.babylonFetcher()?.btcReward = rewardGaugeResult.data
+                            } else if (rewardGaugeResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("error type : ${rewardGaugeResult.errorType}  error message : ${rewardGaugeResult.errorMessage}")
+                            }
+                        }
+
                         val loadDelegationDeferred =
                             async { walletRepository.delegation(channel, chain) }
                         val loadUnBondingDeferred =

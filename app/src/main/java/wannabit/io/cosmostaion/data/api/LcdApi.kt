@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
 import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
 import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
+import java.math.BigDecimal
 
 interface LcdApi {
     @GET("cosmos/auth/v1beta1/accounts/{address}")
@@ -155,6 +156,9 @@ interface LcdApi {
 
 
     //Babylon
+    @GET("babylon/incentive/address/{address}/reward_gauge")
+    suspend fun lcdBtcReward(@Path("address") address: String): JsonObject
+
     @GET("cosmos/base/node/v1beta1/status")
     suspend fun lcdChainHeight(): Long
 

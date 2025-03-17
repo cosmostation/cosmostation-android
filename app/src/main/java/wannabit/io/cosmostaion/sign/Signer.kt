@@ -73,6 +73,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
@@ -80,6 +81,7 @@ import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
@@ -325,6 +327,15 @@ object Signer {
         return msgAnys
     }
 
+    fun babylonCancelUnbondingMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedCancelUnbondingDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedCancelUnbondingDelegation")
+                .setValue(msgDelegate?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
     fun claimStakingRewardMsg(
         selectedChain: BaseChain, rewards: MutableList<DelegationDelegatorReward?>
     ): MutableList<Any> {
@@ -360,39 +371,44 @@ object Signer {
                 rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
                     ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
             )
-            val delegateMsg = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
-                .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin).build()
-            val deleAnyMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
-                .setValue(delegateMsg.toByteString()).build()
-            msgAnys.add(deleAnyMsg)
-        }
-        return msgAnys
-    }
 
-    fun initiaCompoundingMsg(
-        selectedChain: ChainInitiaTestnet, rewards: MutableList<DelegationDelegatorReward?>
-    ): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        rewards.forEach { reward ->
-            val claimMsg =
-                MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(selectedChain.address)
-                    .setValidatorAddress(reward?.validatorAddress).build()
-            val anyMsg = Any.newBuilder()
-                .setTypeUrl("/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward")
-                .setValue(claimMsg.toByteString()).build()
-            msgAnys.add(anyMsg)
+            val deleAnyMsg = when (selectedChain) {
+                is ChainInitiaTestnet -> {
+                    val delegateMsg = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
+                        .setDelegatorAddress(selectedChain.address)
+                        .setValidatorAddress(reward?.validatorAddress).addAmount(delegateCoin)
+                        .build()
 
-            val rewardCoin =
-                reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }
-            val delegateCoin = CoinProto.Coin.newBuilder().setDenom(rewardCoin?.denom).setAmount(
-                rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
-                    ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
-            )
-            val delegateMsg = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
-                .setDelegatorAddress(selectedChain.address)
-                .setValidatorAddress(reward?.validatorAddress).addAmount(delegateCoin).build()
-            val deleAnyMsg = Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgDelegate")
-                .setValue(delegateMsg.toByteString()).build()
+                    Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgDelegate")
+                        .setValue(delegateMsg.toByteString()).build()
+                }
+
+                is ChainZenrock -> {
+                    val delegateMsg = com.zrchain.validation.TxProto.MsgDelegate.newBuilder()
+                        .setDelegatorAddress(selectedChain.address)
+                        .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin)
+                        .build()
+
+                    Any.newBuilder().setTypeUrl("/zrchain.validation.MsgDelegate")
+                        .setValue(delegateMsg.toByteString()).build()
+                }
+
+                else -> {
+                    val delegateMsg =
+                        MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+                            .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin)
+                            .build()
+
+                    if (selectedChain is ChainBabylonTestnet) {
+                        val wrappedMsgDelegate = com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder().setMsg(delegateMsg).build()
+                        Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedDelegate")
+                            .setValue(wrappedMsgDelegate.toByteString()).build()
+                    } else {
+                        Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
+                            .setValue(delegateMsg.toByteString()).build()
+                    }
+                }
+            }
             msgAnys.add(deleAnyMsg)
         }
         return msgAnys

@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
+import wannabit.io.cosmostaion.chain.fetcher.btcReward
 import wannabit.io.cosmostaion.chain.fetcher.currentEpoch
 import wannabit.io.cosmostaion.chain.fetcher.delegations
 import wannabit.io.cosmostaion.chain.fetcher.epochMsg
@@ -90,6 +91,7 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
+import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -1070,6 +1072,35 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<BigDecimal> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.babylon.incentive.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = com.babylon.incentive.QueryProto.QueryRewardGaugesRequest.newBuilder().setAddress(chain.address).build()
+            val response = stub.rewardGauges(request).rewardGaugesMap
+
+            val btcDelegation = response["btc_delegation"]
+            val btcReward = if (btcDelegation?.coinsList?.isNotEmpty() == true && btcDelegation.withdrawnCoinsList.isNotEmpty()) {
+                val coin = btcDelegation.coinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                val withdraw = btcDelegation.withdrawnCoinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                coin.subtract(withdraw)
+            } else if (btcDelegation?.coinsList?.isNotEmpty() == true) {
+                btcDelegation.coinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+            } else {
+                BigDecimal.ZERO
+            }
+
+            safeApiCall(Dispatchers.IO) {
+                btcReward
+            }
+
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdBtcReward(chain.address).btcReward(chain.stakeDenom)
+            }
+        }
+    }
+
     override suspend fun chainHeight(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<Long> {
@@ -1144,6 +1175,7 @@ class WalletRepositoryImpl : WalletRepository {
                             val type = msg.typeUrl
                             val validator: String?
                             val amount: CoinProto.Coin?
+                            var creationHeight: Long = 0
 
                             when {
                                 type.contains("MsgWrappedDelegate") -> {
@@ -1173,10 +1205,25 @@ class WalletRepositoryImpl : WalletRepository {
                                     amount = msgValue.msg.amount
                                 }
 
+                                type.contains("MsgWrappedCancelUnbondingDelegation") -> {
+                                    val msgValue =
+                                        com.babylon.epoching.v1.TxProto.MsgWrappedCancelUnbondingDelegation.parseFrom(
+                                            msg.value
+                                        )
+                                    validator = msgValue.msg.validatorAddress
+                                    amount = msgValue.msg.amount
+                                    creationHeight = msgValue.msg.creationHeight
+                                }
+
                                 else -> return@mapNotNull null
                             }
 
-                            BabylonFetcher.BabylonEpochTxType(type, validator, amount)
+                            BabylonFetcher.BabylonEpochTxType(
+                                type,
+                                validator,
+                                amount,
+                                creationHeight
+                            )
                         }
                     }
                 }
@@ -1196,6 +1243,7 @@ class WalletRepositoryImpl : WalletRepository {
                             val type = msg.asJsonObject["@type"].asString
                             val validator: String?
                             val amount: CoinProto.Coin?
+                            var creationHeight: Long = 0
 
                             when {
                                 type.contains("MsgWrappedDelegate") -> {
@@ -1225,10 +1273,26 @@ class WalletRepositoryImpl : WalletRepository {
                                         .build()
                                 }
 
+                                type.contains("MsgWrappedCancelUnbondingDelegation") -> {
+                                    validator =
+                                        msg.asJsonObject["msg"].asJsonObject["validator_address"].asString
+                                    amount = CoinProto.Coin.newBuilder()
+                                        .setDenom(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["denom"].asString)
+                                        .setAmount(msg.asJsonObject["msg"].asJsonObject["amount"].asJsonObject["amount"].asString)
+                                        .build()
+                                    creationHeight =
+                                        msg.asJsonObject["msg"].asJsonObject["creation_height"].asString.toLong()
+                                }
+
                                 else -> return@mapNotNull null
                             }
 
-                            BabylonFetcher.BabylonEpochTxType(type, validator, amount)
+                            BabylonFetcher.BabylonEpochTxType(
+                                type,
+                                validator,
+                                amount,
+                                creationHeight
+                            )
                         }
                     }
                 }

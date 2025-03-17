@@ -225,6 +225,10 @@ class CosmosDetailFragment : Fragment() {
             fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
             fabVote.visibleOrGone(selectedChain.isStakeEnabled())
 
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                fabStake.labelText = getString(R.string.title_stake, asset.symbol)
+            }
+
             when (selectedChain) {
                 is ChainNeutron -> {
                     fabDao.visibility = View.VISIBLE

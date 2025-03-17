@@ -9,13 +9,16 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
+import wannabit.io.cosmostaion.databinding.ItemBabylonCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import java.math.BigDecimal
 
 class CoinAdapter(
     val context: Context, val selectedChain: BaseChain,
@@ -161,10 +164,18 @@ class CoinAdapter(
             }
 
             VIEW_TYPE_STAKE_ITEM -> {
-                val binding = ItemCosmosLineCoinBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                CoinCosmosLineViewHolder(binding)
+                if (selectedChain is ChainBabylonTestnet) {
+                    val binding = ItemBabylonCoinBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    BabylonCoinViewHolder(binding)
+
+                } else {
+                    val binding = ItemCosmosLineCoinBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    CoinCosmosLineViewHolder(binding)
+                }
             }
 
             VIEW_TYPE_NATIVE_ITEM, VIEW_TYPE_IBC_ITEM, VIEW_TYPE_BRIDGE_ITEM -> {
@@ -233,6 +244,48 @@ class CoinAdapter(
                     } else {
                         onItemClickListener?.let {
                             it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        }
+                        true
+                    }
+                }
+            }
+
+            is BabylonCoinViewHolder -> {
+                val coin = item.coin ?: return
+                holder.bind(context, selectedChain)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                    }
+                }
+
+                holder.itemView.setOnLongClickListener { view ->
+                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && ((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcReward
+                            ?: BigDecimal.ZERO) <= BigDecimal.ZERO
+                    ) {
+                        onItemClickListener?.let {
+                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        }
+                        true
+
+                    } else {
+                        val scaleX = view.scaleX
+                        val scaleY = view.scaleY
+                        val customDialog = RewardDialog(
+                            context, selectedChain, selectedChain.cosmosFetcher?.cosmosRewards, (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcReward
+                        )
+
+                        if (scaleX == 1.0f && scaleY == 1.0f) {
+                            view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                            val handler = Handler()
+                            handler.postDelayed({
+                                customDialog.show()
+                            }, 200)
+                        }
+
+                        customDialog.setOnDismissListener {
+                            view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         }
                         true
                     }

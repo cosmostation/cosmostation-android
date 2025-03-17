@@ -19,7 +19,8 @@ import java.math.RoundingMode
 class RewardDialog(
     context: Context,
     val selectedChain: BaseChain,
-    val rewards: MutableList<DistributionProto.DelegationDelegatorReward>?
+    val rewards: MutableList<DistributionProto.DelegationDelegatorReward>?,
+    val btcReward: BigDecimal? = BigDecimal.ZERO
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogRewardBinding
@@ -54,7 +55,6 @@ class RewardDialog(
                         tempRewardCoins[index] = Coin.newBuilder().setDenom(deCoin.denom)
                             .setAmount(addedAmount.toPlainString()).build()
                         rewardCoins = tempRewardCoins
-
                     } else {
                         rewardCoins.add(
                             Coin.newBuilder().setDenom(deCoin.denom).setAmount(amount.toString())
@@ -63,6 +63,16 @@ class RewardDialog(
                     }
                 }
             }
+        }
+
+        if ((btcReward ?: BigDecimal.ZERO) > BigDecimal.ZERO) {
+            rewardCoins = rewardCoins.map { reward ->
+                if (reward.denom == selectedChain.stakeDenom) {
+                    reward.toBuilder().setAmount(reward.amount.toBigDecimal().add(btcReward).toPlainString()).build()
+                } else {
+                    reward
+                }
+            }.toMutableList()
         }
 
         initRecyclerView(sortRewardCoins(rewardCoins))
