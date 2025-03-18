@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAgoric564
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAkash
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAndromeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
@@ -55,6 +56,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainKopi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLava
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
@@ -77,6 +79,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
@@ -646,6 +649,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAllora())
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
+    chains.add(ChainAndromeda())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
     chains.add(ChainAssetMantle())
@@ -705,6 +709,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKava459())
     chains.add(ChainKava118())
     chains.add(ChainKi())
+    chains.add(ChainKopi())
     chains.add(ChainKyve())
     chains.add(ChainLava())
     chains.add(ChainLikeCoin())
@@ -729,6 +734,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOrai())
     chains.add(ChainOsmosis())
     chains.add(ChainOptimism())
+    chains.add(ChainPaloma())
     chains.add(ChainPassage())
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
