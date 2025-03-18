@@ -13,32 +13,31 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.Gson
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentOktWithdrawBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.LegacyInsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -111,15 +110,11 @@ class OktWithdrawFragment : BaseTxFragment() {
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == selectedChain.stakeDenom }
-                ?.let { tokenInfo ->
-                    oktTokenInfo = Gson().fromJson(tokenInfo, OktToken::class.java)
-                    oktTokenInfo?.let {
-                        tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
-                        tokenName.text = it.original_symbol.uppercase()
-                        availableAmount = oktFetcher.oktDepositAmount()
-                    }
-                }
+            BaseData.getAsset(chain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol
+                availableAmount = oktFetcher?.oktDepositAmount()
+            }
         }
     }
 

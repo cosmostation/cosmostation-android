@@ -664,11 +664,9 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
                             if (selectedChain is ChainOktEvm) {
                                 searchEtcCoins.addAll(etcCoins.filter { coin ->
-                                    (selectedChain as ChainOktEvm).oktFetcher()?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == coin.denom }
-                                        ?.let { token ->
-                                            token.asJsonObject["original_symbol"].asString.contains(
-                                                searchTxt, true
-                                            )
+                                    BaseData.getAsset(selectedChain.apiName, coin.denom)
+                                        ?.let { asset ->
+                                            asset.symbol?.contains(searchTxt, ignoreCase = true)
                                         } ?: false
                                 })
                             }

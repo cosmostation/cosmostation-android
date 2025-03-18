@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.api
 
-import com.babylon.epoching.v1.QueryProto.QueryCurrentEpochResponse
 import com.google.gson.JsonObject
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,7 +15,6 @@ import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
 import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
 import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
-import java.math.BigDecimal
 
 interface LcdApi {
     @GET("cosmos/auth/v1beta1/accounts/{address}")
@@ -114,9 +112,6 @@ interface LcdApi {
     @GET("staking/delegators/{address}/unbonding_delegations")
     suspend fun oktWithdrawInfo(@Path("address") address: String?): JsonObject
 
-    @GET("tokens")
-    suspend fun oktTokens(): JsonObject
-
     @GET("staking/validators?status=all")
     suspend fun oktValidators(): MutableList<JsonObject>
 
@@ -160,7 +155,7 @@ interface LcdApi {
     suspend fun lcdBtcReward(@Path("address") address: String): JsonObject
 
     @GET("cosmos/base/node/v1beta1/status")
-    suspend fun lcdChainHeight(): Long
+    suspend fun lcdChainHeight(): JsonObject
 
     @GET("babylon/epoching/v1/current_epoch")
     suspend fun lcdCurrentEpoch(): JsonObject

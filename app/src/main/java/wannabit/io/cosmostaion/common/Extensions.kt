@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import coil.dispose
 import coil.load
 import coil.request.CachePolicy
 import com.cosmos.base.v1beta1.CoinProto
@@ -177,7 +178,7 @@ fun TextView.hiddenStatus(amount: SpannableString) {
         textSize = 10f
     } else {
         text = amount
-        textSize = 14f
+        textSize = 12f
     }
 }
 
@@ -227,33 +228,48 @@ fun FragmentActivity.toMoveFragment(
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    if (asset.image?.contains(".svg") == true) {
-        val imageLoader = ImageLoader.Builder(context).components {
-            add(SvgDecoder.Factory())
-        }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
-        load(asset.image, imageLoader) {
-            placeholder(R.drawable.token_default)
-            error(R.drawable.token_default)
-        }
+    dispose()
+    tag = asset.image
 
-    } else {
-        Picasso.get().load(asset.image).error(R.drawable.token_default).into(this)
+    val imageLoader = ImageLoader.Builder(context)
+        .components { add(SvgDecoder.Factory()) }
+        .memoryCachePolicy(CachePolicy.DISABLED)
+        .diskCachePolicy(CachePolicy.DISABLED)
+        .build()
+
+    val imageUrl = asset.image
+    load(imageUrl, imageLoader) {
+        listener(
+            onSuccess = { _, _ ->
+                if (tag != imageUrl) return@listener
+            },
+            onError = { _, _ ->
+                setImageResource(R.drawable.token_default)
+            }
+        )
     }
 }
 
 fun ImageView.setTokenImg(tokenImg: String) {
     if (tokenImg.isNotEmpty()) {
-        if (tokenImg.contains(".svg")) {
-            val imageLoader = ImageLoader.Builder(context).components {
-                add(SvgDecoder.Factory())
-            }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
-            load(tokenImg, imageLoader) {
-                placeholder(R.drawable.token_default)
-                error(R.drawable.token_default)
-            }
+        dispose()
+        tag = tokenImg
 
-        } else {
-            Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+        val imageLoader = ImageLoader.Builder(context)
+            .components { add(SvgDecoder.Factory()) }
+            .memoryCachePolicy(CachePolicy.DISABLED)
+            .diskCachePolicy(CachePolicy.DISABLED)
+            .build()
+
+        load(tokenImg, imageLoader) {
+            listener(
+                onSuccess = { _, _ ->
+                    if (tag != tokenImg) return@listener
+                },
+                onError = { _, _ ->
+                    setImageResource(R.drawable.token_default)
+                }
+            )
         }
 
     } else {
@@ -278,7 +294,7 @@ fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
     if (imageUrl?.isNotEmpty() == true) {
-        if (imageUrl?.contains(".svg") == true) {
+        if (imageUrl.contains(".svg")) {
             val imageLoader = ImageLoader.Builder(context).components {
                 add(SvgDecoder.Factory())
             }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()

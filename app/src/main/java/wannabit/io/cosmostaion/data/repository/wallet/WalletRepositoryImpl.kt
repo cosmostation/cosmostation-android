@@ -47,6 +47,7 @@ import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
 import wannabit.io.cosmostaion.chain.fetcher.btcReward
+import wannabit.io.cosmostaion.chain.fetcher.chainHeight
 import wannabit.io.cosmostaion.chain.fetcher.currentEpoch
 import wannabit.io.cosmostaion.chain.fetcher.delegations
 import wannabit.io.cosmostaion.chain.fetcher.epochMsg
@@ -91,7 +92,6 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
-import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -779,12 +779,6 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun oktToken(chain: BaseChain): NetworkResult<JsonObject?> {
-        return safeApiCall(Dispatchers.IO) {
-            lcdApi(chain).oktTokens()
-        }
-    }
-
     override suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.erc20token(chain.apiName)
@@ -1123,7 +1117,7 @@ class WalletRepositoryImpl : WalletRepository {
             }
         } else {
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdChainHeight()
+                lcdApi(chain).lcdChainHeight().chainHeight()
             }
         }
     }

@@ -18,7 +18,6 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     var oktAccountInfo: JsonObject? = JsonObject()
     var oktDeposits: JsonObject? = JsonObject()
     var oktWithdaws: JsonObject? = JsonObject()
-    var oktTokens: JsonObject? = JsonObject()
     var oktValidatorInfo: MutableList<JsonObject> = mutableListOf()
 
     fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
@@ -52,11 +51,6 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
         return oktBalanceValue(chain.stakeDenom, isUsd).add(oktDepositValue(isUsd))
             .add(oktWithdrawValue(isUsd))
     }
-
-//    override fun isTxFeePayable(c: Context): Boolean {
-//        val availableAmount = lcdBalanceAmount(chain.stakeDenom)
-//        return availableAmount > BigDecimal(OKT_BASE_FEE)
-//    }
 
     fun oktBalanceAmount(denom: String?): BigDecimal {
         oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.firstOrNull { it.asJsonObject["denom"].asString == denom }

@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInt3face
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
@@ -139,6 +140,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainStory
+import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
@@ -700,6 +703,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHaqqEvm())
     chains.add(ChainHumansEvm())
     chains.add(ChainInjective())
+    chains.add(ChainInt3face())
     chains.add(ChainIris())
     chains.add(ChainIxo())
     chains.add(ChainJackal())
@@ -763,6 +767,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSource())
     chains.add(ChainStafi())
     chains.add(ChainStargaze())
+    chains.add(ChainStory())
+    chains.add(ChainStratosEvm())
     chains.add(ChainStride())
     chains.add(ChainSui())
     chains.add(ChainSynternet())

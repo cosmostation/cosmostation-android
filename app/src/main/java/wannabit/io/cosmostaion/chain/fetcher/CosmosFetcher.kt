@@ -576,6 +576,7 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
         AuthProto.BaseAccount.parseFrom(rawAccount.value)?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
+
     } else if (rawAccount.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
         VestingProto.PeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
@@ -613,6 +614,11 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
 
     } else if (rawAccount.typeUrl.contains(com.eth.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
         com.eth.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(com.stratos.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
+        com.stratos.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
 

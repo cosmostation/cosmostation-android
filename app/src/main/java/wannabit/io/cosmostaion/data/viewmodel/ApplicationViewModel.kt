@@ -827,12 +827,10 @@ class ApplicationViewModel(
                                 async { walletRepository.oktDeposit(this@apply) }
                             val loadWithdrawDeferred =
                                 async { walletRepository.oktWithdraw(this@apply) }
-                            val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
                             val accountInfoResult = loadAccountInfoDeferred.await()
                             val depositResult = loadDepositDeferred.await()
                             val withdrawResult = loadWithdrawDeferred.await()
-                            val oktTokenResult = loadTokenDeferred.await()
 
                             if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                                 it.oktAccountInfo = accountInfoResult.data
@@ -845,9 +843,6 @@ class ApplicationViewModel(
                             }
                             if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
                                 oktFetcher?.oktWithdaws = withdrawResult.data
-                            }
-                            if (oktTokenResult is NetworkResult.Success && oktTokenResult.data is JsonObject) {
-                                oktFetcher?.oktTokens = oktTokenResult.data
                             }
                         }
                     }
@@ -1017,12 +1012,10 @@ class ApplicationViewModel(
                 val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
                 val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
                 val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
-                val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
                 val accountInfoResult = loadAccountInfoDeferred.await()
                 val depositResult = loadDepositDeferred.await()
                 val withdrawResult = loadWithdrawDeferred.await()
-                val tokenResult = loadTokenDeferred.await()
 
                 if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                     oktFetcher()?.oktAccountInfo = accountInfoResult.data
@@ -1035,9 +1028,6 @@ class ApplicationViewModel(
                 }
                 if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
                     oktFetcher()?.oktWithdaws = withdrawResult.data
-                }
-                if (tokenResult is NetworkResult.Success && tokenResult.data is JsonObject) {
-                    oktFetcher()?.oktTokens = tokenResult.data
                 }
 
                 fetchState = if (oktFetcher()?.oktAccountInfo?.isJsonNull == true) {

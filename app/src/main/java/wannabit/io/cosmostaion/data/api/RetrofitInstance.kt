@@ -51,12 +51,6 @@ object RetrofitInstance {
             .baseUrl(CosmostationConstants.SKIP_API_URL).build()
     }
 
-    private val baseRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.CHAIN_BASE_URL).build()
-    }
-
     private val ecoSystemRetrofit: Retrofit by lazy {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)

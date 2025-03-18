@@ -75,6 +75,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
@@ -344,8 +345,7 @@ object Signer {
         if (selectedChain is ChainBabylonTestnet && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
             val babylonIncentiveMsg = com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder()
                 .setType("btc_delegation").setAddress(selectedChain.address).build()
-            val anyMsg = Any.newBuilder()
-                .setTypeUrl("/babylon.incentive.MsgWithdrawReward")
+            val anyMsg = Any.newBuilder().setTypeUrl("/babylon.incentive.MsgWithdrawReward")
                 .setValue(babylonIncentiveMsg.toByteString()).build()
             msgAnys.add(anyMsg)
         }
@@ -695,6 +695,12 @@ object Signer {
                 ByteString.copyFrom(ecKey.pubKey)
             ).build()
             Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+
+        } else if (chain is ChainStratosEvm) {
+            val pubKey = com.stratos.crypto.v1.ethsecp256k1.KeysProto.PubKey.newBuilder()
+                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/stratos.crypto.v1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
         } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
@@ -1152,7 +1158,7 @@ object Signer {
 
     private fun ethermintSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): String {
         val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain?.privateKey))
-        val sigData = ByteArray(64) // 32 bytes for R + 32 bytes for S
+        val sigData = ByteArray(64)
         System.arraycopy(sig.r, 0, sigData, 0, 32)
         System.arraycopy(sig.s, 0, sigData, 32, 32)
         return String(encode(sigData), Charset.forName("UTF-8"))

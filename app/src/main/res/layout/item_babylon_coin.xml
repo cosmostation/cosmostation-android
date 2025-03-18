@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/available"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"
@@ -167,7 +167,7 @@
 
                 <TextView
                     android:id="@+id/vesting"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"
@@ -202,7 +202,7 @@
 
                 <TextView
                     android:id="@+id/staked"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"
@@ -237,7 +237,7 @@
 
                 <TextView
                     android:id="@+id/unstaking"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"
@@ -272,7 +272,7 @@
 
                 <TextView
                     android:id="@+id/reward"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"
@@ -307,7 +307,7 @@
 
                 <TextView
                     android:id="@+id/btc_reward"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_10"

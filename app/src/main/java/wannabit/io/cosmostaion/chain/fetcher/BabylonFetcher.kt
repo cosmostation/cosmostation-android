@@ -134,6 +134,11 @@ fun JsonObject.btcReward(denom: String): MutableList<Coin> {
     return btcRewards
 }
 
+fun JsonObject.chainHeight(): Long {
+    val height = this["height"].asString.toLong()
+    return height
+}
+
 fun JsonObject.currentEpoch(): QueryCurrentEpochResponse {
     val currentEpoch = this["current_epoch"].asString
     val epochBoundary = this["epoch_boundary"].asString

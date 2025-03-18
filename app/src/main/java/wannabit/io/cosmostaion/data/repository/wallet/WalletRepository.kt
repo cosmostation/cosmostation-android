@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
-import java.math.BigDecimal
 
 interface WalletRepository {
     suspend fun selectPassword(): NetworkResult<MutableList<Password>>
@@ -156,10 +155,6 @@ interface WalletRepository {
     ): NetworkResult<JsonObject?>
 
     suspend fun oktWithdraw(
-        chain: BaseChain
-    ): NetworkResult<JsonObject?>
-
-    suspend fun oktToken(
         chain: BaseChain
     ): NetworkResult<JsonObject?>
 

@@ -15,15 +15,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.Gson
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -32,11 +31,11 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -125,25 +124,21 @@ class LegacyTransferFragment : BaseTxFragment() {
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == toSendDenom }
-                ?.let { tokenInfo ->
-                    oktToken = Gson().fromJson(tokenInfo, OktToken::class.java)
-                    oktToken?.let {
-                        tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
-                        tokenName.text = it.original_symbol.uppercase()
+            BaseData.getAsset(chain.apiName, toSendDenom)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol
 
-                        val available = oktFetcher.oktBalanceAmount(toSendDenom)
-                        availableAmount = if (toSendDenom == chain.stakeDenom) {
-                            if (BigDecimal(OKT_BASE_FEE) < available) {
-                                available.subtract(BigDecimal(OKT_BASE_FEE))
-                            } else {
-                                BigDecimal.ZERO
-                            }
-                        } else {
-                            available
-                        }
+                val available = oktFetcher?.oktBalanceAmount(toSendDenom)
+                availableAmount = if (toSendDenom == chain.stakeDenom) {
+                    if (BigDecimal(OKT_BASE_FEE) < available) {
+                        available?.subtract(BigDecimal(OKT_BASE_FEE))
+                    } else {
+                        BigDecimal.ZERO
                     }
+                } else {
+                    available
                 }
+            }
         }
     }
 
