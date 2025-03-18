@@ -261,9 +261,7 @@ class CoinAdapter(
                 }
 
                 holder.itemView.setOnLongClickListener { view ->
-                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && ((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcReward
-                            ?: BigDecimal.ZERO) <= BigDecimal.ZERO
-                    ) {
+                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.isEmpty() == true) {
                         onItemClickListener?.let {
                             it(selectedChain, selectedChain.stakeDenom, position, coin.type)
                         }
@@ -273,7 +271,7 @@ class CoinAdapter(
                         val scaleX = view.scaleX
                         val scaleY = view.scaleY
                         val customDialog = RewardDialog(
-                            context, selectedChain, selectedChain.cosmosFetcher?.cosmosRewards, (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcReward
+                            context, selectedChain, selectedChain.cosmosFetcher?.cosmosRewards, (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards
                         )
 
                         if (scaleX == 1.0f && scaleY == 1.0f) {

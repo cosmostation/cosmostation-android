@@ -214,7 +214,7 @@ interface WalletRepository {
 
     suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response>
 
-    suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<BigDecimal>
+    suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>>
 
     suspend fun chainHeight(
         channel: ManagedChannel?, chain: BaseChain

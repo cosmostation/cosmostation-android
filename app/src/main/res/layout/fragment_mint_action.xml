@@ -230,7 +230,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_6"
                     android:gravity="center_vertical"
-                    android:textAllCaps="true"
                     android:textColor="@color/color_base01"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/fee_token_img"

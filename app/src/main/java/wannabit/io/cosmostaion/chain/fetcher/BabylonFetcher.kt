@@ -13,7 +13,7 @@ import java.math.RoundingMode
 
 class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
-    var btcReward: BigDecimal? = BigDecimal.ZERO
+    var btcRewards: MutableList<Coin> = mutableListOf()
 
     data class BabylonEpochData(
         var currentHeight: Long? = 0,
@@ -28,24 +28,14 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         val createHeight: Long? = 0
     )
 
-    private fun btcRewardValueSum(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-            return price.multiply(btcReward).movePointLeft(asset.decimals ?: 6)
-                .setScale(6, RoundingMode.DOWN)
-        }
-        return BigDecimal.ZERO
-    }
-
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
         return if (denom == chain.stakeDenom) {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
                 .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
-                .add(unbondingValueSum(isUsd)).add(btcRewardValueSum())
+                .add(unbondingValueSum(isUsd)).add(btcRewardValue(denom, isUsd))
 
         } else {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd))
         }
     }
 
@@ -53,34 +43,95 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
             .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd)).add(btcRewardValueSum(isUsd))
     }
+
+    fun btcRewardAmountSum(denom: String): BigDecimal {
+        var sum = BigDecimal.ZERO
+        btcRewards.forEach { reward ->
+            if (reward.denom == denom) {
+                val rewardAmount = reward.amount?.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                sum = sum.add(rewardAmount)
+            }
+        }
+        return sum
+    }
+
+    private fun btcRewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = btcRewardAmountSum(denom)
+            return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
+                .setScale(6, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
+    }
+
+    private fun btcRewardValueSum(isUsd: Boolean? = false): BigDecimal {
+        var sum = BigDecimal.ZERO
+        btcRewards.forEach { rewardCoin ->
+            BaseData.getAsset(chain.apiName, rewardCoin.denom)?.let { asset ->
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+                val amount = rewardCoin.amount.toBigDecimal()
+                val value = price.multiply(amount)?.movePointLeft(asset.decimals ?: 6)
+                    ?.setScale(6, RoundingMode.DOWN)
+                sum = sum.add(value)
+            }
+        }
+        return sum
+    }
+
+    fun btcRewardOtherDenoms(): Int {
+        return btcRewards.map { it.denom }.distinct().count { it != chain.stakeDenom }
+    }
+
+    override fun allStakingDenomAmount(): BigDecimal? {
+        return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
+            ?.add(delegationAmountSum())?.add(unbondingAmountSum())
+            ?.add(rewardAmountSum(chain.stakeDenom))?.add(btcRewardAmountSum(chain.stakeDenom))
+    }
 }
 
-fun JsonObject.btcReward(denom: String): BigDecimal {
-    return if (this.has("reward_gauges")) {
+fun JsonObject.btcReward(denom: String): MutableList<Coin> {
+    val btcRewards: MutableList<Coin> = mutableListOf()
+    if (this.has("reward_gauges")) {
         val rewardGaugaes = this["reward_gauges"].asJsonObject
         val btcDelegation = rewardGaugaes["btc_delegation"].asJsonObject
 
         if (!btcDelegation["coins"].asJsonArray.isEmpty && !btcDelegation["withdrawn_coins"].asJsonArray.isEmpty) {
-            val coin =
-                btcDelegation["coins"].asJsonArray.firstOrNull { it.asJsonObject["denom"].asString == denom }?.asJsonObject?.get(
-                    "amount"
-                )?.asString?.toBigDecimal() ?: BigDecimal.ZERO
-            val withdraw =
-                btcDelegation["withdrawn_coins"].asJsonArray.firstOrNull { it.asJsonObject["denom"].asString == denom }?.asJsonObject?.get(
-                    "amount"
-                )?.asString?.toBigDecimal() ?: BigDecimal.ZERO
-            coin.subtract(withdraw)
+            btcDelegation["coins"].asJsonArray.forEach { coin ->
+                btcDelegation["withdrawn_coins"].asJsonArray.forEach { withdraw ->
+                    if (coin.asJsonObject["denom"].asString == withdraw.asJsonObject["denom"].asString) {
+                        val reward = coin.asJsonObject["amount"].asString.toBigDecimal()
+                            .subtract(withdraw.asJsonObject["amount"].asString.toBigDecimal())
+                        btcRewards.add(
+                            Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
+                                .setAmount(reward.toPlainString()).build()
+                        )
+                    }
+                }
+            }
+
         } else if (!btcDelegation["coins"].asJsonArray.isEmpty) {
-            return btcDelegation["coins"].asJsonArray.firstOrNull { it.asJsonObject["denom"].asString == denom }?.asJsonObject?.get(
-                "amount"
-            )?.asString?.toBigDecimal() ?: BigDecimal.ZERO
+            btcDelegation["coins"].asJsonArray.forEach { coin ->
+                btcRewards.add(
+                    Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
+                        .setAmount(coin.asJsonObject["amount"].asString).build()
+                )
+            }
+
         } else {
-            BigDecimal.ZERO
+            btcRewards.add(
+                Coin.newBuilder().setDenom(denom)
+                    .setAmount("0").build()
+            )
         }
 
     } else {
-        BigDecimal.ZERO
+        btcRewards.add(
+            Coin.newBuilder().setDenom(denom)
+                .setAmount("0").build()
+        )
     }
+    return btcRewards
 }
 
 fun JsonObject.currentEpoch(): QueryCurrentEpochResponse {

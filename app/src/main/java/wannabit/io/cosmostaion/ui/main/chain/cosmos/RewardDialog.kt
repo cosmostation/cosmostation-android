@@ -20,7 +20,7 @@ class RewardDialog(
     context: Context,
     val selectedChain: BaseChain,
     val rewards: MutableList<DistributionProto.DelegationDelegatorReward>?,
-    val btcReward: BigDecimal? = BigDecimal.ZERO
+    val btcRewards: MutableList<Coin>? = mutableListOf(),
 ) : Dialog(context, R.style.CustomDialogTheme) {
 
     private lateinit var binding: DialogRewardBinding
@@ -65,14 +65,16 @@ class RewardDialog(
             }
         }
 
-        if ((btcReward ?: BigDecimal.ZERO) > BigDecimal.ZERO) {
-            rewardCoins = rewardCoins.map { reward ->
-                if (reward.denom == selectedChain.stakeDenom) {
-                    reward.toBuilder().setAmount(reward.amount.toBigDecimal().add(btcReward).toPlainString()).build()
-                } else {
-                    reward
-                }
-            }.toMutableList()
+        if (btcRewards?.isNotEmpty() == true) {
+            btcRewards.forEach { btcReward ->
+                rewardCoins = rewardCoins.map { reward ->
+                    if (reward.denom == btcReward.denom) {
+                        reward.toBuilder().setAmount(reward.amount.toBigDecimal().add(btcReward.amount.toBigDecimal()).toPlainString()).build()
+                    } else {
+                        reward
+                    }
+                }.toMutableList()
+            }
         }
 
         initRecyclerView(sortRewardCoins(rewardCoins))

@@ -340,6 +340,16 @@ object Signer {
         selectedChain: BaseChain, rewards: MutableList<DelegationDelegatorReward?>
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
+
+        if (selectedChain is ChainBabylonTestnet && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
+            val babylonIncentiveMsg = com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder()
+                .setType("btc_delegation").setAddress(selectedChain.address).build()
+            val anyMsg = Any.newBuilder()
+                .setTypeUrl("/babylon.incentive.MsgWithdrawReward")
+                .setValue(babylonIncentiveMsg.toByteString()).build()
+            msgAnys.add(anyMsg)
+        }
+
         rewards.forEach { reward ->
             val claimMsg =
                 MsgWithdrawDelegatorReward.newBuilder().setDelegatorAddress(selectedChain.address)
@@ -400,7 +410,9 @@ object Signer {
                             .build()
 
                     if (selectedChain is ChainBabylonTestnet) {
-                        val wrappedMsgDelegate = com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder().setMsg(delegateMsg).build()
+                        val wrappedMsgDelegate =
+                            com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder()
+                                .setMsg(delegateMsg).build()
                         Any.newBuilder().setTypeUrl("/babylon.epoching.v1.MsgWrappedDelegate")
                             .setValue(wrappedMsgDelegate.toByteString()).build()
                     } else {

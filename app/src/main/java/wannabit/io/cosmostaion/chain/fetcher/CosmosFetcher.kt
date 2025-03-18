@@ -62,7 +62,6 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
         } else {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd))
         }
     }
 

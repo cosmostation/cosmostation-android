@@ -571,7 +571,7 @@ class ApplicationViewModel(
                             val rewardGaugeResult = loadRewardGaugeDeferred.await()
 
                             if (rewardGaugeResult is NetworkResult.Success) {
-                                chain.babylonFetcher()?.btcReward = rewardGaugeResult.data
+                                chain.babylonFetcher()?.btcRewards = rewardGaugeResult.data
                             } else if (rewardGaugeResult is NetworkResult.Error) {
                                 _chainDataErrorMessage.postValue("error type : ${rewardGaugeResult.errorType}  error message : ${rewardGaugeResult.errorMessage}")
                             }

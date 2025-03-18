@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.tx.genTx
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -19,9 +20,9 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -108,12 +109,25 @@ class CompoundingFragment : BaseTxFragment() {
             val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
             claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
 
-            listOf(compoundingView, memoView, feeView).forEach {
+            listOf(compoundingView, babylonCompoundingView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
                 )
             }
+            cautionImg.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.color_base03),
+                PorterDuff.Mode.SRC_IN
+            )
+            babylonCompoundingMsg.text = getString(R.string.str_babylon_compounding_msg)
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+
+            if (selectedChain is ChainBabylonTestnet) {
+                compoundingView.visibility = View.GONE
+                babylonCompoundingView.visibility = View.VISIBLE
+            } else {
+                compoundingView.visibility = View.VISIBLE
+                babylonCompoundingView.visibility = View.GONE
+            }
 
             if (selectedChain is ChainInitiaTestnet) {
                 val cosmostationValAddress =
@@ -130,16 +144,21 @@ class CompoundingFragment : BaseTxFragment() {
                     selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
                 if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
                     validatorName.text = "Cosmostation"
+                    babylonValidatorName.text = "Cosmostation"
                 } else {
                     validatorName.text =
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                    babylonValidatorName.text =
                         selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
                 }
             }
 
             if (claimableRewards.size > 1) {
                 validatorCnt.text = "+ " + (claimableRewards.size - 1)
+                babylonValidatorCnt.text = "+ " + (claimableRewards.size - 1)
             } else {
                 validatorCnt.visibility = View.GONE
+                babylonValidatorCnt.visibility = View.GONE
             }
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
@@ -158,6 +177,11 @@ class CompoundingFragment : BaseTxFragment() {
                     formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
                 compoundingDenom.text = asset.symbol
                 compoundingDenom.setTextColor(asset.assetColor())
+
+                babylonCompoundingAmount.text =
+                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                babylonCompoundingDenom.text = asset.symbol
+                babylonCompoundingDenom.setTextColor(asset.assetColor())
             }
         }
     }
@@ -307,8 +331,8 @@ class CompoundingFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -396,7 +420,7 @@ class CompoundingFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    onBindCompoundingMsg(),
+                    Signer.compoundingMsg(selectedChain, claimableRewards),
                     txFee,
                     txMemo,
                     selectedChain
@@ -413,7 +437,7 @@ class CompoundingFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                onBindCompoundingMsg(),
+                Signer.compoundingMsg(selectedChain, claimableRewards),
                 txFee,
                 txMemo,
                 selectedChain
@@ -495,12 +519,6 @@ class CompoundingFragment : BaseTxFragment() {
             }
             dismiss()
         }
-    }
-
-    private fun onBindCompoundingMsg(): MutableList<Any> {
-        return Signer.compoundingMsg(
-            selectedChain, claimableRewards
-        )
     }
 
     override fun onDestroyView() {

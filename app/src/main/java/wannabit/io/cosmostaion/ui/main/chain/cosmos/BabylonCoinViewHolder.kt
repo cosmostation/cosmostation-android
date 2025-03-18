@@ -59,15 +59,23 @@ class BabylonCoinViewHolder(
                         ?: BigDecimal.ZERO
 
                     val btcRewardAmount =
-                        (chain as ChainBabylonTestnet).babylonFetcher?.btcReward?.movePointLeft(
-                            asset.decimals ?: 6
-                        )?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                        (chain as ChainBabylonTestnet).babylonFetcher?.btcRewardAmountSum(stakeDenom)
+                            ?.movePointLeft(
+                                asset.decimals ?: 6
+                            )?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
                     vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
 
                     if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
                         rewardTitle.text =
                             context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
+                    }
+
+                    if (chain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
+                        btcRewardTitle.text =
+                            context.getString(R.string.str_btc_reward) + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
+                                    ?: 0) > 0
+                            ) " +${chain.babylonFetcher?.btcRewardOtherDenoms()}" else ""
                     }
 
                     with(Prefs) {

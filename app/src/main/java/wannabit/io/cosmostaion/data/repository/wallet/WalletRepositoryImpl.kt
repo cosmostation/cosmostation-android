@@ -1072,26 +1072,36 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<BigDecimal> {
+    override suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>> {
         return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.babylon.incentive.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = com.babylon.incentive.QueryProto.QueryRewardGaugesRequest.newBuilder().setAddress(chain.address).build()
             val response = stub.rewardGauges(request).rewardGaugesMap
 
+            val btcRewards: MutableList<CoinProto.Coin> = mutableListOf()
             val btcDelegation = response["btc_delegation"]
-            val btcReward = if (btcDelegation?.coinsList?.isNotEmpty() == true && btcDelegation.withdrawnCoinsList.isNotEmpty()) {
-                val coin = btcDelegation.coinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
-                val withdraw = btcDelegation.withdrawnCoinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
-                coin.subtract(withdraw)
+            if (btcDelegation?.coinsList?.isNotEmpty() == true && btcDelegation.withdrawnCoinsList.isNotEmpty()) {
+                btcDelegation.coinsList.forEach { coin ->
+                    btcDelegation.withdrawnCoinsList.forEach { withdraw ->
+                        if (coin.denom == withdraw.denom) {
+                            val reward = coin.amount.toBigDecimal().subtract(withdraw.amount.toBigDecimal())
+                            btcRewards.add(CoinProto.Coin.newBuilder().setDenom(coin.denom).setAmount(reward.toString()).build())
+                        }
+                    }
+                }
+
             } else if (btcDelegation?.coinsList?.isNotEmpty() == true) {
-                btcDelegation.coinsList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal() ?: BigDecimal.ZERO
+                btcDelegation.coinsList.forEach { coin ->
+                    btcRewards.add(CoinProto.Coin.newBuilder().setDenom(coin.denom).setAmount(coin.amount).build())
+                }
+
             } else {
-                BigDecimal.ZERO
+                btcRewards.add(CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom).setAmount("0").build())
             }
 
             safeApiCall(Dispatchers.IO) {
-                btcReward
+                btcRewards
             }
 
         } else {

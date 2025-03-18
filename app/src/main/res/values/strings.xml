@@ -441,6 +441,7 @@
     <string name="str_epoch_type_msg2" translatable="false">in Next Epoch %1$s</string>
     <string name="str_pending_state_msg">On the BABYLON chain, staking actions (Stake, Unstake, Validator, Switch Validator, Unstake Cancel, etc.) start in a Pending state.\nOnce the current epoch ends and the next epoch begins, the staking action will transition to Active.</string>
     <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
+    <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>
