@@ -64,6 +64,13 @@ object RetrofitInstance {
             .baseUrl(chain.cosmosFetcher()?.getLcd() ?: chain.lcdUrl).build()
     }
 
+    private fun cosmosLcdRetrofit(chain: BaseChain): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.lcdUrl).build()
+    }
+
     private val suiRetrofit: Retrofit by lazy {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
@@ -87,6 +94,10 @@ object RetrofitInstance {
 
     fun lcdApi(chain: BaseChain): LcdApi {
         return lcdRetrofit(chain).create(LcdApi::class.java)
+    }
+
+    fun cosmosLcdApi(chain: BaseChain): LcdApi {
+        return cosmosLcdRetrofit(chain).create(LcdApi::class.java)
     }
 
     fun bitApi(chain: ChainBitCoin86): LcdApi {

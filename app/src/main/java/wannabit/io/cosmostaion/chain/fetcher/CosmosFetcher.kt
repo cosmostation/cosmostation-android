@@ -21,6 +21,7 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -363,12 +364,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     suspend fun lastHeight(): Long {
-        return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+        return if (chain is ChainCelestia) {
+            RetrofitInstance.cosmosLcdApi(chain).lcdNewLastHeightInfo().lastHeight()
+
+        } else if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val blockStub =
                 ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(30L, TimeUnit.SECONDS)
             val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height
+
         } else {
             RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
         }

@@ -401,6 +401,12 @@ open class BaseChain : Parcelable {
             }
         }
 
+        result.forEach { feeInfo ->
+            feeInfo.feeDatas = feeInfo.feeDatas.mapNotNull { feeData ->
+                BaseData.getAsset(apiName, feeData.denom ?: "")?.let { feeData }
+            }
+        }
+
         if (result.size == 1) {
             result[0].title = c.getString(R.string.str_fixed)
             result[0].msg = c.getString(R.string.str_fee_speed_title_fixed)
