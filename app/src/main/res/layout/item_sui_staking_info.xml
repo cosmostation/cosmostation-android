@@ -44,9 +44,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_12"
+                    android:maxWidth="@dimen/space_150"
                     android:textColor="@color/color_base01"
                     app:layout_constraintStart_toEndOf="@+id/moniker_img"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/click_img"
+                    android:layout_width="@dimen/space_18"
+                    android:layout_height="@dimen/space_18"
+                    android:layout_marginStart="@dimen/space_2"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:src="@drawable/icon_front"
+                    app:layout_constraintBottom_toBottomOf="@+id/moniker_name"
+                    app:layout_constraintStart_toEndOf="@+id/moniker_name"
+                    app:layout_constraintTop_toTopOf="@+id/moniker_name" />
 
                 <TextView
                     android:id="@+id/object_id"

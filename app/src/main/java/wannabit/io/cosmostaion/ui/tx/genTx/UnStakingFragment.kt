@@ -242,7 +242,7 @@ class UnStakingFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 validator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
@@ -261,7 +261,7 @@ class UnStakingFragment : BaseTxFragment() {
 
                 initiaValidator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
@@ -280,7 +280,7 @@ class UnStakingFragment : BaseTxFragment() {
 
                 zenrockValidator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed

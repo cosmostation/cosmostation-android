@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import java.util.Calendar
 
 object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
@@ -47,6 +48,7 @@ object Prefs {
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
     private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
     private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
+    private const val DAPP_INFO_HIDE = "PRE_DAPP_INFO_HIDE"
 
 
     private val preference =
@@ -366,5 +368,17 @@ object Prefs {
     fun removeLcdEndpoint(chain: BaseChain) {
         val key = LCD_ENDPOINT + ":" + chain.name
         preference.edit().remove(key).apply()
+    }
+
+    fun setDappInfoHideTime(id: Int) {
+        val key = "$DAPP_INFO_HIDE:$id"
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        preference.edit().putLong(key, currentDate.timeInMillis).apply()
+    }
+
+    fun getDappInfoHideTime(id: Int): Long {
+        val key = "$DAPP_INFO_HIDE:$id"
+        return preference.getLong(key, 0L)
     }
 }

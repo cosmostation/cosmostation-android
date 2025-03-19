@@ -30,7 +30,7 @@ class ValidatorDefaultViewHolder(
     fun bind(chain: BaseChain, validator: StakingProto.Validator) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker
+            monikerName.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -58,7 +58,7 @@ class ValidatorDefaultViewHolder(
     ) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker
+            monikerName.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -86,7 +86,7 @@ class ValidatorDefaultViewHolder(
     fun zenrockBind(chain: ChainZenrock, validator: HybridValidationProto.ValidatorHV) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker
+            monikerName.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -116,7 +116,7 @@ class ValidatorDefaultViewHolder(
             monikerImg.setImageFromSvg(
                 toValidator.suiValidatorImg(), R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator.suiValidatorName()
+            monikerName.text = toValidator.suiValidatorName().trim()
 
             votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
             commission.text = formatString("${toValidator.suiValidatorCommission()}%", 3)

@@ -196,7 +196,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                     validatorName.text = "Cosmostation"
                 } else {
                     validatorName.text =
-                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
                 }
                 if (claimableRewards.size > 1) {
                     validatorCnt.text = "+ " + (claimableRewards.size - 1)

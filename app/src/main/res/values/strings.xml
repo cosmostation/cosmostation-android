@@ -20,6 +20,7 @@
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_btc_reward" translatable="false">BTC Staking Reward</string>
+    <string name="str_staked_btc_status" translatable="false">Staked sBTC Status</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
     <string name="str_total_staked" translatable="false">Total Staked</string>
@@ -183,6 +184,9 @@
     <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
     <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
     <string name="str_taproot" translatable="false">TAPROOT</string>
+    <string name="str_liquid_stake" translatable="false">Liquid Stake</string>
+    <string name="str_download_app" translatable="false">Download App</string>
+    <string name="str_stake_now" translatable="false">Stake Now</string>
 
 
     //title
@@ -442,6 +446,8 @@
     <string name="str_pending_state_msg">On the BABYLON chain, staking actions (Stake, Unstake, Validator, Switch Validator, Unstake Cancel, etc.) start in a Pending state.\nOnce the current epoch ends and the next epoch begins, the staking action will transition to Active.</string>
     <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
     <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
+    <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
+
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>

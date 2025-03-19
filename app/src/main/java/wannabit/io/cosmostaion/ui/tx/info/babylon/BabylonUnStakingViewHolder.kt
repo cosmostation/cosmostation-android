@@ -40,7 +40,7 @@ class BabylonUnStakingViewHolder(
 //            }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker
+            moniker.text = validator.description?.moniker?.trim()
             val statusImage = when {
                 validator.jailed -> R.drawable.icon_jailed
                 !validator.isActiveValidator(chain) -> R.drawable.icon_inactive

@@ -154,7 +154,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     is ChainInitiaTestnet -> {
                         (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
                             ?.let { validator ->
-                                validatorName.text = validator.description.moniker
+                                validatorName.text = validator.description.moniker?.trim()
                             }
                         initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
@@ -163,7 +163,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     is ChainZenrock -> {
                         (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == zenrockUnBondingEntry.validatorAddress }
                             ?.let { validator ->
-                                validatorName.text = validator.description.moniker
+                                validatorName.text = validator.description.moniker?.trim()
                             }
                         zenrockUnBondingEntry.entry?.balance?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
@@ -172,7 +172,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
                     else -> {
                         selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                             ?.let { validator ->
-                                validatorName.text = validator.description.moniker
+                                validatorName.text = validator.description.moniker?.trim()
                             }
                         unBondingEntry.entry?.balance?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO

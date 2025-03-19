@@ -23,7 +23,7 @@ class ValidatorViewHolder(
         binding.apply {
             validator.let { validator ->
                 monikerImg.setMonikerImg(chain, validator.operatorAddress)
-                monikerName.text = validator.description?.moniker
+                monikerName.text = validator.description?.moniker?.trim()
                 if (validator.jailed) {
                     jailedImg.visibility = View.VISIBLE
                     jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -55,7 +55,7 @@ class ValidatorViewHolder(
     ) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker
+            monikerName.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -85,7 +85,7 @@ class ValidatorViewHolder(
     ) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker
+            monikerName.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)

@@ -23,7 +23,7 @@ class EarnViewHolder(
             selectedChain?.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == valOpAddress }
                 ?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    moniker.text = validator.description.moniker
+                    moniker.text = validator.description.moniker?.trim()
                     if (validator.jailed) {
                         jailedImg.visibility = View.VISIBLE
                         jailedImg.setImageResource(R.drawable.icon_jailed)

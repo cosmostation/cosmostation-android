@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.tx.info.major
 
 import android.content.Context
+import android.graphics.PorterDuff
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
@@ -22,6 +24,9 @@ class SuiStakingInfoViewHolder(
     fun bind(chain: BaseChain, staked: Pair<String, JsonObject>) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
 
             (chain as ChainSui).suiFetcher()?.let { fetcher ->
                 fetcher.suiValidators.firstOrNull { it["suiAddress"].asString == staked.first }

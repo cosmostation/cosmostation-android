@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
-import java.math.BigDecimal
 
 class CoinAdapter(
     val context: Context, val selectedChain: BaseChain,
@@ -30,6 +29,7 @@ class CoinAdapter(
     private val cw20TokenCoins: MutableList<Coin>,
     private val erc20TokenCoins: MutableList<Coin>,
     private val grc20TokenCoins: MutableList<Coin>,
+    private var listener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onItemClickListener: ((BaseChain, String, Int, CoinType) -> Unit)? = null
@@ -66,7 +66,13 @@ class CoinAdapter(
 
             else -> {
                 setItems(
-                    stakeCoins, nativeCoins, ibcCoins, bridgeCoins, cw20TokenCoins, erc20TokenCoins, grc20TokenCoins
+                    stakeCoins,
+                    nativeCoins,
+                    ibcCoins,
+                    bridgeCoins,
+                    cw20TokenCoins,
+                    erc20TokenCoins,
+                    grc20TokenCoins
                 )
             }
         }
@@ -252,7 +258,7 @@ class CoinAdapter(
 
             is BabylonCoinViewHolder -> {
                 val coin = item.coin ?: return
-                holder.bind(context, selectedChain)
+                holder.bind(context, selectedChain, listener)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
@@ -271,7 +277,10 @@ class CoinAdapter(
                         val scaleX = view.scaleX
                         val scaleY = view.scaleY
                         val customDialog = RewardDialog(
-                            context, selectedChain, selectedChain.cosmosFetcher?.cosmosRewards, (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards
+                            context,
+                            selectedChain,
+                            selectedChain.cosmosFetcher?.cosmosRewards,
+                            (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards
                         )
 
                         if (scaleX == 1.0f && scaleY == 1.0f) {
@@ -393,6 +402,10 @@ class CoinAdapter(
 
     fun setOnItemClickListener(listener: (BaseChain, String, Int, CoinType) -> Unit) {
         onItemClickListener = listener
+    }
+
+    interface ClickListener {
+        fun btcStatus()
     }
 }
 

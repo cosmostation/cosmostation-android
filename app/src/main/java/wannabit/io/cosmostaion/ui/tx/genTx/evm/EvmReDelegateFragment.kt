@@ -189,7 +189,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
         binding.apply {
             fromValidator?.let { fromValidator ->
                 fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
-                fromMonikerName.text = fromValidator.description?.moniker
+                fromMonikerName.text = fromValidator.description?.moniker?.trim()
                 val statusImage = when {
                     fromValidator.jailed -> R.drawable.icon_jailed
                     !fromValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
@@ -217,7 +217,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
         binding.apply {
             toValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
-                toMonikerName.text = toValidator.description?.moniker
+                toMonikerName.text = toValidator.description?.moniker?.trim()
                 val statusImage = when {
                     toValidator.jailed -> R.drawable.icon_jailed
                     !toValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive

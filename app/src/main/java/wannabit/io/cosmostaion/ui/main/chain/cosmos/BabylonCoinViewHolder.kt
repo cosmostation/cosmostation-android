@@ -23,9 +23,12 @@ class BabylonCoinViewHolder(
     private val binding: ItemBabylonCoinBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(context: Context, chain: BaseChain) {
+    fun bind(context: Context, chain: BaseChain, listener: CoinAdapter.ClickListener) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
+            btcStakedStatusLayout.setOnClickListener {
+                listener.btcStatus()
+            }
 
             chain.stakeDenom.let { stakeDenom ->
                 BaseData.getAsset(chain.apiName, stakeDenom)?.let { asset ->

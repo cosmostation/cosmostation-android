@@ -184,7 +184,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
         binding.apply {
             validator?.let { validator ->
                 monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                monikerName.text = validator.description?.moniker
+                monikerName.text = validator.description?.moniker?.trim()
 
                 val statusImage = when {
                     validator.jailed -> R.drawable.icon_jailed

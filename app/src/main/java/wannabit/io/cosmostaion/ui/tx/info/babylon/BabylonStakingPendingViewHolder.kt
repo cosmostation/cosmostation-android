@@ -38,7 +38,7 @@ class BabylonStakingPendingViewHolder(
             )
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker
+            moniker.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
