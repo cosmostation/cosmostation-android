@@ -58,7 +58,7 @@ class MajorCryptoViewHolder(
                     totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
                     hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
 
-                    if (chain.isTestnet) {
+                    if (chain.isSupportStaking()) {
                         unstakingLayout.visibility = View.VISIBLE
                         withdrawableLayout.visibility = View.VISIBLE
                         totalStakedLayout.visibility = View.VISIBLE
