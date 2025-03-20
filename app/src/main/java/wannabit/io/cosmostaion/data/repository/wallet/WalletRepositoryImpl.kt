@@ -1082,12 +1082,12 @@ class WalletRepositoryImpl : WalletRepository {
 
         do {
             val response =
-                mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "20", searchAfter)
+                mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "60", searchAfter)
                     ?: mutableListOf()
 
             result.addAll(response)
 
-            searchAfter = if (response.size == 20) {
+            searchAfter = if (response.size == 60) {
                 result[result.size - 1].asJsonObject["search_after"].asString
             } else {
                 ""

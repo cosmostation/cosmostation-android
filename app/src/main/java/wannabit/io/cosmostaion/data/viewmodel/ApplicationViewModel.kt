@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -582,7 +581,6 @@ class ApplicationViewModel(
                             }
 
                             if (btcStakedStatusResult is NetworkResult.Success) {
-                                Log.e("test12345 : ", btcStakedStatusResult.data?.size.toString())
                                 chain.babylonFetcher()?.btcStakedStatus = btcStakedStatusResult.data
                             } else if (btcStakedStatusResult is NetworkResult.Error) {
                                 _chainDataErrorMessage.postValue("error type : ${btcStakedStatusResult.errorType}  error message : ${btcStakedStatusResult.errorMessage}")

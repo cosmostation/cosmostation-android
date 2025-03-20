@@ -156,8 +156,8 @@ class BabylonStakeInfoFragment : Fragment() {
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
-                    0 -> "My Staking"
-                    else -> "My Unstaking"
+                    0 -> "Staking"
+                    else -> "Unstaking"
                 }
             }.attach()
         }
