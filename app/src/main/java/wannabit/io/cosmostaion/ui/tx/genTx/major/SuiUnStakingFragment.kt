@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setImageFromSvg
+import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.databinding.FragmentSuiUnstakingBinding
@@ -63,6 +64,11 @@ class SuiUnStakingFragment(
 
     private fun initView() {
         binding.apply {
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleUnstakeImg.setTokenImg(asset)
+                titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
+            }
+
             listOf(stakeCoinView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg

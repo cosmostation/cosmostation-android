@@ -28,7 +28,6 @@ class MajorCryptoViewHolder(
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             pendingLayout.visibility = View.VISIBLE
-            totalStakedLayout.visibility = View.GONE
             stakedLayout.visibility = View.GONE
             earnedLayout.visibility = View.GONE
 
@@ -45,15 +44,29 @@ class MajorCryptoViewHolder(
                 val price = BaseData.getPrice(chain.coinGeckoId)
                 val availableAmount =
                     fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val stakedAmount = fetcher.btcStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val unStakedAmount = fetcher.btcUnStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val withdrawAbleAmount = fetcher.btcWithdrawAbleAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val pendingInputAmount =
                     fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                val totalAmount = availableAmount.add(pendingInputAmount)
+
+                val totalAmount = availableAmount.add(stakedAmount).add(unStakedAmount).add(withdrawAbleAmount).add(pendingInputAmount)
                 val value = totalAmount.multiply(price).setScale(6, RoundingMode.DOWN)
 
                 with(Prefs) {
                     total.visibility = if (hideValue) View.GONE else View.VISIBLE
                     totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
                     hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+
+                    if (chain.isSupportStaking()) {
+                        unstakingLayout.visibility = View.VISIBLE
+                        withdrawableLayout.visibility = View.VISIBLE
+                        totalStakedLayout.visibility = View.VISIBLE
+                    } else {
+                        unstakingLayout.visibility = View.GONE
+                        withdrawableLayout.visibility = View.GONE
+                        totalStakedLayout.visibility = View.GONE
+                    }
 
                     total.text = if (hideValue) "" else formatAmount(
                         totalAmount.toPlainString(), 6
@@ -63,6 +76,21 @@ class MajorCryptoViewHolder(
                     available.hiddenStatus(
                         formatAmount(
                             availableAmount.toPlainString(), 6
+                        )
+                    )
+                    totalStaked.hiddenStatus(
+                        formatAmount(
+                            stakedAmount.toPlainString(), 6
+                        )
+                    )
+                    unstaking.hiddenStatus(
+                        formatAmount(
+                            unStakedAmount.toPlainString(), 6
+                        )
+                    )
+                    withdrawable.hiddenStatus(
+                        formatAmount(
+                            withdrawAbleAmount.toPlainString(), 6
                         )
                     )
                     pending.hiddenStatus(
@@ -79,6 +107,8 @@ class MajorCryptoViewHolder(
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             pendingLayout.visibility = View.GONE
+            unstakingLayout.visibility = View.GONE
+            withdrawableLayout.visibility = View.GONE
             totalStakedLayout.visibility = View.VISIBLE
             stakedLayout.visibility = View.VISIBLE
             earnedLayout.visibility = View.VISIBLE

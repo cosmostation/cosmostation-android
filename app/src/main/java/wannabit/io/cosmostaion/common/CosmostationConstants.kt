@@ -20,6 +20,7 @@ object CosmostationConstants {
         "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
     const val ECO_SYSTEM_URL =
         "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/"
+    const val CHAIN_MONIKER_URL = "https://serve.dev-mintscan.com/assets/moniker/"
 
     //cosmostation
     const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"

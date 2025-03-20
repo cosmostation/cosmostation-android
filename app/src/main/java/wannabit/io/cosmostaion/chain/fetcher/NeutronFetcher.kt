@@ -24,6 +24,7 @@ class NeutronFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         return chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)?.add(neutronVestingAmount())
             ?.add(neutronDeposited) ?: BigDecimal.ZERO
     }
+
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return chain.cosmosFetcher?.balanceValueSum(isUsd)?.add(neutronVestingValue(isUsd))
             ?.add(neutronDepositedValue(isUsd)) ?: BigDecimal.ZERO

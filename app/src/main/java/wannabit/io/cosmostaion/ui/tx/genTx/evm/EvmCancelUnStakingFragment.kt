@@ -115,7 +115,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
 
             selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                 ?.let { validator ->
-                    validatorName.text = validator.description.moniker
+                    validatorName.text = validator.description.moniker?.trim()
                 }
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->

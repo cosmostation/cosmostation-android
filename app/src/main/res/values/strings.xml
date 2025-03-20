@@ -19,6 +19,9 @@
     <string name="str_staked" translatable="false">Staked</string>
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
+    <string name="str_withdrawable" translatable="false">Withdrawable</string>
+    <string name="str_btc_reward" translatable="false">BTC Staking Reward</string>
+    <string name="str_staked_btc_status" translatable="false">Staked sBTC Status</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
     <string name="str_total_staked" translatable="false">Total Staked</string>
@@ -174,6 +177,7 @@
     <string name="str_retry">Retry</string>
     <string name="str_change_endpoint">Change End-Point</string>
     <string name="str_current_epoch">Current epoch</string>
+    <string name="str_next_epoch">Activate Next epoch</string>
     <string name="str_next_reward_distribution">Next reward</string>
     <string name="str_instant">Instant</string>
     <string name="str_endpoint_reset">Reset End-Point</string>
@@ -181,6 +185,9 @@
     <string name="str_nested_segwit" translatable="false">NESTED SEGWIT</string>
     <string name="str_native_segwit" translatable="false">NATIVE SEGWIT</string>
     <string name="str_taproot" translatable="false">TAPROOT</string>
+    <string name="str_liquid_stake" translatable="false">Liquid Stake</string>
+    <string name="str_download_app" translatable="false">Download App</string>
+    <string name="str_stake_now" translatable="false">Stake Now</string>
 
 
     //title
@@ -200,7 +207,7 @@
     <string name="title_private_account">Private key account</string>
     <string name="title_governance" translatable="false">Vote</string>
     <string name="title_reward_claim" translatable="false">Claim reward</string>
-    <string name="title_stake" translatable="false">Manage stake</string>
+    <string name="title_stake" translatable="false">%1$s Manage stake</string>
     <string name="title_compounding_all" translatable="false">Compound all</string>
     <string name="title_claim_reward_all" translatable="false">Claim all</string>
     <string name="title_wallet">Wallet</string>
@@ -332,6 +339,14 @@
     <string name="title_delist">Discontinuation of support</string>
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
+    <string name="title_manage_stake" translatable="false">%1$s Manage Stake</string>
+    <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_staking" translatable="false">%1$s Stake</string>
+    <string name="title_unstaking" translatable="false">%1$s Unstake</string>
+    <string name="title_switch_validator" translatable="false">%1$s Switch Validator</string>
+    <string name="title_rewards_claim" translatable="false">%1$s Rewards Claim</string>
+    <string name="title_compounding" translatable="false">%1$s Compounding</string>
+    <string name="title_staked_btc" translatable="false">Staked %1$s</string>
 
 
     // msg
@@ -433,6 +448,14 @@
     <string name="str_sui_guide_msg2">At the end of the next epoch (%1$s), rewards will be distributed. Each subsequent epoch will be repeated</string>
     <string name="str_sui_guide_msg3">Rewards are compounded and can be used immediately after the start of unstaking</string>
     <string name="str_endpoint_reset_msg">(Recommended) Would you like to reset the End-Points for all chains to their default settings?\n\nEnd-Points are servers that manage connections to the blockchain network, ensuring that data can be transmitted and received smoothly when the stable End-Point is used. </string>
+    <string name="str_epoch_type_msg1" translatable="false">%1$s will activate</string>
+    <string name="str_epoch_type_msg2" translatable="false">in Next Epoch %1$s</string>
+    <string name="str_pending_state_msg">On the BABYLON chain, staking actions (Stake, Unstake, Validator, Switch Validator, Unstake Cancel, etc.) start in a Pending state.\nOnce the current epoch ends and the next epoch begins, the staking action will transition to Active.</string>
+    <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
+    <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
+    <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
+    <string name="str_btc_status_msg">This is the combined amount of sBTC staked in Taproot and Native Segwit.</string>
+
 
     // header
     <string name="str_native_coins" translatable="false">Native coins</string>

@@ -137,7 +137,7 @@
 
                     <TextView
                         android:id="@+id/available"
-                        style="@style/font_sb_14"
+                        style="@style/font_sb_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_10"
@@ -164,7 +164,63 @@
 
                     <TextView
                         android:id="@+id/total_staked"
-                        style="@style/font_sb_14"
+                        style="@style/font_sb_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textColor="@color/color_base01" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/unstaking_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_9"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/unstaking_title"
+                        style="@style/font_sm_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_unstaking"
+                        android:textColor="@color/color_base01" />
+
+                    <TextView
+                        android:id="@+id/unstaking"
+                        style="@style/font_sb_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:ellipsize="middle"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        android:textColor="@color/color_base01" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/withdrawable_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_9"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/withdrawable_title"
+                        style="@style/font_sm_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/str_withdrawable"
+                        android:textColor="@color/color_base01" />
+
+                    <TextView
+                        android:id="@+id/withdrawable"
+                        style="@style/font_sb_12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_10"

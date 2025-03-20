@@ -1,13 +1,16 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.priceChangeStatus
+import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.database.Prefs
@@ -20,27 +23,34 @@ class CoinEtcViewHolder(
     fun bindOktCoin(chain: BaseChain, coin: Coin) {
         binding.apply {
             coinView.setBackgroundResource(R.drawable.item_bg)
-            updateTokenInfo(coin, (chain as ChainOktEvm).oktFetcher)
-        }
-    }
 
-    private fun updateTokenInfo(coin: Coin, oktFetcher: OktFetcher?) {
-        binding.apply {
-            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == coin.denom }
-                ?.let { token ->
-                    tokenImg.setTokenImg(ChainOkt996Keccak().assetImg(token.asJsonObject["original_symbol"].asString))
-                    tokenName.text = token.asJsonObject["original_symbol"].asString.uppercase()
-                    tokenDescription.text = token.asJsonObject["description"].asString
+            BaseData.getAsset(chain.apiName, coin.denom)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenImg.clipToOutline = true
+                tokenName.text = asset.symbol
 
-                    if (Prefs.hideValue) {
-                        tokenAmount.text = "✱✱✱✱"
-                        tokenAmount.textSize = 10f
-                    } else {
-                        val availableAmount = oktFetcher.oktBalanceAmount(coin.denom)
-                        tokenAmount.text = formatAmount(availableAmount.toString(), 18)
-                        tokenAmount.textSize = 14f
-                    }
+                tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
                 }
+
+                if (Prefs.hideValue) {
+                    coinAmount.visibility = View.GONE
+                    coinAmountValue.visibility = View.GONE
+                    hideValue.visibility = View.VISIBLE
+                } else {
+                    coinAmount.visibility = View.VISIBLE
+                    coinAmountValue.visibility = View.VISIBLE
+                    hideValue.visibility = View.GONE
+
+                    val availableAmount =
+                        (chain as ChainOktEvm).oktFetcher?.oktBalanceAmount(coin.denom)
+                    coinAmount.text = formatAmount(availableAmount.toString(), 18)
+                    coinAmountValue.text =
+                        chain.cosmosFetcher?.denomValue(coin.denom)?.let { formatAssetValue(it) }
+                }
+            }
         }
     }
 }

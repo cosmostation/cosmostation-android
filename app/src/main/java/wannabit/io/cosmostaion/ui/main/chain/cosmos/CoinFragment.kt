@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -33,6 +36,9 @@ import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
+import wannabit.io.cosmostaion.databinding.DialogDropInfoBinding
+import wannabit.io.cosmostaion.databinding.DialogDydxInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.main.NoticeType
@@ -555,7 +561,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             searchEtcCoins,
             searchCw20TokenCoins,
             searchErc20TokenCoins,
-            searchGrc20TokenCoins
+            searchGrc20TokenCoins,
+            selectClickAction
         )
         binding.recycler.apply {
             setHasFixedSize(true)
@@ -664,11 +671,9 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
                             if (selectedChain is ChainOktEvm) {
                                 searchEtcCoins.addAll(etcCoins.filter { coin ->
-                                    (selectedChain as ChainOktEvm).oktFetcher()?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == coin.denom }
-                                        ?.let { token ->
-                                            token.asJsonObject["original_symbol"].asString.contains(
-                                                searchTxt, true
-                                            )
+                                    BaseData.getAsset(selectedChain.apiName, coin.denom)
+                                        ?.let { asset ->
+                                            asset.symbol?.contains(searchTxt, ignoreCase = true)
                                         } ?: false
                                 })
                             }
@@ -744,33 +749,57 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
         }
     }
 
+    private val selectClickAction = object : CoinAdapter.ClickListener {
+        override fun btcStatus() {
+            handleOneClickWithDelay(BabylonBtcStatusFragment.newInstance(selectedChain))
+        }
+    }
+
     private fun setUpClickAction() {
         binding.apply {
             dropMoney.visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron || selectedChain is ChainCelestia)
             dropMoney.setOnClickListener {
-                Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
-                    startActivity(this)
+                val savedTime = Prefs.getDappInfoHideTime(0)
+                val currentTime = System.currentTimeMillis()
+                if (currentTime >= savedTime) {
+                    showDropInfo()
+                } else {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
+                        startActivity(this)
+                    }
                 }
             }
 
             dydxTrade.visibleOrGone(selectedChain is ChainDydx)
             dydxTrade.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse("market://details?id=trade.opsdao.dydxchain")
+                val savedTime = Prefs.getDappInfoHideTime(1)
+                val currentTime = System.currentTimeMillis()
+                if (currentTime >= savedTime) {
+                    showDydxInfo()
+                } else {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=trade.opsdao.dydxchain")
+                        )
                     )
-                )
+                }
             }
-            bitStaking.visibility = View.GONE
-            babylonStaking.visibleOrGone(selectedChain.isSupportStaking())
 
+            babylonStaking.visibleOrGone(selectedChain.isSupportStaking())
             babylonStaking.setOnClickListener {
                 if (selectedChain.btcStakingDapp().isNotEmpty()) {
-                    Intent(requireActivity(), DappActivity::class.java).apply {
-                        putExtra("dapp", selectedChain.btcStakingDapp())
-                        putExtra("selectedChain", selectedChain as Parcelable)
-                        startActivity(this)
+                    val savedTime = Prefs.getDappInfoHideTime(2)
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime >= savedTime) {
+                        showBabylonInfo()
+                    } else {
+                        Intent(requireActivity(), DappActivity::class.java).apply {
+                            putExtra("dapp", selectedChain.btcStakingDapp())
+                            putExtra("selectedChain", selectedChain as Parcelable)
+                            startActivity(this)
+                        }
                     }
                 }
             }
@@ -861,8 +890,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             displayErc20TokenCoins.map { it.contract }
         }
 
-        TokenEditFragment.newInstance(
-            selectedChain,
+        TokenEditFragment.newInstance(selectedChain,
             allTokens,
             displayTokens.toMutableList(),
             object : TokenEditListener {
@@ -875,6 +903,137 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             }).show(
             requireActivity().supportFragmentManager, TokenEditFragment::class.java.name
         )
+    }
+
+    private fun showDropInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogDropInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_liquid_bg)
+
+            var isDropPinned = false
+            btnCheck.setOnClickListener {
+                isDropPinned = !isDropPinned
+                if (isDropPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isDropPinned) {
+                    Prefs.setDappInfoHideTime(0)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
+                    startActivity(this)
+                }
+            }
+        }
+    }
+
+    private fun showDydxInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogDydxInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_download_bg)
+
+            var isDydxPinned = false
+            btnCheck.setOnClickListener {
+                isDydxPinned = !isDydxPinned
+                if (isDydxPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isDydxPinned) {
+                    Prefs.setDappInfoHideTime(1)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW, Uri.parse("market://details?id=trade.opsdao.dydxchain")
+                    )
+                )
+            }
+        }
+    }
+
+    private fun showBabylonInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogBabylonInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_babylon_bg)
+
+            var isBabylonPinned = false
+            btnCheck.setOnClickListener {
+                isBabylonPinned = !isBabylonPinned
+                if (isBabylonPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isBabylonPinned) {
+                    Prefs.setDappInfoHideTime(2)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", selectedChain.btcStakingDapp())
+                    putExtra("selectedChain", selectedChain as Parcelable)
+                    startActivity(this)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

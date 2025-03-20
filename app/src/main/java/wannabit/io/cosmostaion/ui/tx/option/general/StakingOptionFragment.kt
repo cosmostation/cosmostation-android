@@ -258,7 +258,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
                 handleOneClickWithDelay(
                     ClaimRewardFragment.newInstance(
-                        selectedChain, claimableRewards
+                        selectedChain, claimableRewards, false
                     )
                 )
             }
@@ -291,7 +291,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
                 handleOneClickWithDelay(
                     CompoundingFragment.newInstance(
-                        selectedChain, claimableRewards
+                        selectedChain, claimableRewards, false
                     )
                 )
             }

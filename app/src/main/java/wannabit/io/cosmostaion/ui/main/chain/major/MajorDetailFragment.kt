@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
@@ -109,7 +110,7 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            fabMenu.visibleOrGone(selectedChain is ChainSui)
+            fabMenu.visibleOrGone(selectedChain is ChainSui || selectedChain.isSupportStaking())
         }
     }
 
@@ -204,7 +205,12 @@ class MajorDetailFragment : Fragment() {
             }
 
             fabMenu.setOnMenuButtonClickListener {
-                handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
+                if (selectedChain is ChainSui) {
+                    handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
+                } else {
+                    requireActivity().makeToast("Ongoing...")
+                    return@setOnMenuButtonClickListener
+                }
             }
         }
     }

@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -564,6 +565,28 @@ class ApplicationViewModel(
                         }
 
                     } else {
+                        if (chain is ChainBabylonTestnet) {
+                            val loadRewardGaugeDeferred =
+                                async { walletRepository.btcReward(channel, chain) }
+                            val loadBtcStakedStatusDeferred =
+                                async { walletRepository.btcStakingStatus(chain) }
+
+                            val rewardGaugeResult = loadRewardGaugeDeferred.await()
+                            val btcStakedStatusResult = loadBtcStakedStatusDeferred.await()
+
+                            if (rewardGaugeResult is NetworkResult.Success) {
+                                chain.babylonFetcher()?.btcRewards = rewardGaugeResult.data
+                            } else if (rewardGaugeResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("error type : ${rewardGaugeResult.errorType}  error message : ${rewardGaugeResult.errorMessage}")
+                            }
+
+                            if (btcStakedStatusResult is NetworkResult.Success) {
+                                chain.babylonFetcher()?.btcStakedStatus = btcStakedStatusResult.data
+                            } else if (btcStakedStatusResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("error type : ${btcStakedStatusResult.errorType}  error message : ${btcStakedStatusResult.errorMessage}")
+                            }
+                        }
+
                         val loadDelegationDeferred =
                             async { walletRepository.delegation(channel, chain) }
                         val loadUnBondingDeferred =
@@ -814,12 +837,10 @@ class ApplicationViewModel(
                                 async { walletRepository.oktDeposit(this@apply) }
                             val loadWithdrawDeferred =
                                 async { walletRepository.oktWithdraw(this@apply) }
-                            val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
                             val accountInfoResult = loadAccountInfoDeferred.await()
                             val depositResult = loadDepositDeferred.await()
                             val withdrawResult = loadWithdrawDeferred.await()
-                            val oktTokenResult = loadTokenDeferred.await()
 
                             if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                                 it.oktAccountInfo = accountInfoResult.data
@@ -832,9 +853,6 @@ class ApplicationViewModel(
                             }
                             if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
                                 oktFetcher?.oktWithdaws = withdrawResult.data
-                            }
-                            if (oktTokenResult is NetworkResult.Success && oktTokenResult.data is JsonObject) {
-                                oktFetcher?.oktTokens = oktTokenResult.data
                             }
                         }
                     }
@@ -1004,12 +1022,10 @@ class ApplicationViewModel(
                 val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
                 val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
                 val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
-                val loadTokenDeferred = async { walletRepository.oktToken(this@apply) }
 
                 val accountInfoResult = loadAccountInfoDeferred.await()
                 val depositResult = loadDepositDeferred.await()
                 val withdrawResult = loadWithdrawDeferred.await()
-                val tokenResult = loadTokenDeferred.await()
 
                 if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
                     oktFetcher()?.oktAccountInfo = accountInfoResult.data
@@ -1022,9 +1038,6 @@ class ApplicationViewModel(
                 }
                 if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
                     oktFetcher()?.oktWithdaws = withdrawResult.data
-                }
-                if (tokenResult is NetworkResult.Success && tokenResult.data is JsonObject) {
-                    oktFetcher()?.oktTokens = tokenResult.data
                 }
 
                 fetchState = if (oktFetcher()?.oktAccountInfo?.isJsonNull == true) {
@@ -1271,6 +1284,16 @@ class ApplicationViewModel(
                             )
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
+
+                        when (val stakingResponse = walletRepository.bitStakingBalance(chain)) {
+                            is NetworkResult.Success -> {
+                                chain.btcFetcher()?.btcStakingData = stakingResponse.data
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${stakingResponse.errorType}  error message : ${stakingResponse.errorMessage}")
+                            }
+                        }
 
                         fetchState = FetchState.SUCCESS
                         val refAddress = RefAddress(

@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.tx.info.major
 
 import android.content.Context
+import android.graphics.PorterDuff
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
@@ -9,6 +11,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemSuiStakingInfoBinding
@@ -22,6 +25,9 @@ class SuiStakingInfoViewHolder(
     fun bind(chain: BaseChain, staked: Pair<String, JsonObject>) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
 
             (chain as ChainSui).suiFetcher()?.let { fetcher ->
                 fetcher.suiValidators.firstOrNull { it["suiAddress"].asString == staked.first }
@@ -32,6 +38,7 @@ class SuiStakingInfoViewHolder(
                         monikerName.text = validator.suiValidatorName()
                     }
 
+                clickImg.goneOrVisible(staked.second["status"].asString == "Pending")
                 pendingBadge.visibleOrGone(staked.second["status"].asString == "Pending")
                 objectId.text = staked.second["stakedSuiId"].asString
 

@@ -19,9 +19,9 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -32,10 +32,10 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentClaimRewardBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
@@ -54,6 +54,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
+    private var isClaim: Boolean = false
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -65,11 +66,14 @@ class ClaimRewardFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?
+            selectedChain: BaseChain,
+            claimableRewards: MutableList<DelegationDelegatorReward?>?,
+            isClaim: Boolean
         ): ClaimRewardFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("claimableRewards", claimableRewards?.toHashSet())
+                putBoolean("isClaim", isClaim)
             }
             val fragment = ClaimRewardFragment()
             fragment.arguments = args
@@ -107,63 +111,153 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
             claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            isClaim = arguments?.getBoolean("isClaim") ?: false
 
-            listOf(rewardView, memoView, feeView).forEach {
+            listOf(rewardView, memoView, feeView, babylonRewardView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
                 )
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            val cosmostationValAddress =
-                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-            if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                validatorName.text = "Cosmostation"
-            } else {
-                validatorName.text =
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker
-            }
-            if (claimableRewards.size > 1) {
-                validatorCnt.text = "+ " + (claimableRewards.size - 1)
-            } else {
-                validatorCnt.visibility = View.GONE
-            }
+            if (isClaim) {
+                (selectedChain as ChainBabylonTestnet).apply {
+                    rewardView.visibility = View.GONE
+                    babylonRewardView.visibility = View.VISIBLE
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                var rewardAmount = BigDecimal.ZERO
-                claimableRewards.forEach { reward ->
-                    val rawAmount = BigDecimal(
-                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
-                            ?: "0"
-                    )
-                    rewardAmount = rewardAmount.add(
-                        rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
-                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                    )
-                }
-                rewardsAmount.text =
-                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
-                rewardsDenom.text = asset.symbol
-                rewardsDenom.setTextColor(asset.assetColor())
+                    BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
+                        var rewardAmount = BigDecimal.ZERO
+                        claimableRewards.forEach { reward ->
+                            val rawAmount = BigDecimal(
+                                reward?.rewardList?.firstOrNull { it.denom == stakeDenom }?.amount
+                                    ?: "0"
+                            )
+                            rewardAmount = rewardAmount.add(
+                                rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                            )
+                        }
+                        babylonRewardsAmount.text =
+                            formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                        babylonRewardsDenom.text = asset.symbol
 
-                val anotherRewardDenoms = mutableListOf<String>()
-                claimableRewards.forEach { reward ->
-                    reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
-                        ?.forEach { anotherRewards ->
-                            val anotherAmount =
-                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                    .setScale(0, RoundingMode.DOWN)
-                            if (anotherAmount != BigDecimal.ZERO) {
-                                if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
-                                    anotherRewardDenoms.add(anotherRewards.denom)
+                        val anotherRewardDenoms = mutableListOf<String>()
+                        claimableRewards.forEach { reward ->
+                            reward?.rewardList?.filter { it.denom != stakeDenom }
+                                ?.forEach { anotherRewards ->
+                                    val anotherAmount =
+                                        anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                            .setScale(0, RoundingMode.DOWN)
+                                    if (anotherAmount != BigDecimal.ZERO) {
+                                        if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
+                                            anotherRewardDenoms.add(anotherRewards.denom)
+                                        }
+                                    }
                                 }
+                        }
+                        if (anotherRewardDenoms.size > 0) {
+                            babylonRewardsCnt.text = "+ " + anotherRewardDenoms.size
+                            titleClaimRewardImg.visibility = View.GONE
+                            titleClaimReward.text = "Claim Rewards"
+                        } else {
+                            babylonRewardsCnt.visibility = View.GONE
+                            titleClaimRewardImg.visibility = View.VISIBLE
+                            titleClaimRewardImg.setTokenImg(asset)
+                            titleClaimReward.text =
+                                getString(R.string.title_rewards_claim, asset.symbol)
+                        }
+
+                        var btcRewardAmount = BigDecimal.ZERO
+                        babylonFetcher?.btcRewards?.forEach { reward ->
+                            if (reward.denom == stakeDenom) {
+                                val rawAmount =
+                                    reward.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
+                                        .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                                btcRewardAmount = btcRewardAmount.add(rawAmount)
                             }
                         }
+                        btcRewardsAmount.text =
+                            formatAmount(btcRewardAmount.toPlainString(), asset.decimals ?: 6)
+                        btcRewardsDenom.text = asset.symbol
+
+                        if (((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.size
+                                ?: 0) > 1
+                        ) {
+                            btcRewardsCnt.text =
+                                "+ " + ((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.size
+                                    ?: (0 - 1))
+                        } else {
+                            btcRewardsCnt.visibility = View.GONE
+                        }
+
+                        val totalRewards = rewardAmount.add(btcRewardAmount)
+                        babylonTotalReward.text =
+                            formatAmount(totalRewards.toPlainString(), asset.decimals ?: 6)
+                        babylonTotalRewardDenom.text = asset.symbol
+                    }
                 }
-                if (anotherRewardDenoms.size > 0) {
-                    rewardCnt.text = "+ " + anotherRewardDenoms.size
+
+            } else {
+                rewardView.visibility = View.VISIBLE
+                babylonRewardView.visibility = View.GONE
+
+                val cosmostationValAddress =
+                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
+                    validatorName.text = "Cosmostation"
                 } else {
-                    rewardCnt.visibility = View.GONE
+                    validatorName.text =
+                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                }
+                if (claimableRewards.size > 1) {
+                    validatorCnt.text = "+ " + (claimableRewards.size - 1)
+                } else {
+                    validatorCnt.visibility = View.GONE
+                }
+
+                BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                    var rewardAmount = BigDecimal.ZERO
+                    claimableRewards.forEach { reward ->
+                        val rawAmount = BigDecimal(
+                            reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                                ?: "0"
+                        )
+                        rewardAmount = rewardAmount.add(
+                            rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                        )
+                    }
+                    rewardsAmount.text =
+                        formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                    rewardsDenom.text = asset.symbol
+                    rewardsDenom.setTextColor(asset.assetColor())
+
+                    val anotherRewardDenoms = mutableListOf<String>()
+                    claimableRewards.forEach { reward ->
+                        reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
+                            ?.forEach { anotherRewards ->
+                                val anotherAmount =
+                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                        .setScale(0, RoundingMode.DOWN)
+                                if (anotherAmount != BigDecimal.ZERO) {
+                                    if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
+                                        anotherRewardDenoms.add(anotherRewards.denom)
+                                    }
+                                }
+                            }
+                    }
+                    if (anotherRewardDenoms.size > 0) {
+                        rewardCnt.text = "+ " + anotherRewardDenoms.size
+                        titleClaimRewardImg.visibility = View.GONE
+                        titleClaimReward.text = "Claim Rewards"
+
+                    } else {
+                        rewardCnt.visibility = View.GONE
+                        titleClaimRewardImg.visibility = View.VISIBLE
+                        titleClaimRewardImg.setTokenImg(asset)
+                        titleClaimReward.text =
+                            getString(R.string.title_rewards_claim, asset.symbol)
+                    }
                 }
             }
         }
@@ -319,8 +413,8 @@ class ClaimRewardFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -380,8 +474,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }
@@ -409,7 +502,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    onBindRewardsMsg(),
+                    Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
                     txFee,
                     txMemo,
                     selectedChain
@@ -426,7 +519,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                onBindRewardsMsg(),
+                Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
                 txFee,
                 txMemo,
                 selectedChain
@@ -507,10 +600,6 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             dismiss()
         }
-    }
-
-    private fun onBindRewardsMsg(): MutableList<Any> {
-        return Signer.claimStakingRewardMsg(selectedChain, claimableRewards)
     }
 
     override fun onDestroyView() {

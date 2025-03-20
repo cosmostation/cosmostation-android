@@ -32,6 +32,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import coil.ImageLoader
 import coil.decode.SvgDecoder
+import coil.dispose
 import coil.load
 import coil.request.CachePolicy
 import com.cosmos.base.v1beta1.CoinProto
@@ -227,33 +228,48 @@ fun FragmentActivity.toMoveFragment(
 }
 
 fun ImageView.setTokenImg(asset: Asset) {
-    if (asset.image?.contains(".svg") == true) {
-        val imageLoader = ImageLoader.Builder(context).components {
-            add(SvgDecoder.Factory())
-        }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
-        load(asset.image, imageLoader) {
-            placeholder(R.drawable.token_default)
-            error(R.drawable.token_default)
-        }
+    dispose()
+    tag = asset.image
 
-    } else {
-        Picasso.get().load(asset.image).error(R.drawable.token_default).into(this)
+    val imageLoader = ImageLoader.Builder(context)
+        .components { add(SvgDecoder.Factory()) }
+        .memoryCachePolicy(CachePolicy.DISABLED)
+        .diskCachePolicy(CachePolicy.DISABLED)
+        .build()
+
+    val imageUrl = asset.image
+    load(imageUrl, imageLoader) {
+        listener(
+            onSuccess = { _, _ ->
+                if (tag != imageUrl) return@listener
+            },
+            onError = { _, _ ->
+                setImageResource(R.drawable.token_default)
+            }
+        )
     }
 }
 
 fun ImageView.setTokenImg(tokenImg: String) {
     if (tokenImg.isNotEmpty()) {
-        if (tokenImg.contains(".svg")) {
-            val imageLoader = ImageLoader.Builder(context).components {
-                add(SvgDecoder.Factory())
-            }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
-            load(tokenImg, imageLoader) {
-                placeholder(R.drawable.token_default)
-                error(R.drawable.token_default)
-            }
+        dispose()
+        tag = tokenImg
 
-        } else {
-            Picasso.get().load(tokenImg).error(R.drawable.token_default).into(this)
+        val imageLoader = ImageLoader.Builder(context)
+            .components { add(SvgDecoder.Factory()) }
+            .memoryCachePolicy(CachePolicy.DISABLED)
+            .diskCachePolicy(CachePolicy.DISABLED)
+            .build()
+
+        load(tokenImg, imageLoader) {
+            listener(
+                onSuccess = { _, _ ->
+                    if (tag != tokenImg) return@listener
+                },
+                onError = { _, _ ->
+                    setImageResource(R.drawable.token_default)
+                }
+            )
         }
 
     } else {
@@ -266,13 +282,19 @@ fun ImageView.setImg(resourceId: Int) {
 }
 
 fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
-    Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
-        .into(this)
+    if (chain.getChainListParam()
+            ?.get("reported_validators")?.asJsonArray?.any { it.asString == opAddress } == true
+    ) {
+        this.setImageResource(R.drawable.icon_fake)
+    } else {
+        Picasso.get().load(chain.monikerImg(opAddress)).error(R.drawable.icon_default_vaildator)
+            .into(this)
+    }
 }
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
     if (imageUrl?.isNotEmpty() == true) {
-        if (imageUrl?.contains(".svg") == true) {
+        if (imageUrl.contains(".svg")) {
             val imageLoader = ImageLoader.Builder(context).components {
                 add(SvgDecoder.Factory())
             }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
@@ -515,6 +537,29 @@ fun dpTimeToMonth(time: Long): String {
     return outputFormat.format(calendar.timeInMillis)
 }
 
+fun dpTimeNotSecond(time: Long): String {
+    val locale = Locale.getDefault()
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = time
+
+    val outputFormat = SimpleDateFormat(
+        if (locale.country.isEmpty()) {
+            if (Prefs.language == LANGUAGE_ENGLISH) {
+                "MMM dd, yyyy (HH:mm)"
+            } else {
+                "yyyy-MM-dd HH:mm"
+            }
+        } else {
+            if (locale == Locale.US) {
+                "MMM dd, yyyy (HH:mm)"
+            } else {
+                "yyyy-MM-dd HH:mm"
+            }
+        }, locale
+    )
+    return outputFormat.format(calendar.timeInMillis)
+}
+
 fun voteDpTime(time: Long): String {
     val locale = Locale.getDefault()
     val calendar = Calendar.getInstance()
@@ -571,9 +616,9 @@ fun gapTime(finishTime: Long): String {
         if (after >= CONSTANT_D) {
             (after / CONSTANT_D).toString() + " days ago"
         } else if (after >= BaseConstant.CONSTANT_H) {
-            (left / BaseConstant.CONSTANT_H).toString() + " hours ago"
+            (after / BaseConstant.CONSTANT_H).toString() + " hours ago"
         } else if (after >= BaseConstant.CONSTANT_M) {
-            (left / BaseConstant.CONSTANT_M).toString() + " minutes ago"
+            (after / BaseConstant.CONSTANT_M).toString() + " minutes ago"
         } else {
             "-"
         }

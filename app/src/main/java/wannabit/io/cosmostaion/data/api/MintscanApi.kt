@@ -84,4 +84,9 @@ interface MintscanApi {
     suspend fun evmHistory(
         @Path("chain") chain: String?, @Path("address") address: String?, @Query("limit") limit: String?, @Query("search_after") searchAfter: String
     ): Response<JsonObject?>
+
+    @GET("v11/{chain}/btc/staker")
+    suspend fun bitStakedStatus(
+        @Path("chain") chain: String?, @Query("staker_addr") address: String, @Query("limit") limit: String?, @Query("search_after") searchAfter: String? = ""
+    ): MutableList<JsonObject>?
 }

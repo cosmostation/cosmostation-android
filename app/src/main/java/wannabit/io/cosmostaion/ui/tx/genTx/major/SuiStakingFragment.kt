@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setImageFromSvg
+import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.databinding.FragmentStakingBinding
@@ -100,6 +101,11 @@ class SuiStakingFragment : BaseTxFragment() {
                 (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
+            }
+
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleStakeImg.setTokenImg(asset)
+                titleStake.text = getString(R.string.title_staking, asset.symbol)
             }
 
             listOf(validatorView, amountView, memoView, feeView).forEach {

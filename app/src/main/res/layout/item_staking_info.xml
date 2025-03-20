@@ -45,17 +45,28 @@
             <TextView
                 android:id="@+id/moniker"
                 style="@style/font_sb_14"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_10"
                 android:layout_marginTop="@dimen/space_15"
+                android:layout_marginEnd="@dimen/space_4"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Cosmostation"
+                android:maxWidth="@dimen/space_110"
                 android:textColor="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/moniker_img"
+                app:layout_constraintStart_toEndOf="@id/moniker_img"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/click_img"
+                android:layout_width="@dimen/space_18"
+                android:layout_height="@dimen/space_18"
+                android:layout_marginStart="@dimen/space_2"
+                android:layout_marginEnd="@dimen/space_16"
+                android:src="@drawable/icon_front"
+                app:layout_constraintBottom_toBottomOf="@+id/moniker"
+                app:layout_constraintStart_toEndOf="@+id/moniker"
+                app:layout_constraintTop_toTopOf="@+id/moniker" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/commission_layout"
@@ -95,7 +106,7 @@
                 android:layout_height="0.6dp"
                 android:layout_marginHorizontal="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_14"
-                android:background="@color/color_base04"
+                android:background="@color/color_divider"
                 app:layout_constraintTop_toBottomOf="@+id/moniker_img" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,7 +130,7 @@
 
                 <TextView
                     android:id="@+id/staked"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"
@@ -154,7 +165,7 @@
 
                 <TextView
                     android:id="@+id/reward_amount"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"
@@ -192,7 +203,7 @@
 
                 <TextView
                     android:id="@+id/estimate_reward"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"

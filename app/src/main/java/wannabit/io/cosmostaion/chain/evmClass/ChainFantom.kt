@@ -27,5 +27,5 @@ class ChainFantom : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.ftm.tools"
+    override var evmRpcURL: String = "https://fantom.drpc.org"
 }

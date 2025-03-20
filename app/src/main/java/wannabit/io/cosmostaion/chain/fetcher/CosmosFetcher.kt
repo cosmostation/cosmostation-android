@@ -21,6 +21,7 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -62,7 +63,6 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
         } else {
             balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd))
         }
     }
 
@@ -139,7 +139,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = vestingAmount(denom)
@@ -150,7 +150,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         cosmosVestings.forEach { vesting ->
             sum = sum.add(vestingValue(vesting.denom, isUsd))
@@ -171,7 +171,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum
     }
 
-    private fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = delegationAmountSum()
@@ -192,7 +192,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum
     }
 
-    private fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
+    fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = unbondingAmountSum()
@@ -213,7 +213,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return sum.movePointLeft(18).setScale(0, RoundingMode.DOWN)
     }
 
-    private fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+    fun rewardValue(denom: String, isUsd: Boolean? = false): BigDecimal {
         BaseData.getAsset(chain.apiName, denom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = rewardAmountSum(denom)
@@ -364,12 +364,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     suspend fun lastHeight(): Long {
-        return if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+        return if (chain is ChainCelestia) {
+            RetrofitInstance.cosmosLcdApi(chain).lcdNewLastHeightInfo().lastHeight()
+
+        } else if (endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val blockStub =
                 ServiceGrpc.newBlockingStub(getChannel()).withDeadlineAfter(30L, TimeUnit.SECONDS)
             val blockRequest = QueryProto.GetLatestBlockRequest.newBuilder().build()
             val lastBlock = blockStub.getLatestBlock(blockRequest)
             lastBlock.block.header.height
+
         } else {
             RetrofitInstance.lcdApi(chain).lcdNewLastHeightInfo().lastHeight()
         }
@@ -577,6 +581,7 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
         AuthProto.BaseAccount.parseFrom(rawAccount.value)?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
+
     } else if (rawAccount.typeUrl.contains(VestingProto.PeriodicVestingAccount.getDescriptor().fullName)) {
         VestingProto.PeriodicVestingAccount.parseFrom(rawAccount.value).baseVestingAccount.baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
@@ -614,6 +619,11 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
 
     } else if (rawAccount.typeUrl.contains(com.eth.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
         com.eth.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
+            return Triple(account.address, account.accountNumber, account.sequence)
+        }
+
+    } else if (rawAccount.typeUrl.contains(com.stratos.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
+        com.stratos.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
 

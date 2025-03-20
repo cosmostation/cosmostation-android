@@ -9,9 +9,13 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 
 @Parcelize
 class ChainBabylonTestnet : BaseChain(), Parcelable {
+
+    var babylonFetcher: BabylonFetcher? = null
 
     override var name: String = "Babylon Testnet"
     override var tag: String = "babylon118_T"
@@ -29,4 +33,11 @@ class ChainBabylonTestnet : BaseChain(), Parcelable {
     override var accountPrefix: String = "bbn"
     override var grpcHost: String = "grpc-office-babylon.cosmostation.io"
     override var lcdUrl: String = "https://lcd-office.cosmostation.io/babylon-testnet/"
+
+    fun babylonFetcher(): BabylonFetcher? {
+        if (babylonFetcher == null) {
+            babylonFetcher = BabylonFetcher(this)
+        }
+        return babylonFetcher
+    }
 }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
@@ -83,16 +82,11 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
                 feeDatas = getParcelableArrayList("feeDatas")
             }
 
-            val filteredFeeDatas = feeDatas?.mapNotNull { feeData ->
-                feeData.denom?.let {
-                    BaseData.getAsset(fromChain.apiName, it)?.let { feeData }
-                }
-            }?.toMutableList()
             feeAssetAdapter = FeeAssetAdapter(fromChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = feeAssetAdapter
-            feeAssetAdapter.submitList(filteredFeeDatas)
+            feeAssetAdapter.submitList(feeDatas)
 
             feeAssetAdapter.setOnItemClickListener {
                 assetSelectListener?.select(it)

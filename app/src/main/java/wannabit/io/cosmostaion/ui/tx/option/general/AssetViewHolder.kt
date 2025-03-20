@@ -38,7 +38,7 @@ class AssetViewHolder(
                         feeBalance.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
                         feeValue.text = formatAssetValue(value)
                     } ?: run {
-                        feeBalance.text = formatAssetValue(BigDecimal.ZERO)
+                        feeBalance.text = formatAmount(BigDecimal.ZERO.toPlainString(), asset.decimals ?: 6)
                         feeValue.text = formatAssetValue(BigDecimal.ZERO)
                     }
                 }
@@ -65,7 +65,7 @@ class AssetViewHolder(
                             feeValue.text = formatAssetValue(value)
 
                         } ?: run {
-                        feeBalance.text = formatAssetValue(BigDecimal.ZERO)
+                        feeBalance.text = formatAmount(BigDecimal.ZERO.toPlainString(), asset.decimals ?: 6)
                         feeValue.text = formatAssetValue(BigDecimal.ZERO)
                     }
                 }

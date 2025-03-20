@@ -79,6 +79,8 @@ class SuiStakeInfoFragment : Fragment() {
                 }
             }
 
+            titleManageStake.text = getString(R.string.title_manage_stake, "SUI")
+
             suiStakePagerAdapter = SuiStakePagerAdapter(
                 this@SuiStakeInfoFragment, selectedChain
             )

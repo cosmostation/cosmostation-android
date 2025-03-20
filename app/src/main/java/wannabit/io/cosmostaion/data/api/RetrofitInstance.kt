@@ -51,12 +51,6 @@ object RetrofitInstance {
             .baseUrl(CosmostationConstants.SKIP_API_URL).build()
     }
 
-    private val baseRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.CHAIN_BASE_URL).build()
-    }
-
     private val ecoSystemRetrofit: Retrofit by lazy {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
@@ -68,6 +62,13 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
             .baseUrl(chain.cosmosFetcher()?.getLcd() ?: chain.lcdUrl).build()
+    }
+
+    private fun cosmosLcdRetrofit(chain: BaseChain): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.lcdUrl).build()
     }
 
     private val suiRetrofit: Retrofit by lazy {
@@ -83,6 +84,13 @@ object RetrofitInstance {
             .baseUrl(chain.btcFetcher()?.mempoolUrl() ?: chain.mainUrl).build()
     }
 
+    private fun bitApiRetrofit(chain: BaseChain): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.apiUrl).build()
+    }
+
     val mintscanApi: MintscanApi by lazy {
         mintScanRetrofit.create(MintscanApi::class.java)
     }
@@ -95,8 +103,16 @@ object RetrofitInstance {
         return lcdRetrofit(chain).create(LcdApi::class.java)
     }
 
+    fun cosmosLcdApi(chain: BaseChain): LcdApi {
+        return cosmosLcdRetrofit(chain).create(LcdApi::class.java)
+    }
+
     fun bitApi(chain: ChainBitCoin86): LcdApi {
         return bitRetrofit(chain).create(LcdApi::class.java)
+    }
+
+    fun bitExternalApi(chain: BaseChain): LcdApi {
+        return bitApiRetrofit(chain).create(LcdApi::class.java)
     }
 
     val skipApi: SkipApi by lazy {

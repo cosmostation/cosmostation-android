@@ -177,7 +177,7 @@ class DepositEarningFragment : BaseTxFragment() {
         binding.apply {
             toValidator?.let { validator ->
                 monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                monikerName.text = validator.description?.moniker
+                monikerName.text = validator.description?.moniker?.trim()
 
                 val statusImage = when {
                     validator.jailed -> R.drawable.icon_jailed

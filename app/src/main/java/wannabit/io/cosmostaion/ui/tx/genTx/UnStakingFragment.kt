@@ -24,6 +24,7 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -139,6 +140,11 @@ class UnStakingFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleUnstakeImg.setTokenImg(asset)
+                titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
+            }
+
             listOf(validatorView, amountView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
@@ -241,7 +247,7 @@ class UnStakingFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 validator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
@@ -260,7 +266,7 @@ class UnStakingFragment : BaseTxFragment() {
 
                 initiaValidator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
@@ -279,7 +285,7 @@ class UnStakingFragment : BaseTxFragment() {
 
                 zenrockValidator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
-                    monikerName.text = validator.description?.moniker
+                    monikerName.text = validator.description?.moniker?.trim()
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
@@ -691,7 +697,13 @@ class UnStakingFragment : BaseTxFragment() {
                 val msgUnDelegate =
                     MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
                         .setValidatorAddress(validator?.operatorAddress).setAmount(toCoin).build()
-                Signer.unDelegateMsg(msgUnDelegate)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    val wrappedMsgUnDelegate = com.babylon.epoching.v1.TxProto.MsgWrappedUndelegate.newBuilder().setMsg(msgUnDelegate).build()
+                    Signer.babylonUnDelegateMsg(wrappedMsgUnDelegate)
+                } else {
+                    Signer.unDelegateMsg(msgUnDelegate)
+                }
             }
         }
     }
