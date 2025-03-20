@@ -54,6 +54,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
+    private var isClaim: Boolean = false
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -65,11 +66,14 @@ class ClaimRewardFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?
+            selectedChain: BaseChain,
+            claimableRewards: MutableList<DelegationDelegatorReward?>?,
+            isClaim: Boolean
         ): ClaimRewardFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("claimableRewards", claimableRewards?.toHashSet())
+                putBoolean("isClaim", isClaim)
             }
             val fragment = ClaimRewardFragment()
             fragment.arguments = args
@@ -107,6 +111,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
             claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            isClaim = arguments?.getBoolean("isClaim") ?: false
 
             listOf(rewardView, memoView, feeView, babylonRewardView).forEach {
                 it.setBackgroundResource(
@@ -115,7 +120,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (selectedChain is ChainBabylonTestnet) {
+            if (isClaim) {
                 (selectedChain as ChainBabylonTestnet).apply {
                     rewardView.visibility = View.GONE
                     babylonRewardView.visibility = View.VISIBLE
@@ -497,7 +502,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    Signer.claimStakingRewardMsg(selectedChain, claimableRewards),
+                    Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
                     txFee,
                     txMemo,
                     selectedChain
@@ -514,7 +519,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                Signer.claimStakingRewardMsg(selectedChain, claimableRewards),
+                Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
                 txFee,
                 txMemo,
                 selectedChain

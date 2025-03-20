@@ -338,11 +338,13 @@ object Signer {
     }
 
     fun claimStakingRewardMsg(
-        selectedChain: BaseChain, rewards: MutableList<DelegationDelegatorReward?>
+        selectedChain: BaseChain,
+        rewards: MutableList<DelegationDelegatorReward?>,
+        isClaimAll: Boolean
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
 
-        if (selectedChain is ChainBabylonTestnet && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
+        if (selectedChain is ChainBabylonTestnet && isClaimAll && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
             val babylonIncentiveMsg = com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder()
                 .setType("btc_delegation").setAddress(selectedChain.address).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/babylon.incentive.MsgWithdrawReward")

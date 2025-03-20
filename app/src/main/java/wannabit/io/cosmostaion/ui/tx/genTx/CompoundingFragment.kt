@@ -55,6 +55,7 @@ class CompoundingFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
+    private var isCompounding: Boolean = false
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -66,11 +67,12 @@ class CompoundingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?
+            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?, isCompounding: Boolean
         ): CompoundingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("claimableRewards", claimableRewards?.toHashSet())
+                putBoolean("isCompounding", isCompounding)
             }
             val fragment = CompoundingFragment()
             fragment.arguments = args
@@ -108,6 +110,7 @@ class CompoundingFragment : BaseTxFragment() {
             }
             val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
             claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            isCompounding = arguments?.getBoolean("isCompounding") ?: false
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 titleCompoundingImg.setTokenImg(asset)
@@ -126,7 +129,7 @@ class CompoundingFragment : BaseTxFragment() {
             babylonCompoundingMsg.text = getString(R.string.str_babylon_compounding_msg)
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (selectedChain is ChainBabylonTestnet) {
+            if (isCompounding) {
                 compoundingView.visibility = View.GONE
                 babylonCompoundingView.visibility = View.VISIBLE
             } else {

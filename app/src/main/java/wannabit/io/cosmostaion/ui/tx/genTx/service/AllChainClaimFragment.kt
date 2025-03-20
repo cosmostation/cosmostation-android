@@ -297,7 +297,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             if (isAdded) {
                 activity?.let {
                     val simulateTx = Signer.genSimulate(
-                        Signer.claimStakingRewardMsg(chain, claimableRewards),
+                        Signer.claimStakingRewardMsg(chain, claimableRewards, false),
                         chain.getInitPayableFee(it),
                         "",
                         chain
@@ -338,7 +338,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             val chain = valueAbleReward.baseChain
             val txFee = valueAbleReward.fee
             val broadcastTx = Signer.genBroadcast(
-                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards),
+                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards, false),
                 txFee,
                 "",
                 chain

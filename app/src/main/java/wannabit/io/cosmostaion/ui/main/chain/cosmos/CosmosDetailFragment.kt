@@ -503,7 +503,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -534,7 +534,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -563,9 +563,12 @@ class CosmosDetailFragment : Fragment() {
                                 )
                                 return@setOnClickListener
                             }
+
+                            val isClaim = selectedChain is ChainBabylonTestnet
+
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isClaim
                                 )
                             )
 
@@ -602,7 +605,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -635,7 +638,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -664,9 +667,12 @@ class CosmosDetailFragment : Fragment() {
                                 )
                                 return@setOnClickListener
                             }
+
+                            val isCompounding = selectedChain is ChainBabylonTestnet
+
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isCompounding
                                 )
                             )
 
