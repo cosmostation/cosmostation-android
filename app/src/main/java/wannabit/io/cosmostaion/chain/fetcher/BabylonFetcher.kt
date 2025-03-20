@@ -13,6 +13,7 @@ import java.math.RoundingMode
 
 class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
+    var btcStakedStatus: MutableList<JsonObject>? = mutableListOf()
     var btcRewards: MutableList<Coin> = mutableListOf()
 
     data class BabylonEpochData(

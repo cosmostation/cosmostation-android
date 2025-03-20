@@ -134,6 +134,9 @@ interface LcdApi {
     @GET("api/address/{address}")
     suspend fun bitBalance(@Path("address") address: String): JsonObject
 
+    @GET("v2/delegations")
+    suspend fun bitStakingBalance(@Query("staker_pk_hex") pubkey: String): JsonObject
+
     @GET("api/address/{address}/txs")
     suspend fun bitTxHistory(
         @Path("address") address: String,

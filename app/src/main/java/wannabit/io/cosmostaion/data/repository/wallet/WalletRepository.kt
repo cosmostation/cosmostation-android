@@ -207,7 +207,11 @@ interface WalletRepository {
 
     suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject>
 
+    suspend fun bitStakingBalance(chain: BaseChain): NetworkResult<JsonObject>
+
     suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response>
+
+    suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>>
 

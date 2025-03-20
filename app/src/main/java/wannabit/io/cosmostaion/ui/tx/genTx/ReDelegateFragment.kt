@@ -146,6 +146,11 @@ class ReDelegateFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockFromValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleRedelegateImg.setTokenImg(asset)
+                titleRedelegate.text = getString(R.string.title_switch_validator, asset.symbol)
+            }
+
             listOf(fromValidatorView, toValidatorView, amountView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg

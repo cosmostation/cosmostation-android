@@ -126,7 +126,7 @@
 
         <Button
             android:id="@+id/btn_confirm"
-            style="@style/font_sb_14"
+            style="@style/font_sb_16"
             android:layout_width="0dp"
             android:layout_height="@dimen/space_54"
             android:layout_weight="1"

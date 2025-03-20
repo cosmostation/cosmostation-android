@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/unstaked"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"

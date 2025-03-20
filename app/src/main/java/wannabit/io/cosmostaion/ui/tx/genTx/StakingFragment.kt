@@ -141,6 +141,11 @@ class StakingFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockToValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleStakeImg.setTokenImg(asset)
+                titleStake.text = getString(R.string.title_staking, asset.symbol)
+            }
+
             listOf(validatorView, amountView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg

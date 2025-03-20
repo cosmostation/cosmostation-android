@@ -18,6 +18,7 @@ import com.cosmwasm.wasm.v1.QueryProto.QuerySmartContractStateResponse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
+import com.ledger.live.ble.extension.toHexString
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -69,6 +70,7 @@ import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitExternalApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
@@ -1057,6 +1059,14 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun bitStakingBalance(chain: BaseChain): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitExternalApi(chain).bitStakingBalance(
+                chain.publicKey?.toHexString()?.substring(2).toString()
+            )
+        }
+    }
+
     override suspend fun rpcAuth(chain: BaseChain): NetworkResult<okhttp3.Response> {
         val authRequest = JsonRpcRequest(
             method = "abci_query", params = listOf("auth/accounts/${chain.address}", "", "0", false)
@@ -1066,11 +1076,38 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>> {
+    override suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?> {
+        val result: MutableList<JsonObject> = mutableListOf()
+        var searchAfter: String? = ""
+
+        do {
+            val response =
+                mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "20", searchAfter)
+                    ?: mutableListOf()
+
+            result.addAll(response)
+
+            searchAfter = if (response.size == 20) {
+                result[result.size - 1].asJsonObject["search_after"].asString
+            } else {
+                ""
+            }
+
+        } while (searchAfter != "")
+
+        return safeApiCall(Dispatchers.IO) {
+            result
+        }
+    }
+
+    override suspend fun btcReward(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.Coin>> {
         return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.babylon.incentive.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = com.babylon.incentive.QueryProto.QueryRewardGaugesRequest.newBuilder().setAddress(chain.address).build()
+            val request = com.babylon.incentive.QueryProto.QueryRewardGaugesRequest.newBuilder()
+                .setAddress(chain.address).build()
             val response = stub.rewardGauges(request).rewardGaugesMap
 
             val btcRewards: MutableList<CoinProto.Coin> = mutableListOf()
@@ -1079,19 +1116,28 @@ class WalletRepositoryImpl : WalletRepository {
                 btcDelegation.coinsList.forEach { coin ->
                     btcDelegation.withdrawnCoinsList.forEach { withdraw ->
                         if (coin.denom == withdraw.denom) {
-                            val reward = coin.amount.toBigDecimal().subtract(withdraw.amount.toBigDecimal())
-                            btcRewards.add(CoinProto.Coin.newBuilder().setDenom(coin.denom).setAmount(reward.toString()).build())
+                            val reward =
+                                coin.amount.toBigDecimal().subtract(withdraw.amount.toBigDecimal())
+                            btcRewards.add(
+                                CoinProto.Coin.newBuilder().setDenom(coin.denom)
+                                    .setAmount(reward.toString()).build()
+                            )
                         }
                     }
                 }
 
             } else if (btcDelegation?.coinsList?.isNotEmpty() == true) {
                 btcDelegation.coinsList.forEach { coin ->
-                    btcRewards.add(CoinProto.Coin.newBuilder().setDenom(coin.denom).setAmount(coin.amount).build())
+                    btcRewards.add(
+                        CoinProto.Coin.newBuilder().setDenom(coin.denom).setAmount(coin.amount)
+                            .build()
+                    )
                 }
 
             } else {
-                btcRewards.add(CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom).setAmount("0").build())
+                btcRewards.add(
+                    CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom).setAmount("0").build()
+                )
             }
 
             safeApiCall(Dispatchers.IO) {
@@ -1223,10 +1269,7 @@ class WalletRepositoryImpl : WalletRepository {
                             }
 
                             BabylonFetcher.BabylonEpochTxType(
-                                type,
-                                validator,
-                                amount,
-                                creationHeight
+                                type, validator, amount, creationHeight
                             )
                         }
                     }
@@ -1292,10 +1335,7 @@ class WalletRepositoryImpl : WalletRepository {
                             }
 
                             BabylonFetcher.BabylonEpochTxType(
-                                type,
-                                validator,
-                                amount,
-                                creationHeight
+                                type, validator, amount, creationHeight
                             )
                         }
                     }

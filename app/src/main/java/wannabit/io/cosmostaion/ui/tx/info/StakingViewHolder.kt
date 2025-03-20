@@ -156,6 +156,9 @@ class StakingViewHolder(
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             delegationView.setOnClickListener {
                 listener.selectInitiaStakingAction(validator)
             }
@@ -278,6 +281,9 @@ class StakingViewHolder(
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             delegationView.setOnClickListener {
                 listener.selectZenrockStakingAction(validator)
             }

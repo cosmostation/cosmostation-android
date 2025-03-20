@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -568,12 +569,23 @@ class ApplicationViewModel(
                         if (chain is ChainBabylonTestnet) {
                             val loadRewardGaugeDeferred =
                                 async { walletRepository.btcReward(channel, chain) }
+                            val loadBtcStakedStatusDeferred =
+                                async { walletRepository.btcStakingStatus(chain) }
+
                             val rewardGaugeResult = loadRewardGaugeDeferred.await()
+                            val btcStakedStatusResult = loadBtcStakedStatusDeferred.await()
 
                             if (rewardGaugeResult is NetworkResult.Success) {
                                 chain.babylonFetcher()?.btcRewards = rewardGaugeResult.data
                             } else if (rewardGaugeResult is NetworkResult.Error) {
                                 _chainDataErrorMessage.postValue("error type : ${rewardGaugeResult.errorType}  error message : ${rewardGaugeResult.errorMessage}")
+                            }
+
+                            if (btcStakedStatusResult is NetworkResult.Success) {
+                                Log.e("test12345 : ", btcStakedStatusResult.data?.size.toString())
+                                chain.babylonFetcher()?.btcStakedStatus = btcStakedStatusResult.data
+                            } else if (btcStakedStatusResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("error type : ${btcStakedStatusResult.errorType}  error message : ${btcStakedStatusResult.errorMessage}")
                             }
                         }
 
@@ -1274,6 +1286,16 @@ class ApplicationViewModel(
                             )
                         fetcher.btcPendingInput = mempoolFundedTxoSum
                         fetcher.btcPendingOutput = mempoolSpentTxoSum
+
+                        when (val stakingResponse = walletRepository.bitStakingBalance(chain)) {
+                            is NetworkResult.Success -> {
+                                chain.btcFetcher()?.btcStakingData = stakingResponse.data
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${stakingResponse.errorType}  error message : ${stakingResponse.errorMessage}")
+                            }
+                        }
 
                         fetchState = FetchState.SUCCESS
                         val refAddress = RefAddress(

@@ -131,7 +131,7 @@
 
                 <TextView
                     android:id="@+id/staked"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"
@@ -166,7 +166,7 @@
 
                 <TextView
                     android:id="@+id/reward_amount"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"
@@ -204,7 +204,7 @@
 
                 <TextView
                     android:id="@+id/estimate_reward"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"

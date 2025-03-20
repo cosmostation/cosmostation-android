@@ -1,7 +1,9 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.zrchain.validation.HybridValidationProto
@@ -29,6 +31,9 @@ class UnstakingViewHolder(
     ) {
         binding.apply {
             unstakingView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             unstakingView.setOnClickListener {
                 listener.selectUnStakingCancelAction(entry)
             }

@@ -10,11 +10,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +40,6 @@ import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
 import wannabit.io.cosmostaion.databinding.DialogDropInfoBinding
 import wannabit.io.cosmostaion.databinding.DialogDydxInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
-import wannabit.io.cosmostaion.ui.main.ChainEditAdapter
 import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
 import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.main.TokenEditFragment
@@ -754,7 +751,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
     private val selectClickAction = object : CoinAdapter.ClickListener {
         override fun btcStatus() {
-            requireActivity().makeToast("status")
+            handleOneClickWithDelay(BabylonBtcStatusFragment.newInstance(selectedChain))
         }
     }
 
@@ -790,7 +787,6 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 }
             }
 
-            bitStaking.visibility = View.GONE
             babylonStaking.visibleOrGone(selectedChain.isSupportStaking())
             babylonStaking.setOnClickListener {
                 if (selectedChain.btcStakingDapp().isNotEmpty()) {

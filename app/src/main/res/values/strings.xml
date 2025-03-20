@@ -19,6 +19,7 @@
     <string name="str_staked" translatable="false">Staked</string>
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
+    <string name="str_withdrawable" translatable="false">Withdrawable</string>
     <string name="str_btc_reward" translatable="false">BTC Staking Reward</string>
     <string name="str_staked_btc_status" translatable="false">Staked sBTC Status</string>
     <string name="str_frozen" translatable="false">Frozen</string>
@@ -176,7 +177,7 @@
     <string name="str_retry">Retry</string>
     <string name="str_change_endpoint">Change End-Point</string>
     <string name="str_current_epoch">Current epoch</string>
-    <string name="str_next_epoch">Next epoch</string>
+    <string name="str_next_epoch">Activate Next epoch</string>
     <string name="str_next_reward_distribution">Next reward</string>
     <string name="str_instant">Instant</string>
     <string name="str_endpoint_reset">Reset End-Point</string>
@@ -340,6 +341,12 @@
     <string name="title_support_inject">Support Injection</string>
     <string name="title_manage_stake" translatable="false">%1$s Manage Stake</string>
     <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_staking" translatable="false">%1$s Stake</string>
+    <string name="title_unstaking" translatable="false">%1$s Unstake</string>
+    <string name="title_switch_validator" translatable="false">%1$s Switch Validator</string>
+    <string name="title_rewards_claim" translatable="false">%1$s Rewards Claim</string>
+    <string name="title_compounding" translatable="false">%1$s Compounding</string>
+    <string name="title_staked_btc" translatable="false">Staked %1$s</string>
 
 
     // msg
@@ -447,6 +454,7 @@
     <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
     <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
     <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
+    <string name="str_btc_status_msg">This is the combined amount of sBTC staked in Taproot and Native Segwit.</string>
 
 
     // header

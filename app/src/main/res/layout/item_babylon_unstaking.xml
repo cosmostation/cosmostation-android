@@ -50,7 +50,7 @@
                 android:layout_marginStart="@dimen/space_10"
                 android:ellipsize="middle"
                 android:maxLines="1"
-                android:maxWidth="@dimen/space_150"
+                android:maxWidth="@dimen/space_110"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toTopOf="@id/view"
                 app:layout_constraintStart_toEndOf="@+id/moniker_img"
@@ -62,6 +62,7 @@
                 android:layout_height="@dimen/space_18"
                 android:layout_marginStart="@dimen/space_2"
                 android:src="@drawable/icon_front"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/moniker"
                 app:layout_constraintStart_toEndOf="@+id/moniker"
                 app:layout_constraintTop_toTopOf="@+id/moniker" />
@@ -123,7 +124,7 @@
 
                 <TextView
                     android:id="@+id/unstaked"
-                    style="@style/font_sb_14"
+                    style="@style/font_sb_12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/space_20"

@@ -8,21 +8,28 @@
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/title_claim_reward_img"
+            android:layout_width="@dimen/space_24"
+            android:layout_height="@dimen/space_24"
+            android:layout_marginEnd="@dimen/space_8"
+            android:src="@drawable/token_default" />
+
         <TextView
-            android:id="@+id/get_reward_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:id="@+id/title_claim_reward"
             style="@style/font_sb_16"
-            android:textColor="@color/color_base01"
-            android:text="Claim rewards"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/color_base01" />
 
     </LinearLayout>
 

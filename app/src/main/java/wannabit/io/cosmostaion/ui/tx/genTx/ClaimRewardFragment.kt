@@ -152,8 +152,14 @@ class ClaimRewardFragment : BaseTxFragment() {
                         }
                         if (anotherRewardDenoms.size > 0) {
                             babylonRewardsCnt.text = "+ " + anotherRewardDenoms.size
+                            titleClaimRewardImg.visibility = View.GONE
+                            titleClaimReward.text = "Claim Rewards"
                         } else {
                             babylonRewardsCnt.visibility = View.GONE
+                            titleClaimRewardImg.visibility = View.VISIBLE
+                            titleClaimRewardImg.setTokenImg(asset)
+                            titleClaimReward.text =
+                                getString(R.string.title_rewards_claim, asset.symbol)
                         }
 
                         var btcRewardAmount = BigDecimal.ZERO
@@ -237,8 +243,15 @@ class ClaimRewardFragment : BaseTxFragment() {
                     }
                     if (anotherRewardDenoms.size > 0) {
                         rewardCnt.text = "+ " + anotherRewardDenoms.size
+                        titleClaimRewardImg.visibility = View.GONE
+                        titleClaimReward.text = "Claim Rewards"
+
                     } else {
                         rewardCnt.visibility = View.GONE
+                        titleClaimRewardImg.visibility = View.VISIBLE
+                        titleClaimRewardImg.setTokenImg(asset)
+                        titleClaimReward.text =
+                            getString(R.string.title_rewards_claim, asset.symbol)
                     }
                 }
             }

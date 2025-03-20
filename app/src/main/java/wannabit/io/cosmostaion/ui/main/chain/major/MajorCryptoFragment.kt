@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -30,6 +33,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.CommonTransferFragment
@@ -92,14 +97,20 @@ class MajorCryptoFragment : Fragment() {
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
-            bitStaking.visibleOrGone(selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT))
+            babylonStaking.visibleOrGone(selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT))
 
-            bitStaking.setOnClickListener {
+            babylonStaking.setOnClickListener {
                 if (selectedChain.btcStakingDapp().isNotEmpty()) {
-                    Intent(requireActivity(), DappActivity::class.java).apply {
-                        putExtra("dapp", selectedChain.btcStakingDapp())
-                        putExtra("selectedChain", selectedChain as Parcelable)
-                        startActivity(this)
+                    val savedTime = Prefs.getDappInfoHideTime(2)
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime >= savedTime) {
+                        showBabylonInfo()
+                    } else {
+                        Intent(requireActivity(), DappActivity::class.java).apply {
+                            putExtra("dapp", selectedChain.btcStakingDapp())
+                            putExtra("selectedChain", selectedChain as Parcelable)
+                            startActivity(this)
+                        }
                     }
                 }
             }
@@ -329,6 +340,50 @@ class MajorCryptoFragment : Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 isClickable = true
             }, 300)
+        }
+    }
+
+    private fun showBabylonInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogBabylonInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_babylon_bg)
+
+            var isBabylonPinned = false
+            btnCheck.setOnClickListener {
+                isBabylonPinned = !isBabylonPinned
+                if (isBabylonPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isBabylonPinned) {
+                    Prefs.setDappInfoHideTime(2)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", selectedChain.btcStakingDapp())
+                    putExtra("selectedChain", selectedChain as Parcelable)
+                    startActivity(this)
+                }
+            }
         }
     }
 

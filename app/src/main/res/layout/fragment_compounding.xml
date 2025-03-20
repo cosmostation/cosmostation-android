@@ -11,17 +11,24 @@
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/title_compounding_img"
+            android:layout_width="@dimen/space_24"
+            android:layout_height="@dimen/space_24"
+            android:src="@drawable/token_default" />
+
         <TextView
-            android:id="@+id/compounding_title"
+            android:id="@+id/title_compounding"
             style="@style/font_sb_16"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Compounding rewards"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/space_8"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>

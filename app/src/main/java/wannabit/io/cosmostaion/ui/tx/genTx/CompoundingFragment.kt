@@ -109,6 +109,11 @@ class CompoundingFragment : BaseTxFragment() {
             val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
             claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
 
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleCompoundingImg.setTokenImg(asset)
+                titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
+            }
+
             listOf(compoundingView, babylonCompoundingView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg

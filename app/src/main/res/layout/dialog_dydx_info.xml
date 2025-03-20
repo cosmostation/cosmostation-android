@@ -22,7 +22,7 @@
 
             <ImageView
                 android:id="@+id/dapp_img"
-                android:layout_width="wrap_content"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dialog_transparent_bg"
                 android:src="@drawable/dydx"

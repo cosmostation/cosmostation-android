@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemSuiStakingInfoBinding
@@ -37,6 +38,7 @@ class SuiStakingInfoViewHolder(
                         monikerName.text = validator.suiValidatorName()
                     }
 
+                clickImg.goneOrVisible(staked.second["status"].asString == "Pending")
                 pendingBadge.visibleOrGone(staked.second["status"].asString == "Pending")
                 objectId.text = staked.second["stakedSuiId"].asString
 

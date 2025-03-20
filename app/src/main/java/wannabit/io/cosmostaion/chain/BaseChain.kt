@@ -201,6 +201,7 @@ open class BaseChain : Parcelable {
     open var grpcHost: String = ""
     open var grpcPort = 443
     open var lcdUrl: String = ""
+    open var apiUrl: String = ""
 
     open var supportEvm = false
     open var chainIdEvm: String = ""
