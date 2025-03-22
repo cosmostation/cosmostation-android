@@ -301,13 +301,21 @@ class WalletRepositoryImpl : WalletRepository {
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.Validator>> {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
-            val stub = newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
-                .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
-            safeApiCall(Dispatchers.IO) {
-                stub.validators(request).validatorsList
+            channel?.let { managedChannel ->
+                val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+                val stub = newBlockingStub(managedChannel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+                val request = com.cosmos.staking.v1beta1.QueryProto.QueryValidatorsRequest.newBuilder()
+                    .setPagination(pageRequest).setStatus("BOND_STATUS_BONDED").build()
+                safeApiCall(Dispatchers.IO) {
+                    stub.validators(request).validatorsList
+                }
+
+            } ?: run {
+                safeApiCall(Dispatchers.IO) {
+                    mutableListOf()
+                }
             }
+
         } else {
             safeApiCall(Dispatchers.IO) {
                 lcdApi(chain).lcdBondedValidatorInfo()
