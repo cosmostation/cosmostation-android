@@ -269,13 +269,13 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     return@setOnClickListener
                 }
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
-                selectedChain.cosmosFetcher?.claimableRewards()?.firstOrNull {
+                selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
                     when (selectedChain) {
-                        is ChainInitiaTestnet -> it?.validatorAddress == initiaValidator?.operatorAddress
+                        is ChainInitiaTestnet -> it.validatorAddress == initiaValidator?.operatorAddress
 
-                        is ChainZenrock -> it?.validatorAddress == zenrockValidator?.operatorAddress
+                        is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
 
-                        else -> it?.validatorAddress == validator?.operatorAddress
+                        else -> it.validatorAddress == validator?.operatorAddress
                     }
                 }?.let { claimableReward ->
                     if (claimableReward.rewardCount > 0) {
