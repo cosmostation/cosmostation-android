@@ -166,7 +166,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
                 }
                 feeSegment.setPosition(1, false)
                 selectedFeePosition = 1
-                feeTokenImg.setImageResource(selectedChain.coinLogo)
+//                feeTokenImg.setImageResource(selectedChain.coinLogo)
                 feeToken.text = selectedChain.coinSymbol
 
 //                val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)

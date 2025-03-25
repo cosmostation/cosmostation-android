@@ -157,10 +157,13 @@ class SuiStakingFragment : BaseTxFragment() {
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            feeTokenImg.setImageResource(selectedChain.coinLogo)
-            feeToken.text = selectedChain.coinSymbol
-            suiFeeBudget = (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
-            updateFeeView()
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                feeTokenImg.setTokenImg(asset)
+                feeToken.text = asset.symbol
+                suiFeeBudget =
+                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
+                updateFeeView()
+            }
         }
     }
 

@@ -26,7 +26,6 @@ class ChainBitcoin49Testnet : ChainBitcoin86Testnet(), Parcelable {
     )
 
     override var coinSymbol: String = "BTC"
-    override var coinLogo: Int = R.drawable.token_btc
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-testnet"
 

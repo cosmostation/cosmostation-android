@@ -31,7 +31,6 @@ class ChainHaqqEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ISLM"
-    override var coinLogo: Int = R.drawable.token_islm
     override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://rpc.eth.haqq.network"
 }

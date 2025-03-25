@@ -32,8 +32,8 @@ class MajorCryptoViewHolder(
             earnedLayout.visibility = View.GONE
 
             BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
-                tokenImg.setImageResource(chain.coinLogo)
-                tokenName.text = chain.coinSymbol
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
 
                 BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
@@ -122,7 +122,7 @@ class MajorCryptoViewHolder(
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                 tokenImg.setTokenImg(asset)
-                tokenName.text = asset.symbol?.uppercase()
+                tokenName.text = asset.symbol
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                 BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->

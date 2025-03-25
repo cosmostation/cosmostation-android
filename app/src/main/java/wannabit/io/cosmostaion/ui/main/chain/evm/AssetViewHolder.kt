@@ -23,15 +23,12 @@ class AssetViewHolder(
     fun bind(evmChain: BaseChain) {
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
-            assetImg.setImageResource(evmChain.coinLogo)
-            assetImg.clipToOutline = true
-            assetName.text = evmChain.coinSymbol
-
-            val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
-                ?.setScale(18, RoundingMode.DOWN)
-            val value = evmChain.evmRpcFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
 
             BaseData.getAssetWithSymbol(evmChain.apiName, evmChain.coinSymbol)?.let { asset ->
+                assetImg.setTokenImg(asset)
+                assetImg.clipToOutline = true
+                assetName.text = asset.symbol
+
                 assetPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                 BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
                     assetPriceChange.priceChangeStatusColor(lastUpDown)
@@ -39,7 +36,11 @@ class AssetViewHolder(
                 }
             }
 
+            val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
+                ?.setScale(18, RoundingMode.DOWN)
+            val value = evmChain.evmRpcFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
             val amount = dpAmount?.setScale(6, RoundingMode.DOWN)
+
             if (Prefs.hideValue) {
                 assetAmount.visibility = View.GONE
                 assetAmountValue.visibility = View.GONE

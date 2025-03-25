@@ -31,7 +31,6 @@ class ChainFxcoreEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "FX"
-    override var coinLogo: Int = R.drawable.token_fx
     override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://fx-json-web3.functionx.io:8545/"
 }

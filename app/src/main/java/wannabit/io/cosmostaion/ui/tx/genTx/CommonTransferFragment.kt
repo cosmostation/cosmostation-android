@@ -206,12 +206,13 @@ class CommonTransferFragment : BaseTxFragment() {
 
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
-                    transferImg.setImageResource(fromChain.coinLogo)
+                    toSendAsset =
+                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
+                    transferImg.setTokenImg(toSendAsset?.image ?: "")
                     sendTitle.text = getString(
                         R.string.title_asset_send, fromChain.coinSymbol
                     )
-                    toSendAsset =
-                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
+
                     availableAmount = if (EVM_BASE_FEE >= fromChain.evmRpcFetcher?.evmBalance) {
                         BigDecimal.ZERO
                     } else {
@@ -221,18 +222,25 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.COSMOS_EVM_COIN -> {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+
                     if (transferStyle == TransferStyle.WEB3_STYLE) {
+                        transferImg.setTokenImg(toSendAsset?.image ?: "")
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, fromChain.coinSymbol
+                        )
+
                         availableAmount = if (EVM_BASE_FEE >= fromChain.evmRpcFetcher?.evmBalance) {
                             BigDecimal.ZERO
                         } else {
                             fromChain.evmRpcFetcher?.evmBalance?.subtract(EVM_BASE_FEE)
                         }
-                        transferImg.setImageResource(fromChain.coinLogo)
-                        sendTitle.text = getString(
-                            R.string.title_asset_send, fromChain.coinSymbol
-                        )
 
                     } else {
+                        transferImg.setTokenImg(toSendAsset?.image ?: "")
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, toSendAsset?.symbol
+                        )
+
                         availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                         if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                             if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
@@ -244,16 +252,17 @@ class CommonTransferFragment : BaseTxFragment() {
                                     availableAmount.subtract(feeAmount)
                                 }
                             }
-                            transferImg.setTokenImg(toSendAsset?.image ?: "")
-                            sendTitle.text = getString(
-                                R.string.title_asset_send, toSendAsset?.symbol
-                            )
                         }
                     }
                 }
 
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                    transferImg.setTokenImg(toSendAsset?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendAsset?.symbol
+                    )
+
                     availableAmount = if (fromChain is ChainGnoTestnet) {
                         fromChain.gnoRpcFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
                     } else {
@@ -270,14 +279,15 @@ class CommonTransferFragment : BaseTxFragment() {
                                 availableAmount.subtract(feeAmount)
                             }
                         }
-                        transferImg.setTokenImg(toSendAsset?.image ?: "")
-                        sendTitle.text = getString(
-                            R.string.title_asset_send, toSendAsset?.symbol
-                        )
                     }
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendToken?.symbol
+                    )
+
                     fromChain.cosmosFetcher?.let { grpc ->
                         grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
                             toSendToken = token
@@ -290,14 +300,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
                     availableAmount = toSendToken?.amount?.toBigDecimal()
-                    transferImg.setTokenImg(toSendToken?.image ?: "")
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendToken?.symbol
-                    )
                 }
 
                 SendAssetType.SUI_COIN -> {
                     (fromChain as ChainSui).apply {
+                        transferImg.setImageFromSvg(
+                            fromChain.assetImg(toSendDenom), R.drawable.token_default
+                        )
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, assetSymbol(toSendDenom)
+                        )
+
                         availableAmount = suiFetcher()?.suiBalanceAmount(toSendDenom)
                         if (fromChain.stakeDenom == toSendDenom) {
                             availableAmount = availableAmount.subtract(suiFeeBudget)
@@ -305,12 +318,6 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (availableAmount <= BigDecimal.ZERO) {
                             availableAmount = BigDecimal.ZERO
                         }
-                        transferImg.setImageFromSvg(
-                            fromChain.assetImg(toSendDenom), R.drawable.token_default
-                        )
-                        sendTitle.text = getString(
-                            R.string.title_asset_send, assetSymbol(toSendDenom)
-                        )
                     }
                 }
 
@@ -318,9 +325,8 @@ class CommonTransferFragment : BaseTxFragment() {
                     backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainBitCoin86).apply {
                         txViewModel.bitTxData(fromChain as ChainBitCoin86)
-                        toSendAsset =
-                            BaseData.getAsset(fromChain.apiName, fromChain.coinSymbol.lowercase())
-                        transferImg.setImageResource(fromChain.coinLogo)
+                        toSendAsset = BaseData.getAsset(fromChain.apiName, fromChain.coinSymbol)
+                        transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
                             R.string.title_asset_send, fromChain.coinSymbol
                         )
@@ -328,6 +334,11 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_GRC20 -> {
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendToken?.symbol
+                    )
+
                     fromChain.gnoRpcFetcher?.let { fetcher ->
                         fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
                             ?.let { token ->
@@ -335,10 +346,6 @@ class CommonTransferFragment : BaseTxFragment() {
                             }
                     }
                     availableAmount = toSendToken?.amount?.toBigDecimal()
-                    transferImg.setTokenImg(toSendToken?.image ?: "")
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendToken?.symbol
-                    )
                 }
 
                 else -> {}
@@ -786,15 +793,14 @@ class CommonTransferFragment : BaseTxFragment() {
             when (transferStyle) {
                 TransferStyle.WEB3_STYLE -> {
                     fromChain.apply {
-                        feeTokenImg.setImageResource(coinLogo)
-                        feeToken.text = coinSymbol
-
                         if (evmFeeAmount == null) {
                             evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
                         }
 
-                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
-                            ?.let { asset ->
+                        BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
+                                feeTokenImg.setTokenImg(asset)
+                                feeToken.text = asset.symbol
+
                                 val price = BaseData.getPrice(asset.coinGeckoId)
                                 val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
                                     ?.setScale(18, RoundingMode.DOWN)
@@ -808,10 +814,10 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.SUI_STYLE -> {
                     (fromChain as ChainSui).apply {
-                        feeTokenImg.setImageResource(coinLogo)
-                        feeToken.text = coinSymbol
+                        BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
+                            feeTokenImg.setTokenImg(asset)
+                            feeToken.text = asset.symbol
 
-                        BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.let { asset ->
                             val price = BaseData.getPrice(asset.coinGeckoId)
                             val dpBudget =
                                 suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
@@ -825,11 +831,10 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin86).apply {
-                        feeTokenImg.setImageResource(coinLogo)
-                        feeToken.text = coinSymbol
+                        BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
+                                feeTokenImg.setTokenImg(asset)
+                                feeToken.text = asset.symbol
 
-                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
-                            ?.let { asset ->
                                 val price = BaseData.getPrice(asset.coinGeckoId)
                                 val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
                                 val value = price.multiply(amount)
