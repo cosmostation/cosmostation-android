@@ -34,7 +34,6 @@ open class ChainKavaEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "KAVA"
-    override var addressLogo: Int = R.drawable.icon_kava_address
     override var evmRpcURL: String = "https://rpc-kava-evm.cosmostation.io"
 
     override fun cosmosFetcher(): CosmosFetcher? {

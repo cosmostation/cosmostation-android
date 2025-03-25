@@ -31,6 +31,5 @@ class ChainStratosEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "STOS"
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://web3-rpc.thestratos.org"
 }

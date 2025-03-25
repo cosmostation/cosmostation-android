@@ -31,6 +31,5 @@ class ChainShidoEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "SHIDO"
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://rpc-nodes.shidoscan.com"
 }

@@ -205,7 +205,6 @@ open class BaseChain : Parcelable {
     open var chainIdEvm: String = ""
     open var evmAddress: String = ""
     open var coinSymbol: String = ""
-    open var addressLogo = -1
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
 

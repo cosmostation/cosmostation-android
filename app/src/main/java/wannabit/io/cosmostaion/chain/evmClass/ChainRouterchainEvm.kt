@@ -31,6 +31,5 @@ class ChainRouterchainEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ROUTE"
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://sentry.evm.rpc.routerprotocol.com"
 }

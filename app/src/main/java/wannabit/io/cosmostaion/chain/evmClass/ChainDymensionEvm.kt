@@ -31,6 +31,5 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "DYM"
-    override var addressLogo: Int = R.drawable.icon_dymension_address
     override var evmRpcURL: String = "https://rpc-dymension-evm.cosmostation.io"
 }

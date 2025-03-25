@@ -32,6 +32,5 @@ class ChainArtelaTestnet : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ART"
-    override var addressLogo: Int = R.drawable.icon_artela_address
     override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/artela-testnet/"
 }
