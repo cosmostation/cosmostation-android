@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainFxcoreEvm : BaseChain(), Parcelable {
 
-    override var name: String = "FUNCTION-X"
+    override var name: String = "Function-X"
     override var tag: String = "function-x60"
     override var logo: Int = R.drawable.chain_fxcore
     override var apiName: String = "fxcore"

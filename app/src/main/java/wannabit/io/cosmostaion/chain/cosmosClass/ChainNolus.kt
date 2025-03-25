@@ -26,6 +26,6 @@ class ChainNolus : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "unls"
     override var accountPrefix: String = "nolus"
-    override var grpcHost: String = "nolus-grpc.lavenderfive.com"
-    override var lcdUrl: String = "https://nolus.api.liveraven.net"
+    override var grpcHost: String = "grpc.nolus.network"
+    override var lcdUrl: String = "https://lcd.nolus.network/"
 }
