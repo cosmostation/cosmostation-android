@@ -158,6 +158,7 @@ class SuiUnStakingFragment(
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainSui).apply {
+                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)

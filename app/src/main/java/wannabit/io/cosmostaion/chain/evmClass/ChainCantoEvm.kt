@@ -32,7 +32,6 @@ class ChainCantoEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "CANTO"
-    override var coinGeckoId: String = "canto"
     override var coinLogo: Int = R.drawable.token_canto
     override var addressLogo: Int = R.drawable.icon_canto_address
     override var evmRpcURL: String = "https://canto.slingshot.finance"

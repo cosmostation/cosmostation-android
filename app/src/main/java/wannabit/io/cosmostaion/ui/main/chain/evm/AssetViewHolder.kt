@@ -27,13 +27,16 @@ class AssetViewHolder(
             assetImg.clipToOutline = true
             assetName.text = evmChain.coinSymbol
 
-            val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+            val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
+                ?.setScale(18, RoundingMode.DOWN)
             val value = evmChain.evmRpcFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
 
-            assetPrice.text = formatAssetValue(BaseData.getPrice(evmChain.coinGeckoId))
-            BaseData.lastUpDown(evmChain.coinGeckoId).let { lastUpDown ->
-                assetPriceChange.priceChangeStatusColor(lastUpDown)
-                assetPriceChange.text = priceChangeStatus(lastUpDown)
+            BaseData.getAssetWithSymbol(evmChain.apiName, evmChain.coinSymbol)?.let { asset ->
+                assetPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    assetPriceChange.priceChangeStatusColor(lastUpDown)
+                    assetPriceChange.text = priceChangeStatus(lastUpDown)
+                }
             }
 
             val amount = dpAmount?.setScale(6, RoundingMode.DOWN)
@@ -77,9 +80,8 @@ class AssetViewHolder(
                         hideValue.visibility = View.GONE
 
                         assetAmount.text = formatAmount(amount.toPlainString(), 6)
-                        assetAmountValue.text =
-                            evmChain.evmRpcFetcher?.tokenValue(token.contract)
-                                ?.let { formatAssetValue(it) }
+                        assetAmountValue.text = evmChain.evmRpcFetcher?.tokenValue(token.contract)
+                            ?.let { formatAssetValue(it) }
                     }
                 }
         }

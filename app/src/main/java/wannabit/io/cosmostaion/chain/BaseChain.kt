@@ -208,7 +208,6 @@ open class BaseChain : Parcelable {
     open var chainIdEvm: String = ""
     open var evmAddress: String = ""
     open var coinSymbol: String = ""
-    open var coinGeckoId: String = ""
     open var coinLogo = -1
     open var addressLogo = -1
     open var evmRpcURL: String = ""

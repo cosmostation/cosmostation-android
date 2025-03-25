@@ -31,7 +31,6 @@ class ChainHumansEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "HEART"
-    override var coinGeckoId: String = "humans-ai"
     override var coinLogo: Int = R.drawable.token_humans
     override var addressLogo: Int = R.drawable.icon_humans_address
     override var evmRpcURL: String = "https://rpc-humans-evm.cosmostation.io"

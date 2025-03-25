@@ -20,7 +20,6 @@ class ChainStroyTestnet : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "IP"
-    override var coinGeckoId: String = ""
     override var coinLogo: Int = R.drawable.token_ip
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

@@ -38,8 +38,11 @@ class EvmFetcher(var chain: BaseChain) {
     }
 
     fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        val price = BaseData.getPrice(chain.coinGeckoId, isUsd)
-        return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
+        BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            return evmBalance.multiply(price).movePointLeft(18).setScale(6, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
     }
 
     fun valueCoinCnt(): Int {

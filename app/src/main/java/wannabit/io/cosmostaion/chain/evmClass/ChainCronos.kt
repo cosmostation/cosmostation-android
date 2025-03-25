@@ -19,7 +19,6 @@ class ChainCronos : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "CRO"
-    override var coinGeckoId: String = "crypto-com-chain"
     override var coinLogo: Int = R.drawable.token_cro
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

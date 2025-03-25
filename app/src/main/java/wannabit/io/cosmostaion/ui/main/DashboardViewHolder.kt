@@ -122,30 +122,20 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.supportCosmos()) {
+            val coinGeckoId = if (chain.supportCosmos()) {
                 if (chain is ChainOktEvm) {
-                    chainPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
-                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                    }
-
+                    OKT_GECKO_ID
                 } else {
-                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                        chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                            chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                            chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                        }
-                    }
+                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
                 }
-
             } else {
-                chainPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
-                BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                }
+                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.coinGeckoId
+            }
+
+            chainPrice.text = formatAssetValue(BaseData.getPrice(coinGeckoId))
+            BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
+                chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                chainPriceStatus.text = priceChangeStatus(lastUpDown)
             }
 
             when (chain.fetchState) {
@@ -259,21 +249,15 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.supportCosmos()) {
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                    chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                    BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                    }
-                }
-
+            val coinGeckoId = if (chain.supportCosmos()) {
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
             } else {
-                chainPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
-                BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                }
+                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.coinGeckoId
+            }
+            chainPrice.text = formatAssetValue(BaseData.getPrice(coinGeckoId))
+            BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
+                chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                chainPriceStatus.text = priceChangeStatus(lastUpDown)
             }
 
             when (chain.fetchState) {

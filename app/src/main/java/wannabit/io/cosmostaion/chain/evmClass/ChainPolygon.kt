@@ -19,7 +19,6 @@ class ChainPolygon : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "MATIC"
-    override var coinGeckoId: String = "matic-network"
     override var coinLogo: Int = R.drawable.token_matic
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

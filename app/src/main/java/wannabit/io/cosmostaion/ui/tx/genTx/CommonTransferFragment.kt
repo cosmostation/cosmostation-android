@@ -206,18 +206,21 @@ class CommonTransferFragment : BaseTxFragment() {
 
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
+                    transferImg.setImageResource(fromChain.coinLogo)
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, fromChain.coinSymbol
+                    )
+                    toSendAsset =
+                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
                     availableAmount = if (EVM_BASE_FEE >= fromChain.evmRpcFetcher?.evmBalance) {
                         BigDecimal.ZERO
                     } else {
                         fromChain.evmRpcFetcher?.evmBalance?.subtract(EVM_BASE_FEE)
                     }
-                    transferImg.setImageResource(fromChain.coinLogo)
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, fromChain.coinSymbol
-                    )
                 }
 
                 SendAssetType.COSMOS_EVM_COIN -> {
+                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                     if (transferStyle == TransferStyle.WEB3_STYLE) {
                         availableAmount = if (EVM_BASE_FEE >= fromChain.evmRpcFetcher?.evmBalance) {
                             BigDecimal.ZERO
@@ -230,7 +233,6 @@ class CommonTransferFragment : BaseTxFragment() {
                         )
 
                     } else {
-                        toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                         availableAmount = fromChain.cosmosFetcher?.balanceAmount(toSendDenom)
                         if (cosmosTxFee?.amountList?.isNotEmpty() == true) {
                             if (cosmosTxFee?.getAmount(0)?.denom == toSendDenom) {
@@ -316,6 +318,8 @@ class CommonTransferFragment : BaseTxFragment() {
                     backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainBitCoin86).apply {
                         txViewModel.bitTxData(fromChain as ChainBitCoin86)
+                        toSendAsset =
+                            BaseData.getAsset(fromChain.apiName, fromChain.coinSymbol.lowercase())
                         transferImg.setImageResource(fromChain.coinLogo)
                         sendTitle.text = getString(
                             R.string.title_asset_send, fromChain.coinSymbol
@@ -674,7 +678,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 when (sendAssetType) {
                     SendAssetType.ONLY_EVM_COIN -> {
-                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val price = BaseData.getPrice(toSendAsset?.coinGeckoId)
                         val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(18)
                         val value = price.multiply(dpAmount)
                         sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
@@ -684,7 +688,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                     SendAssetType.COSMOS_EVM_COIN -> {
                         var dpAmount = BigDecimal.ZERO
-                        val price = BaseData.getPrice(fromChain.coinGeckoId)
+                        val price = BaseData.getPrice(toSendAsset?.coinGeckoId)
                         if (transferStyle == TransferStyle.WEB3_STYLE) {
                             dpAmount = toAmount.toBigDecimal().amountHandlerLeft(18)
                             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
@@ -744,7 +748,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                     SendAssetType.BIT_COIN -> {
                         (fromChain as ChainBitCoin86).apply {
-                            val price = BaseData.getPrice(fromChain.coinGeckoId)
+                            val price = BaseData.getPrice(toSendAsset?.coinGeckoId)
                             val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
                             val value = price.multiply(dpAmount)
                             sendAmount.text = formatAmount(dpAmount.toPlainString(), 8)
@@ -788,15 +792,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         if (evmFeeAmount == null) {
                             evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
                         }
-                        val price = BaseData.getPrice(fromChain.coinGeckoId)
-                        val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-                            ?.setScale(18, RoundingMode.DOWN)
-                        val value = price.multiply(dpAmount)
 
-                        dpAmount?.let { amount ->
-                            feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                            feeValue.text = formatAssetValue(value)
-                        }
+                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
+                            ?.let { asset ->
+                                val price = BaseData.getPrice(asset.coinGeckoId)
+                                val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
+                                    ?.setScale(18, RoundingMode.DOWN)
+                                val value = price.multiply(dpAmount)
+
+                                feeAmount.text = formatAmount(dpAmount.toString(), 18)
+                                feeValue.text = formatAssetValue(value)
+                            }
                     }
                 }
 
@@ -805,12 +811,15 @@ class CommonTransferFragment : BaseTxFragment() {
                         feeTokenImg.setImageResource(coinLogo)
                         feeToken.text = coinSymbol
 
-                        val price = BaseData.getPrice(fromChain.coinGeckoId)
-                        val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
-                        val value = price.multiply(dpBudget)
+                        BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.let { asset ->
+                            val price = BaseData.getPrice(asset.coinGeckoId)
+                            val dpBudget =
+                                suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                            val value = price.multiply(dpBudget)
 
-                        feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
-                        feeValue.text = formatAssetValue(value)
+                            feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
+                            feeValue.text = formatAssetValue(value)
+                        }
                     }
                 }
 
@@ -819,12 +828,15 @@ class CommonTransferFragment : BaseTxFragment() {
                         feeTokenImg.setImageResource(coinLogo)
                         feeToken.text = coinSymbol
 
-                        val price = BaseData.getPrice(fromChain.coinGeckoId)
-                        val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
-                        val value = price.multiply(amount)
+                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
+                            ?.let { asset ->
+                                val price = BaseData.getPrice(asset.coinGeckoId)
+                                val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
+                                val value = price.multiply(amount)
 
-                        feeAmount.text = formatAmount(amount.toPlainString(), 8)
-                        feeValue.text = formatAssetValue(value)
+                                feeAmount.text = formatAmount(amount.toPlainString(), 8)
+                                feeValue.text = formatAssetValue(value)
+                            }
                     }
                 }
 
@@ -854,7 +866,8 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(fromChain,
+                    TransferAddressFragment.newInstance(
+                        fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -1074,8 +1087,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin86).apply {
                         val dpVByteFee = if (txMemo.isNotEmpty()) {
-                            btcFetcher()?.bitVBytesFee(utxo, txMemo)
-                                ?.add(OP_RETURN.toBigDecimal())
+                            btcFetcher()?.bitVBytesFee(utxo, txMemo)?.add(OP_RETURN.toBigDecimal())
                         } else {
                             bitVBytesFee
                         }
@@ -1117,11 +1129,10 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
 
                             } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-                                val msgCall =
-                                    com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-                                        .setCaller(fromChain.address)
-                                        .setPkgPath(toSendToken?.contract).setFunc("Transfer")
-                                        .addAllArgs(listOf(toAddress, toSendAmount)).build()
+                                val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.contract)
+                                    .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
+                                    .build()
                                 txViewModel.rpcCallSimulate(
                                     msgCall, cosmosTxFee, txMemo, this
                                 )
@@ -1129,8 +1140,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             } else {
                                 if (fromChain is ChainGnoTestnet) {
                                     val msgSend = com.gno.bank.BankProto.MsgSend.newBuilder()
-                                        .setFromAddress(fromChain.address)
-                                        .setToAddress(toAddress)
+                                        .setFromAddress(fromChain.address).setToAddress(toAddress)
                                         .setAmount(toSendAmount + toSendDenom).build()
                                     txViewModel.rpcSendSimulate(
                                         msgSend, cosmosTxFee, txMemo, this
@@ -1444,12 +1454,11 @@ class CommonTransferFragment : BaseTxFragment() {
                     bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
                         .setScale(0, RoundingMode.UP)
 
-                    availableAmount =
-                        if (bitFee >= btcFetcher?.btcBalances) {
-                            BigDecimal.ZERO
-                        } else {
-                            btcFetcher?.btcBalances?.subtract(bitFee)
-                        }
+                    availableAmount = if (bitFee >= btcFetcher?.btcBalances) {
+                        BigDecimal.ZERO
+                    } else {
+                        btcFetcher?.btcBalances?.subtract(bitFee)
+                    }
                 }
                 withContext(Dispatchers.Main) {
                     binding.backdropLayout.visibility = View.GONE

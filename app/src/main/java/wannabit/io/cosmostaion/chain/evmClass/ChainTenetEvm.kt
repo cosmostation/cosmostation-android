@@ -31,7 +31,6 @@ class ChainTenetEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "TENET"
-    override var coinGeckoId: String = "tenet-1b000f7b-59cb-4e06-89ce-d62b32d362b9"
     override var coinLogo: Int = R.drawable.token_tenet
     override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://eth-dataseed.aioz.network"

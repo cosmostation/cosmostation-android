@@ -136,6 +136,10 @@ class PopUpBitSignFragment(
 
                             withContext(Dispatchers.Main) {
                                 binding.apply {
+                                    val coinGeckoId = BaseData.getAssetWithSymbol(
+                                        apiName,
+                                        coinSymbol
+                                    )?.coinGeckoId
                                     val price = BaseData.getPrice(coinGeckoId)
                                     val amount =
                                         bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
@@ -245,7 +249,8 @@ class PopUpBitSignFragment(
                                 BitcoinJs.mergeFunction(getInOutPutsFunction)
                                 val messageData =
                                     BitcoinJs.executeFunction("getInOutPutsFunction()").toString()
-                                val messageJsonObject = JsonParser.parseString(messageData).asJsonObject
+                                val messageJsonObject =
+                                    JsonParser.parseString(messageData).asJsonObject
                                 val outputs = messageJsonObject["outputs"].asJsonArray
                                 var outputBalance = BigDecimal.ZERO
                                 outputs.forEach { output ->
@@ -257,6 +262,10 @@ class PopUpBitSignFragment(
 
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
+                                        val coinGeckoId = BaseData.getAssetWithSymbol(
+                                            apiName,
+                                            coinSymbol
+                                        )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =
                                             bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
@@ -280,6 +289,10 @@ class PopUpBitSignFragment(
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
+                                        val coinGeckoId = BaseData.getAssetWithSymbol(
+                                            apiName,
+                                            coinSymbol
+                                        )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =
                                             bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
