@@ -17,7 +17,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -157,7 +156,8 @@ class OktDepositFragment : BaseTxFragment() {
                     }
             }
 
-            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
+            val price = BaseData.getPrice(coinGeckoId)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
             feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
             feeDenom.text = chain.stakeDenom.uppercase()
@@ -174,7 +174,9 @@ class OktDepositFragment : BaseTxFragment() {
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             depositAmount.text = formatAmount(dpAmount.toPlainString(), 18)
 
-            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val coinGeckoId =
+                BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.coinGeckoId
+            val price = BaseData.getPrice(coinGeckoId)
             val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
             depositValue.text = formatAssetValue(toSendValue)
         }

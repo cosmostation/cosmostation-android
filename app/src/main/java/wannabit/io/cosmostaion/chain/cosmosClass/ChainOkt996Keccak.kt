@@ -44,4 +44,3 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
 }
 
 const val OKT_BASE_FEE = "0.008000000000000000"
-const val OKT_GECKO_ID = "oec-token"

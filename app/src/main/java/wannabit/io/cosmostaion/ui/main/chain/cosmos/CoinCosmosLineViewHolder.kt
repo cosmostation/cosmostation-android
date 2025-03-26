@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -232,8 +231,9 @@ class CoinCosmosLineViewHolder(
             tokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             tokenName.text = chain.stakeDenom.uppercase()
 
-            tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-            BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
+            tokenPrice.text = formatAssetValue(BaseData.getPrice(coinGeckoId))
+            BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
                 tokenPriceChange.priceChangeStatusColor(lastUpDown)
                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
             }

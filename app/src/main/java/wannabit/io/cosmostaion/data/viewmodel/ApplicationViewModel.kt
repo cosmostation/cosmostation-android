@@ -60,6 +60,8 @@ class ApplicationViewModel(
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
+    var updatePriceResult = SingleLiveEvent<String>()
+
     fun price(currency: String, force: Boolean? = false) = viewModelScope.launch(Dispatchers.IO) {
         if (!BaseData.priceUpdateIfNeed() && force == false) {
             return@launch
@@ -70,6 +72,7 @@ class ApplicationViewModel(
                     BaseData.prices = data
                     BaseData.setLastPriceTime()
                     BaseData.baseAccount?.updateAllValue()
+                    updatePriceResult.postValue(currency)
                 }
             }
 

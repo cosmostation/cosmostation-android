@@ -478,6 +478,11 @@ class DashboardFragment : Fragment() {
             dashAdapter.notifyDataSetChanged()
         }
 
+        ApplicationViewModel.shared.updatePriceResult.observe(viewLifecycleOwner) {
+            updateTotalValue()
+            dashAdapter.notifyDataSetChanged()
+        }
+
         ApplicationViewModel.shared.displayLegacyResult.observe(viewLifecycleOwner) {
             ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
             walletViewModel.price(BaseData.currencyName().lowercase())

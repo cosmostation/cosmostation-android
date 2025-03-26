@@ -17,28 +17,27 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.databinding.FragmentOktSelectValidatorBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
 import wannabit.io.cosmostaion.ui.tx.option.validator.OkValidatorListener
 import wannabit.io.cosmostaion.ui.tx.option.validator.OktValidatorFragment
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -168,7 +167,8 @@ class OktSelectValidatorFragment : BaseTxFragment() {
                     }
             }
 
-            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
+            val price = BaseData.getPrice(coinGeckoId)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
             feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
             feeDenom.text = chain.stakeDenom.uppercase()

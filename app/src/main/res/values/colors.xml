@@ -13,14 +13,12 @@
 
     <color name="color_search">#66505267</color>
 
+    <color name="color_accent">#F8DDDD</color>
     <color name="color_accent_purple">#7C4FFC</color>
     <color name="color_accent_purple_evm">#997C4FFC</color>
     <color name="color_accent_green">#5BFF89</color>
     <color name="color_accent_red">#FF4D36</color>
-    <color name="color_accent_violet">#995761A6</color>
-    <color name="color_accent_dark_pink">#996C7C</color>
     <color name="color_accent_mint">#7309B8C1</color>
-    <color name="color_accent_dark_red">#99B6405C</color>
 
     <color name="color_dydx">#7471FF</color>
     <color name="color_babylon">#FF7B17</color>
@@ -33,35 +31,18 @@
     <color name="color_fab_background_dialog">#CC000000</color>
     <color name="color_transparent">@android:color/transparent</color>
 
-
     <color name="color_blur">#0fffffff</color>
 
     <color name="color_caution">#FFC658</color>
 
     <color name="color_eco_type">#09B8C1</color>
-
     <color name="color_bit_type">#8C83F981</color>
     <color name="color_bit_taproot_type">#996C7C</color>
 
-
-    <color name="color_accent">#F8DDDD</color>
     <color name="color_blue">#58C3FF</color>
-    <color name="color_blue01">#3182F5</color>
-    <color name="color_blue02">#2051A3</color>
-    <color name="color_blue03">#ADCDFB</color>
-    <color name="color_blue04">#8BC3FF</color>
     <color name="color_red01">#CD1A1A</color>
-    <color name="color_red02">#D95253</color>
     <color name="color_green">#00FF47</color>
-    <color name="color_green01">#27BD69</color>
-    <color name="color_gradient01_start">#2051A3</color>
-    <color name="color_gradient01_end">#081C40</color>
-    <color name="color_gradient02_start">#1669C1</color>
-    <color name="color_gradient02_end">#283D8F</color>
     <color name="color_mode_base01">#FBFCFF</color>
-    <color name="color_mode_base02">#F5F9FF</color>
-    <color name="color_mode_base03">#E6ECFB</color>
     <color name="color_mode_base04">#98AED8</color>
     <color name="color_mode_base05">#222222</color>
-    <color name="color_only_base01">#ffffff</color>
 </resources>
