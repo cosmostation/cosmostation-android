@@ -410,14 +410,31 @@ class DashboardFragment : Fragment() {
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true)
+                                val asset = if (chain.supportCosmos()) {
+                                    BaseData.getAsset(chain.apiName, chain.stakeDenom)
+                                } else {
+                                    BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+                                }
+
+                                asset?.symbol?.contains(
+                                    searchTxt, ignoreCase = true
+                                ) == true || chain.name.contains(searchTxt, ignoreCase = true)
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true)
+                                val asset = if (chain.supportCosmos()) {
+                                    BaseData.getAsset(chain.apiName, chain.stakeDenom)
+                                } else {
+                                    BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+                                }
+
+                                asset?.symbol?.contains(
+                                    searchTxt, ignoreCase = true
+                                ) == true || chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
+
                     if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
@@ -433,7 +450,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(chain,
+        NoticeInfoFragment.newInstance(
+            chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {

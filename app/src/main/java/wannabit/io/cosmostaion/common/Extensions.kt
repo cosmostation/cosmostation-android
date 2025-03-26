@@ -26,7 +26,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -860,14 +859,6 @@ fun <T> Sequence<T>.concurrentForEach(operation: suspend (T) -> Unit): Job {
 fun Activity.hideKeyboard(button: Button) {
     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(button.windowToken, 0)
-}
-
-fun CardView.heightInDp(dp: Int) {
-    val heightInPx = (dp * resources.displayMetrics.density).toInt()
-
-    val layout = layoutParams
-    layout.height = heightInPx
-    layoutParams = layout
 }
 
 fun fadeInAnimation(view: View) {
