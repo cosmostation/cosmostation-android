@@ -15,20 +15,11 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/eth_chain_logo"
-            android:layout_width="@dimen/space_18"
-            android:layout_height="@dimen/space_18"
-            android:layout_marginEnd="@dimen/space_4"
-            android:src="@drawable/icon_ethereum_address" />
-
         <TextView
             android:id="@+id/eth_chain_name"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ETHEREUM"
-            android:textAllCaps="true"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>
@@ -55,9 +46,9 @@
 
         <ImageView
             android:id="@+id/eth_qr_img"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/eth_chain_img"
@@ -99,19 +90,11 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/eth_address_view">
 
-        <ImageView
-            android:id="@+id/chain_logo"
-            android:layout_width="@dimen/space_18"
-            android:layout_height="@dimen/space_18"
-            android:layout_marginEnd="@dimen/space_4"
-            android:src="@drawable/icon_kava_address" />
-
         <TextView
             android:id="@+id/chain_name"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAllCaps="true"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>
@@ -138,9 +121,9 @@
 
         <ImageView
             android:id="@+id/qr_img"
-            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/chain_img"

@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 class ChainFxcoreEvm : BaseChain(), Parcelable {
 
-    override var name: String = "FUNCTION-X"
+    override var name: String = "Function-X"
     override var tag: String = "function-x60"
     override var logo: Int = R.drawable.chain_fxcore
     override var apiName: String = "fxcore"
@@ -33,6 +33,5 @@ class ChainFxcoreEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "FX"
     override var coinGeckoId: String = "fx-coin"
     override var coinLogo: Int = R.drawable.token_fx
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://fx-json-web3.functionx.io:8545/"
 }

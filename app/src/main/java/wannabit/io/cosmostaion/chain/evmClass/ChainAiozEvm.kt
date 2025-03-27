@@ -33,6 +33,5 @@ class ChainAiozEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "AIOZ"
     override var coinGeckoId: String = "aioz-network"
     override var coinLogo: Int = R.drawable.token_aioz
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://eth-dataseed.aioz.network"
 }

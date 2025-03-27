@@ -44,22 +44,18 @@ class QrEvmDialog(
         binding.apply {
             selectedChain?.let { chain ->
                 ethAddressView.setBackgroundResource(R.drawable.cell_bg)
+                ethChainName.text = chain.name + " Evm Style Address"
                 ethAddress.text = chain.evmAddress
                 ethChainImg.setImageResource(chain.logo)
 
                 bitmap = barcodeEncoder.encodeBitmap(
-                    chain.evmAddress,
-                    BarcodeFormat.QR_CODE,
-                    400,
-                    400,
-                    hints
+                    chain.evmAddress, BarcodeFormat.QR_CODE, 400, 400, hints
                 )
                 ethQrImg.setImageBitmap(bitmap)
                 ethQrView.radius = context.resources.getDimension(R.dimen.space_12)
                 ethQrImg.clipToOutline = true
 
-                chainLogo.setImageResource(chain.addressLogo)
-                chainName.text = chain.name
+                chainName.text = chain.name + " Cosmos Style Address"
                 chainImg.setImageResource(chain.logo)
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = chain.address

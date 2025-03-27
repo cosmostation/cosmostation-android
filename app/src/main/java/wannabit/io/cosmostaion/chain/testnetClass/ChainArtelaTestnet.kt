@@ -34,6 +34,5 @@ class ChainArtelaTestnet : BaseChain(), Parcelable {
     override var coinSymbol: String = "ART"
     override var coinGeckoId: String = ""
     override var coinLogo: Int = R.drawable.token_art
-    override var addressLogo: Int = R.drawable.icon_artela_address
     override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/artela-testnet/"
 }

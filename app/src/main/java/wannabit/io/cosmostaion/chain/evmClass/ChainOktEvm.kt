@@ -31,7 +31,6 @@ open class ChainOktEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "OKT"
     override var coinGeckoId: String = "oec-token"
     override var coinLogo: Int = R.drawable.token_okt
-    override var addressLogo: Int = R.drawable.icon_okt_address
     override var evmRpcURL: String = "https://exchainrpc.okex.org"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

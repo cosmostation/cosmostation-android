@@ -33,6 +33,5 @@ class ChainZetaEvm : BaseChain(), Parcelable {
     override var coinSymbol: String = "ZETA"
     override var coinGeckoId: String = "zetachain"
     override var coinLogo: Int = R.drawable.token_zeta
-    override var addressLogo: Int = R.drawable.icon_zeta_address
     override var evmRpcURL: String = "https://rpc-zeta-evm.cosmostation.io"
 }

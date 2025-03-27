@@ -111,7 +111,7 @@ class QrCodAdapter(
 
         fun bind(position: Int) {
             binding.apply {
-                if (itemCount == 4) {
+                if (itemCount == 5) {
                     if (getItemViewType(position) == VIEW_TYPE_EVM_HEADER) {
                         headerTitle.text = "My address (EVM Style)"
                     } else {

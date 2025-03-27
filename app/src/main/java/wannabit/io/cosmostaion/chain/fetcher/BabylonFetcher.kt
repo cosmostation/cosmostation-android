@@ -23,10 +23,7 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     )
 
     data class BabylonEpochTxType(
-        val type: String,
-        val validator: String?,
-        val coin: Coin?,
-        val createHeight: Long? = 0
+        val type: String, val validator: String?, val coin: Coin?, val createHeight: Long? = 0
     )
 
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
@@ -95,41 +92,41 @@ fun JsonObject.btcReward(denom: String): MutableList<Coin> {
     val btcRewards: MutableList<Coin> = mutableListOf()
     if (this.has("reward_gauges")) {
         val rewardGaugaes = this["reward_gauges"].asJsonObject
-        val btcDelegation = rewardGaugaes["btc_delegation"].asJsonObject
+        for (key in rewardGaugaes.keySet()) {
+            val btcDelegation = rewardGaugaes[key].asJsonObject
 
-        if (!btcDelegation["coins"].asJsonArray.isEmpty && !btcDelegation["withdrawn_coins"].asJsonArray.isEmpty) {
-            btcDelegation["coins"].asJsonArray.forEach { coin ->
-                btcDelegation["withdrawn_coins"].asJsonArray.forEach { withdraw ->
-                    if (coin.asJsonObject["denom"].asString == withdraw.asJsonObject["denom"].asString) {
-                        val reward = coin.asJsonObject["amount"].asString.toBigDecimal()
-                            .subtract(withdraw.asJsonObject["amount"].asString.toBigDecimal())
-                        btcRewards.add(
-                            Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
-                                .setAmount(reward.toPlainString()).build()
-                        )
+            if (!btcDelegation["coins"].asJsonArray.isEmpty && !btcDelegation["withdrawn_coins"].asJsonArray.isEmpty) {
+                btcDelegation["coins"].asJsonArray.forEach { coin ->
+                    btcDelegation["withdrawn_coins"].asJsonArray.forEach { withdraw ->
+                        if (coin.asJsonObject["denom"].asString == withdraw.asJsonObject["denom"].asString) {
+                            val reward = coin.asJsonObject["amount"].asString.toBigDecimal()
+                                .subtract(withdraw.asJsonObject["amount"].asString.toBigDecimal())
+                            btcRewards.add(
+                                Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
+                                    .setAmount(reward.toPlainString()).build()
+                            )
+                        }
                     }
                 }
-            }
 
-        } else if (!btcDelegation["coins"].asJsonArray.isEmpty) {
-            btcDelegation["coins"].asJsonArray.forEach { coin ->
+            } else if (!btcDelegation["coins"].asJsonArray.isEmpty) {
+                btcDelegation["coins"].asJsonArray.forEach { coin ->
+                    btcRewards.add(
+                        Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
+                            .setAmount(coin.asJsonObject["amount"].asString).build()
+                    )
+                }
+
+            } else {
                 btcRewards.add(
-                    Coin.newBuilder().setDenom(coin.asJsonObject["denom"].asString)
-                        .setAmount(coin.asJsonObject["amount"].asString).build()
+                    Coin.newBuilder().setDenom(denom).setAmount("0").build()
                 )
             }
-
-        } else {
-            btcRewards.add(
-                Coin.newBuilder().setDenom(denom)
-                    .setAmount("0").build()
-            )
         }
 
     } else {
         btcRewards.add(
-            Coin.newBuilder().setDenom(denom)
-                .setAmount("0").build()
+            Coin.newBuilder().setDenom(denom).setAmount("0").build()
         )
     }
     return btcRewards

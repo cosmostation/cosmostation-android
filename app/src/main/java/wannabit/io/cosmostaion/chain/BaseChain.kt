@@ -64,7 +64,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainMars
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
@@ -119,7 +118,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
 import wannabit.io.cosmostaion.chain.evmClass.ChainAvalanche
 import wannabit.io.cosmostaion.chain.evmClass.ChainBase
-import wannabit.io.cosmostaion.chain.evmClass.ChainBerachainEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainBerachain
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
@@ -154,7 +153,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBerachainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -163,7 +161,6 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSelfTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainStroyTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -210,7 +207,6 @@ open class BaseChain : Parcelable {
     open var coinSymbol: String = ""
     open var coinGeckoId: String = ""
     open var coinLogo = -1
-    open var addressLogo = -1
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
 
@@ -669,7 +665,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAxelar())
     chains.add(ChainBand())
     chains.add(ChainBase())
-    chains.add(ChainBerachainEvm())
+    chains.add(ChainBerachain())
     chains.add(ChainBitcanna())
     chains.add(ChainBitCoin44())
     chains.add(ChainBitCoin49())
@@ -728,7 +724,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum880())
     chains.add(ChainLum118())
     chains.add(ChainMantra())
-    chains.add(ChainMars())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway())
