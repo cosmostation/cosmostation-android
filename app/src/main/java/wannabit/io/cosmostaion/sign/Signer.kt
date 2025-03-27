@@ -346,7 +346,7 @@ object Signer {
 
         if (selectedChain is ChainBabylonTestnet && isClaimAll && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
             val babylonIncentiveMsg = com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder()
-                .setType("btc_delegation").setAddress(selectedChain.address).build()
+                .setType("BTC_STAKER").setAddress(selectedChain.address).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/babylon.incentive.MsgWithdrawReward")
                 .setValue(babylonIncentiveMsg.toByteString()).build()
             msgAnys.add(anyMsg)
