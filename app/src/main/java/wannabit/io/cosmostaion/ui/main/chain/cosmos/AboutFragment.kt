@@ -20,6 +20,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
@@ -138,7 +139,11 @@ class AboutFragment : Fragment() {
                 }
                 val unBondingTime = unBondingTime()
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {
-                    "$unBondingTime Days"
+                    if (selectedChain is ChainBabylonTestnet) {
+                        "Est. 1 Days"
+                    } else {
+                        "$unBondingTime Days"
+                    }
                 } else {
                     "-"
                 }

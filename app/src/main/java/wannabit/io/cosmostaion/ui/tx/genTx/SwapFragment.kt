@@ -233,7 +233,7 @@ class SwapFragment : BaseTxFragment() {
             inputChain?.let { chain ->
                 fromAddress.text = chain.address
                 inputChainImg.setImageResource(chain.logo)
-                inputChainName.text = chain.name.uppercase()
+                inputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, inputAsset.denom)?.let { inputMsAsset ->
                     inputTokenImg.setTokenImg(inputMsAsset.image ?: "")
                     inputToken.text = inputMsAsset.symbol
@@ -264,7 +264,7 @@ class SwapFragment : BaseTxFragment() {
             outputChain?.let { chain ->
                 toAddress.text = chain.address
                 outputChainImg.setImageResource(chain.logo)
-                outputChainName.text = chain.name.uppercase()
+                outputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, outputAsset.denom)?.let { outputMsAsset ->
                     outputTokenImg.setTokenImg(outputMsAsset.image ?: "")
                     outputToken.text = outputMsAsset.symbol
