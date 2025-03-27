@@ -1087,26 +1087,33 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?> {
-        val result: MutableList<JsonObject> = mutableListOf()
-        var searchAfter: String? = ""
+        try {
+            val result: MutableList<JsonObject> = mutableListOf()
+            var searchAfter: String? = ""
 
-        do {
-            val response =
-                mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "60", searchAfter)
-                    ?: mutableListOf()
+            do {
+                val response =
+                    mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "60", searchAfter)
+                        ?: mutableListOf()
 
-            result.addAll(response)
+                result.addAll(response)
 
-            searchAfter = if (response.size == 60) {
-                result[result.size - 1].asJsonObject["search_after"].asString
-            } else {
-                ""
+                searchAfter = if (response.size == 60) {
+                    result[result.size - 1].asJsonObject["search_after"].asString
+                } else {
+                    ""
+                }
+
+            } while (searchAfter != "")
+
+            return safeApiCall(Dispatchers.IO) {
+                result
             }
 
-        } while (searchAfter != "")
-
-        return safeApiCall(Dispatchers.IO) {
-            result
+        } catch (e: Exception) {
+            return safeApiCall(Dispatchers.IO) {
+                mutableListOf()
+            }
         }
     }
 
