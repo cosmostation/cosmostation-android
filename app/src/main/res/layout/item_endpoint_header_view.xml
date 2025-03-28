@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_8">
+
+    <View
+        android:id="@+id/header_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginTop="@dimen/space_12"
+        android:background="@color/color_base08"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/api_img"
+        android:layout_width="@dimen/space_18"
+        android:layout_height="@dimen/space_18"
+        android:layout_below="@+id/header_view"
+        android:layout_marginLeft="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:src="@drawable/icon_grpc" />
+
+    <TextView
+        android:id="@+id/header_title"
+        style="@style/font_sb_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_view"
+        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_toRightOf="@+id/api_img"
+        android:textColor="@color/color_base01" />
+
+    <TextView
+        android:id="@+id/header_cnt"
+        style="@style/font_sb_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_view"
+        android:layout_marginLeft="@dimen/space_3"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_toRightOf="@+id/header_title"
+        android:textColor="@color/color_base02" />
+
+</RelativeLayout>

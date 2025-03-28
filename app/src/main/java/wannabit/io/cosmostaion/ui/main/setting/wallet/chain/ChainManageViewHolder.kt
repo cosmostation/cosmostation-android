@@ -18,52 +18,87 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name
 
-            if (chain is ChainBitCoin86) {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "API"
-                rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
+            when (chain) {
+                is ChainBitCoin86 -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
 
-            } else if (chain is ChainSui) {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "RPC"
-                rpcEndpoint.text = chain.suiFetcher()?.suiRpc()?.replace("https://", "")
-
-            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-                if (chain.isEvmCosmos()) {
-                    grpcLayout.visibility = View.VISIBLE
-                    rpcEndpointType.text = "EVM RPC"
-                    grpcEndpointType.text = "GRPC"
-                    rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                    grpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
-                } else {
-                    grpcLayout.visibility = View.GONE
-                    rpcEndpointType.text = "GRPC"
-                    rpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
+                    chainName.text = chain.name
+                    restEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
+                    restEndpointType.text = "API"
                 }
 
-            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_LCD) {
-                if (chain.isEvmCosmos()) {
-                    grpcLayout.visibility = View.VISIBLE
-                    rpcEndpointType.text = "EVM RPC"
-                    grpcEndpointType.text = "REST"
-                    rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                    grpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
-                } else {
-                    grpcLayout.visibility = View.GONE
-                    rpcEndpointType.text = "Rest"
-                    rpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                is ChainSui -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
+
+                    chainName.text = chain.name
+                    restEndpoint.text = chain.suiFetcher()?.suiRpc()?.replace("https://", "")
+                    restEndpointType.text = "SUI RPC"
                 }
 
-            } else {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                else -> {
+                    if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                        if (chain.isEvmCosmos()) {
+                            restLayout.visibility = View.GONE
+                            evmLayout.visibility = View.VISIBLE
+
+                            evmChainName.text = chain.name
+                            rpcEndpoint.text = chain.cosmosFetcher()
+                                ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
+                                ?.getGrpc()?.second
+                            rpcEndpointType.text = "GRPC"
+                            evmRpcEndpoint.text =
+                                chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                            evmRpcEndpointType.text = "EVM RPC"
+
+                        } else {
+                            restLayout.visibility = View.VISIBLE
+                            evmLayout.visibility = View.GONE
+
+                            chainName.text = chain.name
+                            restEndpoint.text = chain.cosmosFetcher()
+                                ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
+                                ?.getGrpc()?.second
+                            restEndpointType.text = "GRPC"
+                        }
+
+                    } else if (chain.cosmosFetcher()
+                            ?.endPointType(chain) == CosmosEndPointType.USE_LCD
+                    ) {
+                        if (chain.isEvmCosmos()) {
+                            restLayout.visibility = View.GONE
+                            evmLayout.visibility = View.VISIBLE
+
+                            evmChainName.text = chain.name
+                            rpcEndpoint.text =
+                                chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                            rpcEndpointType.text = "REST"
+                            evmRpcEndpoint.text =
+                                chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                            evmRpcEndpointType.text = "EVM RPC"
+
+                        } else {
+                            restLayout.visibility = View.VISIBLE
+                            evmLayout.visibility = View.GONE
+
+                            chainName.text = chain.name
+                            restEndpoint.text =
+                                chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                            restEndpointType.text = "REST"
+                        }
+
+                    } else {
+                        restLayout.visibility = View.VISIBLE
+                        evmLayout.visibility = View.GONE
+
+                        chainName.text = chain.name
+                        restEndpoint.text =
+                            chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                        restEndpointType.text = "EVM RPC"
+                    }
+                }
             }
         }
     }
@@ -72,53 +107,87 @@ class ChainManageViewHolder(
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name
 
-            if (chain is ChainBitCoin86) {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "API"
-                rpcEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
+            when (chain) {
+                is ChainBitCoin86 -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
 
-            } else if (chain is ChainGnoTestnet) {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "RPC"
-                rpcEndpoint.text = chain.gnoRpcFetcher()?.gnoRpc()?.replace("https://", "")
-
-            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-                if (chain.isEvmCosmos()) {
-                    grpcLayout.visibility = View.VISIBLE
-                    rpcEndpointType.text = "EVM RPC"
-                    grpcEndpointType.text = "GRPC"
-                    rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                    grpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
-
-                } else {
-                    grpcLayout.visibility = View.GONE
-                    rpcEndpointType.text = "GRPC"
-                    rpcEndpoint.text =
-                        chain.cosmosFetcher()?.getGrpc()?.first + " : " + chain.cosmosFetcher()
-                            ?.getGrpc()?.second
+                    chainName.text = chain.name
+                    restEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
+                    restEndpointType.text = "API"
                 }
 
-            } else if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_LCD) {
-                if (chain.isEvmCosmos()) {
-                    grpcLayout.visibility = View.VISIBLE
-                    rpcEndpointType.text = "EVM RPC"
-                    grpcEndpointType.text = "REST"
-                    rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
-                    grpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
-                } else {
-                    grpcLayout.visibility = View.GONE
-                    rpcEndpointType.text = "Rest"
-                    rpcEndpoint.text = chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                is ChainGnoTestnet -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
+
+                    chainName.text = chain.name
+                    restEndpoint.text = chain.gnoRpcFetcher()?.gnoRpc()?.replace("https://", "")
+                    restEndpointType.text = "RPC"
                 }
 
-            } else {
-                grpcLayout.visibility = View.GONE
-                rpcEndpointType.text = "EVM RPC"
-                rpcEndpoint.text = chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                else -> {
+                    if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                        if (chain.isEvmCosmos()) {
+                            restLayout.visibility = View.GONE
+                            evmLayout.visibility = View.VISIBLE
+
+                            evmChainName.text = chain.name
+                            rpcEndpoint.text = chain.cosmosFetcher()
+                                ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
+                                ?.getGrpc()?.second
+                            rpcEndpointType.text = "GRPC"
+                            evmRpcEndpoint.text =
+                                chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                            evmRpcEndpointType.text = "EVM RPC"
+
+                        } else {
+                            restLayout.visibility = View.VISIBLE
+                            evmLayout.visibility = View.GONE
+
+                            chainName.text = chain.name
+                            restEndpoint.text = chain.cosmosFetcher()
+                                ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
+                                ?.getGrpc()?.second
+                            restEndpointType.text = "GRPC"
+                        }
+
+                    } else if (chain.cosmosFetcher()
+                            ?.endPointType(chain) == CosmosEndPointType.USE_LCD
+                    ) {
+                        if (chain.isEvmCosmos()) {
+                            restLayout.visibility = View.GONE
+                            evmLayout.visibility = View.VISIBLE
+
+                            evmChainName.text = chain.name
+                            rpcEndpoint.text =
+                                chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                            rpcEndpointType.text = "REST"
+                            evmRpcEndpoint.text =
+                                chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                            evmRpcEndpointType.text = "EVM RPC"
+
+                        } else {
+                            restLayout.visibility = View.VISIBLE
+                            evmLayout.visibility = View.GONE
+
+                            chainName.text = chain.name
+                            restEndpoint.text =
+                                chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
+                            restEndpointType.text = "REST"
+                        }
+
+                    } else {
+                        restLayout.visibility = View.VISIBLE
+                        evmLayout.visibility = View.GONE
+
+                        chainName.text = chain.name
+                        restEndpoint.text =
+                            chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
+                        restEndpointType.text = "EVM RPC"
+                    }
+                }
             }
         }
     }

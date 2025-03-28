@@ -22,8 +22,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
-import wannabit.io.cosmostaion.ui.main.SettingType
-import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 
 class ChainManageFragment : Fragment() {
 
@@ -95,16 +93,16 @@ class ChainManageFragment : Fragment() {
                 isClickable = true
                 return
             }
-            val settingType = if (chain is ChainSui || chain is ChainGnoTestnet) {
-                SettingType.END_POINT_SUI
+            val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet) {
+                EndPointType.END_POINT_SUI
             } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
-                SettingType.END_POINT_COSMOS
+                EndPointType.END_POINT_COSMOS
             } else {
-                SettingType.END_POINT_EVM
+                EndPointType.END_POINT_EVM
             }
 
-            SettingBottomFragment.newInstance(chain, settingType).show(
-                parentFragmentManager, SettingBottomFragment::class.java.name
+            ChainEndpointFragment.newInstance(chain, endPointType).show(
+                parentFragmentManager, ChainEndpointFragment::class.java.name
             )
 
             Handler(Looper.getMainLooper()).postDelayed({

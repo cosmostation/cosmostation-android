@@ -20,6 +20,11 @@
     <color name="color_accent_red">#FF4D36</color>
     <color name="color_accent_mint">#7309B8C1</color>
 
+    <color name="color_sub_puple">#9A77FD</color>
+    <color name="color_sub_green">#2FBC88</color>
+    <color name="color_sub_red">#EB4D67</color>
+    <color name="color_sub_yellow">#F7AC3B</color>
+
     <color name="color_dydx">#7471FF</color>
     <color name="color_babylon">#FF7B17</color>
 
