@@ -46,6 +46,7 @@
     <string name="str_high">高</string>
     <string name="str_origin">起源</string>
     <string name="str_send">申請者</string>
+    <string name="str_ibc_send">IBC 申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
     <string name="str_address_name_service">アドレスまたはネームサービス</string>

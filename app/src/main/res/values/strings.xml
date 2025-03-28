@@ -77,6 +77,7 @@
     <string name="str_high">HIGH</string>
     <string name="str_origin">ORIGIN</string>
     <string name="str_send">Send</string>
+    <string name="str_ibc_send">IBC Send</string>
     <string name="str_insert_memo">Insert memo (Optional)</string>
     <string name="str_qr_scan" translatable="false">QR Scan</string>
     <string name="str_address_book">Address book</string>

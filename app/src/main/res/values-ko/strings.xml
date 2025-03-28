@@ -42,6 +42,7 @@
     <string name="str_high">높음</string>
     <string name="str_origin">원본</string>
     <string name="str_send">전송</string>
+    <string name="str_ibc_send">IBC 전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
     <string name="str_address_name_service">주소 또는 네임서비스</string>

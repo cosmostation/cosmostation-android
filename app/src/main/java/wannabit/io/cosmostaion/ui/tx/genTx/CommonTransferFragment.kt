@@ -548,7 +548,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
             binding.recipientChainView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(recipientAbleChains,
+                    ChainFragment.newInstance(fromChain, toChain, recipientAbleChains,
                         ChainListType.SELECT_TRANSFER,
                         object : ChainSelectListener {
                             override fun select(chainName: String) {
@@ -599,6 +599,17 @@ class CommonTransferFragment : BaseTxFragment() {
                 chainImg.setImageResource(chain.logo)
                 chainName.text = chain.name.uppercase()
                 updateRecipientAddressView("")
+            }
+
+            if (fromChain != toChain) {
+                btnSend.text = getString(R.string.str_ibc_send)
+                ibcSendLayout.visibility = View.VISIBLE
+                sendFromChain.text = fromChain.name.uppercase()
+                sendToChain.text = toChain.name.uppercase()
+
+            } else {
+                btnSend.text = getString(R.string.str_send)
+                ibcSendLayout.visibility = View.GONE
             }
 
             if (sendAssetType == SendAssetType.COSMOS_EVM_COIN && fromChain.tag != toChain.tag) {
@@ -798,17 +809,17 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
 
                         BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
-                                feeTokenImg.setTokenImg(asset)
-                                feeToken.text = asset.symbol
+                            feeTokenImg.setTokenImg(asset)
+                            feeToken.text = asset.symbol
 
-                                val price = BaseData.getPrice(asset.coinGeckoId)
-                                val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
-                                    ?.setScale(18, RoundingMode.DOWN)
-                                val value = price.multiply(dpAmount)
+                            val price = BaseData.getPrice(asset.coinGeckoId)
+                            val dpAmount = evmFeeAmount?.toBigDecimal()?.movePointLeft(18)
+                                ?.setScale(18, RoundingMode.DOWN)
+                            val value = price.multiply(dpAmount)
 
-                                feeAmount.text = formatAmount(dpAmount.toString(), 18)
-                                feeValue.text = formatAssetValue(value)
-                            }
+                            feeAmount.text = formatAmount(dpAmount.toString(), 18)
+                            feeValue.text = formatAssetValue(value)
+                        }
                     }
                 }
 
@@ -832,16 +843,16 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin86).apply {
                         BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
-                                feeTokenImg.setTokenImg(asset)
-                                feeToken.text = asset.symbol
+                            feeTokenImg.setTokenImg(asset)
+                            feeToken.text = asset.symbol
 
-                                val price = BaseData.getPrice(asset.coinGeckoId)
-                                val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
-                                val value = price.multiply(amount)
+                            val price = BaseData.getPrice(asset.coinGeckoId)
+                            val amount = bitFee.movePointLeft(8).setScale(8, RoundingMode.UP)
+                            val value = price.multiply(amount)
 
-                                feeAmount.text = formatAmount(amount.toPlainString(), 8)
-                                feeValue.text = formatAssetValue(value)
-                            }
+                            feeAmount.text = formatAmount(amount.toPlainString(), 8)
+                            feeValue.text = formatAssetValue(value)
+                        }
                     }
                 }
 
