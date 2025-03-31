@@ -571,7 +571,7 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             toChain = fromChain
             chainImg.setImageResource(toChain.logo)
-            chainName.text = toChain.name.uppercase()
+            chainName.text = toChain.name
         }
     }
 
@@ -597,15 +597,15 @@ class CommonTransferFragment : BaseTxFragment() {
             if (chain.tag != toChain.tag) {
                 toChain = chain
                 chainImg.setImageResource(chain.logo)
-                chainName.text = chain.name.uppercase()
+                chainName.text = chain.name
                 updateRecipientAddressView("")
             }
 
             if (fromChain != toChain) {
                 btnSend.text = getString(R.string.str_ibc_send)
                 ibcSendLayout.visibility = View.VISIBLE
-                sendFromChain.text = fromChain.name.uppercase()
-                sendToChain.text = toChain.name.uppercase()
+                sendFromChain.text = fromChain.name
+                sendToChain.text = toChain.name
 
             } else {
                 btnSend.text = getString(R.string.str_send)

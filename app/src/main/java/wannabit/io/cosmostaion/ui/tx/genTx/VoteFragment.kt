@@ -21,7 +21,6 @@ import com.cosmos.gov.v1beta1.GovProto
 import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
@@ -33,11 +32,11 @@ import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentVoteBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
@@ -300,8 +299,8 @@ class VoteFragment : BaseTxFragment() {
                                     override fun select(denom: String) {
                                         feeInfos[selectedFeeInfo].feeDatas.firstOrNull { it.denom == denom }
                                             ?.let { feeCoin ->
-                                                val gasAmount = selectedChain.getInitGasLimit()
-                                                    .toBigDecimal()
+                                                val gasAmount =
+                                                    selectedChain.getInitGasLimit().toBigDecimal()
                                                 val updateFeeCoin =
                                                     CoinProto.Coin.newBuilder().setDenom(denom)
                                                         .setAmount(
@@ -361,8 +360,7 @@ class VoteFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }
@@ -390,7 +388,7 @@ class VoteFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    onBindVoteMsg(),
+                    Signer.voteMsg(selectedChain, toVotes),
                     txFee,
                     txMemo,
                     selectedChain
@@ -419,7 +417,7 @@ class VoteFragment : BaseTxFragment() {
             }
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                onBindVoteMsg(),
+                Signer.voteMsg(selectedChain, toVotes),
                 txFee,
                 txMemo,
                 selectedChain
@@ -500,10 +498,6 @@ class VoteFragment : BaseTxFragment() {
             }
             dismiss()
         }
-    }
-
-    private fun onBindVoteMsg(): MutableList<Any> {
-        return Signer.voteMsg(selectedChain, toVotes)
     }
 
     override fun onDestroyView() {

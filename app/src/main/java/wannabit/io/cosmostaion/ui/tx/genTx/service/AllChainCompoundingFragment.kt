@@ -308,28 +308,29 @@ class AllChainCompoundingFragment : BaseTxFragment() {
                         chain
                     )
 
-                    val gasUsed = if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-                        chain.cosmosFetcher()?.getChannel()?.let { channel ->
-                            loadAuth(channel, chain)
-                            val simulStub = ServiceGrpc.newBlockingStub(channel)
-                                .withDeadlineAfter(8L, TimeUnit.SECONDS)
-                            simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
-                        }
+                    val gasUsed =
+                        if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                            chain.cosmosFetcher()?.getChannel()?.let { channel ->
+                                loadAuth(channel, chain)
+                                val simulStub = ServiceGrpc.newBlockingStub(channel)
+                                    .withDeadlineAfter(8L, TimeUnit.SECONDS)
+                                simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
+                            }
 
-                    } else {
-                        val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
-                        val response =
-                            RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
-                        if (response.isSuccessful) {
-                            response.body()?.getAsJsonObject("gas_info")
-                                ?.get("gas_used")?.asString
                         } else {
-                            val errorMessageJsonObject = Gson().fromJson(
-                                response.errorBody()?.string(), JsonObject::class.java
-                            )
-                            errorMessageJsonObject["message"].asString
+                            val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
+                            val response =
+                                RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
+                            if (response.isSuccessful) {
+                                response.body()?.getAsJsonObject("gas_info")
+                                    ?.get("gas_used")?.asString
+                            } else {
+                                val errorMessageJsonObject = Gson().fromJson(
+                                    response.errorBody()?.string(), JsonObject::class.java
+                                )
+                                errorMessageJsonObject["message"].asString
+                            }
                         }
-                    }
                     onComplete(gasUsed)
                 }
             }
@@ -349,25 +350,27 @@ class AllChainCompoundingFragment : BaseTxFragment() {
 
             )
 
-            val txResponse = if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-                val channel = chain.cosmosFetcher?.getChannel()
-                val txStub =
-                    ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-                txStub.broadcastTx(broadcastTx).txResponse
+            val txResponse =
+                if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                    val channel = chain.cosmosFetcher?.getChannel()
+                    val txStub =
+                        ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
+                    txStub.broadcastTx(broadcastTx).txResponse
 
-            } else {
-                val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
-                val mode = ServiceProto.BroadcastMode.BROADCAST_MODE_SYNC.number
-                val response =
-                    RetrofitInstance.lcdApi(chain).lcdBroadcastTx(BroadcastTxReq(mode, txByte))
-                if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
-                    val result = response["tx_response"].asJsonObject
-                    AbciProto.TxResponse.newBuilder().setTxhash(result["txhash"].asString)
-                        .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString).build()
                 } else {
-                    null
+                    val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
+                    val mode = ServiceProto.BroadcastMode.BROADCAST_MODE_SYNC.number
+                    val response =
+                        RetrofitInstance.lcdApi(chain).lcdBroadcastTx(BroadcastTxReq(mode, txByte))
+                    if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
+                        val result = response["tx_response"].asJsonObject
+                        AbciProto.TxResponse.newBuilder().setTxhash(result["txhash"].asString)
+                            .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString)
+                            .build()
+                    } else {
+                        null
+                    }
                 }
-            }
 
             try {
                 onComplete(txResponse)
@@ -404,7 +407,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (ServiceProto.GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmos()) {
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

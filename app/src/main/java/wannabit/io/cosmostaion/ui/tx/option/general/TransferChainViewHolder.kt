@@ -17,7 +17,7 @@ class TransferChainViewHolder(
     fun bind(fromChain: BaseChain?, toChain: BaseChain?, chain: BaseChain) {
         binding.apply {
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
             ibcSendStatus.goneOrVisible(fromChain == chain)
 
             if (toChain == chain) {

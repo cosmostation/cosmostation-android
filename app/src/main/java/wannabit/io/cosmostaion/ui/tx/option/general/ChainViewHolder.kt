@@ -11,7 +11,7 @@ class ChainViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name.uppercase()
+            chainName.text = chain.name
         }
     }
 }

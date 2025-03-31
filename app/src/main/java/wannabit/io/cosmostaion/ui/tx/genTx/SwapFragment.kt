@@ -177,7 +177,7 @@ class SwapFragment : BaseTxFragment() {
 
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
-                            if (chain.publicKey == null) {
+                            if (chain.publicKey == null && isAdded) {
                                 chain.setInfoWithSeed(
                                     requireContext(), seed, chain.setParentPath, lastHDPath
                                 )

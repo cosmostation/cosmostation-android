@@ -18,17 +18,28 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="@dimen/space_16"
-            android:paddingVertical="@dimen/space_15">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/status_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginVertical="@dimen/space_14"
+                android:layout_marginStart="@dimen/space_12"
+                android:src="@drawable/icon_not_voted"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_12"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_15"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/switch_view"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/status_img"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -36,33 +47,33 @@
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="873"
                     android:textColor="@color/color_base01"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="873"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/vote_title"
                     style="@style/font_sm_12"
-                    android:textColor="@color/color_base01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:gravity="start"
                     android:layout_marginStart="@dimen/space_2"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="@+id/vote_id"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/vote_id"
-                    app:layout_constraintTop_toTopOf="@+id/vote_id"
-                    app:layout_constraintBottom_toBottomOf="@+id/vote_id" />
+                    app:layout_constraintTop_toTopOf="@+id/vote_id" />
 
                 <ImageView
                     android:id="@+id/vote_status_img"
                     android:layout_width="@dimen/space_12"
                     android:layout_height="@dimen/space_8"
-                    android:src="@drawable/icon_vote_passed"
                     android:layout_marginTop="@dimen/space_6"
                     android:paddingEnd="@dimen/space_4"
+                    android:src="@drawable/icon_vote_passed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/vote_title" />
@@ -72,22 +83,22 @@
                     style="@style/font_sb_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_base02"
                     android:layout_marginTop="@dimen/space_6"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/vote_status_img"
-                    app:layout_constraintTop_toBottomOf="@+id/vote_title"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/vote_title" />
 
                 <ImageView
                     android:id="@+id/expedited_img"
                     android:layout_width="@dimen/space_16"
                     android:layout_height="@dimen/space_16"
-                    android:layout_marginTop="@dimen/space_6"
-                    app:layout_constraintStart_toEndOf="@+id/vote_remain_time"
-                    app:layout_constraintTop_toBottomOf="@id/vote_title"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="@dimen/space_4"
-                    android:src="@drawable/vote_expedited"/>
+                    android:layout_marginTop="@dimen/space_6"
+                    android:src="@drawable/vote_expedited"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/vote_remain_time"
+                    app:layout_constraintTop_toBottomOf="@id/vote_title" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

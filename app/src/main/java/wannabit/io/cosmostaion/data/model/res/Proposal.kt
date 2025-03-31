@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import androidx.core.content.ContextCompat
 import com.cosmos.gov.v1beta1.GovProto.VoteOption
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.R
@@ -31,7 +30,8 @@ data class CosmosProposal(
         var sum = BigDecimal.ZERO
         sum = sum.add(if (yes.isNullOrEmpty()) BigDecimal.ZERO else yes.toBigDecimal())
         sum = sum.add(if (no.isNullOrEmpty()) BigDecimal.ZERO else no.toBigDecimal())
-        sum = sum.add(if (no_with_veto.isNullOrEmpty()) BigDecimal.ZERO else no_with_veto.toBigDecimal())
+        sum =
+            sum.add(if (no_with_veto.isNullOrEmpty()) BigDecimal.ZERO else no_with_veto.toBigDecimal())
         sum = sum.add(if (abstain.isNullOrEmpty()) BigDecimal.ZERO else abstain.toBigDecimal())
         return sum
     }
@@ -95,4 +95,9 @@ data class Vote(
     val voter: String?,
     val option: String?,
     val timestamp: String?
+)
+
+data class OnChainVote(
+    val proposal_id: String,
+    val vote: String
 )

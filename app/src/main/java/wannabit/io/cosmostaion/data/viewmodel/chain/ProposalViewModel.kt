@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_OVERRULE_MODULE
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_SINGLE_MODULE
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
 import wannabit.io.cosmostaion.data.model.res.ProposalData
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.ResProposalData
@@ -92,6 +93,22 @@ class ProposalViewModel(private val proposalRepository: ProposalRepository) : Vi
             }
         }
     }
+
+    private var _onChainvoteStatusResult = MutableLiveData<MutableList<OnChainVote>?>()
+    val onChainvoteStatusResult: LiveData<MutableList<OnChainVote>?> get() = _onChainvoteStatusResult
+
+    fun onChainVoteStatus(chain: BaseChain, proposals: MutableList<CosmosProposal>) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = proposalRepository.onChainVoteStatus(chain, proposals)) {
+                is NetworkResult.Success -> {
+                    _onChainvoteStatusResult.postValue(response.data)
+                }
+
+                is NetworkResult.Error -> {
+                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                }
+            }
+        }
 
     private var _daoSingleProposalsResult = MutableLiveData<MutableList<ProposalData?>>()
     val daoSingleProposalsResult: LiveData<MutableList<ProposalData?>> get() = _daoSingleProposalsResult

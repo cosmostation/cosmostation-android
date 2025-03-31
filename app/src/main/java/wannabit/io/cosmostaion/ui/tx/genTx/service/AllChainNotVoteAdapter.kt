@@ -65,7 +65,7 @@ class AllChainNotVoteAdapter(
 
                 val model = currentList[sectionPosition]
                 val proposal = model.proposals[votePosition]
-                holder.bind(model, proposal, model.myVotes, listener)
+                holder.bind(model, proposal, listener)
 
                 holder.itemView.findViewById<View>(R.id.delete_layout).setOnClickListener {
                     onItemClickListener?.let {
