@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -38,7 +39,8 @@ import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
-import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainEndpointFragment
+import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointType
 import java.math.BigDecimal
 
 
@@ -410,14 +412,31 @@ class DashboardFragment : Fragment() {
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true)
+                                val asset = if (chain.supportCosmos()) {
+                                    BaseData.getAsset(chain.apiName, chain.stakeDenom)
+                                } else {
+                                    BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+                                }
+
+                                asset?.symbol?.contains(
+                                    searchTxt, ignoreCase = true
+                                ) == true || chain.name.contains(searchTxt, ignoreCase = true)
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true)
+                                val asset = if (chain.supportCosmos()) {
+                                    BaseData.getAsset(chain.apiName, chain.stakeDenom)
+                                } else {
+                                    BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+                                }
+
+                                asset?.symbol?.contains(
+                                    searchTxt, ignoreCase = true
+                                ) == true || chain.name.contains(searchTxt, ignoreCase = true)
                             })
                         }
                     }
+
                     if (searchMainnetChains.isEmpty() && searchTestnetChains.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
@@ -445,16 +464,17 @@ class DashboardFragment : Fragment() {
 
                 override fun changeEndpoint(tag: String?) {
                     if (chain is ChainOktEvm || chain is ChainBitCoin86) return
-                    val settingType = if (chain.isEvmCosmos() || chain.supportCosmos()) {
-                        SettingType.END_POINT_COSMOS
-                    } else if (chain is ChainSui) {
-                        SettingType.END_POINT_SUI
+
+                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet) {
+                        EndPointType.END_POINT_SUI
+                    } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
+                        EndPointType.END_POINT_COSMOS
                     } else {
-                        SettingType.END_POINT_EVM
+                        EndPointType.END_POINT_EVM
                     }
 
-                    SettingBottomFragment.newInstance(chain, settingType).show(
-                        parentFragmentManager, SettingBottomFragment::class.java.name
+                    ChainEndpointFragment.newInstance(chain, endPointType).show(
+                        parentFragmentManager, ChainEndpointFragment::class.java.name
                     )
 
                     parentFragmentManager.setFragmentResultListener(
@@ -474,6 +494,11 @@ class DashboardFragment : Fragment() {
 
     private fun observeViewModels() {
         walletViewModel.updatePriceResult.observe(viewLifecycleOwner) {
+            updateTotalValue()
+            dashAdapter.notifyDataSetChanged()
+        }
+
+        ApplicationViewModel.shared.updatePriceResult.observe(viewLifecycleOwner) {
             updateTotalValue()
             dashAdapter.notifyDataSetChanged()
         }

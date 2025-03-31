@@ -1,8 +1,10 @@
 package wannabit.io.cosmostaion.ui.tx.info
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.os.Handler
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
@@ -32,6 +34,9 @@ class StakingViewHolder(
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             delegationView.setOnClickListener {
                 listener.selectStakingAction(validator)
             }
@@ -64,7 +69,7 @@ class StakingViewHolder(
             }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker
+            moniker.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -151,6 +156,9 @@ class StakingViewHolder(
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             delegationView.setOnClickListener {
                 listener.selectInitiaStakingAction(validator)
             }
@@ -183,7 +191,7 @@ class StakingViewHolder(
             }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker
+            moniker.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
@@ -273,6 +281,9 @@ class StakingViewHolder(
     ) {
         binding.apply {
             delegationView.setBackgroundResource(R.drawable.item_bg)
+            clickImg.setColorFilter(
+                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
+            )
             delegationView.setOnClickListener {
                 listener.selectZenrockStakingAction(validator)
             }
@@ -305,7 +316,7 @@ class StakingViewHolder(
             }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker
+            moniker.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)

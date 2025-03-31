@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:id="@+id/top_view"
+                android:layout_width="@dimen/space_40"
+                android:layout_height="@dimen/space_4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_20"
+                android:background="@drawable/round_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/title"
+                style="@style/font_sb_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/top_view"
+                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginTop="@dimen/space_16"
+                android:text="@string/title_staked_btc"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@color/color_divider"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <ImageView
+                android:id="@+id/token_img"
+                android:layout_width="@dimen/space_44"
+                android:layout_height="@dimen/space_44"
+                android:layout_marginTop="@dimen/space_30"
+                android:src="@drawable/token_btc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <LinearLayout
+                android:id="@+id/btc_staked_status_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/token_img">
+
+                <TextView
+                    android:id="@+id/btc_staked_status_amount"
+                    style="@style/font_sb_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="600.000000"
+                    android:textColor="@color/color_base01" />
+
+                <TextView
+                    android:id="@+id/btc_staked_denom"
+                    style="@style/font_sb_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_4"
+                    android:text="sBTC"
+                    android:textColor="@color/color_base01" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btc_staked_description"
+                style="@style/font_sm_12"
+                android:layout_width="@dimen/space_300"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:textColor="@color/color_base03"
+                android:text="@string/str_btc_status_msg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/btc_staked_status_layout" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/font_sb_16"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_54"
+                android:layout_marginHorizontal="@dimen/space_12"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="@dimen/space_12"
+                android:background="@drawable/button_common_bg"
+                android:text="@string/str_confirm"
+                android:textAllCaps="false"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btc_staked_description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

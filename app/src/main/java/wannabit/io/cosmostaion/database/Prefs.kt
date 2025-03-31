@@ -48,6 +48,7 @@ object Prefs {
     private const val DISPLAY_TESTNET = "PRE_DISPLAY_TESTNET"
     private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
     private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
+    private const val DAPP_INFO_HIDE = "PRE_DAPP_INFO_HIDE"
     private const val DAPP_FILTER = "PRE_DAPP_FILTER"
     private const val DAPP_PINNED = "PRE_DAPP_PINNED"
     private const val DAPP_HIDE = "PRE_DAPP_HIDE"
@@ -386,6 +387,18 @@ object Prefs {
     fun removeLcdEndpoint(chain: BaseChain) {
         val key = LCD_ENDPOINT + ":" + chain.name
         preference.edit().remove(key).apply()
+    }
+
+    fun setDappInfoHideTime(id: Int) {
+        val key = "$DAPP_INFO_HIDE:$id"
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        preference.edit().putLong(key, currentDate.timeInMillis).apply()
+    }
+
+    fun getDappInfoHideTime(id: Int): Long {
+        val key = "$DAPP_INFO_HIDE:$id"
+        return preference.getLong(key, 0L)
     }
 
     fun setPinnedDapps(chains: List<Int>) {

@@ -54,6 +54,10 @@ object BaseData {
         return assets?.firstOrNull { asset -> asset.chain == chainName && asset.denom?.lowercase() == denom.lowercase() }
     }
 
+    fun getAssetWithSymbol(chainName: String, symbol: String): Asset? {
+        return assets?.firstOrNull { asset -> asset.chain == chainName && asset.symbol?.lowercase() == symbol.lowercase() }
+    }
+
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
         return if (chain.isSupportGrc20()) {
             (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }

@@ -5,7 +5,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -18,7 +17,6 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     var oktAccountInfo: JsonObject? = JsonObject()
     var oktDeposits: JsonObject? = JsonObject()
     var oktWithdaws: JsonObject? = JsonObject()
-    var oktTokens: JsonObject? = JsonObject()
     var oktValidatorInfo: MutableList<JsonObject> = mutableListOf()
 
     fun loadValidators() = CoroutineScope(Dispatchers.IO).launch {
@@ -53,11 +51,6 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
             .add(oktWithdrawValue(isUsd))
     }
 
-//    override fun isTxFeePayable(c: Context): Boolean {
-//        val availableAmount = lcdBalanceAmount(chain.stakeDenom)
-//        return availableAmount > BigDecimal(OKT_BASE_FEE)
-//    }
-
     fun oktBalanceAmount(denom: String?): BigDecimal {
         oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.firstOrNull { it.asJsonObject["denom"].asString == denom }
             ?.let { balance ->
@@ -68,9 +61,12 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
 
     private fun oktBalanceValue(denom: String, isUsd: Boolean?): BigDecimal {
         if (denom == chain.stakeDenom) {
-            val amount = oktBalanceAmount(denom)
-            val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
-            return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+            BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+                val amount = oktBalanceAmount(denom)
+                val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+                return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+            }
+            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
@@ -80,9 +76,12 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     private fun oktDepositValue(isUsd: Boolean? = false): BigDecimal {
-        val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
-        val amount = oktDepositAmount()
-        return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = oktDepositAmount()
+            return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
     }
 
     fun oktWithdrawAmount(): BigDecimal {
@@ -90,8 +89,11 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     private fun oktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
-        val price = BaseData.getPrice(OKT_GECKO_ID, isUsd)
-        val amount = oktWithdrawAmount()
-        return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = oktWithdrawAmount()
+            return price.multiply(amount).setScale(6, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
     }
 }

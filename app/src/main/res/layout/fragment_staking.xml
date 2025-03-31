@@ -11,16 +11,24 @@
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/title_stake_img"
+            android:layout_width="@dimen/space_24"
+            android:layout_height="@dimen/space_24"
+            android:src="@drawable/token_default" />
+
         <TextView
+            android:id="@+id/title_stake"
             style="@style/font_sb_16"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Staking"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/space_8"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>
@@ -70,8 +78,8 @@
                 android:layout_marginStart="@dimen/space_12"
                 android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_12"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintStart_toEndOf="@+id/moniker_img"
@@ -264,9 +272,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_fee_tip_msg"
                 android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="@id/fee_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fee_title"
-                app:layout_constraintBottom_toBottomOf="@id/fee_title"/>
+                app:layout_constraintTop_toTopOf="@+id/fee_title" />
 
             <View
                 android:id="@+id/view1"
@@ -328,8 +336,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_15"
                 android:textColor="@color/color_base01"
-                app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <TextView
                 android:id="@+id/fee_value"
@@ -353,15 +361,15 @@
                     android:id="@+id/fee_segment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_transparent"
                     android:layout_margin="@dimen/space_4"
-                    app:radius="@dimen/space_8"
-                    app:selectedButtonRadius="@dimen/space_8"
+                    android:background="@color/color_transparent"
                     app:draggable="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"
+                    app:radius="@dimen/space_8"
                     app:ripple="true"
                     app:rippleColor="@color/color_transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"/>
+                    app:selectedButtonRadius="@dimen/space_8" />
 
             </androidx.cardview.widget.CardView>
 

@@ -177,7 +177,7 @@ class SwapFragment : BaseTxFragment() {
 
                     if (type == BaseAccountType.MNEMONIC) {
                         result.forEach { chain ->
-                            if (chain.publicKey == null) {
+                            if (chain.publicKey == null && isAdded) {
                                 chain.setInfoWithSeed(
                                     requireContext(), seed, chain.setParentPath, lastHDPath
                                 )
@@ -233,7 +233,7 @@ class SwapFragment : BaseTxFragment() {
             inputChain?.let { chain ->
                 fromAddress.text = chain.address
                 inputChainImg.setImageResource(chain.logo)
-                inputChainName.text = chain.name.uppercase()
+                inputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, inputAsset.denom)?.let { inputMsAsset ->
                     inputTokenImg.setTokenImg(inputMsAsset.image ?: "")
                     inputToken.text = inputMsAsset.symbol
@@ -264,7 +264,7 @@ class SwapFragment : BaseTxFragment() {
             outputChain?.let { chain ->
                 toAddress.text = chain.address
                 outputChainImg.setImageResource(chain.logo)
-                outputChainName.text = chain.name.uppercase()
+                outputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, outputAsset.denom)?.let { outputMsAsset ->
                     outputTokenImg.setTokenImg(outputMsAsset.image ?: "")
                     outputToken.text = outputMsAsset.symbol
@@ -655,7 +655,7 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(targetChains,
+                    ChainFragment.newInstance(null, null, targetChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainName: String) {
@@ -747,7 +747,7 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(targetChains,
+                    ChainFragment.newInstance(null, null, targetChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainName: String) {

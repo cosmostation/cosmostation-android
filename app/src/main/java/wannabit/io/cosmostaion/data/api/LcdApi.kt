@@ -63,6 +63,16 @@ interface LcdApi {
         @Query("pagination.reverse") reverse: Boolean
     ): JsonObject
 
+    @GET("cosmos/gov/v1/proposals/{proposal_id}/votes/{voter}")
+    suspend fun lcdV1VoteStatus(
+        @Path("proposal_id") proposalId: String, @Path("voter") voter: String
+    ): JsonObject
+
+    @GET("cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{voter}")
+    suspend fun lcdV1beta1VoteStatus(
+        @Path("proposal_id") proposalId: String, @Path("voter") voter: String
+    ): JsonObject
+
     //initia
     @GET("initia/mstaking/v1/delegations/{address}")
     suspend fun lcdInitiaDelegationInfo(@Path("address") address: String?): JsonObject
@@ -112,9 +122,6 @@ interface LcdApi {
     @GET("staking/delegators/{address}/unbonding_delegations")
     suspend fun oktWithdrawInfo(@Path("address") address: String?): JsonObject
 
-    @GET("tokens")
-    suspend fun oktTokens(): JsonObject
-
     @GET("staking/validators?status=all")
     suspend fun oktValidators(): MutableList<JsonObject>
 
@@ -137,10 +144,12 @@ interface LcdApi {
     @GET("api/address/{address}")
     suspend fun bitBalance(@Path("address") address: String): JsonObject
 
+    @GET("v2/delegations")
+    suspend fun bitStakingBalance(@Query("staker_pk_hex") pubkey: String): JsonObject
+
     @GET("api/address/{address}/txs")
     suspend fun bitTxHistory(
-        @Path("address") address: String,
-        @Query("after_txid") afterTxId: String
+        @Path("address") address: String, @Query("after_txid") afterTxId: String
     ): MutableList<JsonObject>
 
     @GET("api/blocks/tip/height")
@@ -151,4 +160,21 @@ interface LcdApi {
 
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
+
+
+    //Babylon
+    @GET("babylon/incentive/address/{address}/reward_gauge")
+    suspend fun lcdBtcReward(@Path("address") address: String): JsonObject
+
+    @GET("cosmos/base/node/v1beta1/status")
+    suspend fun lcdChainHeight(): JsonObject
+
+    @GET("babylon/epoching/v1/current_epoch")
+    suspend fun lcdCurrentEpoch(): JsonObject
+
+    @GET("babylon/epoching/v1/epochs/{epoch_num}/messages?pagination.limit=500")
+    suspend fun lcdEpochMsg(@Path("epoch_num") epochNum: Long): JsonObject
+
+    @GET("cosmos/tx/v1beta1/txs/{hash}")
+    suspend fun lcdEpochTxType(@Path("hash") hash: String?): JsonObject
 }

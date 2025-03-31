@@ -9,8 +9,10 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
+import wannabit.io.cosmostaion.databinding.ItemBabylonCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
@@ -27,6 +29,7 @@ class CoinAdapter(
     private val cw20TokenCoins: MutableList<Coin>,
     private val erc20TokenCoins: MutableList<Coin>,
     private val grc20TokenCoins: MutableList<Coin>,
+    private var listener: ClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onItemClickListener: ((BaseChain, String, Int, CoinType) -> Unit)? = null
@@ -63,7 +66,13 @@ class CoinAdapter(
 
             else -> {
                 setItems(
-                    stakeCoins, nativeCoins, ibcCoins, bridgeCoins, cw20TokenCoins, erc20TokenCoins, grc20TokenCoins
+                    stakeCoins,
+                    nativeCoins,
+                    ibcCoins,
+                    bridgeCoins,
+                    cw20TokenCoins,
+                    erc20TokenCoins,
+                    grc20TokenCoins
                 )
             }
         }
@@ -161,10 +170,18 @@ class CoinAdapter(
             }
 
             VIEW_TYPE_STAKE_ITEM -> {
-                val binding = ItemCosmosLineCoinBinding.inflate(
-                    LayoutInflater.from(parent.context), parent, false
-                )
-                CoinCosmosLineViewHolder(binding)
+                if (selectedChain is ChainBabylonTestnet) {
+                    val binding = ItemBabylonCoinBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    BabylonCoinViewHolder(binding)
+
+                } else {
+                    val binding = ItemCosmosLineCoinBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
+                    )
+                    CoinCosmosLineViewHolder(binding)
+                }
             }
 
             VIEW_TYPE_NATIVE_ITEM, VIEW_TYPE_IBC_ITEM, VIEW_TYPE_BRIDGE_ITEM -> {
@@ -233,6 +250,49 @@ class CoinAdapter(
                     } else {
                         onItemClickListener?.let {
                             it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        }
+                        true
+                    }
+                }
+            }
+
+            is BabylonCoinViewHolder -> {
+                val coin = item.coin ?: return
+                holder.bind(context, selectedChain, listener)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                    }
+                }
+
+                holder.itemView.setOnLongClickListener { view ->
+                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.isEmpty() == true) {
+                        onItemClickListener?.let {
+                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        }
+                        true
+
+                    } else {
+                        val scaleX = view.scaleX
+                        val scaleY = view.scaleY
+                        val customDialog = RewardDialog(
+                            context,
+                            selectedChain,
+                            selectedChain.cosmosFetcher?.cosmosRewards,
+                            (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards
+                        )
+
+                        if (scaleX == 1.0f && scaleY == 1.0f) {
+                            view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                            val handler = Handler()
+                            handler.postDelayed({
+                                customDialog.show()
+                            }, 200)
+                        }
+
+                        customDialog.setOnDismissListener {
+                            view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
                         }
                         true
                     }
@@ -342,6 +402,10 @@ class CoinAdapter(
 
     fun setOnItemClickListener(listener: (BaseChain, String, Int, CoinType) -> Unit) {
         onItemClickListener = listener
+    }
+
+    interface ClickListener {
+        fun btcStatus()
     }
 }
 

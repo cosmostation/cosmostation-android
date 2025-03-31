@@ -20,12 +20,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.fetcher.suiNftUrl
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -33,12 +34,12 @@ import wannabit.io.cosmostaion.databinding.FragmentNftTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
-import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
-import wannabit.io.cosmostaion.ui.tx.option.address.TransferAddressFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
+import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
+import wannabit.io.cosmostaion.ui.tx.option.address.TransferAddressFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -151,10 +152,13 @@ class SuiNftTransferFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            feeTokenImg.setImageResource(fromChain.coinLogo)
-            feeToken.text = fromChain.coinSymbol
-            suiFeeBudget = (fromChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_SEND_NFT)
-            updateFeeView()
+            BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.let { asset ->
+                feeTokenImg.setTokenImg(asset)
+                feeToken.text = asset.symbol
+                suiFeeBudget =
+                    (fromChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_SEND_NFT)
+                updateFeeView()
+            }
         }
     }
 
@@ -175,6 +179,7 @@ class SuiNftTransferFragment(
     private fun updateFeeView() {
         binding.apply {
             (fromChain as ChainSui).apply {
+                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
@@ -190,8 +195,7 @@ class SuiNftTransferFragment(
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(
-                        fromChain,
+                    TransferAddressFragment.newInstance(fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -214,8 +218,7 @@ class SuiNftTransferFragment(
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

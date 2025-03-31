@@ -32,8 +32,5 @@ open class ChainKava459 : ChainKavaEvm(), Parcelable {
 
     override var supportEvm: Boolean = false
     override var coinSymbol: String = ""
-    override var coinGeckoId: String = ""
-    override var coinLogo: Int = -1
-    override var addressLogo: Int = -1
     override var evmRpcURL: String = ""
 }

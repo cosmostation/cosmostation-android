@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -57,6 +58,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
 import wannabit.io.cosmostaion.ui.tx.info.OnChainProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.ProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.babylon.BabylonStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
@@ -222,6 +224,10 @@ class CosmosDetailFragment : Fragment() {
             fabClaimReward.visibleOrGone(selectedChain.isStakeEnabled())
             fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
             fabVote.visibleOrGone(selectedChain.isStakeEnabled())
+
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                fabStake.labelText = getString(R.string.title_stake, asset.symbol)
+            }
 
             when (selectedChain) {
                 is ChainNeutron -> {
@@ -467,7 +473,12 @@ class CosmosDetailFragment : Fragment() {
                         return@setOnClickListener
                     }
                 }
-                handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    handleOneClickWithDelay(BabylonStakeInfoFragment.newInstance(selectedChain), null)
+                } else {
+                    handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+                }
             }
 
             fabClaimReward.setOnClickListener {
@@ -492,7 +503,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -523,7 +534,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -552,9 +563,12 @@ class CosmosDetailFragment : Fragment() {
                                 )
                                 return@setOnClickListener
                             }
+
+                            val isClaim = selectedChain is ChainBabylonTestnet
+
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isClaim
                                 )
                             )
 
@@ -591,7 +605,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -624,7 +638,7 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
                                 )
                             )
 
@@ -653,9 +667,12 @@ class CosmosDetailFragment : Fragment() {
                                 )
                                 return@setOnClickListener
                             }
+
+                            val isCompounding = selectedChain is ChainBabylonTestnet
+
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards()
+                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isCompounding
                                 )
                             )
 

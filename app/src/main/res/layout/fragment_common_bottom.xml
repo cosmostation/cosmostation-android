@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -10,54 +10,54 @@
         android:layout_width="@dimen/space_100"
         android:layout_height="@dimen/space_100"
         android:layout_centerInParent="true"
+        android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading"
-        app:lottie_speed="1.6"
-        android:visibility="gone"/>
+        app:lottie_speed="1.6" />
 
     <View
         android:id="@+id/top_view"
         android:layout_width="@dimen/space_40"
         android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_20"
-        android:background="@drawable/round_view"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/round_view" />
 
     <TextView
         android:id="@+id/select_title"
         style="@style/font_sb_16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_base01"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginStart="@dimen/space_20"
         android:layout_below="@+id/top_view"
-        android:text="@string/title_select_account"/>
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/title_select_account"
+        android:textColor="@color/color_base01" />
 
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_16"
         android:layout_below="@+id/select_title"
+        android:layout_marginHorizontal="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
         android:background="@color/color_base07"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_40"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/select_title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
         android:background="@drawable/cell_search_bg"
         android:theme="@style/AppTheme.NoActionBar"
-        android:layout_marginTop="@dimen/space_16"
-        android:layout_marginHorizontal="@dimen/space_12"
         android:translationZ="0.1dp"
-        app:elevation="0dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -65,11 +65,11 @@
             android:layout_height="match_parent"
             android:focusable="false"
             android:includeFontPadding="false"
-            app:iconifiedByDefault="false"
             android:paddingLeft="-10dp"
+            app:closeIcon="@drawable/icon_clear"
+            app:iconifiedByDefault="false"
             app:queryBackground="@null"
-            app:searchIcon="@drawable/icon_search"
-            app:closeIcon="@drawable/icon_clear"/>
+            app:searchIcon="@drawable/icon_search" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -86,13 +86,13 @@
             android:id="@+id/rpc_segment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_transparent"
             android:layout_margin="@dimen/space_4"
-            app:radius="@dimen/space_8"
-            app:selectedButtonRadius="@dimen/space_8"
+            android:background="@color/color_transparent"
             app:draggable="true"
+            app:radius="@dimen/space_8"
             app:ripple="true"
-            app:rippleColor="@color/color_transparent" />
+            app:rippleColor="@color/color_transparent"
+            app:selectedButtonRadius="@dimen/space_8" />
 
     </androidx.cardview.widget.CardView>
 
@@ -100,17 +100,8 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
         android:layout_marginTop="@dimen/space_16"
-        android:clipToPadding="false"
-        android:layout_below="@+id/search_bar" />
-
-    <View
-        android:id="@+id/bottom_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:background="@color/color_base07"
-        android:layout_marginBottom="@dimen/space_20"
-        android:layout_below="@+id/recycler" />
+        android:clipToPadding="false" />
 
 </RelativeLayout>

@@ -9,7 +9,6 @@ import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
-import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemAllChainVoteBinding
 
@@ -21,7 +20,6 @@ class AllChainNotVoteViewHolder(
     fun bind(
         voteAllModel: VoteAllModel,
         proposal: CosmosProposal,
-        myVotes: MutableList<VoteData>,
         listener: CheckListener
     ) {
         binding.apply {
@@ -29,13 +27,18 @@ class AllChainNotVoteViewHolder(
             deleteView.setBackgroundResource(R.drawable.cell_bg)
             voteId.text = "# " + proposal.id
             voteTitle.text = proposal.title
-            val endTimeToLong = dateToLong(
-                context.getString(R.string.str_tx_time_format), proposal.voting_end_time
-            )
-            voteRemainTime.text = "${voteDpTime(endTimeToLong)} (${gapTime(endTimeToLong)})"
+            voteRemainTime.text = try {
+                val endTimeToLong = dateToLong(
+                    context.getString(R.string.str_tx_time_format), proposal.voting_end_time
+                )
+                "${voteDpTime(endTimeToLong)} (${gapTime(endTimeToLong)})"
+
+            } catch (e: Exception) {
+                "${voteDpTime(proposal.voting_end_time?.toLong() ?: 0L)} (${gapTime(proposal.voting_end_time?.toLong() ?: 0L)})"
+            }
             updateView(this, proposal)
 
-            myVotes.firstOrNull { it.proposal_id == proposal.id }?.let { rawVote ->
+            voteAllModel.myVotes?.firstOrNull { it.proposal_id == proposal.id }?.let { rawVote ->
                 if (rawVote.votes.size > 1) {
                     statusImg.setImageResource(R.drawable.icon_weight)
                     return
@@ -62,7 +65,20 @@ class AllChainNotVoteViewHolder(
                 }
 
             } ?: run {
-                statusImg.setImageResource(R.drawable.icon_not_voted)
+                voteAllModel.onChainMyVotes?.firstOrNull { it.proposal_id == proposal.id }
+                    ?.let { rawVote ->
+                        when (rawVote.vote) {
+                            "YES" -> statusImg.setImageResource(R.drawable.icon_yes)
+                            "NO" -> statusImg.setImageResource(R.drawable.icon_no)
+                            "ABSTAIN" -> statusImg.setImageResource(R.drawable.icon_abstain)
+                            "VETO" -> statusImg.setImageResource(R.drawable.icon_veto)
+                            "WEIGHT" -> statusImg.setImageResource(R.drawable.icon_weight)
+                            else -> statusImg.setImageResource(R.drawable.icon_not_voted)
+                        }
+
+                    } ?: run {
+                    statusImg.setImageResource(R.drawable.icon_not_voted)
+                }
             }
 
             yesView.setOnClickListener {

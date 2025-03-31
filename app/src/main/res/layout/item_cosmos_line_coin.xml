@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/stake_coin_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardPreventCornerOverlap="true"
-        android:elevation="0dp"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginVertical="@dimen/space_16"
+        android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,61 +33,61 @@
                     android:layout_width="@dimen/space_40"
                     android:layout_height="@dimen/space_40"
                     android:src="@drawable/token_default"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/token_name"
+                    style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_14"
-                    android:textColor="@color/color_base01"
                     android:layout_marginStart="@dimen/space_12"
+                    android:textColor="@color/color_base01"
                     app:layout_constraintStart_toEndOf="@+id/token_img"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/token_price"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_12"
-                    android:textColor="@color/color_base02"
                     android:layout_marginStart="@dimen/space_12"
-                    app:layout_constraintStart_toEndOf="@+id/token_img"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/token_img" />
 
                 <TextView
                     android:id="@+id/token_price_change"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_12"
                     android:layout_marginStart="@dimen/space_6"
+                    app:layout_constraintBottom_toBottomOf="@+id/token_price"
                     app:layout_constraintStart_toEndOf="@+id/token_price"
-                    app:layout_constraintTop_toTopOf="@+id/token_price"
-                    app:layout_constraintBottom_toBottomOf="@+id/token_price"/>
+                    app:layout_constraintTop_toTopOf="@+id/token_price" />
 
                 <TextView
                     android:id="@+id/total"
+                    style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_14"
-                    android:textColor="@color/color_base01"
                     android:gravity="end"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="@+id/token_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/token_name"
-                    app:layout_constraintBottom_toBottomOf="@+id/token_name"/>
+                    app:layout_constraintTop_toTopOf="@id/token_name" />
 
                 <TextView
                     android:id="@+id/total_value"
+                    style="@style/font_sb_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/font_sb_12"
-                    android:textColor="@color/color_base02"
                     android:gravity="end"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintBottom_toBottomOf="@id/token_price"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/token_price"
-                    app:layout_constraintBottom_toBottomOf="@id/token_price"/>
+                    app:layout_constraintTop_toTopOf="@id/token_price" />
 
                 <TextView
                     android:id="@+id/hiding_value"
@@ -95,12 +95,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
+                    android:text="✱✱✱✱"
                     android:textColor="@color/color_base01"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/token_img"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/token_img"
-                    android:visibility="gone"
-                    android:text="✱✱✱✱"/>
+                    app:layout_constraintTop_toTopOf="@+id/token_img" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -108,157 +108,184 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
-                android:background="@color/color_base04"
                 android:layout_marginTop="@dimen/space_14"
-                app:layout_constraintTop_toBottomOf="@+id/token_info_layout"/>
+                android:background="@color/color_divider"
+                app:layout_constraintTop_toBottomOf="@+id/token_info_layout" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/available_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view">
 
-                <LinearLayout
-                    android:id="@+id/available_layout"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/available_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="@string/str_available"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/available_title"
-                        style="@style/font_sm_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/str_available"
-                        android:textColor="@color/color_base01" />
-
-                    <TextView
-                        android:id="@+id/available"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
-                        android:textColor="@color/color_base01"
-                        android:maxLines="1"
-                        android:ellipsize="middle"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/space_10" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/vesting_layout"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/available"
+                    style="@style/font_sb_12"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/space_10"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/available_title"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/vesting_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sm_12"
-                        android:textColor="@color/color_base01"
-                        android:text="@string/str_vesting"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/vesting"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
-                        android:textColor="@color/color_base01"
-                        android:maxLines="1"
-                        android:ellipsize="middle"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/space_10" />
-                </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/vesting_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_9"
+                app:layout_constraintTop_toBottomOf="@+id/available_layout">
 
-                <LinearLayout
-                    android:id="@+id/staked_layout"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/vesting_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
-                    android:orientation="horizontal">
+                    android:text="@string/str_vesting"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/staked_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sm_12"
-                        android:textColor="@color/color_base01"
-                        android:text="@string/str_staked"/>
-
-                    <TextView
-                        android:id="@+id/staked"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
-                        android:textColor="@color/color_base01"
-                        android:maxLines="1"
-                        android:ellipsize="middle"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/space_10" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/unstaking_layout"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/vesting"
+                    style="@style/font_sb_12"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/space_10"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/vesting_title"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/unstaking_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sm_12"
-                        android:textColor="@color/color_base01"
-                        android:text="@string/str_unstaking"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/unstaking"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
-                        android:textColor="@color/color_base01"
-                        android:maxLines="1"
-                        android:ellipsize="middle"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/space_10" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/staked_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_9"
+                app:layout_constraintTop_toBottomOf="@+id/vesting_layout">
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/reward_layout"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/staked_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
-                    android:orientation="horizontal">
+                    android:text="@string/str_staked"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/reward_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sm_12"
-                        android:textColor="@color/color_base01"
-                        android:text="@string/str_reward"/>
+                <TextView
+                    android:id="@+id/staked"
+                    style="@style/font_sb_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/staked_title"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/reward"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/font_sb_14"
-                        android:textColor="@color/color_base01"
-                        android:maxLines="1"
-                        android:ellipsize="middle"
-                        android:gravity="end"
-                        android:layout_marginStart="@dimen/space_10" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/unstaking_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_9"
+                app:layout_constraintTop_toBottomOf="@+id/staked_layout">
 
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/unstaking_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_unstaking"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/unstaking"
+                    style="@style/font_sb_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/unstaking_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reward_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_9"
+                app:layout_constraintTop_toBottomOf="@+id/unstaking_layout">
+
+                <TextView
+                    android:id="@+id/reward_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_reward"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/reward"
+                    style="@style/font_sb_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:ellipsize="middle"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/reward_title"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

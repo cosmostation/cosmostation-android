@@ -115,7 +115,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
 
             selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == unBondingEntry.validatorAddress }
                 ?.let { validator ->
-                    validatorName.text = validator.description.moniker
+                    validatorName.text = validator.description.moniker?.trim()
                 }
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
@@ -157,32 +157,32 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
             }
             feeSegment.setPosition(1, false)
             selectedFeePosition = 1
-            feeTokenImg.setImageResource(selectedChain.coinLogo)
+//            feeTokenImg.setImageResource(selectedChain.coinLogo)
             feeToken.text = selectedChain.coinSymbol
 
-            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
-            val totalGasPrice = evmGasPrices[selectedFeePosition]
-            val amount = totalGasPrice.multiply(evmGasLimit).toBigDecimal()
-            val dpAmount = amount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
-            val value = feePrice.multiply(dpAmount)
-            feeAmount.text = formatAmount(dpAmount.toPlainString(), 18)
-            feeValue.text = formatAssetValue(value)
+//            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+//            val totalGasPrice = evmGasPrices[selectedFeePosition]
+//            val amount = totalGasPrice.multiply(evmGasLimit).toBigDecimal()
+//            val dpAmount = amount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+//            val value = feePrice.multiply(dpAmount)
+//            feeAmount.text = formatAmount(dpAmount.toPlainString(), 18)
+//            feeValue.text = formatAssetValue(value)
         }
     }
 
     private fun updateFeeView() {
         binding.apply {
-            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
-            if (evmFeeAmount == null) {
-                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
-            }
-            val dpAmount =
-                evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
-            val value = feePrice.multiply(dpAmount)
-            dpAmount?.let { amount ->
-                feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                feeValue.text = formatAssetValue(value)
-            }
+//            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+//            if (evmFeeAmount == null) {
+//                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+//            }
+//            val dpAmount =
+//                evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+//            val value = feePrice.multiply(dpAmount)
+//            dpAmount?.let { amount ->
+//                feeAmount.text = formatAmount(amount.toPlainString(), 18)
+//                feeValue.text = formatAssetValue(value)
+//            }
         }
     }
 

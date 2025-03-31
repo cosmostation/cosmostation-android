@@ -26,6 +26,6 @@ class ChainJuno : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ujuno"
     override var accountPrefix: String = "juno"
-    override var grpcHost: String = "juno-grpc.lavenderfive.com"
-    override var lcdUrl: String = "https://juno-api.lavenderfive.com/"
+    override var grpcHost: String = "juno-grpc.chainroot.io"
+    override var lcdUrl: String = "https://juno-api.chainroot.io/"
 }

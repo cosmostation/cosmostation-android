@@ -7,7 +7,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -19,7 +18,6 @@ import wannabit.io.cosmostaion.common.hiddenStatus
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineCoinBinding
 import java.math.BigDecimal
@@ -56,11 +54,13 @@ class CoinCosmosLineViewHolder(
 
                             val availableAmount = if (chain is ChainGnoTestnet) {
                                 chain.gnoRpcFetcher?.balanceAmount(stakeDenom)
-                                    ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                                    ?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
                             } else {
                                 chain.cosmosFetcher?.balanceAmount(stakeDenom)
-                                    ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                                    ?.setScale(6, RoundingMode.DOWN)
                                     ?: BigDecimal.ZERO
                             }
                             val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
@@ -79,10 +79,6 @@ class CoinCosmosLineViewHolder(
                                 ?: BigDecimal.ZERO
 
                             vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
-                            unstakingLayout.goneOrVisible(unStakingAmount?.compareTo(BigDecimal.ZERO) == 0)
-                            rewardLayout.visibleOrGone(
-                                chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true
-                            )
 
                             if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
                                 rewardTitle.text =
@@ -132,11 +128,13 @@ class CoinCosmosLineViewHolder(
                                     if (chain is ChainGnoTestnet) {
                                         formatAssetValue(
                                             chain.gnoRpcFetcher?.denomValue(stakeDenom)
-                                                ?: BigDecimal.ZERO)
+                                                ?: BigDecimal.ZERO
+                                        )
                                     } else {
                                         formatAssetValue(
                                             chain.cosmosFetcher?.denomValue(stakeDenom)
-                                                ?: BigDecimal.ZERO)
+                                                ?: BigDecimal.ZERO
+                                        )
                                     }
                                 }
                             }
@@ -233,8 +231,9 @@ class CoinCosmosLineViewHolder(
             tokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
             tokenName.text = chain.stakeDenom.uppercase()
 
-            tokenPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-            BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
+            tokenPrice.text = formatAssetValue(BaseData.getPrice(coinGeckoId))
+            BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
                 tokenPriceChange.priceChangeStatusColor(lastUpDown)
                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
             }

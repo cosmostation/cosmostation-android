@@ -297,7 +297,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             if (isAdded) {
                 activity?.let {
                     val simulateTx = Signer.genSimulate(
-                        Signer.claimStakingRewardMsg(chain, claimableRewards),
+                        Signer.claimStakingRewardMsg(chain, claimableRewards, false),
                         chain.getInitPayableFee(it),
                         "",
                         chain
@@ -338,7 +338,7 @@ class AllChainClaimFragment : BaseTxFragment() {
             val chain = valueAbleReward.baseChain
             val txFee = valueAbleReward.fee
             val broadcastTx = Signer.genBroadcast(
-                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards),
+                Signer.claimStakingRewardMsg(chain, valueAbleReward.rewards, false),
                 txFee,
                 "",
                 chain
@@ -400,7 +400,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmos()) {
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

@@ -172,16 +172,16 @@ class EvmReDelegateFragment : BaseTxFragment() {
             }
             feeSegment.setPosition(1, false)
             selectedFeePosition = 1
-            feeTokenImg.setImageResource(selectedChain.coinLogo)
+//            feeTokenImg.setImageResource(selectedChain.coinLogo)
             feeToken.text = selectedChain.coinSymbol
 
-            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
-            val totalGasPrice = evmGasPrices[selectedFeePosition]
-            val amount = totalGasPrice.multiply(evmGasLimit).toBigDecimal()
-            val dpAmount = amount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
-            val value = feePrice.multiply(dpAmount)
-            feeAmount.text = formatAmount(dpAmount.toPlainString(), 18)
-            feeValue.text = formatAssetValue(value)
+//            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+//            val totalGasPrice = evmGasPrices[selectedFeePosition]
+//            val amount = totalGasPrice.multiply(evmGasLimit).toBigDecimal()
+//            val dpAmount = amount.movePointLeft(18).setScale(18, RoundingMode.DOWN)
+//            val value = feePrice.multiply(dpAmount)
+//            feeAmount.text = formatAmount(dpAmount.toPlainString(), 18)
+//            feeValue.text = formatAssetValue(value)
         }
     }
 
@@ -189,7 +189,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
         binding.apply {
             fromValidator?.let { fromValidator ->
                 fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
-                fromMonikerName.text = fromValidator.description?.moniker
+                fromMonikerName.text = fromValidator.description?.moniker?.trim()
                 val statusImage = when {
                     fromValidator.jailed -> R.drawable.icon_jailed
                     !fromValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
@@ -217,7 +217,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
         binding.apply {
             toValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
-                toMonikerName.text = toValidator.description?.moniker
+                toMonikerName.text = toValidator.description?.moniker?.trim()
                 val statusImage = when {
                     toValidator.jailed -> R.drawable.icon_jailed
                     !toValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
@@ -264,17 +264,17 @@ class EvmReDelegateFragment : BaseTxFragment() {
 
     private fun updateFeeView() {
         binding.apply {
-            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
-            if (evmFeeAmount == null) {
-                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
-            }
-            val dpAmount =
-                evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
-            val value = feePrice.multiply(dpAmount)
-            dpAmount?.let { amount ->
-                feeAmount.text = formatAmount(amount.toPlainString(), 18)
-                feeValue.text = formatAssetValue(value)
-            }
+//            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
+//            if (evmFeeAmount == null) {
+//                evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
+//            }
+//            val dpAmount =
+//                evmFeeAmount?.toBigDecimal()?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
+//            val value = feePrice.multiply(dpAmount)
+//            dpAmount?.let { amount ->
+//                feeAmount.text = formatAmount(amount.toPlainString(), 18)
+//                feeValue.text = formatAssetValue(value)
+//            }
         }
     }
 

@@ -24,6 +24,7 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -143,6 +144,11 @@ class ReDelegateFragment : BaseTxFragment() {
                     arguments?.getSerializable("initiaFromValidator") as? com.initia.mstaking.v1.StakingProto.Validator?
                 zenrockFromValidator =
                     arguments?.getSerializable("zenrockFromValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
+            }
+
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                titleRedelegateImg.setTokenImg(asset)
+                titleRedelegate.text = getString(R.string.title_switch_validator, asset.symbol)
             }
 
             listOf(fromValidatorView, toValidatorView, amountView, memoView, feeView).forEach {
@@ -277,7 +283,7 @@ class ReDelegateFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 fromValidator?.let { fromValidator ->
                     fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
-                    fromMonikerName.text = fromValidator.description?.moniker
+                    fromMonikerName.text = fromValidator.description?.moniker?.trim()
                     val statusImage = when {
                         fromValidator.jailed -> R.drawable.icon_jailed
                         !fromValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
@@ -295,7 +301,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
                 initiaFromValidator?.let { initiaFromValidator ->
                     fromMonikerImg.setMonikerImg(selectedChain, initiaFromValidator.operatorAddress)
-                    fromMonikerName.text = initiaFromValidator.description?.moniker
+                    fromMonikerName.text = initiaFromValidator.description?.moniker?.trim()
                     val statusImage = when {
                         initiaFromValidator.jailed -> R.drawable.icon_jailed
                         !initiaFromValidator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
@@ -313,7 +319,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
                 zenrockFromValidator?.let { fromValidator ->
                     fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
-                    fromMonikerName.text = fromValidator.description?.moniker
+                    fromMonikerName.text = fromValidator.description?.moniker?.trim()
                     val statusImage = when {
                         fromValidator.jailed -> R.drawable.icon_jailed
                         !fromValidator.isActiveValidator(selectedChain as ChainZenrock) -> R.drawable.icon_inactive
@@ -337,7 +343,7 @@ class ReDelegateFragment : BaseTxFragment() {
         binding.apply {
             toValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
-                toMonikerName.text = toValidator.description?.moniker
+                toMonikerName.text = toValidator.description?.moniker?.trim()
                 val statusImage = when {
                     toValidator.jailed -> R.drawable.icon_jailed
                     !toValidator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
@@ -356,7 +362,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
             initiaToValidator?.let { initiaToValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, initiaToValidator.operatorAddress)
-                toMonikerName.text = initiaToValidator.description?.moniker
+                toMonikerName.text = initiaToValidator.description?.moniker?.trim()
                 val statusImage = when {
                     initiaToValidator.jailed -> R.drawable.icon_jailed
                     !initiaToValidator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
@@ -375,7 +381,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
             zenrockToValidator?.let { toValidator ->
                 toMonikerImg.setMonikerImg(selectedChain, toValidator.operatorAddress)
-                toMonikerName.text = toValidator.description?.moniker
+                toMonikerName.text = toValidator.description?.moniker?.trim()
                 val statusImage = when {
                     toValidator.jailed -> R.drawable.icon_jailed
                     !toValidator.isActiveValidator(selectedChain as ChainZenrock) -> R.drawable.icon_inactive
@@ -845,7 +851,15 @@ class ReDelegateFragment : BaseTxFragment() {
                         .setValidatorSrcAddress(fromValidator?.operatorAddress)
                         .setValidatorDstAddress(toValidator?.operatorAddress).setAmount(toCoin)
                         .build()
-                Signer.reDelegateMsg(msgReDelegate)
+
+                if (selectedChain is ChainBabylonTestnet) {
+                    val wrappedMsgReDelegate =
+                        com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate.newBuilder()
+                            .setMsg(msgReDelegate).build()
+                    Signer.babylonReDelegateMsg(wrappedMsgReDelegate)
+                } else {
+                    Signer.reDelegateMsg(msgReDelegate)
+                }
             }
         }
     }

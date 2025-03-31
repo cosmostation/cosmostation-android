@@ -5,97 +5,68 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/provider_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_15"
+    <View
+        android:id="@+id/chain_view"
+        android:layout_width="@dimen/space_4"
+        android:layout_height="0dp"
+        android:background="@color/color_sub_puple"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_20"
-            android:layout_marginEnd="@dimen/space_10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/speed_img"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/provider"
-                style="@style/font_sb_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="middle"
-                android:maxLines="1"
-                android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/check_img"
-                android:layout_width="@dimen/space_16"
-                android:layout_height="@dimen/space_16"
-                android:src="@drawable/icon_check"
-                android:visibility="gone"
-                android:layout_marginStart="@dimen/space_3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/provider"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/speed_img"
-            android:layout_width="@dimen/space_10"
-            android:layout_height="@dimen/space_10"
-            android:layout_marginEnd="@dimen/space_2"
-            android:src="@drawable/icon_vote_passed"
-            android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/connect_time"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/connect_time"
-            style="@style/font_sm_10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_20"
-            android:text="Unknown"
-            android:textColor="@color/color_base02"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/provider_url"
-        style="@style/font_sm_12"
+        android:id="@+id/provider"
+        style="@style/font_sb_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_5"
+        android:layout_marginTop="@dimen/space_15"
+        android:ellipsize="middle"
+        android:maxLines="1"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading"
+        android:layout_width="@dimen/space_20"
+        android:layout_height="@dimen/space_20"
+        android:layout_marginEnd="@dimen/space_20"
+        android:elevation="@dimen/space_10"
+        app:layout_constraintBottom_toBottomOf="@+id/provider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/provider"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/progress"
+        app:lottie_speed="1.6" />
+
+    <TextView
+        android:id="@+id/api_status"
+        style="@style/font_sm_10"
+        android:layout_width="@dimen/space_54"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_20"
+        android:background="@drawable/round_box_faster"
+        android:gravity="center"
+        android:paddingVertical="@dimen/space_3"
+        android:textColor="@color/color_base01"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/provider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/provider" />
+
+    <TextView
+        android:id="@+id/provider_url"
+        style="@style/font_sm_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_6"
         android:layout_marginBottom="@dimen/space_15"
         android:textColor="@color/color_base02"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/provider_layout" />
-
-    <View
-        android:id="@+id/bottom_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:background="@color/color_base07"
-        android:layout_marginTop="@dimen/space_15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/provider_url" />
+        app:layout_constraintTop_toBottomOf="@+id/provider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

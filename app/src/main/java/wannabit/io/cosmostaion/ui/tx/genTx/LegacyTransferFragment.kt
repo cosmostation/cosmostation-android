@@ -15,15 +15,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.Gson
 import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -32,11 +30,11 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.res.OktToken
 import wannabit.io.cosmostaion.databinding.FragmentLegacyTransferBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
@@ -125,25 +123,21 @@ class LegacyTransferFragment : BaseTxFragment() {
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            oktFetcher?.oktTokens?.get("data")?.asJsonArray?.firstOrNull { it.asJsonObject["symbol"].asString == toSendDenom }
-                ?.let { tokenInfo ->
-                    oktToken = Gson().fromJson(tokenInfo, OktToken::class.java)
-                    oktToken?.let {
-                        tokenImg.setTokenImg(chain.assetImg(it.original_symbol))
-                        tokenName.text = it.original_symbol.uppercase()
+            BaseData.getAsset(chain.apiName, toSendDenom)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol
 
-                        val available = oktFetcher.oktBalanceAmount(toSendDenom)
-                        availableAmount = if (toSendDenom == chain.stakeDenom) {
-                            if (BigDecimal(OKT_BASE_FEE) < available) {
-                                available.subtract(BigDecimal(OKT_BASE_FEE))
-                            } else {
-                                BigDecimal.ZERO
-                            }
-                        } else {
-                            available
-                        }
+                val available = oktFetcher?.oktBalanceAmount(toSendDenom)
+                availableAmount = if (toSendDenom == chain.stakeDenom) {
+                    if (BigDecimal(OKT_BASE_FEE) < available) {
+                        available?.subtract(BigDecimal(OKT_BASE_FEE))
+                    } else {
+                        BigDecimal.ZERO
                     }
+                } else {
+                    available
                 }
+            }
         }
     }
 
@@ -152,7 +146,9 @@ class LegacyTransferFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(fromChain.assetImg(fromChain.stakeDenom))
             feeToken.text = fromChain.stakeDenom.uppercase()
 
-            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val coinGeckoId =
+                BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.coinGeckoId
+            val price = BaseData.getPrice(coinGeckoId)
             val amount = BigDecimal(OKT_BASE_FEE)
             val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
 
@@ -169,11 +165,16 @@ class LegacyTransferFragment : BaseTxFragment() {
 
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
+
             if (toSendDenom == fromChain.stakeDenom) {
                 sendValue.visibility = View.VISIBLE
-                val price = BaseData.getPrice(OKT_GECKO_ID)
+
+                val coinGeckoId =
+                    BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.coinGeckoId
+                val price = BaseData.getPrice(coinGeckoId)
                 val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
                 sendValue.text = formatAssetValue(toSendValue)
+
             } else {
                 sendValue.visibility = View.GONE
             }

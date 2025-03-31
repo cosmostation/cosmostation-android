@@ -19,8 +19,6 @@ class ChainKaia : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "KLAY"
-    override var coinGeckoId: String = "klay-token"
-    override var coinLogo: Int = R.drawable.token_kaia
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

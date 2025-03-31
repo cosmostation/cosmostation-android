@@ -539,7 +539,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val coinType = balance.asJsonObject["coinType"].asString
                                     val amount =
                                         balance.asJsonObject["totalBalance"].asString.toBigDecimal()
-                                    fetcher.suiBalances = fetcher.suiBalances ?: mutableListOf()
+                                    fetcher.suiBalances = fetcher.suiBalances
                                     fetcher.suiBalances.add(Pair(coinType, amount))
                                 }
                                 fetcher.suiBalances.sortWith { o1, o2 ->

@@ -11,14 +11,11 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
-import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.heightInDp
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -52,13 +49,8 @@ class DashboardViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name
 
-            dashView.heightInDp(114)
+            simpleLayout.visibility = View.GONE
             proLayout.visibility = View.VISIBLE
-            skeletonAssetCnt.visibility = View.VISIBLE
-            skeletonChainValue.visibility = View.VISIBLE
-            chainPrice.visibility = View.VISIBLE
-            chainPriceStatus.visibility = View.VISIBLE
-            chainBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin86) {
                 chainSideBadge.visibility = View.VISIBLE
@@ -122,39 +114,24 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.supportCosmos()) {
-                if (chain is ChainOktEvm) {
-                    chainPrice.text = formatAssetValue(BaseData.getPrice(OKT_GECKO_ID))
-                    BaseData.lastUpDown(OKT_GECKO_ID).let { lastUpDown ->
-                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                    }
-
-                } else {
-                    BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                        chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                        BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                            chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                            chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                        }
-                    }
-                }
-
+            val asset = if (chain.supportCosmos()) {
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)
             } else {
-                chainPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
-                BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                }
+                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+            }
+
+            chainDenom.text = asset?.symbol
+            chainPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
+            BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
+                chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                chainPriceStatus.text = priceChangeStatus(lastUpDown)
             }
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {
                     skeletonChainValue.visibility = View.GONE
                     skeletonAssetCnt.visibility = View.GONE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.VISIBLE
-                    assetCnt.visibility = View.VISIBLE
+                    respondTxt.visibility = View.GONE
 
                     if (Prefs.hideValue) {
                         chainValue.text = "✱✱✱✱"
@@ -174,19 +151,15 @@ class DashboardViewHolder(
                 }
 
                 FetchState.FAIL -> {
+                    respondTxt.visibility = View.VISIBLE
                     skeletonChainValue.visibility = View.GONE
                     skeletonAssetCnt.visibility = View.GONE
-                    respondLayout.visibility = View.VISIBLE
-                    chainValue.visibility = View.GONE
-                    assetCnt.visibility = View.GONE
                 }
 
                 else -> {
                     skeletonChainValue.visibility = View.VISIBLE
                     skeletonAssetCnt.visibility = View.VISIBLE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.GONE
-                    assetCnt.visibility = View.GONE
+                    respondTxt.visibility = View.GONE
                 }
             }
         }
@@ -198,11 +171,8 @@ class DashboardViewHolder(
             chainImg.setImageResource(chain.logo)
             chainName.text = chain.name
 
-            dashView.heightInDp(114)
+            simpleLayout.visibility = View.GONE
             proLayout.visibility = View.VISIBLE
-            skeletonAssetCnt.visibility = View.VISIBLE
-            skeletonChainValue.visibility = View.VISIBLE
-            chainBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin86) {
                 chainSideBadge.visibility = View.VISIBLE
@@ -259,30 +229,24 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            if (chain.supportCosmos()) {
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                    chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                    BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                    }
-                }
-
+            val asset = if (chain.supportCosmos()) {
+                BaseData.getAsset(chain.apiName, chain.stakeDenom)
             } else {
-                chainPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
-                BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
-                }
+                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)
+            }
+
+            chainDenom.text = asset?.symbol
+            chainPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
+            BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
+                chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                chainPriceStatus.text = priceChangeStatus(lastUpDown)
             }
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {
                     skeletonChainValue.visibility = View.GONE
                     skeletonAssetCnt.visibility = View.GONE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.VISIBLE
-                    assetCnt.visibility = View.VISIBLE
+                    respondTxt.visibility = View.GONE
 
                     if (Prefs.hideValue) {
                         chainValue.text = "✱✱✱✱"
@@ -302,19 +266,15 @@ class DashboardViewHolder(
                 }
 
                 FetchState.FAIL -> {
+                    respondTxt.visibility = View.VISIBLE
                     skeletonChainValue.visibility = View.GONE
                     skeletonAssetCnt.visibility = View.GONE
-                    respondLayout.visibility = View.VISIBLE
-                    chainValue.visibility = View.GONE
-                    assetCnt.visibility = View.GONE
                 }
 
                 else -> {
                     skeletonChainValue.visibility = View.VISIBLE
                     skeletonAssetCnt.visibility = View.VISIBLE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.GONE
-                    assetCnt.visibility = View.GONE
+                    respondTxt.visibility = View.GONE
                 }
             }
         }
@@ -323,17 +283,12 @@ class DashboardViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name
+            simpleChainImg.setImageResource(chain.logo)
+            simpleChainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
-            dashView.heightInDp(68)
-            chainAddress.visibility = View.GONE
-            chainEvmAddress.visibility = View.GONE
+            simpleLayout.visibility = View.VISIBLE
             proLayout.visibility = View.GONE
-            skeletonAssetCnt.visibility = View.GONE
-            assetCnt.visibility = View.GONE
-            chainSideBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin86) {
                 chainBadge.visibility = View.VISIBLE
@@ -377,29 +332,29 @@ class DashboardViewHolder(
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {
-                    skeletonChainValue.visibility = View.GONE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.VISIBLE
+                    simpleSkeletonChainValue.visibility = View.GONE
+                    simpleRespondTxt.visibility = View.GONE
+                    simpleChainValue.visibility = View.VISIBLE
 
                     if (Prefs.hideValue) {
-                        chainValue.text = "✱✱✱✱"
-                        chainValue.textSize = 10f
+                        simpleChainValue.text = "✱✱✱✱"
+                        simpleChainValue.textSize = 10f
                     } else {
-                        chainValue.text = formatAssetValue(chain.allValue(false))
-                        chainValue.textSize = 14f
+                        simpleChainValue.text = formatAssetValue(chain.allValue(false))
+                        simpleChainValue.textSize = 14f
                     }
                 }
 
                 FetchState.FAIL -> {
-                    skeletonChainValue.visibility = View.GONE
-                    respondLayout.visibility = View.VISIBLE
-                    chainValue.visibility = View.GONE
+                    simpleSkeletonChainValue.visibility = View.GONE
+                    simpleRespondTxt.visibility = View.VISIBLE
+                    simpleChainValue.visibility = View.GONE
                 }
 
                 else -> {
-                    skeletonChainValue.visibility = View.VISIBLE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.GONE
+                    simpleSkeletonChainValue.visibility = View.VISIBLE
+                    simpleRespondTxt.visibility = View.GONE
+                    simpleChainValue.visibility = View.GONE
                 }
             }
         }
@@ -408,17 +363,12 @@ class DashboardViewHolder(
     fun testnetBind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
-            chainName.text = chain.name
+            simpleChainImg.setImageResource(chain.logo)
+            simpleChainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
-            dashView.heightInDp(68)
-            chainAddress.visibility = View.GONE
-            chainEvmAddress.visibility = View.GONE
+            simpleLayout.visibility = View.VISIBLE
             proLayout.visibility = View.GONE
-            skeletonAssetCnt.visibility = View.GONE
-            assetCnt.visibility = View.GONE
-            chainSideBadge.visibility = View.GONE
 
             if (chain is ChainBitCoin86) {
                 chainBadge.visibility = View.VISIBLE
@@ -449,29 +399,29 @@ class DashboardViewHolder(
 
             when (chain.fetchState) {
                 FetchState.SUCCESS -> {
-                    skeletonChainValue.visibility = View.GONE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.VISIBLE
+                    simpleSkeletonChainValue.visibility = View.GONE
+                    simpleRespondTxt.visibility = View.GONE
+                    simpleChainValue.visibility = View.VISIBLE
 
                     if (Prefs.hideValue) {
-                        chainValue.text = "✱✱✱✱"
-                        chainValue.textSize = 10f
+                        simpleChainValue.text = "✱✱✱✱"
+                        simpleChainValue.textSize = 10f
                     } else {
-                        chainValue.text = formatAssetValue(chain.allValue(false))
-                        chainValue.textSize = 14f
+                        simpleChainValue.text = formatAssetValue(chain.allValue(false))
+                        simpleChainValue.textSize = 14f
                     }
                 }
 
                 FetchState.FAIL -> {
-                    skeletonChainValue.visibility = View.GONE
-                    respondLayout.visibility = View.VISIBLE
-                    chainValue.visibility = View.GONE
+                    simpleSkeletonChainValue.visibility = View.GONE
+                    simpleRespondTxt.visibility = View.VISIBLE
+                    simpleChainValue.visibility = View.GONE
                 }
 
                 else -> {
-                    skeletonChainValue.visibility = View.VISIBLE
-                    respondLayout.visibility = View.GONE
-                    chainValue.visibility = View.GONE
+                    simpleSkeletonChainValue.visibility = View.VISIBLE
+                    simpleRespondTxt.visibility = View.GONE
+                    simpleChainValue.visibility = View.GONE
                 }
             }
         }

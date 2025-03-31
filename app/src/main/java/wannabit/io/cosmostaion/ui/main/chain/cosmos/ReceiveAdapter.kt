@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
+import wannabit.io.cosmostaion.databinding.ItemByFooterBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
+import wannabit.io.cosmostaion.ui.qr.QrCodAdapter
+import wannabit.io.cosmostaion.ui.qr.QrCodAdapter.Companion
 
 class ReceiveAdapter(
     val context: Context,
@@ -20,6 +23,7 @@ class ReceiveAdapter(
         const val VIEW_TYPE_EVM_ITEM = 1
         const val VIEW_TYPE_COSMOS_HEADER = 2
         const val VIEW_TYPE_COSMOS_ITEM = 3
+        const val VIEW_TYPE_FOOTER = 4
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -35,6 +39,12 @@ class ReceiveAdapter(
                 val binding =
                     ItemReceiveBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 ReceiveViewHolder(parent.context, binding)
+            }
+
+            VIEW_TYPE_FOOTER -> {
+                val binding =
+                    ItemByFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ByFooterViewHolder(binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -54,6 +64,10 @@ class ReceiveAdapter(
                     holder.bind(account, selectedChain)
                 }
             }
+
+            is ByFooterViewHolder -> {
+                holder.bind()
+            }
         }
     }
 
@@ -63,21 +77,23 @@ class ReceiveAdapter(
                 0 -> VIEW_TYPE_EVM_HEADER
                 1 -> VIEW_TYPE_EVM_ITEM
                 2 -> VIEW_TYPE_COSMOS_HEADER
-                else -> VIEW_TYPE_COSMOS_ITEM
+                3 -> VIEW_TYPE_COSMOS_ITEM
+                else -> VIEW_TYPE_FOOTER
             }
         } else {
             when (position) {
                 0 -> VIEW_TYPE_COSMOS_HEADER
-                else -> VIEW_TYPE_COSMOS_ITEM
+                1 -> VIEW_TYPE_COSMOS_ITEM
+                else -> VIEW_TYPE_FOOTER
             }
         }
     }
 
     override fun getItemCount(): Int {
         return if (selectedChain.supportEvm) {
-            4
+            5
         } else {
-            2
+            3
         }
     }
 
@@ -87,7 +103,7 @@ class ReceiveAdapter(
 
         fun bind(position: Int) {
             binding.apply {
-                if (itemCount == 4) {
+                if (itemCount == 5) {
                     if (getItemViewType(position) == VIEW_TYPE_EVM_HEADER) {
                         headerTitle.text = "My address (EVM Style)"
                     } else {
@@ -99,5 +115,11 @@ class ReceiveAdapter(
                 }
             }
         }
+    }
+
+    inner class ByFooterViewHolder(
+        private val binding: ItemByFooterBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind() {}
     }
 }

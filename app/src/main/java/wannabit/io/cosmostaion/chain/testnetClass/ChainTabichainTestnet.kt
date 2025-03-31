@@ -32,8 +32,5 @@ class ChainTabichainTestnet : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "TABI"
-    override var coinGeckoId: String = ""
-    override var coinLogo: Int = R.drawable.token_tabi
-    override var addressLogo: Int = R.drawable.icon_ethereum_address
     override var evmRpcURL: String = "https://rpc.testnetv2.tabichain.com"
 }

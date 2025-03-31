@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/round_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_title"
+        style="@style/font_sb_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/title_progression_of_status"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
+
+    <TextView
+        android:id="@+id/dialog_number0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sb_14"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:textColor="@color/color_base02"
+        android:text="01."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1"/>
+
+    <TextView
+        android:id="@+id/dialog_title0"
+        style="@style/font_sb_14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_4"
+        android:gravity="start"
+        android:text="Pending State"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toEndOf="@+id/dialog_number0"
+        app:layout_constraintTop_toTopOf="@+id/dialog_number0"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_number0"/>
+
+    <TextView
+        android:id="@+id/dialog_msg0"
+        style="@style/font_sm_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8"
+        android:gravity="start"
+        android:maxWidth="@dimen/space_300"
+        android:text="@string/str_pending_state_msg"
+        android:textColor="@color/color_base03"
+        app:layout_constraintStart_toStartOf="@+id/dialog_title0"
+        app:layout_constraintTop_toBottomOf="@id/dialog_title0" />
+
+    <TextView
+        android:id="@+id/dialog_number1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/font_sb_14"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_30"
+        android:textColor="@color/color_base02"
+        android:text="02."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_msg0"/>
+
+    <TextView
+        android:id="@+id/dialog_title1"
+        style="@style/font_sb_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_4"
+        android:text="Active State"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toEndOf="@+id/dialog_number1"
+        app:layout_constraintTop_toTopOf="@id/dialog_number1"
+        app:layout_constraintBottom_toBottomOf="@+id/dialog_number1"/>
+
+    <TextView
+        android:id="@+id/dialog_msg1"
+        style="@style/font_sm_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_8"
+        android:gravity="start"
+        android:maxWidth="@dimen/space_300"
+        android:text="@string/str_active_state_msg"
+        android:textColor="@color/color_base03"
+        app:layout_constraintStart_toStartOf="@+id/dialog_title1"
+        app:layout_constraintTop_toBottomOf="@id/dialog_title1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_40"
+        android:layout_marginBottom="@dimen/space_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_msg1">
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_54"
+            android:layout_weight="1"
+            android:background="@drawable/button_common_bg"
+            android:text="@string/str_confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

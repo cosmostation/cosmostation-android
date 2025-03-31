@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemOnChainProposalBinding
 
@@ -26,6 +27,7 @@ class OnChainProposalListViewHolder(
         selectedChain: BaseChain,
         proposal: CosmosProposal,
         toVote: MutableList<String>?,
+        myVotes: MutableList<OnChainVote>? = mutableListOf(),
         checkListener: OnChainProposalListAdapter.CheckListener
     ) {
         binding.apply {
@@ -34,6 +36,7 @@ class OnChainProposalListViewHolder(
             voteTitle.text = proposal.title
 
             if (proposal.isVotingPeriod()) {
+                statusImg.visibility = View.VISIBLE
                 selectSwitch.isChecked = toVote?.contains(proposal.id) == true
                 voteStatusImg.visibility = View.GONE
                 voteRemainTime.visibility = View.VISIBLE
@@ -42,7 +45,23 @@ class OnChainProposalListViewHolder(
                     "${voteDpTime(proposal.voting_end_time?.toLong() ?: 0L)} (${gapTime(proposal.voting_end_time?.toLong() ?: 0L)})"
                 selectSwitch.thumbDrawable =
                     ContextCompat.getDrawable(context, R.drawable.switch_thumb_off)
+
+                myVotes?.firstOrNull { it.proposal_id == proposal.id }?.let { rawVote ->
+                    when (rawVote.vote) {
+                        "YES" -> statusImg.setImageResource(R.drawable.icon_yes)
+                        "NO" -> statusImg.setImageResource(R.drawable.icon_no)
+                        "ABSTAIN" -> statusImg.setImageResource(R.drawable.icon_abstain)
+                        "VETO" -> statusImg.setImageResource(R.drawable.icon_veto)
+                        "WEIGHT" -> statusImg.setImageResource(R.drawable.icon_weight)
+                        else -> statusImg.setImageResource(R.drawable.icon_not_voted)
+                    }
+
+                } ?: run {
+                    statusImg.setImageResource(R.drawable.icon_not_voted)
+                }
+
             } else {
+                statusImg.visibility = View.GONE
                 selectSwitch.visibility = View.GONE
                 voteStatusImg.visibility = View.VISIBLE
                 switchView.visibility = View.GONE

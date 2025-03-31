@@ -17,13 +17,51 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     var btcBalances = BigDecimal.ZERO
     var btcPendingInput = BigDecimal.ZERO
     var btcPendingOutput = BigDecimal.ZERO
+    var btcStakingData: JsonObject? = null
     var btcBlockHeight: Long = 0
     var btcHistory: MutableList<JsonObject> = mutableListOf()
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        val price = BaseData.getPrice(chain.coinGeckoId, isUsd)
-        return (btcBalances.add(btcPendingInput)).multiply(price).movePointLeft(8)
-            .setScale(8, RoundingMode.DOWN)
+        BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            return (btcBalances.add(btcPendingInput).add(btcStakingAmount())
+                .add(btcUnStakingAmount()).add(btcWithdrawAbleAmount())).multiply(price)
+                .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun btcStakingAmount(): BigDecimal {
+        var result = BigDecimal.ZERO
+        btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
+            if (data.asJsonObject["state"].asString == "ACTIVE") {
+                result =
+                    result.add(data.asJsonObject["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal())
+            }
+        }
+        return result
+    }
+
+    fun btcUnStakingAmount(): BigDecimal {
+        var result = BigDecimal.ZERO
+        btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
+            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING") {
+                result =
+                    result.add(data.asJsonObject["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal())
+            }
+        }
+        return result
+    }
+
+    fun btcWithdrawAbleAmount(): BigDecimal {
+        var result = BigDecimal.ZERO
+        btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
+            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING_WITHDRAWABLE") {
+                result =
+                    result.add(data.asJsonObject["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal())
+            }
+        }
+        return result
     }
 
     fun mempoolUrl(): String {

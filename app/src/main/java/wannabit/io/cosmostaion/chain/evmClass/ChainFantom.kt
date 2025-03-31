@@ -19,13 +19,11 @@ class ChainFantom : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "FTM"
-    override var coinGeckoId: String = "fantom"
-    override var coinLogo: Int = R.drawable.token_ftm
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.ftm.tools"
+    override var evmRpcURL: String = "https://fantom.drpc.org"
 }

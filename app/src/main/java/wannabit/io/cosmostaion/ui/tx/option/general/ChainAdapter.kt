@@ -5,25 +5,59 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemChainBinding
+import wannabit.io.cosmostaion.databinding.ItemTransferChainBinding
 
-class ChainAdapter : ListAdapter<BaseChain, ChainViewHolder>(ChainDiffCallback()) {
+class ChainAdapter(
+    private val fromChain: BaseChain?,
+    private val toChain: BaseChain?,
+    private val chainListType: ChainListType
+) :
+    ListAdapter<BaseChain, RecyclerView.ViewHolder>(ChainDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChainViewHolder {
-        val binding = ItemChainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ChainViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (chainListType) {
+            ChainListType.SELECT_TRANSFER -> {
+                val binding = ItemTransferChainBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                TransferChainViewHolder(parent.context, binding)
+            }
+
+            else -> {
+                val binding =
+                    ItemChainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ChainViewHolder(binding)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: ChainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val chain = currentList[position]
-        holder.bind(chain)
 
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.let {
-                it(chain.name)
+        when (holder) {
+            is TransferChainViewHolder -> {
+                holder.bind(fromChain, toChain, chain)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(chain.name)
+                    }
+                }
+            }
+
+            is ChainViewHolder -> {
+                holder.bind(chain)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(chain.name)
+                    }
+                }
             }
         }
     }
