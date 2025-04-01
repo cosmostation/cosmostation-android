@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.databinding.ItemDappChainBinding
 
-class DappChainAdapter : ListAdapter<String, DappChainViewHolder>(DappChainDiffCallback()) {
+class DappChainAdapter(private val selectChain: String?) :
+    ListAdapter<String, DappChainViewHolder>(DappChainDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
@@ -18,7 +19,7 @@ class DappChainAdapter : ListAdapter<String, DappChainViewHolder>(DappChainDiffC
 
     override fun onBindViewHolder(holder: DappChainViewHolder, position: Int) {
         val chain = currentList[position]
-        holder.bind(chain, position)
+        holder.bind(chain, selectChain)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {

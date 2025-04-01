@@ -23,7 +23,7 @@ class DappViewHolder(
     ) {
         binding.apply {
             val url = ecosystem["thumbnail"].asString
-            Picasso.get().load(url).into(thumbnailImg)
+            Picasso.get().load(url).error(R.drawable.icon_default_dapp).into(thumbnailImg)
             thumbnailImg.clipToOutline = true
             updateView(ecosystem)
 

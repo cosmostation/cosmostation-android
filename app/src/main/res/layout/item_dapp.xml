@@ -12,6 +12,7 @@
         android:layout_height="@dimen/space_150"
         android:background="@drawable/item_dapp_bg"
         android:scaleType="centerCrop"
+        android:src="@drawable/icon_default_dapp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

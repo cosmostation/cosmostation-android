@@ -26,6 +26,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -230,22 +231,16 @@ fun ImageView.setTokenImg(asset: Asset) {
     dispose()
     tag = asset.image
 
-    val imageLoader = ImageLoader.Builder(context)
-        .components { add(SvgDecoder.Factory()) }
-        .memoryCachePolicy(CachePolicy.DISABLED)
-        .diskCachePolicy(CachePolicy.DISABLED)
-        .build()
+    val imageLoader = ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }
+        .memoryCachePolicy(CachePolicy.DISABLED).diskCachePolicy(CachePolicy.DISABLED).build()
 
     val imageUrl = asset.image
     load(imageUrl, imageLoader) {
-        listener(
-            onSuccess = { _, _ ->
-                if (tag != imageUrl) return@listener
-            },
-            onError = { _, _ ->
-                setImageResource(R.drawable.token_default)
-            }
-        )
+        listener(onSuccess = { _, _ ->
+            if (tag != imageUrl) return@listener
+        }, onError = { _, _ ->
+            setImageResource(R.drawable.token_default)
+        })
     }
 }
 
@@ -254,21 +249,15 @@ fun ImageView.setTokenImg(tokenImg: String) {
         dispose()
         tag = tokenImg
 
-        val imageLoader = ImageLoader.Builder(context)
-            .components { add(SvgDecoder.Factory()) }
-            .memoryCachePolicy(CachePolicy.DISABLED)
-            .diskCachePolicy(CachePolicy.DISABLED)
-            .build()
+        val imageLoader = ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }
+            .memoryCachePolicy(CachePolicy.DISABLED).diskCachePolicy(CachePolicy.DISABLED).build()
 
         load(tokenImg, imageLoader) {
-            listener(
-                onSuccess = { _, _ ->
-                    if (tag != tokenImg) return@listener
-                },
-                onError = { _, _ ->
-                    setImageResource(R.drawable.token_default)
-                }
-            )
+            listener(onSuccess = { _, _ ->
+                if (tag != tokenImg) return@listener
+            }, onError = { _, _ ->
+                setImageResource(R.drawable.token_default)
+            })
         }
 
     } else {
@@ -678,6 +667,22 @@ fun ImageButton.updateToggleButtonView(isBtnEnabled: Boolean) {
     } else {
         isEnabled = false
         colorFilter = PorterDuffColorFilter(Color.parseColor("#8A99AE"), PorterDuff.Mode.SRC_IN)
+    }
+}
+
+fun ConstraintLayout.setView(isChecked: Boolean) {
+    if (isChecked) {
+        this.setBackgroundColor(
+            ContextCompat.getColor(
+                context, R.color.color_transparent
+            )
+        )
+    } else {
+        this.setBackgroundColor(
+            ContextCompat.getColor(
+                context, R.color.color_base08
+            )
+        )
     }
 }
 

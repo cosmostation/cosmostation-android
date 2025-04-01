@@ -30,14 +30,18 @@ class DappChainFragment : BottomSheetDialogFragment() {
 
     private var dappChains: MutableList<String>? = mutableListOf()
     private var searchDappChains: MutableList<String>? = mutableListOf()
+    private var selectedChain: String? = "All Network"
 
     companion object {
         @JvmStatic
         fun newInstance(
-            dappChains: MutableList<String>?, listener: DappChainSelectListener
+            dappChains: MutableList<String>?,
+            selectedChain: String,
+            listener: DappChainSelectListener
         ): DappChainFragment {
             val args = Bundle().apply {
                 putStringArrayList("dappChains", dappChains?.let { ArrayList(it) })
+                putString("selectedChain", selectedChain)
             }
             val fragment = DappChainFragment()
             fragment.arguments = args
@@ -64,8 +68,11 @@ class DappChainFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.apply {
-            dappChains = arguments?.getStringArrayList("dappChains")
-            dappChains?.let { searchDappChains?.addAll(it) }
+            arguments?.apply {
+                dappChains = getStringArrayList("dappChains")
+                selectedChain = getString("selectedChain")
+                dappChains?.let { searchDappChains?.addAll(it) }
+            }
 
             searchView.post {
                 val searchHint =
@@ -116,7 +123,7 @@ class DappChainFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            dappChainAdapter = DappChainAdapter()
+            dappChainAdapter = DappChainAdapter(selectedChain)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = dappChainAdapter

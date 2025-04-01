@@ -108,7 +108,7 @@ class MajorCryptoFragment : Fragment() {
                     } else {
                         Intent(requireActivity(), DappActivity::class.java).apply {
                             putExtra("dapp", selectedChain.btcStakingDapp())
-                            putExtra("selectedChain", selectedChain as Parcelable)
+                            putExtra("selectedBitChain", selectedChain as Parcelable)
                             startActivity(this)
                         }
                     }
@@ -380,7 +380,7 @@ class MajorCryptoFragment : Fragment() {
                 dialog.dismiss()
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", selectedChain.btcStakingDapp())
-                    putExtra("selectedChain", selectedChain as Parcelable)
+                    putExtra("selectedBitChain", selectedChain as Parcelable)
                     startActivity(this)
                 }
             }

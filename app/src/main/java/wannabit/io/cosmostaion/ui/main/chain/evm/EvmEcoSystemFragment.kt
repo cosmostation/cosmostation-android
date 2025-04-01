@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
@@ -102,7 +101,7 @@ class EvmEcoSystemFragment : Fragment() {
             evmEcoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", it)
-                    putExtra("selectedEvmChain", selectedEvmChain as Parcelable)
+                    putExtra("selectedChain", selectedEvmChain as Parcelable)
                     startActivity(this)
                 }
             }

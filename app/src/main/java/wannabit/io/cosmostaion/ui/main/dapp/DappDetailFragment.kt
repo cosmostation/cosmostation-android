@@ -35,15 +35,17 @@ class DappDetailFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentDappDetailBinding? = null
     private val binding get() = _binding!!
 
-    lateinit var ecosystem: JsonObject
+    private var selectChain: String? = "All Network"
+    private lateinit var ecosystem: JsonObject
     private var isPinned = false
 
     companion object {
         @JvmStatic
         fun newInstance(
-            ecosystem: String, listener: DappPinSelectListener
+            selectChain: String, ecosystem: String, listener: DappPinSelectListener
         ): DappDetailFragment {
             val args = Bundle().apply {
+                putString("selectChain", selectChain)
                 putString("ecosystem", ecosystem)
             }
             val fragment = DappDetailFragment()
@@ -71,7 +73,10 @@ class DappDetailFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.apply {
-            ecosystem = Gson().fromJson(arguments?.getString("ecosystem"), JsonObject::class.java)
+            arguments?.apply {
+                selectChain = getString("selectChain")
+                ecosystem = Gson().fromJson(getString("ecosystem"), JsonObject::class.java)
+            }
 
             btnHideView.setBackgroundResource(R.drawable.button_enable_select_bg)
             btnDapp.setBackgroundResource(R.drawable.button_common_bg)
@@ -104,7 +109,7 @@ class DappDetailFragment : BottomSheetDialogFragment() {
                 val height = (width * 3) / 4
                 dappImg.layoutParams.height = height
                 dappImg.requestLayout()
-                Picasso.get().load(url).into(dappImg)
+                Picasso.get().load(url).error(R.drawable.icon_default_dapp).into(dappImg)
                 dappImg.clipToOutline = true
             }
 
@@ -213,11 +218,17 @@ class DappDetailFragment : BottomSheetDialogFragment() {
             }
 
             btnDapp.setOnClickListener {
-                val chain =
-                    allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
                 Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dapp", ecosystem["link"].asString)
+                    val chain = if (ecosystem["chains"].asJsonArray.size() == 1) {
+                        allChains().firstOrNull { it.apiName == ecosystem["chains"].asJsonArray[0].asString }
+                    } else if (selectChain?.uppercase() != "All Network".uppercase()) {
+                        allChains().firstOrNull { it.apiName == selectChain }
+                    } else {
+                        allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
+                    }
+
                     putExtra("selectedChain", chain as Parcelable)
+                    putExtra("dapp", ecosystem["link"].asString)
                     startActivity(this)
                 }
             }

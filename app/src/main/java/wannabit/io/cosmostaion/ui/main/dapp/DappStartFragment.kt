@@ -251,9 +251,11 @@ class DappStartFragment : BottomSheetDialogFragment() {
             dappListAdapter.setOnItemClickListener { ecosystem ->
                 val savedTime = Prefs.getDappHideTime(ecosystem["id"].asInt)
                 val currentTime = System.currentTimeMillis()
-                if (savedTime != 0L && currentTime >= savedTime) {
+                if (currentTime >= savedTime) {
                     handleOneClickWithDelay(
-                        DappDetailFragment.newInstance(ecosystem.toString(),
+                        DappDetailFragment.newInstance(
+                            selectedChain,
+                            ecosystem.toString(),
                             object : DappPinSelectListener {
                                 override fun pinned(id: Int) {
                                     dappViewModel.pinnedByDetail(
@@ -269,11 +271,17 @@ class DappStartFragment : BottomSheetDialogFragment() {
                     )
 
                 } else {
-                    val chain =
-                        allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
                     Intent(requireActivity(), DappActivity::class.java).apply {
-                        putExtra("dapp", ecosystem["link"].asString)
+                        val chain = if (ecosystem["chains"].asJsonArray.size() == 1) {
+                            allChains().first()
+                        } else if (selectedChain.uppercase() != "All Network".uppercase()) {
+                            allChains().firstOrNull { it.apiName == selectedChain }
+                        } else {
+                            allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
+                        }
+
                         putExtra("selectedChain", chain as Parcelable)
+                        putExtra("dapp", ecosystem["link"].asString)
                         startActivity(this)
                     }
                 }
@@ -333,25 +341,28 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
             btnChainSelect.setOnClickListener {
                 handleOneClickWithDelay(
-                    DappChainFragment.newInstance(supportChains, object : DappChainSelectListener {
-                        override fun select(chain: String) {
-                            binding.apply {
-                                if (chain == "All Network") {
-                                    chainImg.setImageResource(R.drawable.icon_all_network)
-                                    chainNetwork.text = chain
-                                } else {
-                                    allChains().first { it.apiName == chain }.let { supportChain ->
-                                        chainImg.setImageResource(supportChain.logo)
-                                        chainNetwork.text = chain.uppercase()
+                    DappChainFragment.newInstance(supportChains,
+                        selectedChain,
+                        object : DappChainSelectListener {
+                            override fun select(chain: String) {
+                                binding.apply {
+                                    if (chain == "All Network") {
+                                        chainImg.setImageResource(R.drawable.icon_all_network)
+                                        chainNetwork.text = chain
+                                    } else {
+                                        allChains().first { it.apiName == chain }
+                                            .let { supportChain ->
+                                                chainImg.setImageResource(supportChain.logo)
+                                                chainNetwork.text = chain.uppercase()
+                                            }
                                     }
+                                    selectedChain = chain
+                                    dappViewModel.sortByType(
+                                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                                    )
                                 }
-                                selectedChain = chain
-                                dappViewModel.sortByType(
-                                    ecosystems, selectedType, selectedChain, searchTxt, isPinned
-                                )
                             }
-                        }
-                    })
+                        })
                 )
             }
 

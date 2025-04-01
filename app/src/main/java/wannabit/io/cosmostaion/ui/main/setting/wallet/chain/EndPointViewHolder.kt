@@ -23,7 +23,9 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.common.setView
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
 import java.io.IOException
@@ -44,22 +46,8 @@ class EndPointViewHolder(
             val checkTime = System.currentTimeMillis() / 1000.0
             val url = endpoint.get("url").asString
 
-            if (fromChain?.evmRpcFetcher()?.getEvmRpc() != url) {
-                chainView.visibility = View.GONE
-                endpointView.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context, R.color.color_transparent
-                    )
-                )
-
-            } else {
-                chainView.visibility = View.VISIBLE
-                endpointView.setBackgroundColor(
-                    ContextCompat.getColor(
-                        context, R.color.color_base08
-                    )
-                )
-            }
+            chainView.goneOrVisible(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
+            endpointView.setView(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {

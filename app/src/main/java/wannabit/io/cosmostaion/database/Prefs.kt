@@ -205,14 +205,14 @@ object Prefs {
         set(value) = preference.edit().putInt(DAPP_FILTER, value).apply()
 
     fun setDappHideTime(id: Int) {
-        val key = "$ENDPOINT_TYPE:$id"
+        val key = "$DAPP_HIDE:$id"
         val currentDate = Calendar.getInstance()
         currentDate.add(Calendar.DAY_OF_MONTH, 7)
         preference.edit().putLong(key, currentDate.timeInMillis).apply()
     }
 
     fun getDappHideTime(id: Int): Long {
-        val key = "$ENDPOINT_TYPE:$id"
+        val key = "$DAPP_HIDE:$id"
         return preference.getLong(key, 0L)
     }
 
