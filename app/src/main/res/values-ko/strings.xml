@@ -323,7 +323,7 @@
     <string name="str_show_all_proposals_msg">모든 프로포절을 표시합니다.</string>
     <string name="str_hide_scam_proposals">스캠의심 프로포절을 필터합니다.</string>
     <string name="str_data_synchronizing">데이터 동기화중입니다</string>
-    <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encription Key를 입력하세요.</string>
+    <string name="str_enter_encryption_msg">계정을 복원하기 위해 화면에 표시된 Encryption Key를 입력하세요.</string>
     <string name="str_broadcasting_msg">현재 트랜잭션이 실행 중입니다.\n잠시만 기다려 주세요.</string>
     <string name="str_addressbook_memo_changed_msg">기존 주소록과 비교해서 메모가 변경되었습니다.\n새로운 메모로 업데이트 하시겠습니까?</string>
     <string name="str_token_github_msg">모든 자산 및 토큰에 대한 정보는 커뮤니티와 함께 발전시키고 있습니다.\n\n본인의 토큰이 보이지 않는다면 아래 깃헙링크를 토큰 발행자나 커뮤니티에 알려주세요.\n\n토큰에 대한 정보가 등록되면 자동으로 지갑 및 민트스캔에 표시되며,\n고객님 뿐만 아니라 커뮤니티의 모든 사용자가 같이 확인하고 사용할 수 있습니다. </string>
@@ -364,7 +364,7 @@
     <string name="error_invalid_password">PIN 번호가 틀렸습니다.</string>
     <string name="error_account_name">계정 이름을 정확히 입력하세요.</string>
     <string name="error_exist_account_name">이미 존재하는 이름입니다.</string>
-    <string name="error_invalid_menmonic">정확한 복구문자를 입력해 주세요.</string>
+    <string name="error_invalid_mnemonic">정확한 복구문자를 입력해 주세요.</string>
     <string name="error_invalid_private_Key">유효하지 않는 개인키 입니다.</string>
     <string name="error_invalid_amount">유효하지 않는 수량입니다</string>
     <string name="error_not_enough_fee">Tx 수수료를 지불 할\n사용가능 금액이 부족합니다.</string>
