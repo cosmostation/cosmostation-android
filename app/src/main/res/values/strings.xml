@@ -483,8 +483,8 @@
     <string name="error_invalid_password">Invalid PIN number</string>
     <string name="error_account_name">Please insert account name.</string>
     <string name="error_exist_account_name">Already exist name.</string>
-    <string name="error_invalid_menmonic">Please insert valid mnemonics.</string>
-    <string name="error_invalid_private_Key">Invalid private key.</string>
+    <string name="error_invalid_mnemonic">Please insert valid mnemonics.</string>
+    <string name="error_invalid_private_key">Invalid private key.</string>
     <string name="error_invalid_amount">Invalid amount</string>
     <string name="error_not_enough_fee">Not enough available balance\nfor fee.</string>
     <string name="error_invalid_address">Invalid Address, please check again.</string>
@@ -506,7 +506,7 @@
     <string name="error_name">Please enter your name correctly.</string>
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">Unknown QR Code.</string>
-    <string name="error_decrytion">Decryption error</string>
+    <string name="error_decryption">Decryption error</string>
     <string name="error_not_support_cancel_unbonding">This chain does not yet support unstaking cancellation.</string>
     <string name="error_evm_simul">Network with the node is not smooth. Please try again later.</string>
     <string name="error_tranfer_disabled">Send functionality of the selected chain is currently disabled.\nIt can be activated later through the onchain governance procedure.</string>
