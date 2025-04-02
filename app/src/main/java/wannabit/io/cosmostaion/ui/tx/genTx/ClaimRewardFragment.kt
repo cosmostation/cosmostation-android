@@ -18,10 +18,18 @@ import androidx.core.content.ContextCompat
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
 import com.cosmos.tx.v1beta1.TxProto
+import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.Gson
+import com.google.protobuf.Any
+import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -32,6 +40,8 @@ import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
+import wannabit.io.cosmostaion.data.model.req.ClaimReq
+import wannabit.io.cosmostaion.data.model.req.ClaimRewards
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentClaimRewardBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -109,8 +119,11 @@ class ClaimRewardFragment : BaseTxFragment() {
                     selectedChain = it
                 }
             }
-            val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
-            claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            if (selectedChain !is ChainNeutron) {
+                val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
+                claimableRewards =
+                    serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            }
             isClaim = arguments?.getBoolean("isClaim") ?: false
 
             listOf(rewardView, memoView, feeView, babylonRewardView).forEach {
@@ -201,63 +214,131 @@ class ClaimRewardFragment : BaseTxFragment() {
                 rewardView.visibility = View.VISIBLE
                 babylonRewardView.visibility = View.GONE
 
-                val cosmostationValAddress =
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                    validatorName.text = "Cosmostation"
-                } else {
-                    validatorName.text =
-                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
-                }
-                if (claimableRewards.size > 1) {
-                    validatorCnt.text = "+ " + (claimableRewards.size - 1)
-                } else {
-                    validatorCnt.visibility = View.GONE
-                }
+                if (selectedChain is ChainNeutron) {
+                    val delegations =
+                        selectedChain.cosmosFetcher?.cosmosDelegations ?: mutableListOf()
+                    val validators =
+                        selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
+                    val cosmostationValAddress =
+                        validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
 
-                BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                    var rewardAmount = BigDecimal.ZERO
-                    claimableRewards.forEach { reward ->
-                        val rawAmount = BigDecimal(
-                            reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
-                                ?: "0"
-                        )
-                        rewardAmount = rewardAmount.add(
-                            rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
-                                .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        )
-                    }
-                    rewardsAmount.text =
-                        formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
-                    rewardsDenom.text = asset.symbol
-                    rewardsDenom.setTextColor(asset.assetColor())
-
-                    val anotherRewardDenoms = mutableListOf<String>()
-                    claimableRewards.forEach { reward ->
-                        reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
-                            ?.forEach { anotherRewards ->
-                                val anotherAmount =
-                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                        .setScale(0, RoundingMode.DOWN)
-                                if (anotherAmount != BigDecimal.ZERO) {
-                                    if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
-                                        anotherRewardDenoms.add(anotherRewards.denom)
-                                    }
-                                }
-                            }
-                    }
-                    if (anotherRewardDenoms.size > 0) {
-                        rewardCnt.text = "+ " + anotherRewardDenoms.size
-                        titleClaimRewardImg.visibility = View.GONE
-                        titleClaimReward.text = "Claim Rewards"
-
+                    if (delegations.any { it.delegation.validatorAddress == cosmostationValAddress }) {
+                        validatorName.text = "Cosmostation"
                     } else {
-                        rewardCnt.visibility = View.GONE
-                        titleClaimRewardImg.visibility = View.VISIBLE
-                        titleClaimRewardImg.setTokenImg(asset)
-                        titleClaimReward.text =
-                            getString(R.string.title_rewards_claim, asset.symbol)
+                        val maxAmount =
+                            delegations.maxOfOrNull { delegation -> delegation.balance.amount.toBigDecimal() }
+                        val maxValidator =
+                            delegations.firstOrNull { it.balance.amount.toBigDecimal() == maxAmount }
+                        validatorName.text =
+                            validators.firstOrNull { it.operatorAddress == maxValidator?.delegation?.validatorAddress }?.description?.moniker?.trim()
                     }
+
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)
+                        ?.let { asset ->
+                            val rewardAmount =
+                                (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
+                                    asset.decimals ?: 6
+                                )?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                                    ?: BigDecimal.ZERO
+
+                            rewardsAmount.text =
+                                formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                            rewardsDenom.text = asset.symbol
+                            rewardsDenom.setTextColor(asset.assetColor())
+
+                            rewardCnt.visibility = View.GONE
+                            titleClaimRewardImg.visibility = View.VISIBLE
+                            titleClaimRewardImg.setTokenImg(asset)
+                            titleClaimReward.text =
+                                getString(R.string.title_rewards_claim, asset.symbol)
+                        }
+
+                } else {
+                    val cosmostationValAddress = when (selectedChain) {
+                        is ChainInitiaTestnet -> {
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+
+                        is ChainZenrock -> {
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+
+                        else -> {
+                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+                    }
+
+                    if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
+                        validatorName.text = "Cosmostation"
+                    } else {
+                        validatorName.text = when (selectedChain) {
+                            is ChainInitiaTestnet -> {
+                                (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+
+                            is ChainZenrock -> {
+                                (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+
+                            else -> {
+                                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+                        }
+                    }
+
+                    if (claimableRewards.size > 1) {
+                        validatorCnt.text = "+ " + (claimableRewards.size - 1)
+                    } else {
+                        validatorCnt.visibility = View.GONE
+                    }
+
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)
+                        ?.let { asset ->
+                            var rewardAmount = BigDecimal.ZERO
+
+                            claimableRewards.forEach { reward ->
+                                val rawAmount = BigDecimal(
+                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                                        ?: "0"
+                                )
+                                rewardAmount = rewardAmount.add(
+                                    rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
+                                        .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                                )
+                            }
+
+                            rewardsAmount.text =
+                                formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                            rewardsDenom.text = asset.symbol
+                            rewardsDenom.setTextColor(asset.assetColor())
+
+                            val anotherRewardDenoms = mutableListOf<String>()
+                            claimableRewards.forEach { reward ->
+                                reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
+                                    ?.forEach { anotherRewards ->
+                                        val anotherAmount =
+                                            anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                                .setScale(0, RoundingMode.DOWN)
+                                        if (anotherAmount != BigDecimal.ZERO) {
+                                            if (!anotherRewardDenoms.contains(anotherRewards.denom)) {
+                                                anotherRewardDenoms.add(anotherRewards.denom)
+                                            }
+                                        }
+                                    }
+                            }
+                            if (anotherRewardDenoms.size > 0) {
+                                rewardCnt.text = "+ " + anotherRewardDenoms.size
+                                titleClaimRewardImg.visibility = View.GONE
+                                titleClaimReward.text = "Claim Rewards"
+
+                            } else {
+                                rewardCnt.visibility = View.GONE
+                                titleClaimRewardImg.visibility = View.VISIBLE
+                                titleClaimRewardImg.setTokenImg(asset)
+                                titleClaimReward.text =
+                                    getString(R.string.title_rewards_claim, asset.symbol)
+                            }
+                        }
                 }
             }
         }
@@ -500,9 +581,15 @@ class ClaimRewardFragment : BaseTxFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
+
+                val claimRewardsMsg = if (selectedChain is ChainNeutron) {
+                    onBindWasmClaimRewardsMsg()
+                } else {
+                    Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim)
+                }
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
+                    claimRewardsMsg,
                     txFee,
                     txMemo,
                     selectedChain
@@ -517,9 +604,15 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             btnGetReward.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
+
+            val claimRewardsMsg = if (selectedChain is ChainNeutron) {
+                onBindWasmClaimRewardsMsg()
+            } else {
+                Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim)
+            }
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                Signer.claimStakingRewardMsg(selectedChain, claimableRewards, isClaim),
+                claimRewardsMsg,
                 txFee,
                 txMemo,
                 selectedChain
@@ -600,6 +693,17 @@ class ClaimRewardFragment : BaseTxFragment() {
             }
             dismiss()
         }
+    }
+
+    private fun onBindWasmClaimRewardsMsg(): MutableList<Any> {
+        val wasmMsgs = mutableListOf<MsgExecuteContract?>()
+        val jsonData = Gson().toJson(ClaimReq(ClaimRewards()))
+        val msg = ByteString.copyFromUtf8(jsonData)
+        wasmMsgs.add(
+            MsgExecuteContract.newBuilder().setSender(selectedChain.address)
+                .setContract(NEUTRON_REWARD_CONTRACT_ADDRESS).setMsg(msg).build()
+        )
+        return Signer.wasmMsg(wasmMsgs)
     }
 
     override fun onDestroyView() {

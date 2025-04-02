@@ -52,7 +52,7 @@ class RestorePrivateFragment(private val initType: Int) : Fragment() {
                     }
 
                     if (!isValidStringPrivateKey(userInput)) {
-                        requireActivity().makeToast(R.string.error_invalid_private_Key)
+                        requireActivity().makeToast(R.string.error_invalid_private_key)
                         return@setOnClickListener
                     }
 

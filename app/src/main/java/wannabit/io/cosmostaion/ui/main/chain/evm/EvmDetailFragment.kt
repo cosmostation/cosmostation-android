@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosDetailFragment.DetailPagerAdapter
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 
 class EvmDetailFragment : Fragment() {

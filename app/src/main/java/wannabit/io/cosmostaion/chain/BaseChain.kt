@@ -516,7 +516,7 @@ open class BaseChain : Parcelable {
     }
 
     fun isStakeEnabled(): Boolean {
-        return getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
+        return this is ChainNeutron || getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
     }
 
     fun isSupportMobileDapp(): Boolean {
