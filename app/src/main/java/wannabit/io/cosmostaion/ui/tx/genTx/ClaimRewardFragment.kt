@@ -26,8 +26,10 @@ import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -252,14 +254,38 @@ class ClaimRewardFragment : BaseTxFragment() {
                         }
 
                 } else {
-                    val cosmostationValAddress =
-                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                    val cosmostationValAddress = when (selectedChain) {
+                        is ChainInitiaTestnet -> {
+                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+
+                        is ChainZenrock -> {
+                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+
+                        else -> {
+                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                        }
+                    }
+
                     if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
                         validatorName.text = "Cosmostation"
                     } else {
-                        validatorName.text =
-                            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                        validatorName.text = when (selectedChain) {
+                            is ChainInitiaTestnet -> {
+                                (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+
+                            is ChainZenrock -> {
+                                (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+
+                            else -> {
+                                selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                            }
+                        }
                     }
+
                     if (claimableRewards.size > 1) {
                         validatorCnt.text = "+ " + (claimableRewards.size - 1)
                     } else {

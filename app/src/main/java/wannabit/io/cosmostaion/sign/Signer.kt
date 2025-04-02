@@ -10,6 +10,7 @@ import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorRewa
 import com.cosmos.distribution.v1beta1.TxProto.MsgSetWithdrawAddress
 import com.cosmos.distribution.v1beta1.TxProto.MsgWithdrawDelegatorReward
 import com.cosmos.gov.v1beta1.TxProto
+import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.staking.v1beta1.TxProto.MsgBeginRedelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.gno.bank.BankProto
 import com.gno.vm.VmProto.MsgCall
+import com.google.gson.Gson
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -71,9 +73,11 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
@@ -95,6 +99,8 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
+import wannabit.io.cosmostaion.data.model.req.ClaimReq
+import wannabit.io.cosmostaion.data.model.req.ClaimRewards
 import wannabit.io.cosmostaion.data.model.req.LCoin
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -345,8 +351,9 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
 
         if (selectedChain is ChainBabylonTestnet && isClaimAll && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
-            val babylonIncentiveMsg = com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder()
-                .setType("BTC_STAKER").setAddress(selectedChain.address).build()
+            val babylonIncentiveMsg =
+                com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder().setType("BTC_STAKER")
+                    .setAddress(selectedChain.address).build()
             val anyMsg = Any.newBuilder().setTypeUrl("/babylon.incentive.MsgWithdrawReward")
                 .setValue(babylonIncentiveMsg.toByteString()).build()
             msgAnys.add(anyMsg)
@@ -425,6 +432,36 @@ object Signer {
             }
             msgAnys.add(deleAnyMsg)
         }
+        return msgAnys
+    }
+
+    fun contractClaimReward(selectedChain: BaseChain, toValidator: Validator?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+
+        val wasmMsgs = mutableListOf<MsgExecuteContract?>()
+        val jsonData = Gson().toJson(ClaimReq(ClaimRewards()))
+        val msg = ByteString.copyFromUtf8(jsonData)
+        wasmMsgs.add(
+            MsgExecuteContract.newBuilder().setSender(selectedChain.address)
+                .setContract(NEUTRON_REWARD_CONTRACT_ADDRESS).setMsg(msg).build()
+        )
+        wasmMsgs.forEach { msgWasm ->
+            msgAnys.add(
+                Any.newBuilder().setTypeUrl("/cosmwasm.wasm.v1.MsgExecuteContract")
+                    .setValue(msgWasm?.toByteString()).build()
+            )
+        }
+
+        val delegateCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom).setAmount(
+            (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards.toString()
+        ).build()
+
+        val msgDelegate = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
+            .setValidatorAddress(toValidator?.operatorAddress).setAmount(delegateCoin).build()
+        val delegateMsg = Any.newBuilder().setTypeUrl("/cosmos.staking.v1beta1.MsgDelegate")
+            .setValue(msgDelegate.toByteString()).build()
+        msgAnys.add(delegateMsg)
+
         return msgAnys
     }
 

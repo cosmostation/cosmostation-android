@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.neutron.ContractCompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktSelectValidatorFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktWithdrawFragment
@@ -474,7 +475,9 @@ class CosmosDetailFragment : Fragment() {
                 }
 
                 if (selectedChain is ChainBabylonTestnet) {
-                    handleOneClickWithDelay(BabylonStakeInfoFragment.newInstance(selectedChain), null)
+                    handleOneClickWithDelay(
+                        BabylonStakeInfoFragment.newInstance(selectedChain), null
+                    )
                 } else {
                     handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
                 }
@@ -502,7 +505,9 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
+                                    selectedChain,
+                                    selectedChain.cosmosFetcher?.claimableRewards(),
+                                    false
                                 )
                             )
 
@@ -533,7 +538,9 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
+                                    selectedChain,
+                                    selectedChain.cosmosFetcher?.claimableRewards(),
+                                    false
                                 )
                             )
 
@@ -555,14 +562,18 @@ class CosmosDetailFragment : Fragment() {
                                 }
 
                             } else {
-                                if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
+                                if (selectedChain.cosmosFetcher?.rewardAllCoins()
+                                        ?.isEmpty() == true
+                                ) {
                                     requireContext().makeToast(R.string.error_not_reward)
                                     return@setOnClickListener
                                 }
                                 if (selectedChain.cosmosFetcher?.claimableRewards()
                                         ?.isEmpty() == true
                                 ) {
-                                    requireContext().showToast(view, R.string.error_wasting_fee, false)
+                                    requireContext().showToast(
+                                        view, R.string.error_wasting_fee, false
+                                    )
                                     return@setOnClickListener
                                 }
                             }
@@ -578,7 +589,9 @@ class CosmosDetailFragment : Fragment() {
 
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isClaim
+                                    selectedChain,
+                                    selectedChain.cosmosFetcher?.claimableRewards(),
+                                    isClaim
                                 )
                             )
 
@@ -615,7 +628,9 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
+                                    selectedChain,
+                                    selectedChain.cosmosFetcher?.claimableRewards(),
+                                    false
                                 )
                             )
 
@@ -648,7 +663,9 @@ class CosmosDetailFragment : Fragment() {
                             }
                             handleOneClickWithDelay(
                                 null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), false
+                                    selectedChain,
+                                    selectedChain.cosmosFetcher?.claimableRewards(),
+                                    false
                                 )
                             )
 
@@ -661,30 +678,55 @@ class CosmosDetailFragment : Fragment() {
 
                     else -> {
                         if ((selectedChain.cosmosFetcher?.cosmosValidators?.size ?: 0) > 0) {
-                            if (selectedChain.cosmosFetcher?.claimableRewards()?.size == 0) {
-                                requireContext().makeToast(R.string.error_not_reward)
-                                return@setOnClickListener
-                            }
-                            if (selectedChain.cosmosFetcher?.rewardAddress != selectedChain.address) {
-                                requireContext().showToast(
-                                    view, R.string.error_reward_address_changed_msg, false
-                                )
-                                return@setOnClickListener
-                            }
-                            if (!selectedChain.isTxFeePayable(requireContext())) {
-                                requireContext().showToast(
-                                    view, R.string.error_not_enough_fee, false
-                                )
-                                return@setOnClickListener
-                            }
+                            if (selectedChain is ChainNeutron) {
+                                if (((selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards
+                                        ?: BigDecimal.ZERO) <= BigDecimal.ZERO
+                                ) {
+                                    requireContext().makeToast(R.string.error_not_reward)
+                                    return@setOnClickListener
+                                }
 
-                            val isCompounding = selectedChain is ChainBabylonTestnet
+                                if (!selectedChain.isTxFeePayable(requireContext())) {
+                                    requireContext().showToast(
+                                        view, R.string.error_not_enough_fee, false
+                                    )
+                                    return@setOnClickListener
+                                }
 
-                            handleOneClickWithDelay(
-                                null, CompoundingFragment.newInstance(
-                                    selectedChain, selectedChain.cosmosFetcher?.claimableRewards(), isCompounding
+                                handleOneClickWithDelay(
+                                    null, ContractCompoundingFragment.newInstance(selectedChain)
                                 )
-                            )
+
+                            } else {
+                                if (selectedChain.cosmosFetcher?.claimableRewards()?.size == 0) {
+                                    requireContext().makeToast(R.string.error_not_reward)
+                                    return@setOnClickListener
+                                }
+
+                                if (selectedChain.cosmosFetcher?.rewardAddress != selectedChain.address) {
+                                    requireContext().showToast(
+                                        view, R.string.error_reward_address_changed_msg, false
+                                    )
+                                    return@setOnClickListener
+                                }
+
+                                if (!selectedChain.isTxFeePayable(requireContext())) {
+                                    requireContext().showToast(
+                                        view, R.string.error_not_enough_fee, false
+                                    )
+                                    return@setOnClickListener
+                                }
+
+                                val isCompounding = selectedChain is ChainBabylonTestnet
+
+                                handleOneClickWithDelay(
+                                    null, CompoundingFragment.newInstance(
+                                        selectedChain,
+                                        selectedChain.cosmosFetcher?.claimableRewards(),
+                                        isCompounding
+                                    )
+                                )
+                            }
 
                         } else {
                             requireContext().makeToast(R.string.error_wait_moment)

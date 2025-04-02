@@ -1,9 +1,8 @@
-package wannabit.io.cosmostaion.ui.tx.genTx
+package wannabit.io.cosmostaion.ui.tx.genTx.neutron
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -17,46 +16,48 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.cosmos.base.v1beta1.CoinProto
-import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
+import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.getdAmount
+import wannabit.io.cosmostaion.common.isActiveValidator
+import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
-import wannabit.io.cosmostaion.databinding.FragmentCompoundingBinding
+import wannabit.io.cosmostaion.databinding.FragmentContractCompoundingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import java.math.BigDecimal
+import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
+import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
 import java.math.RoundingMode
 
-class CompoundingFragment : BaseTxFragment() {
+class ContractCompoundingFragment : BaseTxFragment() {
 
-    private var _binding: FragmentCompoundingBinding? = null
+    private var _binding: FragmentContractCompoundingBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
-    private lateinit var claimableRewards: MutableList<DelegationDelegatorReward?>
-    private var isCompounding: Boolean = false
+    private var toValidator: Validator? = null
 
     private var feeInfos: MutableList<FeeInfo> = mutableListOf()
     private var selectedFeeInfo = 0
@@ -69,15 +70,11 @@ class CompoundingFragment : BaseTxFragment() {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain,
-            claimableRewards: MutableList<DelegationDelegatorReward?>?,
-            isCompounding: Boolean
-        ): CompoundingFragment {
+        ): ContractCompoundingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
-                putSerializable("claimableRewards", claimableRewards?.toHashSet())
-                putBoolean("isCompounding", isCompounding)
             }
-            val fragment = CompoundingFragment()
+            val fragment = ContractCompoundingFragment()
             fragment.arguments = args
             return fragment
         }
@@ -86,7 +83,7 @@ class CompoundingFragment : BaseTxFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCompoundingBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentContractCompoundingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -111,101 +108,56 @@ class CompoundingFragment : BaseTxFragment() {
                     selectedChain = it
                 }
             }
-            if (selectedChain !is ChainNeutron) {
-                val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
-                claimableRewards =
-                    serializableList?.toList() as MutableList<DelegationDelegatorReward?>
-            }
-            isCompounding = arguments?.getBoolean("isCompounding") ?: false
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                titleCompoundingImg.setTokenImg(asset)
-                titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
-            }
-
-            listOf(compoundingView, babylonCompoundingView, memoView, feeView).forEach {
+            listOf(compoundingView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
                 )
             }
-            cautionImg.setColorFilter(
-                ContextCompat.getColor(requireContext(), R.color.color_base03),
-                PorterDuff.Mode.SRC_IN
-            )
-            babylonCompoundingMsg.text = getString(R.string.str_babylon_compounding_msg)
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            if (isCompounding) {
-                compoundingView.visibility = View.GONE
-                babylonCompoundingView.visibility = View.VISIBLE
-            } else {
-                compoundingView.visibility = View.VISIBLE
-                babylonCompoundingView.visibility = View.GONE
-            }
-
-            if (selectedChain is ChainInitiaTestnet) {
-                val cosmostationValAddress =
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                    validatorName.text = "Cosmostation"
-                } else {
-                    validatorName.text =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
-                }
-
-            } else if (selectedChain is ChainZenrock) {
-                val cosmostationValAddress =
-                    (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                    validatorName.text = "Cosmostation"
-                } else {
-                    validatorName.text =
-                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
-                }
-
-            } else {
-                val cosmostationValAddress =
-                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
-                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
-                    validatorName.text = "Cosmostation"
-                    babylonValidatorName.text = "Cosmostation"
-                } else {
-                    validatorName.text =
-                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
-                    babylonValidatorName.text =
-                        selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
-                }
-            }
-
-            if (claimableRewards.size > 1) {
-                validatorCnt.text = "+ " + (claimableRewards.size - 1)
-                babylonValidatorCnt.text = "+ " + (claimableRewards.size - 1)
-            } else {
-                validatorCnt.visibility = View.GONE
-                babylonValidatorCnt.visibility = View.GONE
-            }
-
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                var rewardAmount = BigDecimal.ZERO
-                claimableRewards.forEach { reward ->
-                    val rawAmount = BigDecimal(
-                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
-                            ?: "0"
-                    )
-                    rewardAmount = rewardAmount.add(
-                        rawAmount.movePointLeft(18).movePointLeft(asset.decimals ?: 6)
-                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                    )
-                }
+                titleCompoundingImg.setTokenImg(asset)
+                titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
+
+                val rewardAmount =
+                    (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
+                        asset.decimals ?: 6
+                    )?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                 compoundingAmount.text =
-                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
+                    formatAmount(rewardAmount?.toPlainString() ?: "0", asset.decimals ?: 6)
                 compoundingDenom.text = asset.symbol
                 compoundingDenom.setTextColor(asset.assetColor())
+            }
 
-                babylonCompoundingAmount.text =
-                    formatAmount(rewardAmount.toPlainString(), asset.decimals ?: 6)
-                babylonCompoundingDenom.text = asset.symbol
-                babylonCompoundingDenom.setTextColor(asset.assetColor())
+            selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                ?.let { validator ->
+                    toValidator = validator
+                } ?: run {
+                toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
+            }
+            updateValidatorView()
+        }
+    }
+
+    private fun updateValidatorView() {
+        binding.apply {
+            toValidator?.let { validator ->
+                monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
+                monikerName.text = validator.description?.moniker?.trim()
+
+                val statusImage = when {
+                    validator.jailed -> R.drawable.icon_jailed
+                    !validator.isActiveValidator(selectedChain) -> R.drawable.icon_inactive
+                    else -> 0
+                }
+                jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
+                jailedImg.setImageResource(statusImage)
+
+                val commissionRate =
+                    validator.commission.commissionRates.rate.toBigDecimal().movePointLeft(16)
+                        .setScale(2, RoundingMode.DOWN)
+                commissionPercent.text = formatString("$commissionRate%", 3)
             }
         }
     }
@@ -309,6 +261,20 @@ class CompoundingFragment : BaseTxFragment() {
     @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
+            compoundingView.setOnClickListener {
+                handleOneClickWithDelay(
+                    ValidatorDefaultFragment(
+                        selectedChain,
+                        listener = object : ValidatorDefaultListener {
+                            override fun select(validatorAddress: String) {
+                                toValidator =
+                                    selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                updateValidatorView()
+                            }
+                        })
+                )
+            }
+
             memoView.setOnClickListener {
                 handleOneClickWithDelay(
                     MemoFragment.newInstance(selectedChain, txMemo, object : MemoListener {
@@ -444,7 +410,7 @@ class CompoundingFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 txViewModel.broadcast(
                     selectedChain.cosmosFetcher?.getChannel(),
-                    Signer.compoundingMsg(selectedChain, claimableRewards),
+                    Signer.contractClaimReward(selectedChain, toValidator),
                     txFee,
                     txMemo,
                     selectedChain
@@ -461,7 +427,7 @@ class CompoundingFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             txViewModel.simulate(
                 selectedChain.cosmosFetcher?.getChannel(),
-                Signer.compoundingMsg(selectedChain, claimableRewards),
+                Signer.contractClaimReward(selectedChain, toValidator),
                 txFee,
                 txMemo,
                 selectedChain
