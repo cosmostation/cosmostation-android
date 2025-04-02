@@ -366,7 +366,7 @@
     <string name="error_invalid_password">PIN 番号が違います</string>
     <string name="error_account_name">アカウント名を入力してください。</string>
     <string name="error_exist_account_name">すでに存在する名前です。</string>
-    <string name="error_invalid_menmonic">正しい復旧文字を入力してください。</string>
+    <string name="error_invalid_mnemonic">正しい復旧文字を入力してください。</string>
     <string name="error_invalid_private_Key">無効な秘密鍵です。</string>
     <string name="error_invalid_amount">有効でない数量です</string>
     <string name="error_not_enough_fee">Tx手数料を支払う利用可能金額が不足しています。</string>
@@ -552,7 +552,7 @@
     <string name="tx_send_nft_token_id">トークン ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
     <string name="tx_irismod_farm_stake">ファーミング</string>
-    <string name="tx_irismod_farm_Harvest">ファーミング 解除</string>
+    <string name="tx_irismod_farm_harvest">ファーミング 解除</string>
 
     <string name="tx_save_profile">プロファイルを保存</string>
     <string name="tx_link_chain_account">アカウントをリンク</string>
