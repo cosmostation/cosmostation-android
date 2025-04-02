@@ -5,7 +5,6 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
@@ -33,10 +32,6 @@ class CoinCosmosLineViewHolder(
                 bindOkt(chain)
             }
 
-            is ChainNeutron -> {
-                bindNeutron(chain)
-            }
-
             else -> {
                 binding.apply {
                     stakeCoinView.setBackgroundResource(R.drawable.item_bg)
@@ -55,25 +50,21 @@ class CoinCosmosLineViewHolder(
                             val availableAmount = if (chain is ChainGnoTestnet) {
                                 chain.gnoRpcFetcher?.balanceAmount(stakeDenom)
                                     ?.movePointLeft(asset.decimals ?: 6)
-                                    ?.setScale(6, RoundingMode.DOWN)
-                                    ?: BigDecimal.ZERO
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
                             } else {
                                 chain.cosmosFetcher?.balanceAmount(stakeDenom)
                                     ?.movePointLeft(asset.decimals ?: 6)
-                                    ?.setScale(6, RoundingMode.DOWN)
-                                    ?: BigDecimal.ZERO
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
                             }
                             val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
                                 ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                                 ?: BigDecimal.ZERO
-                            val stakedAmount =
-                                chain.cosmosFetcher?.delegationAmountSum()
-                                    ?.movePointLeft(asset.decimals ?: 6)
-                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-                            val unStakingAmount =
-                                chain.cosmosFetcher?.unbondingAmountSum()
-                                    ?.movePointLeft(asset.decimals ?: 6)
-                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                            val stakedAmount = chain.cosmosFetcher?.delegationAmountSum()
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
+                            val unStakingAmount = chain.cosmosFetcher?.unbondingAmountSum()
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
                             val rewardAmount = chain.cosmosFetcher?.rewardAmountSum(stakeDenom)
                                 ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                                 ?: BigDecimal.ZERO
@@ -87,10 +78,8 @@ class CoinCosmosLineViewHolder(
 
                             with(Prefs) {
                                 total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                                totalValue.visibility =
-                                    if (hideValue) View.GONE else View.VISIBLE
-                                hidingValue.visibility =
-                                    if (hideValue) View.VISIBLE else View.GONE
+                                totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
+                                hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
 
                                 available.hiddenStatus(
                                     formatAmount(
@@ -137,72 +126,6 @@ class CoinCosmosLineViewHolder(
                                         )
                                     }
                                 }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun bindNeutron(chain: ChainNeutron) {
-        binding.apply {
-            stakeCoinView.setBackgroundResource(R.drawable.item_bg)
-            unstakingLayout.visibility = View.GONE
-            rewardLayout.visibility = View.GONE
-
-            stakedTitle.text = "Vault deposited"
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
-                tokenImg.setTokenImg(asset)
-                tokenName.text = asset.symbol
-
-                tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                }
-
-                chain.neutronFetcher()?.let { neutronFetcher ->
-                    val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
-                        ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
-                    neutronFetcher.neutronVestingAmount()?.let { neutronVestingAmount ->
-                        val vestingAmount = neutronVestingAmount.movePointLeft(asset.decimals ?: 6)
-                            .setScale(6, RoundingMode.DOWN)
-                        vestingLayout.goneOrVisible(vestingAmount.compareTo(BigDecimal.ZERO) == 0)
-
-                        val depositedAmount =
-                            neutronFetcher.neutronDeposited.movePointLeft(asset.decimals ?: 6)
-                                .setScale(6, RoundingMode.DOWN)
-
-                        val totalAmount = availableAmount?.add(vestingAmount)?.add(depositedAmount)
-                        val value = neutronFetcher.denomValue(chain.stakeDenom)
-
-                        with(Prefs) {
-                            total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                            totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
-                            hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
-
-                            available.hiddenStatus(
-                                formatAmount(
-                                    availableAmount.toString(), 6
-                                )
-                            )
-                            vesting.hiddenStatus(
-                                formatAmount(
-                                    vestingAmount.toString(), 6
-                                )
-                            )
-                            staked.hiddenStatus(
-                                formatAmount(
-                                    depositedAmount.toString(), 6
-                                )
-                            )
-
-                            total.text = if (hideValue) "" else formatAmount(
-                                totalAmount.toString(), 6
-                            )
-                            totalValue.text = if (hideValue) "" else value?.let {
-                                formatAssetValue(it)
                             }
                         }
                     }
@@ -259,10 +182,9 @@ class CoinCosmosLineViewHolder(
                 total.text = if (hideValue) "" else formatAmount(
                     (availableAmount + depositAmount + withdrawAmount).toPlainString(), 18
                 )
-                totalValue.text =
-                    if (hideValue) "" else formatAssetValue(
-                        oktFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
-                    )
+                totalValue.text = if (hideValue) "" else formatAssetValue(
+                    oktFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
+                )
             }
         }
     }

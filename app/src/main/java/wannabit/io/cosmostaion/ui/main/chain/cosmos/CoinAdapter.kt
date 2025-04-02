@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
@@ -18,9 +19,11 @@ import wannabit.io.cosmostaion.databinding.ItemCosmosLineEtcBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosLineTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.databinding.ItemNeturonCoinBinding
 
 class CoinAdapter(
-    val context: Context, val selectedChain: BaseChain,
+    val context: Context,
+    val selectedChain: BaseChain,
     stakeCoins: MutableList<Coin>,
     private val nativeCoins: MutableList<Coin>,
     private val bridgeCoins: MutableList<Coin>,
@@ -170,17 +173,27 @@ class CoinAdapter(
             }
 
             VIEW_TYPE_STAKE_ITEM -> {
-                if (selectedChain is ChainBabylonTestnet) {
-                    val binding = ItemBabylonCoinBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    BabylonCoinViewHolder(binding)
+                when (selectedChain) {
+                    is ChainBabylonTestnet -> {
+                        val binding = ItemBabylonCoinBinding.inflate(
+                            LayoutInflater.from(parent.context), parent, false
+                        )
+                        BabylonCoinViewHolder(binding)
+                    }
 
-                } else {
-                    val binding = ItemCosmosLineCoinBinding.inflate(
-                        LayoutInflater.from(parent.context), parent, false
-                    )
-                    CoinCosmosLineViewHolder(binding)
+                    is ChainNeutron -> {
+                        val binding = ItemNeturonCoinBinding.inflate(
+                            LayoutInflater.from(parent.context), parent, false
+                        )
+                        NeutronCoinViewHolder(binding)
+                    }
+
+                    else -> {
+                        val binding = ItemCosmosLineCoinBinding.inflate(
+                            LayoutInflater.from(parent.context), parent, false
+                        )
+                        CoinCosmosLineViewHolder(binding)
+                    }
                 }
             }
 
@@ -293,6 +306,46 @@ class CoinAdapter(
 
                         customDialog.setOnDismissListener {
                             view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                        }
+                        true
+                    }
+                }
+            }
+
+            is NeutronCoinViewHolder -> {
+                val coin = item.coin ?: return
+                holder.bind(selectedChain as ChainNeutron)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                    }
+                }
+
+                holder.itemView.setOnLongClickListener { view ->
+                    if (selectedChain.isStakeEnabled() && selectedChain.cosmosFetcher?.cosmosRewards?.isNotEmpty() == true) {
+                        val scaleX = view.scaleX
+                        val scaleY = view.scaleY
+                        val customDialog = RewardDialog(
+                            context, selectedChain, selectedChain.cosmosFetcher?.cosmosRewards
+                        )
+
+                        if (scaleX == 1.0f && scaleY == 1.0f) {
+                            view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
+                            val handler = Handler()
+                            handler.postDelayed({
+                                customDialog.show()
+                            }, 200)
+                        }
+
+                        customDialog.setOnDismissListener {
+                            view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                        }
+                        true
+
+                    } else {
+                        onItemClickListener?.let {
+                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
                         }
                         true
                     }

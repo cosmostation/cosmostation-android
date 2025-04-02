@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
+import java.math.BigDecimal
 
 interface WalletRepository {
     suspend fun selectPassword(): NetworkResult<MutableList<Password>>
@@ -102,6 +103,10 @@ interface WalletRepository {
     suspend fun vaultDeposit(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<String?>
+
+    suspend fun stakingRewards(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<BigDecimal?>
 
     //initia
     suspend fun initiaDelegation(

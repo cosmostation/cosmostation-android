@@ -10,11 +10,15 @@ class NeutronFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     var neutronDeposited: BigDecimal = BigDecimal.ZERO
     var neutronVesting: VestingData? = null
+    var neutronRewards: BigDecimal = BigDecimal.ZERO
 
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
         return if (denom == chain.stakeDenom) {
             chain.cosmosFetcher?.balanceValue(denom, isUsd)?.add(neutronVestingValue(isUsd))
-                ?.add(neutronDepositedValue(isUsd))
+                ?.add(chain.cosmosFetcher?.rewardValue(denom, isUsd))
+                ?.add(delegationValueSum(isUsd))?.add(unbondingValueSum(isUsd))
+                ?.add(neutronDepositedValue(isUsd))?.add(neutronRewardsValue(isUsd))
+
         } else {
             balanceValue(denom, isUsd)
         }
@@ -22,12 +26,16 @@ class NeutronFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     override fun allStakingDenomAmount(): BigDecimal {
         return chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)?.add(neutronVestingAmount())
-            ?.add(neutronDeposited) ?: BigDecimal.ZERO
+            ?.add(delegationValueSum())?.add(unbondingValueSum())
+            ?.add(rewardAmountSum(chain.stakeDenom))?.add(neutronDeposited)?.add(neutronRewards)
+            ?: BigDecimal.ZERO
     }
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
         return chain.cosmosFetcher?.balanceValueSum(isUsd)?.add(neutronVestingValue(isUsd))
-            ?.add(neutronDepositedValue(isUsd)) ?: BigDecimal.ZERO
+            ?.add(delegationValueSum(isUsd))?.add(unbondingValueSum(isUsd))
+            ?.add(rewardValueSum(isUsd))?.add(neutronDepositedValue(isUsd))
+            ?.add(neutronRewardsValue(isUsd)) ?: BigDecimal.ZERO
     }
 
     fun neutronVestingAmount(): BigDecimal? {
@@ -53,6 +61,15 @@ class NeutronFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = neutronDeposited
+            return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
+        }
+        return BigDecimal.ZERO
+    }
+
+    private fun neutronRewardsValue(isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = neutronRewards
             return price.multiply(amount).movePointLeft(asset.decimals ?: 6)
         }
         return BigDecimal.ZERO

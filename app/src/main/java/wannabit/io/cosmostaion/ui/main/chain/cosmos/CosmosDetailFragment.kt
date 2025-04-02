@@ -193,7 +193,7 @@ class CosmosDetailFragment : Fragment() {
                 )
             }
 
-            if (selectedChain.isStakeEnabled()) {
+            if (selectedChain.isStakeEnabled() || selectedChain is ChainNeutron) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
             when (selectedChain) {
@@ -223,7 +223,7 @@ class CosmosDetailFragment : Fragment() {
             fabStake.visibleOrGone(selectedChain.isStakeEnabled())
             fabClaimReward.visibleOrGone(selectedChain.isStakeEnabled())
             fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
-            fabVote.visibleOrGone(selectedChain.isStakeEnabled())
+            fabVote.goneOrVisible(!selectedChain.isStakeEnabled() || selectedChain is ChainNeutron)
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 fabStake.labelText = getString(R.string.title_stake, asset.symbol)
@@ -448,7 +448,6 @@ class CosmosDetailFragment : Fragment() {
         }
     }
 
-
     private fun setFabMenuClickAction() {
         binding.apply {
             fabStake.setOnClickListener {
@@ -547,16 +546,27 @@ class CosmosDetailFragment : Fragment() {
 
                     else -> {
                         if (selectedChain.cosmosFetcher?.cosmosValidators?.isNotEmpty() == true) {
-                            if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
-                                requireContext().makeToast(R.string.error_not_reward)
-                                return@setOnClickListener
+                            if (selectedChain is ChainNeutron) {
+                                if (((selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards
+                                        ?: BigDecimal.ZERO) <= BigDecimal.ZERO
+                                ) {
+                                    requireContext().makeToast(R.string.error_not_reward)
+                                    return@setOnClickListener
+                                }
+
+                            } else {
+                                if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
+                                    requireContext().makeToast(R.string.error_not_reward)
+                                    return@setOnClickListener
+                                }
+                                if (selectedChain.cosmosFetcher?.claimableRewards()
+                                        ?.isEmpty() == true
+                                ) {
+                                    requireContext().showToast(view, R.string.error_wasting_fee, false)
+                                    return@setOnClickListener
+                                }
                             }
-                            if (selectedChain.cosmosFetcher?.claimableRewards()
-                                    ?.isEmpty() == true
-                            ) {
-                                requireContext().showToast(view, R.string.error_wasting_fee, false)
-                                return@setOnClickListener
-                            }
+
                             if (!selectedChain.isTxFeePayable(requireContext())) {
                                 requireContext().showToast(
                                     view, R.string.error_not_enough_fee, false

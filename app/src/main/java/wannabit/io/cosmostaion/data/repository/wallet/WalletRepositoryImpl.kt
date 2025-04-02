@@ -41,6 +41,7 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
@@ -80,6 +81,8 @@ import wannabit.io.cosmostaion.data.model.req.AllocationReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.NftInfo
+import wannabit.io.cosmostaion.data.model.req.Rewards
+import wannabit.io.cosmostaion.data.model.req.RewardsReq
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenIdReq
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenInfoReq
 import wannabit.io.cosmostaion.data.model.req.VotingPower
@@ -94,6 +97,7 @@ import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
+import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
@@ -502,8 +506,6 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun vestingData(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<QuerySmartContractStateResponse> {
-        val contractAddress = chain.getChainListParam()
-            ?.get("vaults")?.asJsonArray?.get(0)?.asJsonObject?.get("address")?.asString
         val req = AllocationReq(Allocation(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
@@ -520,11 +522,12 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
-                    val data = response["data"].asJsonObject
-                    QuerySmartContractStateResponse.newBuilder()
-                        .setData(ByteString.copyFromUtf8(Gson().toJson(data))).build()
-                }
+                lcdApi(chain).lcdContractInfo(NEUTRON_VESTING_CONTRACT_ADDRESS, queryDataBase64)
+                    .let { response ->
+                        val data = response["data"].asJsonObject
+                        QuerySmartContractStateResponse.newBuilder()
+                            .setData(ByteString.copyFromUtf8(Gson().toJson(data))).build()
+                    }
             }
         }
     }
@@ -556,6 +559,36 @@ class WalletRepositoryImpl : WalletRepository {
                 lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
                     response["data"].asJsonObject["power"].asString
                 }
+            }
+        }
+    }
+
+    override suspend fun stakingRewards(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<BigDecimal?> {
+        val req = RewardsReq(Rewards(chain.address))
+        val jsonData = Gson().toJson(req)
+        val queryData = ByteString.copyFromUtf8(jsonData)
+
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(8, TimeUnit.SECONDS)
+            val request = QuerySmartContractStateRequest.newBuilder().setAddress(
+                NEUTRON_REWARD_CONTRACT_ADDRESS
+            ).setQueryData(queryData).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.smartContractState(request)?.let { response ->
+                    val json = JSONObject(response.data.toStringUtf8())
+                    json.getJSONObject("pending_rewards").getString("amount").toBigDecimal()
+                }
+            }
+        } else {
+            val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdContractInfo(NEUTRON_REWARD_CONTRACT_ADDRESS, queryDataBase64)
+                    .let { response ->
+                        response["data"].asJsonObject["pending_rewards"].asJsonObject["amount"].asString.toBigDecimal()
+                    }
             }
         }
     }
