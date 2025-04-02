@@ -42,13 +42,13 @@ class RestoreMnemonicFragment(private val initType: Int) : Fragment() {
             btnNext.setOnClickListener {
                 mnemonicPhrase.text.toString().trim().let { mnemonic ->
                     if (mnemonic.isEmpty()) {
-                        requireActivity().makeToast(R.string.error_invalid_menmonic)
+                        requireActivity().makeToast(R.string.error_invalid_mnemonic)
                         return@setOnClickListener
                     }
 
                     val wordList = mnemonic.split(" ")
                     if (!isValidWords(wordList)) {
-                        requireActivity().makeToast(R.string.error_invalid_menmonic)
+                        requireActivity().makeToast(R.string.error_invalid_mnemonic)
                         return@setOnClickListener
                     }
 
