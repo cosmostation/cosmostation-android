@@ -326,7 +326,7 @@ data class CosmosHistory(
                 if (msgType.contains("MsgStake")) {
                     result = c.getString(R.string.tx_irismod_farm_stake)
                 } else if (msgType.contains("MsgHarvest")) {
-                    result = c.getString(R.string.tx_irismod_farm_Harvest)
+                    result = c.getString(R.string.tx_irismod_farm_harvest)
                 }
 
             } else if (msgType.contains("chainmain.") && msgType.contains("nft")) {

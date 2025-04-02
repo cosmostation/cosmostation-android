@@ -367,7 +367,7 @@
     <string name="error_account_name">アカウント名を入力してください。</string>
     <string name="error_exist_account_name">すでに存在する名前です。</string>
     <string name="error_invalid_mnemonic">正しい復旧文字を入力してください。</string>
-    <string name="error_invalid_private_Key">無効な秘密鍵です。</string>
+    <string name="error_invalid_private_key">無効な秘密鍵です。</string>
     <string name="error_invalid_amount">有効でない数量です</string>
     <string name="error_not_enough_fee">Tx手数料を支払う利用可能金額が不足しています。</string>
     <string name="error_invalid_address">アドレスが無効です。正確な文字を入力してください。</string>
@@ -388,7 +388,7 @@
     <string name="error_name">名前を正確に入力してください。</string>
     <string name="error_not_support">%1$s is an unsupported chain.</string>
     <string name="error_unknown_qr_code">未知のQRコードです。</string>
-    <string name="error_decrytion">復号化エラー</string>
+    <string name="error_decryption">復号化エラー</string>
     <string name="error_not_support_cancel_unbonding">このチェーンはまだアンステーキングキャンセルをサポートしていません。</string>
     <string name="error_evm_simul">ノードとのネットワークがスムーズではありません。 後でもう一度試してください。</string>
     <string name="error_tranfer_disabled">現在選択されているチェーンは送信機能が無効になっています。\n今後のガバナンスなどを通じて活性化することができます。</string>

@@ -84,7 +84,7 @@ class ImportCheckKeyFragment : BottomSheetDialogFragment() {
                                         qrImportConfirmListener?.qrImportConfirm(mnemonic)
 
                                     } ?: run {
-                                        requireActivity().makeToast(R.string.error_decrytion)
+                                        requireActivity().makeToast(R.string.error_decryption)
                                         return@run
                                     }
                                 }
@@ -93,7 +93,7 @@ class ImportCheckKeyFragment : BottomSheetDialogFragment() {
                         } catch (e: Exception) {
                             withContext(Dispatchers.Main) {
                                 loading.visibility = View.GONE
-                                requireActivity().makeToast(R.string.error_decrytion)
+                                requireActivity().makeToast(R.string.error_decryption)
                             }
                         }
                     }

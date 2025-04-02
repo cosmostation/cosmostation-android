@@ -672,7 +672,7 @@
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
     <string name="tx_irismod_farm_stake">Stake</string>
-    <string name="tx_irismod_farm_Harvest">Harvest</string>
+    <string name="tx_irismod_farm_harvest">Harvest</string>
 
     <string name="tx_save_profile">Save Profile</string>
     <string name="tx_link_chain_account">Link Account</string>

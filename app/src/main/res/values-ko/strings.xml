@@ -365,7 +365,7 @@
     <string name="error_account_name">계정 이름을 정확히 입력하세요.</string>
     <string name="error_exist_account_name">이미 존재하는 이름입니다.</string>
     <string name="error_invalid_mnemonic">정확한 복구문자를 입력해 주세요.</string>
-    <string name="error_invalid_private_Key">유효하지 않는 개인키 입니다.</string>
+    <string name="error_invalid_private_key">유효하지 않는 개인키 입니다.</string>
     <string name="error_invalid_amount">유효하지 않는 수량입니다</string>
     <string name="error_not_enough_fee">Tx 수수료를 지불 할\n사용가능 금액이 부족합니다.</string>
     <string name="error_invalid_address">부정확한 주소입니다. 다시한번 확인해 주세요.</string>
@@ -386,7 +386,7 @@
     <string name="error_name">이름을 정확히 입력하세요.</string>
     <string name="error_not_support">%1$s 지원하지 않는 체인입니다.</string>
     <string name="error_unknown_qr_code">알 수 없는 QR Code 입니다.</string>
-    <string name="error_decrytion">복호화 에러</string>
+    <string name="error_decryption">복호화 에러</string>
     <string name="error_not_support_cancel_unbonding">이 체인은 아직 언스테이킹 취소를 지원하지 않습니다.</string>
     <string name="error_evm_simul">노드와 통신이 원활하지 않습니다. 잠시후에 다시 시도해주세요.</string>
     <string name="error_tranfer_disabled">현재 선택하신 체인은 전송기능이 비 활성화된 상태입니다.\n차후 거버넌스 등을 통해서 활성화될 수 있습니다.</string>
@@ -560,7 +560,7 @@
     <string name="tx_send_nft_token_id">Token ID</string>
     <string name="tx_send_nft_denom_id">Denom ID</string>
     <string name="tx_irismod_farm_stake">파밍</string>
-    <string name="tx_irismod_farm_Harvest">파밍 해제</string>
+    <string name="tx_irismod_farm_harvest">파밍 해제</string>
 
     <string name="tx_save_profile">프로필 저장</string>
     <string name="tx_link_chain_account">계정 연결</string>
