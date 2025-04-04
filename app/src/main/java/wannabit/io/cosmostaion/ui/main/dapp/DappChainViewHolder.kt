@@ -22,7 +22,7 @@ class DappChainViewHolder(
             } else {
                 allChains().first { it.apiName == supportChain }.let { chain ->
                     chainImg.setImageResource(chain.logo)
-                    chainName.text = supportChain.uppercase()
+                    chainName.text = chain.name.uppercase()
                     dapps.text = "${
                         BaseData.ecosystems?.map { it["chains"].asJsonArray }?.flatten()
                             ?.count { it.asString.uppercase() == chain.apiName.uppercase() }

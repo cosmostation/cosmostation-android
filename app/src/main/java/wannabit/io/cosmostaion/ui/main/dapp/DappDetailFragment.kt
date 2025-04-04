@@ -131,7 +131,7 @@ class DappDetailFragment : BottomSheetDialogFragment() {
                     CustomDappNetworkBinding.inflate(networkInflater, supportNetworkView, false)
                 allChains().first { it.apiName == supportChain.asString }.let { chain ->
                     view.chainImg.setImageResource(chain.logo)
-                    view.chainName.text = supportChain.asString
+                    view.chainName.text = chain.name.uppercase()
                 }
                 supportNetworkView.addView(view.root)
             }

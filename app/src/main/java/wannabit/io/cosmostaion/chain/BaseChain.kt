@@ -516,7 +516,7 @@ open class BaseChain : Parcelable {
     }
 
     fun isStakeEnabled(): Boolean {
-        return this is ChainNeutron || getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
+        return getChainListParam()?.get("is_stake_enabled")?.asBoolean ?: true
     }
 
     fun isSupportMobileDapp(): Boolean {
@@ -830,7 +830,7 @@ data class AccountKeyType(
 )
 
 val DEFAULT_DISPLAY_CHAIN = mutableListOf(
-    "cosmos118", "ethereum60", "neutron118", "kava60", "osmosis118", "dydx118"
+    "cosmos118", "bitcoin86", "ethereum60", "suiMainnet", "neutron118", "kava60", "osmosis118", "dydx118", "mantra118"
 )
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

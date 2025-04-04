@@ -187,4 +187,6 @@ dependencies {
 
     implementation("io.coil-kt:coil:2.2.2")
     implementation("io.coil-kt:coil-svg:2.2.2")
+
+    implementation 'com.github.penfeizhou.android.animation:apng:3.0.4'
 }
