@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.concurrent.CopyOnWriteArrayList
 
-class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
+class SuiFetcher(private val chain: BaseChain) {
 
     var suiSystem = JsonObject()
     var suiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
@@ -26,7 +26,7 @@ class SuiFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     val suiCoinMeta: MutableMap<String, JsonObject> = mutableMapOf()
     val suiHistory: MutableList<JsonObject> = mutableListOf()
 
-    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
+    fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         return suiBalanceValueSum(isUsd).add(suiStakedValue(isUsd))
     }
 

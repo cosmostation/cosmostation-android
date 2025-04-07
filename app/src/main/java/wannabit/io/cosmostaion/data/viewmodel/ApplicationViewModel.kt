@@ -667,6 +667,7 @@ class ApplicationViewModel(
 
                 if (fetchState == FetchState.SUCCESS) {
                     BaseUtils.onParseVesting(this)
+
                     val refAddress = RefAddress(
                         id,
                         tag,
@@ -682,7 +683,10 @@ class ApplicationViewModel(
                         }?.toLong()
                     )
                     BaseData.updateRefAddressesMain(refAddress)
+                    coinValue = cosmosFetcher?.allAssetValue()
+                    coinUsdValue = cosmosFetcher?.allAssetValue(true)
                     coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+
                     withContext(Dispatchers.Main) {
                         if (isEdit == true) {
                             editFetchedResult.value = tag
@@ -694,6 +698,13 @@ class ApplicationViewModel(
                             fetchedResult.value = tag
                         }
                     }
+
+                    var cw20TokenValue = BigDecimal.ZERO
+                    var cw20TokenUsdValue = BigDecimal.ZERO
+                    var erc20TokenValue = BigDecimal.ZERO
+                    var erc20TokenUsdValue = BigDecimal.ZERO
+                    var cw20TokenCnt = 0
+                    var erc20TokenCnt = 0
 
                     if (isSupportCw20()) {
                         val userDisplayToken = Prefs.getDisplayCw20s(id, tag)
@@ -722,7 +733,9 @@ class ApplicationViewModel(
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
-                        tokenCnt = chain.cosmosFetcher()?.valueTokenCnt() ?: 0
+                        cw20TokenValue = cosmosFetcher?.allTokenValue()
+                        cw20TokenUsdValue = cosmosFetcher?.allTokenValue(true)
+                        cw20TokenCnt = chain.cosmosFetcher()?.valueTokenCnt() ?: 0
                     }
 
                     if (isSupportErc20()) {
@@ -766,7 +779,9 @@ class ApplicationViewModel(
                                     }?.toLong() ?: 0L
                                 )
                                 BaseData.updateRefAddressesToken(evmRefAddress)
-                                tokenCnt = if (Prefs.getDisplayErc20s(id, chain.tag) != null) {
+                                erc20TokenValue = evmRpcFetcher.allTokenValue()
+                                erc20TokenUsdValue = evmRpcFetcher.allTokenValue(true)
+                                erc20TokenCnt = if (Prefs.getDisplayErc20s(id, chain.tag) != null) {
                                     Prefs.getDisplayErc20s(id, chain.tag)?.size.toString().toInt()
                                 } else {
                                     evmRpcFetcher.valueTokenCnt()
@@ -774,6 +789,11 @@ class ApplicationViewModel(
                             }
                         }
                     }
+
+                    tokenValue = cw20TokenValue.add(erc20TokenValue)
+                    tokenUsdValue = cw20TokenUsdValue.add(erc20TokenUsdValue)
+                    tokenCnt = cw20TokenCnt + erc20TokenCnt
+
                     withContext(Dispatchers.Main) {
                         if (isEdit == true) {
                             editFetchedTokenResult.value = tag
@@ -877,9 +897,12 @@ class ApplicationViewModel(
                                     ?.toLong()
                             )
                             BaseData.updateRefAddressesMain(refAddress)
+                            coinValue = oktFetcher?.allAssetValue()
+                            coinUsdValue = oktFetcher?.allAssetValue(true)
                             coinCnt =
                                 oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                                     ?: 0
+
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
                                     editFetchedResult.value = tag
@@ -888,8 +911,25 @@ class ApplicationViewModel(
                                 }
                             }
 
-                            val tokenBalanceDeferredList = evmRpcFetcher.evmTokens.map { token ->
-                                async { walletRepository.erc20Balance(chain, token) }
+                            val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
+                                    .map { token ->
+                                        async {
+                                            walletRepository.erc20Balance(
+                                                this@apply, token
+                                            )
+                                        }
+                                    }
+
+                            } else {
+                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
+                                    .map { token ->
+                                        async {
+                                            walletRepository.erc20Balance(
+                                                this@apply, token
+                                            )
+                                        }
+                                    }
                             }
 
                             tokenBalanceDeferredList.awaitAll()
@@ -904,7 +944,10 @@ class ApplicationViewModel(
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
+                            tokenValue = evmRpcFetcher.allTokenValue()
+                            tokenUsdValue = evmRpcFetcher.allTokenValue(true)
                             tokenCnt = evmRpcFetcher.valueTokenCnt()
+
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
                                     editFetchedTokenResult.value = tag
@@ -919,6 +962,7 @@ class ApplicationViewModel(
                                 baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
                             )
                             BaseData.updateRefAddressesMain(refAddress)
+
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
                                     editFetchedResult.value = tag
@@ -947,7 +991,10 @@ class ApplicationViewModel(
                                 if (BigDecimal.ZERO >= evmRpcFetcher.evmBalance) 0 else 1
                             )
                             BaseData.updateRefAddressesMain(refAddress)
+                            coinValue = evmRpcFetcher.allAssetValue()
+                            coinUsdValue = evmRpcFetcher.allAssetValue(true)
                             coinCnt = evmRpcFetcher.valueCoinCnt()
+
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
                                     editFetchedResult.value = tag
@@ -981,6 +1028,8 @@ class ApplicationViewModel(
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
+                            tokenValue = evmRpcFetcher.allTokenValue()
+                            tokenUsdValue = evmRpcFetcher.allTokenValue(true)
                             tokenCnt =
                                 if (Prefs.getDisplayErc20s(baseAccountId, chain.tag) != null) {
                                     Prefs.getDisplayErc20s(
@@ -989,6 +1038,7 @@ class ApplicationViewModel(
                                 } else {
                                     evmRpcFetcher.valueTokenCnt()
                                 }
+
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
                                     editFetchedTokenResult.value = tag
@@ -1058,9 +1108,12 @@ class ApplicationViewModel(
                             ?.toLong()
                     )
                     BaseData.updateRefAddressesMain(refAddress)
+                    coinValue = oktFetcher?.allAssetValue()
+                    coinUsdValue = oktFetcher?.allAssetValue(true)
                     coinCnt =
                         oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                             ?: 0
+
                     withContext(Dispatchers.Main) {
                         if (isEdit == true) {
                             editFetchedResult.value = tag
@@ -1221,6 +1274,8 @@ class ApplicationViewModel(
                         fetcher.suiBalances.size.toLong()
                     )
                     BaseData.updateRefAddressesMain(refAddress)
+                    coinValue = fetcher.allAssetValue()
+                    coinUsdValue = fetcher.allAssetValue(true)
                     coinCnt = fetcher.suiBalances.size
 
                     withContext(Dispatchers.Main) {
@@ -1306,6 +1361,8 @@ class ApplicationViewModel(
                             if (fetcher.btcBalances == BigDecimal.ZERO && fetcher.btcPendingInput == BigDecimal.ZERO) 0 else 1
                         )
                         BaseData.updateRefAddressesMain(refAddress)
+                        coinValue = fetcher.allAssetValue()
+                        coinUsdValue = fetcher.allAssetValue(true)
                         coinCnt =
                             if (chain.btcFetcher()?.btcBalances == BigDecimal.ZERO && chain.btcFetcher()?.btcPendingInput == BigDecimal.ZERO) 0 else 1
 
@@ -1402,6 +1459,8 @@ class ApplicationViewModel(
                                         if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                     )
                                     BaseData.updateRefAddressesMain(refAddress)
+                                    coinValue = fetcher.allAssetValue()
+                                    coinUsdValue = fetcher.allAssetValue(true)
                                     coinCnt =
                                         if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                 }
@@ -1449,6 +1508,8 @@ class ApplicationViewModel(
                                         0
                                     )
                                     BaseData.updateRefAddressesToken(grcRefAddress)
+                                    tokenValue = fetcher.allGrc20TokenValue()
+                                    tokenUsdValue = fetcher.allGrc20TokenValue(true)
                                     tokenCnt = fetcher.valueGrc20TokenCnt()
                                     fetchState = FetchState.SUCCESS
 
