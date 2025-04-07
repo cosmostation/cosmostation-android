@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.ui.tx.info.StakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.babylon.BabylonStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.kava.KavaDefiFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
+import wannabit.io.cosmostaion.ui.tx.info.neutron.NeutronStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
 import java.math.BigDecimal
 
@@ -474,12 +475,22 @@ class CosmosDetailFragment : Fragment() {
                     }
                 }
 
-                if (selectedChain is ChainBabylonTestnet) {
-                    handleOneClickWithDelay(
-                        BabylonStakeInfoFragment.newInstance(selectedChain), null
-                    )
-                } else {
-                    handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+                when (selectedChain) {
+                    is ChainBabylonTestnet -> {
+                        handleOneClickWithDelay(
+                            BabylonStakeInfoFragment.newInstance(selectedChain), null
+                        )
+                    }
+
+                    is ChainNeutron -> {
+                        handleOneClickWithDelay(
+                            NeutronStakeInfoFragment.newInstance(selectedChain), null
+                        )
+                    }
+
+                    else -> {
+                        handleOneClickWithDelay(StakeInfoFragment.newInstance(selectedChain), null)
+                    }
                 }
             }
 
