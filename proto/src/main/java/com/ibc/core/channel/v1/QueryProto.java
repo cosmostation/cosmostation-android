@@ -24981,7 +24981,7 @@ public final class QueryProto {
   }
   /**
    * <pre>
-   * QuerySequenceResponse is the request type for the
+   * QuerySequenceResponse is the response type for the
    * Query/QueryNextSequenceReceiveResponse RPC method
    * </pre>
    *
@@ -25275,7 +25275,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * QuerySequenceResponse is the request type for the
+     * QuerySequenceResponse is the response type for the
      * Query/QueryNextSequenceReceiveResponse RPC method
      * </pre>
      *
@@ -27763,13 +27763,13 @@ public final class QueryProto {
       "nceSendRequest\0322.ibc.core.channel.v1.Que" +
       "ryNextSequenceSendResponse\"U\202\323\344\223\002O\022M/ibc" +
       "/core/channel/v1/channels/{channel_id}/p" +
-      "orts/{port_id}/next_sequence_sendB\315\001\n\027co" +
-      "m.ibc.core.channel.v1B\nQueryProtoZ9githu" +
-      "b.com/cosmos/ibc-go/v7/modules/core/04-c" +
-      "hannel/types\242\002\003ICC\252\002\023Ibc.Core.Channel.V1" +
-      "\312\002\023Ibc\\Core\\Channel\\V1\342\002\037Ibc\\Core\\Channe" +
-      "l\\V1\\GPBMetadata\352\002\026Ibc::Core::Channel::V" +
-      "1b\006proto3"
+      "orts/{port_id}/next_sequence_sendB\316\001\n\027co" +
+      "m.ibc.core.channel.v1B\nQueryProtoZ:githu" +
+      "b.com/cosmos/ibc-go/v10/modules/core/04-" +
+      "channel/types\242\002\003ICC\252\002\023Ibc.Core.Channel.V" +
+      "1\312\002\023Ibc\\Core\\Channel\\V1\342\002\037Ibc\\Core\\Chann" +
+      "el\\V1\\GPBMetadata\352\002\026Ibc::Core::Channel::" +
+      "V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

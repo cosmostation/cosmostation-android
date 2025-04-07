@@ -142,6 +142,37 @@ public final class MsgGrpc {
     return getConnectionOpenConfirmMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.connection.v1.TxProto.MsgUpdateParams,
+      com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> getUpdateConnectionParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateConnectionParams",
+      requestType = com.ibc.core.connection.v1.TxProto.MsgUpdateParams.class,
+      responseType = com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.connection.v1.TxProto.MsgUpdateParams,
+      com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> getUpdateConnectionParamsMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.connection.v1.TxProto.MsgUpdateParams, com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> getUpdateConnectionParamsMethod;
+    if ((getUpdateConnectionParamsMethod = MsgGrpc.getUpdateConnectionParamsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUpdateConnectionParamsMethod = MsgGrpc.getUpdateConnectionParamsMethod) == null) {
+          MsgGrpc.getUpdateConnectionParamsMethod = getUpdateConnectionParamsMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.connection.v1.TxProto.MsgUpdateParams, com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateConnectionParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.connection.v1.TxProto.MsgUpdateParams.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UpdateConnectionParams"))
+              .build();
+        }
+      }
+    }
+    return getUpdateConnectionParamsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -233,6 +264,17 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirmResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getConnectionOpenConfirmMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * UpdateConnectionParams defines a rpc handler method for
+     * MsgUpdateParams.
+     * </pre>
+     */
+    default void updateConnectionParams(com.ibc.core.connection.v1.TxProto.MsgUpdateParams request,
+        io.grpc.stub.StreamObserver<com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateConnectionParamsMethod(), responseObserver);
+    }
   }
 
   /**
@@ -312,6 +354,18 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getConnectionOpenConfirmMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * UpdateConnectionParams defines a rpc handler method for
+     * MsgUpdateParams.
+     * </pre>
+     */
+    public void updateConnectionParams(com.ibc.core.connection.v1.TxProto.MsgUpdateParams request,
+        io.grpc.stub.StreamObserver<com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateConnectionParamsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -372,6 +426,17 @@ public final class MsgGrpc {
     public com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirmResponse connectionOpenConfirm(com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirm request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getConnectionOpenConfirmMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpdateConnectionParams defines a rpc handler method for
+     * MsgUpdateParams.
+     * </pre>
+     */
+    public com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse updateConnectionParams(com.ibc.core.connection.v1.TxProto.MsgUpdateParams request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateConnectionParamsMethod(), getCallOptions(), request);
     }
   }
 
@@ -438,12 +503,25 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getConnectionOpenConfirmMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * UpdateConnectionParams defines a rpc handler method for
+     * MsgUpdateParams.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse> updateConnectionParams(
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParams request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateConnectionParamsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CONNECTION_OPEN_INIT = 0;
   private static final int METHODID_CONNECTION_OPEN_TRY = 1;
   private static final int METHODID_CONNECTION_OPEN_ACK = 2;
   private static final int METHODID_CONNECTION_OPEN_CONFIRM = 3;
+  private static final int METHODID_UPDATE_CONNECTION_PARAMS = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -477,6 +555,10 @@ public final class MsgGrpc {
         case METHODID_CONNECTION_OPEN_CONFIRM:
           serviceImpl.connectionOpenConfirm((com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirm) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirmResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_CONNECTION_PARAMS:
+          serviceImpl.updateConnectionParams((com.ibc.core.connection.v1.TxProto.MsgUpdateParams) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -524,6 +606,13 @@ public final class MsgGrpc {
               com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirm,
               com.ibc.core.connection.v1.TxProto.MsgConnectionOpenConfirmResponse>(
                 service, METHODID_CONNECTION_OPEN_CONFIRM)))
+        .addMethod(
+          getUpdateConnectionParamsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.connection.v1.TxProto.MsgUpdateParams,
+              com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse>(
+                service, METHODID_UPDATE_CONNECTION_PARAMS)))
         .build();
   }
 
@@ -576,6 +665,7 @@ public final class MsgGrpc {
               .addMethod(getConnectionOpenTryMethod())
               .addMethod(getConnectionOpenAckMethod())
               .addMethod(getConnectionOpenConfirmMethod())
+              .addMethod(getUpdateConnectionParamsMethod())
               .build();
         }
       }

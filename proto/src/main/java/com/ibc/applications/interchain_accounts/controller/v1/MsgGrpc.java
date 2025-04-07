@@ -80,6 +80,37 @@ public final class MsgGrpc {
     return getSendTxMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams,
+      com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> getUpdateParamsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateParams",
+      requestType = com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.class,
+      responseType = com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams,
+      com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> getUpdateParamsMethod() {
+    io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> getUpdateParamsMethod;
+    if ((getUpdateParamsMethod = MsgGrpc.getUpdateParamsMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getUpdateParamsMethod = MsgGrpc.getUpdateParamsMethod) == null) {
+          MsgGrpc.getUpdateParamsMethod = getUpdateParamsMethod =
+              io.grpc.MethodDescriptor.<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateParams"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("UpdateParams"))
+              .build();
+        }
+      }
+    }
+    return getUpdateParamsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -150,6 +181,16 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTxResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSendTxMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * UpdateParams defines a rpc handler for MsgUpdateParams.
+     * </pre>
+     */
+    default void updateParams(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams request,
+        io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateParamsMethod(), responseObserver);
+    }
   }
 
   /**
@@ -206,6 +247,17 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getSendTxMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * UpdateParams defines a rpc handler for MsgUpdateParams.
+     * </pre>
+     */
+    public void updateParams(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams request,
+        io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -245,6 +297,16 @@ public final class MsgGrpc {
     public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTxResponse sendTx(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTx request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getSendTxMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * UpdateParams defines a rpc handler for MsgUpdateParams.
+     * </pre>
+     */
+    public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse updateParams(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateParamsMethod(), getCallOptions(), request);
     }
   }
 
@@ -288,10 +350,22 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getSendTxMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * UpdateParams defines a rpc handler for MsgUpdateParams.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse> updateParams(
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_REGISTER_INTERCHAIN_ACCOUNT = 0;
   private static final int METHODID_SEND_TX = 1;
+  private static final int METHODID_UPDATE_PARAMS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -317,6 +391,10 @@ public final class MsgGrpc {
         case METHODID_SEND_TX:
           serviceImpl.sendTx((com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTx) request,
               (io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTxResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_PARAMS:
+          serviceImpl.updateParams((com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams) request,
+              (io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -350,6 +428,13 @@ public final class MsgGrpc {
               com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTx,
               com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgSendTxResponse>(
                 service, METHODID_SEND_TX)))
+        .addMethod(
+          getUpdateParamsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams,
+              com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse>(
+                service, METHODID_UPDATE_PARAMS)))
         .build();
   }
 
@@ -400,6 +485,7 @@ public final class MsgGrpc {
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getRegisterInterchainAccountMethod())
               .addMethod(getSendTxMethod())
+              .addMethod(getUpdateParamsMethod())
               .build();
         }
       }

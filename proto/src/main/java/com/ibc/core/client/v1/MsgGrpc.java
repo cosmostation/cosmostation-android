@@ -142,6 +142,68 @@ public final class MsgGrpc {
     return getSubmitMisbehaviourMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgRecoverClient,
+      com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> getRecoverClientMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "RecoverClient",
+      requestType = com.ibc.core.client.v1.TxProto.MsgRecoverClient.class,
+      responseType = com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgRecoverClient,
+      com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> getRecoverClientMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgRecoverClient, com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> getRecoverClientMethod;
+    if ((getRecoverClientMethod = MsgGrpc.getRecoverClientMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getRecoverClientMethod = MsgGrpc.getRecoverClientMethod) == null) {
+          MsgGrpc.getRecoverClientMethod = getRecoverClientMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.client.v1.TxProto.MsgRecoverClient, com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RecoverClient"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgRecoverClient.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("RecoverClient"))
+              .build();
+        }
+      }
+    }
+    return getRecoverClientMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade,
+      com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> getIBCSoftwareUpgradeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "IBCSoftwareUpgrade",
+      requestType = com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.class,
+      responseType = com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade,
+      com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> getIBCSoftwareUpgradeMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> getIBCSoftwareUpgradeMethod;
+    if ((getIBCSoftwareUpgradeMethod = MsgGrpc.getIBCSoftwareUpgradeMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getIBCSoftwareUpgradeMethod = MsgGrpc.getIBCSoftwareUpgradeMethod) == null) {
+          MsgGrpc.getIBCSoftwareUpgradeMethod = getIBCSoftwareUpgradeMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "IBCSoftwareUpgrade"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("IBCSoftwareUpgrade"))
+              .build();
+        }
+      }
+    }
+    return getIBCSoftwareUpgradeMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgUpdateParams,
       com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse> getUpdateClientParamsMethod;
 
@@ -171,6 +233,37 @@ public final class MsgGrpc {
       }
     }
     return getUpdateClientParamsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator,
+      com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> getDeleteClientCreatorMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteClientCreator",
+      requestType = com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.class,
+      responseType = com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator,
+      com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> getDeleteClientCreatorMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> getDeleteClientCreatorMethod;
+    if ((getDeleteClientCreatorMethod = MsgGrpc.getDeleteClientCreatorMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getDeleteClientCreatorMethod = MsgGrpc.getDeleteClientCreatorMethod) == null) {
+          MsgGrpc.getDeleteClientCreatorMethod = getDeleteClientCreatorMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteClientCreator"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("DeleteClientCreator"))
+              .build();
+        }
+      }
+    }
+    return getDeleteClientCreatorMethod;
   }
 
   /**
@@ -266,12 +359,42 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * RecoverClient defines a rpc handler method for MsgRecoverClient.
+     * </pre>
+     */
+    default void recoverClient(com.ibc.core.client.v1.TxProto.MsgRecoverClient request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRecoverClientMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+     * </pre>
+     */
+    default void iBCSoftwareUpgrade(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getIBCSoftwareUpgradeMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * UpdateClientParams defines a rpc handler method for MsgUpdateParams.
      * </pre>
      */
     default void updateClientParams(com.ibc.core.client.v1.TxProto.MsgUpdateParams request,
         io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateClientParamsMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+     * </pre>
+     */
+    default void deleteClientCreator(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteClientCreatorMethod(), responseObserver);
     }
   }
 
@@ -354,6 +477,28 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * RecoverClient defines a rpc handler method for MsgRecoverClient.
+     * </pre>
+     */
+    public void recoverClient(com.ibc.core.client.v1.TxProto.MsgRecoverClient request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRecoverClientMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+     * </pre>
+     */
+    public void iBCSoftwareUpgrade(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getIBCSoftwareUpgradeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * UpdateClientParams defines a rpc handler method for MsgUpdateParams.
      * </pre>
      */
@@ -361,6 +506,17 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateClientParamsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+     * </pre>
+     */
+    public void deleteClientCreator(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteClientCreatorMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -425,12 +581,42 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * RecoverClient defines a rpc handler method for MsgRecoverClient.
+     * </pre>
+     */
+    public com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse recoverClient(com.ibc.core.client.v1.TxProto.MsgRecoverClient request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRecoverClientMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+     * </pre>
+     */
+    public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse iBCSoftwareUpgrade(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getIBCSoftwareUpgradeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * UpdateClientParams defines a rpc handler method for MsgUpdateParams.
      * </pre>
      */
     public com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse updateClientParams(com.ibc.core.client.v1.TxProto.MsgUpdateParams request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateClientParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+     * </pre>
+     */
+    public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse deleteClientCreator(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteClientCreatorMethod(), getCallOptions(), request);
     }
   }
 
@@ -499,6 +685,28 @@ public final class MsgGrpc {
 
     /**
      * <pre>
+     * RecoverClient defines a rpc handler method for MsgRecoverClient.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse> recoverClient(
+        com.ibc.core.client.v1.TxProto.MsgRecoverClient request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRecoverClientMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
+     * IBCSoftwareUpgrade defines a rpc handler method for MsgIBCSoftwareUpgrade.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse> iBCSoftwareUpgrade(
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getIBCSoftwareUpgradeMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * UpdateClientParams defines a rpc handler method for MsgUpdateParams.
      * </pre>
      */
@@ -507,13 +715,27 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateClientParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * DeleteClientCreator defines a rpc handler method for MsgDeleteClientCreator.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse> deleteClientCreator(
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteClientCreatorMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_CLIENT = 0;
   private static final int METHODID_UPDATE_CLIENT = 1;
   private static final int METHODID_UPGRADE_CLIENT = 2;
   private static final int METHODID_SUBMIT_MISBEHAVIOUR = 3;
-  private static final int METHODID_UPDATE_CLIENT_PARAMS = 4;
+  private static final int METHODID_RECOVER_CLIENT = 4;
+  private static final int METHODID_IBCSOFTWARE_UPGRADE = 5;
+  private static final int METHODID_UPDATE_CLIENT_PARAMS = 6;
+  private static final int METHODID_DELETE_CLIENT_CREATOR = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -548,9 +770,21 @@ public final class MsgGrpc {
           serviceImpl.submitMisbehaviour((com.ibc.core.client.v1.TxProto.MsgSubmitMisbehaviour) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgSubmitMisbehaviourResponse>) responseObserver);
           break;
+        case METHODID_RECOVER_CLIENT:
+          serviceImpl.recoverClient((com.ibc.core.client.v1.TxProto.MsgRecoverClient) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse>) responseObserver);
+          break;
+        case METHODID_IBCSOFTWARE_UPGRADE:
+          serviceImpl.iBCSoftwareUpgrade((com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse>) responseObserver);
+          break;
         case METHODID_UPDATE_CLIENT_PARAMS:
           serviceImpl.updateClientParams((com.ibc.core.client.v1.TxProto.MsgUpdateParams) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_CLIENT_CREATOR:
+          serviceImpl.deleteClientCreator((com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -599,12 +833,33 @@ public final class MsgGrpc {
               com.ibc.core.client.v1.TxProto.MsgSubmitMisbehaviourResponse>(
                 service, METHODID_SUBMIT_MISBEHAVIOUR)))
         .addMethod(
+          getRecoverClientMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.client.v1.TxProto.MsgRecoverClient,
+              com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse>(
+                service, METHODID_RECOVER_CLIENT)))
+        .addMethod(
+          getIBCSoftwareUpgradeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade,
+              com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse>(
+                service, METHODID_IBCSOFTWARE_UPGRADE)))
+        .addMethod(
           getUpdateClientParamsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               com.ibc.core.client.v1.TxProto.MsgUpdateParams,
               com.ibc.core.client.v1.TxProto.MsgUpdateParamsResponse>(
                 service, METHODID_UPDATE_CLIENT_PARAMS)))
+        .addMethod(
+          getDeleteClientCreatorMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator,
+              com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse>(
+                service, METHODID_DELETE_CLIENT_CREATOR)))
         .build();
   }
 
@@ -657,7 +912,10 @@ public final class MsgGrpc {
               .addMethod(getUpdateClientMethod())
               .addMethod(getUpgradeClientMethod())
               .addMethod(getSubmitMisbehaviourMethod())
+              .addMethod(getRecoverClientMethod())
+              .addMethod(getIBCSoftwareUpgradeMethod())
               .addMethod(getUpdateClientParamsMethod())
+              .addMethod(getDeleteClientCreatorMethod())
               .build();
         }
       }

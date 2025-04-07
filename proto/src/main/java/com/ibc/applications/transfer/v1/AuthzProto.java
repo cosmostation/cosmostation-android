@@ -142,6 +142,51 @@ public final class AuthzProto {
      */
     com.google.protobuf.ByteString
         getAllowListBytes(int index);
+
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @return A list containing the allowedPacketData.
+     */
+    java.util.List<java.lang.String>
+        getAllowedPacketDataList();
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @return The count of allowedPacketData.
+     */
+    int getAllowedPacketDataCount();
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @param index The index of the element to return.
+     * @return The allowedPacketData at the given index.
+     */
+    java.lang.String getAllowedPacketData(int index);
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the allowedPacketData at the given index.
+     */
+    com.google.protobuf.ByteString
+        getAllowedPacketDataBytes(int index);
   }
   /**
    * <pre>
@@ -164,6 +209,8 @@ public final class AuthzProto {
       sourceChannel_ = "";
       spendLimit_ = java.util.Collections.emptyList();
       allowList_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      allowedPacketData_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
     }
 
@@ -395,6 +442,63 @@ public final class AuthzProto {
       return allowList_.getByteString(index);
     }
 
+    public static final int ALLOWED_PACKET_DATA_FIELD_NUMBER = 5;
+    @SuppressWarnings("serial")
+    private com.google.protobuf.LazyStringArrayList allowedPacketData_ =
+        com.google.protobuf.LazyStringArrayList.emptyList();
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @return A list containing the allowedPacketData.
+     */
+    public com.google.protobuf.ProtocolStringList
+        getAllowedPacketDataList() {
+      return allowedPacketData_;
+    }
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @return The count of allowedPacketData.
+     */
+    public int getAllowedPacketDataCount() {
+      return allowedPacketData_.size();
+    }
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @param index The index of the element to return.
+     * @return The allowedPacketData at the given index.
+     */
+    public java.lang.String getAllowedPacketData(int index) {
+      return allowedPacketData_.get(index);
+    }
+    /**
+     * <pre>
+     * allow list of memo strings, an empty list prohibits all memo strings;
+     * a list only with "*" permits any memo string
+     * </pre>
+     *
+     * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the allowedPacketData at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getAllowedPacketDataBytes(int index) {
+      return allowedPacketData_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -420,6 +524,9 @@ public final class AuthzProto {
       }
       for (int i = 0; i < allowList_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, allowList_.getRaw(i));
+      }
+      for (int i = 0; i < allowedPacketData_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, allowedPacketData_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -448,6 +555,14 @@ public final class AuthzProto {
         size += dataSize;
         size += 1 * getAllowListList().size();
       }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < allowedPacketData_.size(); i++) {
+          dataSize += computeStringSizeNoTag(allowedPacketData_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getAllowedPacketDataList().size();
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -471,6 +586,8 @@ public final class AuthzProto {
           .equals(other.getSpendLimitList())) return false;
       if (!getAllowListList()
           .equals(other.getAllowListList())) return false;
+      if (!getAllowedPacketDataList()
+          .equals(other.getAllowedPacketDataList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -493,6 +610,10 @@ public final class AuthzProto {
       if (getAllowListCount() > 0) {
         hash = (37 * hash) + ALLOW_LIST_FIELD_NUMBER;
         hash = (53 * hash) + getAllowListList().hashCode();
+      }
+      if (getAllowedPacketDataCount() > 0) {
+        hash = (37 * hash) + ALLOWED_PACKET_DATA_FIELD_NUMBER;
+        hash = (53 * hash) + getAllowedPacketDataList().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -640,6 +761,8 @@ public final class AuthzProto {
         bitField0_ = (bitField0_ & ~0x00000004);
         allowList_ =
             com.google.protobuf.LazyStringArrayList.emptyList();
+        allowedPacketData_ =
+            com.google.protobuf.LazyStringArrayList.emptyList();
         return this;
       }
 
@@ -695,6 +818,10 @@ public final class AuthzProto {
         if (((from_bitField0_ & 0x00000008) != 0)) {
           allowList_.makeImmutable();
           result.allowList_ = allowList_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          allowedPacketData_.makeImmutable();
+          result.allowedPacketData_ = allowedPacketData_;
         }
       }
 
@@ -788,6 +915,16 @@ public final class AuthzProto {
           }
           onChanged();
         }
+        if (!other.allowedPacketData_.isEmpty()) {
+          if (allowedPacketData_.isEmpty()) {
+            allowedPacketData_ = other.allowedPacketData_;
+            bitField0_ |= 0x00000010;
+          } else {
+            ensureAllowedPacketDataIsMutable();
+            allowedPacketData_.addAll(other.allowedPacketData_);
+          }
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -843,6 +980,12 @@ public final class AuthzProto {
                 allowList_.add(s);
                 break;
               } // case 34
+              case 42: {
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureAllowedPacketDataIsMutable();
+                allowedPacketData_.add(s);
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1499,6 +1642,162 @@ public final class AuthzProto {
         ensureAllowListIsMutable();
         allowList_.add(value);
         bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringArrayList allowedPacketData_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+      private void ensureAllowedPacketDataIsMutable() {
+        if (!allowedPacketData_.isModifiable()) {
+          allowedPacketData_ = new com.google.protobuf.LazyStringArrayList(allowedPacketData_);
+        }
+        bitField0_ |= 0x00000010;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @return A list containing the allowedPacketData.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getAllowedPacketDataList() {
+        allowedPacketData_.makeImmutable();
+        return allowedPacketData_;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @return The count of allowedPacketData.
+       */
+      public int getAllowedPacketDataCount() {
+        return allowedPacketData_.size();
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param index The index of the element to return.
+       * @return The allowedPacketData at the given index.
+       */
+      public java.lang.String getAllowedPacketData(int index) {
+        return allowedPacketData_.get(index);
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the allowedPacketData at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getAllowedPacketDataBytes(int index) {
+        return allowedPacketData_.getByteString(index);
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param index The index to set the value at.
+       * @param value The allowedPacketData to set.
+       * @return This builder for chaining.
+       */
+      public Builder setAllowedPacketData(
+          int index, java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureAllowedPacketDataIsMutable();
+        allowedPacketData_.set(index, value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param value The allowedPacketData to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllowedPacketData(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureAllowedPacketDataIsMutable();
+        allowedPacketData_.add(value);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param values The allowedPacketData to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllAllowedPacketData(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureAllowedPacketDataIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, allowedPacketData_);
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearAllowedPacketData() {
+        allowedPacketData_ =
+          com.google.protobuf.LazyStringArrayList.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000010);;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * allow list of memo strings, an empty list prohibits all memo strings;
+       * a list only with "*" permits any memo string
+       * </pre>
+       *
+       * <code>repeated string allowed_packet_data = 5 [json_name = "allowedPacketData"];</code>
+       * @param value The bytes of the allowedPacketData to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllowedPacketDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        ensureAllowedPacketDataIsMutable();
+        allowedPacketData_.add(value);
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -2492,23 +2791,24 @@ public final class AuthzProto {
       "\n(ibc/applications/transfer/v1/authz.pro" +
       "to\022\034ibc.applications.transfer.v1\032\031cosmos" +
       "_proto/cosmos.proto\032\024gogoproto/gogo.prot" +
-      "o\032\036cosmos/base/v1beta1/coin.proto\"\341\001\n\nAl" +
+      "o\032\036cosmos/base/v1beta1/coin.proto\"\221\002\n\nAl" +
       "location\022\037\n\013source_port\030\001 \001(\tR\nsourcePor" +
       "t\022%\n\016source_channel\030\002 \001(\tR\rsourceChannel" +
       "\022l\n\013spend_limit\030\003 \003(\0132\031.cosmos.base.v1be" +
       "ta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/cosm" +
       "os-sdk/types.CoinsR\nspendLimit\022\035\n\nallow_" +
-      "list\030\004 \003(\tR\tallowList\"\221\001\n\025TransferAuthor" +
-      "ization\022P\n\013allocations\030\001 \003(\0132(.ibc.appli" +
-      "cations.transfer.v1.AllocationB\004\310\336\037\000R\013al" +
-      "locations:&\312\264-\"cosmos.authz.v1beta1.Auth" +
-      "orizationB\370\001\n com.ibc.applications.trans" +
-      "fer.v1B\nAuthzProtoZ7github.com/cosmos/ib" +
-      "c-go/v7/modules/apps/transfer/types\242\002\003IA" +
-      "T\252\002\034Ibc.Applications.Transfer.V1\312\002\034Ibc\\A" +
-      "pplications\\Transfer\\V1\342\002(Ibc\\Applicatio" +
-      "ns\\Transfer\\V1\\GPBMetadata\352\002\037Ibc::Applic" +
-      "ations::Transfer::V1b\006proto3"
+      "list\030\004 \003(\tR\tallowList\022.\n\023allowed_packet_" +
+      "data\030\005 \003(\tR\021allowedPacketData\"\221\001\n\025Transf" +
+      "erAuthorization\022P\n\013allocations\030\001 \003(\0132(.i" +
+      "bc.applications.transfer.v1.AllocationB\004" +
+      "\310\336\037\000R\013allocations:&\312\264-\"cosmos.authz.v1be" +
+      "ta1.AuthorizationB\371\001\n com.ibc.applicatio" +
+      "ns.transfer.v1B\nAuthzProtoZ8github.com/c" +
+      "osmos/ibc-go/v10/modules/apps/transfer/t" +
+      "ypes\242\002\003IAT\252\002\034Ibc.Applications.Transfer.V" +
+      "1\312\002\034Ibc\\Applications\\Transfer\\V1\342\002(Ibc\\A" +
+      "pplications\\Transfer\\V1\\GPBMetadata\352\002\037Ib" +
+      "c::Applications::Transfer::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2522,7 +2822,7 @@ public final class AuthzProto {
     internal_static_ibc_applications_transfer_v1_Allocation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_transfer_v1_Allocation_descriptor,
-        new java.lang.String[] { "SourcePort", "SourceChannel", "SpendLimit", "AllowList", });
+        new java.lang.String[] { "SourcePort", "SourceChannel", "SpendLimit", "AllowList", "AllowedPacketData", });
     internal_static_ibc_applications_transfer_v1_TransferAuthorization_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ibc_applications_transfer_v1_TransferAuthorization_fieldAccessorTable = new

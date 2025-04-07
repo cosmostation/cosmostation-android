@@ -3964,12 +3964,12 @@ public final class GenesisProto {
       "\030\010 \001(\004R\023nextChannelSequence\"d\n\016PacketSeq" +
       "uence\022\027\n\007port_id\030\001 \001(\tR\006portId\022\035\n\nchanne" +
       "l_id\030\002 \001(\tR\tchannelId\022\032\n\010sequence\030\003 \001(\004R" +
-      "\010sequenceB\317\001\n\027com.ibc.core.channel.v1B\014G" +
-      "enesisProtoZ9github.com/cosmos/ibc-go/v7" +
-      "/modules/core/04-channel/types\242\002\003ICC\252\002\023I" +
-      "bc.Core.Channel.V1\312\002\023Ibc\\Core\\Channel\\V1" +
-      "\342\002\037Ibc\\Core\\Channel\\V1\\GPBMetadata\352\002\026Ibc" +
-      "::Core::Channel::V1b\006proto3"
+      "\010sequenceB\320\001\n\027com.ibc.core.channel.v1B\014G" +
+      "enesisProtoZ:github.com/cosmos/ibc-go/v1" +
+      "0/modules/core/04-channel/types\242\002\003ICC\252\002\023" +
+      "Ibc.Core.Channel.V1\312\002\023Ibc\\Core\\Channel\\V" +
+      "1\342\002\037Ibc\\Core\\Channel\\V1\\GPBMetadata\352\002\026Ib" +
+      "c::Core::Channel::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1371,7 +1371,7 @@ public final class PacketProto {
       "\001(\tR\006sender\022\032\n\010receiver\030\004 \001(\tR\010receiver\022" +
       "\022\n\004memo\030\005 \001(\tR\004memoB\371\001\n com.ibc.applicat" +
       "ions.transfer.v2B\013PacketProtoZ7github.co" +
-      "m/cosmos/ibc-go/v7/modules/apps/transfer" +
+      "m/cosmos/ibc-go/v8/modules/apps/transfer" +
       "/types\242\002\003IAT\252\002\034Ibc.Applications.Transfer" +
       ".V2\312\002\034Ibc\\Applications\\Transfer\\V2\342\002(Ibc" +
       "\\Applications\\Transfer\\V2\\GPBMetadata\352\002\037" +

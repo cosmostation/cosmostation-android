@@ -5760,17 +5760,17 @@ public final class GenesisProto {
       "wareEnabled\"\204\001\n\033RegisteredInterchainAcco" +
       "unt\022#\n\rconnection_id\030\001 \001(\tR\014connectionId" +
       "\022\027\n\007port_id\030\002 \001(\tR\006portId\022\'\n\017account_add" +
-      "ress\030\003 \001(\tR\016accountAddressB\355\002\n3com.ibc.a" +
+      "ress\030\003 \001(\tR\016accountAddressB\356\002\n3com.ibc.a" +
       "pplications.interchain_accounts.genesis." +
-      "v1B\014GenesisProtoZMgithub.com/cosmos/ibc-" +
-      "go/v7/modules/apps/27-interchain-account" +
-      "s/genesis/types\242\002\004IAIG\252\002.Ibc.Application" +
-      "s.InterchainAccounts.Genesis.V1\312\002.Ibc\\Ap" +
-      "plications\\InterchainAccounts\\Genesis\\V1" +
-      "\342\002:Ibc\\Applications\\InterchainAccounts\\G" +
-      "enesis\\V1\\GPBMetadata\352\0022Ibc::Application" +
-      "s::InterchainAccounts::Genesis::V1b\006prot" +
-      "o3"
+      "v1B\014GenesisProtoZNgithub.com/cosmos/ibc-" +
+      "go/v10/modules/apps/27-interchain-accoun" +
+      "ts/genesis/types\242\002\004IAIG\252\002.Ibc.Applicatio" +
+      "ns.InterchainAccounts.Genesis.V1\312\002.Ibc\\A" +
+      "pplications\\InterchainAccounts\\Genesis\\V" +
+      "1\342\002:Ibc\\Applications\\InterchainAccounts\\" +
+      "Genesis\\V1\\GPBMetadata\352\0022Ibc::Applicatio" +
+      "ns::InterchainAccounts::Genesis::V1b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

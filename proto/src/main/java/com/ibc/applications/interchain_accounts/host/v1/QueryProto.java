@@ -1119,15 +1119,15 @@ public final class QueryProto {
       "t\032A.ibc.applications.interchain_accounts" +
       ".host.v1.QueryParamsResponse\"4\202\323\344\223\002.\022,/i" +
       "bc/apps/interchain_accounts/host/v1/para" +
-      "msB\331\002\n0com.ibc.applications.interchain_a" +
-      "ccounts.host.v1B\nQueryProtoZJgithub.com/" +
-      "cosmos/ibc-go/v7/modules/apps/27-interch" +
-      "ain-accounts/host/types\242\002\004IAIH\252\002+Ibc.App" +
-      "lications.InterchainAccounts.Host.V1\312\002+I" +
-      "bc\\Applications\\InterchainAccounts\\Host\\" +
-      "V1\342\0027Ibc\\Applications\\InterchainAccounts" +
-      "\\Host\\V1\\GPBMetadata\352\002/Ibc::Applications" +
-      "::InterchainAccounts::Host::V1b\006proto3"
+      "msB\332\002\n0com.ibc.applications.interchain_a" +
+      "ccounts.host.v1B\nQueryProtoZKgithub.com/" +
+      "cosmos/ibc-go/v10/modules/apps/27-interc" +
+      "hain-accounts/host/types\242\002\004IAIH\252\002+Ibc.Ap" +
+      "plications.InterchainAccounts.Host.V1\312\002+" +
+      "Ibc\\Applications\\InterchainAccounts\\Host" +
+      "\\V1\342\0027Ibc\\Applications\\InterchainAccount" +
+      "s\\Host\\V1\\GPBMetadata\352\002/Ibc::Application" +
+      "s::InterchainAccounts::Host::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

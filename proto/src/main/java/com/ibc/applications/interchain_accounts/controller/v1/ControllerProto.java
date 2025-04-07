@@ -539,17 +539,17 @@ public final class ControllerProto {
       "ontroller/v1/controller.proto\0222ibc.appli" +
       "cations.interchain_accounts.controller.v" +
       "1\"7\n\006Params\022-\n\022controller_enabled\030\001 \001(\010R" +
-      "\021controllerEnabledB\202\003\n6com.ibc.applicati" +
+      "\021controllerEnabledB\203\003\n6com.ibc.applicati" +
       "ons.interchain_accounts.controller.v1B\017C" +
-      "ontrollerProtoZPgithub.com/cosmos/ibc-go" +
-      "/v7/modules/apps/27-interchain-accounts/" +
-      "controller/types\242\002\004IAIC\252\0021Ibc.Applicatio" +
-      "ns.InterchainAccounts.Controller.V1\312\0021Ib" +
-      "c\\Applications\\InterchainAccounts\\Contro" +
-      "ller\\V1\342\002=Ibc\\Applications\\InterchainAcc" +
-      "ounts\\Controller\\V1\\GPBMetadata\352\0025Ibc::A" +
-      "pplications::InterchainAccounts::Control" +
-      "ler::V1b\006proto3"
+      "ontrollerProtoZQgithub.com/cosmos/ibc-go" +
+      "/v10/modules/apps/27-interchain-accounts" +
+      "/controller/types\242\002\004IAIC\252\0021Ibc.Applicati" +
+      "ons.InterchainAccounts.Controller.V1\312\0021I" +
+      "bc\\Applications\\InterchainAccounts\\Contr" +
+      "oller\\V1\342\002=Ibc\\Applications\\InterchainAc" +
+      "counts\\Controller\\V1\\GPBMetadata\352\0025Ibc::" +
+      "Applications::InterchainAccounts::Contro" +
+      "ller::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -1492,13 +1492,13 @@ public final class GenesisProto {
       "ectionPaths\0228\n\030next_connection_sequence\030" +
       "\003 \001(\004R\026nextConnectionSequence\022<\n\006params\030" +
       "\004 \001(\0132\036.ibc.core.connection.v1.ParamsB\004\310" +
-      "\336\037\000R\006paramsB\341\001\n\032com.ibc.core.connection." +
-      "v1B\014GenesisProtoZ<github.com/cosmos/ibc-" +
-      "go/v7/modules/core/03-connection/types\242\002" +
-      "\003ICC\252\002\026Ibc.Core.Connection.V1\312\002\026Ibc\\Core" +
-      "\\Connection\\V1\342\002\"Ibc\\Core\\Connection\\V1\\" +
-      "GPBMetadata\352\002\031Ibc::Core::Connection::V1b" +
-      "\006proto3"
+      "\336\037\000R\006paramsB\342\001\n\032com.ibc.core.connection." +
+      "v1B\014GenesisProtoZ=github.com/cosmos/ibc-" +
+      "go/v10/modules/core/03-connection/types\242" +
+      "\002\003ICC\252\002\026Ibc.Core.Connection.V1\312\002\026Ibc\\Cor" +
+      "e\\Connection\\V1\342\002\"Ibc\\Core\\Connection\\V1" +
+      "\\GPBMetadata\352\002\031Ibc::Core::Connection::V1" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

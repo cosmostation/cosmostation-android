@@ -235,6 +235,37 @@ public final class QueryGrpc {
     return getClientParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest,
+      com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> getClientCreatorMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ClientCreator",
+      requestType = com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.class,
+      responseType = com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest,
+      com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> getClientCreatorMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest, com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> getClientCreatorMethod;
+    if ((getClientCreatorMethod = QueryGrpc.getClientCreatorMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getClientCreatorMethod = QueryGrpc.getClientCreatorMethod) == null) {
+          QueryGrpc.getClientCreatorMethod = getClientCreatorMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest, com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ClientCreator"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("ClientCreator"))
+              .build();
+        }
+      }
+    }
+    return getClientCreatorMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryUpgradedClientStateRequest,
       com.ibc.core.client.v1.QueryProto.QueryUpgradedClientStateResponse> getUpgradedClientStateMethod;
 
@@ -295,6 +326,37 @@ public final class QueryGrpc {
       }
     }
     return getUpgradedConsensusStateMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest,
+      com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> getVerifyMembershipMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "VerifyMembership",
+      requestType = com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.class,
+      responseType = com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest,
+      com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> getVerifyMembershipMethod() {
+    io.grpc.MethodDescriptor<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> getVerifyMembershipMethod;
+    if ((getVerifyMembershipMethod = QueryGrpc.getVerifyMembershipMethod) == null) {
+      synchronized (QueryGrpc.class) {
+        if ((getVerifyMembershipMethod = QueryGrpc.getVerifyMembershipMethod) == null) {
+          QueryGrpc.getVerifyMembershipMethod = getVerifyMembershipMethod =
+              io.grpc.MethodDescriptor.<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "VerifyMembership"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new QueryMethodDescriptorSupplier("VerifyMembership"))
+              .build();
+        }
+      }
+    }
+    return getVerifyMembershipMethod;
   }
 
   /**
@@ -422,6 +484,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * ClientCreator queries the creator of a given client.
+     * </pre>
+     */
+    default void clientCreator(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getClientCreatorMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
      * UpgradedClientState queries an Upgraded IBC light client.
      * </pre>
      */
@@ -438,6 +510,16 @@ public final class QueryGrpc {
     default void upgradedConsensusState(com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateRequest request,
         io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpgradedConsensusStateMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * VerifyMembership queries an IBC light client for proof verification of a value at a given key path.
+     * </pre>
+     */
+    default void verifyMembership(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getVerifyMembershipMethod(), responseObserver);
     }
   }
 
@@ -555,6 +637,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * ClientCreator queries the creator of a given client.
+     * </pre>
+     */
+    public void clientCreator(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getClientCreatorMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
      * UpgradedClientState queries an Upgraded IBC light client.
      * </pre>
      */
@@ -573,6 +666,17 @@ public final class QueryGrpc {
         io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * VerifyMembership queries an IBC light client for proof verification of a value at a given key path.
+     * </pre>
+     */
+    public void verifyMembership(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest request,
+        io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getVerifyMembershipMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -669,6 +773,16 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * ClientCreator queries the creator of a given client.
+     * </pre>
+     */
+    public com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse clientCreator(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getClientCreatorMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      * UpgradedClientState queries an Upgraded IBC light client.
      * </pre>
      */
@@ -685,6 +799,16 @@ public final class QueryGrpc {
     public com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateResponse upgradedConsensusState(com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpgradedConsensusStateMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * VerifyMembership queries an IBC light client for proof verification of a value at a given key path.
+     * </pre>
+     */
+    public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse verifyMembership(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getVerifyMembershipMethod(), getCallOptions(), request);
     }
   }
 
@@ -788,6 +912,17 @@ public final class QueryGrpc {
 
     /**
      * <pre>
+     * ClientCreator queries the creator of a given client.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse> clientCreator(
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getClientCreatorMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      * UpgradedClientState queries an Upgraded IBC light client.
      * </pre>
      */
@@ -807,6 +942,17 @@ public final class QueryGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpgradedConsensusStateMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * VerifyMembership queries an IBC light client for proof verification of a value at a given key path.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse> verifyMembership(
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getVerifyMembershipMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CLIENT_STATE = 0;
@@ -816,8 +962,10 @@ public final class QueryGrpc {
   private static final int METHODID_CONSENSUS_STATE_HEIGHTS = 4;
   private static final int METHODID_CLIENT_STATUS = 5;
   private static final int METHODID_CLIENT_PARAMS = 6;
-  private static final int METHODID_UPGRADED_CLIENT_STATE = 7;
-  private static final int METHODID_UPGRADED_CONSENSUS_STATE = 8;
+  private static final int METHODID_CLIENT_CREATOR = 7;
+  private static final int METHODID_UPGRADED_CLIENT_STATE = 8;
+  private static final int METHODID_UPGRADED_CONSENSUS_STATE = 9;
+  private static final int METHODID_VERIFY_MEMBERSHIP = 10;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -864,6 +1012,10 @@ public final class QueryGrpc {
           serviceImpl.clientParams((com.ibc.core.client.v1.QueryProto.QueryClientParamsRequest) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryClientParamsResponse>) responseObserver);
           break;
+        case METHODID_CLIENT_CREATOR:
+          serviceImpl.clientCreator((com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse>) responseObserver);
+          break;
         case METHODID_UPGRADED_CLIENT_STATE:
           serviceImpl.upgradedClientState((com.ibc.core.client.v1.QueryProto.QueryUpgradedClientStateRequest) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryUpgradedClientStateResponse>) responseObserver);
@@ -871,6 +1023,10 @@ public final class QueryGrpc {
         case METHODID_UPGRADED_CONSENSUS_STATE:
           serviceImpl.upgradedConsensusState((com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateRequest) request,
               (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateResponse>) responseObserver);
+          break;
+        case METHODID_VERIFY_MEMBERSHIP:
+          serviceImpl.verifyMembership((com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest) request,
+              (io.grpc.stub.StreamObserver<com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -940,6 +1096,13 @@ public final class QueryGrpc {
               com.ibc.core.client.v1.QueryProto.QueryClientParamsResponse>(
                 service, METHODID_CLIENT_PARAMS)))
         .addMethod(
+          getClientCreatorMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest,
+              com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse>(
+                service, METHODID_CLIENT_CREATOR)))
+        .addMethod(
           getUpgradedClientStateMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -953,6 +1116,13 @@ public final class QueryGrpc {
               com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateRequest,
               com.ibc.core.client.v1.QueryProto.QueryUpgradedConsensusStateResponse>(
                 service, METHODID_UPGRADED_CONSENSUS_STATE)))
+        .addMethod(
+          getVerifyMembershipMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest,
+              com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse>(
+                service, METHODID_VERIFY_MEMBERSHIP)))
         .build();
   }
 
@@ -1008,8 +1178,10 @@ public final class QueryGrpc {
               .addMethod(getConsensusStateHeightsMethod())
               .addMethod(getClientStatusMethod())
               .addMethod(getClientParamsMethod())
+              .addMethod(getClientCreatorMethod())
               .addMethod(getUpgradedClientStateMethod())
               .addMethod(getUpgradedConsensusStateMethod())
+              .addMethod(getVerifyMembershipMethod())
               .build();
         }
       }

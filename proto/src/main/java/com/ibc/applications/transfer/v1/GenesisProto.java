@@ -31,27 +31,27 @@ public final class GenesisProto {
         getPortIdBytes();
 
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
-    java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> 
-        getDenomTracesList();
+    java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> 
+        getDenomsList();
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index);
+    com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index);
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
-    int getDenomTracesCount();
+    int getDenomsCount();
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
-    java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-        getDenomTracesOrBuilderList();
+    java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+        getDenomsOrBuilderList();
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
+    com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
         int index);
 
     /**
@@ -136,7 +136,7 @@ public final class GenesisProto {
     }
     private GenesisState() {
       portId_ = "";
-      denomTraces_ = java.util.Collections.emptyList();
+      denoms_ = java.util.Collections.emptyList();
       totalEscrowed_ = java.util.Collections.emptyList();
     }
 
@@ -199,45 +199,45 @@ public final class GenesisProto {
       }
     }
 
-    public static final int DENOM_TRACES_FIELD_NUMBER = 2;
+    public static final int DENOMS_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> denomTraces_;
+    private java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> denoms_;
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
     @java.lang.Override
-    public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> getDenomTracesList() {
-      return denomTraces_;
+    public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> getDenomsList() {
+      return denoms_;
     }
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
     @java.lang.Override
-    public java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-        getDenomTracesOrBuilderList() {
-      return denomTraces_;
+    public java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+        getDenomsOrBuilderList() {
+      return denoms_;
     }
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
     @java.lang.Override
-    public int getDenomTracesCount() {
-      return denomTraces_.size();
+    public int getDenomsCount() {
+      return denoms_.size();
     }
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
     @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index) {
-      return denomTraces_.get(index);
+    public com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index) {
+      return denoms_.get(index);
     }
     /**
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
      */
     @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
+    public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
         int index) {
-      return denomTraces_.get(index);
+      return denoms_.get(index);
     }
 
     public static final int PARAMS_FIELD_NUMBER = 3;
@@ -349,8 +349,8 @@ public final class GenesisProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(portId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, portId_);
       }
-      for (int i = 0; i < denomTraces_.size(); i++) {
-        output.writeMessage(2, denomTraces_.get(i));
+      for (int i = 0; i < denoms_.size(); i++) {
+        output.writeMessage(2, denoms_.get(i));
       }
       if (params_ != null) {
         output.writeMessage(3, getParams());
@@ -370,9 +370,9 @@ public final class GenesisProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(portId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, portId_);
       }
-      for (int i = 0; i < denomTraces_.size(); i++) {
+      for (int i = 0; i < denoms_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, denomTraces_.get(i));
+          .computeMessageSize(2, denoms_.get(i));
       }
       if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -399,8 +399,8 @@ public final class GenesisProto {
 
       if (!getPortId()
           .equals(other.getPortId())) return false;
-      if (!getDenomTracesList()
-          .equals(other.getDenomTracesList())) return false;
+      if (!getDenomsList()
+          .equals(other.getDenomsList())) return false;
       if (hasParams() != other.hasParams()) return false;
       if (hasParams()) {
         if (!getParams()
@@ -421,9 +421,9 @@ public final class GenesisProto {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + PORT_ID_FIELD_NUMBER;
       hash = (53 * hash) + getPortId().hashCode();
-      if (getDenomTracesCount() > 0) {
-        hash = (37 * hash) + DENOM_TRACES_FIELD_NUMBER;
-        hash = (53 * hash) + getDenomTracesList().hashCode();
+      if (getDenomsCount() > 0) {
+        hash = (37 * hash) + DENOMS_FIELD_NUMBER;
+        hash = (53 * hash) + getDenomsList().hashCode();
       }
       if (hasParams()) {
         hash = (37 * hash) + PARAMS_FIELD_NUMBER;
@@ -569,11 +569,11 @@ public final class GenesisProto {
         super.clear();
         bitField0_ = 0;
         portId_ = "";
-        if (denomTracesBuilder_ == null) {
-          denomTraces_ = java.util.Collections.emptyList();
+        if (denomsBuilder_ == null) {
+          denoms_ = java.util.Collections.emptyList();
         } else {
-          denomTraces_ = null;
-          denomTracesBuilder_.clear();
+          denoms_ = null;
+          denomsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
         params_ = null;
@@ -621,14 +621,14 @@ public final class GenesisProto {
       }
 
       private void buildPartialRepeatedFields(com.ibc.applications.transfer.v1.GenesisProto.GenesisState result) {
-        if (denomTracesBuilder_ == null) {
+        if (denomsBuilder_ == null) {
           if (((bitField0_ & 0x00000002) != 0)) {
-            denomTraces_ = java.util.Collections.unmodifiableList(denomTraces_);
+            denoms_ = java.util.Collections.unmodifiableList(denoms_);
             bitField0_ = (bitField0_ & ~0x00000002);
           }
-          result.denomTraces_ = denomTraces_;
+          result.denoms_ = denoms_;
         } else {
-          result.denomTraces_ = denomTracesBuilder_.build();
+          result.denoms_ = denomsBuilder_.build();
         }
         if (totalEscrowedBuilder_ == null) {
           if (((bitField0_ & 0x00000008) != 0)) {
@@ -702,29 +702,29 @@ public final class GenesisProto {
           bitField0_ |= 0x00000001;
           onChanged();
         }
-        if (denomTracesBuilder_ == null) {
-          if (!other.denomTraces_.isEmpty()) {
-            if (denomTraces_.isEmpty()) {
-              denomTraces_ = other.denomTraces_;
+        if (denomsBuilder_ == null) {
+          if (!other.denoms_.isEmpty()) {
+            if (denoms_.isEmpty()) {
+              denoms_ = other.denoms_;
               bitField0_ = (bitField0_ & ~0x00000002);
             } else {
-              ensureDenomTracesIsMutable();
-              denomTraces_.addAll(other.denomTraces_);
+              ensureDenomsIsMutable();
+              denoms_.addAll(other.denoms_);
             }
             onChanged();
           }
         } else {
-          if (!other.denomTraces_.isEmpty()) {
-            if (denomTracesBuilder_.isEmpty()) {
-              denomTracesBuilder_.dispose();
-              denomTracesBuilder_ = null;
-              denomTraces_ = other.denomTraces_;
+          if (!other.denoms_.isEmpty()) {
+            if (denomsBuilder_.isEmpty()) {
+              denomsBuilder_.dispose();
+              denomsBuilder_ = null;
+              denoms_ = other.denoms_;
               bitField0_ = (bitField0_ & ~0x00000002);
-              denomTracesBuilder_ = 
+              denomsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getDenomTracesFieldBuilder() : null;
+                   getDenomsFieldBuilder() : null;
             } else {
-              denomTracesBuilder_.addAllMessages(other.denomTraces_);
+              denomsBuilder_.addAllMessages(other.denoms_);
             }
           }
         }
@@ -789,15 +789,15 @@ public final class GenesisProto {
                 break;
               } // case 10
               case 18: {
-                com.ibc.applications.transfer.v1.TransferProto.DenomTrace m =
+                com.ibc.applications.transfer.v1.TokenProto.Denom m =
                     input.readMessage(
-                        com.ibc.applications.transfer.v1.TransferProto.DenomTrace.parser(),
+                        com.ibc.applications.transfer.v1.TokenProto.Denom.parser(),
                         extensionRegistry);
-                if (denomTracesBuilder_ == null) {
-                  ensureDenomTracesIsMutable();
-                  denomTraces_.add(m);
+                if (denomsBuilder_ == null) {
+                  ensureDenomsIsMutable();
+                  denoms_.add(m);
                 } else {
-                  denomTracesBuilder_.addMessage(m);
+                  denomsBuilder_.addMessage(m);
                 }
                 break;
               } // case 18
@@ -910,244 +910,244 @@ public final class GenesisProto {
         return this;
       }
 
-      private java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> denomTraces_ =
+      private java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> denoms_ =
         java.util.Collections.emptyList();
-      private void ensureDenomTracesIsMutable() {
+      private void ensureDenomsIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
-          denomTraces_ = new java.util.ArrayList<com.ibc.applications.transfer.v1.TransferProto.DenomTrace>(denomTraces_);
+          denoms_ = new java.util.ArrayList<com.ibc.applications.transfer.v1.TokenProto.Denom>(denoms_);
           bitField0_ |= 0x00000002;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> denomTracesBuilder_;
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> denomsBuilder_;
 
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> getDenomTracesList() {
-        if (denomTracesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(denomTraces_);
+      public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> getDenomsList() {
+        if (denomsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(denoms_);
         } else {
-          return denomTracesBuilder_.getMessageList();
+          return denomsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public int getDenomTracesCount() {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.size();
+      public int getDenomsCount() {
+        if (denomsBuilder_ == null) {
+          return denoms_.size();
         } else {
-          return denomTracesBuilder_.getCount();
+          return denomsBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index) {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.get(index);
+      public com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index) {
+        if (denomsBuilder_ == null) {
+          return denoms_.get(index);
         } else {
-          return denomTracesBuilder_.getMessage(index);
+          return denomsBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder setDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
+      public Builder setDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureDenomTracesIsMutable();
-          denomTraces_.set(index, value);
+          ensureDenomsIsMutable();
+          denoms_.set(index, value);
           onChanged();
         } else {
-          denomTracesBuilder_.setMessage(index, value);
+          denomsBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder setDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.set(index, builderForValue.build());
+      public Builder setDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.set(index, builderForValue.build());
           onChanged();
         } else {
-          denomTracesBuilder_.setMessage(index, builderForValue.build());
+          denomsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder addDenomTraces(com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
+      public Builder addDenoms(com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(value);
+          ensureDenomsIsMutable();
+          denoms_.add(value);
           onChanged();
         } else {
-          denomTracesBuilder_.addMessage(value);
+          denomsBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder addDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
+      public Builder addDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(index, value);
+          ensureDenomsIsMutable();
+          denoms_.add(index, value);
           onChanged();
         } else {
-          denomTracesBuilder_.addMessage(index, value);
+          denomsBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder addDenomTraces(
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(builderForValue.build());
+      public Builder addDenoms(
+          com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.add(builderForValue.build());
           onChanged();
         } else {
-          denomTracesBuilder_.addMessage(builderForValue.build());
+          denomsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder addDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(index, builderForValue.build());
+      public Builder addDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.add(index, builderForValue.build());
           onChanged();
         } else {
-          denomTracesBuilder_.addMessage(index, builderForValue.build());
+          denomsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder addAllDenomTraces(
-          java.lang.Iterable<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTrace> values) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
+      public Builder addAllDenoms(
+          java.lang.Iterable<? extends com.ibc.applications.transfer.v1.TokenProto.Denom> values) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, denomTraces_);
+              values, denoms_);
           onChanged();
         } else {
-          denomTracesBuilder_.addAllMessages(values);
+          denomsBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder clearDenomTraces() {
-        if (denomTracesBuilder_ == null) {
-          denomTraces_ = java.util.Collections.emptyList();
+      public Builder clearDenoms() {
+        if (denomsBuilder_ == null) {
+          denoms_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
-          denomTracesBuilder_.clear();
+          denomsBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public Builder removeDenomTraces(int index) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.remove(index);
+      public Builder removeDenoms(int index) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.remove(index);
           onChanged();
         } else {
-          denomTracesBuilder_.remove(index);
+          denomsBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder getDenomTracesBuilder(
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder getDenomsBuilder(
           int index) {
-        return getDenomTracesFieldBuilder().getBuilder(index);
+        return getDenomsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
+      public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
           int index) {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.get(index);  } else {
-          return denomTracesBuilder_.getMessageOrBuilder(index);
+        if (denomsBuilder_ == null) {
+          return denoms_.get(index);  } else {
+          return denomsBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-           getDenomTracesOrBuilderList() {
-        if (denomTracesBuilder_ != null) {
-          return denomTracesBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+           getDenomsOrBuilderList() {
+        if (denomsBuilder_ != null) {
+          return denomsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(denomTraces_);
+          return java.util.Collections.unmodifiableList(denoms_);
         }
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder addDenomTracesBuilder() {
-        return getDenomTracesFieldBuilder().addBuilder(
-            com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance());
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder addDenomsBuilder() {
+        return getDenomsFieldBuilder().addBuilder(
+            com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance());
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder addDenomTracesBuilder(
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder addDenomsBuilder(
           int index) {
-        return getDenomTracesFieldBuilder().addBuilder(
-            index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance());
+        return getDenomsFieldBuilder().addBuilder(
+            index, com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance());
       }
       /**
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 2 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
        */
-      public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder> 
-           getDenomTracesBuilderList() {
-        return getDenomTracesFieldBuilder().getBuilderList();
+      public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom.Builder> 
+           getDenomsBuilderList() {
+        return getDenomsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-          getDenomTracesFieldBuilder() {
-        if (denomTracesBuilder_ == null) {
-          denomTracesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder>(
-                  denomTraces_,
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+          getDenomsFieldBuilder() {
+        if (denomsBuilder_ == null) {
+          denomsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder>(
+                  denoms_,
                   ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
                   isClean());
-          denomTraces_ = null;
+          denoms_ = null;
         }
-        return denomTracesBuilder_;
+        return denomsBuilder_;
       }
 
       private com.ibc.applications.transfer.v1.TransferProto.Params params_;
@@ -1679,27 +1679,29 @@ public final class GenesisProto {
       "\n*ibc/applications/transfer/v1/genesis.p" +
       "roto\022\034ibc.applications.transfer.v1\032+ibc/" +
       "applications/transfer/v1/transfer.proto\032" +
-      "\036cosmos/base/v1beta1/coin.proto\032\024gogopro" +
-      "to/gogo.proto\"\274\002\n\014GenesisState\022\027\n\007port_i" +
-      "d\030\001 \001(\tR\006portId\022[\n\014denom_traces\030\002 \003(\0132(." +
-      "ibc.applications.transfer.v1.DenomTraceB" +
-      "\016\310\336\037\000\252\337\037\006TracesR\013denomTraces\022B\n\006params\030\003" +
-      " \001(\0132$.ibc.applications.transfer.v1.Para" +
-      "msB\004\310\336\037\000R\006params\022r\n\016total_escrowed\030\004 \003(\013" +
-      "2\031.cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(git" +
-      "hub.com/cosmos/cosmos-sdk/types.CoinsR\rt" +
-      "otalEscrowedB\372\001\n com.ibc.applications.tr" +
-      "ansfer.v1B\014GenesisProtoZ7github.com/cosm" +
-      "os/ibc-go/v7/modules/apps/transfer/types" +
-      "\242\002\003IAT\252\002\034Ibc.Applications.Transfer.V1\312\002\034" +
-      "Ibc\\Applications\\Transfer\\V1\342\002(Ibc\\Appli" +
-      "cations\\Transfer\\V1\\GPBMetadata\352\002\037Ibc::A" +
-      "pplications::Transfer::V1b\006proto3"
+      "(ibc/applications/transfer/v1/token.prot" +
+      "o\032\036cosmos/base/v1beta1/coin.proto\032\024gogop" +
+      "roto/gogo.proto\"\254\002\n\014GenesisState\022\027\n\007port" +
+      "_id\030\001 \001(\tR\006portId\022K\n\006denoms\030\002 \003(\0132#.ibc." +
+      "applications.transfer.v1.DenomB\016\310\336\037\000\252\337\037\006" +
+      "DenomsR\006denoms\022B\n\006params\030\003 \001(\0132$.ibc.app" +
+      "lications.transfer.v1.ParamsB\004\310\336\037\000R\006para" +
+      "ms\022r\n\016total_escrowed\030\004 \003(\0132\031.cosmos.base" +
+      ".v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos" +
+      "/cosmos-sdk/types.CoinsR\rtotalEscrowedB\373" +
+      "\001\n com.ibc.applications.transfer.v1B\014Gen" +
+      "esisProtoZ8github.com/cosmos/ibc-go/v10/" +
+      "modules/apps/transfer/types\242\002\003IAT\252\002\034Ibc." +
+      "Applications.Transfer.V1\312\002\034Ibc\\Applicati" +
+      "ons\\Transfer\\V1\342\002(Ibc\\Applications\\Trans" +
+      "fer\\V1\\GPBMetadata\352\002\037Ibc::Applications::" +
+      "Transfer::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.ibc.applications.transfer.v1.TransferProto.getDescriptor(),
+          com.ibc.applications.transfer.v1.TokenProto.getDescriptor(),
           com.cosmos.base.v1beta1.CoinProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
         });
@@ -1708,7 +1710,7 @@ public final class GenesisProto {
     internal_static_ibc_applications_transfer_v1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_transfer_v1_GenesisState_descriptor,
-        new java.lang.String[] { "PortId", "DenomTraces", "Params", "TotalEscrowed", });
+        new java.lang.String[] { "PortId", "Denoms", "Params", "TotalEscrowed", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.gogoproto.GogoProto.castrepeated);
@@ -1716,6 +1718,7 @@ public final class GenesisProto {
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.ibc.applications.transfer.v1.TransferProto.getDescriptor();
+    com.ibc.applications.transfer.v1.TokenProto.getDescriptor();
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();
   }

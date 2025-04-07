@@ -6485,7 +6485,7 @@ public final class GenesisProto {
       "\tR\007address\022@\n\tpacket_id\030\002 \001(\0132\035.ibc.core" +
       ".channel.v1.PacketIdB\004\310\336\037\000R\010packetIdB\337\001\n" +
       "\033com.ibc.applications.fee.v1B\014GenesisPro" +
-      "toZ5github.com/cosmos/ibc-go/v7/modules/" +
+      "toZ5github.com/cosmos/ibc-go/v8/modules/" +
       "apps/29-fee/types\242\002\003IAF\252\002\027Ibc.Applicatio" +
       "ns.Fee.V1\312\002\027Ibc\\Applications\\Fee\\V1\342\002#Ib" +
       "c\\Applications\\Fee\\V1\\GPBMetadata\352\002\032Ibc:" +

@@ -23,7 +23,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getRecvFeeList();
@@ -32,7 +32,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getRecvFee(int index);
     /**
@@ -40,7 +40,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     int getRecvFeeCount();
     /**
@@ -48,7 +48,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getRecvFeeOrBuilderList();
@@ -57,7 +57,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getRecvFeeOrBuilder(
         int index);
@@ -67,7 +67,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getAckFeeList();
@@ -76,7 +76,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getAckFee(int index);
     /**
@@ -84,7 +84,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     int getAckFeeCount();
     /**
@@ -92,7 +92,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getAckFeeOrBuilderList();
@@ -101,7 +101,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAckFeeOrBuilder(
         int index);
@@ -111,7 +111,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> 
         getTimeoutFeeList();
@@ -120,7 +120,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.Coin getTimeoutFee(int index);
     /**
@@ -128,7 +128,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     int getTimeoutFeeCount();
     /**
@@ -136,7 +136,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
         getTimeoutFeeOrBuilderList();
@@ -145,7 +145,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getTimeoutFeeOrBuilder(
         int index);
@@ -200,7 +200,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getRecvFeeList() {
@@ -211,7 +211,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -223,7 +223,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public int getRecvFeeCount() {
@@ -234,7 +234,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getRecvFee(int index) {
@@ -245,7 +245,7 @@ public final class FeeProto {
      * the packet receive fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getRecvFeeOrBuilder(
@@ -261,7 +261,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAckFeeList() {
@@ -272,7 +272,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -284,7 +284,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public int getAckFeeCount() {
@@ -295,7 +295,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getAckFee(int index) {
@@ -306,7 +306,7 @@ public final class FeeProto {
      * the packet acknowledgement fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAckFeeOrBuilder(
@@ -322,7 +322,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getTimeoutFeeList() {
@@ -333,7 +333,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
@@ -345,7 +345,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public int getTimeoutFeeCount() {
@@ -356,7 +356,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.Coin getTimeoutFee(int index) {
@@ -367,7 +367,7 @@ public final class FeeProto {
      * the packet timeout fee
      * </pre>
      *
-     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+     * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
      */
     @java.lang.Override
     public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getTimeoutFeeOrBuilder(
@@ -906,7 +906,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getRecvFeeList() {
         if (recvFeeBuilder_ == null) {
@@ -920,7 +920,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public int getRecvFeeCount() {
         if (recvFeeBuilder_ == null) {
@@ -934,7 +934,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getRecvFee(int index) {
         if (recvFeeBuilder_ == null) {
@@ -948,7 +948,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setRecvFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -969,7 +969,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setRecvFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -987,7 +987,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addRecvFee(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (recvFeeBuilder_ == null) {
@@ -1007,7 +1007,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addRecvFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1028,7 +1028,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addRecvFee(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1046,7 +1046,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addRecvFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1064,7 +1064,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAllRecvFee(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -1083,7 +1083,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder clearRecvFee() {
         if (recvFeeBuilder_ == null) {
@@ -1100,7 +1100,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder removeRecvFee(int index) {
         if (recvFeeBuilder_ == null) {
@@ -1117,7 +1117,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getRecvFeeBuilder(
           int index) {
@@ -1128,7 +1128,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getRecvFeeOrBuilder(
           int index) {
@@ -1142,7 +1142,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getRecvFeeOrBuilderList() {
@@ -1157,7 +1157,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addRecvFeeBuilder() {
         return getRecvFeeFieldBuilder().addBuilder(
@@ -1168,7 +1168,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addRecvFeeBuilder(
           int index) {
@@ -1180,7 +1180,7 @@ public final class FeeProto {
        * the packet receive fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin recv_fee = 1 [json_name = "recvFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getRecvFeeBuilderList() {
@@ -1218,7 +1218,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getAckFeeList() {
         if (ackFeeBuilder_ == null) {
@@ -1232,7 +1232,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public int getAckFeeCount() {
         if (ackFeeBuilder_ == null) {
@@ -1246,7 +1246,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getAckFee(int index) {
         if (ackFeeBuilder_ == null) {
@@ -1260,7 +1260,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setAckFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1281,7 +1281,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setAckFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1299,7 +1299,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAckFee(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (ackFeeBuilder_ == null) {
@@ -1319,7 +1319,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAckFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1340,7 +1340,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAckFee(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1358,7 +1358,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAckFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1376,7 +1376,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAllAckFee(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -1395,7 +1395,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder clearAckFee() {
         if (ackFeeBuilder_ == null) {
@@ -1412,7 +1412,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder removeAckFee(int index) {
         if (ackFeeBuilder_ == null) {
@@ -1429,7 +1429,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getAckFeeBuilder(
           int index) {
@@ -1440,7 +1440,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getAckFeeOrBuilder(
           int index) {
@@ -1454,7 +1454,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getAckFeeOrBuilderList() {
@@ -1469,7 +1469,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAckFeeBuilder() {
         return getAckFeeFieldBuilder().addBuilder(
@@ -1480,7 +1480,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addAckFeeBuilder(
           int index) {
@@ -1492,7 +1492,7 @@ public final class FeeProto {
        * the packet acknowledgement fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin ack_fee = 2 [json_name = "ackFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getAckFeeBuilderList() {
@@ -1530,7 +1530,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin> getTimeoutFeeList() {
         if (timeoutFeeBuilder_ == null) {
@@ -1544,7 +1544,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public int getTimeoutFeeCount() {
         if (timeoutFeeBuilder_ == null) {
@@ -1558,7 +1558,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin getTimeoutFee(int index) {
         if (timeoutFeeBuilder_ == null) {
@@ -1572,7 +1572,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setTimeoutFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1593,7 +1593,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder setTimeoutFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1611,7 +1611,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addTimeoutFee(com.cosmos.base.v1beta1.CoinProto.Coin value) {
         if (timeoutFeeBuilder_ == null) {
@@ -1631,7 +1631,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addTimeoutFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin value) {
@@ -1652,7 +1652,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addTimeoutFee(
           com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1670,7 +1670,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addTimeoutFee(
           int index, com.cosmos.base.v1beta1.CoinProto.Coin.Builder builderForValue) {
@@ -1688,7 +1688,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder addAllTimeoutFee(
           java.lang.Iterable<? extends com.cosmos.base.v1beta1.CoinProto.Coin> values) {
@@ -1707,7 +1707,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder clearTimeoutFee() {
         if (timeoutFeeBuilder_ == null) {
@@ -1724,7 +1724,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public Builder removeTimeoutFee(int index) {
         if (timeoutFeeBuilder_ == null) {
@@ -1741,7 +1741,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder getTimeoutFeeBuilder(
           int index) {
@@ -1752,7 +1752,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder getTimeoutFeeOrBuilder(
           int index) {
@@ -1766,7 +1766,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<? extends com.cosmos.base.v1beta1.CoinProto.CoinOrBuilder> 
            getTimeoutFeeOrBuilderList() {
@@ -1781,7 +1781,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addTimeoutFeeBuilder() {
         return getTimeoutFeeFieldBuilder().addBuilder(
@@ -1792,7 +1792,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public com.cosmos.base.v1beta1.CoinProto.Coin.Builder addTimeoutFeeBuilder(
           int index) {
@@ -1804,7 +1804,7 @@ public final class FeeProto {
        * the packet timeout fee
        * </pre>
        *
-       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
+       * <code>repeated .cosmos.base.v1beta1.Coin timeout_fee = 3 [json_name = "timeoutFee", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins", (.amino.encoding) = "legacy_coins"];</code>
        */
       public java.util.List<com.cosmos.base.v1beta1.CoinProto.Coin.Builder> 
            getTimeoutFeeBuilderList() {
@@ -5112,40 +5112,45 @@ public final class FeeProto {
   static {
     java.lang.String[] descriptorData = {
       "\n!ibc/applications/fee/v1/fee.proto\022\027ibc" +
-      ".applications.fee.v1\032\036cosmos/base/v1beta" +
-      "1/coin.proto\032\024gogoproto/gogo.proto\032!ibc/" +
-      "core/channel/v1/channel.proto\"\301\002\n\003Fee\022f\n" +
-      "\010recv_fee\030\001 \003(\0132\031.cosmos.base.v1beta1.Co" +
-      "inB0\310\336\037\000\252\337\037(github.com/cosmos/cosmos-sdk" +
-      "/types.CoinsR\007recvFee\022d\n\007ack_fee\030\002 \003(\0132\031" +
-      ".cosmos.base.v1beta1.CoinB0\310\336\037\000\252\337\037(githu" +
-      "b.com/cosmos/cosmos-sdk/types.CoinsR\006ack" +
-      "Fee\022l\n\013timeout_fee\030\003 \003(\0132\031.cosmos.base.v" +
-      "1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/c" +
-      "osmos-sdk/types.CoinsR\ntimeoutFee\"\204\001\n\tPa" +
-      "cketFee\0224\n\003fee\030\001 \001(\0132\034.ibc.applications." +
-      "fee.v1.FeeB\004\310\336\037\000R\003fee\022%\n\016refund_address\030" +
-      "\002 \001(\tR\rrefundAddress\022\032\n\010relayers\030\003 \003(\tR\010" +
-      "relayers\"W\n\nPacketFees\022I\n\013packet_fees\030\001 " +
-      "\003(\0132\".ibc.applications.fee.v1.PacketFeeB" +
-      "\004\310\336\037\000R\npacketFees\"\243\001\n\024IdentifiedPacketFe" +
-      "es\022@\n\tpacket_id\030\001 \001(\0132\035.ibc.core.channel" +
-      ".v1.PacketIdB\004\310\336\037\000R\010packetId\022I\n\013packet_f" +
-      "ees\030\002 \003(\0132\".ibc.applications.fee.v1.Pack" +
-      "etFeeB\004\310\336\037\000R\npacketFeesB\333\001\n\033com.ibc.appl" +
-      "ications.fee.v1B\010FeeProtoZ5github.com/co" +
-      "smos/ibc-go/v7/modules/apps/29-fee/types" +
-      "\242\002\003IAF\252\002\027Ibc.Applications.Fee.V1\312\002\027Ibc\\A" +
-      "pplications\\Fee\\V1\342\002#Ibc\\Applications\\Fe" +
-      "e\\V1\\GPBMetadata\352\002\032Ibc::Applications::Fe" +
-      "e::V1b\006proto3"
+      ".applications.fee.v1\032\021amino/amino.proto\032" +
+      "\036cosmos/base/v1beta1/coin.proto\032\024gogopro" +
+      "to/gogo.proto\032!ibc/core/channel/v1/chann" +
+      "el.proto\032\027cosmos/msg/v1/msg.proto\"\364\002\n\003Fe" +
+      "e\022w\n\010recv_fee\030\001 \003(\0132\031.cosmos.base.v1beta" +
+      "1.CoinBA\310\336\037\000\252\337\037(github.com/cosmos/cosmos" +
+      "-sdk/types.Coins\232\347\260*\014legacy_coinsR\007recvF" +
+      "ee\022u\n\007ack_fee\030\002 \003(\0132\031.cosmos.base.v1beta" +
+      "1.CoinBA\310\336\037\000\252\337\037(github.com/cosmos/cosmos" +
+      "-sdk/types.Coins\232\347\260*\014legacy_coinsR\006ackFe" +
+      "e\022}\n\013timeout_fee\030\003 \003(\0132\031.cosmos.base.v1b" +
+      "eta1.CoinBA\310\336\037\000\252\337\037(github.com/cosmos/cos" +
+      "mos-sdk/types.Coins\232\347\260*\014legacy_coinsR\nti" +
+      "meoutFee\"\231\001\n\tPacketFee\0224\n\003fee\030\001 \001(\0132\034.ib" +
+      "c.applications.fee.v1.FeeB\004\310\336\037\000R\003fee\022%\n\016" +
+      "refund_address\030\002 \001(\tR\rrefundAddress\022\032\n\010r" +
+      "elayers\030\003 \003(\tR\010relayers:\023\202\347\260*\016refund_add" +
+      "ress\"W\n\nPacketFees\022I\n\013packet_fees\030\001 \003(\0132" +
+      "\".ibc.applications.fee.v1.PacketFeeB\004\310\336\037" +
+      "\000R\npacketFees\"\243\001\n\024IdentifiedPacketFees\022@" +
+      "\n\tpacket_id\030\001 \001(\0132\035.ibc.core.channel.v1." +
+      "PacketIdB\004\310\336\037\000R\010packetId\022I\n\013packet_fees\030" +
+      "\002 \003(\0132\".ibc.applications.fee.v1.PacketFe" +
+      "eB\004\310\336\037\000R\npacketFeesB\333\001\n\033com.ibc.applicat" +
+      "ions.fee.v1B\010FeeProtoZ5github.com/cosmos" +
+      "/ibc-go/v8/modules/apps/29-fee/types\242\002\003I" +
+      "AF\252\002\027Ibc.Applications.Fee.V1\312\002\027Ibc\\Appli" +
+      "cations\\Fee\\V1\342\002#Ibc\\Applications\\Fee\\V1" +
+      "\\GPBMetadata\352\002\032Ibc::Applications::Fee::V" +
+      "1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.amino.AminoProto.getDescriptor(),
           com.cosmos.base.v1beta1.CoinProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
           com.ibc.core.channel.v1.ChannelProto.getDescriptor(),
+          com.cosmos.msg.v1.MsgProto.getDescriptor(),
         });
     internal_static_ibc_applications_fee_v1_Fee_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -5173,13 +5178,17 @@ public final class FeeProto {
         new java.lang.String[] { "PacketId", "PacketFees", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.amino.AminoProto.encoding);
+    registry.add(com.cosmos.msg.v1.MsgProto.signer);
     registry.add(com.gogoproto.GogoProto.castrepeated);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
+    com.amino.AminoProto.getDescriptor();
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();
     com.ibc.core.channel.v1.ChannelProto.getDescriptor();
+    com.cosmos.msg.v1.MsgProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -47,6 +47,14 @@ public final class TxProto {
      * <code>RESPONSE_RESULT_TYPE_SUCCESS = 2 [(.gogoproto.enumvalue_customname) = "SUCCESS"];</code>
      */
     RESPONSE_RESULT_TYPE_SUCCESS(2),
+    /**
+     * <pre>
+     * The message was executed unsuccessfully
+     * </pre>
+     *
+     * <code>RESPONSE_RESULT_TYPE_FAILURE = 3 [(.gogoproto.enumvalue_customname) = "FAILURE"];</code>
+     */
+    RESPONSE_RESULT_TYPE_FAILURE(3),
     UNRECOGNIZED(-1),
     ;
 
@@ -74,6 +82,14 @@ public final class TxProto {
      * <code>RESPONSE_RESULT_TYPE_SUCCESS = 2 [(.gogoproto.enumvalue_customname) = "SUCCESS"];</code>
      */
     public static final int RESPONSE_RESULT_TYPE_SUCCESS_VALUE = 2;
+    /**
+     * <pre>
+     * The message was executed unsuccessfully
+     * </pre>
+     *
+     * <code>RESPONSE_RESULT_TYPE_FAILURE = 3 [(.gogoproto.enumvalue_customname) = "FAILURE"];</code>
+     */
+    public static final int RESPONSE_RESULT_TYPE_FAILURE_VALUE = 3;
 
 
     public final int getNumber() {
@@ -103,6 +119,7 @@ public final class TxProto {
         case 0: return RESPONSE_RESULT_TYPE_UNSPECIFIED;
         case 1: return RESPONSE_RESULT_TYPE_NOOP;
         case 2: return RESPONSE_RESULT_TYPE_SUCCESS;
+        case 3: return RESPONSE_RESULT_TYPE_FAILURE;
         default: return null;
       }
     }
@@ -1796,7 +1813,7 @@ public final class TxProto {
      *
      * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
      * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-     *     See ibc/core/channel/v1/tx.proto;l=86
+     *     See ibc/core/channel/v1/tx.proto;l=91
      * @return The previousChannelId.
      */
     @java.lang.Deprecated java.lang.String getPreviousChannelId();
@@ -1807,7 +1824,7 @@ public final class TxProto {
      *
      * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
      * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-     *     See ibc/core/channel/v1/tx.proto;l=86
+     *     See ibc/core/channel/v1/tx.proto;l=91
      * @return The bytes for previousChannelId.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
@@ -1980,7 +1997,7 @@ public final class TxProto {
      *
      * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
      * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-     *     See ibc/core/channel/v1/tx.proto;l=86
+     *     See ibc/core/channel/v1/tx.proto;l=91
      * @return The previousChannelId.
      */
     @java.lang.Override
@@ -2003,7 +2020,7 @@ public final class TxProto {
      *
      * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
      * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-     *     See ibc/core/channel/v1/tx.proto;l=86
+     *     See ibc/core/channel/v1/tx.proto;l=91
      * @return The bytes for previousChannelId.
      */
     @java.lang.Override
@@ -2753,7 +2770,7 @@ public final class TxProto {
        *
        * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
        * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-       *     See ibc/core/channel/v1/tx.proto;l=86
+       *     See ibc/core/channel/v1/tx.proto;l=91
        * @return The previousChannelId.
        */
       @java.lang.Deprecated public java.lang.String getPreviousChannelId() {
@@ -2775,7 +2792,7 @@ public final class TxProto {
        *
        * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
        * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-       *     See ibc/core/channel/v1/tx.proto;l=86
+       *     See ibc/core/channel/v1/tx.proto;l=91
        * @return The bytes for previousChannelId.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -2798,7 +2815,7 @@ public final class TxProto {
        *
        * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
        * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-       *     See ibc/core/channel/v1/tx.proto;l=86
+       *     See ibc/core/channel/v1/tx.proto;l=91
        * @param value The previousChannelId to set.
        * @return This builder for chaining.
        */
@@ -2817,7 +2834,7 @@ public final class TxProto {
        *
        * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
        * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-       *     See ibc/core/channel/v1/tx.proto;l=86
+       *     See ibc/core/channel/v1/tx.proto;l=91
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearPreviousChannelId() {
@@ -2833,7 +2850,7 @@ public final class TxProto {
        *
        * <code>string previous_channel_id = 2 [json_name = "previousChannelId", deprecated = true];</code>
        * @deprecated ibc.core.channel.v1.MsgChannelOpenTry.previous_channel_id is deprecated.
-       *     See ibc/core/channel/v1/tx.proto;l=86
+       *     See ibc/core/channel/v1/tx.proto;l=91
        * @param value The bytes for previousChannelId to set.
        * @return This builder for chaining.
        */
@@ -16797,134 +16814,135 @@ public final class TxProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\034ibc/core/channel/v1/tx.proto\022\023ibc.core" +
-      ".channel.v1\032\024gogoproto/gogo.proto\032\037ibc/c" +
-      "ore/client/v1/client.proto\032!ibc/core/cha" +
-      "nnel/v1/channel.proto\032\027cosmos/msg/v1/msg" +
-      ".proto\"\230\001\n\022MsgChannelOpenInit\022\027\n\007port_id" +
+      ".channel.v1\032\024gogoproto/gogo.proto\032\027cosmo" +
+      "s/msg/v1/msg.proto\032\037ibc/core/client/v1/c" +
+      "lient.proto\032!ibc/core/channel/v1/channel" +
+      ".proto\"\224\001\n\022MsgChannelOpenInit\022\027\n\007port_id" +
       "\030\001 \001(\tR\006portId\022<\n\007channel\030\002 \001(\0132\034.ibc.co" +
       "re.channel.v1.ChannelB\004\310\336\037\000R\007channel\022\026\n\006" +
-      "signer\030\003 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signe" +
-      "r\"U\n\032MsgChannelOpenInitResponse\022\035\n\nchann" +
-      "el_id\030\001 \001(\tR\tchannelId\022\030\n\007version\030\002 \001(\tR" +
-      "\007version\"\342\002\n\021MsgChannelOpenTry\022\027\n\007port_i" +
-      "d\030\001 \001(\tR\006portId\0222\n\023previous_channel_id\030\002" +
-      " \001(\tB\002\030\001R\021previousChannelId\022<\n\007channel\030\003" +
-      " \001(\0132\034.ibc.core.channel.v1.ChannelB\004\310\336\037\000" +
-      "R\007channel\0221\n\024counterparty_version\030\004 \001(\tR" +
-      "\023counterpartyVersion\022\035\n\nproof_init\030\005 \001(\014" +
-      "R\tproofInit\022C\n\014proof_height\030\006 \001(\0132\032.ibc." +
-      "core.client.v1.HeightB\004\310\336\037\000R\013proofHeight" +
-      "\022\026\n\006signer\030\007 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006s" +
-      "igner\"T\n\031MsgChannelOpenTryResponse\022\030\n\007ve" +
-      "rsion\030\001 \001(\tR\007version\022\035\n\nchannel_id\030\002 \001(\t" +
-      "R\tchannelId\"\305\002\n\021MsgChannelOpenAck\022\027\n\007por" +
-      "t_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001(\tR\t" +
-      "channelId\0226\n\027counterparty_channel_id\030\003 \001" +
-      "(\tR\025counterpartyChannelId\0221\n\024counterpart" +
-      "y_version\030\004 \001(\tR\023counterpartyVersion\022\033\n\t" +
-      "proof_try\030\005 \001(\014R\010proofTry\022C\n\014proof_heigh" +
-      "t\030\006 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037" +
-      "\000R\013proofHeight\022\026\n\006signer\030\007 \001(\tR\006signer:\023" +
-      "\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\033\n\031MsgChannelOpenAck" +
-      "Response\"\336\001\n\025MsgChannelOpenConfirm\022\027\n\007po" +
+      "signer\030\003 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"[\n" +
+      "\032MsgChannelOpenInitResponse\022\035\n\nchannel_i" +
+      "d\030\001 \001(\tR\tchannelId\022\030\n\007version\030\002 \001(\tR\007ver" +
+      "sion:\004\210\240\037\000\"\336\002\n\021MsgChannelOpenTry\022\027\n\007port" +
+      "_id\030\001 \001(\tR\006portId\0222\n\023previous_channel_id" +
+      "\030\002 \001(\tB\002\030\001R\021previousChannelId\022<\n\007channel" +
+      "\030\003 \001(\0132\034.ibc.core.channel.v1.ChannelB\004\310\336" +
+      "\037\000R\007channel\0221\n\024counterparty_version\030\004 \001(" +
+      "\tR\023counterpartyVersion\022\035\n\nproof_init\030\005 \001" +
+      "(\014R\tproofInit\022C\n\014proof_height\030\006 \001(\0132\032.ib" +
+      "c.core.client.v1.HeightB\004\310\336\037\000R\013proofHeig" +
+      "ht\022\026\n\006signer\030\007 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006sig" +
+      "ner\"Z\n\031MsgChannelOpenTryResponse\022\030\n\007vers" +
+      "ion\030\001 \001(\tR\007version\022\035\n\nchannel_id\030\002 \001(\tR\t" +
+      "channelId:\004\210\240\037\000\"\301\002\n\021MsgChannelOpenAck\022\027\n" +
+      "\007port_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001" +
+      "(\tR\tchannelId\0226\n\027counterparty_channel_id" +
+      "\030\003 \001(\tR\025counterpartyChannelId\0221\n\024counter" +
+      "party_version\030\004 \001(\tR\023counterpartyVersion" +
+      "\022\033\n\tproof_try\030\005 \001(\014R\010proofTry\022C\n\014proof_h" +
+      "eight\030\006 \001(\0132\032.ibc.core.client.v1.HeightB" +
+      "\004\310\336\037\000R\013proofHeight\022\026\n\006signer\030\007 \001(\tR\006sign" +
+      "er:\017\210\240\037\000\202\347\260*\006signer\"\033\n\031MsgChannelOpenAck" +
+      "Response\"\332\001\n\025MsgChannelOpenConfirm\022\027\n\007po" +
       "rt_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001(\tR" +
       "\tchannelId\022\033\n\tproof_ack\030\003 \001(\014R\010proofAck\022" +
       "C\n\014proof_height\030\004 \001(\0132\032.ibc.core.client." +
       "v1.HeightB\004\310\336\037\000R\013proofHeight\022\026\n\006signer\030\005" +
-      " \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\037\n\035Msg" +
-      "ChannelOpenConfirmResponse\"z\n\023MsgChannel" +
-      "CloseInit\022\027\n\007port_id\030\001 \001(\tR\006portId\022\035\n\nch" +
-      "annel_id\030\002 \001(\tR\tchannelId\022\026\n\006signer\030\003 \001(" +
-      "\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\035\n\033MsgCha" +
-      "nnelCloseInitResponse\"\341\001\n\026MsgChannelClos" +
-      "eConfirm\022\027\n\007port_id\030\001 \001(\tR\006portId\022\035\n\ncha" +
-      "nnel_id\030\002 \001(\tR\tchannelId\022\035\n\nproof_init\030\003" +
-      " \001(\014R\tproofInit\022C\n\014proof_height\030\004 \001(\0132\032." +
-      "ibc.core.client.v1.HeightB\004\310\336\037\000R\013proofHe" +
-      "ight\022\026\n\006signer\030\005 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347" +
-      "\260*\006signer\" \n\036MsgChannelCloseConfirmRespo" +
-      "nse\"\347\001\n\rMsgRecvPacket\0229\n\006packet\030\001 \001(\0132\033." +
-      "ibc.core.channel.v1.PacketB\004\310\336\037\000R\006packet" +
-      "\022)\n\020proof_commitment\030\002 \001(\014R\017proofCommitm" +
-      "ent\022C\n\014proof_height\030\003 \001(\0132\032.ibc.core.cli" +
-      "ent.v1.HeightB\004\310\336\037\000R\013proofHeight\022\026\n\006sign" +
-      "er\030\004 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"^\n" +
-      "\025MsgRecvPacketResponse\022?\n\006result\030\001 \001(\0162\'" +
-      ".ibc.core.channel.v1.ResponseResultTypeR" +
-      "\006result:\004\210\240\037\000\"\222\002\n\nMsgTimeout\0229\n\006packet\030\001" +
-      " \001(\0132\033.ibc.core.channel.v1.PacketB\004\310\336\037\000R" +
-      "\006packet\022)\n\020proof_unreceived\030\002 \001(\014R\017proof" +
-      "Unreceived\022C\n\014proof_height\030\003 \001(\0132\032.ibc.c" +
-      "ore.client.v1.HeightB\004\310\336\037\000R\013proofHeight\022" +
-      ",\n\022next_sequence_recv\030\004 \001(\004R\020nextSequenc" +
-      "eRecv\022\026\n\006signer\030\005 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202" +
-      "\347\260*\006signer\"[\n\022MsgTimeoutResponse\022?\n\006resu" +
-      "lt\030\001 \001(\0162\'.ibc.core.channel.v1.ResponseR" +
-      "esultTypeR\006result:\004\210\240\037\000\"\272\002\n\021MsgTimeoutOn" +
-      "Close\0229\n\006packet\030\001 \001(\0132\033.ibc.core.channel" +
-      ".v1.PacketB\004\310\336\037\000R\006packet\022)\n\020proof_unrece" +
-      "ived\030\002 \001(\014R\017proofUnreceived\022\037\n\013proof_clo" +
-      "se\030\003 \001(\014R\nproofClose\022C\n\014proof_height\030\004 \001" +
-      "(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000R\013pr" +
-      "oofHeight\022,\n\022next_sequence_recv\030\005 \001(\004R\020n" +
-      "extSequenceRecv\022\026\n\006signer\030\006 \001(\tR\006signer:" +
-      "\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"b\n\031MsgTimeoutOnClos" +
-      "eResponse\022?\n\006result\030\001 \001(\0162\'.ibc.core.cha" +
-      "nnel.v1.ResponseResultTypeR\006result:\004\210\240\037\000" +
-      "\"\214\002\n\022MsgAcknowledgement\0229\n\006packet\030\001 \001(\0132" +
-      "\033.ibc.core.channel.v1.PacketB\004\310\336\037\000R\006pack" +
-      "et\022(\n\017acknowledgement\030\002 \001(\014R\017acknowledge" +
-      "ment\022\037\n\013proof_acked\030\003 \001(\014R\nproofAcked\022C\n" +
-      "\014proof_height\030\004 \001(\0132\032.ibc.core.client.v1" +
-      ".HeightB\004\310\336\037\000R\013proofHeight\022\026\n\006signer\030\005 \001" +
-      "(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"c\n\032MsgAc" +
-      "knowledgementResponse\022?\n\006result\030\001 \001(\0162\'." +
-      "ibc.core.channel.v1.ResponseResultTypeR\006" +
-      "result:\004\210\240\037\000*\251\001\n\022ResponseResultType\0225\n R" +
-      "ESPONSE_RESULT_TYPE_UNSPECIFIED\020\000\032\017\212\235 \013U" +
-      "NSPECIFIED\022\'\n\031RESPONSE_RESULT_TYPE_NOOP\020" +
-      "\001\032\010\212\235 \004NOOP\022-\n\034RESPONSE_RESULT_TYPE_SUCC" +
-      "ESS\020\002\032\013\212\235 \007SUCCESS\032\004\210\243\036\0002\257\010\n\003Msg\022k\n\017Chan" +
-      "nelOpenInit\022\'.ibc.core.channel.v1.MsgCha" +
-      "nnelOpenInit\032/.ibc.core.channel.v1.MsgCh" +
-      "annelOpenInitResponse\022h\n\016ChannelOpenTry\022" +
-      "&.ibc.core.channel.v1.MsgChannelOpenTry\032" +
-      "..ibc.core.channel.v1.MsgChannelOpenTryR" +
-      "esponse\022h\n\016ChannelOpenAck\022&.ibc.core.cha" +
-      "nnel.v1.MsgChannelOpenAck\032..ibc.core.cha" +
-      "nnel.v1.MsgChannelOpenAckResponse\022t\n\022Cha" +
-      "nnelOpenConfirm\022*.ibc.core.channel.v1.Ms" +
-      "gChannelOpenConfirm\0322.ibc.core.channel.v" +
-      "1.MsgChannelOpenConfirmResponse\022n\n\020Chann" +
-      "elCloseInit\022(.ibc.core.channel.v1.MsgCha" +
-      "nnelCloseInit\0320.ibc.core.channel.v1.MsgC" +
-      "hannelCloseInitResponse\022w\n\023ChannelCloseC" +
-      "onfirm\022+.ibc.core.channel.v1.MsgChannelC" +
-      "loseConfirm\0323.ibc.core.channel.v1.MsgCha" +
-      "nnelCloseConfirmResponse\022\\\n\nRecvPacket\022\"" +
-      ".ibc.core.channel.v1.MsgRecvPacket\032*.ibc" +
-      ".core.channel.v1.MsgRecvPacketResponse\022S" +
-      "\n\007Timeout\022\037.ibc.core.channel.v1.MsgTimeo" +
-      "ut\032\'.ibc.core.channel.v1.MsgTimeoutRespo" +
-      "nse\022h\n\016TimeoutOnClose\022&.ibc.core.channel" +
-      ".v1.MsgTimeoutOnClose\032..ibc.core.channel" +
-      ".v1.MsgTimeoutOnCloseResponse\022k\n\017Acknowl" +
-      "edgement\022\'.ibc.core.channel.v1.MsgAcknow" +
-      "ledgement\032/.ibc.core.channel.v1.MsgAckno" +
-      "wledgementResponseB\312\001\n\027com.ibc.core.chan" +
-      "nel.v1B\007TxProtoZ9github.com/cosmos/ibc-g" +
-      "o/v7/modules/core/04-channel/types\242\002\003ICC" +
-      "\252\002\023Ibc.Core.Channel.V1\312\002\023Ibc\\Core\\Channe" +
-      "l\\V1\342\002\037Ibc\\Core\\Channel\\V1\\GPBMetadata\352\002" +
-      "\026Ibc::Core::Channel::V1b\006proto3"
+      " \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"\037\n\035MsgChan" +
+      "nelOpenConfirmResponse\"v\n\023MsgChannelClos" +
+      "eInit\022\027\n\007port_id\030\001 \001(\tR\006portId\022\035\n\nchanne" +
+      "l_id\030\002 \001(\tR\tchannelId\022\026\n\006signer\030\003 \001(\tR\006s" +
+      "igner:\017\210\240\037\000\202\347\260*\006signer\"\035\n\033MsgChannelClos" +
+      "eInitResponse\"\335\001\n\026MsgChannelCloseConfirm" +
+      "\022\027\n\007port_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030" +
+      "\002 \001(\tR\tchannelId\022\035\n\nproof_init\030\003 \001(\014R\tpr" +
+      "oofInit\022C\n\014proof_height\030\004 \001(\0132\032.ibc.core" +
+      ".client.v1.HeightB\004\310\336\037\000R\013proofHeight\022\026\n\006" +
+      "signer\030\005 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\" \n" +
+      "\036MsgChannelCloseConfirmResponse\"\343\001\n\rMsgR" +
+      "ecvPacket\0229\n\006packet\030\001 \001(\0132\033.ibc.core.cha" +
+      "nnel.v1.PacketB\004\310\336\037\000R\006packet\022)\n\020proof_co" +
+      "mmitment\030\002 \001(\014R\017proofCommitment\022C\n\014proof" +
+      "_height\030\003 \001(\0132\032.ibc.core.client.v1.Heigh" +
+      "tB\004\310\336\037\000R\013proofHeight\022\026\n\006signer\030\004 \001(\tR\006si" +
+      "gner:\017\210\240\037\000\202\347\260*\006signer\"^\n\025MsgRecvPacketRe" +
+      "sponse\022?\n\006result\030\001 \001(\0162\'.ibc.core.channe" +
+      "l.v1.ResponseResultTypeR\006result:\004\210\240\037\000\"\216\002" +
+      "\n\nMsgTimeout\0229\n\006packet\030\001 \001(\0132\033.ibc.core." +
+      "channel.v1.PacketB\004\310\336\037\000R\006packet\022)\n\020proof" +
+      "_unreceived\030\002 \001(\014R\017proofUnreceived\022C\n\014pr" +
+      "oof_height\030\003 \001(\0132\032.ibc.core.client.v1.He" +
+      "ightB\004\310\336\037\000R\013proofHeight\022,\n\022next_sequence" +
+      "_recv\030\004 \001(\004R\020nextSequenceRecv\022\026\n\006signer\030" +
+      "\005 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"[\n\022MsgTim" +
+      "eoutResponse\022?\n\006result\030\001 \001(\0162\'.ibc.core." +
+      "channel.v1.ResponseResultTypeR\006result:\004\210" +
+      "\240\037\000\"\266\002\n\021MsgTimeoutOnClose\0229\n\006packet\030\001 \001(" +
+      "\0132\033.ibc.core.channel.v1.PacketB\004\310\336\037\000R\006pa" +
+      "cket\022)\n\020proof_unreceived\030\002 \001(\014R\017proofUnr" +
+      "eceived\022\037\n\013proof_close\030\003 \001(\014R\nproofClose" +
+      "\022C\n\014proof_height\030\004 \001(\0132\032.ibc.core.client" +
+      ".v1.HeightB\004\310\336\037\000R\013proofHeight\022,\n\022next_se" +
+      "quence_recv\030\005 \001(\004R\020nextSequenceRecv\022\026\n\006s" +
+      "igner\030\006 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"b\n\031" +
+      "MsgTimeoutOnCloseResponse\022?\n\006result\030\001 \001(" +
+      "\0162\'.ibc.core.channel.v1.ResponseResultTy" +
+      "peR\006result:\004\210\240\037\000\"\210\002\n\022MsgAcknowledgement\022" +
+      "9\n\006packet\030\001 \001(\0132\033.ibc.core.channel.v1.Pa" +
+      "cketB\004\310\336\037\000R\006packet\022(\n\017acknowledgement\030\002 " +
+      "\001(\014R\017acknowledgement\022\037\n\013proof_acked\030\003 \001(" +
+      "\014R\nproofAcked\022C\n\014proof_height\030\004 \001(\0132\032.ib" +
+      "c.core.client.v1.HeightB\004\310\336\037\000R\013proofHeig" +
+      "ht\022\026\n\006signer\030\005 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006sig" +
+      "ner\"c\n\032MsgAcknowledgementResponse\022?\n\006res" +
+      "ult\030\001 \001(\0162\'.ibc.core.channel.v1.Response" +
+      "ResultTypeR\006result:\004\210\240\037\000*\330\001\n\022ResponseRes" +
+      "ultType\0225\n RESPONSE_RESULT_TYPE_UNSPECIF" +
+      "IED\020\000\032\017\212\235 \013UNSPECIFIED\022\'\n\031RESPONSE_RESUL" +
+      "T_TYPE_NOOP\020\001\032\010\212\235 \004NOOP\022-\n\034RESPONSE_RESU" +
+      "LT_TYPE_SUCCESS\020\002\032\013\212\235 \007SUCCESS\022-\n\034RESPON" +
+      "SE_RESULT_TYPE_FAILURE\020\003\032\013\212\235 \007FAILURE\032\004\210" +
+      "\243\036\0002\266\010\n\003Msg\022k\n\017ChannelOpenInit\022\'.ibc.cor" +
+      "e.channel.v1.MsgChannelOpenInit\032/.ibc.co" +
+      "re.channel.v1.MsgChannelOpenInitResponse" +
+      "\022h\n\016ChannelOpenTry\022&.ibc.core.channel.v1" +
+      ".MsgChannelOpenTry\032..ibc.core.channel.v1" +
+      ".MsgChannelOpenTryResponse\022h\n\016ChannelOpe" +
+      "nAck\022&.ibc.core.channel.v1.MsgChannelOpe" +
+      "nAck\032..ibc.core.channel.v1.MsgChannelOpe" +
+      "nAckResponse\022t\n\022ChannelOpenConfirm\022*.ibc" +
+      ".core.channel.v1.MsgChannelOpenConfirm\0322" +
+      ".ibc.core.channel.v1.MsgChannelOpenConfi" +
+      "rmResponse\022n\n\020ChannelCloseInit\022(.ibc.cor" +
+      "e.channel.v1.MsgChannelCloseInit\0320.ibc.c" +
+      "ore.channel.v1.MsgChannelCloseInitRespon" +
+      "se\022w\n\023ChannelCloseConfirm\022+.ibc.core.cha" +
+      "nnel.v1.MsgChannelCloseConfirm\0323.ibc.cor" +
+      "e.channel.v1.MsgChannelCloseConfirmRespo" +
+      "nse\022\\\n\nRecvPacket\022\".ibc.core.channel.v1." +
+      "MsgRecvPacket\032*.ibc.core.channel.v1.MsgR" +
+      "ecvPacketResponse\022S\n\007Timeout\022\037.ibc.core." +
+      "channel.v1.MsgTimeout\032\'.ibc.core.channel" +
+      ".v1.MsgTimeoutResponse\022h\n\016TimeoutOnClose" +
+      "\022&.ibc.core.channel.v1.MsgTimeoutOnClose" +
+      "\032..ibc.core.channel.v1.MsgTimeoutOnClose" +
+      "Response\022k\n\017Acknowledgement\022\'.ibc.core.c" +
+      "hannel.v1.MsgAcknowledgement\032/.ibc.core." +
+      "channel.v1.MsgAcknowledgementResponse\032\005\200" +
+      "\347\260*\001B\313\001\n\027com.ibc.core.channel.v1B\007TxProt" +
+      "oZ:github.com/cosmos/ibc-go/v10/modules/" +
+      "core/04-channel/types\242\002\003ICC\252\002\023Ibc.Core.C" +
+      "hannel.V1\312\002\023Ibc\\Core\\Channel\\V1\342\002\037Ibc\\Co" +
+      "re\\Channel\\V1\\GPBMetadata\352\002\026Ibc::Core::C" +
+      "hannel::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.gogoproto.GogoProto.getDescriptor(),
+          com.cosmos.msg.v1.MsgProto.getDescriptor(),
           com.ibc.core.client.v1.ClientProto.getDescriptor(),
           com.ibc.core.channel.v1.ChannelProto.getDescriptor(),
-          com.cosmos.msg.v1.MsgProto.getDescriptor(),
         });
     internal_static_ibc_core_channel_v1_MsgChannelOpenInit_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -17048,18 +17066,18 @@ public final class TxProto {
         new java.lang.String[] { "Result", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
     registry.add(com.gogoproto.GogoProto.enumvalueCustomname);
-    registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoEnumPrefix);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.gogoproto.GogoProto.getDescriptor();
+    com.cosmos.msg.v1.MsgProto.getDescriptor();
     com.ibc.core.client.v1.ClientProto.getDescriptor();
     com.ibc.core.channel.v1.ChannelProto.getDescriptor();
-    com.cosmos.msg.v1.MsgProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

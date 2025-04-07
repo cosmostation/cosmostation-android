@@ -17,7 +17,7 @@ public final class ChannelProto {
   /**
    * <pre>
    * State defines if a channel is in one of the following states:
-   * CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
+   * CLOSED, INIT, TRYOPEN, OPEN, or UNINITIALIZED.
    * </pre>
    *
    * Protobuf enum {@code ibc.core.channel.v1.State}
@@ -7086,7 +7086,7 @@ public final class ChannelProto {
   }
   /**
    * <pre>
-   * PacketId is an identifer for a unique Packet
+   * PacketId is an identifier for a unique Packet
    * Source chains refer to packets by source port/channel
    * Destination chains refer to packets by destination port/channel
    * </pre>
@@ -7416,7 +7416,7 @@ public final class ChannelProto {
     }
     /**
      * <pre>
-     * PacketId is an identifer for a unique Packet
+     * PacketId is an identifier for a unique Packet
      * Source chains refer to packets by source port/channel
      * Destination chains refer to packets by destination port/channel
      * </pre>
@@ -8706,7 +8706,7 @@ public final class ChannelProto {
 
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8715,7 +8715,7 @@ public final class ChannelProto {
     boolean hasHeight();
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8724,7 +8724,7 @@ public final class ChannelProto {
     com.ibc.core.client.v1.ClientProto.Height getHeight();
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8733,7 +8733,7 @@ public final class ChannelProto {
 
     /**
      * <pre>
-     * block timestamp (in nanoseconds) after which the packet or upgrade times out
+     * block timestamp (in nanoseconds) after which the packet times out
      * </pre>
      *
      * <code>uint64 timestamp = 2 [json_name = "timestamp"];</code>
@@ -8744,7 +8744,7 @@ public final class ChannelProto {
   /**
    * <pre>
    * Timeout defines an execution deadline structure for 04-channel handlers.
-   * This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+   * This includes packet lifecycle handlers.
    * A valid Timeout contains either one or both of a timestamp and block height (sequence).
    * </pre>
    *
@@ -8786,7 +8786,7 @@ public final class ChannelProto {
     private com.ibc.core.client.v1.ClientProto.Height height_;
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8798,7 +8798,7 @@ public final class ChannelProto {
     }
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8810,7 +8810,7 @@ public final class ChannelProto {
     }
     /**
      * <pre>
-     * block height after which the packet or upgrade times out
+     * block height after which the packet times out
      * </pre>
      *
      * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -8824,7 +8824,7 @@ public final class ChannelProto {
     private long timestamp_ = 0L;
     /**
      * <pre>
-     * block timestamp (in nanoseconds) after which the packet or upgrade times out
+     * block timestamp (in nanoseconds) after which the packet times out
      * </pre>
      *
      * <code>uint64 timestamp = 2 [json_name = "timestamp"];</code>
@@ -9012,7 +9012,7 @@ public final class ChannelProto {
     /**
      * <pre>
      * Timeout defines an execution deadline structure for 04-channel handlers.
-     * This includes packet lifecycle handlers as well as the upgrade handshake handlers.
+     * This includes packet lifecycle handlers.
      * A valid Timeout contains either one or both of a timestamp and block height (sequence).
      * </pre>
      *
@@ -9208,7 +9208,7 @@ public final class ChannelProto {
           com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> heightBuilder_;
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9219,7 +9219,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9234,7 +9234,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9254,7 +9254,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9272,7 +9272,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9295,7 +9295,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9312,7 +9312,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9324,7 +9324,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9339,7 +9339,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block height after which the packet or upgrade times out
+       * block height after which the packet times out
        * </pre>
        *
        * <code>.ibc.core.client.v1.Height height = 1 [json_name = "height", (.gogoproto.nullable) = false];</code>
@@ -9361,7 +9361,7 @@ public final class ChannelProto {
       private long timestamp_ ;
       /**
        * <pre>
-       * block timestamp (in nanoseconds) after which the packet or upgrade times out
+       * block timestamp (in nanoseconds) after which the packet times out
        * </pre>
        *
        * <code>uint64 timestamp = 2 [json_name = "timestamp"];</code>
@@ -9373,7 +9373,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block timestamp (in nanoseconds) after which the packet or upgrade times out
+       * block timestamp (in nanoseconds) after which the packet times out
        * </pre>
        *
        * <code>uint64 timestamp = 2 [json_name = "timestamp"];</code>
@@ -9389,7 +9389,7 @@ public final class ChannelProto {
       }
       /**
        * <pre>
-       * block timestamp (in nanoseconds) after which the packet or upgrade times out
+       * block timestamp (in nanoseconds) after which the packet times out
        * </pre>
        *
        * <code>uint64 timestamp = 2 [json_name = "timestamp"];</code>
@@ -9560,12 +9560,12 @@ public final class ChannelProto {
       "LOSED\032\004\210\243\036\000*w\n\005Order\022$\n\026ORDER_NONE_UNSPE" +
       "CIFIED\020\000\032\010\212\235 \004NONE\022\"\n\017ORDER_UNORDERED\020\001\032" +
       "\r\212\235 \tUNORDERED\022\036\n\rORDER_ORDERED\020\002\032\013\212\235 \007O" +
-      "RDERED\032\004\210\243\036\000B\317\001\n\027com.ibc.core.channel.v1" +
-      "B\014ChannelProtoZ9github.com/cosmos/ibc-go" +
-      "/v7/modules/core/04-channel/types\242\002\003ICC\252" +
-      "\002\023Ibc.Core.Channel.V1\312\002\023Ibc\\Core\\Channel" +
-      "\\V1\342\002\037Ibc\\Core\\Channel\\V1\\GPBMetadata\352\002\026" +
-      "Ibc::Core::Channel::V1b\006proto3"
+      "RDERED\032\004\210\243\036\000B\320\001\n\027com.ibc.core.channel.v1" +
+      "B\014ChannelProtoZ:github.com/cosmos/ibc-go" +
+      "/v10/modules/core/04-channel/types\242\002\003ICC" +
+      "\252\002\023Ibc.Core.Channel.V1\312\002\023Ibc\\Core\\Channe" +
+      "l\\V1\342\002\037Ibc\\Core\\Channel\\V1\\GPBMetadata\352\002" +
+      "\026Ibc::Core::Channel::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

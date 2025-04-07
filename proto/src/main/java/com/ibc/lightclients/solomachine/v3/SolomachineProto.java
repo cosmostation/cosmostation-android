@@ -843,7 +843,7 @@ public final class SolomachineProto {
 
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo
+     * diversifier allows the same public key to be reused across different solo
      * machine clients (potentially on different chains) without being considered
      * misbehaviour.
      * </pre>
@@ -854,7 +854,7 @@ public final class SolomachineProto {
     java.lang.String getDiversifier();
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo
+     * diversifier allows the same public key to be reused across different solo
      * machine clients (potentially on different chains) without being considered
      * misbehaviour.
      * </pre>
@@ -956,7 +956,7 @@ public final class SolomachineProto {
     private volatile java.lang.Object diversifier_ = "";
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo
+     * diversifier allows the same public key to be reused across different solo
      * machine clients (potentially on different chains) without being considered
      * misbehaviour.
      * </pre>
@@ -979,7 +979,7 @@ public final class SolomachineProto {
     }
     /**
      * <pre>
-     * diversifier allows the same public key to be re-used across different solo
+     * diversifier allows the same public key to be reused across different solo
      * machine clients (potentially on different chains) without being considered
      * misbehaviour.
      * </pre>
@@ -1563,7 +1563,7 @@ public final class SolomachineProto {
       private java.lang.Object diversifier_ = "";
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo
+       * diversifier allows the same public key to be reused across different solo
        * machine clients (potentially on different chains) without being considered
        * misbehaviour.
        * </pre>
@@ -1585,7 +1585,7 @@ public final class SolomachineProto {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo
+       * diversifier allows the same public key to be reused across different solo
        * machine clients (potentially on different chains) without being considered
        * misbehaviour.
        * </pre>
@@ -1608,7 +1608,7 @@ public final class SolomachineProto {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo
+       * diversifier allows the same public key to be reused across different solo
        * machine clients (potentially on different chains) without being considered
        * misbehaviour.
        * </pre>
@@ -1627,7 +1627,7 @@ public final class SolomachineProto {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo
+       * diversifier allows the same public key to be reused across different solo
        * machine clients (potentially on different chains) without being considered
        * misbehaviour.
        * </pre>
@@ -1643,7 +1643,7 @@ public final class SolomachineProto {
       }
       /**
        * <pre>
-       * diversifier allows the same public key to be re-used across different solo
+       * diversifier allows the same public key to be reused across different solo
        * machine clients (potentially on different chains) without being considered
        * misbehaviour.
        * </pre>
@@ -6706,15 +6706,15 @@ public final class SolomachineProto {
       "path\022\022\n\004data\030\005 \001(\014R\004data:\004\210\240\037\000\"q\n\nHeader" +
       "Data\0224\n\013new_pub_key\030\001 \001(\0132\024.google.proto" +
       "buf.AnyR\tnewPubKey\022\'\n\017new_diversifier\030\002 " +
-      "\001(\tR\016newDiversifier:\004\210\240\037\000B\242\002\n#com.ibc.li" +
+      "\001(\tR\016newDiversifier:\004\210\240\037\000B\243\002\n#com.ibc.li" +
       "ghtclients.solomachine.v3B\020SolomachinePr" +
-      "otoZLgithub.com/cosmos/ibc-go/v7/modules" +
-      "/light-clients/06-solomachine;solomachin" +
-      "e\242\002\003ILS\252\002\037Ibc.Lightclients.Solomachine.V" +
-      "3\312\002\037Ibc\\Lightclients\\Solomachine\\V3\342\002+Ib" +
-      "c\\Lightclients\\Solomachine\\V3\\GPBMetadat" +
-      "a\352\002\"Ibc::Lightclients::Solomachine::V3b\006" +
-      "proto3"
+      "otoZMgithub.com/cosmos/ibc-go/v10/module" +
+      "s/light-clients/06-solomachine;solomachi" +
+      "ne\242\002\003ILS\252\002\037Ibc.Lightclients.Solomachine." +
+      "V3\312\002\037Ibc\\Lightclients\\Solomachine\\V3\342\002+I" +
+      "bc\\Lightclients\\Solomachine\\V3\\GPBMetada" +
+      "ta\352\002\"Ibc::Lightclients::Solomachine::V3b" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

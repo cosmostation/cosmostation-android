@@ -47,7 +47,7 @@ public final class TendermintProto {
 
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -57,7 +57,7 @@ public final class TendermintProto {
     boolean hasTrustingPeriod();
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -67,7 +67,7 @@ public final class TendermintProto {
     com.google.protobuf.Duration getTrustingPeriod();
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -429,7 +429,7 @@ public final class TendermintProto {
     private com.google.protobuf.Duration trustingPeriod_;
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -442,7 +442,7 @@ public final class TendermintProto {
     }
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -455,7 +455,7 @@ public final class TendermintProto {
     }
     /**
      * <pre>
-     * duration of the period since the LastestTimestamp during which the
+     * duration of the period since the LatestTimestamp during which the
      * submitted headers are valid for upgrade
      * </pre>
      *
@@ -1692,7 +1692,7 @@ public final class TendermintProto {
           com.google.protobuf.Duration, com.google.protobuf.Duration.Builder, com.google.protobuf.DurationOrBuilder> trustingPeriodBuilder_;
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1704,7 +1704,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1720,7 +1720,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1741,7 +1741,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1760,7 +1760,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1784,7 +1784,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1802,7 +1802,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1815,7 +1815,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -1831,7 +1831,7 @@ public final class TendermintProto {
       }
       /**
        * <pre>
-       * duration of the period since the LastestTimestamp during which the
+       * duration of the period since the LatestTimestamp during which the
        * submitted headers are valid for upgrade
        * </pre>
        *
@@ -7027,14 +7027,14 @@ public final class TendermintProto {
       "rs\030\004 \001(\0132\036.tendermint.types.ValidatorSet" +
       "R\021trustedValidators\"J\n\010Fraction\022\034\n\tnumer" +
       "ator\030\001 \001(\004R\tnumerator\022 \n\013denominator\030\002 \001" +
-      "(\004R\013denominatorB\232\002\n\"com.ibc.lightclients" +
-      ".tendermint.v1B\017TendermintProtoZJgithub." +
-      "com/cosmos/ibc-go/v7/modules/light-clien" +
-      "ts/07-tendermint;tendermint\242\002\003ILT\252\002\036Ibc." +
-      "Lightclients.Tendermint.V1\312\002\036Ibc\\Lightcl" +
-      "ients\\Tendermint\\V1\342\002*Ibc\\Lightclients\\T" +
-      "endermint\\V1\\GPBMetadata\352\002!Ibc::Lightcli" +
-      "ents::Tendermint::V1b\006proto3"
+      "(\004R\013denominatorB\233\002\n\"com.ibc.lightclients" +
+      ".tendermint.v1B\017TendermintProtoZKgithub." +
+      "com/cosmos/ibc-go/v10/modules/light-clie" +
+      "nts/07-tendermint;tendermint\242\002\003ILT\252\002\036Ibc" +
+      ".Lightclients.Tendermint.V1\312\002\036Ibc\\Lightc" +
+      "lients\\Tendermint\\V1\342\002*Ibc\\Lightclients\\" +
+      "Tendermint\\V1\\GPBMetadata\352\002!Ibc::Lightcl" +
+      "ients::Tendermint::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
