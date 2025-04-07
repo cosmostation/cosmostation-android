@@ -20,7 +20,7 @@
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_withdrawable" translatable="false">Withdrawable</string>
-    <string name="str_btc_reward" translatable="false">BTC Staking Reward</string>
+    <string name="str_btc_reward" translatable="false">%1$s Staking Reward</string>
     <string name="str_staked_btc_status" translatable="false">Staked sBTC Status</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>

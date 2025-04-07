@@ -325,6 +325,14 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getMainAssetSymbol(): String {
+        return if (getChainListParam()?.has("main_asset_symbol") == true) {
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: ""
+        } else {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: ""
+        }
+    }
+
     fun getInitFee(c: Context): TxProto.Fee? {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()

@@ -120,12 +120,22 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            val asset = BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())
-            chainDenom.text = asset?.symbol
-            chainPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
-            BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
-                chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                chainPriceStatus.text = priceChangeStatus(lastUpDown)
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+                chainDenom.text = asset.symbol
+                chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                }
+
+            } ?: run {
+                val token = BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())
+                chainDenom.text = token?.symbol
+                chainPrice.text = formatAssetValue(BaseData.getPrice(token?.coinGeckoId))
+                BaseData.lastUpDown(token?.coinGeckoId).let { lastUpDown ->
+                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                }
             }
 
             when (chain.fetchState) {
@@ -242,12 +252,22 @@ class DashboardViewHolder(
                 handler.removeCallbacks(starEvmAddressAnimation)
             }
 
-            val asset = BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())
-            chainDenom.text = asset?.symbol
-            chainPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
-            BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
-                chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                chainPriceStatus.text = priceChangeStatus(lastUpDown)
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+                chainDenom.text = asset.symbol
+                chainPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                }
+
+            } ?: run {
+                val token = BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())
+                chainDenom.text = token?.symbol
+                chainPrice.text = formatAssetValue(BaseData.getPrice(token?.coinGeckoId))
+                BaseData.lastUpDown(token?.coinGeckoId).let { lastUpDown ->
+                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                }
             }
 
             when (chain.fetchState) {

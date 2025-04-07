@@ -74,9 +74,10 @@ class BabylonCoinViewHolder(
                             context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
                     }
 
+                    val denom = if (chain.isTestnet) "sBTC" else "BTC"
                     if (chain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
                         btcRewardTitle.text =
-                            context.getString(R.string.str_btc_reward) + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
+                            context.getString(R.string.str_btc_reward, denom) + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
                                     ?: 0) > 0
                             ) " +${chain.babylonFetcher?.btcRewardOtherDenoms()}" else ""
                     }
