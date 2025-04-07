@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.databinding.ItemBuyCryptoBinding
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
+import wannabit.io.cosmostaion.databinding.ItemDappSortOptionBinding
 import wannabit.io.cosmostaion.databinding.ItemPriceStyleBinding
 import wannabit.io.cosmostaion.databinding.ItemSettingBottomBinding
 import wannabit.io.cosmostaion.ui.main.SettingType
+import wannabit.io.cosmostaion.ui.main.dapp.DappSortOptionViewHolder
 import wannabit.io.cosmostaion.ui.main.setting.general.CurrencyViewHolder
 import wannabit.io.cosmostaion.ui.main.setting.general.PriceStyleViewHolder
 
@@ -48,6 +50,13 @@ class SettingBottomAdapter(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 BuyCryptoViewHolder(parent.context, binding)
+            }
+
+            SettingType.DAPP_SORT_OPTION.ordinal -> {
+                val binding = ItemDappSortOptionBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                DappSortOptionViewHolder(parent.context, binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -93,6 +102,17 @@ class SettingBottomAdapter(
                 if (holder is BuyCryptoViewHolder) {
                     val buy = currentList[position] as String
                     holder.bind(buy)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let { it(position) }
+                    }
+                }
+            }
+
+            SettingType.DAPP_SORT_OPTION.ordinal -> {
+                if (holder is DappSortOptionViewHolder) {
+                    val option = currentList[position] as String
+                    holder.bind(option, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let { it(position) }

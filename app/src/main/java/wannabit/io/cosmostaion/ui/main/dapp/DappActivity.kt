@@ -102,9 +102,8 @@ class DappActivity : BaseActivity() {
 
     private var allChains: MutableList<BaseChain>? = mutableListOf()
 
-    private var selectChain: BaseChain? = null
-    private var selectEvmChain: BaseChain? = null
-    private var selectMajorChain: BaseChain? = null
+    private var selectedChain: BaseChain? = null
+    private var selectSuiChain: BaseChain? = null
     private var selectBitcoin: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
@@ -152,17 +151,17 @@ class DappActivity : BaseActivity() {
             }
         }
 
-        val ecoChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("selectedEvmChain", BaseChain::class.java)
-        } else {
-            (intent.getParcelableExtra("selectedEvmChain")) as? BaseChain
-        }
-        selectEvmChain = allChains?.firstOrNull { it.name == ecoChain?.name }
-
-        val ecoMajorChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val ecoSystemChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("selectedChain", BaseChain::class.java)
         } else {
             (intent.getParcelableExtra("selectedChain")) as? BaseChain
+        }
+        selectedChain = allChains?.firstOrNull { it.name == ecoSystemChain?.name }
+
+        val ecoMajorChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("selectedBitChain", BaseChain::class.java)
+        } else {
+            (intent.getParcelableExtra("selectedBitChain")) as? BaseChain
         }
         selectBitcoin = if (ecoMajorChain?.tag == "babylon118_T") {
             allChains?.find { it is ChainBitCoin86 && it.isDefault }
@@ -475,11 +474,11 @@ class DappActivity : BaseActivity() {
             val line = allChains?.find { it.chainIdCosmos.equals(chainId, ignoreCase = true) }
                 ?: allChains?.find { it.chainIdEvm.equals(chainId, ignoreCase = true) }
             line?.let {
-                selectChain = line
-                val address = if (selectChain?.supportCosmos() == true) {
-                    selectChain?.address
+                selectedChain = line
+                val address = if (selectedChain?.supportCosmos() == true) {
+                    selectedChain?.address
                 } else {
-                    selectChain?.evmAddress
+                    selectedChain?.evmAddress
                 }
 
                 sessionNamespaces[chainName] = Namespace.Session(
@@ -514,10 +513,10 @@ class DappActivity : BaseActivity() {
             sessionRequest.request.apply {
                 when (method) {
                     "cosmos_getAccounts" -> {
-                        val v2Accounts = selectChain?.address?.let { address ->
+                        val v2Accounts = selectedChain?.address?.let { address ->
                             val toV2Account = V2Account(
                                 "secp256k1",
-                                Base64.encodeToString(selectChain?.publicKey, Base64.NO_WRAP),
+                                Base64.encodeToString(selectedChain?.publicKey, Base64.NO_WRAP),
                                 address
                             )
                             listOf(toV2Account)
@@ -577,14 +576,14 @@ class DappActivity : BaseActivity() {
                     "eth_chainId" -> {
                         lifecycleScope.launch(Dispatchers.IO) {
                             if (web3j == null) {
-                                rpcUrl = selectChain?.evmRpcFetcher?.getEvmRpc()
-                                    ?: selectChain?.evmRpcURL
+                                rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc()
+                                    ?: selectedChain?.evmRpcURL
                                 web3j = Web3j.build(HttpService(rpcUrl))
                             }
                             val response = Sign.Params.Response(
                                 sessionTopic = sessionRequest.topic,
                                 jsonRpcResponse = Sign.Model.JsonRpcResponse.JsonRpcResult(
-                                    id, selectChain?.chainIdEvm.toString()
+                                    id, selectedChain?.chainIdEvm.toString()
                                 )
                             )
                             SignClient.respond(response) { error ->
@@ -631,8 +630,8 @@ class DappActivity : BaseActivity() {
                                 override fun sign(id: Long, data: String) {
                                     lifecycleScope.launch(Dispatchers.IO) {
                                         if (web3j == null) {
-                                            rpcUrl = selectChain?.evmRpcFetcher?.getEvmRpc()
-                                                ?: selectChain?.evmRpcURL
+                                            rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc()
+                                                ?: selectedChain?.evmRpcURL
                                             web3j = Web3j.build(HttpService(rpcUrl))
                                         }
 
@@ -662,7 +661,7 @@ class DappActivity : BaseActivity() {
                     "eth_signTypedData_v4", "eth_signTypedData_v3", "eth_signTypedData" -> {
                         val requestJson = JSONArray(params)
                         if (requestJson.get(0).toString()
-                                .lowercase() != selectChain?.evmAddress?.lowercase()
+                                .lowercase() != selectedChain?.evmAddress?.lowercase()
                         ) {
                             rejectV2SignRequest(
                                 id, sessionRequest, toastMsgString = "Wrong address"
@@ -702,11 +701,11 @@ class DappActivity : BaseActivity() {
 
                             if (evmChainIds?.contains(chainId.uppercase()) == true) {
                                 currentEvmChainId = chainId
-                                selectChain =
+                                selectedChain =
                                     allChains?.firstOrNull { it.chainIdEvm.uppercase() == currentEvmChainId?.uppercase() }
                                 if (web3j == null) {
-                                    rpcUrl = selectChain?.evmRpcFetcher?.getEvmRpc()
-                                        ?: selectChain?.evmRpcURL
+                                    rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc()
+                                        ?: selectedChain?.evmRpcURL
                                     web3j = Web3j.build(HttpService(rpcUrl))
                                 }
                                 val response = Sign.Params.Response(
@@ -761,10 +760,10 @@ class DappActivity : BaseActivity() {
                 )
             ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-            val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
+            val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -809,10 +808,10 @@ class DappActivity : BaseActivity() {
                 mapper.readValue(signDocJson.toString(), TreeMap::class.java)
             )
             val signatureTx =
-                Signer.signature(selectChain, signDoc.toByteArray(StandardCharsets.UTF_8))
+                Signer.signature(selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8))
             val pubKey = PubKey(
                 pubKeyType(),
-                Strings.fromByteArray(Base64.encode(selectChain?.publicKey, Base64.DEFAULT))
+                Strings.fromByteArray(Base64.encode(selectedChain?.publicKey, Base64.DEFAULT))
                     .replace("\n", "")
             )
             val signature = Signature(
@@ -913,7 +912,7 @@ class DappActivity : BaseActivity() {
         bundle.getString("data")?.let { data ->
             PopUpCosmosSignFragment(
                 allChains,
-                selectChain,
+                selectedChain,
                 bundle.getLong("id"),
                 data,
                 bundle.getString("method"),
@@ -929,7 +928,7 @@ class DappActivity : BaseActivity() {
     ) {
         bundle.getString("data")?.let { data ->
             PopUpEvmSignFragment(
-                selectEvmChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
+                selectedChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpEvmSignFragment::class.java.name
             )
@@ -941,11 +940,7 @@ class DappActivity : BaseActivity() {
     ) {
         bundle.getString("data")?.let { data ->
             PopUpSuiSignFragment(
-                selectMajorChain,
-                bundle.getLong("id"),
-                data,
-                bundle.getString("method"),
-                signListener
+                selectSuiChain, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpSuiSignFragment::class.java.name
             )
@@ -1131,6 +1126,7 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
+            Log.e("Test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -1138,21 +1134,38 @@ class DappActivity : BaseActivity() {
                         val params = messageJson.getJSONObject("params")
                         val chainId = params.getString("chainName")
                         BaseData.baseAccount?.let { account ->
-                            selectedChain(allChains, chainId)?.let { chain ->
-                                selectChain = chain
-                                val accountJson = JSONObject()
-                                accountJson.put("isLedger", false)
-                                accountJson.put("isEthermint", selectChain?.supportEvm)
-                                accountJson.put("address", selectChain?.address)
-                                accountJson.put("name", account.name)
-                                accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
-                                appToWebResult(messageJson, accountJson, messageId)
-
-                            } ?: run {
-                                appToWebError(
-                                    messageJson, messageId, "Invalid method parameter(s)."
-                                )
+                            Log.e("Test12345 : ", selectedChain.toString())
+                            val chain = if (selectedChain == null) {
+                                selectedChain(allChains, chainId)
+                            } else {
+                                selectedChain
                             }
+                            Log.e("Test12345 : ", selectedChain?.address.toString())
+
+                            val accountJson = JSONObject()
+                            accountJson.put("isLedger", false)
+                            accountJson.put("isEthermint", chain?.supportEvm)
+                            accountJson.put("address", chain?.address)
+                            accountJson.put("name", account.name)
+                            accountJson.put("publicKey", chain?.publicKey?.bytesToHex())
+                            appToWebResult(messageJson, accountJson, messageId)
+
+
+//                            selectedChain(allChains, chainId)?.let { chain ->
+//                                selectChain = chain
+//                                val accountJson = JSONObject()
+//                                accountJson.put("isLedger", false)
+//                                accountJson.put("isEthermint", selectChain?.supportEvm)
+//                                accountJson.put("address", selectChain?.address)
+//                                accountJson.put("name", account.name)
+//                                accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
+//                                appToWebResult(messageJson, accountJson, messageId)
+//
+//                            } ?: run {
+//                                appToWebError(
+//                                    messageJson, messageId, "Invalid method parameter(s)."
+//                                )
+//                            }
                         }
                     }
                 }
@@ -1265,7 +1278,7 @@ class DappActivity : BaseActivity() {
 
                 "cos_sendTransaction" -> {
                     try {
-                        selectChain?.let { chain ->
+                        selectedChain?.let { chain ->
                             val params = messageJson.getJSONObject("params")
                             val txBytes = params.getString("txBytes")
                             val mode = params.getInt("mode")
@@ -1306,21 +1319,20 @@ class DappActivity : BaseActivity() {
                             allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
+                        Log.e("test12345 : ", chainId)
 
                         if (evmChainIds?.contains(chainId.uppercase()) == true) {
                             currentEvmChainId = chainId
-                            selectEvmChain =
+                            selectedChain =
                                 allChains?.firstOrNull { it.chainIdEvm.uppercase() == currentEvmChainId?.uppercase() }
-                            rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc()
-                                ?: selectEvmChain?.evmRpcURL
+                            rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc()
+                                ?: selectedChain?.evmRpcURL
                             web3j = Web3j.build(HttpService(rpcUrl))
                             appToWebResult(messageJson, JSONObject.NULL, messageId)
                             emitToWeb(chainId)
 
-                            val chainNetwork =
-                                allChains?.firstOrNull { it.chainIdEvm.uppercase() == chainId.uppercase() }?.name
                             withContext(Dispatchers.Main) {
-                                makeToast("Connected to $chainNetwork network")
+                                makeToast("Connected to ${selectedChain?.name} network")
                             }
 
                         } else {
@@ -1336,26 +1348,25 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_chainId" -> {
-                    if (selectEvmChain == null) {
-                        selectEvmChain =
+                    if (selectedChain == null) {
+                        selectedChain =
                             allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
                     }
-                    currentEvmChainId =
-                        allChains?.firstOrNull { it.name == selectEvmChain?.name }?.chainIdEvm
-                    rpcUrl = selectEvmChain?.evmRpcFetcher?.getEvmRpc() ?: selectEvmChain?.evmRpcURL
+                    currentEvmChainId = selectedChain?.chainIdEvm
+                    rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc() ?: selectedChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)
                 }
 
                 "eth_accounts" -> {
-                    if (selectEvmChain == null) {
-                        selectEvmChain =
+                    if (selectedChain == null) {
+                        selectedChain =
                             allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
                     }
 
-                    if (selectEvmChain?.evmAddress?.isNotEmpty() == true) {
+                    if (selectedChain?.evmAddress?.isNotEmpty() == true) {
                         appToWebResult(
-                            messageJson, JSONArray(listOf(selectEvmChain?.evmAddress)), messageId
+                            messageJson, JSONArray(listOf(selectedChain?.evmAddress)), messageId
                         )
 
                     } else {
@@ -1564,7 +1575,7 @@ class DappActivity : BaseActivity() {
                 "eth_signTypedData_v4", "eth_signTypedData_v3" -> {
                     val params = messageJson.getJSONArray("params")
                     if (params.get(0).toString()
-                            .lowercase() != selectEvmChain?.evmAddress?.lowercase()
+                            .lowercase() != selectedChain?.evmAddress?.lowercase()
                     ) {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
@@ -1592,11 +1603,18 @@ class DappActivity : BaseActivity() {
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
-                                    val ethSendTransaction =
-                                        web3j?.ethSendRawTransaction(data)?.send()
-                                    appToWebResult(
-                                        messageJson, ethSendTransaction?.transactionHash, messageId
-                                    )
+                                    try {
+                                        val ethSendTransaction =
+                                            web3j?.ethSendRawTransaction(data)?.send()
+                                        appToWebResult(
+                                            messageJson,
+                                            ethSendTransaction?.transactionHash,
+                                            messageId
+                                        )
+
+                                    } catch (e: Exception) {
+                                        appToWebError(messageJson, messageId, e.message.toString())
+                                    }
                                 }
                             }
 
@@ -1657,19 +1675,19 @@ class DappActivity : BaseActivity() {
 
                 // sui
                 "sui_getAccount" -> {
-                    if (selectMajorChain == null) {
-                        selectMajorChain = allChains?.find { it.name == "Sui" }
+                    if (selectSuiChain == null) {
+                        selectSuiChain = allChains?.find { it.name == "Sui" }
                     }
                     val accountJson = JSONObject()
-                    accountJson.put("address", selectMajorChain?.mainAddress)
-                    accountJson.put("publicKey", "0x" + selectMajorChain?.publicKey?.bytesToHex())
+                    accountJson.put("address", selectSuiChain?.mainAddress)
+                    accountJson.put("publicKey", "0x" + selectSuiChain?.publicKey?.bytesToHex())
                     appToWebResult(
                         messageJson, accountJson, messageId
                     )
                 }
 
                 "sui_getChain" -> {
-                    selectMajorChain = allChains?.find { it.name == "Sui" }
+                    selectSuiChain = allChains?.find { it.name == "Sui" }
                     appToWebResult(
                         messageJson, "mainnet", messageId
                     )
@@ -1716,7 +1734,7 @@ class DappActivity : BaseActivity() {
                 "sui_signMessage", "sui_signPersonalMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     if (params.getString("accountAddress")
-                            .lowercase() != selectMajorChain?.mainAddress?.lowercase()
+                            .lowercase() != selectSuiChain?.mainAddress?.lowercase()
                     ) {
                         appToWebError(messageJson, messageId, "Wrong address")
                         return
@@ -1990,7 +2008,7 @@ class DappActivity : BaseActivity() {
         messageJson: JSONObject, messageId: String, signatureData: String
     ) {
         val request = Request(msgs = emptyList())
-        request.updateMsgData(signatureData, selectChain?.address)
+        request.updateMsgData(signatureData, selectedChain?.address)
 
         val mapper = ObjectMapper()
         mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
@@ -1999,12 +2017,12 @@ class DappActivity : BaseActivity() {
         )
 
         val signatureTx = Signer.signature(
-            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+            selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8)
         )
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectChain?.publicKey, Base64.DEFAULT
+                    selectedChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -2029,12 +2047,12 @@ class DappActivity : BaseActivity() {
         )
 
         val signatureTx = Signer.signature(
-            selectChain, signDoc.toByteArray(StandardCharsets.UTF_8)
+            selectedChain, signDoc.toByteArray(StandardCharsets.UTF_8)
         )
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectChain?.publicKey, Base64.DEFAULT
+                    selectedChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -2066,11 +2084,11 @@ class DappActivity : BaseActivity() {
             )
         ).setChainId(chainId).setAccountNumber(accountNumber).build()
 
-        val signatureTx = Signer.signature(selectChain, signDoc.toByteArray())
+        val signatureTx = Signer.signature(selectedChain, signDoc.toByteArray())
         val pubKey = PubKey(
             pubKeyType(), Strings.fromByteArray(
                 Base64.encode(
-                    selectChain?.publicKey, Base64.DEFAULT
+                    selectedChain?.publicKey, Base64.DEFAULT
                 )
             ).replace("\n", "")
         )
@@ -2085,7 +2103,7 @@ class DappActivity : BaseActivity() {
         messageJson: JSONObject, messageId: String, txByte: String, signature: String
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            (selectMajorChain as ChainSui).suiFetcher()?.let { fetcher ->
+            (selectSuiChain as ChainSui).suiFetcher()?.let { fetcher ->
                 val params = messageJson.getJSONObject("params")
                 val txJsonObject = JsonParser.parseString(params.toString()).asJsonObject
                 val options = if (txJsonObject["options"] != null) {
@@ -2221,9 +2239,9 @@ class DappActivity : BaseActivity() {
     }
 
     private fun pubKeyType(): String {
-        return if (selectChain is ChainInjective) {
+        return if (selectedChain is ChainInjective) {
             INJECTIVE_KEY_TYPE_PUBLIC
-        } else if (selectChain?.supportEvm == true) {
+        } else if (selectedChain?.supportEvm == true) {
             ETHERMINT_KEY_TYPE_PUBLIC
         } else {
             COSMOS_KEY_TYPE_PUBLIC

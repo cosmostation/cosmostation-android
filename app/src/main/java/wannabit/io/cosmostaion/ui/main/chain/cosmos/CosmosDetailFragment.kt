@@ -194,7 +194,7 @@ class CosmosDetailFragment : Fragment() {
                 )
             }
 
-            if (selectedChain.isStakeEnabled() || selectedChain is ChainNeutron) {
+            if (selectedChain.isStakeEnabled()) {
                 walletViewModel.loadGrpcStakeData(selectedChain)
             }
             when (selectedChain) {

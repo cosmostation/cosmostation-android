@@ -157,6 +157,26 @@ class SettingBottomFragment : BottomSheetDialogFragment() {
                         dismiss()
                     }
                 }
+
+                SettingType.DAPP_SORT_OPTION -> {
+                    selectTitle.text = getString(R.string.title_select_option)
+                    val buyCryptoList = listOf("Alphabet", "Multi")
+
+                    settingAdapter = SettingBottomAdapter(
+                        SettingType.DAPP_SORT_OPTION
+                    )
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = LinearLayoutManager(requireActivity())
+                    recycler.adapter = settingAdapter
+                    settingAdapter.submitList(buyCryptoList)
+
+                    settingAdapter.setOnItemClickListener {
+                        val bundle = Bundle()
+                        bundle.putInt("sort", it)
+                        parentFragmentManager.setFragmentResult("sort", bundle)
+                        dismiss()
+                    }
+                }
             }
         }
     }

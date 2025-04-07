@@ -101,7 +101,7 @@ class EcoSystemFragment : Fragment() {
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     if (selectedChain.supportEvm) {
-                        putExtra("selectedEvmChain", selectedChain as Parcelable)
+                        putExtra("selectedChain", selectedChain as Parcelable)
                     }
                     putExtra("dapp", it)
                     startActivity(this)

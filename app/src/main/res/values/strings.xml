@@ -189,6 +189,14 @@
     <string name="str_liquid_stake" translatable="false">Liquid Stake</string>
     <string name="str_download_app" translatable="false">Download App</string>
     <string name="str_stake_now" translatable="false">Stake Now</string>
+    <string name="str_supported_network">Supported Network</string>
+    <string name="str_support_community">Social Community</string>
+    <string name="str_hide_7_days">Hide for 7 Days</string>
+    <string name="str_sort_alphabet">Alphabetical Asc. (A -> Z)</string>
+    <string name="str_sort_alphabet_description">Sort the list alphabetically</string>
+    <string name="str_sort_multi">Multi-Network Support</string>
+    <string name="str_sort_multi_description">Sort the list by the number of supported networks</string>
+    <string name="str_select_chain">Select chain</string>
 
 
     //title
@@ -340,13 +348,14 @@
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
     <string name="title_manage_stake" translatable="false">%1$s Manage Stake</string>
-    <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_progression_of_status" translatable="false">Staking Status Change</string>
     <string name="title_staking" translatable="false">%1$s Stake</string>
     <string name="title_unstaking" translatable="false">%1$s Unstake</string>
     <string name="title_switch_validator" translatable="false">%1$s Switch Validator</string>
     <string name="title_rewards_claim" translatable="false">%1$s Rewards Claim</string>
     <string name="title_compounding" translatable="false">%1$s Compounding</string>
     <string name="title_staked_btc" translatable="false">Staked %1$s</string>
+    <string name="title_select_option">Select Sort Option</string>
 
 
     // msg

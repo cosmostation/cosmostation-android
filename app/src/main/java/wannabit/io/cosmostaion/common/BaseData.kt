@@ -23,6 +23,7 @@ object BaseData {
     var prices: List<Price>? = mutableListOf()
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
+    var ecosystems: MutableList<JsonObject>? = mutableListOf()
 
     var isBackGround = false
     var appSchemeUrl = ""

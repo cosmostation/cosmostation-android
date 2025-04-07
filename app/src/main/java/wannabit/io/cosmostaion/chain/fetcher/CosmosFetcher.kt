@@ -87,7 +87,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return result
     }
 
-    open fun allAssetValue(isUsd: Boolean?): BigDecimal {
+    open fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
             .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
     }

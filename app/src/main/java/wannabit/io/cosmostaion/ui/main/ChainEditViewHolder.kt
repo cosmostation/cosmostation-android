@@ -135,7 +135,7 @@ class ChainEditViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    chainValue.text = formatAssetValue(chain.allValue(true), true)
+                    chainValue.text = formatAssetValue(chain.allValue(false))
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {
@@ -255,7 +255,7 @@ class ChainEditViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    chainValue.text = formatAssetValue(chain.allValue(true), true)
+                    chainValue.text = formatAssetValue(chain.allValue(false))
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {

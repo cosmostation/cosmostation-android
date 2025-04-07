@@ -381,13 +381,19 @@ class PopUpEvmSignFragment(
             checkedGas = if (ethGasResponse.isSuccessful) {
                 val gasJsonObject =
                     Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
-                val gasAmount = BigInteger(
-                    gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
-                )
-                gasAmount.multiply(selectedEvmChain.evmSimulatedGasMultiply() ?: BigInteger("13"))
-                    .divide(
-                        BigInteger("10")
+                if (gasJsonObject.has("error")) {
+                    BigInteger.valueOf(21000L)
+                } else {
+                    val gasAmount = BigInteger(
+                        gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
                     )
+                    gasAmount.multiply(
+                        selectedEvmChain.evmSimulatedGasMultiply() ?: BigInteger("13")
+                    )
+                        .divide(
+                            BigInteger("10")
+                        )
+                }
 
             } else {
                 BigInteger.valueOf(21000L)

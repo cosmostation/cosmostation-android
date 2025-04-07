@@ -183,6 +183,8 @@ interface WalletRepository {
 
     suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>
 
+    suspend fun ecoSystemTest(): NetworkResult<MutableList<JsonObject>>
+
     suspend fun notice(): NetworkResult<NoticeResponse>
 
     // Sui

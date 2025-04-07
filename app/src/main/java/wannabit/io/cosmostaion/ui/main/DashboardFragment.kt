@@ -330,11 +330,10 @@ class DashboardFragment : Fragment() {
                 dpChains.forEach { chain ->
                     totalSum = totalSum.add(chain.allValue(false))
                 }
+                totalChainValue = totalSum
 
                 withContext(Dispatchers.Main) {
                     if (isAdded) {
-                        totalChainValue = totalSum
-
                         binding?.totalValue?.text =
                             if (Prefs.hideValue) "✱✱✱✱✱" else formatAssetValue(totalChainValue)
                         binding?.totalValue?.textSize = if (Prefs.hideValue) 18f else 24f
@@ -452,7 +451,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(chain,
+        NoticeInfoFragment.newInstance(
+            chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {

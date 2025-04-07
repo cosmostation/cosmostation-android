@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.chain.major
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class MajorEcosystemFragment : Fragment() {
 
@@ -88,7 +87,6 @@ class MajorEcosystemFragment : Fragment() {
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", it)
-                    putExtra("selectedChain", selectedChain as Parcelable)
                     startActivity(this)
                 }
             }

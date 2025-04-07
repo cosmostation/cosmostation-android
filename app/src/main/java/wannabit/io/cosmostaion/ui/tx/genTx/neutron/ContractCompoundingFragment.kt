@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
 import java.math.RoundingMode
 
+
 class ContractCompoundingFragment : BaseTxFragment() {
 
     private var _binding: FragmentContractCompoundingBinding? = null
@@ -109,7 +110,7 @@ class ContractCompoundingFragment : BaseTxFragment() {
                 }
             }
 
-            listOf(compoundingView, memoView, feeView).forEach {
+            listOf(validatorView, amountView, memoView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
                 )
@@ -120,14 +121,18 @@ class ContractCompoundingFragment : BaseTxFragment() {
                 titleCompoundingImg.setTokenImg(asset)
                 titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
 
+                val price = BaseData.getPrice(asset.coinGeckoId)
                 val rewardAmount =
                     (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
                         asset.decimals ?: 6
                     )?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                val value = price.multiply(rewardAmount)
+
                 compoundingAmount.text =
                     formatAmount(rewardAmount?.toPlainString() ?: "0", asset.decimals ?: 6)
                 compoundingDenom.text = asset.symbol
                 compoundingDenom.setTextColor(asset.assetColor())
+                compoundingValue.text = formatAssetValue(value)
             }
 
             selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
@@ -261,7 +266,7 @@ class ContractCompoundingFragment : BaseTxFragment() {
     @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
-            compoundingView.setOnClickListener {
+            validatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(
                         selectedChain,
@@ -270,6 +275,7 @@ class ContractCompoundingFragment : BaseTxFragment() {
                                 toValidator =
                                     selectedChain.cosmosFetcher?.cosmosValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                 updateValidatorView()
+                                txSimulate()
                             }
                         })
                 )

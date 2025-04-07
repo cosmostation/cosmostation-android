@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/round_view" />
+
+    <TextView
+        android:id="@+id/select_title"
+        style="@style/font_sb_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/str_select_chain"
+        android:textColor="@color/color_base01" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_below="@+id/select_title"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base07"
+        android:visibility="visible" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_32"
+        android:layout_below="@+id/select_title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@drawable/dapp_search_bg"
+        android:theme="@style/AppTheme.NoActionBar"
+        android:translationZ="0.1dp"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:includeFontPadding="false"
+            android:paddingLeft="-10dp"
+            app:closeIcon="@drawable/icon_clear"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null"
+            app:queryHint="Search Chain"
+            app:searchIcon="@drawable/icon_search" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="@dimen/space_16"
+        android:clipToPadding="false" />
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_below="@+id/recycler"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginBottom="@dimen/space_20"
+        android:background="@color/color_base07" />
+
+</RelativeLayout>

@@ -49,6 +49,9 @@ object Prefs {
     private const val ENDPOINT_TYPE = "PRE_ENDPOINT_TYPE"
     private const val CHAIN_FILTER = "PRE_CHAIN_FILTER"
     private const val DAPP_INFO_HIDE = "PRE_DAPP_INFO_HIDE"
+    private const val DAPP_FILTER = "PRE_DAPP_FILTER"
+    private const val DAPP_PINNED = "PRE_DAPP_PINNED"
+    private const val DAPP_HIDE = "PRE_DAPP_HIDE"
 
 
     private val preference =
@@ -196,6 +199,22 @@ object Prefs {
     var chainFilter: Boolean
         get() = preference.getBoolean(CHAIN_FILTER, false)
         set(value) = preference.edit().putBoolean(CHAIN_FILTER, value).apply()
+
+    var dappFilter: Int
+        get() = preference.getInt(DAPP_FILTER, 0)
+        set(value) = preference.edit().putInt(DAPP_FILTER, value).apply()
+
+    fun setDappHideTime(id: Int) {
+        val key = "$DAPP_HIDE:$id"
+        val currentDate = Calendar.getInstance()
+        currentDate.add(Calendar.DAY_OF_MONTH, 7)
+        preference.edit().putLong(key, currentDate.timeInMillis).apply()
+    }
+
+    fun getDappHideTime(id: Int): Long {
+        val key = "$DAPP_HIDE:$id"
+        return preference.getLong(key, 0L)
+    }
 
     fun setDisplayErc20s(
         baseAccountId: Long, chainTag: String, contractAddresses: List<String>
@@ -380,5 +399,38 @@ object Prefs {
     fun getDappInfoHideTime(id: Int): Long {
         val key = "$DAPP_INFO_HIDE:$id"
         return preference.getLong(key, 0L)
+    }
+
+    fun setPinnedDapps(chains: List<Int>) {
+        val encoded = try {
+            val jsonString = JSONArray(chains).toString()
+            jsonString.toByteArray(Charsets.UTF_8)
+        } catch (e: JSONException) {
+            null
+        }
+
+        if (encoded != null) {
+            val key = DAPP_PINNED
+            preference.edit().putString(key, String(encoded)).apply()
+        }
+    }
+
+    fun getPinnedDapps(): MutableList<Int> {
+        val key = DAPP_PINNED
+        val savedDataString = preference.getString(key, null)
+
+        if (!savedDataString.isNullOrEmpty()) {
+            try {
+                val jsonArray = JSONArray(savedDataString)
+                val result = ArrayList<Int>()
+                for (i in 0 until jsonArray.length()) {
+                    result.add(jsonArray.getInt(i))
+                }
+                return result
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+        return mutableListOf()
     }
 }

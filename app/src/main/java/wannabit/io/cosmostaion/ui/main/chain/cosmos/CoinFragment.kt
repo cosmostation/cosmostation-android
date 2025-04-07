@@ -797,7 +797,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     } else {
                         Intent(requireActivity(), DappActivity::class.java).apply {
                             putExtra("dapp", selectedChain.btcStakingDapp())
-                            putExtra("selectedChain", selectedChain as Parcelable)
+                            putExtra("selectedBitChain", selectedChain as Parcelable)
                             startActivity(this)
                         }
                     }
@@ -1029,7 +1029,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 dialog.dismiss()
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", selectedChain.btcStakingDapp())
-                    putExtra("selectedChain", selectedChain as Parcelable)
+                    putExtra("selectedBitChain", selectedChain as Parcelable)
                     startActivity(this)
                 }
             }

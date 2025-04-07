@@ -22,7 +22,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.VoteFragment
 class OnChainProposalListFragment : Fragment() {
 
     private var _binding: FragmentOnChainProposalListBinding? = null
-    private val binding: FragmentOnChainProposalListBinding? get() = _binding
+    private val binding get() = _binding
 
     private lateinit var selectedChain: BaseChain
 
@@ -94,6 +94,7 @@ class OnChainProposalListFragment : Fragment() {
                     proposalViewModel.onChainVoteStatus(selectedChain, votingPeriods)
 
                 } else {
+                    loading.visibility = View.GONE
                     recycler.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                 }

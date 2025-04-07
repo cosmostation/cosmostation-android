@@ -283,11 +283,6 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
-                    transferImg.setTokenImg(toSendToken?.image ?: "")
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendToken?.symbol
-                    )
-
                     fromChain.cosmosFetcher?.let { grpc ->
                         grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
                             toSendToken = token
@@ -299,6 +294,12 @@ class CommonTransferFragment : BaseTxFragment() {
                             toSendToken = token
                         }
                     }
+
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendToken?.symbol
+                    )
+
                     availableAmount = toSendToken?.amount?.toBigDecimal()
                 }
 
@@ -334,17 +335,17 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_GRC20 -> {
-                    transferImg.setTokenImg(toSendToken?.image ?: "")
-                    sendTitle.text = getString(
-                        R.string.title_asset_send, toSendToken?.symbol
-                    )
-
                     fromChain.gnoRpcFetcher?.let { fetcher ->
                         fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
                             ?.let { token ->
                                 toSendToken = token
                             }
                     }
+
+                    transferImg.setTokenImg(toSendToken?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendToken?.symbol
+                    )
                     availableAmount = toSendToken?.amount?.toBigDecimal()
                 }
 
