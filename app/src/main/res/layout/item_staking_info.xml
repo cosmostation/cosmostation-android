@@ -19,7 +19,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_16">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/moniker_img"
@@ -51,8 +52,8 @@
                 android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_4"
                 android:ellipsize="end"
-                android:maxLines="1"
                 android:maxWidth="@dimen/space_110"
+                android:maxLines="1"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toEndOf="@id/moniker_img"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -181,11 +182,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/estimate_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reward_layout"
                 tools:layout_editor_absoluteX="16dp">

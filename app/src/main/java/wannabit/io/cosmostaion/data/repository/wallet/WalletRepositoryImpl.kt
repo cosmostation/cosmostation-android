@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import com.babylon.btccheckpoint.v1.ParamsProto
 import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
@@ -48,6 +49,7 @@ import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.balance
+import wannabit.io.cosmostaion.chain.fetcher.btcCheckPointParams
 import wannabit.io.cosmostaion.chain.fetcher.btcReward
 import wannabit.io.cosmostaion.chain.fetcher.chainHeight
 import wannabit.io.cosmostaion.chain.fetcher.currentEpoch
@@ -1214,6 +1216,26 @@ class WalletRepositoryImpl : WalletRepository {
         } catch (e: Exception) {
             safeApiCall(Dispatchers.IO) {
                 mutableListOf()
+            }
+        }
+    }
+
+    override suspend fun btcCheckPointParam(
+        channel: ManagedChannel?,
+        chain: BaseChain
+    ): NetworkResult<ParamsProto.Params> {
+        return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.babylon.btccheckpoint.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.babylon.btccheckpoint.v1.QueryProto.QueryParamsRequest.newBuilder().build()
+            safeApiCall {
+                stub.params(request).params
+            }
+
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdBtcCheckpointParam().btcCheckPointParams()
             }
         }
     }

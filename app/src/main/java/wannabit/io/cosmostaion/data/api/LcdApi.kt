@@ -169,6 +169,9 @@ interface LcdApi {
     @GET("cosmos/base/node/v1beta1/status")
     suspend fun lcdChainHeight(): JsonObject
 
+    @GET("babylon/btccheckpoint/v1/params")
+    suspend fun lcdBtcCheckpointParam(): JsonObject
+
     @GET("babylon/epoching/v1/current_epoch")
     suspend fun lcdCurrentEpoch(): JsonObject
 

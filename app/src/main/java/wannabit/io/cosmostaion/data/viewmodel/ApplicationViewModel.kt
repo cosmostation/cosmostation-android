@@ -571,9 +571,12 @@ class ApplicationViewModel(
                             async { walletRepository.btcReward(channel, chain) }
                         val loadBtcStakedStatusDeferred =
                             async { walletRepository.btcStakingStatus(chain) }
+                        val loadBtcCheckpointParamsDeferred =
+                            async { walletRepository.btcCheckPointParam(channel, chain) }
 
                         val rewardGaugeResult = loadRewardGaugeDeferred.await()
                         val btcStakedStatusResult = loadBtcStakedStatusDeferred.await()
+                        val btcCheckpointParamsResult = loadBtcCheckpointParamsDeferred.await()
 
                         if (rewardGaugeResult is NetworkResult.Success) {
                             chain.babylonFetcher()?.btcRewards = rewardGaugeResult.data
@@ -585,6 +588,13 @@ class ApplicationViewModel(
                             chain.babylonFetcher()?.btcStakedStatus = btcStakedStatusResult.data
                         } else if (btcStakedStatusResult is NetworkResult.Error) {
                             _chainDataErrorMessage.postValue("error type : ${btcStakedStatusResult.errorType}  error message : ${btcStakedStatusResult.errorMessage}")
+                        }
+
+                        if (btcCheckpointParamsResult is NetworkResult.Success) {
+                            chain.babylonFetcher()?.btcCheckpointParams =
+                                btcCheckpointParamsResult.data
+                        } else if (btcCheckpointParamsResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${btcCheckpointParamsResult.errorType}  error message : ${btcCheckpointParamsResult.errorMessage}")
                         }
                     }
 
