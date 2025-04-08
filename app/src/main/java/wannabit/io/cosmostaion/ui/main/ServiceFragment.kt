@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainClaimFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainCompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainVoteFragment
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.ui.main.dapp.DappWepFragment
 import java.net.URLEncoder
 
 class ServiceFragment : Fragment() {
@@ -161,8 +162,11 @@ class ServiceFragment : Fragment() {
             }
 
             dappView.setOnClickListener {
+//                handleOneClickWithDelay(
+//                    DappStartFragment()
+//                )
                 handleOneClickWithDelay(
-                    DappStartFragment()
+                    DappWepFragment()
                 )
             }
 

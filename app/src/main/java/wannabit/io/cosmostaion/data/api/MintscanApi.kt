@@ -98,8 +98,8 @@ interface MintscanApi {
         @Query("search_after") searchAfter: String
     ): Response<JsonObject?>
 
-    @GET("v11/{chain}/btc/staker")
+    @GET("v11/{chain}/btc/stakers")
     suspend fun bitStakedStatus(
         @Path("chain") chain: String?, @Query("staker_addr") address: String, @Query("limit") limit: String?, @Query("search_after") searchAfter: String? = ""
-    ): MutableList<JsonObject>?
+    ): JsonObject?
 }

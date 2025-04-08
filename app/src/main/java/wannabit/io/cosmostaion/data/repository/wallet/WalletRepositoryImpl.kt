@@ -1134,13 +1134,17 @@ class WalletRepositoryImpl : WalletRepository {
             var searchAfter: String? = ""
 
             do {
-                val response =
-                    mintscanJsonApi.bitStakedStatus(chain.apiName, chain.address, "60", searchAfter)
-                        ?: mutableListOf()
+                val response = mintscanJsonApi.bitStakedStatus(
+                    chain.apiName, chain.address, "60", searchAfter
+                )?.asJsonObject?.get("data")?.asJsonArray
 
-                result.addAll(response)
+                response?.forEach { element ->
+                    if (element.isJsonObject) {
+                        result.add(element.asJsonObject)
+                    }
+                }
 
-                searchAfter = if (response.size == 60) {
+                searchAfter = if (response?.size() == 60) {
                     result[result.size - 1].asJsonObject["search_after"].asString
                 } else {
                     ""
@@ -1221,8 +1225,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun btcCheckPointParam(
-        channel: ManagedChannel?,
-        chain: BaseChain
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<ParamsProto.Params> {
         return if (chain.cosmosFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.babylon.btccheckpoint.v1.QueryGrpc.newBlockingStub(channel)
