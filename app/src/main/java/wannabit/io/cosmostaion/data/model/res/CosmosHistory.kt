@@ -812,25 +812,30 @@ data class CosmosHistory(
                         }
                         if (msgType != null) {
                             val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
-                            msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
-                                if (chain.address == senderAddr) {
-                                    val amount =
-                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
-                                    totalAmount = totalAmount.add(amount)
-                                    denom =
-                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
-                                }
-
-                            } ?: run {
-                                msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                                    if (chain.address == receiverAddr) {
+                            try {
+                                msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
+                                    if (chain.address == senderAddr) {
                                         val amount =
                                             msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
                                         totalAmount = totalAmount.add(amount)
                                         denom =
                                             msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
                                     }
+
+                                } ?: run {
+                                    msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
+                                        if (chain.address == receiverAddr) {
+                                            val amount =
+                                                msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
+                                            totalAmount = totalAmount.add(amount)
+                                            denom =
+                                                msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
+                                        }
+                                    }
                                 }
+
+                            } catch (e: Exception) {
+
                             }
                         }
                     }
@@ -914,14 +919,19 @@ data class CosmosHistory(
                 }
 
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                    msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
-                        val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
-                        CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
-                            .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
-                                result.add(rawCoin)
-                            }
+                    try {
+                        msgs.get(1).asJsonObject[msgType1.replace(".", "-")]?.let { msgValue1 ->
+                            val rawAmount = msgValue1.asJsonObject["amount"].asJsonObject
+                            CoinProto.Coin.newBuilder().setDenom(rawAmount["denom"].asString)
+                                .setAmount(rawAmount["amount"].asString).build()?.let { rawCoin ->
+                                    result.add(rawCoin)
+                                }
+                        }
+                        return sortedCoins(chain, result)
+
+                    } catch (e: Exception) {
+
                     }
-                    return sortedCoins(chain, result)
                 }
             }
         }
