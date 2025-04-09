@@ -361,6 +361,8 @@
     <string name="str_pending_state_msg">BABYLON 체인에서는 스테이킹 관련 기능(Stake, Unstake, Validator, Switch Validator, Unstake Cancel 등)을 실행하면 우선 Pending 상태로 시작됩니다.\n이후 현재 에포크가 종료되고 다음 에포크로 넘어가면, 해당 스테이킹 작업은 즉시 활성화 상태로 전환됩니다.</string>
     <string name="str_active_state_msg">Active 상태란 Pending 상태가 종료되고 실행한 기능들이 정상적으로 활성화되고 있는 상태를 의미합니다.\n이 상태에서는 사용자가 요청한 스테이킹 관련 기능들이 모두 정상적으로 동작하게 됩니다.</string>
     <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 sBTC의 총합입니다.</string>
+    <string name="str_reward_msg">$%1$s로 리워드 지급</string>
+    <string name="str_reward_msg1">리워드는 $%1$s로 지급되며, 나의 %2$s 주소로 전송됩니다.</string>
 
 
     // error

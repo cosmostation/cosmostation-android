@@ -11,23 +11,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.BtcStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
 
 class MajorDetailFragment : Fragment() {
@@ -38,6 +44,8 @@ class MajorDetailFragment : Fragment() {
     private lateinit var detailPagerAdapter: DetailPagerAdapter
 
     private lateinit var selectedChain: BaseChain
+
+    private lateinit var walletViewModel: WalletViewModel
 
     private var isClickable = true
 
@@ -63,6 +71,7 @@ class MajorDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewModel()
         initData()
         initTab()
         setUpClickAction()
@@ -76,6 +85,13 @@ class MajorDetailFragment : Fragment() {
                 startActivity(this)
             }
         }
+    }
+
+    private fun initViewModel() {
+        val walletRepository = WalletRepositoryImpl()
+        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
+        walletViewModel =
+            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
     }
 
     private fun initData() {
@@ -106,6 +122,10 @@ class MajorDetailFragment : Fragment() {
                     ContextCompat.getColor(requireContext(), R.color.color_base03),
                     PorterDuff.Mode.SRC_IN
                 )
+            }
+
+            if (selectedChain is ChainBitCoin86) {
+                walletViewModel.loadBtcStakeData(selectedChain as ChainBitCoin86)
             }
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
@@ -207,9 +227,14 @@ class MajorDetailFragment : Fragment() {
             fabMenu.setOnMenuButtonClickListener {
                 if (selectedChain is ChainSui) {
                     handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
+
                 } else {
-                    requireActivity().makeToast("Ongoing...")
-                    return@setOnMenuButtonClickListener
+                    if ((selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.isEmpty() == true) {
+                        requireContext().makeToast(R.string.error_wait_moment)
+                        fabMenu.close(true)
+                        return@setOnMenuButtonClickListener
+                    }
+                    handleOneClickWithDelay(BtcStakeInfoFragment.newInstance(selectedChain))
                 }
             }
         }

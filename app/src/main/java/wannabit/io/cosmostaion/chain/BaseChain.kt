@@ -622,6 +622,10 @@ open class BaseChain : Parcelable {
         return "${CosmostationConstants.CHAIN_MONIKER_URL}$apiName/64/$opAddress.png"
     }
 
+    fun providerImg(apiName: String, opAddress: String?): String {
+        return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/finality-provider/$opAddress.png"
+    }
+
     open fun assetImg(originSymbol: String): String {
         return ""
     }

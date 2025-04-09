@@ -464,6 +464,8 @@
     <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
     <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
     <string name="str_btc_status_msg">This is the combined amount of sBTC staked in Taproot and Native Segwit.</string>
+    <string name="str_reward_msg">$%1$s Reward Distribution</string>
+    <string name="str_reward_msg1">Rewards are paid in $%1$s to my %2$s address.</string>
 
 
     // header

@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
+import com.babylon.btcstaking.v1.ParamsProto
+import com.babylon.btcstaking.v1.QueryProto
+import com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -20,6 +23,14 @@ class BtcFetcher(private val chain: BaseChain) {
     var btcStakingData: JsonObject? = null
     var btcBlockHeight: Long = 0
     var btcHistory: MutableList<JsonObject> = mutableListOf()
+
+    var btcFinalityProviders: MutableList<FinalityProvider> = mutableListOf()
+    var btcParams: ParamsProto.Params? = null
+
+    var btcNetworkInfo: JsonObject? = null
+    var btcClientTipHeight: Long? = 0L
+    var btcFastFee: Long? = 0L
+    var btcUtxo: MutableList<JsonObject> = mutableListOf()
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
@@ -302,3 +313,18 @@ object P2TR_VBYTE {
     const val INPUTS = 58
     const val OUTPUTS = 43
 }
+
+fun JsonObject.finalityProviderWithVotingPower(): MutableList<ActiveFinalityProvidersAtHeightResponse> {
+    val result: MutableList<ActiveFinalityProvidersAtHeightResponse> = mutableListOf()
+    this["finality_providers"].asJsonArray.forEach { provider ->
+        val response = ActiveFinalityProvidersAtHeightResponse.newBuilder()
+            .setBtcPkHex(provider.asJsonObject["btc_pk_hex"].asString)
+            .setVotingPower(provider.asJsonObject["voting_power"].asString.toLong()).build()
+        result.add(response)
+    }
+    return result
+}
+
+data class FinalityProvider(
+    val provider: QueryProto.FinalityProviderResponse, val votingPower: String
+)

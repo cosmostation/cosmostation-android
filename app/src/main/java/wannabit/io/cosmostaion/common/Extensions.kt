@@ -280,6 +280,11 @@ fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
     }
 }
 
+fun ImageView.setProviderImg(chain: BaseChain, apiName: String, opAddress: String?) {
+    Picasso.get().load(chain.providerImg(apiName, opAddress))
+        .error(R.drawable.icon_default_vaildator).into(this)
+}
+
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
     if (imageUrl?.isNotEmpty() == true) {
         if (imageUrl.contains(".svg")) {
@@ -612,6 +617,11 @@ fun gapTime(finishTime: Long): String {
         }
     }
     return result
+}
+
+fun addWeeksToMillis(baseMillis: Long, weeks: Int): Long {
+    val millisInAWeek = 7L * 24 * 60 * 60 * 1000
+    return baseMillis + (weeks * millisInAWeek)
 }
 
 fun View.visibleOrGone(visible: Boolean) {

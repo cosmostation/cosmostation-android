@@ -9,6 +9,7 @@ import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
@@ -20,6 +21,8 @@ import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setMonikerImg
+import wannabit.io.cosmostaion.common.setProviderImg
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
 import java.math.RoundingMode
 
@@ -120,6 +123,34 @@ class ValidatorDefaultViewHolder(
 
             votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
             commission.text = formatString("${toValidator.suiValidatorCommission()}%", 3)
+        }
+    }
+
+    fun providerBind(chain: BaseChain, finalityProvider: FinalityProvider) {
+        binding.apply {
+            val apiName = if (chain.isTestnet) "babylon-testnet" else "babylon"
+            monikerImg.setProviderImg(
+                chain,
+                apiName,
+                finalityProvider.provider.btcPk.toByteArray().toHex()
+            )
+
+            monikerName.text = finalityProvider.provider.description.moniker ?: "Unknown"
+            if (finalityProvider.provider.jailed) {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_jailed)
+            } else if (finalityProvider.votingPower == "0") {
+                jailedImg.visibility = View.VISIBLE
+                jailedImg.setImageResource(R.drawable.icon_inactive)
+            } else {
+                jailedImg.visibility = View.GONE
+            }
+
+            votingPower.text = formatAmount(finalityProvider.votingPower, 0)
+            val commissionRate =
+                finalityProvider.provider.commission?.toBigDecimal()?.movePointLeft(16)
+                    ?.setScale(2, RoundingMode.DOWN)
+            commission.text = formatString("$commissionRate%", 3)
         }
     }
 }

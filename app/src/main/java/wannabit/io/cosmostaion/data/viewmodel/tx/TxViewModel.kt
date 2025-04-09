@@ -4,13 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.babylon.btcstaking.v1.PopProto
+import com.babylon.btcstaking.v1.PopProto.BTCSigType
+import com.babylon.btcstaking.v1.TxProto.MsgCreateBTCDelegation
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.gno.bank.BankProto.MsgSend
 import com.gno.vm.VmProto.MsgCall
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
+import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.ibc.core.client.v1.ClientProto
 import io.grpc.ManagedChannel
@@ -18,14 +23,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import net.i2p.crypto.eddsa.Utils
+import org.bouncycastle.util.encoders.Base64
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.isHexString
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.AssetPath
@@ -36,6 +45,7 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.sign.BitcoinJs
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
@@ -685,6 +695,196 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                     }
                     errorMessage.postValue(errorMsg)
                 }
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun btcStakeBroadcast(
+        managedChannel: ManagedChannel?,
+        finalityProvider: FinalityProvider?,
+        toStakeAmount: String,
+        fee: Fee?,
+        memo: String,
+        selectedChain: ChainBitCoin86,
+        babylonChain: BaseChain,
+        bitcoinJS: BitcoinJs
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(managedChannel, babylonChain)
+
+            val babylonAddress = babylonChain.address
+            val feeRate = selectedChain.btcFetcher?.btcFastFee
+            val tipHeight = selectedChain.btcFetcher?.btcClientTipHeight
+            val provider = finalityProvider?.provider?.btcPk?.toByteArray()?.toHex()
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", selectedChain.mainAddress)
+                addProperty("stakerPublicKeyHex", selectedChain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", toStakeAmount.toLong())
+                addProperty(
+                    "stakingTimelock",
+                    selectedChain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val utxo =
+                "[\\n {\\n  \\\"txid\\\" : \\\"ca565b9eafaad83a99d775d5fd3e6600a391090036480d70c7c06c6ae659c58d\\\",\\n  \\\"vout\\\" : 1,\\n  \\\"value\\\" : 6072980,\\n  \\\"status\\\" : {\\n   \\\"block_hash\\\" : \\\"0000008a6461915fb98eb2cb195c2819cb73ac004012aa01acc954bf7d79af2c\\\",\\n   \\\"block_time\\\" : 1744193036,\\n   \\\"confirmed\\\" : true,\\n   \\\"block_height\\\" : 243075\\n  },\\n  \\\"scriptPubKey\\\" : \\\"512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc\\\"\\n }\\n]"
+
+            val preStakingFunction = """function preStakingFunction() {     
+                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, '${utxo}', ${feeRate}, '${babylonAddress}');
+                         return txValue;
+                    }""".trimMargin()
+            bitcoinJS.mergeFunction(preStakingFunction)
+            val txData = bitcoinJS.executeFunction("preStakingFunction()")
+            val txJsonData = Gson().fromJson(
+                txData, JsonObject::class.java
+            )
+            val msgValue = txJsonData["msg"].asJsonObject["value"].asJsonObject
+
+            val pop = PopProto.ProofOfPossessionBTC.newBuilder()
+                .setBtcSigType(BTCSigType.forNumber(msgValue["pop"].asJsonObject["btcSigType"].asInt))
+                .setBtcSig(ByteString.copyFrom(Base64.decode(msgValue["pop"].asJsonObject["btcSig"].asString)))
+                .build()
+            val btcPk = ByteString.copyFrom(Utils.hexToBytes(msgValue["btcPk"].asString))
+            val fpBtcPks = msgValue["fpBtcPkList"].asJsonArray
+            val fpBtcPkList: List<ByteString> = fpBtcPks.mapNotNull { jsonElement ->
+                try {
+                    ByteString.copyFrom(Utils.hexToBytes(jsonElement.asString))
+                } catch (e: Exception) {
+                    null
+                }
+            }
+
+            val stakingTx = ByteString.copyFrom(Utils.hexToBytes(msgValue["stakingTx"].asString))
+            val slashingTx = ByteString.copyFrom(Utils.hexToBytes(msgValue["slashingTx"].asString))
+            val delegatorSlashingSig =
+                ByteString.copyFrom(Base64.decode(msgValue["delegatorSlashingSig"].asString))
+            val unbondingTx =
+                ByteString.copyFrom(Utils.hexToBytes(msgValue["unbondingTx"].asString))
+            val unbondingSlashingTx =
+                ByteString.copyFrom(Utils.hexToBytes(msgValue["unbondingSlashingTx"].asString))
+            val delegatorUnbondingSlashingSig =
+                ByteString.copyFrom(Base64.decode(msgValue["delegatorUnbondingSlashingSig"].asString))
+
+            val msgCreateBTCDelegation =
+                MsgCreateBTCDelegation.newBuilder().setStakerAddr(babylonAddress).setPop(pop)
+                    .setBtcPk(btcPk).addAllFpBtcPkList(fpBtcPkList)
+                    .setStakingTime(msgValue["stakingTime"].asInt)
+                    .setStakingValue(msgValue["stakingValue"].asLong).setStakingTx(stakingTx)
+                    .setSlashingTx(slashingTx).setDelegatorSlashingSig(delegatorSlashingSig)
+                    .setUnbondingTime(msgValue["unbondingTime"].asInt).setUnbondingTx(unbondingTx)
+                    .setUnbondingValue(msgValue["unbondingValue"].asLong)
+                    .setUnbondingSlashingTx(unbondingSlashingTx)
+                    .setDelegatorUnbondingSlashingSig(delegatorUnbondingSlashingSig).build()
+
+            val msg = Signer.btcCreateBTCDelegation(msgCreateBTCDelegation)
+            val response = txRepository.broadcastTx(managedChannel, msg, fee, memo, babylonChain)
+
+            broadcast.postValue(response)
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun btcStakeSimulate(
+        managedChannel: ManagedChannel?,
+        finalityProvider: FinalityProvider?,
+        toStakeAmount: String,
+        fee: Fee?,
+        memo: String,
+        selectedChain: ChainBitCoin86,
+        babylonChain: BaseChain,
+        bitcoinJS: BitcoinJs
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            txRepository.auth(managedChannel, babylonChain)
+
+            val babylonAddress = babylonChain.address
+            val feeRate = selectedChain.btcFetcher?.btcFastFee
+            val tipHeight = selectedChain.btcFetcher?.btcClientTipHeight
+            val provider = finalityProvider?.provider?.btcPk?.toByteArray()?.toHex()
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", selectedChain.mainAddress)
+                addProperty("stakerPublicKeyHex", selectedChain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", toStakeAmount.toLong())
+                addProperty(
+                    "stakingTimelock",
+                    selectedChain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val utxo =
+                "[\\n {\\n  \\\"txid\\\" : \\\"ca565b9eafaad83a99d775d5fd3e6600a391090036480d70c7c06c6ae659c58d\\\",\\n  \\\"vout\\\" : 1,\\n  \\\"value\\\" : 6072980,\\n  \\\"status\\\" : {\\n   \\\"block_hash\\\" : \\\"0000008a6461915fb98eb2cb195c2819cb73ac004012aa01acc954bf7d79af2c\\\",\\n   \\\"block_time\\\" : 1744193036,\\n   \\\"confirmed\\\" : true,\\n   \\\"block_height\\\" : 243075\\n  },\\n  \\\"scriptPubKey\\\" : \\\"512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc\\\"\\n }\\n]"
+
+            val preStakingFunction = """function preStakingFunction() {     
+                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, '${utxo}', ${feeRate}, '${babylonAddress}');
+                         return txValue;
+                    }""".trimMargin()
+            bitcoinJS.mergeFunction(preStakingFunction)
+            val txData = bitcoinJS.executeFunction("preStakingFunction()")
+            val txJsonData = Gson().fromJson(
+                txData, JsonObject::class.java
+            )
+            val msgValue = txJsonData["msg"].asJsonObject["value"].asJsonObject
+
+            val pop = PopProto.ProofOfPossessionBTC.newBuilder()
+                .setBtcSigType(BTCSigType.forNumber(msgValue["pop"].asJsonObject["btcSigType"].asInt))
+                .setBtcSig(ByteString.copyFrom(Base64.decode(msgValue["pop"].asJsonObject["btcSig"].asString)))
+                .build()
+            val btcPk = ByteString.copyFrom(Utils.hexToBytes(msgValue["btcPk"].asString))
+            val fpBtcPks = msgValue["fpBtcPkList"].asJsonArray
+            val fpBtcPkList: List<ByteString> = fpBtcPks.mapNotNull { jsonElement ->
+                try {
+                    ByteString.copyFrom(Utils.hexToBytes(jsonElement.asString))
+                } catch (e: Exception) {
+                    null
+                }
+            }
+
+            val stakingTx = ByteString.copyFrom(Utils.hexToBytes(msgValue["stakingTx"].asString))
+            val slashingTx = ByteString.copyFrom(Utils.hexToBytes(msgValue["slashingTx"].asString))
+            val delegatorSlashingSig =
+                ByteString.copyFrom(Base64.decode(msgValue["delegatorSlashingSig"].asString))
+            val unbondingTx =
+                ByteString.copyFrom(Utils.hexToBytes(msgValue["unbondingTx"].asString))
+            val unbondingSlashingTx =
+                ByteString.copyFrom(Utils.hexToBytes(msgValue["unbondingSlashingTx"].asString))
+            val delegatorUnbondingSlashingSig =
+                ByteString.copyFrom(Base64.decode(msgValue["delegatorUnbondingSlashingSig"].asString))
+
+            val msgCreateBTCDelegation =
+                MsgCreateBTCDelegation.newBuilder().setStakerAddr(babylonAddress).setPop(pop)
+                    .setBtcPk(btcPk).addAllFpBtcPkList(fpBtcPkList)
+                    .setStakingTime(msgValue["stakingTime"].asInt)
+                    .setStakingValue(msgValue["stakingValue"].asLong).setStakingTx(stakingTx)
+                    .setSlashingTx(slashingTx).setDelegatorSlashingSig(delegatorSlashingSig)
+                    .setUnbondingTime(msgValue["unbondingTime"].asInt).setUnbondingTx(unbondingTx)
+                    .setUnbondingValue(msgValue["unbondingValue"].asLong)
+                    .setUnbondingSlashingTx(unbondingSlashingTx)
+                    .setDelegatorUnbondingSlashingSig(delegatorUnbondingSlashingSig).build()
+
+            val msg = Signer.btcCreateBTCDelegation(msgCreateBTCDelegation)
+            val response = txRepository.simulateTx(
+                managedChannel, msg, fee, memo, babylonChain
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
             } else {
                 errorMessage.postValue(response)
             }

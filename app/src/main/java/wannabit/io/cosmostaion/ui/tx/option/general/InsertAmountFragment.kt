@@ -102,7 +102,7 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
     private fun initTxType() {
         binding.apply {
             when (txType) {
-                TxType.DELEGATE, TxType.SUI_DELEGATE -> {
+                TxType.DELEGATE, TxType.SUI_DELEGATE, TxType.BTC_DELEGATE -> {
                     editLayout.setHint(R.string.title_delegate_amount)
                     setAssetAmount()
                 }

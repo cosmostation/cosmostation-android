@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.babylon.btcstaking.v1.QueryProto
+import com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.Gson
@@ -22,9 +24,11 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -32,6 +36,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -46,6 +51,7 @@ import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.Password
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -205,6 +211,207 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
+
+    fun loadBtcStakeData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
+        val channel = ChainBabylonTestnet().cosmosFetcher()?.getChannel()
+        if (chain.btcFetcher()?.btcFinalityProviders?.isNotEmpty() == true) {
+            return@launch
+        }
+
+        var finalityVotingPower = mutableListOf<ActiveFinalityProvidersAtHeightResponse>()
+        var finalityProviders = mutableListOf<QueryProto.FinalityProviderResponse>()
+        val tempFinalityProviders = mutableListOf<FinalityProvider>()
+
+        try {
+            val loadStatusHeightDeferred = async { walletRepository.statusHeight(channel) }
+            val loadFinalityProviderDeferred =
+                async { walletRepository.btcFinalityProviders(channel) }
+            val loadBtcParamsDeferred = async { walletRepository.btcParams(channel) }
+
+            val statusHeightResult = loadStatusHeightDeferred.await()
+            if (statusHeightResult is NetworkResult.Success) {
+                when (val response = walletRepository.btcFinalityVotingPower(
+                    channel, statusHeightResult.data
+                )) {
+                    is NetworkResult.Success -> {
+                        finalityVotingPower = response.data
+                    }
+
+                    is NetworkResult.Error -> {
+                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
+            }
+
+            val finalityProviderResult = loadFinalityProviderDeferred.await()
+            if (finalityProviderResult is NetworkResult.Success) {
+                finalityProviders = finalityProviderResult.data
+            }
+
+            val btcParamsResult = loadBtcParamsDeferred.await()
+            if (btcParamsResult is NetworkResult.Success) {
+                chain.btcFetcher()?.btcParams = btcParamsResult.data
+            }
+
+            withContext(Dispatchers.Default) {
+                tempFinalityProviders.clear()
+                if (finalityVotingPower.isNotEmpty() && finalityProviders.isNotEmpty()) {
+                    finalityProviders.forEach { provider ->
+                        val btcPk = provider.btcPk.toByteArray().toHex()
+                        val votingPower =
+                            finalityVotingPower.firstOrNull { it.btcPkHex == btcPk }?.votingPower
+                        if (votingPower != null) {
+                            tempFinalityProviders.add(
+                                FinalityProvider(
+                                    provider, votingPower.toString()
+                                )
+                            )
+
+                        } else {
+                            tempFinalityProviders.add(
+                                FinalityProvider(
+                                    provider, "0"
+                                )
+                            )
+                        }
+                    }
+                }
+
+                val dataTempProviders = tempFinalityProviders.toMutableList()
+                dataTempProviders.sortWith { o1, o2 ->
+                    when {
+                        o1.provider.description.moniker == "Cosmostation" -> -1
+                        o2.provider.description.moniker == "Cosmostation" -> 1
+                        o1.provider.jailed && !o2.provider.jailed -> 1
+                        !o1.provider.jailed && o2.provider.jailed -> -1
+                        o1.votingPower.toLong() > o2.votingPower.toLong() -> -1
+                        o1.votingPower.toLong() < o2.votingPower.toLong() -> 1
+                        else -> 0
+                    }
+                }
+
+                chain.btcFetcher()?.btcFinalityProviders = dataTempProviders
+            }
+
+        } finally {
+            channel?.shutdown()
+            try {
+                if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
+                    channel.shutdownNow()
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private val _btcDataLoadDone = MutableLiveData<Boolean>()
+    val btcDataLoadDone: LiveData<Boolean> = _btcDataLoadDone
+
+    fun loadBtcDelegateData(
+        chain: ChainBitCoin86
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        chain.apply {
+            try {
+                val loadNetworkInfoDeferred = async { walletRepository.btcNetworkInfo(this@apply) }
+                val loadBtcClientTipHeightDeferred =
+                    async { walletRepository.btcClientTip(this@apply) }
+                val loadFeeDeferred = async { walletRepository.btcFee(this@apply) }
+                val loadUtxoDeferred = async { walletRepository.mempoolUtxo(chain) }
+
+                val networkInfoResult = loadNetworkInfoDeferred.await()
+                val btcClientTipHeightResult = loadBtcClientTipHeightDeferred.await()
+                val feeResult = loadFeeDeferred.await()
+                val utxoResult = loadUtxoDeferred.await()
+
+                if (networkInfoResult is NetworkResult.Success && networkInfoResult.data is JsonObject) {
+                    btcFetcher()?.btcNetworkInfo = networkInfoResult.data
+                } else {
+                    btcFetcher()?.btcNetworkInfo = null
+                }
+
+                if (btcClientTipHeightResult is NetworkResult.Success && btcClientTipHeightResult.data is JsonObject) {
+                    btcFetcher()?.btcClientTipHeight =
+                        btcClientTipHeightResult.data["header"].asJsonObject["height"].asLong
+                } else {
+                    btcFetcher()?.btcClientTipHeight = 0L
+                }
+
+                if (feeResult is NetworkResult.Success && feeResult.data is JsonObject) {
+                    btcFetcher()?.btcFastFee = feeResult.data["fastestFee"].asLong
+                } else {
+                    btcFetcher()?.btcFastFee = 0L
+                }
+
+                if (utxoResult is NetworkResult.Success) {
+                    btcFetcher()?.btcUtxo = utxoResult.data
+                } else {
+                    btcFetcher()?.btcUtxo = mutableListOf()
+
+                }
+
+                val network = if (chain.isTestnet) "testnet" else "mainnet"
+                val privateKeyHex = chain.privateKey?.toHex()
+                val signerAddress = chain.mainAddress
+                val stakingParams =
+                    chain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
+                        "params"
+                    )?.asJsonObject?.get("bbn")?.asJsonArray
+
+                val initBTCStakingFunction = """function initBTCStakingFunction() {
+                                            const signMessage = initBTCStaking('${network}', '${privateKeyHex}', '${signerAddress}', '${stakingParams.toString()}');
+                                            return signMessage;
+                                        }""".trimMargin()
+                BitcoinJs.mergeFunction(initBTCStakingFunction)
+                BitcoinJs.executeFunction("initBTCStakingFunction()")
+
+                _btcDataLoadDone.postValue(true)
+
+            } catch (e: Exception) {
+                _btcDataLoadDone.postValue(false)
+            }
+        }
+    }
+
+    private val _btcEstimateFee = MutableLiveData<String>()
+    val btcEstimateFee: LiveData<String> = _btcEstimateFee
+
+    fun btcEstimateFee(
+        chain: ChainBitCoin86, bitcoinJs: BitcoinJs, finalityProvider: FinalityProvider?
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val feeRate = chain.btcFetcher?.btcFastFee
+            val tipHeight = chain.btcFetcher?.btcClientTipHeight
+            val provider = finalityProvider?.provider?.btcPk?.toByteArray()?.toHex()
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", chain.mainAddress)
+                addProperty("stakerPublicKeyHex", chain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", chain.btcFetcher?.btcParams?.minStakingValueSat)
+                addProperty(
+                    "stakingTimelock", chain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val utxo = "[\\n {\\n  \\\"txid\\\" : \\\"ca565b9eafaad83a99d775d5fd3e6600a391090036480d70c7c06c6ae659c58d\\\",\\n  \\\"vout\\\" : 1,\\n  \\\"value\\\" : 6072980,\\n  \\\"status\\\" : {\\n   \\\"block_hash\\\" : \\\"0000008a6461915fb98eb2cb195c2819cb73ac004012aa01acc954bf7d79af2c\\\",\\n   \\\"block_time\\\" : 1744193036,\\n   \\\"confirmed\\\" : true,\\n   \\\"block_height\\\" : 243075\\n  },\\n  \\\"scriptPubKey\\\" : \\\"512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc\\\"\\n }\\n]"
+
+            val estimateFeeFunction = """function estimateFeeFunction() {     
+                    const estimate = estimateBtcStakingFee('${stakerBtcInfo}', ${tipHeight}, '${stakingInput}', '${utxo}', ${feeRate});
+                         return estimate;
+                    }""".trimMargin()
+            bitcoinJs.mergeFunction(estimateFeeFunction)
+            val estimateFee = bitcoinJs.executeFunction("estimateFeeFunction()")
+
+            _btcEstimateFee.postValue(estimateFee.toString())
+
+        } catch (e: Exception) {
+            _btcEstimateFee.postValue(e.message.toString())
+        }
+    }
 
     fun loadGrpcStakeData(
         chain: BaseChain
