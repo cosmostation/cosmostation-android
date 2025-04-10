@@ -60,9 +60,9 @@ class BabylonBtcStatusFragment : BottomSheetDialogFragment() {
         }
 
         val denom = if (selectedChain.isTestnet) {
-            "sbtc"
+            "sBTC"
         } else {
-            "btc"
+            "BTC"
         }
         val network = if (selectedChain.isTestnet) {
             "bitcoin-testnet"
@@ -88,6 +88,7 @@ class BabylonBtcStatusFragment : BottomSheetDialogFragment() {
                 btcStakedStatusAmount.text =
                     formatAmount(dpBtcStakedAmount.toString(), asset.decimals ?: 6)
                 btcStakedDenom.text = asset.symbol
+                btcStakedDescription.text = getString(R.string.str_btc_status_msg, denom)
             }
         }
     }

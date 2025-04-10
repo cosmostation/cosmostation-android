@@ -360,7 +360,7 @@
     <string name="str_endpoint_reset_msg">(권장됨)현재 사용자가 설정한 모든 체인의 엔드포인트를 기본 설정으로 초기화하시겠습니까?\n\nEnd-Point는 블록체인 네트워크와 연결을 관리하는 서버로, 안정적인 End-Point를 사용해야 원활하게 데이터를 주고받을 수 있습니다.</string>
     <string name="str_pending_state_msg">BABYLON 체인에서는 스테이킹 관련 기능(Stake, Unstake, Validator, Switch Validator, Unstake Cancel 등)을 실행하면 우선 Pending 상태로 시작됩니다.\n이후 현재 에포크가 종료되고 다음 에포크로 넘어가면, 해당 스테이킹 작업은 즉시 활성화 상태로 전환됩니다.</string>
     <string name="str_active_state_msg">Active 상태란 Pending 상태가 종료되고 실행한 기능들이 정상적으로 활성화되고 있는 상태를 의미합니다.\n이 상태에서는 사용자가 요청한 스테이킹 관련 기능들이 모두 정상적으로 동작하게 됩니다.</string>
-    <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 sBTC의 총합입니다.</string>
+    <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 %1$s의 총합입니다.</string>
 
 
     // error

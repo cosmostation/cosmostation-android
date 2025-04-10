@@ -463,7 +463,7 @@
     <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
     <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
     <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
-    <string name="str_btc_status_msg">This is the combined amount of sBTC staked in Taproot and Native Segwit.</string>
+    <string name="str_btc_status_msg">This is the combined amount of %1$s staked in Taproot and Native Segwit.</string>
 
 
     // header
