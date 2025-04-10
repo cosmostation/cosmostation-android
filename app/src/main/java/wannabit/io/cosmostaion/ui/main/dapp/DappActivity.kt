@@ -1316,7 +1316,6 @@ class DappActivity : BaseActivity() {
                             allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
-                        Log.e("test12345 : ", chainId)
 
                         if (evmChainIds?.contains(chainId.uppercase()) == true) {
                             currentEvmChainId = chainId

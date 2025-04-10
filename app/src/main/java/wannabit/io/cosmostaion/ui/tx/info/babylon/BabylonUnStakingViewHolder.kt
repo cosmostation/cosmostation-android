@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeNotSecond
 import wannabit.io.cosmostaion.common.formatAmount
@@ -53,7 +53,7 @@ class BabylonUnStakingViewHolder(
                 unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
 
                 entry.entry?.completionTime?.let {
-                    (chain as ChainBabylonTestnet).babylonFetcher?.let { fetcher ->
+                    (chain as ChainBabylon).babylonFetcher?.let { fetcher ->
                         val blockTime = fetcher.btcCheckpointParams?.btcConfirmationDepth
                         val block = fetcher.btcCheckpointParams?.checkpointFinalizationTimeout
                         val estimateUnBondingTime = (blockTime ?: 0) * (block ?: 0) * 60

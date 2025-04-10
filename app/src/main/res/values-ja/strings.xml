@@ -363,7 +363,7 @@
     <string name="str_endpoint_reset_msg">（推奨）すべてのチェーンのエンドポイントをデフォルト設定にリセットしますか？\n\nエンドポイントはブロックチェーンネットワークとの接続を管理するサーバーであり、安定したエンドポイントを使用することでデータの円滑な送受信が可能になります。？</string>
     <string name="str_pending_state_msg">BABYLONチェーンでは、ステーキング関連の機能（ステーク、アンステーク、バリデーターの切り替え、アンステークのキャンセルなど）を実行すると、最初にPending状態になります。\nその後、現在のエポックが終了し、次のエポックに移行すると、該当するステーキング作業は即座にアクティブな状態へと移行します。</string>
     <string name="str_active_state_msg">Active状態とは、Pending状態が終了し、実行した機能が正常に有効化されている状態を意味します。\nこの状態では、ユーザーがリクエストしたステーキング関連の機能がすべて正常に動作します。</string>
-    <string name="str_btc_status_msg">これは、TaprootとNative SegwitにステーキングされたsBTCの合計です。</string>
+    <string name="str_btc_status_msg">これは、TaprootとNative Segwitにステーキングされた%1$sの合計です。</string>
     <string name="str_reward_msg">$%1$sでリワード支給</string>
     <string name="str_reward_msg1">リワードは$%1$sで支給され、私の%2$sアドレスに送信されます。</string>
 

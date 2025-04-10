@@ -23,8 +23,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -852,7 +852,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         .setValidatorDstAddress(toValidator?.operatorAddress).setAmount(toCoin)
                         .build()
 
-                if (selectedChain is ChainBabylonTestnet) {
+                if (selectedChain is ChainBabylon) {
                     val wrappedMsgReDelegate =
                         com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate.newBuilder()
                             .setMsg(msgReDelegate).build()

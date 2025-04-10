@@ -12,6 +12,7 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -144,6 +145,12 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             listOf(view0, view1, view2, view3, view4).forEach { it.visibleOrGone(isStakeOption) }
             cancelView.goneOrVisible(isStakeOption)
+
+            if (selectedChain is ChainNeutron) {
+                claimRewardsLayout.visibility = View.GONE
+                compoundingLayout.visibility = View.GONE
+                view4.visibility = View.GONE
+            }
         }
     }
 
