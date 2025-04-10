@@ -10085,13 +10085,13 @@ public final class QueryProto {
       "ore.connection.v1.QueryConnectionParamsR" +
       "equest\0325.ibc.core.connection.v1.QueryCon" +
       "nectionParamsResponse\"&\202\323\344\223\002 \022\036/ibc/core" +
-      "/connection/v1/paramsB\337\001\n\032com.ibc.core.c" +
-      "onnection.v1B\nQueryProtoZ<github.com/cos" +
-      "mos/ibc-go/v7/modules/core/03-connection" +
-      "/types\242\002\003ICC\252\002\026Ibc.Core.Connection.V1\312\002\026" +
-      "Ibc\\Core\\Connection\\V1\342\002\"Ibc\\Core\\Connec" +
-      "tion\\V1\\GPBMetadata\352\002\031Ibc::Core::Connect" +
-      "ion::V1b\006proto3"
+      "/connection/v1/paramsB\340\001\n\032com.ibc.core.c" +
+      "onnection.v1B\nQueryProtoZ=github.com/cos" +
+      "mos/ibc-go/v10/modules/core/03-connectio" +
+      "n/types\242\002\003ICC\252\002\026Ibc.Core.Connection.V1\312\002" +
+      "\026Ibc\\Core\\Connection\\V1\342\002\"Ibc\\Core\\Conne" +
+      "ction\\V1\\GPBMetadata\352\002\031Ibc::Core::Connec" +
+      "tion::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

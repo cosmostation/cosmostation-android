@@ -10,6 +10,11 @@ import kotlinx.parcelize.Parcelize
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
+import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -116,8 +121,46 @@ data class BaseAccount(
     }
 
     fun updateAllValue() {
-        sortedDisplayChains().forEach { chain ->
-            chain.allValue(false)
+        allChains.forEach { chain ->
+            when (chain) {
+                is ChainBitCoin86 -> {
+                    chain.coinValue = chain.btcFetcher()?.allAssetValue()
+                }
+
+                is ChainSui -> {
+                    chain.coinValue = chain.suiFetcher()?.allAssetValue()
+                }
+
+                is ChainOkt996Keccak -> {
+                    chain.coinValue = chain.oktFetcher()?.allAssetValue()
+                }
+
+                is ChainOktEvm -> {
+                    chain.coinValue = chain.oktFetcher()?.allAssetValue()
+                    chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue()
+                }
+
+                is ChainGnoTestnet -> {
+                    chain.coinValue = chain.gnoRpcFetcher()?.allAssetValue()
+                    chain.tokenValue = chain.gnoRpcFetcher()?.allGrc20TokenValue()
+                }
+
+                else -> {
+                    if (chain.isEvmCosmos()) {
+                        chain.coinValue = chain.cosmosFetcher()?.allAssetValue()
+                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue()
+                            ?.add(chain.evmRpcFetcher()?.allTokenValue())
+
+                    } else if (chain.supportCosmos()) {
+                        chain.coinValue = chain.cosmosFetcher()?.allAssetValue()
+                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue()
+
+                    } else {
+                        chain.coinValue = chain.evmRpcFetcher()?.allAssetValue()
+                        chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue()
+                    }
+                }
+            }
         }
     }
 

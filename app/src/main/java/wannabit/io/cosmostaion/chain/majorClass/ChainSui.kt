@@ -29,8 +29,6 @@ class ChainSui : BaseChain(), Parcelable {
 
     override var stakeDenom: String = SUI_MAIN_DENOM
     override var coinSymbol: String = "SUI"
-    override var coinGeckoId: String = "sui"
-    override var coinLogo: Int = R.drawable.token_sui
 
     override var mainUrl: String = "https://sui-mainnet-us-2.cosmostation.io"
 

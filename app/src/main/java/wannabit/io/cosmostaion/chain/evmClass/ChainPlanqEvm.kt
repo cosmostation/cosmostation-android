@@ -31,7 +31,5 @@ class ChainPlanqEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "PLANQ"
-    override var coinGeckoId: String = "planq"
-    override var coinLogo: Int = R.drawable.token_planq
     override var evmRpcURL: String = "https://planq-rpc.nodies.app"
 }

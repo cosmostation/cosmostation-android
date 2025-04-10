@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -115,9 +116,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         price(BaseData.currencyName().lowercase())
         val loadParamDeferred = async { walletRepository.param() }
         val loadAssetDeferred = async { walletRepository.asset() }
+        val loadEcoSystemDeferred = async { walletRepository.ecoSystemTest() }
 
         val responses = awaitAll(
-            loadParamDeferred, loadAssetDeferred
+            loadParamDeferred, loadAssetDeferred, loadEcoSystemDeferred
         )
 
         responses.forEach { response ->
@@ -133,6 +135,28 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is AssetResponse -> {
                             response.data.assets?.let { BaseData.assets = it }
+                        }
+
+                        is MutableList<*> -> {
+                            if (response.data.isEmpty()) {
+                                mutableListOf<JsonObject>()
+                            } else {
+                                val ecoList = response.data as MutableList<JsonObject>
+                                ecoList.forEach { ecosystem ->
+                                    val isPinnedValue =
+                                        Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+                                    ecosystem.addProperty("isPinned", isPinnedValue)
+                                }
+
+                                if (Prefs.dappFilter == 0) {
+                                    ecoList.sortWith(compareBy { it["name"].asString })
+                                } else {
+                                    ecoList.sortWith(compareByDescending<JsonObject> { ecosystem ->
+                                        ecosystem["chains"].asJsonArray.size()
+                                    }.thenBy { ecosystem -> ecosystem["name"].asString })
+                                }
+                                BaseData.ecosystems = ecoList
+                            }
                         }
                     }
                 }

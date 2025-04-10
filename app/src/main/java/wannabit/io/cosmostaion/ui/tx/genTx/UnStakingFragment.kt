@@ -23,8 +23,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -698,7 +698,7 @@ class UnStakingFragment : BaseTxFragment() {
                     MsgUndelegate.newBuilder().setDelegatorAddress(selectedChain.address)
                         .setValidatorAddress(validator?.operatorAddress).setAmount(toCoin).build()
 
-                if (selectedChain is ChainBabylonTestnet) {
+                if (selectedChain is ChainBabylon) {
                     val wrappedMsgUnDelegate = com.babylon.epoching.v1.TxProto.MsgWrappedUndelegate.newBuilder().setMsg(msgUnDelegate).build()
                     Signer.babylonUnDelegateMsg(wrappedMsgUnDelegate)
                 } else {

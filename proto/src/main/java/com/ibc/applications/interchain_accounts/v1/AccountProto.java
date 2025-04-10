@@ -793,15 +793,15 @@ public final class AccountProto {
       "ta1.BaseAccountB\004\320\336\037\001R\013baseAccount\022#\n\rac" +
       "count_owner\030\002 \001(\tR\014accountOwner:F\210\240\037\000\230\240\037" +
       "\000\312\264-:ibc.applications.interchain_account" +
-      "s.v1.InterchainAccountIB\273\002\n+com.ibc.appl" +
+      "s.v1.InterchainAccountIB\274\002\n+com.ibc.appl" +
       "ications.interchain_accounts.v1B\014Account" +
-      "ProtoZEgithub.com/cosmos/ibc-go/v7/modul" +
-      "es/apps/27-interchain-accounts/types\242\002\003I" +
-      "AI\252\002&Ibc.Applications.InterchainAccounts" +
-      ".V1\312\002&Ibc\\Applications\\InterchainAccount" +
-      "s\\V1\342\0022Ibc\\Applications\\InterchainAccoun" +
-      "ts\\V1\\GPBMetadata\352\002)Ibc::Applications::I" +
-      "nterchainAccounts::V1b\006proto3"
+      "ProtoZFgithub.com/cosmos/ibc-go/v10/modu" +
+      "les/apps/27-interchain-accounts/types\242\002\003" +
+      "IAI\252\002&Ibc.Applications.InterchainAccount" +
+      "s.V1\312\002&Ibc\\Applications\\InterchainAccoun" +
+      "ts\\V1\342\0022Ibc\\Applications\\InterchainAccou" +
+      "nts\\V1\\GPBMetadata\352\002)Ibc::Applications::" +
+      "InterchainAccounts::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

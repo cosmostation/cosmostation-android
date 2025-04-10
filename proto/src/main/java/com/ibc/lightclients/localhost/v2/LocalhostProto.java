@@ -703,7 +703,7 @@ public final class LocalhostProto {
       "eight\030\001 \001(\0132\032.ibc.core.client.v1.HeightB" +
       "\004\310\336\037\000R\014latestHeight:\004\210\240\037\000B\222\002\n!com.ibc.li" +
       "ghtclients.localhost.v2B\016LocalhostProtoZ" +
-      "Hgithub.com/cosmos/ibc-go/v7/modules/lig" +
+      "Hgithub.com/cosmos/ibc-go/v8/modules/lig" +
       "ht-clients/09-localhost;localhost\242\002\003ILL\252" +
       "\002\035Ibc.Lightclients.Localhost.V2\312\002\035Ibc\\Li" +
       "ghtclients\\Localhost\\V2\342\002)Ibc\\Lightclien" +

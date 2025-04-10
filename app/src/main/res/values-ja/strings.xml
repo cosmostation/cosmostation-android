@@ -46,6 +46,7 @@
     <string name="str_high">高</string>
     <string name="str_origin">起源</string>
     <string name="str_send">申請者</string>
+    <string name="str_ibc_send">IBC 申請者</string>
     <string name="str_insert_memo">メモをにゅうりょくしてください。(オプション)</string>
     <string name="str_address_book">連絡先の管理</string>
     <string name="str_address_name_service">アドレスまたはネームサービス</string>
@@ -139,6 +140,14 @@
     <string name="str_next_reward_distribution">次の報酬分配</string>
     <string name="str_instant">直ちに</string>
     <string name="str_endpoint_reset">エンドポイントの初期化</string>
+    <string name="str_supported_network">サポート対象ネットワーク</string>
+    <string name="str_support_community">ソーシャル·コミュニティ</string>
+    <string name="str_hide_7_days">7日間隠し事</string>
+    <string name="str_sort_alphabet">アルファベット順 Asc.(A->Z)</string>
+    <string name="str_sort_alphabet_description">アルファベット順整列</string>
+    <string name="str_sort_multi">マルチネットワークサポート</string>
+    <string name="str_sort_multi_description">サポートされているネットワーク数を並べ替えます</string>
+    <string name="str_select_chain">チェーン選択</string>
 
 
     //title
@@ -254,9 +263,6 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">資産の損失です</string>
     <string name="title_claimable_chains">リワード対象チェーン</string>
-    <string name="title_select_end_point">エンドポイントの選択</string>
-    <string name="title_select_end_point_grpc">エンドポイントの選択</string>
-    <string name="title_select_end_point_rpc">エンドポイントの選択 (EVM RPC)</string>
     <string name="title_select_end_point_sui_rpc">エンドポイントの選択 (Sui RPC)</string>
     <string name="title_edit_token_list">トークンの編集</string>
     <string name="title_not_vote_list">ライブプロポーザル</string>
@@ -269,7 +275,7 @@
     <string name="title_delist">サポートの終了</string>
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
     <string name="title_support_inject">インジェクションをサポート</string>
-    <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_select_option">ソートオプション選択</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -357,7 +363,7 @@
     <string name="str_endpoint_reset_msg">（推奨）すべてのチェーンのエンドポイントをデフォルト設定にリセットしますか？\n\nエンドポイントはブロックチェーンネットワークとの接続を管理するサーバーであり、安定したエンドポイントを使用することでデータの円滑な送受信が可能になります。？</string>
     <string name="str_pending_state_msg">BABYLONチェーンでは、ステーキング関連の機能（ステーク、アンステーク、バリデーターの切り替え、アンステークのキャンセルなど）を実行すると、最初にPending状態になります。\nその後、現在のエポックが終了し、次のエポックに移行すると、該当するステーキング作業は即座にアクティブな状態へと移行します。</string>
     <string name="str_active_state_msg">Active状態とは、Pending状態が終了し、実行した機能が正常に有効化されている状態を意味します。\nこの状態では、ユーザーがリクエストしたステーキング関連の機能がすべて正常に動作します。</string>
-    <string name="str_btc_status_msg">これは、TaprootとNative SegwitにステーキングされたsBTCの合計です。</string>
+    <string name="str_btc_status_msg">これは、TaprootとNative Segwitにステーキングされた%1$sの合計です。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

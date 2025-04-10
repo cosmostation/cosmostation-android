@@ -11,7 +11,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/dash_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_110"
+        android:layout_height="wrap_content"
         android:elevation="0dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,83 +19,43 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/simple_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/chain_img"
+                android:id="@+id/simple_chain_img"
                 android:layout_width="@dimen/space_48"
                 android:layout_height="@dimen/space_48"
-                android:layout_centerVertical="true"
-                android:layout_marginVertical="@dimen/space_10"
                 android:layout_marginStart="@dimen/space_12"
+                android:layout_marginVertical="@dimen/space_10"
                 android:src="@drawable/chain_cosmos"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_8"
-                app:layout_constraintBottom_toBottomOf="@+id/chain_img"
-                app:layout_constraintStart_toEndOf="@+id/chain_img"
-                app:layout_constraintTop_toTopOf="@id/chain_img">
+                app:layout_constraintBottom_toBottomOf="@+id/simple_chain_img"
+                app:layout_constraintStart_toEndOf="@+id/simple_chain_img"
+                app:layout_constraintTop_toTopOf="@id/simple_chain_img">
 
                 <TextView
-                    android:id="@+id/chain_name"
+                    android:id="@+id/simple_chain_name"
                     style="@style/font_sb_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/space_2"
                     android:textColor="@color/color_base01" />
-
-                <TextView
-                    android:id="@+id/chain_side_badge"
-                    style="@style/font_sm_8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_2"
-                    android:layout_toRightOf="@id/chain_name"
-                    android:background="@drawable/round_box_deprecated"
-                    android:paddingHorizontal="@dimen/space_6"
-                    android:paddingVertical="@dimen/space_2"
-                    android:text="@string/str_old"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_base02"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/chain_address"
-                    style="@style/font_sm_12"
-                    android:layout_width="@dimen/space_130"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:ellipsize="middle"
-                    android:maxLines="1"
-                    android:textColor="@color/color_base02"
-                    android:visibility="visible" />
-
-                <TextView
-                    android:id="@+id/chain_evm_address"
-                    style="@style/font_sm_12"
-                    android:layout_width="@dimen/space_130"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:ellipsize="middle"
-                    android:maxLines="1"
-                    android:textColor="@color/color_base02"
-                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/chain_badge"
                     style="@style/font_sm_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_name"
-                    android:layout_marginTop="@dimen/space_3"
-                    android:layout_marginEnd="@dimen/space_3"
+                    android:layout_below="@+id/simple_chain_name"
+                    android:layout_marginTop="@dimen/space_5"
                     android:background="@drawable/round_box_deprecated"
                     android:paddingHorizontal="@dimen/space_6"
                     android:paddingVertical="@dimen/space_2"
@@ -106,140 +66,239 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/simple_skeleton_chain_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/chain_img"
+                android:layout_marginEnd="@dimen/space_10"
+                app:layout_constraintBottom_toBottomOf="@+id/simple_chain_img"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/chain_img">
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/skeleton_chain_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/space_10"
-                    app:shimmer_base_alpha="0.8">
-
-                    <View
-                        android:layout_width="80dp"
-                        android:layout_height="@dimen/space_18"
-                        android:background="@drawable/skeleton_shape" />
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-                <TextView
-                    android:id="@+id/chain_value"
-                    style="@style/font_sb_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/space_16"
-                    android:gravity="end"
-                    android:textColor="@color/color_base01" />
-
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/skeleton_asset_cnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/skeleton_chain_value"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:layout_marginEnd="@dimen/space_10"
-                    app:shimmer_base_alpha="0.8">
-
-                    <View
-                        android:layout_width="80dp"
-                        android:layout_height="@dimen/space_18"
-                        android:background="@drawable/skeleton_shape" />
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-                <TextView
-                    android:id="@+id/asset_cnt"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/chain_value"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/space_5"
-                    android:layout_marginEnd="@dimen/space_16"
-                    android:textColor="@color/color_base02" />
-
-            </RelativeLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/pro_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_10"
-                android:layout_marginBottom="@dimen/space_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chain_img">
+                app:layout_constraintTop_toTopOf="@+id/simple_chain_img"
+                app:shimmer_base_alpha="0.8">
 
                 <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.6dp"
-                    android:background="@color/color_divider"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="80dp"
+                    android:layout_height="@dimen/space_18"
+                    android:background="@drawable/skeleton_shape" />
 
-                <TextView
-                    android:id="@+id/price_title"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_12"
-                    android:text="Price:"
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
-                <TextView
-                    android:id="@+id/chain_price"
-                    style="@style/font_sb_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_17"
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/price_title"
-                    app:layout_constraintTop_toTopOf="@+id/price_title" />
-
-                <TextView
-                    android:id="@+id/chain_price_status"
-                    style="@style/font_sb_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/price_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/chain_price" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/respond_layout"
+            <TextView
+                android:id="@+id/simple_chain_value"
+                style="@style/font_sb_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/space_12"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/chain_img"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="@+id/simple_chain_img"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/chain_img">
+                app:layout_constraintTop_toTopOf="@+id/simple_chain_img" />
 
-                <TextView
-                    android:id="@+id/respond_txt"
-                    style="@style/font_sb_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Node not responding"
-                    android:textColor="@color/color_red01"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/simple_respond_txt"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                android:text="Node not responding"
+                android:textColor="@color/color_red01"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pro_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/chain_img"
+                android:layout_width="@dimen/space_48"
+                android:layout_height="@dimen/space_48"
+                android:layout_marginStart="@dimen/space_12"
+                android:layout_marginTop="@dimen/space_10"
+                android:src="@drawable/chain_cosmos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chain_name"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_5"
+                android:layout_marginEnd="@dimen/space_2"
+                android:textColor="@color/color_base01"
+                app:layout_constraintStart_toEndOf="@+id/chain_img"
+                app:layout_constraintTop_toTopOf="@+id/chain_img" />
+
+            <TextView
+                android:id="@+id/chain_side_badge"
+                style="@style/font_sm_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_4"
+                android:background="@drawable/round_box_deprecated"
+                android:paddingHorizontal="@dimen/space_6"
+                android:paddingVertical="@dimen/space_2"
+                android:text="@string/str_old"
+                android:textAllCaps="true"
+                android:textColor="@color/color_base02"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/chain_name"
+                app:layout_constraintStart_toEndOf="@+id/chain_name"
+                app:layout_constraintTop_toTopOf="@+id/chain_name" />
+
+            <TextView
+                android:id="@+id/chain_address"
+                style="@style/font_sm_12"
+                android:layout_width="@dimen/space_130"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_5"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toEndOf="@+id/chain_img"
+                app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+
+            <TextView
+                android:id="@+id/chain_evm_address"
+                style="@style/font_sm_12"
+                android:layout_width="@dimen/space_130"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_5"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/color_base02"
+                app:layout_constraintStart_toEndOf="@+id/chain_img"
+                app:layout_constraintTop_toBottomOf="@+id/chain_name" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/skeleton_chain_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_10"
+                app:layout_constraintBottom_toBottomOf="@+id/chain_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chain_name"
+                app:shimmer_base_alpha="0.8">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="@dimen/space_18"
+                    android:background="@drawable/skeleton_shape" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/chain_value"
+                style="@style/font_sb_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="@+id/chain_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chain_name" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/skeleton_asset_cnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_10"
+                app:layout_constraintBottom_toBottomOf="@id/chain_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chain_address"
+                app:shimmer_base_alpha="0.8">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="@dimen/space_18"
+                    android:background="@drawable/skeleton_shape" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <TextView
+                android:id="@+id/asset_cnt"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="@+id/chain_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chain_address" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="0.6dp"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@color/color_divider"
+                app:layout_constraintTop_toBottomOf="@+id/chain_img" />
+
+            <View
+                android:id="@+id/vertical_view"
+                android:layout_width="0.6dp"
+                android:layout_height="35dp"
+                android:background="@color/color_divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/chain_name"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <TextView
+                android:id="@+id/chain_denom"
+                style="@style/font_sb_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxWidth="@dimen/space_54"
+                android:maxLines="1"
+                android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/chain_img"
+                app:layout_constraintStart_toStartOf="@+id/chain_img"
+                app:layout_constraintTop_toBottomOf="@id/view" />
+
+            <TextView
+                android:id="@+id/chain_price"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_12"
+                android:textColor="@color/color_base02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/vertical_view"
+                app:layout_constraintTop_toTopOf="@+id/view" />
+
+            <TextView
+                android:id="@+id/chain_price_status"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chain_price" />
+
+            <TextView
+                android:id="@+id/respond_txt"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_16"
+                android:text="Node not responding"
+                android:textColor="@color/color_red01"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,7 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
+import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto
+import com.cosmos.gov.v1.QueryGrpc.newBlockingStub
+import com.cosmos.gov.v1.QueryProto.QueryProposalsRequest.newBuilder
 import com.cosmos.gov.v1beta1.GovProto
 import com.cosmos.gov.v1beta1.TxProto.MsgVote
 import com.cosmos.tx.v1beta1.ServiceGrpc
@@ -28,6 +31,7 @@ import com.cosmos.tx.v1beta1.ServiceProto.GetTxResponse
 import com.cosmos.tx.v1beta1.TxProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import io.grpc.ManagedChannel
 import io.grpc.stub.StreamObserver
 import kotlinx.coroutines.Dispatchers
@@ -47,9 +51,11 @@ import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
 import wannabit.io.cosmostaion.data.model.res.VoteData
 import wannabit.io.cosmostaion.data.repository.chain.ProposalRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
@@ -61,6 +67,7 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -120,7 +127,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                                 val delegated =
                                     chain.cosmosFetcher?.delegationAmountSum() ?: BigDecimal.ZERO
                                 val txFee = chain.getInitPayableFee(requireContext())
-                                if (delegated > chain.votingThreshold() && txFee != null) {
+                                if (delegated >= chain.votingThreshold() && txFee != null) {
                                     stakedChains.add(chain)
                                 }
                             }
@@ -139,27 +146,443 @@ class AllChainVoteFragment : BaseTxFragment() {
             var progress = 0
             stakedChains.asSequence().concurrentForEach { chain ->
                 val toShowProposals = mutableListOf<CosmosProposal>()
-                RetrofitInstance.mintscanApi.cosmosProposal(chain.apiName).body()
-                    ?.let { proposals ->
-                        proposals.forEach { proposal ->
-                            if (proposal.isVotingPeriod() && !proposal.isScam()) {
-                                toShowProposals.add(proposal)
+                if (chain.isSupportMintscan()) {
+                    RetrofitInstance.mintscanApi.cosmosProposal(chain.apiName).body()
+                        ?.let { proposals ->
+                            proposals.forEach { proposal ->
+                                if (proposal.isVotingPeriod() && !proposal.isScam()) {
+                                    toShowProposals.add(proposal)
+                                }
+                            }
+                        }
+
+                    if (toShowProposals.isNotEmpty()) {
+                        val address = chain.address
+                        val myVotes = mutableListOf<VoteData>()
+                        RetrofitInstance.mintscanApi.voteStatus(chain.apiName, address).body()
+                            ?.let { votes ->
+                                votes.votes.forEach { vote ->
+                                    myVotes.add(vote)
+                                }
+                            }
+                        allLiveInfo.add(VoteAllModel(chain, toShowProposals, myVotes))
+                    }
+                    progress += 1
+
+                } else {
+                    if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                        val channel = chain.cosmosFetcher?.getChannel()
+                        val pageRequest =
+                            PaginationProto.PageRequest.newBuilder().setLimit(50).setReverse(true)
+                                .build()
+                        try {
+                            val stub =
+                                newBlockingStub(channel).withDeadlineAfter(20L, TimeUnit.SECONDS)
+                            val request = newBuilder().setPagination(pageRequest).build()
+                            val tempProposals =
+                                stub.proposals(request).proposalsList.toMutableList()
+
+                            tempProposals.forEach { proposal ->
+                                val title = if (proposal.title.isNotEmpty()) {
+                                    proposal.title
+                                } else if (proposal.messagesList.isNotEmpty()) {
+                                    proposal.messagesList.first().typeUrl.split(".").last()
+                                } else if (proposal.metadata.isNotEmpty()) {
+                                    val json =
+                                        JsonParser.parseString(proposal.metadata).asJsonObject
+                                    json["title"].asString
+                                } else {
+                                    ""
+                                }
+
+                                val cosmosProposal = CosmosProposal(
+                                    proposal.id.toString(),
+                                    title,
+                                    proposal.summary,
+                                    proposal.status.name,
+                                    (proposal.votingEndTime.seconds * 1000).toString(),
+                                    false,
+                                    "",
+                                    "",
+                                    "",
+                                    ""
+                                )
+                                if (cosmosProposal.isVotingPeriod()) {
+                                    toShowProposals.addAll(listOf(cosmosProposal))
+                                }
+                            }
+
+                            if (toShowProposals.isNotEmpty()) {
+                                val onChainMyVotes = mutableListOf<OnChainVote>()
+                                toShowProposals.forEach { toShowProposal ->
+                                    try {
+                                        val myVoteRequest =
+                                            com.cosmos.gov.v1.QueryProto.QueryVoteRequest.newBuilder()
+                                                .setProposalId(toShowProposal.id?.toLong() ?: 0L)
+                                                .setVoter(chain.address).build()
+                                        val myVoteResponse = stub.vote(myVoteRequest).vote
+
+                                        val voteType = if (myVoteResponse.optionsList.size > 1) {
+                                            "WEIGHT"
+                                        } else {
+                                            val myVote = myVoteResponse.optionsList[0].option.name
+                                            if (myVote.contains("OPTION_YES")) {
+                                                "YES"
+                                            } else if (myVote.contains("OPTION_NO")) {
+                                                "NO"
+                                            } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                                "ABSTAIN"
+                                            } else {
+                                                "VETO"
+                                            }
+                                        }
+
+                                        onChainMyVotes.add(
+                                            OnChainVote(
+                                                toShowProposal.id.toString(), voteType
+                                            )
+                                        )
+                                        allLiveInfo.add(
+                                            VoteAllModel(
+                                                chain,
+                                                toShowProposals,
+                                                onChainMyVotes = onChainMyVotes
+                                            )
+                                        )
+
+                                    } catch (e: Exception) {
+                                        onChainMyVotes.add(
+                                            OnChainVote(
+                                                toShowProposal.id.toString(), "UnKnown"
+                                            )
+                                        )
+                                        allLiveInfo.add(
+                                            VoteAllModel(
+                                                chain,
+                                                toShowProposals,
+                                                onChainMyVotes = onChainMyVotes
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+
+                        } catch (e: Exception) {
+                            try {
+                                val stub = com.cosmos.gov.v1beta1.QueryGrpc.newBlockingStub(channel)
+                                    .withDeadlineAfter(20L, TimeUnit.SECONDS)
+                                val request =
+                                    com.cosmos.gov.v1beta1.QueryProto.QueryProposalsRequest.newBuilder()
+                                        .setPagination(pageRequest).build()
+                                val tempProposals =
+                                    stub.proposals(request).proposalsList.toMutableList()
+
+                                tempProposals.forEach { proposal ->
+                                    val content =
+                                        GovProto.TextProposal.parseFrom(proposal.content.value)
+                                    val title = content.title.ifEmpty {
+                                        proposal.content.typeUrl.split(".").last()
+                                    }
+
+                                    val cosmosProposal = CosmosProposal(
+                                        proposal.proposalId.toString(),
+                                        title,
+                                        "",
+                                        proposal.status.name,
+                                        (proposal.votingEndTime.seconds * 1000).toString(),
+                                        false,
+                                        "",
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                    if (cosmosProposal.isVotingPeriod()) {
+                                        toShowProposals.addAll(listOf(cosmosProposal))
+                                    }
+                                }
+
+                                if (toShowProposals.isNotEmpty()) {
+                                    val onChainMyVotes = mutableListOf<OnChainVote>()
+                                    toShowProposals.forEach { toShowProposal ->
+                                        try {
+                                            val myVoteRequest =
+                                                com.cosmos.gov.v1beta1.QueryProto.QueryVoteRequest.newBuilder()
+                                                    .setProposalId(
+                                                        toShowProposal.id?.toLong() ?: 0L
+                                                    ).setVoter(chain.address).build()
+                                            val myVoteResponse = stub.vote(myVoteRequest).vote
+
+                                            val voteType =
+                                                if (myVoteResponse.optionsList.size > 1) {
+                                                    "WEIGHT"
+                                                } else {
+                                                    val myVote =
+                                                        myVoteResponse.optionsList[0].option.name
+                                                    if (myVote.contains("OPTION_YES")) {
+                                                        "YES"
+                                                    } else if (myVote.contains("OPTION_NO")) {
+                                                        "NO"
+                                                    } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                                        "ABSTAIN"
+                                                    } else {
+                                                        "VETO"
+                                                    }
+                                                }
+
+                                            onChainMyVotes.add(
+                                                OnChainVote(
+                                                    toShowProposal.id.toString(), voteType
+                                                )
+                                            )
+                                            allLiveInfo.add(
+                                                VoteAllModel(
+                                                    chain,
+                                                    toShowProposals,
+                                                    onChainMyVotes = onChainMyVotes
+                                                )
+                                            )
+
+                                        } catch (e: Exception) {
+                                            onChainMyVotes.add(
+                                                OnChainVote(
+                                                    toShowProposal.id.toString(), "UnKnown"
+                                                )
+                                            )
+                                            allLiveInfo.add(
+                                                VoteAllModel(
+                                                    chain,
+                                                    toShowProposals,
+                                                    onChainMyVotes = onChainMyVotes
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                toShowProposals.addAll(listOf())
+                            }
+                        }
+
+                    } else {
+                        try {
+                            val response = lcdApi(chain).lcdV1Proposals("50", reverse = true)
+                            val tempProposals = response["proposals"].asJsonArray
+
+                            tempProposals.forEach { proposal ->
+                                val title = if (proposal.asJsonObject.has("title")) {
+                                    proposal.asJsonObject["title"].asString.ifEmpty {
+                                        val messages = proposal.asJsonObject["messages"].asJsonArray
+                                        if (messages.size() > 0) {
+                                            if (!messages[0].asJsonObject.has("content")) {
+                                                messages[0].asJsonObject["@type"].asString.split(".")
+                                                    .last()
+                                            } else {
+                                                messages[0].asJsonObject["content"].asJsonObject["title"].asString
+                                            }
+
+                                        } else if (proposal.asJsonObject.has("metadata")) {
+                                            val json =
+                                                JsonParser.parseString(proposal.asJsonObject["metadata"].asString).asJsonObject
+                                            json["title"].asString
+                                        } else {
+                                            ""
+                                        }
+                                    }
+
+                                } else {
+                                    val messages = proposal.asJsonObject["messages"].asJsonArray
+                                    if (messages.size() > 0) {
+                                        if (messages[0].asJsonObject.has("content")) {
+                                            messages[0].asJsonObject["content"].asJsonObject["title"].asString
+                                        } else {
+                                            messages[0].asJsonObject["@type"].asString.split(".")
+                                                .last()
+                                        }
+                                    } else if (proposal.asJsonObject.has("metadata")) {
+                                        val json =
+                                            JsonParser.parseString(proposal.asJsonObject["metadata"].asString).asJsonObject
+                                        json["title"].asString
+                                    } else {
+                                        ""
+                                    }
+                                }
+                                val endTime =
+                                    Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
+
+                                val cosmosProposal = CosmosProposal(
+                                    proposal.asJsonObject["id"].asString,
+                                    title,
+                                    "",
+                                    proposal.asJsonObject["status"].asString,
+                                    endTime.toString(),
+                                    false,
+                                    "",
+                                    "",
+                                    "",
+                                    ""
+                                )
+                                if (cosmosProposal.isVotingPeriod()) {
+                                    toShowProposals.addAll(listOf(cosmosProposal))
+                                }
+                            }
+
+                            if (toShowProposals.isNotEmpty()) {
+                                val onChainMyVotes = mutableListOf<OnChainVote>()
+                                toShowProposals.forEach { toShowProposal ->
+                                    try {
+                                        val myVoteResponse = lcdApi(chain).lcdV1VoteStatus(
+                                            toShowProposal.id ?: "0", chain.address
+                                        )
+                                        val myVoteProposalId =
+                                            myVoteResponse["vote"].asJsonObject["proposal_id"].asString
+                                        val options =
+                                            myVoteResponse["vote"].asJsonObject["options"].asJsonArray
+
+                                        val voteType = if (options.size() > 1) {
+                                            "WEIGHT"
+                                        } else {
+                                            val myVote = options[0].asJsonObject["option"].asString
+                                            if (myVote.contains("OPTION_YES")) {
+                                                "YES"
+                                            } else if (myVote.contains("OPTION_NO")) {
+                                                "NO"
+                                            } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                                "ABSTAIN"
+                                            } else {
+                                                "VETO"
+                                            }
+                                        }
+
+                                        onChainMyVotes.add(
+                                            OnChainVote(
+                                                myVoteProposalId, voteType
+                                            )
+                                        )
+                                        allLiveInfo.add(
+                                            VoteAllModel(
+                                                chain,
+                                                toShowProposals,
+                                                onChainMyVotes = onChainMyVotes
+                                            )
+                                        )
+
+                                    } catch (e: Exception) {
+                                        onChainMyVotes.add(
+                                            OnChainVote(
+                                                toShowProposal.id.toString(), "UnKnown"
+                                            )
+                                        )
+                                        allLiveInfo.add(
+                                            VoteAllModel(
+                                                chain,
+                                                toShowProposals,
+                                                onChainMyVotes = onChainMyVotes
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+
+                        } catch (e: Exception) {
+                            try {
+                                val response =
+                                    lcdApi(chain).lcdV1beta1Proposals("50", reverse = true)
+                                val tempProposals = response["proposals"].asJsonArray
+
+                                tempProposals.forEach { proposal ->
+                                    val content = proposal.asJsonObject["content"].asJsonObject
+                                    val title = if (content.has("title")) {
+                                        content["title"].asString
+                                    } else {
+                                        content["@type"].asString.split(".").last()
+                                    }
+                                    val endTime =
+                                        Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
+
+                                    val cosmosProposal = CosmosProposal(
+                                        proposal.asJsonObject["proposal_id"].asString,
+                                        title,
+                                        "",
+                                        proposal.asJsonObject["status"].asString,
+                                        endTime.toString(),
+                                        false,
+                                        "",
+                                        "",
+                                        "",
+                                        ""
+                                    )
+                                    if (cosmosProposal.isVotingPeriod()) {
+                                        toShowProposals.addAll(listOf(cosmosProposal))
+                                    }
+                                }
+
+                                if (toShowProposals.isNotEmpty()) {
+                                    val onChainMyVotes = mutableListOf<OnChainVote>()
+                                    toShowProposals.forEach { toShowProposal ->
+                                        try {
+                                            val myVoteResponse = lcdApi(chain).lcdV1beta1VoteStatus(
+                                                toShowProposal.id ?: "0", chain.address
+                                            )
+                                            val myVoteProposalId =
+                                                myVoteResponse["vote"].asJsonObject["proposal_id"].asString
+                                            val options =
+                                                myVoteResponse["vote"].asJsonObject["options"].asJsonArray
+
+                                            val voteType = if (options.size() > 1) {
+                                                "WEIGHT"
+                                            } else {
+                                                val myVote =
+                                                    options[0].asJsonObject["option"].asString
+                                                if (myVote.contains("OPTION_YES")) {
+                                                    "YES"
+                                                } else if (myVote.contains("OPTION_NO")) {
+                                                    "NO"
+                                                } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                                    "ABSTAIN"
+                                                } else {
+                                                    "VETO"
+                                                }
+                                            }
+
+                                            onChainMyVotes.add(
+                                                OnChainVote(
+                                                    myVoteProposalId, voteType
+                                                )
+                                            )
+                                            allLiveInfo.add(
+                                                VoteAllModel(
+                                                    chain,
+                                                    toShowProposals,
+                                                    onChainMyVotes = onChainMyVotes
+                                                )
+                                            )
+
+                                        } catch (e: Exception) {
+                                            onChainMyVotes.add(
+                                                OnChainVote(
+                                                    toShowProposal.id.toString(), "UnKnown"
+                                                )
+                                            )
+                                            allLiveInfo.add(
+                                                VoteAllModel(
+                                                    chain,
+                                                    toShowProposals,
+                                                    onChainMyVotes = onChainMyVotes
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                toShowProposals.addAll(listOf())
                             }
                         }
                     }
-
-                if (toShowProposals.isNotEmpty()) {
-                    val address = chain.address
-                    val myVotes = mutableListOf<VoteData>()
-                    RetrofitInstance.mintscanApi.voteStatus(chain.apiName, address).body()
-                        ?.let { votes ->
-                            votes.votes.forEach { vote ->
-                                myVotes.add(vote)
-                            }
-                        }
-                    allLiveInfo.add(VoteAllModel(chain, toShowProposals, myVotes))
+                    progress += 1
                 }
-                progress += 1
+
                 withContext(Dispatchers.Main) {
                     updateProgress(progress, stakedChains.size)
 
@@ -210,14 +633,33 @@ class AllChainVoteFragment : BaseTxFragment() {
             allLiveInfo.forEach { info ->
                 val filteredProposal = mutableListOf<CosmosProposal>()
                 val proposals = info.proposals
-                val myVotes = info.myVotes
-                proposals.forEach { proposal ->
-                    if (myVotes.none { it.proposal_id == proposal.id }) {
-                        filteredProposal.add(proposal)
+                if (info.basechain?.isSupportMintscan() == true) {
+                    val myVotes = info.myVotes
+                    proposals.forEach { proposal ->
+                        if (myVotes?.none { it.proposal_id == proposal.id } == true) {
+                            filteredProposal.add(proposal)
+                        }
                     }
-                }
-                if (filteredProposal.isNotEmpty()) {
-                    toDisplayInfos.add(VoteAllModel(info.basechain, filteredProposal, myVotes))
+
+                    if (filteredProposal.isNotEmpty()) {
+                        toDisplayInfos.add(VoteAllModel(info.basechain, filteredProposal, myVotes))
+                    }
+
+                } else {
+                    val myVotes = info.onChainMyVotes
+                    proposals.forEach { proposal ->
+                        if (myVotes?.any { it.vote == "UnKnown" } == true) {
+                            filteredProposal.add(proposal)
+                        }
+                    }
+
+                    if (filteredProposal.isNotEmpty()) {
+                        toDisplayInfos.add(
+                            VoteAllModel(
+                                info.basechain, filteredProposal, onChainMyVotes = myVotes
+                            )
+                        )
+                    }
                 }
             }
 
@@ -492,8 +934,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }
@@ -516,7 +957,8 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 if (gasUsed.toLongOrNull() != null) {
                     val gasLimit =
-                        (gasUsed.toLong().toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
+                        (gasUsed.toLong().toDouble() * chain.simulatedGasMultiply()).toLong()
+                            .toBigDecimal()
                     chain.getBaseFeeInfo(requireContext()).feeDatas.firstOrNull {
                         it.denom == txFee?.getAmount(
                             0
@@ -529,10 +971,8 @@ class AllChainVoteFragment : BaseTxFragment() {
                                 .setAmount(feeCoinAmount.toString()).build()
 
                         voteAllModel.isBusy = false
-                        voteAllModel.txFee =
-                            TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
-                                .addAmount(feeCoin)
-                                .build()
+                        voteAllModel.txFee = TxProto.Fee.newBuilder().setGasLimit(gasLimit.toLong())
+                            .addAmount(feeCoin).build()
                         voteAllModel.toVotes = toVotes
                     }
                 }
@@ -610,6 +1050,7 @@ class AllChainVoteFragment : BaseTxFragment() {
             val simulateTx = Signer.genSimulate(
                 Signer.voteMsg(chain, toVotes), chain.getInitPayableFee(requireContext()), "", chain
             )
+
             if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 chain.cosmosFetcher()?.getChannel()?.let { channel ->
                     loadAuth(channel, chain)
@@ -617,12 +1058,12 @@ class AllChainVoteFragment : BaseTxFragment() {
                         ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
                     simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
                 }
+
             } else {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
-                val response = RetrofitInstance.lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
+                val response = lcdApi(chain).lcdSimulateTx(SimulateTxReq(txByte))
                 if (response.isSuccessful) {
-                    response.body()?.getAsJsonObject("gas_info")
-                        ?.get("gas_used")?.asString
+                    response.body()?.getAsJsonObject("gas_info")?.get("gas_used")?.asString
                 } else {
                     val errorMessageJsonObject = Gson().fromJson(
                         response.errorBody()?.string(), JsonObject::class.java
@@ -630,6 +1071,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                     errorMessageJsonObject["message"].asString
                 }
             }
+
         } catch (e: Exception) {
             e.message
         }
@@ -642,28 +1084,29 @@ class AllChainVoteFragment : BaseTxFragment() {
             voteAllModel.basechain?.let { chain ->
                 val toVotes = voteAllModel.toVotes
                 val txFee = voteAllModel.txFee
-                val broadcastTx = Signer.genBroadcast(Signer.voteMsg(chain, toVotes), txFee, "", chain)
+                val broadcastTx =
+                    Signer.genBroadcast(Signer.voteMsg(chain, toVotes), txFee, "", chain)
 
-                val txResponse = if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
-                    val channel = chain.cosmosFetcher?.getChannel()
-                    val txStub =
-                        ServiceGrpc.newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-                    txStub.broadcastTx(broadcastTx).txResponse
+                val txResponse =
+                    if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                        val channel = chain.cosmosFetcher?.getChannel()
+                        val txStub = ServiceGrpc.newBlockingStub(channel)
+                            .withDeadlineAfter(8L, TimeUnit.SECONDS)
+                        txStub.broadcastTx(broadcastTx).txResponse
 
-                } else {
-                    val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
-                    val mode = ServiceProto.BroadcastMode.BROADCAST_MODE_SYNC.number
-                    val response =
-                        RetrofitInstance.lcdApi(chain).lcdBroadcastTx(BroadcastTxReq(mode, txByte))
-                    if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
-                        val result = response["tx_response"].asJsonObject
-                        TxResponse.newBuilder().setTxhash(result["txhash"].asString)
-                            .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString)
-                            .build()
                     } else {
-                        null
+                        val txByte = Base64.toBase64String(broadcastTx?.txBytes?.toByteArray())
+                        val mode = ServiceProto.BroadcastMode.BROADCAST_MODE_SYNC.number
+                        val response = lcdApi(chain).lcdBroadcastTx(BroadcastTxReq(mode, txByte))
+                        if (!response["tx_response"].isJsonNull && !response["tx_response"].asJsonObject.isJsonNull) {
+                            val result = response["tx_response"].asJsonObject
+                            TxResponse.newBuilder().setTxhash(result["txhash"].asString)
+                                .setCode(result["code"].asInt).setRawLog(result["raw_log"].asString)
+                                .build()
+                        } else {
+                            null
+                        }
                     }
-                }
 
                 try {
                     onComplete(txResponse)
@@ -718,8 +1161,8 @@ class AllChainVoteFragment : BaseTxFragment() {
                 stub.account(request).account.accountInfos().third
 
         } else {
-            val response = RetrofitInstance.lcdApi(chain)
-                .lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
+            val response =
+                lcdApi(chain).lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
             chain.cosmosFetcher()?.cosmosLcdAuth = response
             chain.cosmosFetcher()?.cosmosAccountNumber = response.accountNumber()
             chain.cosmosFetcher()?.cosmosSequence = response.sequence()
@@ -730,7 +1173,7 @@ class AllChainVoteFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmos()) {
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()
@@ -756,7 +1199,7 @@ class AllChainVoteFragment : BaseTxFragment() {
                 onComplete(response)
 
             } else {
-                val response = RetrofitInstance.lcdApi(chain).lcdTxInfo(txHash)
+                val response = lcdApi(chain).lcdTxInfo(txHash)
                 if (response.isSuccessful && response.body()
                         ?.get("tx_response")?.isJsonNull == false && response.body()
                         ?.get("tx_response")?.asJsonObject?.isJsonNull == false
@@ -791,7 +1234,8 @@ class AllChainVoteFragment : BaseTxFragment() {
 data class VoteAllModel(
     var basechain: BaseChain?,
     var proposals: MutableList<CosmosProposal>,
-    var myVotes: MutableList<VoteData>,
+    var myVotes: MutableList<VoteData>? = null,
+    val onChainMyVotes: MutableList<OnChainVote>? = null,
     var toVotes: MutableList<MsgVote?>? = null,
     var txFee: TxProto.Fee? = null,
     var txResponse: GetTxResponse? = null,

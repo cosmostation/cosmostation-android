@@ -3509,7 +3509,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * latest_height overrrides the height field and queries the latest stored
+     * latest_height overrides the height field and queries the latest stored
      * ConsensusState
      * </pre>
      *
@@ -3641,7 +3641,7 @@ public final class QueryProto {
     private boolean latestHeight_ = false;
     /**
      * <pre>
-     * latest_height overrrides the height field and queries the latest stored
+     * latest_height overrides the height field and queries the latest stored
      * ConsensusState
      * </pre>
      *
@@ -4240,7 +4240,7 @@ public final class QueryProto {
       private boolean latestHeight_ ;
       /**
        * <pre>
-       * latest_height overrrides the height field and queries the latest stored
+       * latest_height overrides the height field and queries the latest stored
        * ConsensusState
        * </pre>
        *
@@ -4253,7 +4253,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * latest_height overrrides the height field and queries the latest stored
+       * latest_height overrides the height field and queries the latest stored
        * ConsensusState
        * </pre>
        *
@@ -4270,7 +4270,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * latest_height overrrides the height field and queries the latest stored
+       * latest_height overrides the height field and queries the latest stored
        * ConsensusState
        * </pre>
        *
@@ -11631,6 +11631,1202 @@ public final class QueryProto {
 
   }
 
+  public interface QueryClientCreatorRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.QueryClientCreatorRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * client unique identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    java.lang.String getClientId();
+    /**
+     * <pre>
+     * client unique identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    com.google.protobuf.ByteString
+        getClientIdBytes();
+  }
+  /**
+   * <pre>
+   * QueryClientCreatorRequest is the request type for the Query/ClientCreator RPC
+   * method.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.QueryClientCreatorRequest}
+   */
+  public static final class QueryClientCreatorRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientCreatorRequest)
+      QueryClientCreatorRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryClientCreatorRequest.newBuilder() to construct.
+    private QueryClientCreatorRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryClientCreatorRequest() {
+      clientId_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryClientCreatorRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.class, com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.Builder.class);
+    }
+
+    public static final int CLIENT_ID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object clientId_ = "";
+    /**
+     * <pre>
+     * client unique identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    @java.lang.Override
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * client unique identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest other = (com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest) obj;
+
+      if (!getClientId()
+          .equals(other.getClientId())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getClientId().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryClientCreatorRequest is the request type for the Query/ClientCreator RPC
+     * method.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.QueryClientCreatorRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.QueryClientCreatorRequest)
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.class, com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        clientId_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest build() {
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest buildPartial() {
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest result = new com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.clientId_ = clientId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest) {
+          return mergeFrom((com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest other) {
+        if (other == com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest.getDefaultInstance()) return this;
+        if (!other.getClientId().isEmpty()) {
+          clientId_ = other.clientId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                clientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object clientId_ = "";
+      /**
+       * <pre>
+       * client unique identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The clientId.
+       */
+      public java.lang.String getClientId() {
+        java.lang.Object ref = clientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          clientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client unique identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The bytes for clientId.
+       */
+      public com.google.protobuf.ByteString
+          getClientIdBytes() {
+        java.lang.Object ref = clientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          clientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client unique identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client unique identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClientId() {
+        clientId_ = getDefaultInstance().getClientId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client unique identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The bytes for clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.QueryClientCreatorRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.QueryClientCreatorRequest)
+    private static final com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest();
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryClientCreatorRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryClientCreatorRequest>() {
+      @java.lang.Override
+      public QueryClientCreatorRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryClientCreatorRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryClientCreatorRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.QueryProto.QueryClientCreatorRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryClientCreatorResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.QueryClientCreatorResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * creator of the client
+     * </pre>
+     *
+     * <code>string creator = 1 [json_name = "creator"];</code>
+     * @return The creator.
+     */
+    java.lang.String getCreator();
+    /**
+     * <pre>
+     * creator of the client
+     * </pre>
+     *
+     * <code>string creator = 1 [json_name = "creator"];</code>
+     * @return The bytes for creator.
+     */
+    com.google.protobuf.ByteString
+        getCreatorBytes();
+  }
+  /**
+   * <pre>
+   * QueryClientCreatorResponse is the response type for the Query/ClientCreator RPC
+   * method.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.QueryClientCreatorResponse}
+   */
+  public static final class QueryClientCreatorResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientCreatorResponse)
+      QueryClientCreatorResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryClientCreatorResponse.newBuilder() to construct.
+    private QueryClientCreatorResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryClientCreatorResponse() {
+      creator_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryClientCreatorResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.class, com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.Builder.class);
+    }
+
+    public static final int CREATOR_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object creator_ = "";
+    /**
+     * <pre>
+     * creator of the client
+     * </pre>
+     *
+     * <code>string creator = 1 [json_name = "creator"];</code>
+     * @return The creator.
+     */
+    @java.lang.Override
+    public java.lang.String getCreator() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        creator_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * creator of the client
+     * </pre>
+     *
+     * <code>string creator = 1 [json_name = "creator"];</code>
+     * @return The bytes for creator.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getCreatorBytes() {
+      java.lang.Object ref = creator_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        creator_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(creator_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, creator_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(creator_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, creator_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse other = (com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse) obj;
+
+      if (!getCreator()
+          .equals(other.getCreator())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CREATOR_FIELD_NUMBER;
+      hash = (53 * hash) + getCreator().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryClientCreatorResponse is the response type for the Query/ClientCreator RPC
+     * method.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.QueryClientCreatorResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.QueryClientCreatorResponse)
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.class, com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        creator_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse build() {
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse buildPartial() {
+        com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse result = new com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.creator_ = creator_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse) {
+          return mergeFrom((com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse other) {
+        if (other == com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse.getDefaultInstance()) return this;
+        if (!other.getCreator().isEmpty()) {
+          creator_ = other.creator_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                creator_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object creator_ = "";
+      /**
+       * <pre>
+       * creator of the client
+       * </pre>
+       *
+       * <code>string creator = 1 [json_name = "creator"];</code>
+       * @return The creator.
+       */
+      public java.lang.String getCreator() {
+        java.lang.Object ref = creator_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          creator_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * creator of the client
+       * </pre>
+       *
+       * <code>string creator = 1 [json_name = "creator"];</code>
+       * @return The bytes for creator.
+       */
+      public com.google.protobuf.ByteString
+          getCreatorBytes() {
+        java.lang.Object ref = creator_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          creator_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * creator of the client
+       * </pre>
+       *
+       * <code>string creator = 1 [json_name = "creator"];</code>
+       * @param value The creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreator(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        creator_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * creator of the client
+       * </pre>
+       *
+       * <code>string creator = 1 [json_name = "creator"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearCreator() {
+        creator_ = getDefaultInstance().getCreator();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * creator of the client
+       * </pre>
+       *
+       * <code>string creator = 1 [json_name = "creator"];</code>
+       * @param value The bytes for creator to set.
+       * @return This builder for chaining.
+       */
+      public Builder setCreatorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        creator_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.QueryClientCreatorResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.QueryClientCreatorResponse)
+    private static final com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse();
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryClientCreatorResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryClientCreatorResponse>() {
+      @java.lang.Override
+      public QueryClientCreatorResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryClientCreatorResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryClientCreatorResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.QueryProto.QueryClientCreatorResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface QueryUpgradedClientStateRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.QueryUpgradedClientStateRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -13785,6 +14981,1991 @@ public final class QueryProto {
 
   }
 
+  public interface QueryVerifyMembershipRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.QueryVerifyMembershipRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * client unique identifier.
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    java.lang.String getClientId();
+    /**
+     * <pre>
+     * client unique identifier.
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    com.google.protobuf.ByteString
+        getClientIdBytes();
+
+    /**
+     * <pre>
+     * the proof to be verified by the client.
+     * </pre>
+     *
+     * <code>bytes proof = 2 [json_name = "proof"];</code>
+     * @return The proof.
+     */
+    com.google.protobuf.ByteString getProof();
+
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     * @return Whether the proofHeight field is set.
+     */
+    boolean hasProofHeight();
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     * @return The proofHeight.
+     */
+    com.ibc.core.client.v1.ClientProto.Height getProofHeight();
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.core.client.v1.ClientProto.HeightOrBuilder getProofHeightOrBuilder();
+
+    /**
+     * <pre>
+     * the value which is proven.
+     * </pre>
+     *
+     * <code>bytes value = 5 [json_name = "value"];</code>
+     * @return The value.
+     */
+    com.google.protobuf.ByteString getValue();
+
+    /**
+     * <pre>
+     * optional time delay
+     * </pre>
+     *
+     * <code>uint64 time_delay = 6 [json_name = "timeDelay"];</code>
+     * @return The timeDelay.
+     */
+    long getTimeDelay();
+
+    /**
+     * <pre>
+     * optional block delay
+     * </pre>
+     *
+     * <code>uint64 block_delay = 7 [json_name = "blockDelay"];</code>
+     * @return The blockDelay.
+     */
+    long getBlockDelay();
+
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     * @return Whether the merklePath field is set.
+     */
+    boolean hasMerklePath();
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     * @return The merklePath.
+     */
+    com.ibc.core.commitment.v2.CommitmentProto.MerklePath getMerklePath();
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder getMerklePathOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryVerifyMembershipRequest is the request type for the Query/VerifyMembership RPC method
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.QueryVerifyMembershipRequest}
+   */
+  public static final class QueryVerifyMembershipRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryVerifyMembershipRequest)
+      QueryVerifyMembershipRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryVerifyMembershipRequest.newBuilder() to construct.
+    private QueryVerifyMembershipRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryVerifyMembershipRequest() {
+      clientId_ = "";
+      proof_ = com.google.protobuf.ByteString.EMPTY;
+      value_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryVerifyMembershipRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.class, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.Builder.class);
+    }
+
+    public static final int CLIENT_ID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object clientId_ = "";
+    /**
+     * <pre>
+     * client unique identifier.
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    @java.lang.Override
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * client unique identifier.
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PROOF_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString proof_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * the proof to be verified by the client.
+     * </pre>
+     *
+     * <code>bytes proof = 2 [json_name = "proof"];</code>
+     * @return The proof.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getProof() {
+      return proof_;
+    }
+
+    public static final int PROOF_HEIGHT_FIELD_NUMBER = 3;
+    private com.ibc.core.client.v1.ClientProto.Height proofHeight_;
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     * @return Whether the proofHeight field is set.
+     */
+    @java.lang.Override
+    public boolean hasProofHeight() {
+      return proofHeight_ != null;
+    }
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     * @return The proofHeight.
+     */
+    @java.lang.Override
+    public com.ibc.core.client.v1.ClientProto.Height getProofHeight() {
+      return proofHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : proofHeight_;
+    }
+    /**
+     * <pre>
+     * the height of the commitment root at which the proof is verified.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getProofHeightOrBuilder() {
+      return proofHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : proofHeight_;
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 5;
+    private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <pre>
+     * the value which is proven.
+     * </pre>
+     *
+     * <code>bytes value = 5 [json_name = "value"];</code>
+     * @return The value.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString getValue() {
+      return value_;
+    }
+
+    public static final int TIME_DELAY_FIELD_NUMBER = 6;
+    private long timeDelay_ = 0L;
+    /**
+     * <pre>
+     * optional time delay
+     * </pre>
+     *
+     * <code>uint64 time_delay = 6 [json_name = "timeDelay"];</code>
+     * @return The timeDelay.
+     */
+    @java.lang.Override
+    public long getTimeDelay() {
+      return timeDelay_;
+    }
+
+    public static final int BLOCK_DELAY_FIELD_NUMBER = 7;
+    private long blockDelay_ = 0L;
+    /**
+     * <pre>
+     * optional block delay
+     * </pre>
+     *
+     * <code>uint64 block_delay = 7 [json_name = "blockDelay"];</code>
+     * @return The blockDelay.
+     */
+    @java.lang.Override
+    public long getBlockDelay() {
+      return blockDelay_;
+    }
+
+    public static final int MERKLE_PATH_FIELD_NUMBER = 8;
+    private com.ibc.core.commitment.v2.CommitmentProto.MerklePath merklePath_;
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     * @return Whether the merklePath field is set.
+     */
+    @java.lang.Override
+    public boolean hasMerklePath() {
+      return merklePath_ != null;
+    }
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     * @return The merklePath.
+     */
+    @java.lang.Override
+    public com.ibc.core.commitment.v2.CommitmentProto.MerklePath getMerklePath() {
+      return merklePath_ == null ? com.ibc.core.commitment.v2.CommitmentProto.MerklePath.getDefaultInstance() : merklePath_;
+    }
+    /**
+     * <pre>
+     * the commitment key path.
+     * </pre>
+     *
+     * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder getMerklePathOrBuilder() {
+      return merklePath_ == null ? com.ibc.core.commitment.v2.CommitmentProto.MerklePath.getDefaultInstance() : merklePath_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientId_);
+      }
+      if (!proof_.isEmpty()) {
+        output.writeBytes(2, proof_);
+      }
+      if (proofHeight_ != null) {
+        output.writeMessage(3, getProofHeight());
+      }
+      if (!value_.isEmpty()) {
+        output.writeBytes(5, value_);
+      }
+      if (timeDelay_ != 0L) {
+        output.writeUInt64(6, timeDelay_);
+      }
+      if (blockDelay_ != 0L) {
+        output.writeUInt64(7, blockDelay_);
+      }
+      if (merklePath_ != null) {
+        output.writeMessage(8, getMerklePath());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientId_);
+      }
+      if (!proof_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, proof_);
+      }
+      if (proofHeight_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getProofHeight());
+      }
+      if (!value_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, value_);
+      }
+      if (timeDelay_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(6, timeDelay_);
+      }
+      if (blockDelay_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, blockDelay_);
+      }
+      if (merklePath_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, getMerklePath());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest other = (com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest) obj;
+
+      if (!getClientId()
+          .equals(other.getClientId())) return false;
+      if (!getProof()
+          .equals(other.getProof())) return false;
+      if (hasProofHeight() != other.hasProofHeight()) return false;
+      if (hasProofHeight()) {
+        if (!getProofHeight()
+            .equals(other.getProofHeight())) return false;
+      }
+      if (!getValue()
+          .equals(other.getValue())) return false;
+      if (getTimeDelay()
+          != other.getTimeDelay()) return false;
+      if (getBlockDelay()
+          != other.getBlockDelay()) return false;
+      if (hasMerklePath() != other.hasMerklePath()) return false;
+      if (hasMerklePath()) {
+        if (!getMerklePath()
+            .equals(other.getMerklePath())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getClientId().hashCode();
+      hash = (37 * hash) + PROOF_FIELD_NUMBER;
+      hash = (53 * hash) + getProof().hashCode();
+      if (hasProofHeight()) {
+        hash = (37 * hash) + PROOF_HEIGHT_FIELD_NUMBER;
+        hash = (53 * hash) + getProofHeight().hashCode();
+      }
+      hash = (37 * hash) + VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getValue().hashCode();
+      hash = (37 * hash) + TIME_DELAY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTimeDelay());
+      hash = (37 * hash) + BLOCK_DELAY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getBlockDelay());
+      if (hasMerklePath()) {
+        hash = (37 * hash) + MERKLE_PATH_FIELD_NUMBER;
+        hash = (53 * hash) + getMerklePath().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryVerifyMembershipRequest is the request type for the Query/VerifyMembership RPC method
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.QueryVerifyMembershipRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.QueryVerifyMembershipRequest)
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.class, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        clientId_ = "";
+        proof_ = com.google.protobuf.ByteString.EMPTY;
+        proofHeight_ = null;
+        if (proofHeightBuilder_ != null) {
+          proofHeightBuilder_.dispose();
+          proofHeightBuilder_ = null;
+        }
+        value_ = com.google.protobuf.ByteString.EMPTY;
+        timeDelay_ = 0L;
+        blockDelay_ = 0L;
+        merklePath_ = null;
+        if (merklePathBuilder_ != null) {
+          merklePathBuilder_.dispose();
+          merklePathBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest build() {
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest buildPartial() {
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest result = new com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.clientId_ = clientId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.proof_ = proof_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.proofHeight_ = proofHeightBuilder_ == null
+              ? proofHeight_
+              : proofHeightBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.value_ = value_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.timeDelay_ = timeDelay_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.blockDelay_ = blockDelay_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.merklePath_ = merklePathBuilder_ == null
+              ? merklePath_
+              : merklePathBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest) {
+          return mergeFrom((com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest other) {
+        if (other == com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest.getDefaultInstance()) return this;
+        if (!other.getClientId().isEmpty()) {
+          clientId_ = other.clientId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getProof() != com.google.protobuf.ByteString.EMPTY) {
+          setProof(other.getProof());
+        }
+        if (other.hasProofHeight()) {
+          mergeProofHeight(other.getProofHeight());
+        }
+        if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
+          setValue(other.getValue());
+        }
+        if (other.getTimeDelay() != 0L) {
+          setTimeDelay(other.getTimeDelay());
+        }
+        if (other.getBlockDelay() != 0L) {
+          setBlockDelay(other.getBlockDelay());
+        }
+        if (other.hasMerklePath()) {
+          mergeMerklePath(other.getMerklePath());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                clientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                proof_ = input.readBytes();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                input.readMessage(
+                    getProofHeightFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 42: {
+                value_ = input.readBytes();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 42
+              case 48: {
+                timeDelay_ = input.readUInt64();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 48
+              case 56: {
+                blockDelay_ = input.readUInt64();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 56
+              case 66: {
+                input.readMessage(
+                    getMerklePathFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 66
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object clientId_ = "";
+      /**
+       * <pre>
+       * client unique identifier.
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The clientId.
+       */
+      public java.lang.String getClientId() {
+        java.lang.Object ref = clientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          clientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client unique identifier.
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The bytes for clientId.
+       */
+      public com.google.protobuf.ByteString
+          getClientIdBytes() {
+        java.lang.Object ref = clientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          clientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client unique identifier.
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client unique identifier.
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClientId() {
+        clientId_ = getDefaultInstance().getClientId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client unique identifier.
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The bytes for clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString proof_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * the proof to be verified by the client.
+       * </pre>
+       *
+       * <code>bytes proof = 2 [json_name = "proof"];</code>
+       * @return The proof.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getProof() {
+        return proof_;
+      }
+      /**
+       * <pre>
+       * the proof to be verified by the client.
+       * </pre>
+       *
+       * <code>bytes proof = 2 [json_name = "proof"];</code>
+       * @param value The proof to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProof(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        proof_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the proof to be verified by the client.
+       * </pre>
+       *
+       * <code>bytes proof = 2 [json_name = "proof"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearProof() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        proof_ = getDefaultInstance().getProof();
+        onChanged();
+        return this;
+      }
+
+      private com.ibc.core.client.v1.ClientProto.Height proofHeight_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> proofHeightBuilder_;
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       * @return Whether the proofHeight field is set.
+       */
+      public boolean hasProofHeight() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       * @return The proofHeight.
+       */
+      public com.ibc.core.client.v1.ClientProto.Height getProofHeight() {
+        if (proofHeightBuilder_ == null) {
+          return proofHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : proofHeight_;
+        } else {
+          return proofHeightBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setProofHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+        if (proofHeightBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          proofHeight_ = value;
+        } else {
+          proofHeightBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setProofHeight(
+          com.ibc.core.client.v1.ClientProto.Height.Builder builderForValue) {
+        if (proofHeightBuilder_ == null) {
+          proofHeight_ = builderForValue.build();
+        } else {
+          proofHeightBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeProofHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+        if (proofHeightBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+            proofHeight_ != null &&
+            proofHeight_ != com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance()) {
+            getProofHeightBuilder().mergeFrom(value);
+          } else {
+            proofHeight_ = value;
+          }
+        } else {
+          proofHeightBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearProofHeight() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        proofHeight_ = null;
+        if (proofHeightBuilder_ != null) {
+          proofHeightBuilder_.dispose();
+          proofHeightBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.client.v1.ClientProto.Height.Builder getProofHeightBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getProofHeightFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getProofHeightOrBuilder() {
+        if (proofHeightBuilder_ != null) {
+          return proofHeightBuilder_.getMessageOrBuilder();
+        } else {
+          return proofHeight_ == null ?
+              com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : proofHeight_;
+        }
+      }
+      /**
+       * <pre>
+       * the height of the commitment root at which the proof is verified.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height proof_height = 3 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> 
+          getProofHeightFieldBuilder() {
+        if (proofHeightBuilder_ == null) {
+          proofHeightBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder>(
+                  getProofHeight(),
+                  getParentForChildren(),
+                  isClean());
+          proofHeight_ = null;
+        }
+        return proofHeightBuilder_;
+      }
+
+      private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * the value which is proven.
+       * </pre>
+       *
+       * <code>bytes value = 5 [json_name = "value"];</code>
+       * @return The value.
+       */
+      @java.lang.Override
+      public com.google.protobuf.ByteString getValue() {
+        return value_;
+      }
+      /**
+       * <pre>
+       * the value which is proven.
+       * </pre>
+       *
+       * <code>bytes value = 5 [json_name = "value"];</code>
+       * @param value The value to set.
+       * @return This builder for chaining.
+       */
+      public Builder setValue(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        value_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the value which is proven.
+       * </pre>
+       *
+       * <code>bytes value = 5 [json_name = "value"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearValue() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        value_ = getDefaultInstance().getValue();
+        onChanged();
+        return this;
+      }
+
+      private long timeDelay_ ;
+      /**
+       * <pre>
+       * optional time delay
+       * </pre>
+       *
+       * <code>uint64 time_delay = 6 [json_name = "timeDelay"];</code>
+       * @return The timeDelay.
+       */
+      @java.lang.Override
+      public long getTimeDelay() {
+        return timeDelay_;
+      }
+      /**
+       * <pre>
+       * optional time delay
+       * </pre>
+       *
+       * <code>uint64 time_delay = 6 [json_name = "timeDelay"];</code>
+       * @param value The timeDelay to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeDelay(long value) {
+
+        timeDelay_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * optional time delay
+       * </pre>
+       *
+       * <code>uint64 time_delay = 6 [json_name = "timeDelay"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTimeDelay() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        timeDelay_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private long blockDelay_ ;
+      /**
+       * <pre>
+       * optional block delay
+       * </pre>
+       *
+       * <code>uint64 block_delay = 7 [json_name = "blockDelay"];</code>
+       * @return The blockDelay.
+       */
+      @java.lang.Override
+      public long getBlockDelay() {
+        return blockDelay_;
+      }
+      /**
+       * <pre>
+       * optional block delay
+       * </pre>
+       *
+       * <code>uint64 block_delay = 7 [json_name = "blockDelay"];</code>
+       * @param value The blockDelay to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBlockDelay(long value) {
+
+        blockDelay_ = value;
+        bitField0_ |= 0x00000020;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * optional block delay
+       * </pre>
+       *
+       * <code>uint64 block_delay = 7 [json_name = "blockDelay"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBlockDelay() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        blockDelay_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private com.ibc.core.commitment.v2.CommitmentProto.MerklePath merklePath_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.commitment.v2.CommitmentProto.MerklePath, com.ibc.core.commitment.v2.CommitmentProto.MerklePath.Builder, com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder> merklePathBuilder_;
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       * @return Whether the merklePath field is set.
+       */
+      public boolean hasMerklePath() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       * @return The merklePath.
+       */
+      public com.ibc.core.commitment.v2.CommitmentProto.MerklePath getMerklePath() {
+        if (merklePathBuilder_ == null) {
+          return merklePath_ == null ? com.ibc.core.commitment.v2.CommitmentProto.MerklePath.getDefaultInstance() : merklePath_;
+        } else {
+          return merklePathBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setMerklePath(com.ibc.core.commitment.v2.CommitmentProto.MerklePath value) {
+        if (merklePathBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          merklePath_ = value;
+        } else {
+          merklePathBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setMerklePath(
+          com.ibc.core.commitment.v2.CommitmentProto.MerklePath.Builder builderForValue) {
+        if (merklePathBuilder_ == null) {
+          merklePath_ = builderForValue.build();
+        } else {
+          merklePathBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeMerklePath(com.ibc.core.commitment.v2.CommitmentProto.MerklePath value) {
+        if (merklePathBuilder_ == null) {
+          if (((bitField0_ & 0x00000040) != 0) &&
+            merklePath_ != null &&
+            merklePath_ != com.ibc.core.commitment.v2.CommitmentProto.MerklePath.getDefaultInstance()) {
+            getMerklePathBuilder().mergeFrom(value);
+          } else {
+            merklePath_ = value;
+          }
+        } else {
+          merklePathBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearMerklePath() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        merklePath_ = null;
+        if (merklePathBuilder_ != null) {
+          merklePathBuilder_.dispose();
+          merklePathBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.commitment.v2.CommitmentProto.MerklePath.Builder getMerklePathBuilder() {
+        bitField0_ |= 0x00000040;
+        onChanged();
+        return getMerklePathFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder getMerklePathOrBuilder() {
+        if (merklePathBuilder_ != null) {
+          return merklePathBuilder_.getMessageOrBuilder();
+        } else {
+          return merklePath_ == null ?
+              com.ibc.core.commitment.v2.CommitmentProto.MerklePath.getDefaultInstance() : merklePath_;
+        }
+      }
+      /**
+       * <pre>
+       * the commitment key path.
+       * </pre>
+       *
+       * <code>.ibc.core.commitment.v2.MerklePath merkle_path = 8 [json_name = "merklePath", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.commitment.v2.CommitmentProto.MerklePath, com.ibc.core.commitment.v2.CommitmentProto.MerklePath.Builder, com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder> 
+          getMerklePathFieldBuilder() {
+        if (merklePathBuilder_ == null) {
+          merklePathBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.core.commitment.v2.CommitmentProto.MerklePath, com.ibc.core.commitment.v2.CommitmentProto.MerklePath.Builder, com.ibc.core.commitment.v2.CommitmentProto.MerklePathOrBuilder>(
+                  getMerklePath(),
+                  getParentForChildren(),
+                  isClean());
+          merklePath_ = null;
+        }
+        return merklePathBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.QueryVerifyMembershipRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.QueryVerifyMembershipRequest)
+    private static final com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest();
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryVerifyMembershipRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryVerifyMembershipRequest>() {
+      @java.lang.Override
+      public QueryVerifyMembershipRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryVerifyMembershipRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryVerifyMembershipRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryVerifyMembershipResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.QueryVerifyMembershipResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * boolean indicating success or failure of proof verification.
+     * </pre>
+     *
+     * <code>bool success = 1 [json_name = "success"];</code>
+     * @return The success.
+     */
+    boolean getSuccess();
+  }
+  /**
+   * <pre>
+   * QueryVerifyMembershipResponse is the response type for the Query/VerifyMembership RPC method
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.QueryVerifyMembershipResponse}
+   */
+  public static final class QueryVerifyMembershipResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryVerifyMembershipResponse)
+      QueryVerifyMembershipResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryVerifyMembershipResponse.newBuilder() to construct.
+    private QueryVerifyMembershipResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryVerifyMembershipResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryVerifyMembershipResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.class, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.Builder.class);
+    }
+
+    public static final int SUCCESS_FIELD_NUMBER = 1;
+    private boolean success_ = false;
+    /**
+     * <pre>
+     * boolean indicating success or failure of proof verification.
+     * </pre>
+     *
+     * <code>bool success = 1 [json_name = "success"];</code>
+     * @return The success.
+     */
+    @java.lang.Override
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (success_ != false) {
+        output.writeBool(1, success_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, success_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse other = (com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse) obj;
+
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryVerifyMembershipResponse is the response type for the Query/VerifyMembership RPC method
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.QueryVerifyMembershipResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.QueryVerifyMembershipResponse)
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.class, com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        success_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.QueryProto.internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse build() {
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse buildPartial() {
+        com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse result = new com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.success_ = success_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse) {
+          return mergeFrom((com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse other) {
+        if (other == com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse.getDefaultInstance()) return this;
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                success_ = input.readBool();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private boolean success_ ;
+      /**
+       * <pre>
+       * boolean indicating success or failure of proof verification.
+       * </pre>
+       *
+       * <code>bool success = 1 [json_name = "success"];</code>
+       * @return The success.
+       */
+      @java.lang.Override
+      public boolean getSuccess() {
+        return success_;
+      }
+      /**
+       * <pre>
+       * boolean indicating success or failure of proof verification.
+       * </pre>
+       *
+       * <code>bool success = 1 [json_name = "success"];</code>
+       * @param value The success to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSuccess(boolean value) {
+
+        success_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * boolean indicating success or failure of proof verification.
+       * </pre>
+       *
+       * <code>bool success = 1 [json_name = "success"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSuccess() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        success_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.QueryVerifyMembershipResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.QueryVerifyMembershipResponse)
+    private static final com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse();
+    }
+
+    public static com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryVerifyMembershipResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryVerifyMembershipResponse>() {
+      @java.lang.Override
+      public QueryVerifyMembershipResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryVerifyMembershipResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryVerifyMembershipResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.QueryProto.QueryVerifyMembershipResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_client_v1_QueryClientStateRequest_descriptor;
   private static final 
@@ -13856,6 +17037,16 @@ public final class QueryProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_client_v1_QueryClientParamsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_QueryClientCreatorRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_QueryClientCreatorResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_client_v1_QueryUpgradedClientStateRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -13875,6 +17066,16 @@ public final class QueryProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -13886,114 +17087,139 @@ public final class QueryProto {
     java.lang.String[] descriptorData = {
       "\n\036ibc/core/client/v1/query.proto\022\022ibc.co" +
       "re.client.v1\032*cosmos/base/query/v1beta1/" +
-      "pagination.proto\032\037ibc/core/client/v1/cli" +
-      "ent.proto\032\031google/protobuf/any.proto\032\034go" +
-      "ogle/api/annotations.proto\032\024gogoproto/go" +
-      "go.proto\"6\n\027QueryClientStateRequest\022\033\n\tc" +
-      "lient_id\030\001 \001(\tR\010clientId\"\256\001\n\030QueryClient" +
-      "StateResponse\0227\n\014client_state\030\001 \001(\0132\024.go" +
-      "ogle.protobuf.AnyR\013clientState\022\024\n\005proof\030" +
-      "\002 \001(\014R\005proof\022C\n\014proof_height\030\003 \001(\0132\032.ibc" +
-      ".core.client.v1.HeightB\004\310\336\037\000R\013proofHeigh" +
-      "t\"b\n\030QueryClientStatesRequest\022F\n\npaginat" +
-      "ion\030\001 \001(\0132&.cosmos.base.query.v1beta1.Pa" +
-      "geRequestR\npagination\"\324\001\n\031QueryClientSta" +
-      "tesResponse\022n\n\rclient_states\030\001 \003(\0132).ibc" +
-      ".core.client.v1.IdentifiedClientStateB\036\310" +
-      "\336\037\000\252\337\037\026IdentifiedClientStatesR\014clientSta" +
-      "tes\022G\n\npagination\030\002 \001(\0132\'.cosmos.base.qu" +
-      "ery.v1beta1.PageResponseR\npagination\"\260\001\n" +
-      "\032QueryConsensusStateRequest\022\033\n\tclient_id" +
-      "\030\001 \001(\tR\010clientId\022\'\n\017revision_number\030\002 \001(" +
-      "\004R\016revisionNumber\022\'\n\017revision_height\030\003 \001" +
-      "(\004R\016revisionHeight\022#\n\rlatest_height\030\004 \001(" +
-      "\010R\014latestHeight\"\267\001\n\033QueryConsensusStateR" +
-      "esponse\022=\n\017consensus_state\030\001 \001(\0132\024.googl" +
-      "e.protobuf.AnyR\016consensusState\022\024\n\005proof\030" +
-      "\002 \001(\014R\005proof\022C\n\014proof_height\030\003 \001(\0132\032.ibc" +
-      ".core.client.v1.HeightB\004\310\336\037\000R\013proofHeigh" +
-      "t\"\202\001\n\033QueryConsensusStatesRequest\022\033\n\tcli" +
-      "ent_id\030\001 \001(\tR\010clientId\022F\n\npagination\030\002 \001" +
-      "(\0132&.cosmos.base.query.v1beta1.PageReque" +
-      "stR\npagination\"\306\001\n\034QueryConsensusStatesR" +
-      "esponse\022]\n\020consensus_states\030\001 \003(\0132,.ibc." +
-      "core.client.v1.ConsensusStateWithHeightB" +
-      "\004\310\336\037\000R\017consensusStates\022G\n\npagination\030\002 \001" +
-      "(\0132\'.cosmos.base.query.v1beta1.PageRespo" +
-      "nseR\npagination\"\210\001\n!QueryConsensusStateH" +
-      "eightsRequest\022\033\n\tclient_id\030\001 \001(\tR\010client" +
-      "Id\022F\n\npagination\030\002 \001(\0132&.cosmos.base.que" +
-      "ry.v1beta1.PageRequestR\npagination\"\307\001\n\"Q" +
-      "ueryConsensusStateHeightsResponse\022X\n\027con" +
-      "sensus_state_heights\030\001 \003(\0132\032.ibc.core.cl" +
-      "ient.v1.HeightB\004\310\336\037\000R\025consensusStateHeig" +
-      "hts\022G\n\npagination\030\002 \001(\0132\'.cosmos.base.qu" +
-      "ery.v1beta1.PageResponseR\npagination\"7\n\030" +
-      "QueryClientStatusRequest\022\033\n\tclient_id\030\001 " +
-      "\001(\tR\010clientId\"3\n\031QueryClientStatusRespon" +
-      "se\022\026\n\006status\030\001 \001(\tR\006status\"\032\n\030QueryClien" +
-      "tParamsRequest\"O\n\031QueryClientParamsRespo" +
-      "nse\0222\n\006params\030\001 \001(\0132\032.ibc.core.client.v1" +
-      ".ParamsR\006params\"!\n\037QueryUpgradedClientSt" +
-      "ateRequest\"l\n QueryUpgradedClientStateRe" +
-      "sponse\022H\n\025upgraded_client_state\030\001 \001(\0132\024." +
-      "google.protobuf.AnyR\023upgradedClientState" +
-      "\"$\n\"QueryUpgradedConsensusStateRequest\"u" +
-      "\n#QueryUpgradedConsensusStateResponse\022N\n" +
-      "\030upgraded_consensus_state\030\001 \001(\0132\024.google" +
-      ".protobuf.AnyR\026upgradedConsensusState2\321\014" +
-      "\n\005Query\022\237\001\n\013ClientState\022+.ibc.core.clien" +
-      "t.v1.QueryClientStateRequest\032,.ibc.core." +
-      "client.v1.QueryClientStateResponse\"5\202\323\344\223" +
-      "\002/\022-/ibc/core/client/v1/client_states/{c" +
-      "lient_id}\022\226\001\n\014ClientStates\022,.ibc.core.cl" +
-      "ient.v1.QueryClientStatesRequest\032-.ibc.c" +
-      "ore.client.v1.QueryClientStatesResponse\"" +
-      ")\202\323\344\223\002#\022!/ibc/core/client/v1/client_stat" +
-      "es\022\337\001\n\016ConsensusState\022..ibc.core.client." +
-      "v1.QueryConsensusStateRequest\032/.ibc.core" +
-      ".client.v1.QueryConsensusStateResponse\"l" +
-      "\202\323\344\223\002f\022d/ibc/core/client/v1/consensus_st" +
-      "ates/{client_id}/revision/{revision_numb" +
-      "er}/height/{revision_height}\022\256\001\n\017Consens" +
-      "usStates\022/.ibc.core.client.v1.QueryConse" +
-      "nsusStatesRequest\0320.ibc.core.client.v1.Q" +
-      "ueryConsensusStatesResponse\"8\202\323\344\223\0022\0220/ib" +
-      "c/core/client/v1/consensus_states/{clien" +
-      "t_id}\022\310\001\n\025ConsensusStateHeights\0225.ibc.co" +
-      "re.client.v1.QueryConsensusStateHeightsR" +
-      "equest\0326.ibc.core.client.v1.QueryConsens" +
-      "usStateHeightsResponse\"@\202\323\344\223\002:\0228/ibc/cor" +
-      "e/client/v1/consensus_states/{client_id}" +
-      "/heights\022\242\001\n\014ClientStatus\022,.ibc.core.cli" +
-      "ent.v1.QueryClientStatusRequest\032-.ibc.co" +
-      "re.client.v1.QueryClientStatusResponse\"5" +
-      "\202\323\344\223\002/\022-/ibc/core/client/v1/client_statu" +
-      "s/{client_id}\022\217\001\n\014ClientParams\022,.ibc.cor" +
-      "e.client.v1.QueryClientParamsRequest\032-.i" +
-      "bc.core.client.v1.QueryClientParamsRespo" +
-      "nse\"\"\202\323\344\223\002\034\022\032/ibc/core/client/v1/params\022" +
-      "\264\001\n\023UpgradedClientState\0223.ibc.core.clien" +
-      "t.v1.QueryUpgradedClientStateRequest\0324.i" +
-      "bc.core.client.v1.QueryUpgradedClientSta" +
-      "teResponse\"2\202\323\344\223\002,\022*/ibc/core/client/v1/" +
-      "upgraded_client_states\022\300\001\n\026UpgradedConse" +
-      "nsusState\0226.ibc.core.client.v1.QueryUpgr" +
-      "adedConsensusStateRequest\0327.ibc.core.cli" +
-      "ent.v1.QueryUpgradedConsensusStateRespon" +
-      "se\"5\202\323\344\223\002/\022-/ibc/core/client/v1/upgraded" +
-      "_consensus_statesB\307\001\n\026com.ibc.core.clien" +
-      "t.v1B\nQueryProtoZ8github.com/cosmos/ibc-" +
-      "go/v7/modules/core/02-client/types\242\002\003ICC" +
-      "\252\002\022Ibc.Core.Client.V1\312\002\022Ibc\\Core\\Client\\" +
-      "V1\342\002\036Ibc\\Core\\Client\\V1\\GPBMetadata\352\002\025Ib" +
-      "c::Core::Client::V1b\006proto3"
+      "pagination.proto\032\033cosmos/query/v1/query." +
+      "proto\032\037ibc/core/client/v1/client.proto\032\'" +
+      "ibc/core/commitment/v2/commitment.proto\032" +
+      "\031google/protobuf/any.proto\032\034google/api/a" +
+      "nnotations.proto\032\024gogoproto/gogo.proto\"6" +
+      "\n\027QueryClientStateRequest\022\033\n\tclient_id\030\001" +
+      " \001(\tR\010clientId\"\256\001\n\030QueryClientStateRespo" +
+      "nse\0227\n\014client_state\030\001 \001(\0132\024.google.proto" +
+      "buf.AnyR\013clientState\022\024\n\005proof\030\002 \001(\014R\005pro" +
+      "of\022C\n\014proof_height\030\003 \001(\0132\032.ibc.core.clie" +
+      "nt.v1.HeightB\004\310\336\037\000R\013proofHeight\"b\n\030Query" +
+      "ClientStatesRequest\022F\n\npagination\030\001 \001(\0132" +
+      "&.cosmos.base.query.v1beta1.PageRequestR" +
+      "\npagination\"\324\001\n\031QueryClientStatesRespons" +
+      "e\022n\n\rclient_states\030\001 \003(\0132).ibc.core.clie" +
+      "nt.v1.IdentifiedClientStateB\036\310\336\037\000\252\337\037\026Ide" +
+      "ntifiedClientStatesR\014clientStates\022G\n\npag" +
+      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
+      "1.PageResponseR\npagination\"\260\001\n\032QueryCons" +
+      "ensusStateRequest\022\033\n\tclient_id\030\001 \001(\tR\010cl" +
+      "ientId\022\'\n\017revision_number\030\002 \001(\004R\016revisio" +
+      "nNumber\022\'\n\017revision_height\030\003 \001(\004R\016revisi" +
+      "onHeight\022#\n\rlatest_height\030\004 \001(\010R\014latestH" +
+      "eight\"\267\001\n\033QueryConsensusStateResponse\022=\n" +
+      "\017consensus_state\030\001 \001(\0132\024.google.protobuf" +
+      ".AnyR\016consensusState\022\024\n\005proof\030\002 \001(\014R\005pro" +
+      "of\022C\n\014proof_height\030\003 \001(\0132\032.ibc.core.clie" +
+      "nt.v1.HeightB\004\310\336\037\000R\013proofHeight\"\202\001\n\033Quer" +
+      "yConsensusStatesRequest\022\033\n\tclient_id\030\001 \001" +
+      "(\tR\010clientId\022F\n\npagination\030\002 \001(\0132&.cosmo" +
+      "s.base.query.v1beta1.PageRequestR\npagina" +
+      "tion\"\306\001\n\034QueryConsensusStatesResponse\022]\n" +
+      "\020consensus_states\030\001 \003(\0132,.ibc.core.clien" +
+      "t.v1.ConsensusStateWithHeightB\004\310\336\037\000R\017con" +
+      "sensusStates\022G\n\npagination\030\002 \001(\0132\'.cosmo" +
+      "s.base.query.v1beta1.PageResponseR\npagin" +
+      "ation\"\210\001\n!QueryConsensusStateHeightsRequ" +
+      "est\022\033\n\tclient_id\030\001 \001(\tR\010clientId\022F\n\npagi" +
+      "nation\030\002 \001(\0132&.cosmos.base.query.v1beta1" +
+      ".PageRequestR\npagination\"\307\001\n\"QueryConsen" +
+      "susStateHeightsResponse\022X\n\027consensus_sta" +
+      "te_heights\030\001 \003(\0132\032.ibc.core.client.v1.He" +
+      "ightB\004\310\336\037\000R\025consensusStateHeights\022G\n\npag" +
+      "ination\030\002 \001(\0132\'.cosmos.base.query.v1beta" +
+      "1.PageResponseR\npagination\"7\n\030QueryClien" +
+      "tStatusRequest\022\033\n\tclient_id\030\001 \001(\tR\010clien" +
+      "tId\"3\n\031QueryClientStatusResponse\022\026\n\006stat" +
+      "us\030\001 \001(\tR\006status\"\032\n\030QueryClientParamsReq" +
+      "uest\"O\n\031QueryClientParamsResponse\0222\n\006par" +
+      "ams\030\001 \001(\0132\032.ibc.core.client.v1.ParamsR\006p" +
+      "arams\"8\n\031QueryClientCreatorRequest\022\033\n\tcl" +
+      "ient_id\030\001 \001(\tR\010clientId\"6\n\032QueryClientCr" +
+      "eatorResponse\022\030\n\007creator\030\001 \001(\tR\007creator\"" +
+      "!\n\037QueryUpgradedClientStateRequest\"l\n Qu" +
+      "eryUpgradedClientStateResponse\022H\n\025upgrad" +
+      "ed_client_state\030\001 \001(\0132\024.google.protobuf." +
+      "AnyR\023upgradedClientState\"$\n\"QueryUpgrade" +
+      "dConsensusStateRequest\"u\n#QueryUpgradedC" +
+      "onsensusStateResponse\022N\n\030upgraded_consen" +
+      "sus_state\030\001 \001(\0132\024.google.protobuf.AnyR\026u" +
+      "pgradedConsensusState\"\275\002\n\034QueryVerifyMem" +
+      "bershipRequest\022\033\n\tclient_id\030\001 \001(\tR\010clien" +
+      "tId\022\024\n\005proof\030\002 \001(\014R\005proof\022C\n\014proof_heigh" +
+      "t\030\003 \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037" +
+      "\000R\013proofHeight\022\024\n\005value\030\005 \001(\014R\005value\022\035\n\n" +
+      "time_delay\030\006 \001(\004R\ttimeDelay\022\037\n\013block_del" +
+      "ay\030\007 \001(\004R\nblockDelay\022I\n\013merkle_path\030\010 \001(" +
+      "\0132\".ibc.core.commitment.v2.MerklePathB\004\310" +
+      "\336\037\000R\nmerklePathJ\004\010\004\020\005\"9\n\035QueryVerifyMemb" +
+      "ershipResponse\022\030\n\007success\030\001 \001(\010R\007success" +
+      "2\253\017\n\005Query\022\237\001\n\013ClientState\022+.ibc.core.cl" +
+      "ient.v1.QueryClientStateRequest\032,.ibc.co" +
+      "re.client.v1.QueryClientStateResponse\"5\202" +
+      "\323\344\223\002/\022-/ibc/core/client/v1/client_states" +
+      "/{client_id}\022\226\001\n\014ClientStates\022,.ibc.core" +
+      ".client.v1.QueryClientStatesRequest\032-.ib" +
+      "c.core.client.v1.QueryClientStatesRespon" +
+      "se\")\202\323\344\223\002#\022!/ibc/core/client/v1/client_s" +
+      "tates\022\337\001\n\016ConsensusState\022..ibc.core.clie" +
+      "nt.v1.QueryConsensusStateRequest\032/.ibc.c" +
+      "ore.client.v1.QueryConsensusStateRespons" +
+      "e\"l\202\323\344\223\002f\022d/ibc/core/client/v1/consensus" +
+      "_states/{client_id}/revision/{revision_n" +
+      "umber}/height/{revision_height}\022\256\001\n\017Cons" +
+      "ensusStates\022/.ibc.core.client.v1.QueryCo" +
+      "nsensusStatesRequest\0320.ibc.core.client.v" +
+      "1.QueryConsensusStatesResponse\"8\202\323\344\223\0022\0220" +
+      "/ibc/core/client/v1/consensus_states/{cl" +
+      "ient_id}\022\310\001\n\025ConsensusStateHeights\0225.ibc" +
+      ".core.client.v1.QueryConsensusStateHeigh" +
+      "tsRequest\0326.ibc.core.client.v1.QueryCons" +
+      "ensusStateHeightsResponse\"@\202\323\344\223\002:\0228/ibc/" +
+      "core/client/v1/consensus_states/{client_" +
+      "id}/heights\022\242\001\n\014ClientStatus\022,.ibc.core." +
+      "client.v1.QueryClientStatusRequest\032-.ibc" +
+      ".core.client.v1.QueryClientStatusRespons" +
+      "e\"5\202\323\344\223\002/\022-/ibc/core/client/v1/client_st" +
+      "atus/{client_id}\022\217\001\n\014ClientParams\022,.ibc." +
+      "core.client.v1.QueryClientParamsRequest\032" +
+      "-.ibc.core.client.v1.QueryClientParamsRe" +
+      "sponse\"\"\202\323\344\223\002\034\022\032/ibc/core/client/v1/para" +
+      "ms\022\246\001\n\rClientCreator\022-.ibc.core.client.v" +
+      "1.QueryClientCreatorRequest\032..ibc.core.c" +
+      "lient.v1.QueryClientCreatorResponse\"6\202\323\344" +
+      "\223\0020\022./ibc/core/client/v1/client_creator/" +
+      "{client_id}\022\264\001\n\023UpgradedClientState\0223.ib" +
+      "c.core.client.v1.QueryUpgradedClientStat" +
+      "eRequest\0324.ibc.core.client.v1.QueryUpgra" +
+      "dedClientStateResponse\"2\202\323\344\223\002,\022*/ibc/cor" +
+      "e/client/v1/upgraded_client_states\022\300\001\n\026U" +
+      "pgradedConsensusState\0226.ibc.core.client." +
+      "v1.QueryUpgradedConsensusStateRequest\0327." +
+      "ibc.core.client.v1.QueryUpgradedConsensu" +
+      "sStateResponse\"5\202\323\344\223\002/\022-/ibc/core/client" +
+      "/v1/upgraded_consensus_states\022\256\001\n\020Verify" +
+      "Membership\0220.ibc.core.client.v1.QueryVer" +
+      "ifyMembershipRequest\0321.ibc.core.client.v" +
+      "1.QueryVerifyMembershipResponse\"5\210\347\260*\001\202\323" +
+      "\344\223\002*\"%/ibc/core/client/v1/verify_members" +
+      "hip:\001*B\310\001\n\026com.ibc.core.client.v1B\nQuery" +
+      "ProtoZ9github.com/cosmos/ibc-go/v10/modu" +
+      "les/core/02-client/types\242\002\003ICC\252\002\022Ibc.Cor" +
+      "e.Client.V1\312\002\022Ibc\\Core\\Client\\V1\342\002\036Ibc\\C" +
+      "ore\\Client\\V1\\GPBMetadata\352\002\025Ibc::Core::C" +
+      "lient::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor(),
+          com.cosmos.query.v1.QueryProto.getDescriptor(),
           com.ibc.core.client.v1.ClientProto.getDescriptor(),
+          com.ibc.core.commitment.v2.CommitmentProto.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
@@ -14082,39 +17308,66 @@ public final class QueryProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_QueryClientParamsResponse_descriptor,
         new java.lang.String[] { "Params", });
-    internal_static_ibc_core_client_v1_QueryUpgradedClientStateRequest_descriptor =
+    internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor =
       getDescriptor().getMessageTypes().get(14);
+    internal_static_ibc_core_client_v1_QueryClientCreatorRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_QueryClientCreatorRequest_descriptor,
+        new java.lang.String[] { "ClientId", });
+    internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_ibc_core_client_v1_QueryClientCreatorResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_QueryClientCreatorResponse_descriptor,
+        new java.lang.String[] { "Creator", });
+    internal_static_ibc_core_client_v1_QueryUpgradedClientStateRequest_descriptor =
+      getDescriptor().getMessageTypes().get(16);
     internal_static_ibc_core_client_v1_QueryUpgradedClientStateRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_QueryUpgradedClientStateRequest_descriptor,
         new java.lang.String[] { });
     internal_static_ibc_core_client_v1_QueryUpgradedClientStateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_ibc_core_client_v1_QueryUpgradedClientStateResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_QueryUpgradedClientStateResponse_descriptor,
         new java.lang.String[] { "UpgradedClientState", });
     internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateRequest_descriptor,
         new java.lang.String[] { });
     internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateResponse_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_QueryUpgradedConsensusStateResponse_descriptor,
         new java.lang.String[] { "UpgradedConsensusState", });
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor =
+      getDescriptor().getMessageTypes().get(20);
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_QueryVerifyMembershipRequest_descriptor,
+        new java.lang.String[] { "ClientId", "Proof", "ProofHeight", "Value", "TimeDelay", "BlockDelay", "MerklePath", });
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor =
+      getDescriptor().getMessageTypes().get(21);
+    internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_QueryVerifyMembershipResponse_descriptor,
+        new java.lang.String[] { "Success", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.query.v1.QueryProto.moduleQuerySafe);
     registry.add(com.gogoproto.GogoProto.castrepeated);
     registry.add(com.gogoproto.GogoProto.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor();
+    com.cosmos.query.v1.QueryProto.getDescriptor();
     com.ibc.core.client.v1.ClientProto.getDescriptor();
+    com.ibc.core.commitment.v2.CommitmentProto.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();

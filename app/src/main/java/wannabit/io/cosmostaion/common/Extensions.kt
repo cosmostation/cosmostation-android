@@ -26,7 +26,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -231,22 +231,16 @@ fun ImageView.setTokenImg(asset: Asset) {
     dispose()
     tag = asset.image
 
-    val imageLoader = ImageLoader.Builder(context)
-        .components { add(SvgDecoder.Factory()) }
-        .memoryCachePolicy(CachePolicy.DISABLED)
-        .diskCachePolicy(CachePolicy.DISABLED)
-        .build()
+    val imageLoader = ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }
+        .memoryCachePolicy(CachePolicy.DISABLED).diskCachePolicy(CachePolicy.DISABLED).build()
 
     val imageUrl = asset.image
     load(imageUrl, imageLoader) {
-        listener(
-            onSuccess = { _, _ ->
-                if (tag != imageUrl) return@listener
-            },
-            onError = { _, _ ->
-                setImageResource(R.drawable.token_default)
-            }
-        )
+        listener(onSuccess = { _, _ ->
+            if (tag != imageUrl) return@listener
+        }, onError = { _, _ ->
+            setImageResource(R.drawable.token_default)
+        })
     }
 }
 
@@ -255,21 +249,15 @@ fun ImageView.setTokenImg(tokenImg: String) {
         dispose()
         tag = tokenImg
 
-        val imageLoader = ImageLoader.Builder(context)
-            .components { add(SvgDecoder.Factory()) }
-            .memoryCachePolicy(CachePolicy.DISABLED)
-            .diskCachePolicy(CachePolicy.DISABLED)
-            .build()
+        val imageLoader = ImageLoader.Builder(context).components { add(SvgDecoder.Factory()) }
+            .memoryCachePolicy(CachePolicy.DISABLED).diskCachePolicy(CachePolicy.DISABLED).build()
 
         load(tokenImg, imageLoader) {
-            listener(
-                onSuccess = { _, _ ->
-                    if (tag != tokenImg) return@listener
-                },
-                onError = { _, _ ->
-                    setImageResource(R.drawable.token_default)
-                }
-            )
+            listener(onSuccess = { _, _ ->
+                if (tag != tokenImg) return@listener
+            }, onError = { _, _ ->
+                setImageResource(R.drawable.token_default)
+            })
         }
 
     } else {
@@ -682,6 +670,22 @@ fun ImageButton.updateToggleButtonView(isBtnEnabled: Boolean) {
     }
 }
 
+fun ConstraintLayout.setView(isChecked: Boolean) {
+    if (isChecked) {
+        this.setBackgroundColor(
+            ContextCompat.getColor(
+                context, R.color.color_transparent
+            )
+        )
+    } else {
+        this.setBackgroundColor(
+            ContextCompat.getColor(
+                context, R.color.color_base08
+            )
+        )
+    }
+}
+
 fun Activity.historyToMintscan(selectedChain: BaseChain?, txHash: String?) {
     selectedChain?.explorerTx(txHash)?.let {
         startActivity(Intent(Intent.ACTION_VIEW, it))
@@ -860,14 +864,6 @@ fun <T> Sequence<T>.concurrentForEach(operation: suspend (T) -> Unit): Job {
 fun Activity.hideKeyboard(button: Button) {
     val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(button.windowToken, 0)
-}
-
-fun CardView.heightInDp(dp: Int) {
-    val heightInPx = (dp * resources.displayMetrics.density).toInt()
-
-    val layout = layoutParams
-    layout.height = heightInPx
-    layoutParams = layout
 }
 
 fun fadeInAnimation(view: View) {

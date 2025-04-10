@@ -23,6 +23,7 @@ object BaseData {
     var prices: List<Price>? = mutableListOf()
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
+    var ecosystems: MutableList<JsonObject>? = mutableListOf()
 
     var isBackGround = false
     var appSchemeUrl = ""
@@ -51,6 +52,10 @@ object BaseData {
 
     fun getAsset(chainName: String, denom: String): Asset? {
         return assets?.firstOrNull { asset -> asset.chain == chainName && asset.denom?.lowercase() == denom.lowercase() }
+    }
+
+    fun getAssetWithSymbol(chainName: String, symbol: String): Asset? {
+        return assets?.firstOrNull { asset -> asset.chain == chainName && asset.symbol?.lowercase() == symbol.lowercase() }
     }
 
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {

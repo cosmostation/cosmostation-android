@@ -167,7 +167,9 @@ class PopUpEvmSignFragment(
                     is JsonObject -> {
                         val signTypedData = txJsonArray[1].asJsonObject
                         withContext(Dispatchers.Main) {
-                            if (signTypedData.toString().contains("to") || signTypedData.toString().contains("gas")) {
+                            if (signTypedData.toString().contains("to") || signTypedData.toString()
+                                    .contains("gas")
+                            ) {
                                 binding.warnMsg.text = getString(R.string.str_affect_danger_msg)
                                 binding.warnMsg.setTextColor(
                                     ContextCompat.getColorStateList(
@@ -318,13 +320,15 @@ class PopUpEvmSignFragment(
                     val txJsonArray = JsonParser.parseString(data).asJsonArray
                     val firstParameter = txJsonArray[0].asString
                     val secondParameter = txJsonArray[1].asString
-                    var messageParameter = if (WalletUtils.isValidAddress(firstParameter) && firstParameter == selectedEvmChain.evmAddress) {
-                        secondParameter
-                    } else {
-                        firstParameter
-                    }
+                    var messageParameter =
+                        if (WalletUtils.isValidAddress(firstParameter) && firstParameter == selectedEvmChain.evmAddress) {
+                            secondParameter
+                        } else {
+                            firstParameter
+                        }
                     if (isHexString(messageParameter.stripHexPrefix())) {
-                        messageParameter = String(hexToBytes(messageParameter.stripHexPrefix()), Charsets.UTF_8)
+                        messageParameter =
+                            String(hexToBytes(messageParameter.stripHexPrefix()), Charsets.UTF_8)
                     }
 
                     val messageHash = Sign.getEthereumMessageHash(messageParameter.toByteArray())
@@ -377,12 +381,19 @@ class PopUpEvmSignFragment(
             checkedGas = if (ethGasResponse.isSuccessful) {
                 val gasJsonObject =
                     Gson().fromJson(ethGasResponse.body?.string(), JsonObject::class.java)
-                val gasAmount = BigInteger(
-                    gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
-                )
-                gasAmount.multiply(selectedEvmChain.evmSimulatedGasMultiply() ?: BigInteger("13")).divide(
-                    BigInteger("10")
-                )
+                if (gasJsonObject.has("error")) {
+                    BigInteger.valueOf(21000L)
+                } else {
+                    val gasAmount = BigInteger(
+                        gasJsonObject.asJsonObject["result"].asString.removePrefix("0x"), 16
+                    )
+                    gasAmount.multiply(
+                        selectedEvmChain.evmSimulatedGasMultiply() ?: BigInteger("13")
+                    )
+                        .divide(
+                            BigInteger("10")
+                        )
+                }
 
             } else {
                 BigInteger.valueOf(21000L)
@@ -463,9 +474,14 @@ class PopUpEvmSignFragment(
 
                 if (paramMaxFeePerGas != null && paramMaxPriorityFeePerGas != null) {
                     val maxFeePerGas = BigInteger(paramMaxFeePerGas!!.removePrefix("0x"), 16)
-                    val maxPriorityFeePerGas = BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16)
+                    val maxPriorityFeePerGas =
+                        BigInteger(paramMaxPriorityFeePerGas!!.removePrefix("0x"), 16)
                     val baseFee = maxFeePerGas.subtract(maxPriorityFeePerGas)
-                    evmGas.add(Triple(baseFee, maxPriorityFeePerGas, paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
+                    evmGas.add(
+                        Triple(
+                            baseFee,
+                            maxPriorityFeePerGas,
+                            paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
                     evmGasTitle.add("From dapp")
                     addedFeePosition = 3
                 }
@@ -474,8 +490,16 @@ class PopUpEvmSignFragment(
             } else {
                 web3j?.ethGasPrice()?.send()?.gasPrice?.let { gasPrice ->
                     evmGas[0] = Triple(gasPrice, BigInteger.ZERO, checkedGas)
-                    evmGas[1] = Triple(gasPrice.multiply(BigInteger.valueOf(12)).divide(BigInteger.valueOf(10)), BigInteger.ZERO, checkedGas)
-                    evmGas[2] = Triple(gasPrice.multiply(BigInteger.valueOf(20)).divide(BigInteger.valueOf(10)), BigInteger.ZERO, checkedGas)
+                    evmGas[1] = Triple(
+                        gasPrice.multiply(BigInteger.valueOf(12)).divide(BigInteger.valueOf(10)),
+                        BigInteger.ZERO,
+                        checkedGas
+                    )
+                    evmGas[2] = Triple(
+                        gasPrice.multiply(BigInteger.valueOf(20)).divide(BigInteger.valueOf(10)),
+                        BigInteger.ZERO,
+                        checkedGas
+                    )
                 }
 
                 if (paramGas != null) {
@@ -521,7 +545,11 @@ class PopUpEvmSignFragment(
 
     private fun updateFeeView() {
         binding.apply {
-            val feePrice = BaseData.getPrice(selectedEvmChain?.coinGeckoId)
+            val coinGeckoId = BaseData.getAssetWithSymbol(
+                selectedEvmChain?.apiName ?: "",
+                selectedEvmChain?.coinSymbol ?: ""
+            )?.coinGeckoId
+            val feePrice = BaseData.getPrice(coinGeckoId)
             val totalGasPrice =
                 evmGas[selectFeePosition].first?.add(evmGas[selectFeePosition].second!!)
             val feeAmountBigInt = totalGasPrice?.multiply(evmGas[selectFeePosition].third!!)

@@ -25,8 +25,7 @@ object RetrofitInstance {
 
         OkHttpClient.Builder().addInterceptor(httpExceptionInterceptor)
             .addInterceptor(httpLoggingInterceptor).connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS).build()
+            .readTimeout(60, TimeUnit.SECONDS).writeTimeout(60, TimeUnit.SECONDS).build()
     }
 
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -55,6 +54,12 @@ object RetrofitInstance {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
             .baseUrl(CosmostationConstants.ECO_SYSTEM_URL).build()
+    }
+
+    private val ecoSystemTestRetrofit: Retrofit by lazy {
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(CosmostationConstants.ECO_SYSTEM_TEST_URL).build()
     }
 
     private fun lcdRetrofit(chain: BaseChain): Retrofit {
@@ -121,6 +126,10 @@ object RetrofitInstance {
 
     val ecoApi: MintscanApi by lazy {
         ecoSystemRetrofit.create(MintscanApi::class.java)
+    }
+
+    val ecoTestApi: MintscanApi by lazy {
+        ecoSystemTestRetrofit.create(MintscanApi::class.java)
     }
 
     val suiApi: LcdApi by lazy {

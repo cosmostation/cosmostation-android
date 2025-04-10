@@ -818,7 +818,7 @@ public final class AckProto {
       "\026underlying_app_success\030\003 \001(\010R\024underlyin" +
       "gAppSuccessB\333\001\n\033com.ibc.applications.fee" +
       ".v1B\010AckProtoZ5github.com/cosmos/ibc-go/" +
-      "v7/modules/apps/29-fee/types\242\002\003IAF\252\002\027Ibc" +
+      "v8/modules/apps/29-fee/types\242\002\003IAF\252\002\027Ibc" +
       ".Applications.Fee.V1\312\002\027Ibc\\Applications\\" +
       "Fee\\V1\342\002#Ibc\\Applications\\Fee\\V1\\GPBMeta" +
       "data\352\002\032Ibc::Applications::Fee::V1b\006proto" +

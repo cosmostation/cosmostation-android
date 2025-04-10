@@ -31,7 +31,5 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "EVMOS"
-    override var coinGeckoId: String = "evmos"
-    override var coinLogo: Int = R.drawable.token_evmos
     override var evmRpcURL: String = "https://evmos-evm.publicnode.com"
 }

@@ -1,33 +1,65 @@
 package wannabit.io.cosmostaion.ui.main.dapp
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.net.Uri
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Parcelable
 import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.widget.AutoCompleteTextView
+import android.widget.HorizontalScrollView
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import wannabit.io.cosmostaion.BuildConfig
+import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.viewmodel.dapp.DappViewModel
+import wannabit.io.cosmostaion.data.viewmodel.dapp.DappViewModelProviderFactory
+import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.CustomButtonBinding
 import wannabit.io.cosmostaion.databinding.FragmentDappBinding
+import wannabit.io.cosmostaion.ui.main.SettingType
+import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 
 
 class DappStartFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDappBinding? = null
     private val binding get() = _binding!!
-    private var behavior: BottomSheetBehavior<View>? = null
+
+    private lateinit var dappViewModel: DappViewModel
+
+    private lateinit var dappListAdapter: DappListAdapter
+
+    private var ecosystems: MutableList<JsonObject> = mutableListOf()
+    private var supportChains: MutableList<String>? = mutableListOf()
+    private var selectedIndex: Int = 0
+    private var selectedType: String = "Popular"
+    private var selectedChain: String = "All Network"
+
+    private var searchTxt: String? = ""
+    private var isPinned = false
+    private var isClickable = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,9 +71,341 @@ class DappStartFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initWebView()
-        val bottomSheet = dialog?.findViewById<View>(R.id.design_bottom_sheet) as View
-        behavior = BottomSheetBehavior.from(bottomSheet)
+        initView()
+        initButtonView()
+        initRecyclerView()
+        initSearchView()
+        setUpClickAction()
+        setUpObserve()
+    }
+
+    private fun initView() {
+        dappViewModel =
+            ViewModelProvider(this, DappViewModelProviderFactory())[DappViewModel::class.java]
+
+        binding.apply {
+            searchView.post {
+                val searchHint =
+                    searchView.findViewById<AutoCompleteTextView>(androidx.appcompat.R.id.search_src_text)
+                searchHint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                searchHint.setHintTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    )
+                )
+
+                val searchNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 20f, resources.displayMetrics
+                ).toInt()
+
+                val searchBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+                val searchLayoutParams = searchBtn.layoutParams
+                searchLayoutParams.width = searchNewSizeInPx
+                searchLayoutParams.height = searchNewSizeInPx
+                searchBtn.layoutParams = searchLayoutParams
+                searchBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                val closeNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 35f, resources.displayMetrics
+                ).toInt()
+
+                val closeBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+                val closeLayoutParams = closeBtn.layoutParams
+                closeLayoutParams.width = closeNewSizeInPx
+                closeLayoutParams.height = closeNewSizeInPx
+                closeBtn.layoutParams = closeLayoutParams
+                closeBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                btnFilter.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                btnDownImg.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
+    }
+
+    private fun initButtonView() {
+        binding.apply {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val manualEntries = listOf("Popular", "All")
+                val extractedTypes =
+                    BaseData.ecosystems?.map { it["type"].asString }?.distinct() ?: emptyList()
+                val dappTypes = manualEntries + extractedTypes
+
+                val dappChains = BaseData.ecosystems?.flatMap { ecosystem ->
+                    ecosystem["chains"].asJsonArray.map { it.asString }
+                }?.toSet() ?: emptySet()
+                supportChains = dappChains.toMutableList()
+                supportChains?.sortWith { o1, o2 ->
+                    when {
+                        o1 == "cosmos" -> -1
+                        o2 == "cosmos" -> -1
+                        o1.compareTo(o2) != 0 -> o1.compareTo(o2)
+                        else -> 0
+                    }
+                }
+                supportChains?.add(0, "All Network")
+                dappViewModel.fetchDappList()
+
+                withContext(Dispatchers.Main) {
+                    val inflater = LayoutInflater.from(requireContext())
+                    dappTypes.forEachIndexed { index, type ->
+                        val view = CustomButtonBinding.inflate(inflater, buttonContainer, false)
+                        view.popularImg.visibleOrGone(index == 0)
+                        view.type.text = type
+                        if (index == selectedIndex) {
+                            view.root.setBackgroundResource(R.drawable.button_dapp_bg)
+                            view.type.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    requireContext(), R.color.color_base01
+                                )
+                            )
+                        } else {
+                            view.root.setBackgroundResource(R.drawable.button_default_bg)
+                            view.type.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    requireContext(), R.color.color_base04
+                                )
+                            )
+                        }
+
+                        view.root.setOnClickListener {
+                            val previousView = buttonContainer.getChildAt(selectedIndex)
+                            val previousBinding = CustomButtonBinding.bind(previousView)
+                            previousView.setBackgroundResource(R.drawable.button_default_bg)
+                            previousBinding.type.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(), R.color.color_base04
+                                )
+                            )
+                            previousBinding.popularImg.colorFilter = PorterDuffColorFilter(
+                                ContextCompat.getColor(
+                                    requireContext(), R.color.color_base04
+                                ), PorterDuff.Mode.SRC_IN
+                            )
+
+                            view.root.setBackgroundResource(R.drawable.button_dapp_bg)
+                            view.popularImg.colorFilter = PorterDuffColorFilter(
+                                ContextCompat.getColor(
+                                    requireContext(), R.color.color_base01
+                                ), PorterDuff.Mode.SRC_IN
+                            )
+                            view.type.setTextColor(
+                                ContextCompat.getColor(
+                                    requireContext(), R.color.color_base01
+                                )
+                            )
+
+                            selectedIndex = index
+                            selectedType = type
+                            centerButtonInScrollView(buttonScroll, view.root)
+                            dappViewModel.sortByType(
+                                ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                            )
+                        }
+                        buttonContainer.addView(view.root)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        binding.recycler.apply {
+            ecosystems.forEach { ecosystem ->
+                val isPinnedValue = Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+                ecosystem.addProperty("isPinned", isPinnedValue)
+            }
+
+            binding.emptyLayout.visibility = View.GONE
+            dappListAdapter = DappListAdapter(requireContext(), selectPinAction)
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = dappListAdapter
+            dappListAdapter.submitList(ecosystems.filter { ecosystem ->
+                val popular = if (ecosystem.has("is_default")) {
+                    ecosystem["is_default"].asBoolean
+                } else {
+                    false
+                }
+                popular
+            })
+
+            dappListAdapter.setOnItemClickListener { ecosystem ->
+                val savedTime = Prefs.getDappHideTime(ecosystem["id"].asInt)
+                val currentTime = System.currentTimeMillis()
+                if (currentTime >= savedTime) {
+                    handleOneClickWithDelay(
+                        DappDetailFragment.newInstance(
+                            selectedChain,
+                            ecosystem.toString(),
+                            object : DappPinSelectListener {
+                                override fun pinned(id: Int) {
+                                    dappViewModel.pinnedByDetail(
+                                        ecosystems,
+                                        selectedType,
+                                        selectedChain,
+                                        searchTxt,
+                                        isPinned,
+                                        id
+                                    )
+                                }
+                            })
+                    )
+
+                } else {
+                    Intent(requireActivity(), DappActivity::class.java).apply {
+                        val chain = if (ecosystem["chains"].asJsonArray.size() == 1) {
+                            allChains().first()
+                        } else if (selectedChain.uppercase() != "All Network".uppercase()) {
+                            allChains().firstOrNull { it.apiName == selectedChain }
+                        } else {
+                            allChains().firstOrNull { chain -> chain.apiName == ecosystem["chains"].asJsonArray.first().asString }
+                        }
+
+                        putExtra("selectedChain", chain as Parcelable)
+                        putExtra("dapp", ecosystem["link"].asString)
+                        startActivity(this)
+                    }
+                }
+            }
+        }
+    }
+
+    private val selectPinAction = object : DappListAdapter.PinnedListener {
+        override fun select(id: Int) {
+            dappViewModel.pinnedByDetail(
+                ecosystems, selectedType, selectedChain, searchTxt, isPinned, id
+            )
+        }
+    }
+
+    private fun setUpObserve() {
+        dappViewModel.dappList.observe(viewLifecycleOwner) {
+            ecosystems.addAll(it)
+            initRecyclerView()
+        }
+
+        dappViewModel.pinnedByDetail.observe(viewLifecycleOwner) { pinnedList ->
+            dappListAdapter.submitList(pinnedList)
+        }
+
+        dappViewModel.sortedBy.observe(viewLifecycleOwner) { sortList ->
+            binding.apply {
+                if (sortList.isNotEmpty()) {
+                    dappListAdapter.submitList(sortList)
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+
+                } else {
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun setUpClickAction() {
+        binding.apply {
+            btnFilter.setOnClickListener {
+                handleOneClickWithDelay(
+                    SettingBottomFragment.newInstance(null, SettingType.DAPP_SORT_OPTION)
+                )
+
+                parentFragmentManager.setFragmentResultListener(
+                    "sort", this@DappStartFragment
+                ) { _, bundle ->
+                    Prefs.dappFilter = bundle.getInt("sort")
+                    dappViewModel.sortByType(
+                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                    )
+                }
+            }
+
+            btnChainSelect.setOnClickListener {
+                handleOneClickWithDelay(
+                    DappChainFragment.newInstance(supportChains,
+                        selectedChain,
+                        object : DappChainSelectListener {
+                            override fun select(chain: String) {
+                                binding.apply {
+                                    if (chain == "All Network") {
+                                        chainImg.setImageResource(R.drawable.icon_all_network)
+                                        chainNetwork.text = chain
+                                    } else {
+                                        allChains().first { it.apiName == chain }
+                                            .let { supportChain ->
+                                                chainImg.setImageResource(supportChain.logo)
+                                                chainNetwork.text = chain.uppercase()
+                                            }
+                                    }
+                                    selectedChain = chain
+                                    dappViewModel.sortByType(
+                                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                                    )
+                                }
+                            }
+                        })
+                )
+            }
+
+            btnPinned.setOnClickListener {
+                isPinned = !isPinned
+                if (isPinned) {
+                    checkStatusImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkStatusImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+                dappViewModel.sortByType(
+                    ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                )
+            }
+        }
+    }
+
+    private fun initSearchView() {
+        binding.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchTxt = newText
+                    dappViewModel.sortByType(
+                        ecosystems, selectedType, selectedChain, newText, isPinned
+                    )
+                    return true
+                }
+            })
+        }
+    }
+
+    private fun centerButtonInScrollView(scrollView: HorizontalScrollView, button: View) {
+        val scrollViewCenterX = scrollView.width / 2
+        val buttonX = button.left - scrollView.scrollX
+        val buttonCenterX = buttonX + button.width / 2
+        val scrollToX = buttonCenterX - scrollViewCenterX
+        scrollView.smoothScrollTo(scrollToX, 0)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -82,77 +446,40 @@ class DappStartFragment : BottomSheetDialogFragment() {
         bottomSheet?.let { sheet ->
             val behavior = BottomSheetBehavior.from(sheet)
             behavior.isHideable = true
-            behavior.skipCollapsed = true
+
+            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+
+                        else -> {}
+                    }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.webView.loadUrl("https://dapps.cosmostation.io")
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
     }
 
-    @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
-    private fun initWebView() {
-        binding.apply {
-            webView.settings.javaScriptEnabled = true
-            webView.settings.userAgentString =
-                webView.settings.userAgentString + " Cosmostation/APP/Android/DappTab" + BuildConfig.VERSION_NAME
-            webView.settings.domStorageEnabled = true
-            webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-            webView.webChromeClient = WebChromeClient()
-            webView.setOnTouchListener { _, event ->
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        if (event.y > windowHeight() / 2) {
-                            behavior?.setHideable(false)
-                            behavior?.isDraggable = false
-                        } else {
-                            behavior?.isDraggable = true
-                            behavior?.setHideable(
-                                true
-                            )
-                        }
-                    }
-                }
-                false
-            }
-            webView.webViewClient = object : WebViewClient() {
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                }
-
-                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                    if (url.startsWith("intent:")) {
-                        val replacedUrl = if (BuildConfig.DEBUG) {
-                            url.replace("wannabit.io.cosmostaion", "wannabit.io.cosmostaion.debug")
-                        } else {
-                            url
-                        }
-
-                        try {
-                            val intent = Intent.parseUri(replacedUrl, Intent.URI_INTENT_SCHEME)
-                            val existPackage: Intent? = intent.getPackage()?.let {
-                                activity?.packageManager?.getLaunchIntentForPackage(it)
-                            }
-                            if (existPackage != null) {
-                                startActivity(intent)
-                            } else {
-                                val marketIntent = Intent(Intent.ACTION_VIEW)
-                                marketIntent.data =
-                                    Uri.parse("market://details?id=" + intent.getPackage())
-                                startActivity(marketIntent)
-                            }
-                            return true
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    } else {
-                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                        return true
-                    }
-                    return false
-                }
-            }
-        }
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

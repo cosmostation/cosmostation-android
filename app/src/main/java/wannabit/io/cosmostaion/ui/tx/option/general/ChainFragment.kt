@@ -25,6 +25,8 @@ class ChainFragment : BottomSheetDialogFragment() {
 
     private lateinit var chainAdapter: ChainAdapter
 
+    private var fromChain: BaseChain? = null
+    private var toChain: BaseChain? = null
     private var recipientAbleChains: MutableList<BaseChain>? = mutableListOf()
     private lateinit var chainListType: ChainListType
 
@@ -33,11 +35,15 @@ class ChainFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
+            fromChain: BaseChain?,
+            toChain: BaseChain?,
             recipientAbleChains: MutableList<BaseChain>,
             chainListType: ChainListType,
             listener: ChainSelectListener
         ): ChainFragment {
             val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
+                putParcelable("toChain", toChain)
                 putParcelableArrayList("recipientAbleChains", ArrayList(recipientAbleChains))
                 putSerializable("chainListType", chainListType)
             }
@@ -68,11 +74,21 @@ class ChainFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getParcelable("fromChain", BaseChain::class.java)?.let { fromChain = it }
+                    getParcelable("toChain", BaseChain::class.java)?.let { toChain = it }
+
                     getSerializable(
                         "chainListType", ChainListType::class.java
                     )?.let { chainListType = it }
 
                 } else {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
+                        fromChain = it
+                    }
+                    (getParcelable("toChain") as? BaseChain)?.let {
+                        toChain = it
+                    }
+
                     (getSerializable("chainListType") as? ChainListType)?.let {
                         chainListType = it
                     }
@@ -117,7 +133,7 @@ class ChainFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            chainAdapter = ChainAdapter()
+            chainAdapter = ChainAdapter(fromChain, toChain, chainListType)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = chainAdapter

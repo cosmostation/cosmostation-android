@@ -20,7 +20,6 @@ import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.OKT_BASE_FEE
-import wannabit.io.cosmostaion.chain.cosmosClass.OKT_GECKO_ID
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
@@ -147,7 +146,9 @@ class LegacyTransferFragment : BaseTxFragment() {
             feeTokenImg.setTokenImg(fromChain.assetImg(fromChain.stakeDenom))
             feeToken.text = fromChain.stakeDenom.uppercase()
 
-            val price = BaseData.getPrice(OKT_GECKO_ID)
+            val coinGeckoId =
+                BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.coinGeckoId
+            val price = BaseData.getPrice(coinGeckoId)
             val amount = BigDecimal(OKT_BASE_FEE)
             val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
 
@@ -164,11 +165,16 @@ class LegacyTransferFragment : BaseTxFragment() {
 
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
+
             if (toSendDenom == fromChain.stakeDenom) {
                 sendValue.visibility = View.VISIBLE
-                val price = BaseData.getPrice(OKT_GECKO_ID)
+
+                val coinGeckoId =
+                    BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.coinGeckoId
+                val price = BaseData.getPrice(coinGeckoId)
                 val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
                 sendValue.text = formatAssetValue(toSendValue)
+
             } else {
                 sendValue.visibility = View.GONE
             }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
 import wannabit.io.cosmostaion.databinding.ItemOnChainProposalBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 
@@ -16,6 +17,7 @@ class OnChainProposalListAdapter(
     val votingPeriods: MutableList<CosmosProposal>,
     val etcPeriods: MutableList<CosmosProposal>,
     private val toVoteList: MutableList<String>?,
+    private val myVotes: MutableList<OnChainVote>?,
     var listener: CheckListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -57,11 +59,11 @@ class OnChainProposalListAdapter(
 
                 when {
                     votingPeriods.isNotEmpty() && holder.itemViewType == VIEW_TYPE_VOTING_ITEM -> holder.bind(
-                        selectedChain, votingPeriods[votingIndex],toVoteList, listener
+                        selectedChain, votingPeriods[votingIndex],toVoteList, myVotes, listener
                     )
 
                     etcIndex >= 0 && holder.itemViewType == VIEW_TYPE_VOTED_ITEM -> holder.bind(
-                        selectedChain, etcPeriods[etcIndex], toVoteList, listener
+                        selectedChain, etcPeriods[etcIndex], toVoteList, checkListener = listener
                     )
                 }
             }

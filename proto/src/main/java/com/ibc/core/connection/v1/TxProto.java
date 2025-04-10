@@ -1619,7 +1619,7 @@ public final class TxProto {
      *
      * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
      * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-     *     See ibc/core/connection/v1/tx.proto;l=57
+     *     See ibc/core/connection/v1/tx.proto;l=61
      * @return The previousConnectionId.
      */
     @java.lang.Deprecated java.lang.String getPreviousConnectionId();
@@ -1630,26 +1630,42 @@ public final class TxProto {
      *
      * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
      * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-     *     See ibc/core/connection/v1/tx.proto;l=57
+     *     See ibc/core/connection/v1/tx.proto;l=61
      * @return The bytes for previousConnectionId.
      */
     @java.lang.Deprecated com.google.protobuf.ByteString
         getPreviousConnectionIdBytes();
 
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=63
      * @return Whether the clientState field is set.
      */
-    boolean hasClientState();
+    @java.lang.Deprecated boolean hasClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=63
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    @java.lang.Deprecated com.google.protobuf.Any getClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    @java.lang.Deprecated com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 4 [json_name = "counterparty", (.gogoproto.nullable) = false];</code>
@@ -1713,7 +1729,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * proof of the initialization the connection on Chain A: `UNITIALIZED -&gt;
+     * proof of the initialization the connection on Chain A: `UNINITIALIZED -&gt;
      * INIT`
      * </pre>
      *
@@ -1724,38 +1740,58 @@ public final class TxProto {
 
     /**
      * <pre>
-     * proof of client state included in message
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_client = 9 [json_name = "proofClient"];</code>
+     * <code>bytes proof_client = 9 [json_name = "proofClient", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_client is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=72
      * @return The proofClient.
      */
-    com.google.protobuf.ByteString getProofClient();
+    @java.lang.Deprecated com.google.protobuf.ByteString getProofClient();
 
     /**
      * <pre>
-     * proof of client consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_consensus = 10 [json_name = "proofConsensus"];</code>
+     * <code>bytes proof_consensus = 10 [json_name = "proofConsensus", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_consensus is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=74
      * @return The proofConsensus.
      */
-    com.google.protobuf.ByteString getProofConsensus();
+    @java.lang.Deprecated com.google.protobuf.ByteString getProofConsensus();
 
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=76
      * @return Whether the consensusHeight field is set.
      */
-    boolean hasConsensusHeight();
+    @java.lang.Deprecated boolean hasConsensusHeight();
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=76
      * @return The consensusHeight.
      */
-    com.ibc.core.client.v1.ClientProto.Height getConsensusHeight();
+    @java.lang.Deprecated com.ibc.core.client.v1.ClientProto.Height getConsensusHeight();
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
      */
-    com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder();
+    @java.lang.Deprecated com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder();
 
     /**
      * <code>string signer = 12 [json_name = "signer"];</code>
@@ -1771,13 +1807,15 @@ public final class TxProto {
 
     /**
      * <pre>
-     * optional proof data for host state machines that are unable to introspect their own consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof"];</code>
+     * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.host_consensus_state_proof is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=79
      * @return The hostConsensusStateProof.
      */
-    com.google.protobuf.ByteString getHostConsensusStateProof();
+    @java.lang.Deprecated com.google.protobuf.ByteString getHostConsensusStateProof();
   }
   /**
    * <pre>
@@ -1876,7 +1914,7 @@ public final class TxProto {
      *
      * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
      * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-     *     See ibc/core/connection/v1/tx.proto;l=57
+     *     See ibc/core/connection/v1/tx.proto;l=61
      * @return The previousConnectionId.
      */
     @java.lang.Override
@@ -1899,7 +1937,7 @@ public final class TxProto {
      *
      * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
      * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-     *     See ibc/core/connection/v1/tx.proto;l=57
+     *     See ibc/core/connection/v1/tx.proto;l=61
      * @return The bytes for previousConnectionId.
      */
     @java.lang.Override
@@ -1920,26 +1958,42 @@ public final class TxProto {
     public static final int CLIENT_STATE_FIELD_NUMBER = 3;
     private com.google.protobuf.Any clientState_;
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=63
      * @return Whether the clientState field is set.
      */
     @java.lang.Override
-    public boolean hasClientState() {
+    @java.lang.Deprecated public boolean hasClientState() {
       return clientState_ != null;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=63
      * @return The clientState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getClientState() {
+    @java.lang.Deprecated public com.google.protobuf.Any getClientState() {
       return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
       return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
     }
 
@@ -2051,7 +2105,7 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofInit_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of the initialization the connection on Chain A: `UNITIALIZED -&gt;
+     * proof of the initialization the connection on Chain A: `UNINITIALIZED -&gt;
      * INIT`
      * </pre>
      *
@@ -2067,14 +2121,16 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofClient_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of client state included in message
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_client = 9 [json_name = "proofClient"];</code>
+     * <code>bytes proof_client = 9 [json_name = "proofClient", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_client is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=72
      * @return The proofClient.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getProofClient() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getProofClient() {
       return proofClient_;
     }
 
@@ -2082,40 +2138,58 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofConsensus_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of client consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_consensus = 10 [json_name = "proofConsensus"];</code>
+     * <code>bytes proof_consensus = 10 [json_name = "proofConsensus", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_consensus is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=74
      * @return The proofConsensus.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getProofConsensus() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getProofConsensus() {
       return proofConsensus_;
     }
 
     public static final int CONSENSUS_HEIGHT_FIELD_NUMBER = 11;
     private com.ibc.core.client.v1.ClientProto.Height consensusHeight_;
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=76
      * @return Whether the consensusHeight field is set.
      */
     @java.lang.Override
-    public boolean hasConsensusHeight() {
+    @java.lang.Deprecated public boolean hasConsensusHeight() {
       return consensusHeight_ != null;
     }
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=76
      * @return The consensusHeight.
      */
     @java.lang.Override
-    public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
+    @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
       return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
     }
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
+    @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
       return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
     }
 
@@ -2162,14 +2236,16 @@ public final class TxProto {
     private com.google.protobuf.ByteString hostConsensusStateProof_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * optional proof data for host state machines that are unable to introspect their own consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof"];</code>
+     * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.host_consensus_state_proof is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=79
      * @return The hostConsensusStateProof.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getHostConsensusStateProof() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getHostConsensusStateProof() {
       return hostConsensusStateProof_;
     }
 
@@ -2964,7 +3040,7 @@ public final class TxProto {
        *
        * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
        * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-       *     See ibc/core/connection/v1/tx.proto;l=57
+       *     See ibc/core/connection/v1/tx.proto;l=61
        * @return The previousConnectionId.
        */
       @java.lang.Deprecated public java.lang.String getPreviousConnectionId() {
@@ -2986,7 +3062,7 @@ public final class TxProto {
        *
        * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
        * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-       *     See ibc/core/connection/v1/tx.proto;l=57
+       *     See ibc/core/connection/v1/tx.proto;l=61
        * @return The bytes for previousConnectionId.
        */
       @java.lang.Deprecated public com.google.protobuf.ByteString
@@ -3009,7 +3085,7 @@ public final class TxProto {
        *
        * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
        * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-       *     See ibc/core/connection/v1/tx.proto;l=57
+       *     See ibc/core/connection/v1/tx.proto;l=61
        * @param value The previousConnectionId to set.
        * @return This builder for chaining.
        */
@@ -3028,7 +3104,7 @@ public final class TxProto {
        *
        * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
        * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-       *     See ibc/core/connection/v1/tx.proto;l=57
+       *     See ibc/core/connection/v1/tx.proto;l=61
        * @return This builder for chaining.
        */
       @java.lang.Deprecated public Builder clearPreviousConnectionId() {
@@ -3044,7 +3120,7 @@ public final class TxProto {
        *
        * <code>string previous_connection_id = 2 [json_name = "previousConnectionId", deprecated = true];</code>
        * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.previous_connection_id is deprecated.
-       *     See ibc/core/connection/v1/tx.proto;l=57
+       *     See ibc/core/connection/v1/tx.proto;l=61
        * @param value The bytes for previousConnectionId to set.
        * @return This builder for chaining.
        */
@@ -3062,17 +3138,29 @@ public final class TxProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=63
        * @return Whether the clientState field is set.
        */
-      public boolean hasClientState() {
+      @java.lang.Deprecated public boolean hasClientState() {
         return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.client_state is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=63
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      @java.lang.Deprecated public com.google.protobuf.Any getClientState() {
         if (clientStateBuilder_ == null) {
           return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
         } else {
@@ -3080,9 +3168,13 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder setClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3096,9 +3188,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder setClientState(
+      @java.lang.Deprecated public Builder setClientState(
           com.google.protobuf.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
@@ -3110,9 +3206,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder mergeClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (((bitField0_ & 0x00000004) != 0) &&
             clientState_ != null &&
@@ -3129,9 +3229,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder clearClientState() {
+      @java.lang.Deprecated public Builder clearClientState() {
         bitField0_ = (bitField0_ & ~0x00000004);
         clientState_ = null;
         if (clientStateBuilder_ != null) {
@@ -3142,17 +3246,25 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      @java.lang.Deprecated public com.google.protobuf.Any.Builder getClientStateBuilder() {
         bitField0_ |= 0x00000004;
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
@@ -3161,7 +3273,11 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 3 [json_name = "clientState", deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
@@ -3690,7 +3806,7 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofInit_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of the initialization the connection on Chain A: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain A: `UNINITIALIZED -&gt;
        * INIT`
        * </pre>
        *
@@ -3703,7 +3819,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of the initialization the connection on Chain A: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain A: `UNINITIALIZED -&gt;
        * INIT`
        * </pre>
        *
@@ -3720,7 +3836,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of the initialization the connection on Chain A: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain A: `UNINITIALIZED -&gt;
        * INIT`
        * </pre>
        *
@@ -3737,26 +3853,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofClient_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 9 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 9 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=72
        * @return The proofClient.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getProofClient() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getProofClient() {
         return proofClient_;
       }
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 9 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 9 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=72
        * @param value The proofClient to set.
        * @return This builder for chaining.
        */
-      public Builder setProofClient(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setProofClient(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         proofClient_ = value;
         bitField0_ |= 0x00000100;
@@ -3765,13 +3885,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 9 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 9 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=72
        * @return This builder for chaining.
        */
-      public Builder clearProofClient() {
+      @java.lang.Deprecated public Builder clearProofClient() {
         bitField0_ = (bitField0_ & ~0x00000100);
         proofClient_ = getDefaultInstance().getProofClient();
         onChanged();
@@ -3781,26 +3903,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofConsensus_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=74
        * @return The proofConsensus.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getProofConsensus() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getProofConsensus() {
         return proofConsensus_;
       }
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=74
        * @param value The proofConsensus to set.
        * @return This builder for chaining.
        */
-      public Builder setProofConsensus(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setProofConsensus(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         proofConsensus_ = value;
         bitField0_ |= 0x00000200;
@@ -3809,13 +3935,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 10 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=74
        * @return This builder for chaining.
        */
-      public Builder clearProofConsensus() {
+      @java.lang.Deprecated public Builder clearProofConsensus() {
         bitField0_ = (bitField0_ & ~0x00000200);
         proofConsensus_ = getDefaultInstance().getProofConsensus();
         onChanged();
@@ -3826,17 +3954,29 @@ public final class TxProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> consensusHeightBuilder_;
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=76
        * @return Whether the consensusHeight field is set.
        */
-      public boolean hasConsensusHeight() {
+      @java.lang.Deprecated public boolean hasConsensusHeight() {
         return ((bitField0_ & 0x00000400) != 0);
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.consensus_height is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=76
        * @return The consensusHeight.
        */
-      public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
         if (consensusHeightBuilder_ == null) {
           return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
         } else {
@@ -3844,9 +3984,13 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder setConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+      @java.lang.Deprecated public Builder setConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
         if (consensusHeightBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3860,9 +4004,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder setConsensusHeight(
+      @java.lang.Deprecated public Builder setConsensusHeight(
           com.ibc.core.client.v1.ClientProto.Height.Builder builderForValue) {
         if (consensusHeightBuilder_ == null) {
           consensusHeight_ = builderForValue.build();
@@ -3874,9 +4022,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder mergeConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+      @java.lang.Deprecated public Builder mergeConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
         if (consensusHeightBuilder_ == null) {
           if (((bitField0_ & 0x00000400) != 0) &&
             consensusHeight_ != null &&
@@ -3893,9 +4045,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder clearConsensusHeight() {
+      @java.lang.Deprecated public Builder clearConsensusHeight() {
         bitField0_ = (bitField0_ & ~0x00000400);
         consensusHeight_ = null;
         if (consensusHeightBuilder_ != null) {
@@ -3906,17 +4062,25 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public com.ibc.core.client.v1.ClientProto.Height.Builder getConsensusHeightBuilder() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height.Builder getConsensusHeightBuilder() {
         bitField0_ |= 0x00000400;
         onChanged();
         return getConsensusHeightFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
         if (consensusHeightBuilder_ != null) {
           return consensusHeightBuilder_.getMessageOrBuilder();
         } else {
@@ -3925,7 +4089,11 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 11 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> 
@@ -4016,26 +4184,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString hostConsensusStateProof_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=79
        * @return The hostConsensusStateProof.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getHostConsensusStateProof() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getHostConsensusStateProof() {
         return hostConsensusStateProof_;
       }
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=79
        * @param value The hostConsensusStateProof to set.
        * @return This builder for chaining.
        */
-      public Builder setHostConsensusStateProof(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setHostConsensusStateProof(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         hostConsensusStateProof_ = value;
         bitField0_ |= 0x00001000;
@@ -4044,13 +4216,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 13 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenTry.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=79
        * @return This builder for chaining.
        */
-      public Builder clearHostConsensusStateProof() {
+      @java.lang.Deprecated public Builder clearHostConsensusStateProof() {
         bitField0_ = (bitField0_ & ~0x00001000);
         hostConsensusStateProof_ = getDefaultInstance().getHostConsensusStateProof();
         onChanged();
@@ -4569,19 +4743,35 @@ public final class TxProto {
     com.ibc.core.connection.v1.ConnectionProto.VersionOrBuilder getVersionOrBuilder();
 
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=96
      * @return Whether the clientState field is set.
      */
-    boolean hasClientState();
+    @java.lang.Deprecated boolean hasClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=96
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    @java.lang.Deprecated com.google.protobuf.Any getClientState();
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    @java.lang.Deprecated com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 5 [json_name = "proofHeight", (.gogoproto.nullable) = false];</code>
@@ -4600,7 +4790,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * proof of the initialization the connection on Chain B: `UNITIALIZED -&gt;
+     * proof of the initialization the connection on Chain B: `UNINITIALIZED -&gt;
      * TRYOPEN`
      * </pre>
      *
@@ -4611,38 +4801,58 @@ public final class TxProto {
 
     /**
      * <pre>
-     * proof of client state included in message
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_client = 7 [json_name = "proofClient"];</code>
+     * <code>bytes proof_client = 7 [json_name = "proofClient", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_client is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=102
      * @return The proofClient.
      */
-    com.google.protobuf.ByteString getProofClient();
+    @java.lang.Deprecated com.google.protobuf.ByteString getProofClient();
 
     /**
      * <pre>
-     * proof of client consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_consensus = 8 [json_name = "proofConsensus"];</code>
+     * <code>bytes proof_consensus = 8 [json_name = "proofConsensus", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_consensus is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=104
      * @return The proofConsensus.
      */
-    com.google.protobuf.ByteString getProofConsensus();
+    @java.lang.Deprecated com.google.protobuf.ByteString getProofConsensus();
 
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=106
      * @return Whether the consensusHeight field is set.
      */
-    boolean hasConsensusHeight();
+    @java.lang.Deprecated boolean hasConsensusHeight();
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=106
      * @return The consensusHeight.
      */
-    com.ibc.core.client.v1.ClientProto.Height getConsensusHeight();
+    @java.lang.Deprecated com.ibc.core.client.v1.ClientProto.Height getConsensusHeight();
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
      */
-    com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder();
+    @java.lang.Deprecated com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder();
 
     /**
      * <code>string signer = 10 [json_name = "signer"];</code>
@@ -4658,13 +4868,15 @@ public final class TxProto {
 
     /**
      * <pre>
-     * optional proof data for host state machines that are unable to introspect their own consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof"];</code>
+     * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.host_consensus_state_proof is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=109
      * @return The hostConsensusStateProof.
      */
-    com.google.protobuf.ByteString getHostConsensusStateProof();
+    @java.lang.Deprecated com.google.protobuf.ByteString getHostConsensusStateProof();
   }
   /**
    * <pre>
@@ -4820,26 +5032,42 @@ public final class TxProto {
     public static final int CLIENT_STATE_FIELD_NUMBER = 4;
     private com.google.protobuf.Any clientState_;
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=96
      * @return Whether the clientState field is set.
      */
     @java.lang.Override
-    public boolean hasClientState() {
+    @java.lang.Deprecated public boolean hasClientState() {
       return clientState_ != null;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=96
      * @return The clientState.
      */
     @java.lang.Override
-    public com.google.protobuf.Any getClientState() {
+    @java.lang.Deprecated public com.google.protobuf.Any getClientState() {
       return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
     }
     /**
-     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
      */
     @java.lang.Override
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
       return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
     }
 
@@ -4873,7 +5101,7 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofTry_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of the initialization the connection on Chain B: `UNITIALIZED -&gt;
+     * proof of the initialization the connection on Chain B: `UNINITIALIZED -&gt;
      * TRYOPEN`
      * </pre>
      *
@@ -4889,14 +5117,16 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofClient_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of client state included in message
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_client = 7 [json_name = "proofClient"];</code>
+     * <code>bytes proof_client = 7 [json_name = "proofClient", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_client is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=102
      * @return The proofClient.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getProofClient() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getProofClient() {
       return proofClient_;
     }
 
@@ -4904,40 +5134,58 @@ public final class TxProto {
     private com.google.protobuf.ByteString proofConsensus_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * proof of client consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes proof_consensus = 8 [json_name = "proofConsensus"];</code>
+     * <code>bytes proof_consensus = 8 [json_name = "proofConsensus", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_consensus is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=104
      * @return The proofConsensus.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getProofConsensus() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getProofConsensus() {
       return proofConsensus_;
     }
 
     public static final int CONSENSUS_HEIGHT_FIELD_NUMBER = 9;
     private com.ibc.core.client.v1.ClientProto.Height consensusHeight_;
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=106
      * @return Whether the consensusHeight field is set.
      */
     @java.lang.Override
-    public boolean hasConsensusHeight() {
+    @java.lang.Deprecated public boolean hasConsensusHeight() {
       return consensusHeight_ != null;
     }
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=106
      * @return The consensusHeight.
      */
     @java.lang.Override
-    public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
+    @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
       return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
     }
     /**
-     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+     * <pre>
+     * Deprecated: this field is unused.
+     * </pre>
+     *
+     * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
      */
     @java.lang.Override
-    public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
+    @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
       return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
     }
 
@@ -4984,14 +5232,16 @@ public final class TxProto {
     private com.google.protobuf.ByteString hostConsensusStateProof_ = com.google.protobuf.ByteString.EMPTY;
     /**
      * <pre>
-     * optional proof data for host state machines that are unable to introspect their own consensus state
+     * Deprecated: this field is unused.
      * </pre>
      *
-     * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof"];</code>
+     * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+     * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.host_consensus_state_proof is deprecated.
+     *     See ibc/core/connection/v1/tx.proto;l=109
      * @return The hostConsensusStateProof.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getHostConsensusStateProof() {
+    @java.lang.Deprecated public com.google.protobuf.ByteString getHostConsensusStateProof() {
       return hostConsensusStateProof_;
     }
 
@@ -5877,17 +6127,29 @@ public final class TxProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=96
        * @return Whether the clientState field is set.
        */
-      public boolean hasClientState() {
+      @java.lang.Deprecated public boolean hasClientState() {
         return ((bitField0_ & 0x00000008) != 0);
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.client_state is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=96
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      @java.lang.Deprecated public com.google.protobuf.Any getClientState() {
         if (clientStateBuilder_ == null) {
           return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
         } else {
@@ -5895,9 +6157,13 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder setClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5911,9 +6177,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder setClientState(
+      @java.lang.Deprecated public Builder setClientState(
           com.google.protobuf.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
@@ -5925,9 +6195,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      @java.lang.Deprecated public Builder mergeClientState(com.google.protobuf.Any value) {
         if (clientStateBuilder_ == null) {
           if (((bitField0_ & 0x00000008) != 0) &&
             clientState_ != null &&
@@ -5944,9 +6218,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public Builder clearClientState() {
+      @java.lang.Deprecated public Builder clearClientState() {
         bitField0_ = (bitField0_ & ~0x00000008);
         clientState_ = null;
         if (clientStateBuilder_ != null) {
@@ -5957,17 +6235,25 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      @java.lang.Deprecated public com.google.protobuf.Any.Builder getClientStateBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
@@ -5976,7 +6262,11 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState"];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any client_state = 4 [json_name = "clientState", deprecated = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
@@ -6114,7 +6404,7 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofTry_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of the initialization the connection on Chain B: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain B: `UNINITIALIZED -&gt;
        * TRYOPEN`
        * </pre>
        *
@@ -6127,7 +6417,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of the initialization the connection on Chain B: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain B: `UNINITIALIZED -&gt;
        * TRYOPEN`
        * </pre>
        *
@@ -6144,7 +6434,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of the initialization the connection on Chain B: `UNITIALIZED -&gt;
+       * proof of the initialization the connection on Chain B: `UNINITIALIZED -&gt;
        * TRYOPEN`
        * </pre>
        *
@@ -6161,26 +6451,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofClient_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 7 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 7 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=102
        * @return The proofClient.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getProofClient() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getProofClient() {
         return proofClient_;
       }
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 7 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 7 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=102
        * @param value The proofClient to set.
        * @return This builder for chaining.
        */
-      public Builder setProofClient(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setProofClient(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         proofClient_ = value;
         bitField0_ |= 0x00000040;
@@ -6189,13 +6483,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of client state included in message
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_client = 7 [json_name = "proofClient"];</code>
+       * <code>bytes proof_client = 7 [json_name = "proofClient", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_client is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=102
        * @return This builder for chaining.
        */
-      public Builder clearProofClient() {
+      @java.lang.Deprecated public Builder clearProofClient() {
         bitField0_ = (bitField0_ & ~0x00000040);
         proofClient_ = getDefaultInstance().getProofClient();
         onChanged();
@@ -6205,26 +6501,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString proofConsensus_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=104
        * @return The proofConsensus.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getProofConsensus() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getProofConsensus() {
         return proofConsensus_;
       }
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=104
        * @param value The proofConsensus to set.
        * @return This builder for chaining.
        */
-      public Builder setProofConsensus(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setProofConsensus(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         proofConsensus_ = value;
         bitField0_ |= 0x00000080;
@@ -6233,13 +6533,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * proof of client consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus"];</code>
+       * <code>bytes proof_consensus = 8 [json_name = "proofConsensus", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.proof_consensus is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=104
        * @return This builder for chaining.
        */
-      public Builder clearProofConsensus() {
+      @java.lang.Deprecated public Builder clearProofConsensus() {
         bitField0_ = (bitField0_ & ~0x00000080);
         proofConsensus_ = getDefaultInstance().getProofConsensus();
         onChanged();
@@ -6250,17 +6552,29 @@ public final class TxProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> consensusHeightBuilder_;
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=106
        * @return Whether the consensusHeight field is set.
        */
-      public boolean hasConsensusHeight() {
+      @java.lang.Deprecated public boolean hasConsensusHeight() {
         return ((bitField0_ & 0x00000100) != 0);
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.consensus_height is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=106
        * @return The consensusHeight.
        */
-      public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height getConsensusHeight() {
         if (consensusHeightBuilder_ == null) {
           return consensusHeight_ == null ? com.ibc.core.client.v1.ClientProto.Height.getDefaultInstance() : consensusHeight_;
         } else {
@@ -6268,9 +6582,13 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder setConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+      @java.lang.Deprecated public Builder setConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
         if (consensusHeightBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -6284,9 +6602,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder setConsensusHeight(
+      @java.lang.Deprecated public Builder setConsensusHeight(
           com.ibc.core.client.v1.ClientProto.Height.Builder builderForValue) {
         if (consensusHeightBuilder_ == null) {
           consensusHeight_ = builderForValue.build();
@@ -6298,9 +6620,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder mergeConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
+      @java.lang.Deprecated public Builder mergeConsensusHeight(com.ibc.core.client.v1.ClientProto.Height value) {
         if (consensusHeightBuilder_ == null) {
           if (((bitField0_ & 0x00000100) != 0) &&
             consensusHeight_ != null &&
@@ -6317,9 +6643,13 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public Builder clearConsensusHeight() {
+      @java.lang.Deprecated public Builder clearConsensusHeight() {
         bitField0_ = (bitField0_ & ~0x00000100);
         consensusHeight_ = null;
         if (consensusHeightBuilder_ != null) {
@@ -6330,17 +6660,25 @@ public final class TxProto {
         return this;
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public com.ibc.core.client.v1.ClientProto.Height.Builder getConsensusHeightBuilder() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.Height.Builder getConsensusHeightBuilder() {
         bitField0_ |= 0x00000100;
         onChanged();
         return getConsensusHeightFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
-      public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
+      @java.lang.Deprecated public com.ibc.core.client.v1.ClientProto.HeightOrBuilder getConsensusHeightOrBuilder() {
         if (consensusHeightBuilder_ != null) {
           return consensusHeightBuilder_.getMessageOrBuilder();
         } else {
@@ -6349,7 +6687,11 @@ public final class TxProto {
         }
       }
       /**
-       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", (.gogoproto.nullable) = false];</code>
+       * <pre>
+       * Deprecated: this field is unused.
+       * </pre>
+       *
+       * <code>.ibc.core.client.v1.Height consensus_height = 9 [json_name = "consensusHeight", deprecated = true, (.gogoproto.nullable) = false];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.core.client.v1.ClientProto.Height, com.ibc.core.client.v1.ClientProto.Height.Builder, com.ibc.core.client.v1.ClientProto.HeightOrBuilder> 
@@ -6440,26 +6782,30 @@ public final class TxProto {
       private com.google.protobuf.ByteString hostConsensusStateProof_ = com.google.protobuf.ByteString.EMPTY;
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=109
        * @return The hostConsensusStateProof.
        */
       @java.lang.Override
-      public com.google.protobuf.ByteString getHostConsensusStateProof() {
+      @java.lang.Deprecated public com.google.protobuf.ByteString getHostConsensusStateProof() {
         return hostConsensusStateProof_;
       }
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=109
        * @param value The hostConsensusStateProof to set.
        * @return This builder for chaining.
        */
-      public Builder setHostConsensusStateProof(com.google.protobuf.ByteString value) {
+      @java.lang.Deprecated public Builder setHostConsensusStateProof(com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         hostConsensusStateProof_ = value;
         bitField0_ |= 0x00000400;
@@ -6468,13 +6814,15 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * optional proof data for host state machines that are unable to introspect their own consensus state
+       * Deprecated: this field is unused.
        * </pre>
        *
-       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof"];</code>
+       * <code>bytes host_consensus_state_proof = 11 [json_name = "hostConsensusStateProof", deprecated = true];</code>
+       * @deprecated ibc.core.connection.v1.MsgConnectionOpenAck.host_consensus_state_proof is deprecated.
+       *     See ibc/core/connection/v1/tx.proto;l=109
        * @return This builder for chaining.
        */
-      public Builder clearHostConsensusStateProof() {
+      @java.lang.Deprecated public Builder clearHostConsensusStateProof() {
         bitField0_ = (bitField0_ & ~0x00000400);
         hostConsensusStateProof_ = getDefaultInstance().getHostConsensusStateProof();
         onChanged();
@@ -8355,6 +8703,1293 @@ public final class TxProto {
 
   }
 
+  public interface MsgUpdateParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.connection.v1.MsgUpdateParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    com.ibc.core.connection.v1.ConnectionProto.Params getParams();
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder getParamsOrBuilder();
+  }
+  /**
+   * <pre>
+   * MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.connection.v1.MsgUpdateParams}
+   */
+  public static final class MsgUpdateParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.MsgUpdateParams)
+      MsgUpdateParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateParams.newBuilder() to construct.
+    private MsgUpdateParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateParams() {
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateParams();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.connection.v1.TxProto.MsgUpdateParams.class, com.ibc.core.connection.v1.TxProto.MsgUpdateParams.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 2;
+    private com.ibc.core.connection.v1.ConnectionProto.Params params_;
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public com.ibc.core.connection.v1.ConnectionProto.Params getParams() {
+      return params_ == null ? com.ibc.core.connection.v1.ConnectionProto.Params.getDefaultInstance() : params_;
+    }
+    /**
+     * <pre>
+     * params defines the connection parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder getParamsOrBuilder() {
+      return params_ == null ? com.ibc.core.connection.v1.ConnectionProto.Params.getDefaultInstance() : params_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (params_ != null) {
+        output.writeMessage(2, getParams());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getParams());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.connection.v1.TxProto.MsgUpdateParams)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.connection.v1.TxProto.MsgUpdateParams other = (com.ibc.core.connection.v1.TxProto.MsgUpdateParams) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.connection.v1.TxProto.MsgUpdateParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.connection.v1.MsgUpdateParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.connection.v1.MsgUpdateParams)
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.connection.v1.TxProto.MsgUpdateParams.class, com.ibc.core.connection.v1.TxProto.MsgUpdateParams.Builder.class);
+      }
+
+      // Construct using com.ibc.core.connection.v1.TxProto.MsgUpdateParams.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        signer_ = "";
+        params_ = null;
+        if (paramsBuilder_ != null) {
+          paramsBuilder_.dispose();
+          paramsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParams getDefaultInstanceForType() {
+        return com.ibc.core.connection.v1.TxProto.MsgUpdateParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParams build() {
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParams buildPartial() {
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParams result = new com.ibc.core.connection.v1.TxProto.MsgUpdateParams(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.connection.v1.TxProto.MsgUpdateParams result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.signer_ = signer_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.params_ = paramsBuilder_ == null
+              ? params_
+              : paramsBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.connection.v1.TxProto.MsgUpdateParams) {
+          return mergeFrom((com.ibc.core.connection.v1.TxProto.MsgUpdateParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.connection.v1.TxProto.MsgUpdateParams other) {
+        if (other == com.ibc.core.connection.v1.TxProto.MsgUpdateParams.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getParamsFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.ibc.core.connection.v1.ConnectionProto.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.connection.v1.ConnectionProto.Params, com.ibc.core.connection.v1.ConnectionProto.Params.Builder, com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       * @return The params.
+       */
+      public com.ibc.core.connection.v1.ConnectionProto.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? com.ibc.core.connection.v1.ConnectionProto.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(com.ibc.core.connection.v1.ConnectionProto.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(
+          com.ibc.core.connection.v1.ConnectionProto.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeParams(com.ibc.core.connection.v1.ConnectionProto.Params value) {
+        if (paramsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            params_ != null &&
+            params_ != com.ibc.core.connection.v1.ConnectionProto.Params.getDefaultInstance()) {
+            getParamsBuilder().mergeFrom(value);
+          } else {
+            params_ = value;
+          }
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearParams() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        params_ = null;
+        if (paramsBuilder_ != null) {
+          paramsBuilder_.dispose();
+          paramsBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.connection.v1.ConnectionProto.Params.Builder getParamsBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              com.ibc.core.connection.v1.ConnectionProto.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <pre>
+       * params defines the connection parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.core.connection.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.connection.v1.ConnectionProto.Params, com.ibc.core.connection.v1.ConnectionProto.Params.Builder, com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.core.connection.v1.ConnectionProto.Params, com.ibc.core.connection.v1.ConnectionProto.Params.Builder, com.ibc.core.connection.v1.ConnectionProto.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.connection.v1.MsgUpdateParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.connection.v1.MsgUpdateParams)
+    private static final com.ibc.core.connection.v1.TxProto.MsgUpdateParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.connection.v1.TxProto.MsgUpdateParams();
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateParams>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateParams>() {
+      @java.lang.Override
+      public MsgUpdateParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.connection.v1.TxProto.MsgUpdateParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdateParamsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.connection.v1.MsgUpdateParamsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgUpdateParamsResponse defines the MsgUpdateParams response type.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.connection.v1.MsgUpdateParamsResponse}
+   */
+  public static final class MsgUpdateParamsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.MsgUpdateParamsResponse)
+      MsgUpdateParamsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateParamsResponse.newBuilder() to construct.
+    private MsgUpdateParamsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateParamsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateParamsResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.class, com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse other = (com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgUpdateParamsResponse defines the MsgUpdateParams response type.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.connection.v1.MsgUpdateParamsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.connection.v1.MsgUpdateParamsResponse)
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.class, com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.connection.v1.TxProto.internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse getDefaultInstanceForType() {
+        return com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse build() {
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse buildPartial() {
+        com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse result = new com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse) {
+          return mergeFrom((com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse other) {
+        if (other == com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.connection.v1.MsgUpdateParamsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.connection.v1.MsgUpdateParamsResponse)
+    private static final com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse();
+    }
+
+    public static com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateParamsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateParamsResponse>() {
+      @java.lang.Override
+      public MsgUpdateParamsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateParamsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateParamsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.connection.v1.TxProto.MsgUpdateParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_connection_v1_MsgConnectionOpenInit_descriptor;
   private static final 
@@ -8395,6 +10030,16 @@ public final class TxProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_connection_v1_MsgConnectionOpenConfirmResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_connection_v1_MsgUpdateParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -8406,21 +10051,21 @@ public final class TxProto {
     java.lang.String[] descriptorData = {
       "\n\037ibc/core/connection/v1/tx.proto\022\026ibc.c" +
       "ore.connection.v1\032\024gogoproto/gogo.proto\032" +
-      "\031google/protobuf/any.proto\032\037ibc/core/cli" +
-      "ent/v1/client.proto\032\'ibc/core/connection" +
-      "/v1/connection.proto\032\027cosmos/msg/v1/msg." +
-      "proto\"\217\002\n\025MsgConnectionOpenInit\022\033\n\tclien" +
+      "\027cosmos/msg/v1/msg.proto\032\031google/protobu" +
+      "f/any.proto\032\037ibc/core/client/v1/client.p" +
+      "roto\032\'ibc/core/connection/v1/connection." +
+      "proto\"\213\002\n\025MsgConnectionOpenInit\022\033\n\tclien" +
       "t_id\030\001 \001(\tR\010clientId\022N\n\014counterparty\030\002 \001" +
       "(\0132$.ibc.core.connection.v1.Counterparty" +
       "B\004\310\336\037\000R\014counterparty\0229\n\007version\030\003 \001(\0132\037." +
       "ibc.core.connection.v1.VersionR\007version\022" +
       "!\n\014delay_period\030\004 \001(\004R\013delayPeriod\022\026\n\006si" +
-      "gner\030\005 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"" +
-      "\037\n\035MsgConnectionOpenInitResponse\"\326\005\n\024Msg" +
-      "ConnectionOpenTry\022\033\n\tclient_id\030\001 \001(\tR\010cl" +
-      "ientId\0228\n\026previous_connection_id\030\002 \001(\tB\002" +
-      "\030\001R\024previousConnectionId\0227\n\014client_state" +
-      "\030\003 \001(\0132\024.google.protobuf.AnyR\013clientStat" +
+      "gner\030\005 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"\037\n\035M" +
+      "sgConnectionOpenInitResponse\"\344\005\n\024MsgConn" +
+      "ectionOpenTry\022\033\n\tclient_id\030\001 \001(\tR\010client" +
+      "Id\0228\n\026previous_connection_id\030\002 \001(\tB\002\030\001R\024" +
+      "previousConnectionId\022;\n\014client_state\030\003 \001" +
+      "(\0132\024.google.protobuf.AnyB\002\030\001R\013clientStat" +
       "e\022N\n\014counterparty\030\004 \001(\0132$.ibc.core.conne" +
       "ction.v1.CounterpartyB\004\310\336\037\000R\014counterpart" +
       "y\022!\n\014delay_period\030\005 \001(\004R\013delayPeriod\022T\n\025" +
@@ -8428,64 +10073,71 @@ public final class TxProto {
       "onnection.v1.VersionR\024counterpartyVersio" +
       "ns\022C\n\014proof_height\030\007 \001(\0132\032.ibc.core.clie" +
       "nt.v1.HeightB\004\310\336\037\000R\013proofHeight\022\035\n\nproof" +
-      "_init\030\010 \001(\014R\tproofInit\022!\n\014proof_client\030\t" +
-      " \001(\014R\013proofClient\022\'\n\017proof_consensus\030\n \001" +
-      "(\014R\016proofConsensus\022K\n\020consensus_height\030\013" +
-      " \001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000R\017" +
-      "consensusHeight\022\026\n\006signer\030\014 \001(\tR\006signer\022" +
-      ";\n\032host_consensus_state_proof\030\r \001(\014R\027hos" +
-      "tConsensusStateProof:\023\210\240\037\000\350\240\037\000\202\347\260*\006signe" +
-      "r\"\036\n\034MsgConnectionOpenTryResponse\"\322\004\n\024Ms" +
-      "gConnectionOpenAck\022#\n\rconnection_id\030\001 \001(" +
-      "\tR\014connectionId\022<\n\032counterparty_connecti" +
-      "on_id\030\002 \001(\tR\030counterpartyConnectionId\0229\n" +
-      "\007version\030\003 \001(\0132\037.ibc.core.connection.v1." +
-      "VersionR\007version\0227\n\014client_state\030\004 \001(\0132\024" +
-      ".google.protobuf.AnyR\013clientState\022C\n\014pro" +
-      "of_height\030\005 \001(\0132\032.ibc.core.client.v1.Hei" +
-      "ghtB\004\310\336\037\000R\013proofHeight\022\033\n\tproof_try\030\006 \001(" +
-      "\014R\010proofTry\022!\n\014proof_client\030\007 \001(\014R\013proof" +
-      "Client\022\'\n\017proof_consensus\030\010 \001(\014R\016proofCo" +
-      "nsensus\022K\n\020consensus_height\030\t \001(\0132\032.ibc." +
-      "core.client.v1.HeightB\004\310\336\037\000R\017consensusHe" +
-      "ight\022\026\n\006signer\030\n \001(\tR\006signer\022;\n\032host_con" +
-      "sensus_state_proof\030\013 \001(\014R\027hostConsensusS" +
-      "tateProof:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\036\n\034MsgCon" +
-      "nectionOpenAckResponse\"\316\001\n\030MsgConnection" +
-      "OpenConfirm\022#\n\rconnection_id\030\001 \001(\tR\014conn" +
-      "ectionId\022\033\n\tproof_ack\030\002 \001(\014R\010proofAck\022C\n" +
-      "\014proof_height\030\003 \001(\0132\032.ibc.core.client.v1" +
-      ".HeightB\004\310\336\037\000R\013proofHeight\022\026\n\006signer\030\004 \001" +
-      "(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\"\n MsgCo" +
-      "nnectionOpenConfirmResponse2\371\003\n\003Msg\022z\n\022C" +
-      "onnectionOpenInit\022-.ibc.core.connection." +
-      "v1.MsgConnectionOpenInit\0325.ibc.core.conn" +
-      "ection.v1.MsgConnectionOpenInitResponse\022" +
-      "w\n\021ConnectionOpenTry\022,.ibc.core.connecti" +
-      "on.v1.MsgConnectionOpenTry\0324.ibc.core.co" +
-      "nnection.v1.MsgConnectionOpenTryResponse" +
-      "\022w\n\021ConnectionOpenAck\022,.ibc.core.connect" +
-      "ion.v1.MsgConnectionOpenAck\0324.ibc.core.c" +
-      "onnection.v1.MsgConnectionOpenAckRespons" +
-      "e\022\203\001\n\025ConnectionOpenConfirm\0220.ibc.core.c" +
-      "onnection.v1.MsgConnectionOpenConfirm\0328." +
-      "ibc.core.connection.v1.MsgConnectionOpen" +
-      "ConfirmResponseB\334\001\n\032com.ibc.core.connect" +
-      "ion.v1B\007TxProtoZ<github.com/cosmos/ibc-g" +
-      "o/v7/modules/core/03-connection/types\242\002\003" +
-      "ICC\252\002\026Ibc.Core.Connection.V1\312\002\026Ibc\\Core\\" +
-      "Connection\\V1\342\002\"Ibc\\Core\\Connection\\V1\\G" +
-      "PBMetadata\352\002\031Ibc::Core::Connection::V1b\006" +
-      "proto3"
+      "_init\030\010 \001(\014R\tproofInit\022%\n\014proof_client\030\t" +
+      " \001(\014B\002\030\001R\013proofClient\022+\n\017proof_consensus" +
+      "\030\n \001(\014B\002\030\001R\016proofConsensus\022M\n\020consensus_" +
+      "height\030\013 \001(\0132\032.ibc.core.client.v1.Height" +
+      "B\006\030\001\310\336\037\000R\017consensusHeight\022\026\n\006signer\030\014 \001(" +
+      "\tR\006signer\022?\n\032host_consensus_state_proof\030" +
+      "\r \001(\014B\002\030\001R\027hostConsensusStateProof:\017\210\240\037\000" +
+      "\202\347\260*\006signer\"\036\n\034MsgConnectionOpenTryRespo" +
+      "nse\"\340\004\n\024MsgConnectionOpenAck\022#\n\rconnecti" +
+      "on_id\030\001 \001(\tR\014connectionId\022<\n\032counterpart" +
+      "y_connection_id\030\002 \001(\tR\030counterpartyConne" +
+      "ctionId\0229\n\007version\030\003 \001(\0132\037.ibc.core.conn" +
+      "ection.v1.VersionR\007version\022;\n\014client_sta" +
+      "te\030\004 \001(\0132\024.google.protobuf.AnyB\002\030\001R\013clie" +
+      "ntState\022C\n\014proof_height\030\005 \001(\0132\032.ibc.core" +
+      ".client.v1.HeightB\004\310\336\037\000R\013proofHeight\022\033\n\t" +
+      "proof_try\030\006 \001(\014R\010proofTry\022%\n\014proof_clien" +
+      "t\030\007 \001(\014B\002\030\001R\013proofClient\022+\n\017proof_consen" +
+      "sus\030\010 \001(\014B\002\030\001R\016proofConsensus\022M\n\020consens" +
+      "us_height\030\t \001(\0132\032.ibc.core.client.v1.Hei" +
+      "ghtB\006\030\001\310\336\037\000R\017consensusHeight\022\026\n\006signer\030\n" +
+      " \001(\tR\006signer\022?\n\032host_consensus_state_pro" +
+      "of\030\013 \001(\014B\002\030\001R\027hostConsensusStateProof:\017\210" +
+      "\240\037\000\202\347\260*\006signer\"\036\n\034MsgConnectionOpenAckRe" +
+      "sponse\"\312\001\n\030MsgConnectionOpenConfirm\022#\n\rc" +
+      "onnection_id\030\001 \001(\tR\014connectionId\022\033\n\tproo" +
+      "f_ack\030\002 \001(\014R\010proofAck\022C\n\014proof_height\030\003 " +
+      "\001(\0132\032.ibc.core.client.v1.HeightB\004\310\336\037\000R\013p" +
+      "roofHeight\022\026\n\006signer\030\004 \001(\tR\006signer:\017\210\240\037\000" +
+      "\202\347\260*\006signer\"\"\n MsgConnectionOpenConfirmR" +
+      "esponse\"x\n\017MsgUpdateParams\022\026\n\006signer\030\001 \001" +
+      "(\tR\006signer\022<\n\006params\030\002 \001(\0132\036.ibc.core.co" +
+      "nnection.v1.ParamsB\004\310\336\037\000R\006params:\017\210\240\037\000\202\347" +
+      "\260*\006signer\"\031\n\027MsgUpdateParamsResponse2\364\004\n" +
+      "\003Msg\022z\n\022ConnectionOpenInit\022-.ibc.core.co" +
+      "nnection.v1.MsgConnectionOpenInit\0325.ibc." +
+      "core.connection.v1.MsgConnectionOpenInit" +
+      "Response\022w\n\021ConnectionOpenTry\022,.ibc.core" +
+      ".connection.v1.MsgConnectionOpenTry\0324.ib" +
+      "c.core.connection.v1.MsgConnectionOpenTr" +
+      "yResponse\022w\n\021ConnectionOpenAck\022,.ibc.cor" +
+      "e.connection.v1.MsgConnectionOpenAck\0324.i" +
+      "bc.core.connection.v1.MsgConnectionOpenA" +
+      "ckResponse\022\203\001\n\025ConnectionOpenConfirm\0220.i" +
+      "bc.core.connection.v1.MsgConnectionOpenC" +
+      "onfirm\0328.ibc.core.connection.v1.MsgConne" +
+      "ctionOpenConfirmResponse\022r\n\026UpdateConnec" +
+      "tionParams\022\'.ibc.core.connection.v1.MsgU" +
+      "pdateParams\032/.ibc.core.connection.v1.Msg" +
+      "UpdateParamsResponse\032\005\200\347\260*\001B\335\001\n\032com.ibc." +
+      "core.connection.v1B\007TxProtoZ=github.com/" +
+      "cosmos/ibc-go/v10/modules/core/03-connec" +
+      "tion/types\242\002\003ICC\252\002\026Ibc.Core.Connection.V" +
+      "1\312\002\026Ibc\\Core\\Connection\\V1\342\002\"Ibc\\Core\\Co" +
+      "nnection\\V1\\GPBMetadata\352\002\031Ibc::Core::Con" +
+      "nection::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.gogoproto.GogoProto.getDescriptor(),
+          com.cosmos.msg.v1.MsgProto.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           com.ibc.core.client.v1.ClientProto.getDescriptor(),
           com.ibc.core.connection.v1.ConnectionProto.getDescriptor(),
-          com.cosmos.msg.v1.MsgProto.getDescriptor(),
         });
     internal_static_ibc_core_connection_v1_MsgConnectionOpenInit_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -8535,19 +10187,31 @@ public final class TxProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_connection_v1_MsgConnectionOpenConfirmResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_ibc_core_connection_v1_MsgUpdateParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_connection_v1_MsgUpdateParams_descriptor,
+        new java.lang.String[] { "Signer", "Params", });
+    internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_connection_v1_MsgUpdateParamsResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
-    registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.gogoproto.GogoProto.getDescriptor();
+    com.cosmos.msg.v1.MsgProto.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     com.ibc.core.client.v1.ClientProto.getDescriptor();
     com.ibc.core.connection.v1.ConnectionProto.getDescriptor();
-    com.cosmos.msg.v1.MsgProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

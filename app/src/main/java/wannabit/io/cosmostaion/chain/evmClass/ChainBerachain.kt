@@ -19,8 +19,6 @@ class ChainBerachain : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "BERA"
-    override var coinGeckoId: String = "berachain-bera"
-    override var coinLogo: Int = R.drawable.token_bera
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

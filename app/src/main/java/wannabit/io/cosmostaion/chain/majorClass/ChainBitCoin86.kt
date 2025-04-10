@@ -30,8 +30,6 @@ open class ChainBitCoin86 : BaseChain(), Parcelable {
     )
 
     override var coinSymbol: String = "BTC"
-    override var coinGeckoId: String = "bitcoin"
-    override var coinLogo: Int = R.drawable.token_btc
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-mainnet"
 

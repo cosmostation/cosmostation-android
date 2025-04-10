@@ -25,11 +25,11 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setImg
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
 import wannabit.io.cosmostaion.databinding.FragmentSuiSignBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -97,8 +97,7 @@ class PopUpSuiSignFragment(
                         val messageBytes = Base64.decode(txJsonObject["message"].asString)
                         updateData = txJsonObject["message"].asString
                         signature = Signer.suiSignature(
-                            selectedChain as ChainSui,
-                            txJsonObject["message"].asString
+                            selectedChain as ChainSui, txJsonObject["message"].asString
                         )[0]
 
                         withContext(Dispatchers.Main) {
@@ -181,6 +180,9 @@ class PopUpSuiSignFragment(
                                 loading.visibility = View.GONE
                                 binding.btnConfirm.isEnabled = true
                                 signData.text = format
+                                val coinGeckoId = BaseData.getAsset(
+                                    apiName, (selectedChain as ChainSui).stakeDenom
+                                )?.coinGeckoId
                                 val price = BaseData.getPrice(coinGeckoId)
                                 val dpBudget =
                                     gasCost.movePointLeft(9).setScale(9, RoundingMode.DOWN)

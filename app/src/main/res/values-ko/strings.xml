@@ -42,6 +42,7 @@
     <string name="str_high">높음</string>
     <string name="str_origin">원본</string>
     <string name="str_send">전송</string>
+    <string name="str_ibc_send">IBC 전송</string>
     <string name="str_insert_memo">메모를 입력하세요 (선택사항)</string>
     <string name="str_address_book">주소록</string>
     <string name="str_address_name_service">주소 또는 네임서비스</string>
@@ -133,6 +134,14 @@
     <string name="str_next_reward_distribution">다음 보상 분배</string>
     <string name="str_instant">즉시</string>
     <string name="str_endpoint_reset">End-Point 초기화</string>
+    <string name="str_supported_network">지원 네트워크</string>
+    <string name="str_support_community">소셜 커뮤니티</string>
+    <string name="str_hide_7_days">7일 동안 숨기기</string>
+    <string name="str_sort_alphabet">알파벳순 Asc. (A -> Z)</string>
+    <string name="str_sort_alphabet_description">알파벳 순으로 정렬</string>
+    <string name="str_sort_multi">다중 네트워크 지원</string>
+    <string name="str_sort_multi_description">지원되는 네트워크 수로 정렬</string>
+    <string name="str_select_chain">체인 선택</string>
 
 
     //title
@@ -250,9 +259,6 @@
     <string name="title_claimable_chains">리워드 대상 체인</string>
     <string name="str_claim_all">모두 수령</string>
     <string name="str_compounding_all">모두 컴파운딩</string>
-    <string name="title_select_end_point">End-Point 선택</string>
-    <string name="title_select_end_point_grpc">End-Point 선택</string>
-    <string name="title_select_end_point_rpc">End-Point 선택 (EVM RPC)</string>
     <string name="title_select_end_point_sui_rpc">End-Point 선택 (Sui RPC)</string>
     <string name="title_edit_token_list">토큰 편집</string>
     <string name="title_not_vote_list">라이브 프로포절</string>
@@ -265,7 +271,7 @@
     <string name="title_delist">지원 중단 안내</string>
     <string name="title_legacy_path">레거시 경로 지원 중단 안내</string>
     <string name="title_support_inject">인젝션 지원</string>
-    <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_select_option">정렬 옵션 선택</string>
 
 
     // msg
@@ -354,7 +360,7 @@
     <string name="str_endpoint_reset_msg">(권장됨)현재 사용자가 설정한 모든 체인의 엔드포인트를 기본 설정으로 초기화하시겠습니까?\n\nEnd-Point는 블록체인 네트워크와 연결을 관리하는 서버로, 안정적인 End-Point를 사용해야 원활하게 데이터를 주고받을 수 있습니다.</string>
     <string name="str_pending_state_msg">BABYLON 체인에서는 스테이킹 관련 기능(Stake, Unstake, Validator, Switch Validator, Unstake Cancel 등)을 실행하면 우선 Pending 상태로 시작됩니다.\n이후 현재 에포크가 종료되고 다음 에포크로 넘어가면, 해당 스테이킹 작업은 즉시 활성화 상태로 전환됩니다.</string>
     <string name="str_active_state_msg">Active 상태란 Pending 상태가 종료되고 실행한 기능들이 정상적으로 활성화되고 있는 상태를 의미합니다.\n이 상태에서는 사용자가 요청한 스테이킹 관련 기능들이 모두 정상적으로 동작하게 됩니다.</string>
-    <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 sBTC의 총합입니다.</string>
+    <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 %1$s의 총합입니다.</string>
 
 
     // error

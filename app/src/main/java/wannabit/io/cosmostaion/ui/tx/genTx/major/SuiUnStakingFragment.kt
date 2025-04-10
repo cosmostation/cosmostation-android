@@ -15,9 +15,9 @@ import androidx.core.content.ContextCompat
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -148,16 +148,20 @@ class SuiUnStakingFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            feeTokenImg.setImageResource(selectedChain.coinLogo)
-            feeToken.text = selectedChain.coinSymbol
-            suiFeeBudget = (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_UNSTAKE)
-            updateFeeView()
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                feeTokenImg.setTokenImg(asset)
+                feeToken.text = asset.symbol
+                suiFeeBudget =
+                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_UNSTAKE)
+                updateFeeView()
+            }
         }
     }
 
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainSui).apply {
+                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
@@ -182,8 +186,7 @@ class SuiUnStakingFragment(
                         )
                     } else {
                         requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
                         )
                     }
                 }

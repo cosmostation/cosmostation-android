@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
+class BtcFetcher(private val chain: BaseChain) {
 
     var btcBalances = BigDecimal.ZERO
     var btcPendingInput = BigDecimal.ZERO
@@ -21,11 +21,14 @@ class BtcFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     var btcBlockHeight: Long = 0
     var btcHistory: MutableList<JsonObject> = mutableListOf()
 
-    override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        val price = BaseData.getPrice(chain.coinGeckoId, isUsd)
-        return (btcBalances.add(btcPendingInput).add(btcStakingAmount()).add(btcUnStakingAmount())
-            .add(btcWithdrawAbleAmount())).multiply(price).movePointLeft(8)
-            .setScale(8, RoundingMode.DOWN)
+    fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            return (btcBalances.add(btcPendingInput).add(btcStakingAmount())
+                .add(btcUnStakingAmount()).add(btcWithdrawAbleAmount())).multiply(price)
+                .movePointLeft(8).setScale(8, RoundingMode.DOWN)
+        }
+        return BigDecimal.ZERO
     }
 
     fun btcStakingAmount(): BigDecimal {

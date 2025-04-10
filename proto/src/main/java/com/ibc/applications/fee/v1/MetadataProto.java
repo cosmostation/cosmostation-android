@@ -815,7 +815,7 @@ public final class MetadataProto {
       "\013fee_version\030\001 \001(\tR\nfeeVersion\022\037\n\013app_ve" +
       "rsion\030\002 \001(\tR\nappVersionB\340\001\n\033com.ibc.appl" +
       "ications.fee.v1B\rMetadataProtoZ5github.c" +
-      "om/cosmos/ibc-go/v7/modules/apps/29-fee/" +
+      "om/cosmos/ibc-go/v8/modules/apps/29-fee/" +
       "types\242\002\003IAF\252\002\027Ibc.Applications.Fee.V1\312\002\027" +
       "Ibc\\Applications\\Fee\\V1\342\002#Ibc\\Applicatio" +
       "ns\\Fee\\V1\\GPBMetadata\352\002\032Ibc::Application" +

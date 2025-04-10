@@ -16,7 +16,7 @@ class GnoFetcher(private val chain: BaseChain) {
 
     var grc20Tokens = mutableListOf<Token>()
 
-    fun allAssetValue(isUsd: Boolean?): BigDecimal {
+    fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         return balanceValueSum(isUsd)
     }
 

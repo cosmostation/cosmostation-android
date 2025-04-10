@@ -157,10 +157,13 @@ class SuiStakingFragment : BaseTxFragment() {
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            feeTokenImg.setImageResource(selectedChain.coinLogo)
-            feeToken.text = selectedChain.coinSymbol
-            suiFeeBudget = (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
-            updateFeeView()
+            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+                feeTokenImg.setTokenImg(asset)
+                feeToken.text = asset.symbol
+                suiFeeBudget =
+                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
+                updateFeeView()
+            }
         }
     }
 
@@ -179,6 +182,7 @@ class SuiStakingFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainSui).apply {
+                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
@@ -194,6 +198,7 @@ class SuiStakingFragment : BaseTxFragment() {
             toStakeAmount = toAmount
 
             (selectedChain as ChainSui).apply {
+                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpAmount =
                     toStakeAmount.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)

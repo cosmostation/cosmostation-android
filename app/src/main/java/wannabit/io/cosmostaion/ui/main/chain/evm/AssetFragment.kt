@@ -151,12 +151,22 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                     }
 
                     evmTokens.forEach { token ->
-                        if (token.amount?.toBigDecimal()!! > BigDecimal.ZERO && !displayErc20Tokens.contains(
+                        if ((token.symbol.uppercase() == selectedEvmChain.getMainAssetSymbol()
+                                .uppercase() || (token.amount?.toBigDecimal()
+                                ?: BigDecimal.ZERO) > BigDecimal.ZERO) && !displayErc20Tokens.contains(
                                 token
                             )
                         ) {
                             displayErc20Tokens.add(token)
                         }
+                    }
+                }
+
+                displayErc20Tokens.sortWith { o1, o2 ->
+                    when {
+                        o1.symbol == selectedEvmChain.getMainAssetSymbol() -> -1
+                        o2.symbol == selectedEvmChain.getMainAssetSymbol() -> 1
+                        else -> 0
                     }
                 }
             }

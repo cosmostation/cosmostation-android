@@ -400,7 +400,7 @@ class AllChainClaimFragment : BaseTxFragment() {
         chain: BaseChain, txHash: String?, onComplete: (GetTxResponse?) -> Unit
     ) {
         try {
-            if (chain.supportCosmos()) {
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
                 val channel = chain.cosmosFetcher?.getChannel()
                 val stub = ServiceGrpc.newStub(channel)
                 val request = ServiceProto.GetTxRequest.newBuilder().setHash(txHash).build()

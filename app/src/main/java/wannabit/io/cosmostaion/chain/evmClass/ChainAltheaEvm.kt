@@ -31,7 +31,5 @@ class ChainAltheaEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ALTHEA"
-    override var coinGeckoId: String = "althea"
-    override var coinLogo: Int = R.drawable.token_althea
     override var evmRpcURL: String = "https://rpc-althea-evm.cosmostation.io"
 }

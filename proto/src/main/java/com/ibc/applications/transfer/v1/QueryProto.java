@@ -14,3104 +14,6 @@ public final class QueryProto {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface QueryDenomTraceRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomTraceRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-     * </pre>
-     *
-     * <code>string hash = 1 [json_name = "hash"];</code>
-     * @return The hash.
-     */
-    java.lang.String getHash();
-    /**
-     * <pre>
-     * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-     * </pre>
-     *
-     * <code>string hash = 1 [json_name = "hash"];</code>
-     * @return The bytes for hash.
-     */
-    com.google.protobuf.ByteString
-        getHashBytes();
-  }
-  /**
-   * <pre>
-   * QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
-   * method
-   * </pre>
-   *
-   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceRequest}
-   */
-  public static final class QueryDenomTraceRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTraceRequest)
-      QueryDenomTraceRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryDenomTraceRequest.newBuilder() to construct.
-    private QueryDenomTraceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryDenomTraceRequest() {
-      hash_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryDenomTraceRequest();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.Builder.class);
-    }
-
-    public static final int HASH_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object hash_ = "";
-    /**
-     * <pre>
-     * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-     * </pre>
-     *
-     * <code>string hash = 1 [json_name = "hash"];</code>
-     * @return The hash.
-     */
-    @java.lang.Override
-    public java.lang.String getHash() {
-      java.lang.Object ref = hash_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        hash_ = s;
-        return s;
-      }
-    }
-    /**
-     * <pre>
-     * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-     * </pre>
-     *
-     * <code>string hash = 1 [json_name = "hash"];</code>
-     * @return The bytes for hash.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getHashBytes() {
-      java.lang.Object ref = hash_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        hash_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hash_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hash_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hash_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hash_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest)) {
-        return super.equals(obj);
-      }
-      com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest) obj;
-
-      if (!getHash()
-          .equals(other.getHash())) return false;
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + HASH_FIELD_NUMBER;
-      hash = (53 * hash) + getHash().hashCode();
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryDenomTraceRequest is the request type for the Query/DenomTrace RPC
-     * method
-     * </pre>
-     *
-     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomTraceRequest)
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.Builder.class);
-      }
-
-      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        hash_ = "";
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest getDefaultInstanceForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest build() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest buildPartial() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.hash_ = hash_;
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest) {
-          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest other) {
-        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest.getDefaultInstance()) return this;
-        if (!other.getHash().isEmpty()) {
-          hash_ = other.hash_;
-          bitField0_ |= 0x00000001;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                hash_ = input.readStringRequireUtf8();
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object hash_ = "";
-      /**
-       * <pre>
-       * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-       * </pre>
-       *
-       * <code>string hash = 1 [json_name = "hash"];</code>
-       * @return The hash.
-       */
-      public java.lang.String getHash() {
-        java.lang.Object ref = hash_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          hash_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <pre>
-       * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-       * </pre>
-       *
-       * <code>string hash = 1 [json_name = "hash"];</code>
-       * @return The bytes for hash.
-       */
-      public com.google.protobuf.ByteString
-          getHashBytes() {
-        java.lang.Object ref = hash_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          hash_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <pre>
-       * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-       * </pre>
-       *
-       * <code>string hash = 1 [json_name = "hash"];</code>
-       * @param value The hash to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHash(
-          java.lang.String value) {
-        if (value == null) { throw new NullPointerException(); }
-        hash_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-       * </pre>
-       *
-       * <code>string hash = 1 [json_name = "hash"];</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHash() {
-        hash_ = getDefaultInstance().getHash();
-        bitField0_ = (bitField0_ & ~0x00000001);
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * hash (in hex format) or denom (full denom with ibc prefix) of the denomination trace information.
-       * </pre>
-       *
-       * <code>string hash = 1 [json_name = "hash"];</code>
-       * @param value The bytes for hash to set.
-       * @return This builder for chaining.
-       */
-      public Builder setHashBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) { throw new NullPointerException(); }
-        checkByteStringIsUtf8(value);
-        hash_ = value;
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomTraceRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomTraceRequest)
-    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest();
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryDenomTraceRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryDenomTraceRequest>() {
-      @java.lang.Override
-      public QueryDenomTraceRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryDenomTraceRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryDenomTraceRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryDenomTraceResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomTraceResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     * @return Whether the denomTrace field is set.
-     */
-    boolean hasDenomTrace();
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     * @return The denomTrace.
-     */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTrace();
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTraceOrBuilder();
-  }
-  /**
-   * <pre>
-   * QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
-   * method.
-   * </pre>
-   *
-   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceResponse}
-   */
-  public static final class QueryDenomTraceResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTraceResponse)
-      QueryDenomTraceResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryDenomTraceResponse.newBuilder() to construct.
-    private QueryDenomTraceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryDenomTraceResponse() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryDenomTraceResponse();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.Builder.class);
-    }
-
-    public static final int DENOM_TRACE_FIELD_NUMBER = 1;
-    private com.ibc.applications.transfer.v1.TransferProto.DenomTrace denomTrace_;
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     * @return Whether the denomTrace field is set.
-     */
-    @java.lang.Override
-    public boolean hasDenomTrace() {
-      return denomTrace_ != null;
-    }
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     * @return The denomTrace.
-     */
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTrace() {
-      return denomTrace_ == null ? com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance() : denomTrace_;
-    }
-    /**
-     * <pre>
-     * denom_trace returns the requested denomination trace information.
-     * </pre>
-     *
-     * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-     */
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTraceOrBuilder() {
-      return denomTrace_ == null ? com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance() : denomTrace_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (denomTrace_ != null) {
-        output.writeMessage(1, getDenomTrace());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (denomTrace_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getDenomTrace());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse)) {
-        return super.equals(obj);
-      }
-      com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse) obj;
-
-      if (hasDenomTrace() != other.hasDenomTrace()) return false;
-      if (hasDenomTrace()) {
-        if (!getDenomTrace()
-            .equals(other.getDenomTrace())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasDenomTrace()) {
-        hash = (37 * hash) + DENOM_TRACE_FIELD_NUMBER;
-        hash = (53 * hash) + getDenomTrace().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryDenomTraceResponse is the response type for the Query/DenomTrace RPC
-     * method.
-     * </pre>
-     *
-     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomTraceResponse)
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.Builder.class);
-      }
-
-      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        denomTrace_ = null;
-        if (denomTraceBuilder_ != null) {
-          denomTraceBuilder_.dispose();
-          denomTraceBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse getDefaultInstanceForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse build() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse buildPartial() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.denomTrace_ = denomTraceBuilder_ == null
-              ? denomTrace_
-              : denomTraceBuilder_.build();
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse) {
-          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse other) {
-        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse.getDefaultInstance()) return this;
-        if (other.hasDenomTrace()) {
-          mergeDenomTrace(other.getDenomTrace());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getDenomTraceFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private com.ibc.applications.transfer.v1.TransferProto.DenomTrace denomTrace_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> denomTraceBuilder_;
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       * @return Whether the denomTrace field is set.
-       */
-      public boolean hasDenomTrace() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       * @return The denomTrace.
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTrace() {
-        if (denomTraceBuilder_ == null) {
-          return denomTrace_ == null ? com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance() : denomTrace_;
-        } else {
-          return denomTraceBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public Builder setDenomTrace(com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTraceBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          denomTrace_ = value;
-        } else {
-          denomTraceBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public Builder setDenomTrace(
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTraceBuilder_ == null) {
-          denomTrace_ = builderForValue.build();
-        } else {
-          denomTraceBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public Builder mergeDenomTrace(com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTraceBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            denomTrace_ != null &&
-            denomTrace_ != com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance()) {
-            getDenomTraceBuilder().mergeFrom(value);
-          } else {
-            denomTrace_ = value;
-          }
-        } else {
-          denomTraceBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public Builder clearDenomTrace() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        denomTrace_ = null;
-        if (denomTraceBuilder_ != null) {
-          denomTraceBuilder_.dispose();
-          denomTraceBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder getDenomTraceBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getDenomTraceFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTraceOrBuilder() {
-        if (denomTraceBuilder_ != null) {
-          return denomTraceBuilder_.getMessageOrBuilder();
-        } else {
-          return denomTrace_ == null ?
-              com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance() : denomTrace_;
-        }
-      }
-      /**
-       * <pre>
-       * denom_trace returns the requested denomination trace information.
-       * </pre>
-       *
-       * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1 [json_name = "denomTrace"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-          getDenomTraceFieldBuilder() {
-        if (denomTraceBuilder_ == null) {
-          denomTraceBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder>(
-                  getDenomTrace(),
-                  getParentForChildren(),
-                  isClean());
-          denomTrace_ = null;
-        }
-        return denomTraceBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomTraceResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomTraceResponse)
-    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse();
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryDenomTraceResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryDenomTraceResponse>() {
-      @java.lang.Override
-      public QueryDenomTraceResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryDenomTraceResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryDenomTraceResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTraceResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryDenomTracesRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomTracesRequest)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     * @return The pagination.
-     */
-    com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination();
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     */
-    com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder();
-  }
-  /**
-   * <pre>
-   * QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
-   * method
-   * </pre>
-   *
-   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesRequest}
-   */
-  public static final class QueryDenomTracesRequest extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTracesRequest)
-      QueryDenomTracesRequestOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryDenomTracesRequest.newBuilder() to construct.
-    private QueryDenomTracesRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryDenomTracesRequest() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryDenomTracesRequest();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.Builder.class);
-    }
-
-    public static final int PAGINATION_FIELD_NUMBER = 1;
-    private com.cosmos.base.query.v1beta1.PaginationProto.PageRequest pagination_;
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination() {
-      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <pre>
-     * pagination defines an optional pagination for the request.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-     */
-    @java.lang.Override
-    public com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder() {
-      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (pagination_ != null) {
-        output.writeMessage(1, getPagination());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getPagination());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest)) {
-        return super.equals(obj);
-      }
-      com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest) obj;
-
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryConnectionsRequest is the request type for the Query/DenomTraces RPC
-     * method
-     * </pre>
-     *
-     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesRequest}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomTracesRequest)
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.Builder.class);
-      }
-
-      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        pagination_ = null;
-        if (paginationBuilder_ != null) {
-          paginationBuilder_.dispose();
-          paginationBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest getDefaultInstanceForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest build() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest buildPartial() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest(this);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.pagination_ = paginationBuilder_ == null
-              ? pagination_
-              : paginationBuilder_.build();
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest) {
-          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest other) {
-        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest.getDefaultInstance()) return this;
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                input.readMessage(
-                    getPaginationFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private com.cosmos.base.query.v1beta1.PaginationProto.PageRequest pagination_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder> paginationBuilder_;
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       * @return Whether the pagination field is set.
-       */
-      public boolean hasPagination() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       * @return The pagination.
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination() {
-        if (paginationBuilder_ == null) {
-          return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
-        } else {
-          return paginationBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public Builder setPagination(com.cosmos.base.query.v1beta1.PaginationProto.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pagination_ = value;
-        } else {
-          paginationBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public Builder setPagination(
-          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder builderForValue) {
-        if (paginationBuilder_ == null) {
-          pagination_ = builderForValue.build();
-        } else {
-          paginationBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public Builder mergePagination(com.cosmos.base.query.v1beta1.PaginationProto.PageRequest value) {
-        if (paginationBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-            pagination_ != null &&
-            pagination_ != com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance()) {
-            getPaginationBuilder().mergeFrom(value);
-          } else {
-            pagination_ = value;
-          }
-        } else {
-          paginationBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public Builder clearPagination() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        pagination_ = null;
-        if (paginationBuilder_ != null) {
-          paginationBuilder_.dispose();
-          paginationBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder getPaginationBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getPaginationFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder() {
-        if (paginationBuilder_ != null) {
-          return paginationBuilder_.getMessageOrBuilder();
-        } else {
-          return pagination_ == null ?
-              com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines an optional pagination for the request.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder> 
-          getPaginationFieldBuilder() {
-        if (paginationBuilder_ == null) {
-          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder>(
-                  getPagination(),
-                  getParentForChildren(),
-                  isClean());
-          pagination_ = null;
-        }
-        return paginationBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomTracesRequest)
-    }
-
-    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomTracesRequest)
-    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest();
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryDenomTracesRequest>
-        PARSER = new com.google.protobuf.AbstractParser<QueryDenomTracesRequest>() {
-      @java.lang.Override
-      public QueryDenomTracesRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryDenomTracesRequest> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryDenomTracesRequest> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesRequest getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface QueryDenomTracesResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomTracesResponse)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> 
-        getDenomTracesList();
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index);
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    int getDenomTracesCount();
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-        getDenomTracesOrBuilderList();
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
-        int index);
-
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     * @return Whether the pagination field is set.
-     */
-    boolean hasPagination();
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     * @return The pagination.
-     */
-    com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination();
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     */
-    com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder();
-  }
-  /**
-   * <pre>
-   * QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
-   * method.
-   * </pre>
-   *
-   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesResponse}
-   */
-  public static final class QueryDenomTracesResponse extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTracesResponse)
-      QueryDenomTracesResponseOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use QueryDenomTracesResponse.newBuilder() to construct.
-    private QueryDenomTracesResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private QueryDenomTracesResponse() {
-      denomTraces_ = java.util.Collections.emptyList();
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new QueryDenomTracesResponse();
-    }
-
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.Builder.class);
-    }
-
-    public static final int DENOM_TRACES_FIELD_NUMBER = 1;
-    @SuppressWarnings("serial")
-    private java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> denomTraces_;
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    @java.lang.Override
-    public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> getDenomTracesList() {
-      return denomTraces_;
-    }
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    @java.lang.Override
-    public java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-        getDenomTracesOrBuilderList() {
-      return denomTraces_;
-    }
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    @java.lang.Override
-    public int getDenomTracesCount() {
-      return denomTraces_.size();
-    }
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index) {
-      return denomTraces_.get(index);
-    }
-    /**
-     * <pre>
-     * denom_traces returns all denominations trace information.
-     * </pre>
-     *
-     * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-     */
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
-        int index) {
-      return denomTraces_.get(index);
-    }
-
-    public static final int PAGINATION_FIELD_NUMBER = 2;
-    private com.cosmos.base.query.v1beta1.PaginationProto.PageResponse pagination_;
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     * @return Whether the pagination field is set.
-     */
-    @java.lang.Override
-    public boolean hasPagination() {
-      return pagination_ != null;
-    }
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     * @return The pagination.
-     */
-    @java.lang.Override
-    public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination() {
-      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
-    }
-    /**
-     * <pre>
-     * pagination defines the pagination in the response.
-     * </pre>
-     *
-     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-     */
-    @java.lang.Override
-    public com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder() {
-      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      for (int i = 0; i < denomTraces_.size(); i++) {
-        output.writeMessage(1, denomTraces_.get(i));
-      }
-      if (pagination_ != null) {
-        output.writeMessage(2, getPagination());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      for (int i = 0; i < denomTraces_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, denomTraces_.get(i));
-      }
-      if (pagination_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPagination());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse)) {
-        return super.equals(obj);
-      }
-      com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse) obj;
-
-      if (!getDenomTracesList()
-          .equals(other.getDenomTracesList())) return false;
-      if (hasPagination() != other.hasPagination()) return false;
-      if (hasPagination()) {
-        if (!getPagination()
-            .equals(other.getPagination())) return false;
-      }
-      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (getDenomTracesCount() > 0) {
-        hash = (37 * hash) + DENOM_TRACES_FIELD_NUMBER;
-        hash = (53 * hash) + getDenomTracesList().hashCode();
-      }
-      if (hasPagination()) {
-        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
-        hash = (53 * hash) + getPagination().hashCode();
-      }
-      hash = (29 * hash) + getUnknownFields().hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     * QueryConnectionsResponse is the response type for the Query/DenomTraces RPC
-     * method.
-     * </pre>
-     *
-     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesResponse}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomTracesResponse)
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.Builder.class);
-      }
-
-      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.newBuilder()
-      private Builder() {
-
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        bitField0_ = 0;
-        if (denomTracesBuilder_ == null) {
-          denomTraces_ = java.util.Collections.emptyList();
-        } else {
-          denomTraces_ = null;
-          denomTracesBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        pagination_ = null;
-        if (paginationBuilder_ != null) {
-          paginationBuilder_.dispose();
-          paginationBuilder_ = null;
-        }
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse getDefaultInstanceForType() {
-        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse build() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse buildPartial() {
-        com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse(this);
-        buildPartialRepeatedFields(result);
-        if (bitField0_ != 0) { buildPartial0(result); }
-        onBuilt();
-        return result;
-      }
-
-      private void buildPartialRepeatedFields(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse result) {
-        if (denomTracesBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0)) {
-            denomTraces_ = java.util.Collections.unmodifiableList(denomTraces_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.denomTraces_ = denomTraces_;
-        } else {
-          result.denomTraces_ = denomTracesBuilder_.build();
-        }
-      }
-
-      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse result) {
-        int from_bitField0_ = bitField0_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.pagination_ = paginationBuilder_ == null
-              ? pagination_
-              : paginationBuilder_.build();
-        }
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse) {
-          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse other) {
-        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse.getDefaultInstance()) return this;
-        if (denomTracesBuilder_ == null) {
-          if (!other.denomTraces_.isEmpty()) {
-            if (denomTraces_.isEmpty()) {
-              denomTraces_ = other.denomTraces_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureDenomTracesIsMutable();
-              denomTraces_.addAll(other.denomTraces_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.denomTraces_.isEmpty()) {
-            if (denomTracesBuilder_.isEmpty()) {
-              denomTracesBuilder_.dispose();
-              denomTracesBuilder_ = null;
-              denomTraces_ = other.denomTraces_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              denomTracesBuilder_ = 
-                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getDenomTracesFieldBuilder() : null;
-            } else {
-              denomTracesBuilder_.addAllMessages(other.denomTraces_);
-            }
-          }
-        }
-        if (other.hasPagination()) {
-          mergePagination(other.getPagination());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        if (extensionRegistry == null) {
-          throw new java.lang.NullPointerException();
-        }
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              case 10: {
-                com.ibc.applications.transfer.v1.TransferProto.DenomTrace m =
-                    input.readMessage(
-                        com.ibc.applications.transfer.v1.TransferProto.DenomTrace.parser(),
-                        extensionRegistry);
-                if (denomTracesBuilder_ == null) {
-                  ensureDenomTracesIsMutable();
-                  denomTraces_.add(m);
-                } else {
-                  denomTracesBuilder_.addMessage(m);
-                }
-                break;
-              } // case 10
-              case 18: {
-                input.readMessage(
-                    getPaginationFieldBuilder().getBuilder(),
-                    extensionRegistry);
-                bitField0_ |= 0x00000002;
-                break;
-              } // case 18
-              default: {
-                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
-                  done = true; // was an endgroup tag
-                }
-                break;
-              } // default:
-            } // switch (tag)
-          } // while (!done)
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.unwrapIOException();
-        } finally {
-          onChanged();
-        } // finally
-        return this;
-      }
-      private int bitField0_;
-
-      private java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> denomTraces_ =
-        java.util.Collections.emptyList();
-      private void ensureDenomTracesIsMutable() {
-        if (!((bitField0_ & 0x00000001) != 0)) {
-          denomTraces_ = new java.util.ArrayList<com.ibc.applications.transfer.v1.TransferProto.DenomTrace>(denomTraces_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> denomTracesBuilder_;
-
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace> getDenomTracesList() {
-        if (denomTracesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(denomTraces_);
-        } else {
-          return denomTracesBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public int getDenomTracesCount() {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.size();
-        } else {
-          return denomTracesBuilder_.getCount();
-        }
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace getDenomTraces(int index) {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.get(index);
-        } else {
-          return denomTracesBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder setDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDenomTracesIsMutable();
-          denomTraces_.set(index, value);
-          onChanged();
-        } else {
-          denomTracesBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder setDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          denomTracesBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder addDenomTraces(com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(value);
-          onChanged();
-        } else {
-          denomTracesBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder addDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace value) {
-        if (denomTracesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(index, value);
-          onChanged();
-        } else {
-          denomTracesBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder addDenomTraces(
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(builderForValue.build());
-          onChanged();
-        } else {
-          denomTracesBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder addDenomTraces(
-          int index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder builderForValue) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          denomTracesBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder addAllDenomTraces(
-          java.lang.Iterable<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTrace> values) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, denomTraces_);
-          onChanged();
-        } else {
-          denomTracesBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder clearDenomTraces() {
-        if (denomTracesBuilder_ == null) {
-          denomTraces_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          denomTracesBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public Builder removeDenomTraces(int index) {
-        if (denomTracesBuilder_ == null) {
-          ensureDenomTracesIsMutable();
-          denomTraces_.remove(index);
-          onChanged();
-        } else {
-          denomTracesBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder getDenomTracesBuilder(
-          int index) {
-        return getDenomTracesFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder getDenomTracesOrBuilder(
-          int index) {
-        if (denomTracesBuilder_ == null) {
-          return denomTraces_.get(index);  } else {
-          return denomTracesBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public java.util.List<? extends com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-           getDenomTracesOrBuilderList() {
-        if (denomTracesBuilder_ != null) {
-          return denomTracesBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(denomTraces_);
-        }
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder addDenomTracesBuilder() {
-        return getDenomTracesFieldBuilder().addBuilder(
-            com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder addDenomTracesBuilder(
-          int index) {
-        return getDenomTracesFieldBuilder().addBuilder(
-            index, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.getDefaultInstance());
-      }
-      /**
-       * <pre>
-       * denom_traces returns all denominations trace information.
-       * </pre>
-       *
-       * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [json_name = "denomTraces", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
-       */
-      public java.util.List<com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder> 
-           getDenomTracesBuilderList() {
-        return getDenomTracesFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder> 
-          getDenomTracesFieldBuilder() {
-        if (denomTracesBuilder_ == null) {
-          denomTracesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.ibc.applications.transfer.v1.TransferProto.DenomTrace, com.ibc.applications.transfer.v1.TransferProto.DenomTrace.Builder, com.ibc.applications.transfer.v1.TransferProto.DenomTraceOrBuilder>(
-                  denomTraces_,
-                  ((bitField0_ & 0x00000001) != 0),
-                  getParentForChildren(),
-                  isClean());
-          denomTraces_ = null;
-        }
-        return denomTracesBuilder_;
-      }
-
-      private com.cosmos.base.query.v1beta1.PaginationProto.PageResponse pagination_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder> paginationBuilder_;
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       * @return Whether the pagination field is set.
-       */
-      public boolean hasPagination() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       * @return The pagination.
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination() {
-        if (paginationBuilder_ == null) {
-          return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
-        } else {
-          return paginationBuilder_.getMessage();
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public Builder setPagination(com.cosmos.base.query.v1beta1.PaginationProto.PageResponse value) {
-        if (paginationBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          pagination_ = value;
-        } else {
-          paginationBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public Builder setPagination(
-          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder builderForValue) {
-        if (paginationBuilder_ == null) {
-          pagination_ = builderForValue.build();
-        } else {
-          paginationBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public Builder mergePagination(com.cosmos.base.query.v1beta1.PaginationProto.PageResponse value) {
-        if (paginationBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
-            pagination_ != null &&
-            pagination_ != com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance()) {
-            getPaginationBuilder().mergeFrom(value);
-          } else {
-            pagination_ = value;
-          }
-        } else {
-          paginationBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public Builder clearPagination() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        pagination_ = null;
-        if (paginationBuilder_ != null) {
-          paginationBuilder_.dispose();
-          paginationBuilder_ = null;
-        }
-        onChanged();
-        return this;
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder getPaginationBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getPaginationFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder() {
-        if (paginationBuilder_ != null) {
-          return paginationBuilder_.getMessageOrBuilder();
-        } else {
-          return pagination_ == null ?
-              com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
-        }
-      }
-      /**
-       * <pre>
-       * pagination defines the pagination in the response.
-       * </pre>
-       *
-       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder> 
-          getPaginationFieldBuilder() {
-        if (paginationBuilder_ == null) {
-          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder>(
-                  getPagination(),
-                  getParentForChildren(),
-                  isClean());
-          pagination_ = null;
-        }
-        return paginationBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomTracesResponse)
-    }
-
-    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomTracesResponse)
-    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse();
-    }
-
-    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<QueryDenomTracesResponse>
-        PARSER = new com.google.protobuf.AbstractParser<QueryDenomTracesResponse>() {
-      @java.lang.Override
-      public QueryDenomTracesResponse parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        Builder builder = newBuilder();
-        try {
-          builder.mergeFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(builder.buildPartial());
-        } catch (com.google.protobuf.UninitializedMessageException e) {
-          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(e)
-              .setUnfinishedMessage(builder.buildPartial());
-        }
-        return builder.buildPartial();
-      }
-    };
-
-    public static com.google.protobuf.Parser<QueryDenomTracesResponse> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<QueryDenomTracesResponse> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomTracesResponse getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface QueryParamsRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryParamsRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -4180,6 +1082,3104 @@ public final class QueryProto {
 
     @java.lang.Override
     public com.ibc.applications.transfer.v1.QueryProto.QueryParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryDenomRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+     * </pre>
+     *
+     * <code>string hash = 1 [json_name = "hash"];</code>
+     * @return The hash.
+     */
+    java.lang.String getHash();
+    /**
+     * <pre>
+     * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+     * </pre>
+     *
+     * <code>string hash = 1 [json_name = "hash"];</code>
+     * @return The bytes for hash.
+     */
+    com.google.protobuf.ByteString
+        getHashBytes();
+  }
+  /**
+   * <pre>
+   * QueryDenomRequest is the request type for the Query/Denom RPC
+   * method
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomRequest}
+   */
+  public static final class QueryDenomRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomRequest)
+      QueryDenomRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomRequest.newBuilder() to construct.
+    private QueryDenomRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomRequest() {
+      hash_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.Builder.class);
+    }
+
+    public static final int HASH_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object hash_ = "";
+    /**
+     * <pre>
+     * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+     * </pre>
+     *
+     * <code>string hash = 1 [json_name = "hash"];</code>
+     * @return The hash.
+     */
+    @java.lang.Override
+    public java.lang.String getHash() {
+      java.lang.Object ref = hash_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        hash_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+     * </pre>
+     *
+     * <code>string hash = 1 [json_name = "hash"];</code>
+     * @return The bytes for hash.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getHashBytes() {
+      java.lang.Object ref = hash_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        hash_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hash_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, hash_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(hash_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, hash_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest) obj;
+
+      if (!getHash()
+          .equals(other.getHash())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + HASH_FIELD_NUMBER;
+      hash = (53 * hash) + getHash().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomRequest is the request type for the Query/Denom RPC
+     * method
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomRequest)
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        hash_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest getDefaultInstanceForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest build() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest buildPartial() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.hash_ = hash_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest) {
+          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest other) {
+        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest.getDefaultInstance()) return this;
+        if (!other.getHash().isEmpty()) {
+          hash_ = other.hash_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                hash_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object hash_ = "";
+      /**
+       * <pre>
+       * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+       * </pre>
+       *
+       * <code>string hash = 1 [json_name = "hash"];</code>
+       * @return The hash.
+       */
+      public java.lang.String getHash() {
+        java.lang.Object ref = hash_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          hash_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+       * </pre>
+       *
+       * <code>string hash = 1 [json_name = "hash"];</code>
+       * @return The bytes for hash.
+       */
+      public com.google.protobuf.ByteString
+          getHashBytes() {
+        java.lang.Object ref = hash_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          hash_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+       * </pre>
+       *
+       * <code>string hash = 1 [json_name = "hash"];</code>
+       * @param value The hash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHash(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        hash_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+       * </pre>
+       *
+       * <code>string hash = 1 [json_name = "hash"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHash() {
+        hash_ = getDefaultInstance().getHash();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * hash (in hex format) or denom (full denom with ibc prefix) of the on chain denomination.
+       * </pre>
+       *
+       * <code>string hash = 1 [json_name = "hash"];</code>
+       * @param value The bytes for hash to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHashBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        hash_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomRequest)
+    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest();
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomRequest>() {
+      @java.lang.Override
+      public QueryDenomRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryDenomResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     * @return Whether the denom field is set.
+     */
+    boolean hasDenom();
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     * @return The denom.
+     */
+    com.ibc.applications.transfer.v1.TokenProto.Denom getDenom();
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     */
+    com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryDenomResponse is the response type for the Query/Denom RPC
+   * method.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomResponse}
+   */
+  public static final class QueryDenomResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomResponse)
+      QueryDenomResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomResponse.newBuilder() to construct.
+    private QueryDenomResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.Builder.class);
+    }
+
+    public static final int DENOM_FIELD_NUMBER = 1;
+    private com.ibc.applications.transfer.v1.TokenProto.Denom denom_;
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     * @return Whether the denom field is set.
+     */
+    @java.lang.Override
+    public boolean hasDenom() {
+      return denom_ != null;
+    }
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     * @return The denom.
+     */
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.TokenProto.Denom getDenom() {
+      return denom_ == null ? com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance() : denom_;
+    }
+    /**
+     * <pre>
+     * denom returns the requested denomination.
+     * </pre>
+     *
+     * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomOrBuilder() {
+      return denom_ == null ? com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance() : denom_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (denom_ != null) {
+        output.writeMessage(1, getDenom());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (denom_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getDenom());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse) obj;
+
+      if (hasDenom() != other.hasDenom()) return false;
+      if (hasDenom()) {
+        if (!getDenom()
+            .equals(other.getDenom())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasDenom()) {
+        hash = (37 * hash) + DENOM_FIELD_NUMBER;
+        hash = (53 * hash) + getDenom().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomResponse is the response type for the Query/Denom RPC
+     * method.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomResponse)
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        denom_ = null;
+        if (denomBuilder_ != null) {
+          denomBuilder_.dispose();
+          denomBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse getDefaultInstanceForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse build() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse buildPartial() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.denom_ = denomBuilder_ == null
+              ? denom_
+              : denomBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse) {
+          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse other) {
+        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse.getDefaultInstance()) return this;
+        if (other.hasDenom()) {
+          mergeDenom(other.getDenom());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getDenomFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.ibc.applications.transfer.v1.TokenProto.Denom denom_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> denomBuilder_;
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       * @return Whether the denom field is set.
+       */
+      public boolean hasDenom() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       * @return The denom.
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom getDenom() {
+        if (denomBuilder_ == null) {
+          return denom_ == null ? com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance() : denom_;
+        } else {
+          return denomBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public Builder setDenom(com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          denom_ = value;
+        } else {
+          denomBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public Builder setDenom(
+          com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomBuilder_ == null) {
+          denom_ = builderForValue.build();
+        } else {
+          denomBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public Builder mergeDenom(com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            denom_ != null &&
+            denom_ != com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance()) {
+            getDenomBuilder().mergeFrom(value);
+          } else {
+            denom_ = value;
+          }
+        } else {
+          denomBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public Builder clearDenom() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        denom_ = null;
+        if (denomBuilder_ != null) {
+          denomBuilder_.dispose();
+          denomBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder getDenomBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getDenomFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomOrBuilder() {
+        if (denomBuilder_ != null) {
+          return denomBuilder_.getMessageOrBuilder();
+        } else {
+          return denom_ == null ?
+              com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance() : denom_;
+        }
+      }
+      /**
+       * <pre>
+       * denom returns the requested denomination.
+       * </pre>
+       *
+       * <code>.ibc.applications.transfer.v1.Denom denom = 1 [json_name = "denom"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+          getDenomFieldBuilder() {
+        if (denomBuilder_ == null) {
+          denomBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder>(
+                  getDenom(),
+                  getParentForChildren(),
+                  isClean());
+          denom_ = null;
+        }
+        return denomBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomResponse)
+    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse();
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomResponse>() {
+      @java.lang.Override
+      public QueryDenomResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryDenomsRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomsRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     * @return The pagination.
+     */
+    com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination();
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     */
+    com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryDenomsRequest is the request type for the Query/Denoms RPC
+   * method
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomsRequest}
+   */
+  public static final class QueryDenomsRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomsRequest)
+      QueryDenomsRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomsRequest.newBuilder() to construct.
+    private QueryDenomsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomsRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomsRequest();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.Builder.class);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 1;
+    private com.cosmos.base.query.v1beta1.PaginationProto.PageRequest pagination_;
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination() {
+      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines an optional pagination for the request.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder() {
+      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (pagination_ != null) {
+        output.writeMessage(1, getPagination());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getPagination());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest) obj;
+
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomsRequest is the request type for the Query/Denoms RPC
+     * method
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomsRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomsRequest)
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        pagination_ = null;
+        if (paginationBuilder_ != null) {
+          paginationBuilder_.dispose();
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest getDefaultInstanceForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest build() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest buildPartial() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.pagination_ = paginationBuilder_ == null
+              ? pagination_
+              : paginationBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest) {
+          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest other) {
+        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest.getDefaultInstance()) return this;
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getPaginationFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.cosmos.base.query.v1beta1.PaginationProto.PageRequest pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       * @return The pagination.
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public Builder setPagination(com.cosmos.base.query.v1beta1.PaginationProto.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public Builder setPagination(
+          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public Builder mergePagination(com.cosmos.base.query.v1beta1.PaginationProto.PageRequest value) {
+        if (paginationBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            pagination_ != null &&
+            pagination_ != com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance()) {
+            getPaginationBuilder().mergeFrom(value);
+          } else {
+            pagination_ = value;
+          }
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public Builder clearPagination() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pagination_ = null;
+        if (paginationBuilder_ != null) {
+          paginationBuilder_.dispose();
+          paginationBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder getPaginationBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines an optional pagination for the request.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1 [json_name = "pagination"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.cosmos.base.query.v1beta1.PaginationProto.PageRequest, com.cosmos.base.query.v1beta1.PaginationProto.PageRequest.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageRequestOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomsRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomsRequest)
+    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest();
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomsRequest>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomsRequest>() {
+      @java.lang.Override
+      public QueryDenomsRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomsRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomsRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface QueryDenomsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.transfer.v1.QueryDenomsResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> 
+        getDenomsList();
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index);
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    int getDenomsCount();
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+        getDenomsOrBuilderList();
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
+        int index);
+
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     * @return Whether the pagination field is set.
+     */
+    boolean hasPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     * @return The pagination.
+     */
+    com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination();
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     */
+    com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder();
+  }
+  /**
+   * <pre>
+   * QueryDenomsResponse is the response type for the Query/Denoms RPC
+   * method.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomsResponse}
+   */
+  public static final class QueryDenomsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomsResponse)
+      QueryDenomsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use QueryDenomsResponse.newBuilder() to construct.
+    private QueryDenomsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private QueryDenomsResponse() {
+      denoms_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new QueryDenomsResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.Builder.class);
+    }
+
+    public static final int DENOMS_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> denoms_;
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> getDenomsList() {
+      return denoms_;
+    }
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+        getDenomsOrBuilderList() {
+      return denoms_;
+    }
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    @java.lang.Override
+    public int getDenomsCount() {
+      return denoms_.size();
+    }
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index) {
+      return denoms_.get(index);
+    }
+    /**
+     * <pre>
+     * denoms returns all denominations.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
+        int index) {
+      return denoms_.get(index);
+    }
+
+    public static final int PAGINATION_FIELD_NUMBER = 2;
+    private com.cosmos.base.query.v1beta1.PaginationProto.PageResponse pagination_;
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     * @return Whether the pagination field is set.
+     */
+    @java.lang.Override
+    public boolean hasPagination() {
+      return pagination_ != null;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     * @return The pagination.
+     */
+    @java.lang.Override
+    public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination() {
+      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
+    }
+    /**
+     * <pre>
+     * pagination defines the pagination in the response.
+     * </pre>
+     *
+     * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder() {
+      return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < denoms_.size(); i++) {
+        output.writeMessage(1, denoms_.get(i));
+      }
+      if (pagination_ != null) {
+        output.writeMessage(2, getPagination());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < denoms_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, denoms_.get(i));
+      }
+      if (pagination_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getPagination());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse other = (com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse) obj;
+
+      if (!getDenomsList()
+          .equals(other.getDenomsList())) return false;
+      if (hasPagination() != other.hasPagination()) return false;
+      if (hasPagination()) {
+        if (!getPagination()
+            .equals(other.getPagination())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getDenomsCount() > 0) {
+        hash = (37 * hash) + DENOMS_FIELD_NUMBER;
+        hash = (53 * hash) + getDenomsList().hashCode();
+      }
+      if (hasPagination()) {
+        hash = (37 * hash) + PAGINATION_FIELD_NUMBER;
+        hash = (53 * hash) + getPagination().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * QueryDenomsResponse is the response type for the Query/Denoms RPC
+     * method.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.transfer.v1.QueryDenomsResponse)
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.class, com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        if (denomsBuilder_ == null) {
+          denoms_ = java.util.Collections.emptyList();
+        } else {
+          denoms_ = null;
+          denomsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pagination_ = null;
+        if (paginationBuilder_ != null) {
+          paginationBuilder_.dispose();
+          paginationBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse getDefaultInstanceForType() {
+        return com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse build() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse buildPartial() {
+        com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse result = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse result) {
+        if (denomsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            denoms_ = java.util.Collections.unmodifiableList(denoms_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.denoms_ = denoms_;
+        } else {
+          result.denoms_ = denomsBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.pagination_ = paginationBuilder_ == null
+              ? pagination_
+              : paginationBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse) {
+          return mergeFrom((com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse other) {
+        if (other == com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse.getDefaultInstance()) return this;
+        if (denomsBuilder_ == null) {
+          if (!other.denoms_.isEmpty()) {
+            if (denoms_.isEmpty()) {
+              denoms_ = other.denoms_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureDenomsIsMutable();
+              denoms_.addAll(other.denoms_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.denoms_.isEmpty()) {
+            if (denomsBuilder_.isEmpty()) {
+              denomsBuilder_.dispose();
+              denomsBuilder_ = null;
+              denoms_ = other.denoms_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              denomsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getDenomsFieldBuilder() : null;
+            } else {
+              denomsBuilder_.addAllMessages(other.denoms_);
+            }
+          }
+        }
+        if (other.hasPagination()) {
+          mergePagination(other.getPagination());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                com.ibc.applications.transfer.v1.TokenProto.Denom m =
+                    input.readMessage(
+                        com.ibc.applications.transfer.v1.TokenProto.Denom.parser(),
+                        extensionRegistry);
+                if (denomsBuilder_ == null) {
+                  ensureDenomsIsMutable();
+                  denoms_.add(m);
+                } else {
+                  denomsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getPaginationFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> denoms_ =
+        java.util.Collections.emptyList();
+      private void ensureDenomsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          denoms_ = new java.util.ArrayList<com.ibc.applications.transfer.v1.TokenProto.Denom>(denoms_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> denomsBuilder_;
+
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom> getDenomsList() {
+        if (denomsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(denoms_);
+        } else {
+          return denomsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public int getDenomsCount() {
+        if (denomsBuilder_ == null) {
+          return denoms_.size();
+        } else {
+          return denomsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom getDenoms(int index) {
+        if (denomsBuilder_ == null) {
+          return denoms_.get(index);
+        } else {
+          return denomsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder setDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsIsMutable();
+          denoms_.set(index, value);
+          onChanged();
+        } else {
+          denomsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder setDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          denomsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder addDenoms(com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsIsMutable();
+          denoms_.add(value);
+          onChanged();
+        } else {
+          denomsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder addDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom value) {
+        if (denomsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureDenomsIsMutable();
+          denoms_.add(index, value);
+          onChanged();
+        } else {
+          denomsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder addDenoms(
+          com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.add(builderForValue.build());
+          onChanged();
+        } else {
+          denomsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder addDenoms(
+          int index, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder builderForValue) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          denomsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder addAllDenoms(
+          java.lang.Iterable<? extends com.ibc.applications.transfer.v1.TokenProto.Denom> values) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, denoms_);
+          onChanged();
+        } else {
+          denomsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder clearDenoms() {
+        if (denomsBuilder_ == null) {
+          denoms_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          denomsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public Builder removeDenoms(int index) {
+        if (denomsBuilder_ == null) {
+          ensureDenomsIsMutable();
+          denoms_.remove(index);
+          onChanged();
+        } else {
+          denomsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder getDenomsBuilder(
+          int index) {
+        return getDenomsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder getDenomsOrBuilder(
+          int index) {
+        if (denomsBuilder_ == null) {
+          return denoms_.get(index);  } else {
+          return denomsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public java.util.List<? extends com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+           getDenomsOrBuilderList() {
+        if (denomsBuilder_ != null) {
+          return denomsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(denoms_);
+        }
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder addDenomsBuilder() {
+        return getDenomsFieldBuilder().addBuilder(
+            com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public com.ibc.applications.transfer.v1.TokenProto.Denom.Builder addDenomsBuilder(
+          int index) {
+        return getDenomsFieldBuilder().addBuilder(
+            index, com.ibc.applications.transfer.v1.TokenProto.Denom.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * denoms returns all denominations.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.transfer.v1.Denom denoms = 1 [json_name = "denoms", (.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Denoms"];</code>
+       */
+      public java.util.List<com.ibc.applications.transfer.v1.TokenProto.Denom.Builder> 
+           getDenomsBuilderList() {
+        return getDenomsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder> 
+          getDenomsFieldBuilder() {
+        if (denomsBuilder_ == null) {
+          denomsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ibc.applications.transfer.v1.TokenProto.Denom, com.ibc.applications.transfer.v1.TokenProto.Denom.Builder, com.ibc.applications.transfer.v1.TokenProto.DenomOrBuilder>(
+                  denoms_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          denoms_ = null;
+        }
+        return denomsBuilder_;
+      }
+
+      private com.cosmos.base.query.v1beta1.PaginationProto.PageResponse pagination_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder> paginationBuilder_;
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       * @return Whether the pagination field is set.
+       */
+      public boolean hasPagination() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       * @return The pagination.
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse getPagination() {
+        if (paginationBuilder_ == null) {
+          return pagination_ == null ? com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
+        } else {
+          return paginationBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public Builder setPagination(com.cosmos.base.query.v1beta1.PaginationProto.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          pagination_ = value;
+        } else {
+          paginationBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public Builder setPagination(
+          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder builderForValue) {
+        if (paginationBuilder_ == null) {
+          pagination_ = builderForValue.build();
+        } else {
+          paginationBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public Builder mergePagination(com.cosmos.base.query.v1beta1.PaginationProto.PageResponse value) {
+        if (paginationBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            pagination_ != null &&
+            pagination_ != com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance()) {
+            getPaginationBuilder().mergeFrom(value);
+          } else {
+            pagination_ = value;
+          }
+        } else {
+          paginationBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public Builder clearPagination() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pagination_ = null;
+        if (paginationBuilder_ != null) {
+          paginationBuilder_.dispose();
+          paginationBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder getPaginationBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getPaginationFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      public com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder getPaginationOrBuilder() {
+        if (paginationBuilder_ != null) {
+          return paginationBuilder_.getMessageOrBuilder();
+        } else {
+          return pagination_ == null ?
+              com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.getDefaultInstance() : pagination_;
+        }
+      }
+      /**
+       * <pre>
+       * pagination defines the pagination in the response.
+       * </pre>
+       *
+       * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2 [json_name = "pagination"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder> 
+          getPaginationFieldBuilder() {
+        if (paginationBuilder_ == null) {
+          paginationBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.cosmos.base.query.v1beta1.PaginationProto.PageResponse, com.cosmos.base.query.v1beta1.PaginationProto.PageResponse.Builder, com.cosmos.base.query.v1beta1.PaginationProto.PageResponseOrBuilder>(
+                  getPagination(),
+                  getParentForChildren(),
+                  isClean());
+          pagination_ = null;
+        }
+        return paginationBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.transfer.v1.QueryDenomsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.transfer.v1.QueryDenomsResponse)
+    private static final com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse();
+    }
+
+    public static com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<QueryDenomsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<QueryDenomsResponse>() {
+      @java.lang.Override
+      public QueryDenomsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<QueryDenomsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<QueryDenomsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.transfer.v1.QueryProto.QueryDenomsResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7926,26 +7926,6 @@ public final class QueryProto {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_applications_transfer_v1_QueryParamsRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -7955,6 +7935,26 @@ public final class QueryProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_applications_transfer_v1_QueryParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_transfer_v1_QueryDenomRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_transfer_v1_QueryDenomResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_applications_transfer_v1_QueryDenomHashRequest_descriptor;
   private static final 
@@ -7997,114 +7997,113 @@ public final class QueryProto {
       "\n(ibc/applications/transfer/v1/query.pro" +
       "to\022\034ibc.applications.transfer.v1\032\024gogopr" +
       "oto/gogo.proto\032\036cosmos/base/v1beta1/coin" +
-      ".proto\032*cosmos/base/query/v1beta1/pagina" +
-      "tion.proto\032+ibc/applications/transfer/v1" +
-      "/transfer.proto\032\034google/api/annotations." +
-      "proto\",\n\026QueryDenomTraceRequest\022\022\n\004hash\030" +
-      "\001 \001(\tR\004hash\"d\n\027QueryDenomTraceResponse\022I" +
-      "\n\013denom_trace\030\001 \001(\0132(.ibc.applications.t" +
-      "ransfer.v1.DenomTraceR\ndenomTrace\"a\n\027Que" +
-      "ryDenomTracesRequest\022F\n\npagination\030\001 \001(\013" +
-      "2&.cosmos.base.query.v1beta1.PageRequest" +
-      "R\npagination\"\300\001\n\030QueryDenomTracesRespons" +
-      "e\022[\n\014denom_traces\030\001 \003(\0132(.ibc.applicatio" +
-      "ns.transfer.v1.DenomTraceB\016\310\336\037\000\252\337\037\006Trace" +
-      "sR\013denomTraces\022G\n\npagination\030\002 \001(\0132\'.cos" +
-      "mos.base.query.v1beta1.PageResponseR\npag" +
-      "ination\"\024\n\022QueryParamsRequest\"S\n\023QueryPa" +
+      ".proto\032+ibc/applications/transfer/v1/tra" +
+      "nsfer.proto\032(ibc/applications/transfer/v" +
+      "1/token.proto\032*cosmos/base/query/v1beta1" +
+      "/pagination.proto\032\034google/api/annotation" +
+      "s.proto\"\024\n\022QueryParamsRequest\"S\n\023QueryPa" +
       "ramsResponse\022<\n\006params\030\001 \001(\0132$.ibc.appli" +
-      "cations.transfer.v1.ParamsR\006params\"-\n\025Qu" +
-      "eryDenomHashRequest\022\024\n\005trace\030\001 \001(\tR\005trac" +
-      "e\",\n\026QueryDenomHashResponse\022\022\n\004hash\030\001 \001(" +
-      "\tR\004hash\"S\n\031QueryEscrowAddressRequest\022\027\n\007" +
-      "port_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001(" +
-      "\tR\tchannelId\"C\n\032QueryEscrowAddressRespon" +
-      "se\022%\n\016escrow_address\030\001 \001(\tR\rescrowAddres" +
-      "s\"7\n\037QueryTotalEscrowForDenomRequest\022\024\n\005" +
-      "denom\030\001 \001(\tR\005denom\"[\n QueryTotalEscrowFo" +
-      "rDenomResponse\0227\n\006amount\030\001 \001(\0132\031.cosmos." +
-      "base.v1beta1.CoinB\004\310\336\037\000R\006amount2\330\010\n\005Quer" +
-      "y\022\257\001\n\nDenomTrace\0224.ibc.applications.tran" +
-      "sfer.v1.QueryDenomTraceRequest\0325.ibc.app" +
-      "lications.transfer.v1.QueryDenomTraceRes" +
-      "ponse\"4\202\323\344\223\002.\022,/ibc/apps/transfer/v1/den" +
-      "om_traces/{hash=**}\022\250\001\n\013DenomTraces\0225.ib" +
-      "c.applications.transfer.v1.QueryDenomTra" +
-      "cesRequest\0326.ibc.applications.transfer.v" +
-      "1.QueryDenomTracesResponse\"*\202\323\344\223\002$\022\"/ibc" +
-      "/apps/transfer/v1/denom_traces\022\223\001\n\006Param" +
-      "s\0220.ibc.applications.transfer.v1.QueryPa" +
-      "ramsRequest\0321.ibc.applications.transfer." +
-      "v1.QueryParamsResponse\"$\202\323\344\223\002\036\022\034/ibc/app" +
-      "s/transfer/v1/params\022\255\001\n\tDenomHash\0223.ibc" +
-      ".applications.transfer.v1.QueryDenomHash" +
-      "Request\0324.ibc.applications.transfer.v1.Q" +
-      "ueryDenomHashResponse\"5\202\323\344\223\002/\022-/ibc/apps" +
-      "/transfer/v1/denom_hashes/{trace=**}\022\326\001\n" +
-      "\rEscrowAddress\0227.ibc.applications.transf" +
-      "er.v1.QueryEscrowAddressRequest\0328.ibc.ap" +
-      "plications.transfer.v1.QueryEscrowAddres" +
-      "sResponse\"R\202\323\344\223\002L\022J/ibc/apps/transfer/v1" +
-      "/channels/{channel_id}/ports/{port_id}/e" +
-      "scrow_address\022\322\001\n\023TotalEscrowForDenom\022=." +
-      "ibc.applications.transfer.v1.QueryTotalE" +
-      "scrowForDenomRequest\032>.ibc.applications." +
-      "transfer.v1.QueryTotalEscrowForDenomResp" +
-      "onse\"<\202\323\344\223\0026\0224/ibc/apps/transfer/v1/deno" +
-      "ms/{denom=**}/total_escrowB\370\001\n com.ibc.a" +
-      "pplications.transfer.v1B\nQueryProtoZ7git" +
-      "hub.com/cosmos/ibc-go/v7/modules/apps/tr" +
-      "ansfer/types\242\002\003IAT\252\002\034Ibc.Applications.Tr" +
-      "ansfer.V1\312\002\034Ibc\\Applications\\Transfer\\V1" +
-      "\342\002(Ibc\\Applications\\Transfer\\V1\\GPBMetad" +
-      "ata\352\002\037Ibc::Applications::Transfer::V1b\006p" +
-      "roto3"
+      "cations.transfer.v1.ParamsR\006params\"\'\n\021Qu" +
+      "eryDenomRequest\022\022\n\004hash\030\001 \001(\tR\004hash\"O\n\022Q" +
+      "ueryDenomResponse\0229\n\005denom\030\001 \001(\0132#.ibc.a" +
+      "pplications.transfer.v1.DenomR\005denom\"\\\n\022" +
+      "QueryDenomsRequest\022F\n\npagination\030\001 \001(\0132&" +
+      ".cosmos.base.query.v1beta1.PageRequestR\n" +
+      "pagination\"\253\001\n\023QueryDenomsResponse\022K\n\006de" +
+      "noms\030\001 \003(\0132#.ibc.applications.transfer.v" +
+      "1.DenomB\016\310\336\037\000\252\337\037\006DenomsR\006denoms\022G\n\npagin" +
+      "ation\030\002 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponseR\npagination\"-\n\025QueryDenomHa" +
+      "shRequest\022\024\n\005trace\030\001 \001(\tR\005trace\",\n\026Query" +
+      "DenomHashResponse\022\022\n\004hash\030\001 \001(\tR\004hash\"S\n" +
+      "\031QueryEscrowAddressRequest\022\027\n\007port_id\030\001 " +
+      "\001(\tR\006portId\022\035\n\nchannel_id\030\002 \001(\tR\tchannel" +
+      "Id\"C\n\032QueryEscrowAddressResponse\022%\n\016escr" +
+      "ow_address\030\001 \001(\tR\rescrowAddress\"7\n\037Query" +
+      "TotalEscrowForDenomRequest\022\024\n\005denom\030\001 \001(" +
+      "\tR\005denom\"[\n QueryTotalEscrowForDenomResp" +
+      "onse\0227\n\006amount\030\001 \001(\0132\031.cosmos.base.v1bet" +
+      "a1.CoinB\004\310\336\037\000R\006amount2\256\010\n\005Query\022\223\001\n\006Para" +
+      "ms\0220.ibc.applications.transfer.v1.QueryP" +
+      "aramsRequest\0321.ibc.applications.transfer" +
+      ".v1.QueryParamsResponse\"$\202\323\344\223\002\036\022\034/ibc/ap" +
+      "ps/transfer/v1/params\022\223\001\n\006Denoms\0220.ibc.a" +
+      "pplications.transfer.v1.QueryDenomsReque" +
+      "st\0321.ibc.applications.transfer.v1.QueryD" +
+      "enomsResponse\"$\202\323\344\223\002\036\022\034/ibc/apps/transfe" +
+      "r/v1/denoms\022\232\001\n\005Denom\022/.ibc.applications" +
+      ".transfer.v1.QueryDenomRequest\0320.ibc.app" +
+      "lications.transfer.v1.QueryDenomResponse" +
+      "\".\202\323\344\223\002(\022&/ibc/apps/transfer/v1/denoms/{" +
+      "hash=**}\022\255\001\n\tDenomHash\0223.ibc.application" +
+      "s.transfer.v1.QueryDenomHashRequest\0324.ib" +
+      "c.applications.transfer.v1.QueryDenomHas" +
+      "hResponse\"5\202\323\344\223\002/\022-/ibc/apps/transfer/v1" +
+      "/denom_hashes/{trace=**}\022\326\001\n\rEscrowAddre" +
+      "ss\0227.ibc.applications.transfer.v1.QueryE" +
+      "scrowAddressRequest\0328.ibc.applications.t" +
+      "ransfer.v1.QueryEscrowAddressResponse\"R\202" +
+      "\323\344\223\002L\022J/ibc/apps/transfer/v1/channels/{c" +
+      "hannel_id}/ports/{port_id}/escrow_addres" +
+      "s\022\322\001\n\023TotalEscrowForDenom\022=.ibc.applicat" +
+      "ions.transfer.v1.QueryTotalEscrowForDeno" +
+      "mRequest\032>.ibc.applications.transfer.v1." +
+      "QueryTotalEscrowForDenomResponse\"<\202\323\344\223\0026" +
+      "\0224/ibc/apps/transfer/v1/denoms/{denom=**" +
+      "}/total_escrowB\371\001\n com.ibc.applications." +
+      "transfer.v1B\nQueryProtoZ8github.com/cosm" +
+      "os/ibc-go/v10/modules/apps/transfer/type" +
+      "s\242\002\003IAT\252\002\034Ibc.Applications.Transfer.V1\312\002" +
+      "\034Ibc\\Applications\\Transfer\\V1\342\002(Ibc\\Appl" +
+      "ications\\Transfer\\V1\\GPBMetadata\352\002\037Ibc::" +
+      "Applications::Transfer::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.gogoproto.GogoProto.getDescriptor(),
           com.cosmos.base.v1beta1.CoinProto.getDescriptor(),
-          com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor(),
           com.ibc.applications.transfer.v1.TransferProto.getDescriptor(),
+          com.ibc.applications.transfer.v1.TokenProto.getDescriptor(),
+          com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
         });
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ibc_applications_transfer_v1_QueryDenomTraceRequest_descriptor,
-        new java.lang.String[] { "Hash", });
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ibc_applications_transfer_v1_QueryDenomTraceResponse_descriptor,
-        new java.lang.String[] { "DenomTrace", });
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ibc_applications_transfer_v1_QueryDenomTracesRequest_descriptor,
-        new java.lang.String[] { "Pagination", });
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
-    internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ibc_applications_transfer_v1_QueryDenomTracesResponse_descriptor,
-        new java.lang.String[] { "DenomTraces", "Pagination", });
     internal_static_ibc_applications_transfer_v1_QueryParamsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_ibc_applications_transfer_v1_QueryParamsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_transfer_v1_QueryParamsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_ibc_applications_transfer_v1_QueryParamsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_ibc_applications_transfer_v1_QueryParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_transfer_v1_QueryParamsResponse_descriptor,
         new java.lang.String[] { "Params", });
+    internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_ibc_applications_transfer_v1_QueryDenomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_transfer_v1_QueryDenomRequest_descriptor,
+        new java.lang.String[] { "Hash", });
+    internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_ibc_applications_transfer_v1_QueryDenomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_transfer_v1_QueryDenomResponse_descriptor,
+        new java.lang.String[] { "Denom", });
+    internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_transfer_v1_QueryDenomsRequest_descriptor,
+        new java.lang.String[] { "Pagination", });
+    internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_transfer_v1_QueryDenomsResponse_descriptor,
+        new java.lang.String[] { "Denoms", "Pagination", });
     internal_static_ibc_applications_transfer_v1_QueryDenomHashRequest_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_ibc_applications_transfer_v1_QueryDenomHashRequest_fieldAccessorTable = new
@@ -8150,8 +8149,9 @@ public final class QueryProto {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.gogoproto.GogoProto.getDescriptor();
     com.cosmos.base.v1beta1.CoinProto.getDescriptor();
-    com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor();
     com.ibc.applications.transfer.v1.TransferProto.getDescriptor();
+    com.ibc.applications.transfer.v1.TokenProto.getDescriptor();
+    com.cosmos.base.query.v1beta1.PaginationProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
   }
 

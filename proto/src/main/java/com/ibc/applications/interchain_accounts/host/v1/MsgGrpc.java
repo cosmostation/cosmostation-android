@@ -49,6 +49,37 @@ public final class MsgGrpc {
     return getUpdateParamsMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe,
+      com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> getModuleQuerySafeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ModuleQuerySafe",
+      requestType = com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.class,
+      responseType = com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe,
+      com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> getModuleQuerySafeMethod() {
+    io.grpc.MethodDescriptor<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> getModuleQuerySafeMethod;
+    if ((getModuleQuerySafeMethod = MsgGrpc.getModuleQuerySafeMethod) == null) {
+      synchronized (MsgGrpc.class) {
+        if ((getModuleQuerySafeMethod = MsgGrpc.getModuleQuerySafeMethod) == null) {
+          MsgGrpc.getModuleQuerySafeMethod = getModuleQuerySafeMethod =
+              io.grpc.MethodDescriptor.<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ModuleQuerySafe"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MsgMethodDescriptorSupplier("ModuleQuerySafe"))
+              .build();
+        }
+      }
+    }
+    return getModuleQuerySafeMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -109,6 +140,16 @@ public final class MsgGrpc {
         io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParamsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateParamsMethod(), responseObserver);
     }
+
+    /**
+     * <pre>
+     * ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+     * </pre>
+     */
+    default void moduleQuerySafe(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe request,
+        io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getModuleQuerySafeMethod(), responseObserver);
+    }
   }
 
   /**
@@ -154,6 +195,17 @@ public final class MsgGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     * <pre>
+     * ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+     * </pre>
+     */
+    public void moduleQuerySafe(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe request,
+        io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getModuleQuerySafeMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -183,6 +235,16 @@ public final class MsgGrpc {
     public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParamsResponse updateParams(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateParamsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+     * </pre>
+     */
+    public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse moduleQuerySafe(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getModuleQuerySafeMethod(), getCallOptions(), request);
     }
   }
 
@@ -215,9 +277,21 @@ public final class MsgGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateParamsMethod(), getCallOptions()), request);
     }
+
+    /**
+     * <pre>
+     * ModuleQuerySafe defines a rpc handler for MsgModuleQuerySafe.
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse> moduleQuerySafe(
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getModuleQuerySafeMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_UPDATE_PARAMS = 0;
+  private static final int METHODID_MODULE_QUERY_SAFE = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -239,6 +313,10 @@ public final class MsgGrpc {
         case METHODID_UPDATE_PARAMS:
           serviceImpl.updateParams((com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams) request,
               (io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParamsResponse>) responseObserver);
+          break;
+        case METHODID_MODULE_QUERY_SAFE:
+          serviceImpl.moduleQuerySafe((com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe) request,
+              (io.grpc.stub.StreamObserver<com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -265,6 +343,13 @@ public final class MsgGrpc {
               com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams,
               com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParamsResponse>(
                 service, METHODID_UPDATE_PARAMS)))
+        .addMethod(
+          getModuleQuerySafeMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe,
+              com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse>(
+                service, METHODID_MODULE_QUERY_SAFE)))
         .build();
   }
 
@@ -314,6 +399,7 @@ public final class MsgGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new MsgFileDescriptorSupplier())
               .addMethod(getUpdateParamsMethod())
+              .addMethod(getModuleQuerySafeMethod())
               .build();
         }
       }

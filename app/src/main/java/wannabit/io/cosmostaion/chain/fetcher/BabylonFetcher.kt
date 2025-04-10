@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
+import com.babylon.btccheckpoint.v1.ParamsProto
 import com.babylon.epoching.v1.QueryProto.QueryCurrentEpochResponse
 import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.base.v1beta1.CoinProto.Coin
@@ -15,6 +16,7 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
 
     var btcStakedStatus: MutableList<JsonObject>? = mutableListOf()
     var btcRewards: MutableList<Coin> = mutableListOf()
+    var btcCheckpointParams: ParamsProto.Params? = null
 
     data class BabylonEpochData(
         var currentHeight: Long? = 0,
@@ -135,6 +137,14 @@ fun JsonObject.btcReward(denom: String): MutableList<Coin> {
 fun JsonObject.chainHeight(): Long {
     val height = this["height"].asString.toLong()
     return height
+}
+
+fun JsonObject.btcCheckPointParams(): ParamsProto.Params {
+    val params = this["params"].asJsonObject
+    return ParamsProto.Params.newBuilder()
+        .setBtcConfirmationDepth(params["btc_confirmation_depth"].asInt)
+        .setCheckpointFinalizationTimeout(params["checkpoint_finalization_timeout"].asInt)
+        .setCheckpointTag(params["checkpoint_tag"].asString).build()
 }
 
 fun JsonObject.currentEpoch(): QueryCurrentEpochResponse {

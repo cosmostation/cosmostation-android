@@ -22,7 +22,8 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -67,7 +68,9 @@ class CompoundingFragment : BaseTxFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
-            selectedChain: BaseChain, claimableRewards: MutableList<DelegationDelegatorReward?>?, isCompounding: Boolean
+            selectedChain: BaseChain,
+            claimableRewards: MutableList<DelegationDelegatorReward?>?,
+            isCompounding: Boolean
         ): CompoundingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
@@ -108,8 +111,11 @@ class CompoundingFragment : BaseTxFragment() {
                     selectedChain = it
                 }
             }
-            val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
-            claimableRewards = serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            if (selectedChain !is ChainNeutron) {
+                val serializableList = arguments?.getSerializable("claimableRewards") as? HashSet<*>
+                claimableRewards =
+                    serializableList?.toList() as MutableList<DelegationDelegatorReward?>
+            }
             isCompounding = arguments?.getBoolean("isCompounding") ?: false
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
@@ -145,6 +151,16 @@ class CompoundingFragment : BaseTxFragment() {
                 } else {
                     validatorName.text =
                         (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                }
+
+            } else if (selectedChain is ChainZenrock) {
+                val cosmostationValAddress =
+                    (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
+                    validatorName.text = "Cosmostation"
+                } else {
+                    validatorName.text =
+                        (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
                 }
 
             } else {

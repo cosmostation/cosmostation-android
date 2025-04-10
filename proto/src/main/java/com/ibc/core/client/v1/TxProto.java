@@ -1140,6 +1140,18 @@ public final class TxProto {
   public interface MsgCreateClientResponseOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgCreateClientResponse)
       com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    java.lang.String getClientId();
+    /**
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    com.google.protobuf.ByteString
+        getClientIdBytes();
   }
   /**
    * <pre>
@@ -1158,6 +1170,7 @@ public final class TxProto {
       super(builder);
     }
     private MsgCreateClientResponse() {
+      clientId_ = "";
     }
 
     @java.lang.Override
@@ -1180,6 +1193,45 @@ public final class TxProto {
               com.ibc.core.client.v1.TxProto.MsgCreateClientResponse.class, com.ibc.core.client.v1.TxProto.MsgCreateClientResponse.Builder.class);
     }
 
+    public static final int CLIENT_ID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object clientId_ = "";
+    /**
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    @java.lang.Override
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1194,6 +1246,9 @@ public final class TxProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientId_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1203,6 +1258,9 @@ public final class TxProto {
       if (size != -1) return size;
 
       size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientId_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1218,6 +1276,8 @@ public final class TxProto {
       }
       com.ibc.core.client.v1.TxProto.MsgCreateClientResponse other = (com.ibc.core.client.v1.TxProto.MsgCreateClientResponse) obj;
 
+      if (!getClientId()
+          .equals(other.getClientId())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1229,6 +1289,8 @@ public final class TxProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getClientId().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1363,6 +1425,8 @@ public final class TxProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
+        clientId_ = "";
         return this;
       }
 
@@ -1389,8 +1453,16 @@ public final class TxProto {
       @java.lang.Override
       public com.ibc.core.client.v1.TxProto.MsgCreateClientResponse buildPartial() {
         com.ibc.core.client.v1.TxProto.MsgCreateClientResponse result = new com.ibc.core.client.v1.TxProto.MsgCreateClientResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.TxProto.MsgCreateClientResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.clientId_ = clientId_;
+        }
       }
 
       @java.lang.Override
@@ -1437,6 +1509,11 @@ public final class TxProto {
 
       public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgCreateClientResponse other) {
         if (other == com.ibc.core.client.v1.TxProto.MsgCreateClientResponse.getDefaultInstance()) return this;
+        if (!other.getClientId().isEmpty()) {
+          clientId_ = other.clientId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1463,6 +1540,11 @@ public final class TxProto {
               case 0:
                 done = true;
                 break;
+              case 10: {
+                clientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1476,6 +1558,79 @@ public final class TxProto {
         } finally {
           onChanged();
         } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object clientId_ = "";
+      /**
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The clientId.
+       */
+      public java.lang.String getClientId() {
+        java.lang.Object ref = clientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          clientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The bytes for clientId.
+       */
+      public com.google.protobuf.ByteString
+          getClientIdBytes() {
+        java.lang.Object ref = clientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          clientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClientId() {
+        clientId_ = getDefaultInstance().getClientId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The bytes for clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       @java.lang.Override
@@ -4885,7 +5040,7 @@ public final class TxProto {
 
   }
 
-  public interface MsgSubmitMisbehaviourOrBuilder extends
+  @java.lang.Deprecated public interface MsgSubmitMisbehaviourOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgSubmitMisbehaviour)
       com.google.protobuf.MessageOrBuilder {
 
@@ -4894,23 +5049,19 @@ public final class TxProto {
      * client unique identifier
      * </pre>
      *
-     * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=103
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
      * @return The clientId.
      */
-    @java.lang.Deprecated java.lang.String getClientId();
+    java.lang.String getClientId();
     /**
      * <pre>
      * client unique identifier
      * </pre>
      *
-     * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=103
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
      * @return The bytes for clientId.
      */
-    @java.lang.Deprecated com.google.protobuf.ByteString
+    com.google.protobuf.ByteString
         getClientIdBytes();
 
     /**
@@ -4918,66 +5069,58 @@ public final class TxProto {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=105
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      * @return Whether the misbehaviour field is set.
      */
-    @java.lang.Deprecated boolean hasMisbehaviour();
+    boolean hasMisbehaviour();
     /**
      * <pre>
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=105
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      * @return The misbehaviour.
      */
-    @java.lang.Deprecated com.google.protobuf.Any getMisbehaviour();
+    com.google.protobuf.Any getMisbehaviour();
     /**
      * <pre>
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      */
-    @java.lang.Deprecated com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder();
+    com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder();
 
     /**
      * <pre>
      * signer address
      * </pre>
      *
-     * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=107
+     * <code>string signer = 3 [json_name = "signer"];</code>
      * @return The signer.
      */
-    @java.lang.Deprecated java.lang.String getSigner();
+    java.lang.String getSigner();
     /**
      * <pre>
      * signer address
      * </pre>
      *
-     * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=107
+     * <code>string signer = 3 [json_name = "signer"];</code>
      * @return The bytes for signer.
      */
-    @java.lang.Deprecated com.google.protobuf.ByteString
+    com.google.protobuf.ByteString
         getSignerBytes();
   }
   /**
    * <pre>
    * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
    * light client misbehaviour.
-   * Warning: DEPRECATED
+   * This message has been deprecated. Use MsgUpdateClient instead.
    * </pre>
    *
    * Protobuf type {@code ibc.core.client.v1.MsgSubmitMisbehaviour}
    */
-  public static final class MsgSubmitMisbehaviour extends
+  @java.lang.Deprecated public static final class MsgSubmitMisbehaviour extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgSubmitMisbehaviour)
       MsgSubmitMisbehaviourOrBuilder {
@@ -5019,13 +5162,11 @@ public final class TxProto {
      * client unique identifier
      * </pre>
      *
-     * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=103
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
      * @return The clientId.
      */
     @java.lang.Override
-    @java.lang.Deprecated public java.lang.String getClientId() {
+    public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -5042,13 +5183,11 @@ public final class TxProto {
      * client unique identifier
      * </pre>
      *
-     * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=103
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
      * @return The bytes for clientId.
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.ByteString
+    public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -5069,13 +5208,11 @@ public final class TxProto {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=105
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      * @return Whether the misbehaviour field is set.
      */
     @java.lang.Override
-    @java.lang.Deprecated public boolean hasMisbehaviour() {
+    public boolean hasMisbehaviour() {
       return misbehaviour_ != null;
     }
     /**
@@ -5083,13 +5220,11 @@ public final class TxProto {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=105
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      * @return The misbehaviour.
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.Any getMisbehaviour() {
+    public com.google.protobuf.Any getMisbehaviour() {
       return misbehaviour_ == null ? com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
     }
     /**
@@ -5097,10 +5232,10 @@ public final class TxProto {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+     * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
+    public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
       return misbehaviour_ == null ? com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
     }
 
@@ -5112,13 +5247,11 @@ public final class TxProto {
      * signer address
      * </pre>
      *
-     * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=107
+     * <code>string signer = 3 [json_name = "signer"];</code>
      * @return The signer.
      */
     @java.lang.Override
-    @java.lang.Deprecated public java.lang.String getSigner() {
+    public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
@@ -5135,13 +5268,11 @@ public final class TxProto {
      * signer address
      * </pre>
      *
-     * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-     * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-     *     See ibc/core/client/v1/tx.proto;l=107
+     * <code>string signer = 3 [json_name = "signer"];</code>
      * @return The bytes for signer.
      */
     @java.lang.Override
-    @java.lang.Deprecated public com.google.protobuf.ByteString
+    public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -5341,7 +5472,7 @@ public final class TxProto {
      * <pre>
      * MsgSubmitMisbehaviour defines an sdk.Msg type that submits Evidence for
      * light client misbehaviour.
-     * Warning: DEPRECATED
+     * This message has been deprecated. Use MsgUpdateClient instead.
      * </pre>
      *
      * Protobuf type {@code ibc.core.client.v1.MsgSubmitMisbehaviour}
@@ -5553,12 +5684,10 @@ public final class TxProto {
        * client unique identifier
        * </pre>
        *
-       * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=103
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
        * @return The clientId.
        */
-      @java.lang.Deprecated public java.lang.String getClientId() {
+      public java.lang.String getClientId() {
         java.lang.Object ref = clientId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -5575,12 +5704,10 @@ public final class TxProto {
        * client unique identifier
        * </pre>
        *
-       * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=103
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
        * @return The bytes for clientId.
        */
-      @java.lang.Deprecated public com.google.protobuf.ByteString
+      public com.google.protobuf.ByteString
           getClientIdBytes() {
         java.lang.Object ref = clientId_;
         if (ref instanceof String) {
@@ -5598,13 +5725,11 @@ public final class TxProto {
        * client unique identifier
        * </pre>
        *
-       * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=103
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
        * @param value The clientId to set.
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder setClientId(
+      public Builder setClientId(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         clientId_ = value;
@@ -5617,12 +5742,10 @@ public final class TxProto {
        * client unique identifier
        * </pre>
        *
-       * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=103
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder clearClientId() {
+      public Builder clearClientId() {
         clientId_ = getDefaultInstance().getClientId();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
@@ -5633,13 +5756,11 @@ public final class TxProto {
        * client unique identifier
        * </pre>
        *
-       * <code>string client_id = 1 [json_name = "clientId", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.client_id is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=103
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
        * @param value The bytes for clientId to set.
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder setClientIdBytes(
+      public Builder setClientIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -5657,12 +5778,10 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=105
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        * @return Whether the misbehaviour field is set.
        */
-      @java.lang.Deprecated public boolean hasMisbehaviour() {
+      public boolean hasMisbehaviour() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
@@ -5670,12 +5789,10 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.misbehaviour is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=105
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        * @return The misbehaviour.
        */
-      @java.lang.Deprecated public com.google.protobuf.Any getMisbehaviour() {
+      public com.google.protobuf.Any getMisbehaviour() {
         if (misbehaviourBuilder_ == null) {
           return misbehaviour_ == null ? com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
         } else {
@@ -5687,9 +5804,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public Builder setMisbehaviour(com.google.protobuf.Any value) {
+      public Builder setMisbehaviour(com.google.protobuf.Any value) {
         if (misbehaviourBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5707,9 +5824,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public Builder setMisbehaviour(
+      public Builder setMisbehaviour(
           com.google.protobuf.Any.Builder builderForValue) {
         if (misbehaviourBuilder_ == null) {
           misbehaviour_ = builderForValue.build();
@@ -5725,9 +5842,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public Builder mergeMisbehaviour(com.google.protobuf.Any value) {
+      public Builder mergeMisbehaviour(com.google.protobuf.Any value) {
         if (misbehaviourBuilder_ == null) {
           if (((bitField0_ & 0x00000002) != 0) &&
             misbehaviour_ != null &&
@@ -5748,9 +5865,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public Builder clearMisbehaviour() {
+      public Builder clearMisbehaviour() {
         bitField0_ = (bitField0_ & ~0x00000002);
         misbehaviour_ = null;
         if (misbehaviourBuilder_ != null) {
@@ -5765,9 +5882,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public com.google.protobuf.Any.Builder getMisbehaviourBuilder() {
+      public com.google.protobuf.Any.Builder getMisbehaviourBuilder() {
         bitField0_ |= 0x00000002;
         onChanged();
         return getMisbehaviourFieldBuilder().getBuilder();
@@ -5777,9 +5894,9 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
-      @java.lang.Deprecated public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
+      public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
         if (misbehaviourBuilder_ != null) {
           return misbehaviourBuilder_.getMessageOrBuilder();
         } else {
@@ -5792,7 +5909,7 @@ public final class TxProto {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour", deprecated = true];</code>
+       * <code>.google.protobuf.Any misbehaviour = 2 [json_name = "misbehaviour"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
@@ -5814,12 +5931,10 @@ public final class TxProto {
        * signer address
        * </pre>
        *
-       * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=107
+       * <code>string signer = 3 [json_name = "signer"];</code>
        * @return The signer.
        */
-      @java.lang.Deprecated public java.lang.String getSigner() {
+      public java.lang.String getSigner() {
         java.lang.Object ref = signer_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
@@ -5836,12 +5951,10 @@ public final class TxProto {
        * signer address
        * </pre>
        *
-       * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=107
+       * <code>string signer = 3 [json_name = "signer"];</code>
        * @return The bytes for signer.
        */
-      @java.lang.Deprecated public com.google.protobuf.ByteString
+      public com.google.protobuf.ByteString
           getSignerBytes() {
         java.lang.Object ref = signer_;
         if (ref instanceof String) {
@@ -5859,13 +5972,11 @@ public final class TxProto {
        * signer address
        * </pre>
        *
-       * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=107
+       * <code>string signer = 3 [json_name = "signer"];</code>
        * @param value The signer to set.
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder setSigner(
+      public Builder setSigner(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         signer_ = value;
@@ -5878,12 +5989,10 @@ public final class TxProto {
        * signer address
        * </pre>
        *
-       * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=107
+       * <code>string signer = 3 [json_name = "signer"];</code>
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder clearSigner() {
+      public Builder clearSigner() {
         signer_ = getDefaultInstance().getSigner();
         bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
@@ -5894,13 +6003,11 @@ public final class TxProto {
        * signer address
        * </pre>
        *
-       * <code>string signer = 3 [json_name = "signer", deprecated = true];</code>
-       * @deprecated ibc.core.client.v1.MsgSubmitMisbehaviour.signer is deprecated.
-       *     See ibc/core/client/v1/tx.proto;l=107
+       * <code>string signer = 3 [json_name = "signer"];</code>
        * @param value The bytes for signer to set.
        * @return This builder for chaining.
        */
-      @java.lang.Deprecated public Builder setSignerBytes(
+      public Builder setSignerBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
@@ -6380,29 +6487,2965 @@ public final class TxProto {
 
   }
 
+  public interface MsgRecoverClientOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgRecoverClient)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * the client identifier for the client to be updated if the proposal passes
+     * </pre>
+     *
+     * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+     * @return The subjectClientId.
+     */
+    java.lang.String getSubjectClientId();
+    /**
+     * <pre>
+     * the client identifier for the client to be updated if the proposal passes
+     * </pre>
+     *
+     * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+     * @return The bytes for subjectClientId.
+     */
+    com.google.protobuf.ByteString
+        getSubjectClientIdBytes();
+
+    /**
+     * <pre>
+     * the substitute client identifier for the client which will replace the subject
+     * client
+     * </pre>
+     *
+     * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+     * @return The substituteClientId.
+     */
+    java.lang.String getSubstituteClientId();
+    /**
+     * <pre>
+     * the substitute client identifier for the client which will replace the subject
+     * client
+     * </pre>
+     *
+     * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+     * @return The bytes for substituteClientId.
+     */
+    com.google.protobuf.ByteString
+        getSubstituteClientIdBytes();
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+  }
+  /**
+   * <pre>
+   * MsgRecoverClient defines the message used to recover a frozen or expired client.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgRecoverClient}
+   */
+  public static final class MsgRecoverClient extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgRecoverClient)
+      MsgRecoverClientOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgRecoverClient.newBuilder() to construct.
+    private MsgRecoverClient(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgRecoverClient() {
+      subjectClientId_ = "";
+      substituteClientId_ = "";
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgRecoverClient();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClient_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgRecoverClient.class, com.ibc.core.client.v1.TxProto.MsgRecoverClient.Builder.class);
+    }
+
+    public static final int SUBJECT_CLIENT_ID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object subjectClientId_ = "";
+    /**
+     * <pre>
+     * the client identifier for the client to be updated if the proposal passes
+     * </pre>
+     *
+     * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+     * @return The subjectClientId.
+     */
+    @java.lang.Override
+    public java.lang.String getSubjectClientId() {
+      java.lang.Object ref = subjectClientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        subjectClientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * the client identifier for the client to be updated if the proposal passes
+     * </pre>
+     *
+     * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+     * @return The bytes for subjectClientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSubjectClientIdBytes() {
+      java.lang.Object ref = subjectClientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        subjectClientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SUBSTITUTE_CLIENT_ID_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object substituteClientId_ = "";
+    /**
+     * <pre>
+     * the substitute client identifier for the client which will replace the subject
+     * client
+     * </pre>
+     *
+     * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+     * @return The substituteClientId.
+     */
+    @java.lang.Override
+    public java.lang.String getSubstituteClientId() {
+      java.lang.Object ref = substituteClientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        substituteClientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * the substitute client identifier for the client which will replace the subject
+     * client
+     * </pre>
+     *
+     * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+     * @return The bytes for substituteClientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSubstituteClientIdBytes() {
+      java.lang.Object ref = substituteClientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        substituteClientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(subjectClientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, subjectClientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(substituteClientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, substituteClientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, signer_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(subjectClientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, subjectClientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(substituteClientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, substituteClientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, signer_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgRecoverClient)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgRecoverClient other = (com.ibc.core.client.v1.TxProto.MsgRecoverClient) obj;
+
+      if (!getSubjectClientId()
+          .equals(other.getSubjectClientId())) return false;
+      if (!getSubstituteClientId()
+          .equals(other.getSubstituteClientId())) return false;
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SUBJECT_CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getSubjectClientId().hashCode();
+      hash = (37 * hash) + SUBSTITUTE_CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getSubstituteClientId().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgRecoverClient prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgRecoverClient defines the message used to recover a frozen or expired client.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgRecoverClient}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgRecoverClient)
+        com.ibc.core.client.v1.TxProto.MsgRecoverClientOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClient_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgRecoverClient.class, com.ibc.core.client.v1.TxProto.MsgRecoverClient.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgRecoverClient.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        subjectClientId_ = "";
+        substituteClientId_ = "";
+        signer_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClient getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgRecoverClient.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClient build() {
+        com.ibc.core.client.v1.TxProto.MsgRecoverClient result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClient buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgRecoverClient result = new com.ibc.core.client.v1.TxProto.MsgRecoverClient(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.TxProto.MsgRecoverClient result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.subjectClientId_ = subjectClientId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.substituteClientId_ = substituteClientId_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.signer_ = signer_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgRecoverClient) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgRecoverClient)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgRecoverClient other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgRecoverClient.getDefaultInstance()) return this;
+        if (!other.getSubjectClientId().isEmpty()) {
+          subjectClientId_ = other.subjectClientId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getSubstituteClientId().isEmpty()) {
+          substituteClientId_ = other.substituteClientId_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                subjectClientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                substituteClientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object subjectClientId_ = "";
+      /**
+       * <pre>
+       * the client identifier for the client to be updated if the proposal passes
+       * </pre>
+       *
+       * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+       * @return The subjectClientId.
+       */
+      public java.lang.String getSubjectClientId() {
+        java.lang.Object ref = subjectClientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          subjectClientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the client identifier for the client to be updated if the proposal passes
+       * </pre>
+       *
+       * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+       * @return The bytes for subjectClientId.
+       */
+      public com.google.protobuf.ByteString
+          getSubjectClientIdBytes() {
+        java.lang.Object ref = subjectClientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          subjectClientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the client identifier for the client to be updated if the proposal passes
+       * </pre>
+       *
+       * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+       * @param value The subjectClientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubjectClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        subjectClientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the client identifier for the client to be updated if the proposal passes
+       * </pre>
+       *
+       * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSubjectClientId() {
+        subjectClientId_ = getDefaultInstance().getSubjectClientId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the client identifier for the client to be updated if the proposal passes
+       * </pre>
+       *
+       * <code>string subject_client_id = 1 [json_name = "subjectClientId"];</code>
+       * @param value The bytes for subjectClientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubjectClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        subjectClientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object substituteClientId_ = "";
+      /**
+       * <pre>
+       * the substitute client identifier for the client which will replace the subject
+       * client
+       * </pre>
+       *
+       * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+       * @return The substituteClientId.
+       */
+      public java.lang.String getSubstituteClientId() {
+        java.lang.Object ref = substituteClientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          substituteClientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the substitute client identifier for the client which will replace the subject
+       * client
+       * </pre>
+       *
+       * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+       * @return The bytes for substituteClientId.
+       */
+      public com.google.protobuf.ByteString
+          getSubstituteClientIdBytes() {
+        java.lang.Object ref = substituteClientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          substituteClientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the substitute client identifier for the client which will replace the subject
+       * client
+       * </pre>
+       *
+       * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+       * @param value The substituteClientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubstituteClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        substituteClientId_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the substitute client identifier for the client which will replace the subject
+       * client
+       * </pre>
+       *
+       * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSubstituteClientId() {
+        substituteClientId_ = getDefaultInstance().getSubstituteClientId();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the substitute client identifier for the client which will replace the subject
+       * client
+       * </pre>
+       *
+       * <code>string substitute_client_id = 2 [json_name = "substituteClientId"];</code>
+       * @param value The bytes for substituteClientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSubstituteClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        substituteClientId_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgRecoverClient)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgRecoverClient)
+    private static final com.ibc.core.client.v1.TxProto.MsgRecoverClient DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgRecoverClient();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClient getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgRecoverClient>
+        PARSER = new com.google.protobuf.AbstractParser<MsgRecoverClient>() {
+      @java.lang.Override
+      public MsgRecoverClient parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgRecoverClient> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgRecoverClient> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgRecoverClient getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgRecoverClientResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgRecoverClientResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgRecoverClientResponse defines the Msg/RecoverClient response type.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgRecoverClientResponse}
+   */
+  public static final class MsgRecoverClientResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgRecoverClientResponse)
+      MsgRecoverClientResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgRecoverClientResponse.newBuilder() to construct.
+    private MsgRecoverClientResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgRecoverClientResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgRecoverClientResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClientResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.class, com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse other = (com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgRecoverClientResponse defines the Msg/RecoverClient response type.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgRecoverClientResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgRecoverClientResponse)
+        com.ibc.core.client.v1.TxProto.MsgRecoverClientResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClientResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.class, com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse build() {
+        com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse result = new com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgRecoverClientResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgRecoverClientResponse)
+    private static final com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgRecoverClientResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgRecoverClientResponse>() {
+      @java.lang.Override
+      public MsgRecoverClientResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgRecoverClientResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgRecoverClientResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgRecoverClientResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgIBCSoftwareUpgradeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgIBCSoftwareUpgrade)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     * @return Whether the plan field is set.
+     */
+    boolean hasPlan();
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     * @return The plan.
+     */
+    com.cosmos.upgrade.v1beta1.UpgradeProto.Plan getPlan();
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     */
+    com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder getPlanOrBuilder();
+
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     * @return Whether the upgradedClientState field is set.
+     */
+    boolean hasUpgradedClientState();
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     * @return The upgradedClientState.
+     */
+    com.google.protobuf.Any getUpgradedClientState();
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     */
+    com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder();
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+  }
+  /**
+   * <pre>
+   * MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgIBCSoftwareUpgrade}
+   */
+  public static final class MsgIBCSoftwareUpgrade extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgIBCSoftwareUpgrade)
+      MsgIBCSoftwareUpgradeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgIBCSoftwareUpgrade.newBuilder() to construct.
+    private MsgIBCSoftwareUpgrade(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgIBCSoftwareUpgrade() {
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgIBCSoftwareUpgrade();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.class, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.Builder.class);
+    }
+
+    public static final int PLAN_FIELD_NUMBER = 1;
+    private com.cosmos.upgrade.v1beta1.UpgradeProto.Plan plan_;
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     * @return Whether the plan field is set.
+     */
+    @java.lang.Override
+    public boolean hasPlan() {
+      return plan_ != null;
+    }
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     * @return The plan.
+     */
+    @java.lang.Override
+    public com.cosmos.upgrade.v1beta1.UpgradeProto.Plan getPlan() {
+      return plan_ == null ? com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.getDefaultInstance() : plan_;
+    }
+    /**
+     * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder getPlanOrBuilder() {
+      return plan_ == null ? com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.getDefaultInstance() : plan_;
+    }
+
+    public static final int UPGRADED_CLIENT_STATE_FIELD_NUMBER = 2;
+    private com.google.protobuf.Any upgradedClientState_;
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     * @return Whether the upgradedClientState field is set.
+     */
+    @java.lang.Override
+    public boolean hasUpgradedClientState() {
+      return upgradedClientState_ != null;
+    }
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     * @return The upgradedClientState.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getUpgradedClientState() {
+      return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+    }
+    /**
+     * <pre>
+     * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+     * This will make the chain commit to the correct upgraded (self) client state
+     * before the upgrade occurs, so that connecting chains can verify that the
+     * new upgraded client is valid by verifying a proof on the previous version
+     * of the chain. This will allow IBC connections to persist smoothly across
+     * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+     * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+     * the 02-client module.
+     * </pre>
+     *
+     * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+      return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 3 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (plan_ != null) {
+        output.writeMessage(1, getPlan());
+      }
+      if (upgradedClientState_ != null) {
+        output.writeMessage(2, getUpgradedClientState());
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, signer_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (plan_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getPlan());
+      }
+      if (upgradedClientState_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getUpgradedClientState());
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, signer_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade other = (com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade) obj;
+
+      if (hasPlan() != other.hasPlan()) return false;
+      if (hasPlan()) {
+        if (!getPlan()
+            .equals(other.getPlan())) return false;
+      }
+      if (hasUpgradedClientState() != other.hasUpgradedClientState()) return false;
+      if (hasUpgradedClientState()) {
+        if (!getUpgradedClientState()
+            .equals(other.getUpgradedClientState())) return false;
+      }
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasPlan()) {
+        hash = (37 * hash) + PLAN_FIELD_NUMBER;
+        hash = (53 * hash) + getPlan().hashCode();
+      }
+      if (hasUpgradedClientState()) {
+        hash = (37 * hash) + UPGRADED_CLIENT_STATE_FIELD_NUMBER;
+        hash = (53 * hash) + getUpgradedClientState().hashCode();
+      }
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgIBCSoftwareUpgrade}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgIBCSoftwareUpgrade)
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.class, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        plan_ = null;
+        if (planBuilder_ != null) {
+          planBuilder_.dispose();
+          planBuilder_ = null;
+        }
+        upgradedClientState_ = null;
+        if (upgradedClientStateBuilder_ != null) {
+          upgradedClientStateBuilder_.dispose();
+          upgradedClientStateBuilder_ = null;
+        }
+        signer_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade build() {
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade result = new com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.plan_ = planBuilder_ == null
+              ? plan_
+              : planBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.upgradedClientState_ = upgradedClientStateBuilder_ == null
+              ? upgradedClientState_
+              : upgradedClientStateBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.signer_ = signer_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade.getDefaultInstance()) return this;
+        if (other.hasPlan()) {
+          mergePlan(other.getPlan());
+        }
+        if (other.hasUpgradedClientState()) {
+          mergeUpgradedClientState(other.getUpgradedClientState());
+        }
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getPlanFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getUpgradedClientStateFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private com.cosmos.upgrade.v1beta1.UpgradeProto.Plan plan_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.upgrade.v1beta1.UpgradeProto.Plan, com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.Builder, com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder> planBuilder_;
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       * @return Whether the plan field is set.
+       */
+      public boolean hasPlan() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       * @return The plan.
+       */
+      public com.cosmos.upgrade.v1beta1.UpgradeProto.Plan getPlan() {
+        if (planBuilder_ == null) {
+          return plan_ == null ? com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.getDefaultInstance() : plan_;
+        } else {
+          return planBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPlan(com.cosmos.upgrade.v1beta1.UpgradeProto.Plan value) {
+        if (planBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          plan_ = value;
+        } else {
+          planBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setPlan(
+          com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.Builder builderForValue) {
+        if (planBuilder_ == null) {
+          plan_ = builderForValue.build();
+        } else {
+          planBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergePlan(com.cosmos.upgrade.v1beta1.UpgradeProto.Plan value) {
+        if (planBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            plan_ != null &&
+            plan_ != com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.getDefaultInstance()) {
+            getPlanBuilder().mergeFrom(value);
+          } else {
+            plan_ = value;
+          }
+        } else {
+          planBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearPlan() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        plan_ = null;
+        if (planBuilder_ != null) {
+          planBuilder_.dispose();
+          planBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.Builder getPlanBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getPlanFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      public com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder getPlanOrBuilder() {
+        if (planBuilder_ != null) {
+          return planBuilder_.getMessageOrBuilder();
+        } else {
+          return plan_ == null ?
+              com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.getDefaultInstance() : plan_;
+        }
+      }
+      /**
+       * <code>.cosmos.upgrade.v1beta1.Plan plan = 1 [json_name = "plan", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.cosmos.upgrade.v1beta1.UpgradeProto.Plan, com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.Builder, com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder> 
+          getPlanFieldBuilder() {
+        if (planBuilder_ == null) {
+          planBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.cosmos.upgrade.v1beta1.UpgradeProto.Plan, com.cosmos.upgrade.v1beta1.UpgradeProto.Plan.Builder, com.cosmos.upgrade.v1beta1.UpgradeProto.PlanOrBuilder>(
+                  getPlan(),
+                  getParentForChildren(),
+                  isClean());
+          plan_ = null;
+        }
+        return planBuilder_;
+      }
+
+      private com.google.protobuf.Any upgradedClientState_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> upgradedClientStateBuilder_;
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       * @return Whether the upgradedClientState field is set.
+       */
+      public boolean hasUpgradedClientState() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       * @return The upgradedClientState.
+       */
+      public com.google.protobuf.Any getUpgradedClientState() {
+        if (upgradedClientStateBuilder_ == null) {
+          return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+        } else {
+          return upgradedClientStateBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public Builder setUpgradedClientState(com.google.protobuf.Any value) {
+        if (upgradedClientStateBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          upgradedClientState_ = value;
+        } else {
+          upgradedClientStateBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public Builder setUpgradedClientState(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (upgradedClientStateBuilder_ == null) {
+          upgradedClientState_ = builderForValue.build();
+        } else {
+          upgradedClientStateBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public Builder mergeUpgradedClientState(com.google.protobuf.Any value) {
+        if (upgradedClientStateBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            upgradedClientState_ != null &&
+            upgradedClientState_ != com.google.protobuf.Any.getDefaultInstance()) {
+            getUpgradedClientStateBuilder().mergeFrom(value);
+          } else {
+            upgradedClientState_ = value;
+          }
+        } else {
+          upgradedClientStateBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public Builder clearUpgradedClientState() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        upgradedClientState_ = null;
+        if (upgradedClientStateBuilder_ != null) {
+          upgradedClientStateBuilder_.dispose();
+          upgradedClientStateBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public com.google.protobuf.Any.Builder getUpgradedClientStateBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getUpgradedClientStateFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+        if (upgradedClientStateBuilder_ != null) {
+          return upgradedClientStateBuilder_.getMessageOrBuilder();
+        } else {
+          return upgradedClientState_ == null ?
+              com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+        }
+      }
+      /**
+       * <pre>
+       * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
+       * This will make the chain commit to the correct upgraded (self) client state
+       * before the upgrade occurs, so that connecting chains can verify that the
+       * new upgraded client is valid by verifying a proof on the previous version
+       * of the chain. This will allow IBC connections to persist smoothly across
+       * planned chain upgrades. Correspondingly, the UpgradedClientState field has been
+       * deprecated in the Cosmos SDK to allow for this logic to exist solely in
+       * the 02-client module.
+       * </pre>
+       *
+       * <code>.google.protobuf.Any upgraded_client_state = 2 [json_name = "upgradedClientState"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getUpgradedClientStateFieldBuilder() {
+        if (upgradedClientStateBuilder_ == null) {
+          upgradedClientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  getUpgradedClientState(),
+                  getParentForChildren(),
+                  isClean());
+          upgradedClientState_ = null;
+        }
+        return upgradedClientStateBuilder_;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 3 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgIBCSoftwareUpgrade)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgIBCSoftwareUpgrade)
+    private static final com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgIBCSoftwareUpgrade>
+        PARSER = new com.google.protobuf.AbstractParser<MsgIBCSoftwareUpgrade>() {
+      @java.lang.Override
+      public MsgIBCSoftwareUpgrade parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgIBCSoftwareUpgrade> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgIBCSoftwareUpgrade> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgrade getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgIBCSoftwareUpgradeResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse}
+   */
+  public static final class MsgIBCSoftwareUpgradeResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse)
+      MsgIBCSoftwareUpgradeResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgIBCSoftwareUpgradeResponse.newBuilder() to construct.
+    private MsgIBCSoftwareUpgradeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgIBCSoftwareUpgradeResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgIBCSoftwareUpgradeResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.class, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse other = (com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgIBCSoftwareUpgradeResponse defines the Msg/IBCSoftwareUpgrade response type.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse)
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.class, com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse build() {
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse result = new com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgIBCSoftwareUpgradeResponse)
+    private static final com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgIBCSoftwareUpgradeResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgIBCSoftwareUpgradeResponse>() {
+      @java.lang.Override
+      public MsgIBCSoftwareUpgradeResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgIBCSoftwareUpgradeResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgIBCSoftwareUpgradeResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgIBCSoftwareUpgradeResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface MsgUpdateParamsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgUpdateParams)
       com.google.protobuf.MessageOrBuilder {
 
     /**
      * <pre>
-     * authority is the address of the governance account.
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
      */
-    java.lang.String getAuthority();
+    java.lang.String getSigner();
     /**
      * <pre>
-     * authority is the address of the governance account.
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The bytes for authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
      */
     com.google.protobuf.ByteString
-        getAuthorityBytes();
+        getSignerBytes();
 
     /**
      * <pre>
@@ -6454,7 +9497,7 @@ public final class TxProto {
       super(builder);
     }
     private MsgUpdateParams() {
-      authority_ = "";
+      signer_ = "";
     }
 
     @java.lang.Override
@@ -6477,47 +9520,47 @@ public final class TxProto {
               com.ibc.core.client.v1.TxProto.MsgUpdateParams.class, com.ibc.core.client.v1.TxProto.MsgUpdateParams.Builder.class);
     }
 
-    public static final int AUTHORITY_FIELD_NUMBER = 1;
+    public static final int SIGNER_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object authority_ = "";
+    private volatile java.lang.Object signer_ = "";
     /**
      * <pre>
-     * authority is the address of the governance account.
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
      */
     @java.lang.Override
-    public java.lang.String getAuthority() {
-      java.lang.Object ref = authority_;
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        authority_ = s;
+        signer_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * authority is the address of the governance account.
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The bytes for authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getAuthorityBytes() {
-      java.lang.Object ref = authority_;
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        authority_ = b;
+        signer_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -6582,8 +9625,8 @@ public final class TxProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, authority_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
       }
       if (params_ != null) {
         output.writeMessage(2, getParams());
@@ -6597,8 +9640,8 @@ public final class TxProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, authority_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
       }
       if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -6619,8 +9662,8 @@ public final class TxProto {
       }
       com.ibc.core.client.v1.TxProto.MsgUpdateParams other = (com.ibc.core.client.v1.TxProto.MsgUpdateParams) obj;
 
-      if (!getAuthority()
-          .equals(other.getAuthority())) return false;
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
       if (hasParams() != other.hasParams()) return false;
       if (hasParams()) {
         if (!getParams()
@@ -6637,8 +9680,8 @@ public final class TxProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + AUTHORITY_FIELD_NUMBER;
-      hash = (53 * hash) + getAuthority().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
       if (hasParams()) {
         hash = (37 * hash) + PARAMS_FIELD_NUMBER;
         hash = (53 * hash) + getParams().hashCode();
@@ -6778,7 +9821,7 @@ public final class TxProto {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        authority_ = "";
+        signer_ = "";
         params_ = null;
         if (paramsBuilder_ != null) {
           paramsBuilder_.dispose();
@@ -6818,7 +9861,7 @@ public final class TxProto {
       private void buildPartial0(com.ibc.core.client.v1.TxProto.MsgUpdateParams result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.authority_ = authority_;
+          result.signer_ = signer_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.params_ = paramsBuilder_ == null
@@ -6871,8 +9914,8 @@ public final class TxProto {
 
       public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgUpdateParams other) {
         if (other == com.ibc.core.client.v1.TxProto.MsgUpdateParams.getDefaultInstance()) return this;
-        if (!other.getAuthority().isEmpty()) {
-          authority_ = other.authority_;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
@@ -6906,7 +9949,7 @@ public final class TxProto {
                 done = true;
                 break;
               case 10: {
-                authority_ = input.readStringRequireUtf8();
+                signer_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
@@ -6934,22 +9977,22 @@ public final class TxProto {
       }
       private int bitField0_;
 
-      private java.lang.Object authority_ = "";
+      private java.lang.Object signer_ = "";
       /**
        * <pre>
-       * authority is the address of the governance account.
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @return The authority.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The signer.
        */
-      public java.lang.String getAuthority() {
-        java.lang.Object ref = authority_;
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          authority_ = s;
+          signer_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -6957,20 +10000,20 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * authority is the address of the governance account.
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @return The bytes for authority.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The bytes for signer.
        */
       public com.google.protobuf.ByteString
-          getAuthorityBytes() {
-        java.lang.Object ref = authority_;
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          authority_ = b;
+          signer_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -6978,49 +10021,49 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * authority is the address of the governance account.
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @param value The authority to set.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The signer to set.
        * @return This builder for chaining.
        */
-      public Builder setAuthority(
+      public Builder setSigner(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        authority_ = value;
+        signer_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * authority is the address of the governance account.
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
+       * <code>string signer = 1 [json_name = "signer"];</code>
        * @return This builder for chaining.
        */
-      public Builder clearAuthority() {
-        authority_ = getDefaultInstance().getAuthority();
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * authority is the address of the governance account.
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @param value The bytes for authority to set.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
        * @return This builder for chaining.
        */
-      public Builder setAuthorityBytes(
+      public Builder setSignerBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        authority_ = value;
+        signer_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -7667,6 +10710,1191 @@ public final class TxProto {
 
   }
 
+  public interface MsgDeleteClientCreatorOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgDeleteClientCreator)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * client identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    java.lang.String getClientId();
+    /**
+     * <pre>
+     * client identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    com.google.protobuf.ByteString
+        getClientIdBytes();
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 2 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 2 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+  }
+  /**
+   * <pre>
+   * MsgDeleteClientCreator defines a message to delete the client creator of a client
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgDeleteClientCreator}
+   */
+  public static final class MsgDeleteClientCreator extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgDeleteClientCreator)
+      MsgDeleteClientCreatorOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgDeleteClientCreator.newBuilder() to construct.
+    private MsgDeleteClientCreator(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgDeleteClientCreator() {
+      clientId_ = "";
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgDeleteClientCreator();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreator_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.class, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.Builder.class);
+    }
+
+    public static final int CLIENT_ID_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object clientId_ = "";
+    /**
+     * <pre>
+     * client identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The clientId.
+     */
+    @java.lang.Override
+    public java.lang.String getClientId() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        clientId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * client identifier
+     * </pre>
+     *
+     * <code>string client_id = 1 [json_name = "clientId"];</code>
+     * @return The bytes for clientId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getClientIdBytes() {
+      java.lang.Object ref = clientId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        clientId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 2 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 2 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, signer_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(clientId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, signer_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator other = (com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator) obj;
+
+      if (!getClientId()
+          .equals(other.getClientId())) return false;
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + CLIENT_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getClientId().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgDeleteClientCreator defines a message to delete the client creator of a client
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgDeleteClientCreator}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgDeleteClientCreator)
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreator_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.class, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        clientId_ = "";
+        signer_ = "";
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator build() {
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator result = new com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.clientId_ = clientId_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.signer_ = signer_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator.getDefaultInstance()) return this;
+        if (!other.getClientId().isEmpty()) {
+          clientId_ = other.clientId_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                clientId_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object clientId_ = "";
+      /**
+       * <pre>
+       * client identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The clientId.
+       */
+      public java.lang.String getClientId() {
+        java.lang.Object ref = clientId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          clientId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return The bytes for clientId.
+       */
+      public com.google.protobuf.ByteString
+          getClientIdBytes() {
+        java.lang.Object ref = clientId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          clientId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * client identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientId(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearClientId() {
+        clientId_ = getDefaultInstance().getClientId();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * client identifier
+       * </pre>
+       *
+       * <code>string client_id = 1 [json_name = "clientId"];</code>
+       * @param value The bytes for clientId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setClientIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        clientId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 2 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 2 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 2 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 2 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 2 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgDeleteClientCreator)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgDeleteClientCreator)
+    private static final com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgDeleteClientCreator>
+        PARSER = new com.google.protobuf.AbstractParser<MsgDeleteClientCreator>() {
+      @java.lang.Override
+      public MsgDeleteClientCreator parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgDeleteClientCreator> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgDeleteClientCreator> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreator getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgDeleteClientCreatorResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.core.client.v1.MsgDeleteClientCreatorResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgDeleteClientCreatorResponse defines the Msg/DeleteClientCreator response type.
+   * </pre>
+   *
+   * Protobuf type {@code ibc.core.client.v1.MsgDeleteClientCreatorResponse}
+   */
+  public static final class MsgDeleteClientCreatorResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.core.client.v1.MsgDeleteClientCreatorResponse)
+      MsgDeleteClientCreatorResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgDeleteClientCreatorResponse.newBuilder() to construct.
+    private MsgDeleteClientCreatorResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgDeleteClientCreatorResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgDeleteClientCreatorResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.class, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse other = (com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgDeleteClientCreatorResponse defines the Msg/DeleteClientCreator response type.
+     * </pre>
+     *
+     * Protobuf type {@code ibc.core.client.v1.MsgDeleteClientCreatorResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.core.client.v1.MsgDeleteClientCreatorResponse)
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.class, com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.core.client.v1.TxProto.internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse getDefaultInstanceForType() {
+        return com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse build() {
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse buildPartial() {
+        com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse result = new com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse) {
+          return mergeFrom((com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse other) {
+        if (other == com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.core.client.v1.MsgDeleteClientCreatorResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.core.client.v1.MsgDeleteClientCreatorResponse)
+    private static final com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse();
+    }
+
+    public static com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgDeleteClientCreatorResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgDeleteClientCreatorResponse>() {
+      @java.lang.Override
+      public MsgDeleteClientCreatorResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgDeleteClientCreatorResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgDeleteClientCreatorResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.core.client.v1.TxProto.MsgDeleteClientCreatorResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_client_v1_MsgCreateClient_descriptor;
   private static final 
@@ -7708,6 +11936,26 @@ public final class TxProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_client_v1_MsgSubmitMisbehaviourResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgRecoverClient_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgRecoverClientResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_core_client_v1_MsgUpdateParams_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -7717,6 +11965,16 @@ public final class TxProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_core_client_v1_MsgUpdateParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgDeleteClientCreator_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7727,60 +11985,85 @@ public final class TxProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\033ibc/core/client/v1/tx.proto\022\022ibc.core." +
-      "client.v1\032\027cosmos/msg/v1/msg.proto\032\024gogo" +
-      "proto/gogo.proto\032\031google/protobuf/any.pr" +
-      "oto\032\037ibc/core/client/v1/client.proto\"\266\001\n" +
-      "\017MsgCreateClient\0227\n\014client_state\030\001 \001(\0132\024" +
-      ".google.protobuf.AnyR\013clientState\022=\n\017con" +
-      "sensus_state\030\002 \001(\0132\024.google.protobuf.Any" +
-      "R\016consensusState\022\026\n\006signer\030\003 \001(\tR\006signer" +
-      ":\023\210\240\037\000\350\240\037\000\202\347\260*\006signer\"\031\n\027MsgCreateClient" +
-      "Response\"\230\001\n\017MsgUpdateClient\022\033\n\tclient_i" +
-      "d\030\001 \001(\tR\010clientId\022;\n\016client_message\030\002 \001(" +
-      "\0132\024.google.protobuf.AnyR\rclientMessage\022\026" +
-      "\n\006signer\030\003 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006sig" +
-      "ner\"\031\n\027MsgUpdateClientResponse\"\311\002\n\020MsgUp" +
-      "gradeClient\022\033\n\tclient_id\030\001 \001(\tR\010clientId" +
-      "\0227\n\014client_state\030\002 \001(\0132\024.google.protobuf" +
-      ".AnyR\013clientState\022=\n\017consensus_state\030\003 \001" +
-      "(\0132\024.google.protobuf.AnyR\016consensusState" +
-      "\0220\n\024proof_upgrade_client\030\004 \001(\014R\022proofUpg" +
-      "radeClient\022A\n\035proof_upgrade_consensus_st" +
-      "ate\030\005 \001(\014R\032proofUpgradeConsensusState\022\026\n" +
-      "\006signer\030\006 \001(\tR\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006sign" +
-      "er\"\032\n\030MsgUpgradeClientResponse\"\247\001\n\025MsgSu" +
-      "bmitMisbehaviour\022\037\n\tclient_id\030\001 \001(\tB\002\030\001R" +
-      "\010clientId\022<\n\014misbehaviour\030\002 \001(\0132\024.google" +
-      ".protobuf.AnyB\002\030\001R\014misbehaviour\022\032\n\006signe" +
-      "r\030\003 \001(\tB\002\030\001R\006signer:\023\210\240\037\000\350\240\037\000\202\347\260*\006signer" +
-      "\"\037\n\035MsgSubmitMisbehaviourResponse\"y\n\017Msg" +
-      "UpdateParams\022\034\n\tauthority\030\001 \001(\tR\tauthori" +
-      "ty\0228\n\006params\030\002 \001(\0132\032.ibc.core.client.v1." +
-      "ParamsB\004\310\336\037\000R\006params:\016\202\347\260*\tauthority\"\031\n\027" +
-      "MsgUpdateParamsResponse2\212\004\n\003Msg\022`\n\014Creat" +
-      "eClient\022#.ibc.core.client.v1.MsgCreateCl" +
-      "ient\032+.ibc.core.client.v1.MsgCreateClien" +
-      "tResponse\022`\n\014UpdateClient\022#.ibc.core.cli" +
-      "ent.v1.MsgUpdateClient\032+.ibc.core.client" +
-      ".v1.MsgUpdateClientResponse\022c\n\rUpgradeCl" +
-      "ient\022$.ibc.core.client.v1.MsgUpgradeClie" +
-      "nt\032,.ibc.core.client.v1.MsgUpgradeClient" +
-      "Response\022r\n\022SubmitMisbehaviour\022).ibc.cor" +
-      "e.client.v1.MsgSubmitMisbehaviour\0321.ibc." +
-      "core.client.v1.MsgSubmitMisbehaviourResp" +
-      "onse\022f\n\022UpdateClientParams\022#.ibc.core.cl" +
-      "ient.v1.MsgUpdateParams\032+.ibc.core.clien" +
-      "t.v1.MsgUpdateParamsResponseB\304\001\n\026com.ibc" +
-      ".core.client.v1B\007TxProtoZ8github.com/cos" +
-      "mos/ibc-go/v7/modules/core/02-client/typ" +
-      "es\242\002\003ICC\252\002\022Ibc.Core.Client.V1\312\002\022Ibc\\Core" +
-      "\\Client\\V1\342\002\036Ibc\\Core\\Client\\V1\\GPBMetad" +
-      "ata\352\002\025Ibc::Core::Client::V1b\006proto3"
+      "client.v1\032\027cosmos/msg/v1/msg.proto\032$cosm" +
+      "os/upgrade/v1beta1/upgrade.proto\032\024gogopr" +
+      "oto/gogo.proto\032\031google/protobuf/any.prot" +
+      "o\032\037ibc/core/client/v1/client.proto\"\262\001\n\017M" +
+      "sgCreateClient\0227\n\014client_state\030\001 \001(\0132\024.g" +
+      "oogle.protobuf.AnyR\013clientState\022=\n\017conse" +
+      "nsus_state\030\002 \001(\0132\024.google.protobuf.AnyR\016" +
+      "consensusState\022\026\n\006signer\030\003 \001(\tR\006signer:\017" +
+      "\210\240\037\000\202\347\260*\006signer\"<\n\027MsgCreateClientRespon" +
+      "se\022\033\n\tclient_id\030\001 \001(\tR\010clientId:\004\210\240\037\000\"\224\001" +
+      "\n\017MsgUpdateClient\022\033\n\tclient_id\030\001 \001(\tR\010cl" +
+      "ientId\022;\n\016client_message\030\002 \001(\0132\024.google." +
+      "protobuf.AnyR\rclientMessage\022\026\n\006signer\030\003 " +
+      "\001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"\031\n\027MsgUpdat" +
+      "eClientResponse\"\305\002\n\020MsgUpgradeClient\022\033\n\t" +
+      "client_id\030\001 \001(\tR\010clientId\0227\n\014client_stat" +
+      "e\030\002 \001(\0132\024.google.protobuf.AnyR\013clientSta" +
+      "te\022=\n\017consensus_state\030\003 \001(\0132\024.google.pro" +
+      "tobuf.AnyR\016consensusState\0220\n\024proof_upgra" +
+      "de_client\030\004 \001(\014R\022proofUpgradeClient\022A\n\035p" +
+      "roof_upgrade_consensus_state\030\005 \001(\014R\032proo" +
+      "fUpgradeConsensusState\022\026\n\006signer\030\006 \001(\tR\006" +
+      "signer:\017\210\240\037\000\202\347\260*\006signer\"\032\n\030MsgUpgradeCli" +
+      "entResponse\"\231\001\n\025MsgSubmitMisbehaviour\022\033\n" +
+      "\tclient_id\030\001 \001(\tR\010clientId\0228\n\014misbehavio" +
+      "ur\030\002 \001(\0132\024.google.protobuf.AnyR\014misbehav" +
+      "iour\022\026\n\006signer\030\003 \001(\tR\006signer:\021\030\001\210\240\037\000\202\347\260*" +
+      "\006signer\"\037\n\035MsgSubmitMisbehaviourResponse" +
+      "\"\231\001\n\020MsgRecoverClient\022*\n\021subject_client_" +
+      "id\030\001 \001(\tR\017subjectClientId\0220\n\024substitute_" +
+      "client_id\030\002 \001(\tR\022substituteClientId\022\026\n\006s" +
+      "igner\030\003 \001(\tR\006signer:\017\210\240\037\000\202\347\260*\006signer\"\032\n\030" +
+      "MsgRecoverClientResponse\"\276\001\n\025MsgIBCSoftw" +
+      "areUpgrade\0226\n\004plan\030\001 \001(\0132\034.cosmos.upgrad" +
+      "e.v1beta1.PlanB\004\310\336\037\000R\004plan\022H\n\025upgraded_c" +
+      "lient_state\030\002 \001(\0132\024.google.protobuf.AnyR" +
+      "\023upgradedClientState\022\026\n\006signer\030\003 \001(\tR\006si" +
+      "gner:\013\202\347\260*\006signer\"\037\n\035MsgIBCSoftwareUpgra" +
+      "deResponse\"t\n\017MsgUpdateParams\022\026\n\006signer\030" +
+      "\001 \001(\tR\006signer\0228\n\006params\030\002 \001(\0132\032.ibc.core" +
+      ".client.v1.ParamsB\004\310\336\037\000R\006params:\017\210\240\037\000\202\347\260" +
+      "*\006signer\"\031\n\027MsgUpdateParamsResponse\"^\n\026M" +
+      "sgDeleteClientCreator\022\033\n\tclient_id\030\001 \001(\t" +
+      "R\010clientId\022\026\n\006signer\030\002 \001(\tR\006signer:\017\210\240\037\000" +
+      "\202\347\260*\006signer\" \n\036MsgDeleteClientCreatorRes" +
+      "ponse2\341\006\n\003Msg\022`\n\014CreateClient\022#.ibc.core" +
+      ".client.v1.MsgCreateClient\032+.ibc.core.cl" +
+      "ient.v1.MsgCreateClientResponse\022`\n\014Updat" +
+      "eClient\022#.ibc.core.client.v1.MsgUpdateCl" +
+      "ient\032+.ibc.core.client.v1.MsgUpdateClien" +
+      "tResponse\022c\n\rUpgradeClient\022$.ibc.core.cl" +
+      "ient.v1.MsgUpgradeClient\032,.ibc.core.clie" +
+      "nt.v1.MsgUpgradeClientResponse\022r\n\022Submit" +
+      "Misbehaviour\022).ibc.core.client.v1.MsgSub" +
+      "mitMisbehaviour\0321.ibc.core.client.v1.Msg" +
+      "SubmitMisbehaviourResponse\022c\n\rRecoverCli" +
+      "ent\022$.ibc.core.client.v1.MsgRecoverClien" +
+      "t\032,.ibc.core.client.v1.MsgRecoverClientR" +
+      "esponse\022r\n\022IBCSoftwareUpgrade\022).ibc.core" +
+      ".client.v1.MsgIBCSoftwareUpgrade\0321.ibc.c" +
+      "ore.client.v1.MsgIBCSoftwareUpgradeRespo" +
+      "nse\022f\n\022UpdateClientParams\022#.ibc.core.cli" +
+      "ent.v1.MsgUpdateParams\032+.ibc.core.client" +
+      ".v1.MsgUpdateParamsResponse\022u\n\023DeleteCli" +
+      "entCreator\022*.ibc.core.client.v1.MsgDelet" +
+      "eClientCreator\0322.ibc.core.client.v1.MsgD" +
+      "eleteClientCreatorResponse\032\005\200\347\260*\001B\305\001\n\026co" +
+      "m.ibc.core.client.v1B\007TxProtoZ9github.co" +
+      "m/cosmos/ibc-go/v10/modules/core/02-clie" +
+      "nt/types\242\002\003ICC\252\002\022Ibc.Core.Client.V1\312\002\022Ib" +
+      "c\\Core\\Client\\V1\342\002\036Ibc\\Core\\Client\\V1\\GP" +
+      "BMetadata\352\002\025Ibc::Core::Client::V1b\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.cosmos.msg.v1.MsgProto.getDescriptor(),
+          com.cosmos.upgrade.v1beta1.UpgradeProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
           com.google.protobuf.AnyProto.getDescriptor(),
           com.ibc.core.client.v1.ClientProto.getDescriptor(),
@@ -7796,7 +12079,7 @@ public final class TxProto {
     internal_static_ibc_core_client_v1_MsgCreateClientResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_MsgCreateClientResponse_descriptor,
-        new java.lang.String[] { });
+        new java.lang.String[] { "ClientId", });
     internal_static_ibc_core_client_v1_MsgUpdateClient_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_ibc_core_client_v1_MsgUpdateClient_fieldAccessorTable = new
@@ -7833,27 +12116,64 @@ public final class TxProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_MsgSubmitMisbehaviourResponse_descriptor,
         new java.lang.String[] { });
-    internal_static_ibc_core_client_v1_MsgUpdateParams_descriptor =
+    internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor =
       getDescriptor().getMessageTypes().get(8);
+    internal_static_ibc_core_client_v1_MsgRecoverClient_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgRecoverClient_descriptor,
+        new java.lang.String[] { "SubjectClientId", "SubstituteClientId", "Signer", });
+    internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_ibc_core_client_v1_MsgRecoverClientResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgRecoverClientResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgrade_descriptor,
+        new java.lang.String[] { "Plan", "UpgradedClientState", "Signer", });
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgIBCSoftwareUpgradeResponse_descriptor,
+        new java.lang.String[] { });
+    internal_static_ibc_core_client_v1_MsgUpdateParams_descriptor =
+      getDescriptor().getMessageTypes().get(12);
     internal_static_ibc_core_client_v1_MsgUpdateParams_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_MsgUpdateParams_descriptor,
-        new java.lang.String[] { "Authority", "Params", });
+        new java.lang.String[] { "Signer", "Params", });
     internal_static_ibc_core_client_v1_MsgUpdateParamsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_ibc_core_client_v1_MsgUpdateParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_client_v1_MsgUpdateParamsResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreator_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgDeleteClientCreator_descriptor,
+        new java.lang.String[] { "ClientId", "Signer", });
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_core_client_v1_MsgDeleteClientCreatorResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
-    registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.cosmos.msg.v1.MsgProto.getDescriptor();
+    com.cosmos.upgrade.v1beta1.UpgradeProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();
     com.google.protobuf.AnyProto.getDescriptor();
     com.ibc.core.client.v1.ClientProto.getDescriptor();

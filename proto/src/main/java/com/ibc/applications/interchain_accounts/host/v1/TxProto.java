@@ -20,23 +20,23 @@ public final class TxProto {
 
     /**
      * <pre>
-     * authority is the address that controls the module (defaults to x/gov unless overwritten).
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
      */
-    java.lang.String getAuthority();
+    java.lang.String getSigner();
     /**
      * <pre>
-     * authority is the address that controls the module (defaults to x/gov unless overwritten).
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The bytes for authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
      */
     com.google.protobuf.ByteString
-        getAuthorityBytes();
+        getSignerBytes();
 
     /**
      * <pre>
@@ -88,7 +88,7 @@ public final class TxProto {
       super(builder);
     }
     private MsgUpdateParams() {
-      authority_ = "";
+      signer_ = "";
     }
 
     @java.lang.Override
@@ -111,47 +111,47 @@ public final class TxProto {
               com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams.class, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams.Builder.class);
     }
 
-    public static final int AUTHORITY_FIELD_NUMBER = 1;
+    public static final int SIGNER_FIELD_NUMBER = 1;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object authority_ = "";
+    private volatile java.lang.Object signer_ = "";
     /**
      * <pre>
-     * authority is the address that controls the module (defaults to x/gov unless overwritten).
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
      */
     @java.lang.Override
-    public java.lang.String getAuthority() {
-      java.lang.Object ref = authority_;
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        authority_ = s;
+        signer_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * authority is the address that controls the module (defaults to x/gov unless overwritten).
+     * signer address
      * </pre>
      *
-     * <code>string authority = 1 [json_name = "authority"];</code>
-     * @return The bytes for authority.
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getAuthorityBytes() {
-      java.lang.Object ref = authority_;
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        authority_ = b;
+        signer_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -216,8 +216,8 @@ public final class TxProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, authority_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
       }
       if (params_ != null) {
         output.writeMessage(2, getParams());
@@ -231,8 +231,8 @@ public final class TxProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(authority_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, authority_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
       }
       if (params_ != null) {
         size += com.google.protobuf.CodedOutputStream
@@ -253,8 +253,8 @@ public final class TxProto {
       }
       com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams other = (com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams) obj;
 
-      if (!getAuthority()
-          .equals(other.getAuthority())) return false;
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
       if (hasParams() != other.hasParams()) return false;
       if (hasParams()) {
         if (!getParams()
@@ -271,8 +271,8 @@ public final class TxProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + AUTHORITY_FIELD_NUMBER;
-      hash = (53 * hash) + getAuthority().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
       if (hasParams()) {
         hash = (37 * hash) + PARAMS_FIELD_NUMBER;
         hash = (53 * hash) + getParams().hashCode();
@@ -412,7 +412,7 @@ public final class TxProto {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        authority_ = "";
+        signer_ = "";
         params_ = null;
         if (paramsBuilder_ != null) {
           paramsBuilder_.dispose();
@@ -452,7 +452,7 @@ public final class TxProto {
       private void buildPartial0(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams result) {
         int from_bitField0_ = bitField0_;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.authority_ = authority_;
+          result.signer_ = signer_;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.params_ = paramsBuilder_ == null
@@ -505,8 +505,8 @@ public final class TxProto {
 
       public Builder mergeFrom(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams other) {
         if (other == com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgUpdateParams.getDefaultInstance()) return this;
-        if (!other.getAuthority().isEmpty()) {
-          authority_ = other.authority_;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
           bitField0_ |= 0x00000001;
           onChanged();
         }
@@ -540,7 +540,7 @@ public final class TxProto {
                 done = true;
                 break;
               case 10: {
-                authority_ = input.readStringRequireUtf8();
+                signer_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 10
@@ -568,22 +568,22 @@ public final class TxProto {
       }
       private int bitField0_;
 
-      private java.lang.Object authority_ = "";
+      private java.lang.Object signer_ = "";
       /**
        * <pre>
-       * authority is the address that controls the module (defaults to x/gov unless overwritten).
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @return The authority.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The signer.
        */
-      public java.lang.String getAuthority() {
-        java.lang.Object ref = authority_;
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          authority_ = s;
+          signer_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -591,20 +591,20 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * authority is the address that controls the module (defaults to x/gov unless overwritten).
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @return The bytes for authority.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The bytes for signer.
        */
       public com.google.protobuf.ByteString
-          getAuthorityBytes() {
-        java.lang.Object ref = authority_;
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          authority_ = b;
+          signer_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -612,49 +612,49 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * authority is the address that controls the module (defaults to x/gov unless overwritten).
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @param value The authority to set.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The signer to set.
        * @return This builder for chaining.
        */
-      public Builder setAuthority(
+      public Builder setSigner(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        authority_ = value;
+        signer_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * authority is the address that controls the module (defaults to x/gov unless overwritten).
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
+       * <code>string signer = 1 [json_name = "signer"];</code>
        * @return This builder for chaining.
        */
-      public Builder clearAuthority() {
-        authority_ = getDefaultInstance().getAuthority();
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * authority is the address that controls the module (defaults to x/gov unless overwritten).
+       * signer address
        * </pre>
        *
-       * <code>string authority = 1 [json_name = "authority"];</code>
-       * @param value The bytes for authority to set.
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
        * @return This builder for chaining.
        */
-      public Builder setAuthorityBytes(
+      public Builder setSignerBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        authority_ = value;
+        signer_ = value;
         bitField0_ |= 0x00000001;
         onChanged();
         return this;
@@ -1301,6 +1301,1820 @@ public final class TxProto {
 
   }
 
+  public interface MsgModuleQuerySafeOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> 
+        getRequestsList();
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest getRequests(int index);
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    int getRequestsCount();
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    java.util.List<? extends com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder> 
+        getRequestsOrBuilderList();
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder getRequestsOrBuilder(
+        int index);
+  }
+  /**
+   * <pre>
+   * MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe}
+   */
+  public static final class MsgModuleQuerySafe extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe)
+      MsgModuleQuerySafeOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgModuleQuerySafe.newBuilder() to construct.
+    private MsgModuleQuerySafe(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgModuleQuerySafe() {
+      signer_ = "";
+      requests_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgModuleQuerySafe();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.class, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int REQUESTS_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> requests_;
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> getRequestsList() {
+      return requests_;
+    }
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder> 
+        getRequestsOrBuilderList() {
+      return requests_;
+    }
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public int getRequestsCount() {
+      return requests_.size();
+    }
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest getRequests(int index) {
+      return requests_.get(index);
+    }
+    /**
+     * <pre>
+     * requests defines the module safe queries to execute.
+     * </pre>
+     *
+     * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder getRequestsOrBuilder(
+        int index) {
+      return requests_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      for (int i = 0; i < requests_.size(); i++) {
+        output.writeMessage(2, requests_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      for (int i = 0; i < requests_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, requests_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe other = (com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (!getRequestsList()
+          .equals(other.getRequestsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (getRequestsCount() > 0) {
+        hash = (37 * hash) + REQUESTS_FIELD_NUMBER;
+        hash = (53 * hash) + getRequestsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgModuleQuerySafe defines the payload for Msg/ModuleQuerySafe
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe)
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.class, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        signer_ = "";
+        if (requestsBuilder_ == null) {
+          requests_ = java.util.Collections.emptyList();
+        } else {
+          requests_ = null;
+          requestsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe getDefaultInstanceForType() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe build() {
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe buildPartial() {
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe result = new com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe result) {
+        if (requestsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            requests_ = java.util.Collections.unmodifiableList(requests_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.requests_ = requests_;
+        } else {
+          result.requests_ = requestsBuilder_.build();
+        }
+      }
+
+      private void buildPartial0(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.signer_ = signer_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe) {
+          return mergeFrom((com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe other) {
+        if (other == com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (requestsBuilder_ == null) {
+          if (!other.requests_.isEmpty()) {
+            if (requests_.isEmpty()) {
+              requests_ = other.requests_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureRequestsIsMutable();
+              requests_.addAll(other.requests_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.requests_.isEmpty()) {
+            if (requestsBuilder_.isEmpty()) {
+              requestsBuilder_.dispose();
+              requestsBuilder_ = null;
+              requests_ = other.requests_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              requestsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getRequestsFieldBuilder() : null;
+            } else {
+              requestsBuilder_.addAllMessages(other.requests_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest m =
+                    input.readMessage(
+                        com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.parser(),
+                        extensionRegistry);
+                if (requestsBuilder_ == null) {
+                  ensureRequestsIsMutable();
+                  requests_.add(m);
+                } else {
+                  requestsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> requests_ =
+        java.util.Collections.emptyList();
+      private void ensureRequestsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          requests_ = new java.util.ArrayList<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest>(requests_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder> requestsBuilder_;
+
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> getRequestsList() {
+        if (requestsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(requests_);
+        } else {
+          return requestsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public int getRequestsCount() {
+        if (requestsBuilder_ == null) {
+          return requests_.size();
+        } else {
+          return requestsBuilder_.getCount();
+        }
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest getRequests(int index) {
+        if (requestsBuilder_ == null) {
+          return requests_.get(index);
+        } else {
+          return requestsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRequests(
+          int index, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest value) {
+        if (requestsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequestsIsMutable();
+          requests_.set(index, value);
+          onChanged();
+        } else {
+          requestsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setRequests(
+          int index, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder builderForValue) {
+        if (requestsBuilder_ == null) {
+          ensureRequestsIsMutable();
+          requests_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          requestsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRequests(com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest value) {
+        if (requestsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequestsIsMutable();
+          requests_.add(value);
+          onChanged();
+        } else {
+          requestsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRequests(
+          int index, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest value) {
+        if (requestsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRequestsIsMutable();
+          requests_.add(index, value);
+          onChanged();
+        } else {
+          requestsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRequests(
+          com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder builderForValue) {
+        if (requestsBuilder_ == null) {
+          ensureRequestsIsMutable();
+          requests_.add(builderForValue.build());
+          onChanged();
+        } else {
+          requestsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addRequests(
+          int index, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder builderForValue) {
+        if (requestsBuilder_ == null) {
+          ensureRequestsIsMutable();
+          requests_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          requestsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder addAllRequests(
+          java.lang.Iterable<? extends com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest> values) {
+        if (requestsBuilder_ == null) {
+          ensureRequestsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, requests_);
+          onChanged();
+        } else {
+          requestsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearRequests() {
+        if (requestsBuilder_ == null) {
+          requests_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          requestsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder removeRequests(int index) {
+        if (requestsBuilder_ == null) {
+          ensureRequestsIsMutable();
+          requests_.remove(index);
+          onChanged();
+        } else {
+          requestsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder getRequestsBuilder(
+          int index) {
+        return getRequestsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder getRequestsOrBuilder(
+          int index) {
+        if (requestsBuilder_ == null) {
+          return requests_.get(index);  } else {
+          return requestsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<? extends com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder> 
+           getRequestsOrBuilderList() {
+        if (requestsBuilder_ != null) {
+          return requestsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(requests_);
+        }
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder addRequestsBuilder() {
+        return getRequestsFieldBuilder().addBuilder(
+            com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder addRequestsBuilder(
+          int index) {
+        return getRequestsFieldBuilder().addBuilder(
+            index, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.getDefaultInstance());
+      }
+      /**
+       * <pre>
+       * requests defines the module safe queries to execute.
+       * </pre>
+       *
+       * <code>repeated .ibc.applications.interchain_accounts.host.v1.QueryRequest requests = 2 [json_name = "requests", (.gogoproto.nullable) = false];</code>
+       */
+      public java.util.List<com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder> 
+           getRequestsBuilderList() {
+        return getRequestsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder> 
+          getRequestsFieldBuilder() {
+        if (requestsBuilder_ == null) {
+          requestsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequest.Builder, com.ibc.applications.interchain_accounts.host.v1.HostProto.QueryRequestOrBuilder>(
+                  requests_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          requests_ = null;
+        }
+        return requestsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe)
+    private static final com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe();
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgModuleQuerySafe>
+        PARSER = new com.google.protobuf.AbstractParser<MsgModuleQuerySafe>() {
+      @java.lang.Override
+      public MsgModuleQuerySafe parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgModuleQuerySafe> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgModuleQuerySafe> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafe getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgModuleQuerySafeResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * height at which the responses were queried
+     * </pre>
+     *
+     * <code>uint64 height = 1 [json_name = "height"];</code>
+     * @return The height.
+     */
+    long getHeight();
+
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @return A list containing the responses.
+     */
+    java.util.List<com.google.protobuf.ByteString> getResponsesList();
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @return The count of responses.
+     */
+    int getResponsesCount();
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @param index The index of the element to return.
+     * @return The responses at the given index.
+     */
+    com.google.protobuf.ByteString getResponses(int index);
+  }
+  /**
+   * <pre>
+   * MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse}
+   */
+  public static final class MsgModuleQuerySafeResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse)
+      MsgModuleQuerySafeResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgModuleQuerySafeResponse.newBuilder() to construct.
+    private MsgModuleQuerySafeResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgModuleQuerySafeResponse() {
+      responses_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgModuleQuerySafeResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.class, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.Builder.class);
+    }
+
+    public static final int HEIGHT_FIELD_NUMBER = 1;
+    private long height_ = 0L;
+    /**
+     * <pre>
+     * height at which the responses were queried
+     * </pre>
+     *
+     * <code>uint64 height = 1 [json_name = "height"];</code>
+     * @return The height.
+     */
+    @java.lang.Override
+    public long getHeight() {
+      return height_;
+    }
+
+    public static final int RESPONSES_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private java.util.List<com.google.protobuf.ByteString> responses_;
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @return A list containing the responses.
+     */
+    @java.lang.Override
+    public java.util.List<com.google.protobuf.ByteString>
+        getResponsesList() {
+      return responses_;
+    }
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @return The count of responses.
+     */
+    public int getResponsesCount() {
+      return responses_.size();
+    }
+    /**
+     * <pre>
+     * protobuf encoded responses for each query
+     * </pre>
+     *
+     * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+     * @param index The index of the element to return.
+     * @return The responses at the given index.
+     */
+    public com.google.protobuf.ByteString getResponses(int index) {
+      return responses_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (height_ != 0L) {
+        output.writeUInt64(1, height_);
+      }
+      for (int i = 0; i < responses_.size(); i++) {
+        output.writeBytes(2, responses_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (height_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(1, height_);
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < responses_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(responses_.get(i));
+        }
+        size += dataSize;
+        size += 1 * getResponsesList().size();
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse other = (com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse) obj;
+
+      if (getHeight()
+          != other.getHeight()) return false;
+      if (!getResponsesList()
+          .equals(other.getResponsesList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getHeight());
+      if (getResponsesCount() > 0) {
+        hash = (37 * hash) + RESPONSES_FIELD_NUMBER;
+        hash = (53 * hash) + getResponsesList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgModuleQuerySafeResponse defines the response for Msg/ModuleQuerySafe
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse)
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.class, com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        height_ = 0L;
+        responses_ = java.util.Collections.emptyList();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse getDefaultInstanceForType() {
+        return com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse build() {
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse buildPartial() {
+        com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse result = new com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse(this);
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse result) {
+        if (((bitField0_ & 0x00000002) != 0)) {
+          responses_ = java.util.Collections.unmodifiableList(responses_);
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.responses_ = responses_;
+      }
+
+      private void buildPartial0(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.height_ = height_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse) {
+          return mergeFrom((com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse other) {
+        if (other == com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse.getDefaultInstance()) return this;
+        if (other.getHeight() != 0L) {
+          setHeight(other.getHeight());
+        }
+        if (!other.responses_.isEmpty()) {
+          if (responses_.isEmpty()) {
+            responses_ = other.responses_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureResponsesIsMutable();
+            responses_.addAll(other.responses_);
+          }
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                height_ = input.readUInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
+                com.google.protobuf.ByteString v = input.readBytes();
+                ensureResponsesIsMutable();
+                responses_.add(v);
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long height_ ;
+      /**
+       * <pre>
+       * height at which the responses were queried
+       * </pre>
+       *
+       * <code>uint64 height = 1 [json_name = "height"];</code>
+       * @return The height.
+       */
+      @java.lang.Override
+      public long getHeight() {
+        return height_;
+      }
+      /**
+       * <pre>
+       * height at which the responses were queried
+       * </pre>
+       *
+       * <code>uint64 height = 1 [json_name = "height"];</code>
+       * @param value The height to set.
+       * @return This builder for chaining.
+       */
+      public Builder setHeight(long value) {
+
+        height_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * height at which the responses were queried
+       * </pre>
+       *
+       * <code>uint64 height = 1 [json_name = "height"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHeight() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        height_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<com.google.protobuf.ByteString> responses_ = java.util.Collections.emptyList();
+      private void ensureResponsesIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          responses_ = new java.util.ArrayList<com.google.protobuf.ByteString>(responses_);
+          bitField0_ |= 0x00000002;
+        }
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @return A list containing the responses.
+       */
+      public java.util.List<com.google.protobuf.ByteString>
+          getResponsesList() {
+        return ((bitField0_ & 0x00000002) != 0) ?
+                 java.util.Collections.unmodifiableList(responses_) : responses_;
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @return The count of responses.
+       */
+      public int getResponsesCount() {
+        return responses_.size();
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @param index The index of the element to return.
+       * @return The responses at the given index.
+       */
+      public com.google.protobuf.ByteString getResponses(int index) {
+        return responses_.get(index);
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @param index The index to set the value at.
+       * @param value The responses to set.
+       * @return This builder for chaining.
+       */
+      public Builder setResponses(
+          int index, com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureResponsesIsMutable();
+        responses_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @param value The responses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addResponses(com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        ensureResponsesIsMutable();
+        responses_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @param values The responses to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllResponses(
+          java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
+        ensureResponsesIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, responses_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * protobuf encoded responses for each query
+       * </pre>
+       *
+       * <code>repeated bytes responses = 2 [json_name = "responses"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearResponses() {
+        responses_ = java.util.Collections.emptyList();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafeResponse)
+    private static final com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse();
+    }
+
+    public static com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgModuleQuerySafeResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgModuleQuerySafeResponse>() {
+      @java.lang.Override
+      public MsgModuleQuerySafeResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgModuleQuerySafeResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgModuleQuerySafeResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.host.v1.TxProto.MsgModuleQuerySafeResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParams_descriptor;
   private static final 
@@ -1311,6 +3125,16 @@ public final class TxProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParamsResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1325,24 +3149,34 @@ public final class TxProto {
       "hain_accounts.host.v1\032\024gogoproto/gogo.pr" +
       "oto\032\027cosmos/msg/v1/msg.proto\0327ibc/applic" +
       "ations/interchain_accounts/host/v1/host." +
-      "proto\"\223\001\n\017MsgUpdateParams\022\034\n\tauthority\030\001" +
-      " \001(\tR\tauthority\022R\n\006params\030\002 \001(\01324.ibc.ap" +
-      "plications.interchain_accounts.host.v1.P" +
-      "aramsB\004\310\336\037\000R\006params:\016\202\347\260*\tauthority\"\031\n\027M" +
-      "sgUpdateParamsResponse2\234\001\n\003Msg\022\224\001\n\014Updat" +
-      "eParams\022=.ibc.applications.interchain_ac" +
-      "counts.host.v1.MsgUpdateParams\032E.ibc.app" +
-      "lications.interchain_accounts.host.v1.Ms" +
-      "gUpdateParamsResponseB\326\002\n0com.ibc.applic" +
-      "ations.interchain_accounts.host.v1B\007TxPr" +
-      "otoZJgithub.com/cosmos/ibc-go/v7/modules" +
-      "/apps/27-interchain-accounts/host/types\242" +
-      "\002\004IAIH\252\002+Ibc.Applications.InterchainAcco" +
-      "unts.Host.V1\312\002+Ibc\\Applications\\Intercha" +
-      "inAccounts\\Host\\V1\342\0027Ibc\\Applications\\In" +
-      "terchainAccounts\\Host\\V1\\GPBMetadata\352\002/I" +
-      "bc::Applications::InterchainAccounts::Ho" +
-      "st::V1b\006proto3"
+      "proto\"\216\001\n\017MsgUpdateParams\022\026\n\006signer\030\001 \001(" +
+      "\tR\006signer\022R\n\006params\030\002 \001(\01324.ibc.applicat" +
+      "ions.interchain_accounts.host.v1.ParamsB" +
+      "\004\310\336\037\000R\006params:\017\210\240\037\000\202\347\260*\006signer\"\031\n\027MsgUpd" +
+      "ateParamsResponse\"\233\001\n\022MsgModuleQuerySafe" +
+      "\022\026\n\006signer\030\001 \001(\tR\006signer\022\\\n\010requests\030\002 \003" +
+      "(\0132:.ibc.applications.interchain_account" +
+      "s.host.v1.QueryRequestB\004\310\336\037\000R\010requests:\017" +
+      "\210\240\037\000\202\347\260*\006signer\"R\n\032MsgModuleQuerySafeRes" +
+      "ponse\022\026\n\006height\030\001 \001(\004R\006height\022\034\n\trespons" +
+      "es\030\002 \003(\014R\tresponses2\303\002\n\003Msg\022\224\001\n\014UpdatePa" +
+      "rams\022=.ibc.applications.interchain_accou" +
+      "nts.host.v1.MsgUpdateParams\032E.ibc.applic" +
+      "ations.interchain_accounts.host.v1.MsgUp" +
+      "dateParamsResponse\022\235\001\n\017ModuleQuerySafe\022@" +
+      ".ibc.applications.interchain_accounts.ho" +
+      "st.v1.MsgModuleQuerySafe\032H.ibc.applicati" +
+      "ons.interchain_accounts.host.v1.MsgModul" +
+      "eQuerySafeResponse\032\005\200\347\260*\001B\327\002\n0com.ibc.ap" +
+      "plications.interchain_accounts.host.v1B\007" +
+      "TxProtoZKgithub.com/cosmos/ibc-go/v10/mo" +
+      "dules/apps/27-interchain-accounts/host/t" +
+      "ypes\242\002\004IAIH\252\002+Ibc.Applications.Interchai" +
+      "nAccounts.Host.V1\312\002+Ibc\\Applications\\Int" +
+      "erchainAccounts\\Host\\V1\342\0027Ibc\\Applicatio" +
+      "ns\\InterchainAccounts\\Host\\V1\\GPBMetadat" +
+      "a\352\002/Ibc::Applications::InterchainAccount" +
+      "s::Host::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1356,16 +3190,30 @@ public final class TxProto {
     internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParams_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParams_descriptor,
-        new java.lang.String[] { "Authority", "Params", });
+        new java.lang.String[] { "Signer", "Params", });
     internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParamsResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParamsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_interchain_accounts_host_v1_MsgUpdateParamsResponse_descriptor,
         new java.lang.String[] { });
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafe_descriptor,
+        new java.lang.String[] { "Signer", "Requests", });
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_interchain_accounts_host_v1_MsgModuleQuerySafeResponse_descriptor,
+        new java.lang.String[] { "Height", "Responses", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
+    registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);

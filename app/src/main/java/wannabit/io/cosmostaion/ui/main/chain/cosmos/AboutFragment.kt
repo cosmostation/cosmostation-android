@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +21,13 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.dpTimeNotSecond
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.common.formatTxTime
+import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
@@ -139,8 +142,8 @@ class AboutFragment : Fragment() {
                 }
                 val unBondingTime = unBondingTime()
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {
-                    if (selectedChain is ChainBabylonTestnet) {
-                        "Est. 1 Days"
+                    if (selectedChain is ChainBabylon) {
+                        if (selectedChain.isTestnet) "Est. 1 Day" else "Est. 1 Week"
                     } else {
                         "$unBondingTime Days"
                     }
@@ -224,96 +227,99 @@ class AboutFragment : Fragment() {
 
             chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")
                 ?.getAsJsonObject("about")?.let { about ->
-                about.get("website")?.let {
-                    if (about.get("website").asString?.isNotEmpty() == true) {
-                        website.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("website").asString)
-                                )
-                            )
-                        }
-                    }
-                } ?: run {
-                    return
-                }
-
-                about.get("github")?.let {
-                    if (about.get("github").asString?.isNotEmpty() == true) {
-                        github.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("github").asString)
-                                )
-                            )
-                        }
-                    }
-
-                } ?: run {
-                    return
-                }
-
-                about.get("twitter")?.let {
-                    if (about.get("twitter").asString?.isNotEmpty() == true) {
-                        twitter.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("twitter").asString)
-                                )
-                            )
-                        }
-                    }
-
-                } ?: run {
-                    return
-                }
-
-                about.get("coingecko")?.let {
-                    if (about.get("coingecko").asString?.isNotEmpty() == true) {
-                        coingecko.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("coingecko").asString)
-                                )
-                            )
-                        }
-                    }
-
-                } ?: run {
-                    return
-                }
-
-                about.get("blog")?.let {
-                    if (about.get("blog").asString?.isNotEmpty() == true) {
-                        blog.setOnClickListener {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(about.get("blog").asString)
-                                )
-                            )
-                        }
-                    }
-
-                } ?: run {
-                    about.get("medium")?.let {
-                        if (about.get("medium").asString?.isNotEmpty() == true) {
-                            blog.setOnClickListener {
+                    about.get("website")?.let {
+                        if (about.get("website").asString?.isNotEmpty() == true) {
+                            website.setOnClickListener {
                                 startActivity(
                                     Intent(
-                                        Intent.ACTION_VIEW, Uri.parse(about.get("medium").asString)
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("website").asString)
                                     )
                                 )
                             }
                         }
+                    } ?: run {
+                        return
+                    }
+
+                    about.get("github")?.let {
+                        if (about.get("github").asString?.isNotEmpty() == true) {
+                            github.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("github").asString)
+                                    )
+                                )
+                            }
+                        }
+
+                    } ?: run {
+                        return
+                    }
+
+                    about.get("twitter")?.let {
+                        if (about.get("twitter").asString?.isNotEmpty() == true) {
+                            twitter.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("twitter").asString)
+                                    )
+                                )
+                            }
+                        }
+
+                    } ?: run {
+                        return
+                    }
+
+                    about.get("coingecko")?.let {
+                        if (about.get("coingecko").asString?.isNotEmpty() == true) {
+                            coingecko.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse(about.get("coingecko").asString)
+                                    )
+                                )
+                            }
+                        }
+
+                    } ?: run {
+                        return
+                    }
+
+                    about.get("blog")?.let {
+                        if (about.get("blog").asString?.isNotEmpty() == true) {
+                            blog.setOnClickListener {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, Uri.parse(about.get("blog").asString)
+                                    )
+                                )
+                            }
+                        }
+
+                    } ?: run {
+                        about.get("medium")?.let {
+                            if (about.get("medium").asString?.isNotEmpty() == true) {
+                                blog.setOnClickListener {
+                                    startActivity(
+                                        Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse(about.get("medium").asString)
+                                        )
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
-            }
         }
     }
 
     private fun unBondingTime(): String {
         val stakeParams = if (chainParam?.getAsJsonObject("params")
-                ?.getAsJsonObject("staking_params")?.has("params") == true) {
+                ?.getAsJsonObject("staking_params")?.has("params") == true
+        ) {
             chainParam?.getAsJsonObject("params")
                 ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
         } else {

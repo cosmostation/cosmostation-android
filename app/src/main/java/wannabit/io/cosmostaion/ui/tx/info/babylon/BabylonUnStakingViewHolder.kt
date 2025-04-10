@@ -2,21 +2,19 @@ package wannabit.io.cosmostaion.ui.tx.info.babylon
 
 import android.content.Context
 import android.graphics.PorterDuff
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.dpTime
 import wannabit.io.cosmostaion.common.dpTimeNotSecond
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
-import wannabit.io.cosmostaion.common.voteDpTime
 import wannabit.io.cosmostaion.databinding.ItemBabylonUnstakingBinding
 import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
 
@@ -55,9 +53,16 @@ class BabylonUnStakingViewHolder(
                 unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)
 
                 entry.entry?.completionTime?.let {
-                    val txTime = (it.seconds.minus(1814400L).plus(86400L)) * 1000
-                    remainDay.text = "${"Est."} ${gapTime(txTime)}"
-                    unstakingDay.text = "${dpTimeNotSecond(txTime)}"
+                    (chain as ChainBabylon).babylonFetcher?.let { fetcher ->
+                        val blockTime = fetcher.btcCheckpointParams?.btcConfirmationDepth
+                        val block = fetcher.btcCheckpointParams?.checkpointFinalizationTimeout
+                        val estimateUnBondingTime = (blockTime ?: 0) * (block ?: 0) * 60
+
+                        val txTime = (it.seconds.minus(1814400L)
+                            .plus(estimateUnBondingTime.plus(10000L))) * 1000
+                        remainDay.text = "${"Est."} ${gapTime(txTime)}"
+                        unstakingDay.text = "${dpTimeNotSecond(txTime)}"
+                    }
                 }
             }
         }

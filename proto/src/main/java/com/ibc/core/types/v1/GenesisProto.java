@@ -98,6 +98,60 @@ public final class GenesisProto {
      * <code>.ibc.core.channel.v1.GenesisState channel_genesis = 3 [json_name = "channelGenesis", (.gogoproto.nullable) = false];</code>
      */
     com.ibc.core.channel.v1.GenesisProto.GenesisStateOrBuilder getChannelGenesisOrBuilder();
+
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return Whether the clientV2Genesis field is set.
+     */
+    boolean hasClientV2Genesis();
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return The clientV2Genesis.
+     */
+    com.ibc.core.client.v2.GenesisProto.GenesisState getClientV2Genesis();
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder getClientV2GenesisOrBuilder();
+
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return Whether the channelV2Genesis field is set.
+     */
+    boolean hasChannelV2Genesis();
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return The channelV2Genesis.
+     */
+    com.ibc.core.channel.v2.GenesisProto.GenesisState getChannelV2Genesis();
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder getChannelV2GenesisOrBuilder();
   }
   /**
    * <pre>
@@ -252,6 +306,82 @@ public final class GenesisProto {
       return channelGenesis_ == null ? com.ibc.core.channel.v1.GenesisProto.GenesisState.getDefaultInstance() : channelGenesis_;
     }
 
+    public static final int CLIENT_V2_GENESIS_FIELD_NUMBER = 4;
+    private com.ibc.core.client.v2.GenesisProto.GenesisState clientV2Genesis_;
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return Whether the clientV2Genesis field is set.
+     */
+    @java.lang.Override
+    public boolean hasClientV2Genesis() {
+      return clientV2Genesis_ != null;
+    }
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return The clientV2Genesis.
+     */
+    @java.lang.Override
+    public com.ibc.core.client.v2.GenesisProto.GenesisState getClientV2Genesis() {
+      return clientV2Genesis_ == null ? com.ibc.core.client.v2.GenesisProto.GenesisState.getDefaultInstance() : clientV2Genesis_;
+    }
+    /**
+     * <pre>
+     * ICS002 - Clients/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder getClientV2GenesisOrBuilder() {
+      return clientV2Genesis_ == null ? com.ibc.core.client.v2.GenesisProto.GenesisState.getDefaultInstance() : clientV2Genesis_;
+    }
+
+    public static final int CHANNEL_V2_GENESIS_FIELD_NUMBER = 5;
+    private com.ibc.core.channel.v2.GenesisProto.GenesisState channelV2Genesis_;
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return Whether the channelV2Genesis field is set.
+     */
+    @java.lang.Override
+    public boolean hasChannelV2Genesis() {
+      return channelV2Genesis_ != null;
+    }
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     * @return The channelV2Genesis.
+     */
+    @java.lang.Override
+    public com.ibc.core.channel.v2.GenesisProto.GenesisState getChannelV2Genesis() {
+      return channelV2Genesis_ == null ? com.ibc.core.channel.v2.GenesisProto.GenesisState.getDefaultInstance() : channelV2Genesis_;
+    }
+    /**
+     * <pre>
+     * ICS004 - Channel/v2 genesis state
+     * </pre>
+     *
+     * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder getChannelV2GenesisOrBuilder() {
+      return channelV2Genesis_ == null ? com.ibc.core.channel.v2.GenesisProto.GenesisState.getDefaultInstance() : channelV2Genesis_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -275,6 +405,12 @@ public final class GenesisProto {
       if (channelGenesis_ != null) {
         output.writeMessage(3, getChannelGenesis());
       }
+      if (clientV2Genesis_ != null) {
+        output.writeMessage(4, getClientV2Genesis());
+      }
+      if (channelV2Genesis_ != null) {
+        output.writeMessage(5, getChannelV2Genesis());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -295,6 +431,14 @@ public final class GenesisProto {
       if (channelGenesis_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, getChannelGenesis());
+      }
+      if (clientV2Genesis_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getClientV2Genesis());
+      }
+      if (channelV2Genesis_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getChannelV2Genesis());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -326,6 +470,16 @@ public final class GenesisProto {
         if (!getChannelGenesis()
             .equals(other.getChannelGenesis())) return false;
       }
+      if (hasClientV2Genesis() != other.hasClientV2Genesis()) return false;
+      if (hasClientV2Genesis()) {
+        if (!getClientV2Genesis()
+            .equals(other.getClientV2Genesis())) return false;
+      }
+      if (hasChannelV2Genesis() != other.hasChannelV2Genesis()) return false;
+      if (hasChannelV2Genesis()) {
+        if (!getChannelV2Genesis()
+            .equals(other.getChannelV2Genesis())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -348,6 +502,14 @@ public final class GenesisProto {
       if (hasChannelGenesis()) {
         hash = (37 * hash) + CHANNEL_GENESIS_FIELD_NUMBER;
         hash = (53 * hash) + getChannelGenesis().hashCode();
+      }
+      if (hasClientV2Genesis()) {
+        hash = (37 * hash) + CLIENT_V2_GENESIS_FIELD_NUMBER;
+        hash = (53 * hash) + getClientV2Genesis().hashCode();
+      }
+      if (hasChannelV2Genesis()) {
+        hash = (37 * hash) + CHANNEL_V2_GENESIS_FIELD_NUMBER;
+        hash = (53 * hash) + getChannelV2Genesis().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -499,6 +661,16 @@ public final class GenesisProto {
           channelGenesisBuilder_.dispose();
           channelGenesisBuilder_ = null;
         }
+        clientV2Genesis_ = null;
+        if (clientV2GenesisBuilder_ != null) {
+          clientV2GenesisBuilder_.dispose();
+          clientV2GenesisBuilder_ = null;
+        }
+        channelV2Genesis_ = null;
+        if (channelV2GenesisBuilder_ != null) {
+          channelV2GenesisBuilder_.dispose();
+          channelV2GenesisBuilder_ = null;
+        }
         return this;
       }
 
@@ -546,6 +718,16 @@ public final class GenesisProto {
           result.channelGenesis_ = channelGenesisBuilder_ == null
               ? channelGenesis_
               : channelGenesisBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.clientV2Genesis_ = clientV2GenesisBuilder_ == null
+              ? clientV2Genesis_
+              : clientV2GenesisBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.channelV2Genesis_ = channelV2GenesisBuilder_ == null
+              ? channelV2Genesis_
+              : channelV2GenesisBuilder_.build();
         }
       }
 
@@ -602,6 +784,12 @@ public final class GenesisProto {
         if (other.hasChannelGenesis()) {
           mergeChannelGenesis(other.getChannelGenesis());
         }
+        if (other.hasClientV2Genesis()) {
+          mergeClientV2Genesis(other.getClientV2Genesis());
+        }
+        if (other.hasChannelV2Genesis()) {
+          mergeChannelV2Genesis(other.getChannelV2Genesis());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -649,6 +837,20 @@ public final class GenesisProto {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    getClientV2GenesisFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                input.readMessage(
+                    getChannelV2GenesisFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1130,6 +1332,316 @@ public final class GenesisProto {
         }
         return channelGenesisBuilder_;
       }
+
+      private com.ibc.core.client.v2.GenesisProto.GenesisState clientV2Genesis_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.client.v2.GenesisProto.GenesisState, com.ibc.core.client.v2.GenesisProto.GenesisState.Builder, com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder> clientV2GenesisBuilder_;
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       * @return Whether the clientV2Genesis field is set.
+       */
+      public boolean hasClientV2Genesis() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       * @return The clientV2Genesis.
+       */
+      public com.ibc.core.client.v2.GenesisProto.GenesisState getClientV2Genesis() {
+        if (clientV2GenesisBuilder_ == null) {
+          return clientV2Genesis_ == null ? com.ibc.core.client.v2.GenesisProto.GenesisState.getDefaultInstance() : clientV2Genesis_;
+        } else {
+          return clientV2GenesisBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setClientV2Genesis(com.ibc.core.client.v2.GenesisProto.GenesisState value) {
+        if (clientV2GenesisBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          clientV2Genesis_ = value;
+        } else {
+          clientV2GenesisBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setClientV2Genesis(
+          com.ibc.core.client.v2.GenesisProto.GenesisState.Builder builderForValue) {
+        if (clientV2GenesisBuilder_ == null) {
+          clientV2Genesis_ = builderForValue.build();
+        } else {
+          clientV2GenesisBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeClientV2Genesis(com.ibc.core.client.v2.GenesisProto.GenesisState value) {
+        if (clientV2GenesisBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            clientV2Genesis_ != null &&
+            clientV2Genesis_ != com.ibc.core.client.v2.GenesisProto.GenesisState.getDefaultInstance()) {
+            getClientV2GenesisBuilder().mergeFrom(value);
+          } else {
+            clientV2Genesis_ = value;
+          }
+        } else {
+          clientV2GenesisBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearClientV2Genesis() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        clientV2Genesis_ = null;
+        if (clientV2GenesisBuilder_ != null) {
+          clientV2GenesisBuilder_.dispose();
+          clientV2GenesisBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.client.v2.GenesisProto.GenesisState.Builder getClientV2GenesisBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getClientV2GenesisFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder getClientV2GenesisOrBuilder() {
+        if (clientV2GenesisBuilder_ != null) {
+          return clientV2GenesisBuilder_.getMessageOrBuilder();
+        } else {
+          return clientV2Genesis_ == null ?
+              com.ibc.core.client.v2.GenesisProto.GenesisState.getDefaultInstance() : clientV2Genesis_;
+        }
+      }
+      /**
+       * <pre>
+       * ICS002 - Clients/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.client.v2.GenesisState client_v2_genesis = 4 [json_name = "clientV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.client.v2.GenesisProto.GenesisState, com.ibc.core.client.v2.GenesisProto.GenesisState.Builder, com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder> 
+          getClientV2GenesisFieldBuilder() {
+        if (clientV2GenesisBuilder_ == null) {
+          clientV2GenesisBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.core.client.v2.GenesisProto.GenesisState, com.ibc.core.client.v2.GenesisProto.GenesisState.Builder, com.ibc.core.client.v2.GenesisProto.GenesisStateOrBuilder>(
+                  getClientV2Genesis(),
+                  getParentForChildren(),
+                  isClean());
+          clientV2Genesis_ = null;
+        }
+        return clientV2GenesisBuilder_;
+      }
+
+      private com.ibc.core.channel.v2.GenesisProto.GenesisState channelV2Genesis_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.channel.v2.GenesisProto.GenesisState, com.ibc.core.channel.v2.GenesisProto.GenesisState.Builder, com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder> channelV2GenesisBuilder_;
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       * @return Whether the channelV2Genesis field is set.
+       */
+      public boolean hasChannelV2Genesis() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       * @return The channelV2Genesis.
+       */
+      public com.ibc.core.channel.v2.GenesisProto.GenesisState getChannelV2Genesis() {
+        if (channelV2GenesisBuilder_ == null) {
+          return channelV2Genesis_ == null ? com.ibc.core.channel.v2.GenesisProto.GenesisState.getDefaultInstance() : channelV2Genesis_;
+        } else {
+          return channelV2GenesisBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setChannelV2Genesis(com.ibc.core.channel.v2.GenesisProto.GenesisState value) {
+        if (channelV2GenesisBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          channelV2Genesis_ = value;
+        } else {
+          channelV2GenesisBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setChannelV2Genesis(
+          com.ibc.core.channel.v2.GenesisProto.GenesisState.Builder builderForValue) {
+        if (channelV2GenesisBuilder_ == null) {
+          channelV2Genesis_ = builderForValue.build();
+        } else {
+          channelV2GenesisBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeChannelV2Genesis(com.ibc.core.channel.v2.GenesisProto.GenesisState value) {
+        if (channelV2GenesisBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            channelV2Genesis_ != null &&
+            channelV2Genesis_ != com.ibc.core.channel.v2.GenesisProto.GenesisState.getDefaultInstance()) {
+            getChannelV2GenesisBuilder().mergeFrom(value);
+          } else {
+            channelV2Genesis_ = value;
+          }
+        } else {
+          channelV2GenesisBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearChannelV2Genesis() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        channelV2Genesis_ = null;
+        if (channelV2GenesisBuilder_ != null) {
+          channelV2GenesisBuilder_.dispose();
+          channelV2GenesisBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.channel.v2.GenesisProto.GenesisState.Builder getChannelV2GenesisBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getChannelV2GenesisFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder getChannelV2GenesisOrBuilder() {
+        if (channelV2GenesisBuilder_ != null) {
+          return channelV2GenesisBuilder_.getMessageOrBuilder();
+        } else {
+          return channelV2Genesis_ == null ?
+              com.ibc.core.channel.v2.GenesisProto.GenesisState.getDefaultInstance() : channelV2Genesis_;
+        }
+      }
+      /**
+       * <pre>
+       * ICS004 - Channel/v2 genesis state
+       * </pre>
+       *
+       * <code>.ibc.core.channel.v2.GenesisState channel_v2_genesis = 5 [json_name = "channelV2Genesis", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.core.channel.v2.GenesisProto.GenesisState, com.ibc.core.channel.v2.GenesisProto.GenesisState.Builder, com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder> 
+          getChannelV2GenesisFieldBuilder() {
+        if (channelV2GenesisBuilder_ == null) {
+          channelV2GenesisBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.core.channel.v2.GenesisProto.GenesisState, com.ibc.core.channel.v2.GenesisProto.GenesisState.Builder, com.ibc.core.channel.v2.GenesisProto.GenesisStateOrBuilder>(
+                  getChannelV2Genesis(),
+                  getParentForChildren(),
+                  isClean());
+          channelV2Genesis_ = null;
+        }
+        return channelV2GenesisBuilder_;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1210,36 +1722,44 @@ public final class GenesisProto {
     java.lang.String[] descriptorData = {
       "\n\037ibc/core/types/v1/genesis.proto\022\021ibc.c" +
       "ore.types.v1\032\024gogoproto/gogo.proto\032 ibc/" +
-      "core/client/v1/genesis.proto\032$ibc/core/c" +
-      "onnection/v1/genesis.proto\032!ibc/core/cha" +
-      "nnel/v1/genesis.proto\"\212\002\n\014GenesisState\022M" +
-      "\n\016client_genesis\030\001 \001(\0132 .ibc.core.client" +
-      ".v1.GenesisStateB\004\310\336\037\000R\rclientGenesis\022Y\n" +
-      "\022connection_genesis\030\002 \001(\0132$.ibc.core.con" +
-      "nection.v1.GenesisStateB\004\310\336\037\000R\021connectio" +
-      "nGenesis\022P\n\017channel_genesis\030\003 \001(\0132!.ibc." +
-      "core.channel.v1.GenesisStateB\004\310\336\037\000R\016chan" +
-      "nelGenesisB\272\001\n\025com.ibc.core.types.v1B\014Ge" +
-      "nesisProtoZ.github.com/cosmos/ibc-go/v7/" +
-      "modules/core/types\242\002\003ICT\252\002\021Ibc.Core.Type" +
-      "s.V1\312\002\021Ibc\\Core\\Types\\V1\342\002\035Ibc\\Core\\Type" +
-      "s\\V1\\GPBMetadata\352\002\024Ibc::Core::Types::V1b" +
-      "\006proto3"
+      "core/client/v1/genesis.proto\032 ibc/core/c" +
+      "lient/v2/genesis.proto\032$ibc/core/connect" +
+      "ion/v1/genesis.proto\032!ibc/core/channel/v" +
+      "1/genesis.proto\032!ibc/core/channel/v2/gen" +
+      "esis.proto\"\265\003\n\014GenesisState\022M\n\016client_ge" +
+      "nesis\030\001 \001(\0132 .ibc.core.client.v1.Genesis" +
+      "StateB\004\310\336\037\000R\rclientGenesis\022Y\n\022connection" +
+      "_genesis\030\002 \001(\0132$.ibc.core.connection.v1." +
+      "GenesisStateB\004\310\336\037\000R\021connectionGenesis\022P\n" +
+      "\017channel_genesis\030\003 \001(\0132!.ibc.core.channe" +
+      "l.v1.GenesisStateB\004\310\336\037\000R\016channelGenesis\022" +
+      "R\n\021client_v2_genesis\030\004 \001(\0132 .ibc.core.cl" +
+      "ient.v2.GenesisStateB\004\310\336\037\000R\017clientV2Gene" +
+      "sis\022U\n\022channel_v2_genesis\030\005 \001(\0132!.ibc.co" +
+      "re.channel.v2.GenesisStateB\004\310\336\037\000R\020channe" +
+      "lV2GenesisB\273\001\n\025com.ibc.core.types.v1B\014Ge" +
+      "nesisProtoZ/github.com/cosmos/ibc-go/v10" +
+      "/modules/core/types\242\002\003ICT\252\002\021Ibc.Core.Typ" +
+      "es.V1\312\002\021Ibc\\Core\\Types\\V1\342\002\035Ibc\\Core\\Typ" +
+      "es\\V1\\GPBMetadata\352\002\024Ibc::Core::Types::V1" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.gogoproto.GogoProto.getDescriptor(),
           com.ibc.core.client.v1.GenesisProto.getDescriptor(),
+          com.ibc.core.client.v2.GenesisProto.getDescriptor(),
           com.ibc.core.connection.v1.GenesisProto.getDescriptor(),
           com.ibc.core.channel.v1.GenesisProto.getDescriptor(),
+          com.ibc.core.channel.v2.GenesisProto.getDescriptor(),
         });
     internal_static_ibc_core_types_v1_GenesisState_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ibc_core_types_v1_GenesisState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_core_types_v1_GenesisState_descriptor,
-        new java.lang.String[] { "ClientGenesis", "ConnectionGenesis", "ChannelGenesis", });
+        new java.lang.String[] { "ClientGenesis", "ConnectionGenesis", "ChannelGenesis", "ClientV2Genesis", "ChannelV2Genesis", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(com.gogoproto.GogoProto.nullable);
@@ -1247,8 +1767,10 @@ public final class GenesisProto {
         .internalUpdateFileDescriptor(descriptor, registry);
     com.gogoproto.GogoProto.getDescriptor();
     com.ibc.core.client.v1.GenesisProto.getDescriptor();
+    com.ibc.core.client.v2.GenesisProto.getDescriptor();
     com.ibc.core.connection.v1.GenesisProto.getDescriptor();
     com.ibc.core.channel.v1.GenesisProto.getDescriptor();
+    com.ibc.core.channel.v2.GenesisProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

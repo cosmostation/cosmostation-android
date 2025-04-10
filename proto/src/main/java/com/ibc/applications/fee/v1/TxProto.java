@@ -3129,7 +3129,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the fee field is set.
      */
     boolean hasFee();
@@ -3138,7 +3138,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The fee.
      */
     com.ibc.applications.fee.v1.FeeProto.Fee getFee();
@@ -3147,7 +3147,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     com.ibc.applications.fee.v1.FeeProto.FeeOrBuilder getFeeOrBuilder();
 
@@ -3305,7 +3305,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the fee field is set.
      */
     @java.lang.Override
@@ -3317,7 +3317,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The fee.
      */
     @java.lang.Override
@@ -3329,7 +3329,7 @@ public final class TxProto {
      * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.ibc.applications.fee.v1.FeeProto.FeeOrBuilder getFeeOrBuilder() {
@@ -3993,7 +3993,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return Whether the fee field is set.
        */
       public boolean hasFee() {
@@ -4004,7 +4004,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return The fee.
        */
       public com.ibc.applications.fee.v1.FeeProto.Fee getFee() {
@@ -4019,7 +4019,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setFee(com.ibc.applications.fee.v1.FeeProto.Fee value) {
         if (feeBuilder_ == null) {
@@ -4039,7 +4039,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setFee(
           com.ibc.applications.fee.v1.FeeProto.Fee.Builder builderForValue) {
@@ -4057,7 +4057,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder mergeFee(com.ibc.applications.fee.v1.FeeProto.Fee value) {
         if (feeBuilder_ == null) {
@@ -4080,7 +4080,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearFee() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -4097,7 +4097,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.applications.fee.v1.FeeProto.Fee.Builder getFeeBuilder() {
         bitField0_ |= 0x00000001;
@@ -4109,7 +4109,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.applications.fee.v1.FeeProto.FeeOrBuilder getFeeOrBuilder() {
         if (feeBuilder_ != null) {
@@ -4124,7 +4124,7 @@ public final class TxProto {
        * fee encapsulates the recv, ack and timeout fees associated with an IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.Fee fee = 1 [json_name = "fee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.applications.fee.v1.FeeProto.Fee, com.ibc.applications.fee.v1.FeeProto.Fee.Builder, com.ibc.applications.fee.v1.FeeProto.FeeOrBuilder> 
@@ -5040,7 +5040,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the packetId field is set.
      */
     boolean hasPacketId();
@@ -5049,7 +5049,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The packetId.
      */
     com.ibc.core.channel.v1.ChannelProto.PacketId getPacketId();
@@ -5058,7 +5058,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     com.ibc.core.channel.v1.ChannelProto.PacketIdOrBuilder getPacketIdOrBuilder();
 
@@ -5067,7 +5067,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the packetFee field is set.
      */
     boolean hasPacketFee();
@@ -5076,7 +5076,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The packetFee.
      */
     com.ibc.applications.fee.v1.FeeProto.PacketFee getPacketFee();
@@ -5085,7 +5085,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     com.ibc.applications.fee.v1.FeeProto.PacketFeeOrBuilder getPacketFeeOrBuilder();
   }
@@ -5136,7 +5136,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the packetId field is set.
      */
     @java.lang.Override
@@ -5148,7 +5148,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The packetId.
      */
     @java.lang.Override
@@ -5160,7 +5160,7 @@ public final class TxProto {
      * unique packet identifier comprised of the channel ID, port ID and sequence
      * </pre>
      *
-     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.ibc.core.channel.v1.ChannelProto.PacketIdOrBuilder getPacketIdOrBuilder() {
@@ -5174,7 +5174,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return Whether the packetFee field is set.
      */
     @java.lang.Override
@@ -5186,7 +5186,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      * @return The packetFee.
      */
     @java.lang.Override
@@ -5198,7 +5198,7 @@ public final class TxProto {
      * the packet fee associated with a particular IBC packet
      * </pre>
      *
-     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+     * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
      */
     @java.lang.Override
     public com.ibc.applications.fee.v1.FeeProto.PacketFeeOrBuilder getPacketFeeOrBuilder() {
@@ -5592,7 +5592,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return Whether the packetId field is set.
        */
       public boolean hasPacketId() {
@@ -5603,7 +5603,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return The packetId.
        */
       public com.ibc.core.channel.v1.ChannelProto.PacketId getPacketId() {
@@ -5618,7 +5618,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setPacketId(com.ibc.core.channel.v1.ChannelProto.PacketId value) {
         if (packetIdBuilder_ == null) {
@@ -5638,7 +5638,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setPacketId(
           com.ibc.core.channel.v1.ChannelProto.PacketId.Builder builderForValue) {
@@ -5656,7 +5656,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder mergePacketId(com.ibc.core.channel.v1.ChannelProto.PacketId value) {
         if (packetIdBuilder_ == null) {
@@ -5679,7 +5679,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearPacketId() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -5696,7 +5696,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.core.channel.v1.ChannelProto.PacketId.Builder getPacketIdBuilder() {
         bitField0_ |= 0x00000001;
@@ -5708,7 +5708,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.core.channel.v1.ChannelProto.PacketIdOrBuilder getPacketIdOrBuilder() {
         if (packetIdBuilder_ != null) {
@@ -5723,7 +5723,7 @@ public final class TxProto {
        * unique packet identifier comprised of the channel ID, port ID and sequence
        * </pre>
        *
-       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.core.channel.v1.PacketId packet_id = 1 [json_name = "packetId", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.core.channel.v1.ChannelProto.PacketId, com.ibc.core.channel.v1.ChannelProto.PacketId.Builder, com.ibc.core.channel.v1.ChannelProto.PacketIdOrBuilder> 
@@ -5747,7 +5747,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return Whether the packetFee field is set.
        */
       public boolean hasPacketFee() {
@@ -5758,7 +5758,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        * @return The packetFee.
        */
       public com.ibc.applications.fee.v1.FeeProto.PacketFee getPacketFee() {
@@ -5773,7 +5773,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setPacketFee(com.ibc.applications.fee.v1.FeeProto.PacketFee value) {
         if (packetFeeBuilder_ == null) {
@@ -5793,7 +5793,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder setPacketFee(
           com.ibc.applications.fee.v1.FeeProto.PacketFee.Builder builderForValue) {
@@ -5811,7 +5811,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder mergePacketFee(com.ibc.applications.fee.v1.FeeProto.PacketFee value) {
         if (packetFeeBuilder_ == null) {
@@ -5834,7 +5834,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public Builder clearPacketFee() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -5851,7 +5851,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.applications.fee.v1.FeeProto.PacketFee.Builder getPacketFeeBuilder() {
         bitField0_ |= 0x00000002;
@@ -5863,7 +5863,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       public com.ibc.applications.fee.v1.FeeProto.PacketFeeOrBuilder getPacketFeeOrBuilder() {
         if (packetFeeBuilder_ != null) {
@@ -5878,7 +5878,7 @@ public final class TxProto {
        * the packet fee associated with a particular IBC packet
        * </pre>
        *
-       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false];</code>
+       * <code>.ibc.applications.fee.v1.PacketFee packet_fee = 2 [json_name = "packetFee", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ibc.applications.fee.v1.FeeProto.PacketFee, com.ibc.applications.fee.v1.FeeProto.PacketFee.Builder, com.ibc.applications.fee.v1.FeeProto.PacketFeeOrBuilder> 
@@ -6412,54 +6412,59 @@ public final class TxProto {
   static {
     java.lang.String[] descriptorData = {
       "\n ibc/applications/fee/v1/tx.proto\022\027ibc." +
-      "applications.fee.v1\032\024gogoproto/gogo.prot" +
-      "o\032!ibc/applications/fee/v1/fee.proto\032!ib" +
-      "c/core/channel/v1/channel.proto\032\027cosmos/" +
-      "msg/v1/msg.proto\"\220\001\n\020MsgRegisterPayee\022\027\n" +
-      "\007port_id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001" +
-      "(\tR\tchannelId\022\030\n\007relayer\030\003 \001(\tR\007relayer\022" +
-      "\024\n\005payee\030\004 \001(\tR\005payee:\024\210\240\037\000\350\240\037\000\202\347\260*\007rela" +
-      "yer\"\032\n\030MsgRegisterPayeeResponse\"\265\001\n\034MsgR" +
-      "egisterCounterpartyPayee\022\027\n\007port_id\030\001 \001(" +
-      "\tR\006portId\022\035\n\nchannel_id\030\002 \001(\tR\tchannelId" +
-      "\022\030\n\007relayer\030\003 \001(\tR\007relayer\022-\n\022counterpar" +
-      "ty_payee\030\004 \001(\tR\021counterpartyPayee:\024\210\240\037\000\350" +
-      "\240\037\000\202\347\260*\007relayer\"&\n$MsgRegisterCounterpar" +
-      "tyPayeeResponse\"\342\001\n\017MsgPayPacketFee\0224\n\003f" +
-      "ee\030\001 \001(\0132\034.ibc.applications.fee.v1.FeeB\004" +
-      "\310\336\037\000R\003fee\022$\n\016source_port_id\030\002 \001(\tR\014sourc" +
-      "ePortId\022*\n\021source_channel_id\030\003 \001(\tR\017sour" +
-      "ceChannelId\022\026\n\006signer\030\004 \001(\tR\006signer\022\032\n\010r" +
-      "elayers\030\005 \003(\tR\010relayers:\023\210\240\037\000\350\240\037\000\202\347\260*\006si" +
-      "gner\"\031\n\027MsgPayPacketFeeResponse\"\310\001\n\024MsgP" +
-      "ayPacketFeeAsync\022@\n\tpacket_id\030\001 \001(\0132\035.ib" +
-      "c.core.channel.v1.PacketIdB\004\310\336\037\000R\010packet" +
-      "Id\022G\n\npacket_fee\030\002 \001(\0132\".ibc.application" +
-      "s.fee.v1.PacketFeeB\004\310\336\037\000R\tpacketFee:%\210\240\037" +
-      "\000\350\240\037\000\202\347\260*\030packet_fee.refundaddress\"\036\n\034Ms" +
-      "gPayPacketFeeAsyncResponse2\357\003\n\003Msg\022m\n\rRe" +
-      "gisterPayee\022).ibc.applications.fee.v1.Ms" +
-      "gRegisterPayee\0321.ibc.applications.fee.v1" +
-      ".MsgRegisterPayeeResponse\022\221\001\n\031RegisterCo" +
-      "unterpartyPayee\0225.ibc.applications.fee.v" +
-      "1.MsgRegisterCounterpartyPayee\032=.ibc.app" +
-      "lications.fee.v1.MsgRegisterCounterparty" +
-      "PayeeResponse\022j\n\014PayPacketFee\022(.ibc.appl" +
-      "ications.fee.v1.MsgPayPacketFee\0320.ibc.ap" +
-      "plications.fee.v1.MsgPayPacketFeeRespons" +
-      "e\022y\n\021PayPacketFeeAsync\022-.ibc.application" +
-      "s.fee.v1.MsgPayPacketFeeAsync\0325.ibc.appl" +
-      "ications.fee.v1.MsgPayPacketFeeAsyncResp" +
-      "onseB\332\001\n\033com.ibc.applications.fee.v1B\007Tx" +
-      "ProtoZ5github.com/cosmos/ibc-go/v7/modul" +
-      "es/apps/29-fee/types\242\002\003IAF\252\002\027Ibc.Applica" +
-      "tions.Fee.V1\312\002\027Ibc\\Applications\\Fee\\V1\342\002" +
-      "#Ibc\\Applications\\Fee\\V1\\GPBMetadata\352\002\032I" +
-      "bc::Applications::Fee::V1b\006proto3"
+      "applications.fee.v1\032\021amino/amino.proto\032\024" +
+      "gogoproto/gogo.proto\032!ibc/applications/f" +
+      "ee/v1/fee.proto\032!ibc/core/channel/v1/cha" +
+      "nnel.proto\032\027cosmos/msg/v1/msg.proto\"\254\001\n\020" +
+      "MsgRegisterPayee\022\027\n\007port_id\030\001 \001(\tR\006portI" +
+      "d\022\035\n\nchannel_id\030\002 \001(\tR\tchannelId\022\030\n\007rela" +
+      "yer\030\003 \001(\tR\007relayer\022\024\n\005payee\030\004 \001(\tR\005payee" +
+      ":0\210\240\037\000\202\347\260*\007relayer\212\347\260*\033cosmos-sdk/MsgReg" +
+      "isterPayee\"\032\n\030MsgRegisterPayeeResponse\"\335" +
+      "\001\n\034MsgRegisterCounterpartyPayee\022\027\n\007port_" +
+      "id\030\001 \001(\tR\006portId\022\035\n\nchannel_id\030\002 \001(\tR\tch" +
+      "annelId\022\030\n\007relayer\030\003 \001(\tR\007relayer\022-\n\022cou" +
+      "nterparty_payee\030\004 \001(\tR\021counterpartyPayee" +
+      ":<\210\240\037\000\202\347\260*\007relayer\212\347\260*\'cosmos-sdk/MsgReg" +
+      "isterCounterpartyPayee\"&\n$MsgRegisterCou" +
+      "nterpartyPayeeResponse\"\202\002\n\017MsgPayPacketF" +
+      "ee\0229\n\003fee\030\001 \001(\0132\034.ibc.applications.fee.v" +
+      "1.FeeB\t\310\336\037\000\250\347\260*\001R\003fee\022$\n\016source_port_id\030" +
+      "\002 \001(\tR\014sourcePortId\022*\n\021source_channel_id" +
+      "\030\003 \001(\tR\017sourceChannelId\022\026\n\006signer\030\004 \001(\tR" +
+      "\006signer\022\032\n\010relayers\030\005 \003(\tR\010relayers:.\210\240\037" +
+      "\000\202\347\260*\006signer\212\347\260*\032cosmos-sdk/MsgPayPacket" +
+      "Fee\"\031\n\027MsgPayPacketFeeResponse\"\344\001\n\024MsgPa" +
+      "yPacketFeeAsync\022E\n\tpacket_id\030\001 \001(\0132\035.ibc" +
+      ".core.channel.v1.PacketIdB\t\310\336\037\000\250\347\260*\001R\010pa" +
+      "cketId\022L\n\npacket_fee\030\002 \001(\0132\".ibc.applica" +
+      "tions.fee.v1.PacketFeeB\t\310\336\037\000\250\347\260*\001R\tpacke" +
+      "tFee:7\210\240\037\000\202\347\260*\npacket_fee\212\347\260*\037cosmos-sdk" +
+      "/MsgPayPacketFeeAsync\"\036\n\034MsgPayPacketFee" +
+      "AsyncResponse2\366\003\n\003Msg\022m\n\rRegisterPayee\022)" +
+      ".ibc.applications.fee.v1.MsgRegisterPaye" +
+      "e\0321.ibc.applications.fee.v1.MsgRegisterP" +
+      "ayeeResponse\022\221\001\n\031RegisterCounterpartyPay" +
+      "ee\0225.ibc.applications.fee.v1.MsgRegister" +
+      "CounterpartyPayee\032=.ibc.applications.fee" +
+      ".v1.MsgRegisterCounterpartyPayeeResponse" +
+      "\022j\n\014PayPacketFee\022(.ibc.applications.fee." +
+      "v1.MsgPayPacketFee\0320.ibc.applications.fe" +
+      "e.v1.MsgPayPacketFeeResponse\022y\n\021PayPacke" +
+      "tFeeAsync\022-.ibc.applications.fee.v1.MsgP" +
+      "ayPacketFeeAsync\0325.ibc.applications.fee." +
+      "v1.MsgPayPacketFeeAsyncResponse\032\005\200\347\260*\001B\332" +
+      "\001\n\033com.ibc.applications.fee.v1B\007TxProtoZ" +
+      "5github.com/cosmos/ibc-go/v8/modules/app" +
+      "s/29-fee/types\242\002\003IAF\252\002\027Ibc.Applications." +
+      "Fee.V1\312\002\027Ibc\\Applications\\Fee\\V1\342\002#Ibc\\A" +
+      "pplications\\Fee\\V1\\GPBMetadata\352\002\032Ibc::Ap" +
+      "plications::Fee::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.amino.AminoProto.getDescriptor(),
           com.gogoproto.GogoProto.getDescriptor(),
           com.ibc.applications.fee.v1.FeeProto.getDescriptor(),
           com.ibc.core.channel.v1.ChannelProto.getDescriptor(),
@@ -6515,12 +6520,15 @@ public final class TxProto {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.amino.AminoProto.dontOmitempty);
+    registry.add(com.amino.AminoProto.name);
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
-    registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
+    com.amino.AminoProto.getDescriptor();
     com.gogoproto.GogoProto.getDescriptor();
     com.ibc.applications.fee.v1.FeeProto.getDescriptor();
     com.ibc.core.channel.v1.ChannelProto.getDescriptor();

@@ -9,13 +9,10 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
-import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 
 @Parcelize
-class ChainBabylonTestnet : BaseChain(), Parcelable {
-
-    var babylonFetcher: BabylonFetcher? = null
+class ChainBabylonTestnet : ChainBabylon(), Parcelable {
 
     override var name: String = "Babylon Testnet"
     override var tag: String = "babylon118_T"
@@ -28,16 +25,9 @@ class ChainBabylonTestnet : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubbn"
     override var accountPrefix: String = "bbn"
     override var grpcHost: String = "grpc-office-babylon.cosmostation.io"
     override var lcdUrl: String = "https://lcd-office.cosmostation.io/babylon-testnet/"
-
-    fun babylonFetcher(): BabylonFetcher? {
-        if (babylonFetcher == null) {
-            babylonFetcher = BabylonFetcher(this)
-        }
-        return babylonFetcher
-    }
 }

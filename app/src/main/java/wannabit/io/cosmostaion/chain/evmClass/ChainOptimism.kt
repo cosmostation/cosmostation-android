@@ -19,8 +19,6 @@ class ChainOptimism : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ETH"
-    override var coinGeckoId: String = "ethereum"
-    override var coinLogo: Int = R.drawable.token_eth_op
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

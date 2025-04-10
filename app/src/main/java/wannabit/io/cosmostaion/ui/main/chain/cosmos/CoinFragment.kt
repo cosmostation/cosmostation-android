@@ -277,6 +277,31 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 }
                 searchStakeCoins.addAll(stakeCoins)
 
+                val mainCoin = (selectedChain.getChainListParam()
+                    ?.get("main_asset_denom")?.asString ?: "").uppercase()
+                if (mainCoin.isNotEmpty()) {
+                    if (nativeCoins.isEmpty()) {
+                        nativeCoins.add(
+                            Coin(
+                                mainCoin,
+                                "0",
+                                CoinType.NATIVE
+                            )
+                        )
+
+                    } else {
+                        if (nativeCoins.none { coin -> coin.denom.uppercase() == mainCoin }) {
+                            nativeCoins.add(
+                                Coin(
+                                    mainCoin,
+                                    "0",
+                                    CoinType.NATIVE
+                                )
+                            )
+                        }
+                    }
+                }
+
                 if (selectedChain is ChainGnoTestnet) {
                     nativeCoins.sortWith(compareByDescending {
                         selectedChain.gnoRpcFetcher?.balanceValue(
@@ -797,7 +822,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     } else {
                         Intent(requireActivity(), DappActivity::class.java).apply {
                             putExtra("dapp", selectedChain.btcStakingDapp())
-                            putExtra("selectedChain", selectedChain as Parcelable)
+                            putExtra("selectedBitChain", selectedChain as Parcelable)
                             startActivity(this)
                         }
                     }
@@ -1029,7 +1054,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 dialog.dismiss()
                 Intent(requireActivity(), DappActivity::class.java).apply {
                     putExtra("dapp", selectedChain.btcStakingDapp())
-                    putExtra("selectedChain", selectedChain as Parcelable)
+                    putExtra("selectedBitChain", selectedChain as Parcelable)
                     startActivity(this)
                 }
             }

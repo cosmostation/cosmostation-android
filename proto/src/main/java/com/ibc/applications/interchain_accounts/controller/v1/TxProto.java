@@ -53,6 +53,17 @@ public final class TxProto {
      */
     com.google.protobuf.ByteString
         getVersionBytes();
+
+    /**
+     * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+     * @return The enum numeric value on the wire for ordering.
+     */
+    int getOrderingValue();
+    /**
+     * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+     * @return The ordering.
+     */
+    com.ibc.core.channel.v1.ChannelProto.Order getOrdering();
   }
   /**
    * <pre>
@@ -74,6 +85,7 @@ public final class TxProto {
       owner_ = "";
       connectionId_ = "";
       version_ = "";
+      ordering_ = 0;
     }
 
     @java.lang.Override
@@ -213,6 +225,24 @@ public final class TxProto {
       }
     }
 
+    public static final int ORDERING_FIELD_NUMBER = 4;
+    private int ordering_ = 0;
+    /**
+     * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+     * @return The enum numeric value on the wire for ordering.
+     */
+    @java.lang.Override public int getOrderingValue() {
+      return ordering_;
+    }
+    /**
+     * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+     * @return The ordering.
+     */
+    @java.lang.Override public com.ibc.core.channel.v1.ChannelProto.Order getOrdering() {
+      com.ibc.core.channel.v1.ChannelProto.Order result = com.ibc.core.channel.v1.ChannelProto.Order.forNumber(ordering_);
+      return result == null ? com.ibc.core.channel.v1.ChannelProto.Order.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -236,6 +266,9 @@ public final class TxProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(version_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, version_);
       }
+      if (ordering_ != com.ibc.core.channel.v1.ChannelProto.Order.ORDER_NONE_UNSPECIFIED.getNumber()) {
+        output.writeEnum(4, ordering_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -253,6 +286,10 @@ public final class TxProto {
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(version_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, version_);
+      }
+      if (ordering_ != com.ibc.core.channel.v1.ChannelProto.Order.ORDER_NONE_UNSPECIFIED.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, ordering_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -275,6 +312,7 @@ public final class TxProto {
           .equals(other.getConnectionId())) return false;
       if (!getVersion()
           .equals(other.getVersion())) return false;
+      if (ordering_ != other.ordering_) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -292,6 +330,8 @@ public final class TxProto {
       hash = (53 * hash) + getConnectionId().hashCode();
       hash = (37 * hash) + VERSION_FIELD_NUMBER;
       hash = (53 * hash) + getVersion().hashCode();
+      hash = (37 * hash) + ORDERING_FIELD_NUMBER;
+      hash = (53 * hash) + ordering_;
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -430,6 +470,7 @@ public final class TxProto {
         owner_ = "";
         connectionId_ = "";
         version_ = "";
+        ordering_ = 0;
         return this;
       }
 
@@ -471,6 +512,9 @@ public final class TxProto {
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
           result.version_ = version_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.ordering_ = ordering_;
         }
       }
 
@@ -533,6 +577,9 @@ public final class TxProto {
           bitField0_ |= 0x00000004;
           onChanged();
         }
+        if (other.ordering_ != 0) {
+          setOrderingValue(other.getOrderingValue());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -574,6 +621,11 @@ public final class TxProto {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 32: {
+                ordering_ = input.readEnum();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 32
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -803,6 +855,59 @@ public final class TxProto {
         checkByteStringIsUtf8(value);
         version_ = value;
         bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private int ordering_ = 0;
+      /**
+       * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+       * @return The enum numeric value on the wire for ordering.
+       */
+      @java.lang.Override public int getOrderingValue() {
+        return ordering_;
+      }
+      /**
+       * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+       * @param value The enum numeric value on the wire for ordering to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrderingValue(int value) {
+        ordering_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+       * @return The ordering.
+       */
+      @java.lang.Override
+      public com.ibc.core.channel.v1.ChannelProto.Order getOrdering() {
+        com.ibc.core.channel.v1.ChannelProto.Order result = com.ibc.core.channel.v1.ChannelProto.Order.forNumber(ordering_);
+        return result == null ? com.ibc.core.channel.v1.ChannelProto.Order.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+       * @param value The ordering to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOrdering(com.ibc.core.channel.v1.ChannelProto.Order value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000008;
+        ordering_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.ibc.core.channel.v1.Order ordering = 4 [json_name = "ordering"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOrdering() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        ordering_ = 0;
         onChanged();
         return this;
       }
@@ -3065,6 +3170,1293 @@ public final class TxProto {
 
   }
 
+  public interface MsgUpdateParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    java.lang.String getSigner();
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    com.google.protobuf.ByteString
+        getSignerBytes();
+
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    boolean hasParams();
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params getParams();
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     */
+    com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder getParamsOrBuilder();
+  }
+  /**
+   * <pre>
+   * MsgUpdateParams defines the payload for Msg/UpdateParams
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams}
+   */
+  public static final class MsgUpdateParams extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams)
+      MsgUpdateParamsOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateParams.newBuilder() to construct.
+    private MsgUpdateParams(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateParams() {
+      signer_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateParams();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.class, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.Builder.class);
+    }
+
+    public static final int SIGNER_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object signer_ = "";
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The signer.
+     */
+    @java.lang.Override
+    public java.lang.String getSigner() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        signer_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * signer address
+     * </pre>
+     *
+     * <code>string signer = 1 [json_name = "signer"];</code>
+     * @return The bytes for signer.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSignerBytes() {
+      java.lang.Object ref = signer_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        signer_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 2;
+    private com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params params_;
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return Whether the params field is set.
+     */
+    @java.lang.Override
+    public boolean hasParams() {
+      return params_ != null;
+    }
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     * @return The params.
+     */
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params getParams() {
+      return params_ == null ? com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.getDefaultInstance() : params_;
+    }
+    /**
+     * <pre>
+     * params defines the 27-interchain-accounts/controller parameters to update.
+     *
+     * NOTE: All parameters must be supplied.
+     * </pre>
+     *
+     * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+     */
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder getParamsOrBuilder() {
+      return params_ == null ? com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.getDefaultInstance() : params_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, signer_);
+      }
+      if (params_ != null) {
+        output.writeMessage(2, getParams());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(signer_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, signer_);
+      }
+      if (params_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getParams());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams other = (com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams) obj;
+
+      if (!getSigner()
+          .equals(other.getSigner())) return false;
+      if (hasParams() != other.hasParams()) return false;
+      if (hasParams()) {
+        if (!getParams()
+            .equals(other.getParams())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIGNER_FIELD_NUMBER;
+      hash = (53 * hash) + getSigner().hashCode();
+      if (hasParams()) {
+        hash = (37 * hash) + PARAMS_FIELD_NUMBER;
+        hash = (53 * hash) + getParams().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgUpdateParams defines the payload for Msg/UpdateParams
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams)
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.class, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        signer_ = "";
+        params_ = null;
+        if (paramsBuilder_ != null) {
+          paramsBuilder_.dispose();
+          paramsBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams getDefaultInstanceForType() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams build() {
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams buildPartial() {
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams result = new com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.signer_ = signer_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.params_ = paramsBuilder_ == null
+              ? params_
+              : paramsBuilder_.build();
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams) {
+          return mergeFrom((com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams other) {
+        if (other == com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams.getDefaultInstance()) return this;
+        if (!other.getSigner().isEmpty()) {
+          signer_ = other.signer_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.hasParams()) {
+          mergeParams(other.getParams());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                signer_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getParamsFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object signer_ = "";
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The signer.
+       */
+      public java.lang.String getSigner() {
+        java.lang.Object ref = signer_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          signer_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return The bytes for signer.
+       */
+      public com.google.protobuf.ByteString
+          getSignerBytes() {
+        java.lang.Object ref = signer_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          signer_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSigner(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSigner() {
+        signer_ = getDefaultInstance().getSigner();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * signer address
+       * </pre>
+       *
+       * <code>string signer = 1 [json_name = "signer"];</code>
+       * @param value The bytes for signer to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSignerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        signer_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params params_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.Builder, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder> paramsBuilder_;
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       * @return Whether the params field is set.
+       */
+      public boolean hasParams() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       * @return The params.
+       */
+      public com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params getParams() {
+        if (paramsBuilder_ == null) {
+          return params_ == null ? com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.getDefaultInstance() : params_;
+        } else {
+          return paramsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          params_ = value;
+        } else {
+          paramsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder setParams(
+          com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          params_ = builderForValue.build();
+        } else {
+          paramsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder mergeParams(com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params value) {
+        if (paramsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0) &&
+            params_ != null &&
+            params_ != com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.getDefaultInstance()) {
+            getParamsBuilder().mergeFrom(value);
+          } else {
+            params_ = value;
+          }
+        } else {
+          paramsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public Builder clearParams() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        params_ = null;
+        if (paramsBuilder_ != null) {
+          paramsBuilder_.dispose();
+          paramsBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.Builder getParamsBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getParamsFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      public com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder getParamsOrBuilder() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilder();
+        } else {
+          return params_ == null ?
+              com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.getDefaultInstance() : params_;
+        }
+      }
+      /**
+       * <pre>
+       * params defines the 27-interchain-accounts/controller parameters to update.
+       *
+       * NOTE: All parameters must be supplied.
+       * </pre>
+       *
+       * <code>.ibc.applications.interchain_accounts.controller.v1.Params params = 2 [json_name = "params", (.gogoproto.nullable) = false];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.Builder, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.Params.Builder, com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.ParamsOrBuilder>(
+                  getParams(),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams)
+    private static final com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams();
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateParams>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateParams>() {
+      @java.lang.Override
+      public MsgUpdateParams parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateParams> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateParams> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParams getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface MsgUpdateParamsResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * <pre>
+   * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+   * </pre>
+   *
+   * Protobuf type {@code ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse}
+   */
+  public static final class MsgUpdateParamsResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse)
+      MsgUpdateParamsResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use MsgUpdateParamsResponse.newBuilder() to construct.
+    private MsgUpdateParamsResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private MsgUpdateParamsResponse() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new MsgUpdateParamsResponse();
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.class, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse)) {
+        return super.equals(obj);
+      }
+      com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse other = (com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse) obj;
+
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * MsgUpdateParamsResponse defines the response for Msg/UpdateParams
+     * </pre>
+     *
+     * Protobuf type {@code ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse)
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.class, com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.Builder.class);
+      }
+
+      // Construct using com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse getDefaultInstanceForType() {
+        return com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse build() {
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse buildPartial() {
+        com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse result = new com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse(this);
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse) {
+          return mergeFrom((com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse other) {
+        if (other == com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:ibc.applications.interchain_accounts.controller.v1.MsgUpdateParamsResponse)
+    private static final com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse();
+    }
+
+    public static com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<MsgUpdateParamsResponse>
+        PARSER = new com.google.protobuf.AbstractParser<MsgUpdateParamsResponse>() {
+      @java.lang.Override
+      public MsgUpdateParamsResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<MsgUpdateParamsResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<MsgUpdateParamsResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ibc.applications.interchain_accounts.controller.v1.TxProto.MsgUpdateParamsResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccount_descriptor;
   private static final 
@@ -3085,6 +4477,16 @@ public final class TxProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ibc_applications_interchain_accounts_controller_v1_MsgSendTxResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3098,54 +4500,68 @@ public final class TxProto {
       "ontroller/v1/tx.proto\0222ibc.applications." +
       "interchain_accounts.controller.v1\032\024gogop" +
       "roto/gogo.proto\0324ibc/applications/interc" +
-      "hain_accounts/v1/packet.proto\032\027cosmos/ms" +
-      "g/v1/msg.proto\"\207\001\n\034MsgRegisterInterchain" +
-      "Account\022\024\n\005owner\030\001 \001(\tR\005owner\022#\n\rconnect" +
-      "ion_id\030\002 \001(\tR\014connectionId\022\030\n\007version\030\003 " +
-      "\001(\tR\007version:\022\210\240\037\000\350\240\037\000\202\347\260*\005owner\"^\n$MsgR" +
-      "egisterInterchainAccountResponse\022\035\n\nchan" +
-      "nel_id\030\001 \001(\tR\tchannelId\022\027\n\007port_id\030\002 \001(\t" +
-      "R\006portId\"\362\001\n\tMsgSendTx\022\024\n\005owner\030\001 \001(\tR\005o" +
-      "wner\022#\n\rconnection_id\030\002 \001(\tR\014connectionI" +
-      "d\022k\n\013packet_data\030\003 \001(\0132D.ibc.application" +
-      "s.interchain_accounts.v1.InterchainAccou" +
-      "ntPacketDataB\004\310\336\037\000R\npacketData\022)\n\020relati" +
-      "ve_timeout\030\004 \001(\004R\017relativeTimeout:\022\210\240\037\000\350" +
-      "\240\037\000\202\347\260*\005owner\"/\n\021MsgSendTxResponse\022\032\n\010se" +
-      "quence\030\001 \001(\004R\010sequence2\340\002\n\003Msg\022\307\001\n\031Regis" +
-      "terInterchainAccount\022P.ibc.applications." +
-      "interchain_accounts.controller.v1.MsgReg" +
-      "isterInterchainAccount\032X.ibc.application" +
-      "s.interchain_accounts.controller.v1.MsgR" +
-      "egisterInterchainAccountResponse\022\216\001\n\006Sen" +
-      "dTx\022=.ibc.applications.interchain_accoun" +
-      "ts.controller.v1.MsgSendTx\032E.ibc.applica" +
-      "tions.interchain_accounts.controller.v1." +
-      "MsgSendTxResponseB\372\002\n6com.ibc.applicatio" +
-      "ns.interchain_accounts.controller.v1B\007Tx" +
-      "ProtoZPgithub.com/cosmos/ibc-go/v7/modul" +
-      "es/apps/27-interchain-accounts/controlle" +
-      "r/types\242\002\004IAIC\252\0021Ibc.Applications.Interc" +
-      "hainAccounts.Controller.V1\312\0021Ibc\\Applica" +
-      "tions\\InterchainAccounts\\Controller\\V1\342\002" +
-      "=Ibc\\Applications\\InterchainAccounts\\Con" +
-      "troller\\V1\\GPBMetadata\352\0025Ibc::Applicatio" +
-      "ns::InterchainAccounts::Controller::V1b\006" +
-      "proto3"
+      "hain_accounts/v1/packet.proto\032Cibc/appli" +
+      "cations/interchain_accounts/controller/v" +
+      "1/controller.proto\032\027cosmos/msg/v1/msg.pr" +
+      "oto\032!ibc/core/channel/v1/channel.proto\"\273" +
+      "\001\n\034MsgRegisterInterchainAccount\022\024\n\005owner" +
+      "\030\001 \001(\tR\005owner\022#\n\rconnection_id\030\002 \001(\tR\014co" +
+      "nnectionId\022\030\n\007version\030\003 \001(\tR\007version\0226\n\010" +
+      "ordering\030\004 \001(\0162\032.ibc.core.channel.v1.Ord" +
+      "erR\010ordering:\016\210\240\037\000\202\347\260*\005owner\"d\n$MsgRegis" +
+      "terInterchainAccountResponse\022\035\n\nchannel_" +
+      "id\030\001 \001(\tR\tchannelId\022\027\n\007port_id\030\002 \001(\tR\006po" +
+      "rtId:\004\210\240\037\000\"\356\001\n\tMsgSendTx\022\024\n\005owner\030\001 \001(\tR" +
+      "\005owner\022#\n\rconnection_id\030\002 \001(\tR\014connectio" +
+      "nId\022k\n\013packet_data\030\003 \001(\0132D.ibc.applicati" +
+      "ons.interchain_accounts.v1.InterchainAcc" +
+      "ountPacketDataB\004\310\336\037\000R\npacketData\022)\n\020rela" +
+      "tive_timeout\030\004 \001(\004R\017relativeTimeout:\016\210\240\037" +
+      "\000\202\347\260*\005owner\"5\n\021MsgSendTxResponse\022\032\n\010sequ" +
+      "ence\030\001 \001(\004R\010sequence:\004\210\240\037\000\"\224\001\n\017MsgUpdate" +
+      "Params\022\026\n\006signer\030\001 \001(\tR\006signer\022X\n\006params" +
+      "\030\002 \001(\0132:.ibc.applications.interchain_acc" +
+      "ounts.controller.v1.ParamsB\004\310\336\037\000R\006params" +
+      ":\017\210\240\037\000\202\347\260*\006signer\"\031\n\027MsgUpdateParamsResp" +
+      "onse2\212\004\n\003Msg\022\307\001\n\031RegisterInterchainAccou" +
+      "nt\022P.ibc.applications.interchain_account" +
+      "s.controller.v1.MsgRegisterInterchainAcc" +
+      "ount\032X.ibc.applications.interchain_accou" +
+      "nts.controller.v1.MsgRegisterInterchainA" +
+      "ccountResponse\022\216\001\n\006SendTx\022=.ibc.applicat" +
+      "ions.interchain_accounts.controller.v1.M" +
+      "sgSendTx\032E.ibc.applications.interchain_a" +
+      "ccounts.controller.v1.MsgSendTxResponse\022" +
+      "\240\001\n\014UpdateParams\022C.ibc.applications.inte" +
+      "rchain_accounts.controller.v1.MsgUpdateP" +
+      "arams\032K.ibc.applications.interchain_acco" +
+      "unts.controller.v1.MsgUpdateParamsRespon" +
+      "se\032\005\200\347\260*\001B\373\002\n6com.ibc.applications.inter" +
+      "chain_accounts.controller.v1B\007TxProtoZQg" +
+      "ithub.com/cosmos/ibc-go/v10/modules/apps" +
+      "/27-interchain-accounts/controller/types" +
+      "\242\002\004IAIC\252\0021Ibc.Applications.InterchainAcc" +
+      "ounts.Controller.V1\312\0021Ibc\\Applications\\I" +
+      "nterchainAccounts\\Controller\\V1\342\002=Ibc\\Ap" +
+      "plications\\InterchainAccounts\\Controller" +
+      "\\V1\\GPBMetadata\352\0025Ibc::Applications::Int" +
+      "erchainAccounts::Controller::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.gogoproto.GogoProto.getDescriptor(),
           com.ibc.applications.interchain_accounts.v1.PacketProto.getDescriptor(),
+          com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.getDescriptor(),
           com.cosmos.msg.v1.MsgProto.getDescriptor(),
+          com.ibc.core.channel.v1.ChannelProto.getDescriptor(),
         });
     internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccount_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccount_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccount_descriptor,
-        new java.lang.String[] { "Owner", "ConnectionId", "Version", });
+        new java.lang.String[] { "Owner", "ConnectionId", "Version", "Ordering", });
     internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccountResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_ibc_applications_interchain_accounts_controller_v1_MsgRegisterInterchainAccountResponse_fieldAccessorTable = new
@@ -3164,17 +4580,31 @@ public final class TxProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ibc_applications_interchain_accounts_controller_v1_MsgSendTxResponse_descriptor,
         new java.lang.String[] { "Sequence", });
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParams_descriptor,
+        new java.lang.String[] { "Signer", "Params", });
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ibc_applications_interchain_accounts_controller_v1_MsgUpdateParamsResponse_descriptor,
+        new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(com.cosmos.msg.v1.MsgProto.service);
     registry.add(com.cosmos.msg.v1.MsgProto.signer);
-    registry.add(com.gogoproto.GogoProto.equal);
     registry.add(com.gogoproto.GogoProto.goprotoGetters);
     registry.add(com.gogoproto.GogoProto.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.gogoproto.GogoProto.getDescriptor();
     com.ibc.applications.interchain_accounts.v1.PacketProto.getDescriptor();
+    com.ibc.applications.interchain_accounts.controller.v1.ControllerProto.getDescriptor();
     com.cosmos.msg.v1.MsgProto.getDescriptor();
+    com.ibc.core.channel.v1.ChannelProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

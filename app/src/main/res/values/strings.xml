@@ -20,8 +20,8 @@
     <string name="str_unstaking" translatable="false">Unstaking</string>
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_withdrawable" translatable="false">Withdrawable</string>
-    <string name="str_btc_reward" translatable="false">BTC Staking Reward</string>
-    <string name="str_staked_btc_status" translatable="false">Staked sBTC Status</string>
+    <string name="str_btc_reward" translatable="false">%1$s Staking Reward</string>
+    <string name="str_staked_btc_status" translatable="false">Staked %1$s Status</string>
     <string name="str_frozen" translatable="false">Frozen</string>
     <string name="str_locked" translatable="false">Locked</string>
     <string name="str_total_staked" translatable="false">Total Staked</string>
@@ -77,6 +77,7 @@
     <string name="str_high">HIGH</string>
     <string name="str_origin">ORIGIN</string>
     <string name="str_send">Send</string>
+    <string name="str_ibc_send">IBC Send</string>
     <string name="str_insert_memo">Insert memo (Optional)</string>
     <string name="str_qr_scan" translatable="false">QR Scan</string>
     <string name="str_address_book">Address book</string>
@@ -188,6 +189,14 @@
     <string name="str_liquid_stake" translatable="false">Liquid Stake</string>
     <string name="str_download_app" translatable="false">Download App</string>
     <string name="str_stake_now" translatable="false">Stake Now</string>
+    <string name="str_supported_network">Supported Network</string>
+    <string name="str_support_community">Social Community</string>
+    <string name="str_hide_7_days">Hide for 7 Days</string>
+    <string name="str_sort_alphabet">Alphabetical Asc. (A -> Z)</string>
+    <string name="str_sort_alphabet_description">Sort the list alphabetically</string>
+    <string name="str_sort_multi">Multi-Network Support</string>
+    <string name="str_sort_multi_description">Sort the list by the number of supported networks</string>
+    <string name="str_select_chain">Select chain</string>
 
 
     //title
@@ -324,9 +333,8 @@
     <string name="title_reward_detail">Reward detail (%1$s)</string>
     <string name="title_big_loss">Asset loss</string>
     <string name="title_claimable_chains">Claimable chains</string>
-    <string name="title_select_end_point">Select End-Point</string>
-    <string name="title_select_end_point_grpc">Select End-Point</string>
-    <string name="title_select_end_point_rpc">Select End-Point (EVM RPC)</string>
+    <string name="title_select_end_point" translatable="false">%1$s EndPoint</string>
+    <string name="title_select_end_point_rpc" translatable="false">%1$s EndPoint (EVM RPC)</string>
     <string name="title_select_end_point_sui_rpc">Select End-Point (Sui RPC)</string>
     <string name="title_edit_token_list">Edit token list</string>
     <string name="title_not_vote_list">Live proposals</string>
@@ -340,13 +348,14 @@
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
     <string name="title_manage_stake" translatable="false">%1$s Manage Stake</string>
-    <string name="title_progression_of_status">Staking Status Change</string>
+    <string name="title_progression_of_status" translatable="false">Staking Status Change</string>
     <string name="title_staking" translatable="false">%1$s Stake</string>
     <string name="title_unstaking" translatable="false">%1$s Unstake</string>
     <string name="title_switch_validator" translatable="false">%1$s Switch Validator</string>
     <string name="title_rewards_claim" translatable="false">%1$s Rewards Claim</string>
     <string name="title_compounding" translatable="false">%1$s Compounding</string>
     <string name="title_staked_btc" translatable="false">Staked %1$s</string>
+    <string name="title_select_option">Select Sort Option</string>
 
 
     // msg
@@ -454,7 +463,7 @@
     <string name="str_active_state_msg">The Active state means that the Pending state has ended, and the executed actions are now fully activated.\nIn this state, all staking functions requested by the user are working as intended.</string>
     <string name="str_babylon_compounding_msg" translatable="false">sBTC Staking Reward is excluded from compounding</string>
     <string name="str_hide_next_7days" translatable="false">Hide for the next 7 days</string>
-    <string name="str_btc_status_msg">This is the combined amount of sBTC staked in Taproot and Native Segwit.</string>
+    <string name="str_btc_status_msg">This is the combined amount of %1$s staked in Taproot and Native Segwit.</string>
 
 
     // header

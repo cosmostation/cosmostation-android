@@ -16484,7 +16484,7 @@ public final class QueryProto {
       "e\"J\202\323\344\223\002D\022B/ibc/apps/fee/v1/channels/{ch" +
       "annel_id}/ports/{port_id}/fee_enabledB\335\001" +
       "\n\033com.ibc.applications.fee.v1B\nQueryProt" +
-      "oZ5github.com/cosmos/ibc-go/v7/modules/a" +
+      "oZ5github.com/cosmos/ibc-go/v8/modules/a" +
       "pps/29-fee/types\242\002\003IAF\252\002\027Ibc.Application" +
       "s.Fee.V1\312\002\027Ibc\\Applications\\Fee\\V1\342\002#Ibc" +
       "\\Applications\\Fee\\V1\\GPBMetadata\352\002\032Ibc::" +

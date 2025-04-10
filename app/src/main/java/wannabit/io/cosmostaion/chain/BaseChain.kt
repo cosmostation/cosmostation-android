@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
@@ -49,7 +50,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInt3face
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
@@ -61,8 +61,10 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainKopi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLava
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLombard
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainManifest
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMigaloo
@@ -163,6 +165,8 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSelfTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainXrplEvmTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainZkcloudTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -205,8 +209,6 @@ open class BaseChain : Parcelable {
     open var chainIdEvm: String = ""
     open var evmAddress: String = ""
     open var coinSymbol: String = ""
-    open var coinGeckoId: String = ""
-    open var coinLogo = -1
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
 
@@ -219,6 +221,10 @@ open class BaseChain : Parcelable {
 
     var fetchState = FetchState.IDLE
 
+    var coinValue = BigDecimal.ZERO
+    var coinUsdValue = BigDecimal.ZERO
+    var tokenValue = BigDecimal.ZERO
+    var tokenUsdValue = BigDecimal.ZERO
     var coinCnt = 0
     var tokenCnt = 0
 
@@ -316,6 +322,22 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getMainAssetDenom(): String {
+        return if (getChainListParam()?.has("main_asset_denom") == true) {
+            getChainListParam()?.get("main_asset_denom")?.asString ?: ""
+        } else {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: ""
+        }
+    }
+
+    fun getMainAssetSymbol(): String {
+        return if (getChainListParam()?.has("main_asset_symbol") == true) {
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: ""
+        } else {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: ""
+        }
+    }
+
     fun getInitFee(c: Context): TxProto.Fee? {
         return if (getDefaultFeeCoins(c).isNotEmpty()) {
             val fee = getDefaultFeeCoins(c).first()
@@ -331,7 +353,10 @@ open class BaseChain : Parcelable {
         var feeCoin: CoinProto.Coin? = null
         for (i in 0 until getDefaultFeeCoins(c).size) {
             val minFee = getDefaultFeeCoins(c)[i]
-            if (this is ChainGnoTestnet && minFee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(minFee.denom))  {
+            if (this is ChainGnoTestnet && minFee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(
+                    minFee.denom
+                )
+            ) {
                 feeCoin = minFee
                 break
 
@@ -603,45 +628,11 @@ open class BaseChain : Parcelable {
     }
 
     fun allValue(isUsd: Boolean?): BigDecimal {
-        if (fetchState == FetchState.SUCCESS) {
-            if (this is ChainBitCoin86) {
-                return btcFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-            } else if (this is ChainSui) {
-                return suiFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-
-            } else if (this is ChainOkt996Keccak) {
-                return oktFetcher?.allAssetValue(isUsd) ?: BigDecimal.ZERO
-
-            } else if (this is ChainOktEvm) {
-                return oktFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
-                    ?: BigDecimal.ZERO
-
-            } else if (this is ChainGnoTestnet) {
-                val allValue =
-                    gnoRpcFetcher?.allAssetValue(isUsd)
-                        ?.add(gnoRpcFetcher?.allGrc20TokenValue(isUsd))
-                        ?: BigDecimal.ZERO
-                return allValue
-
-            } else if (isEvmCosmos()) {
-                val allValue =
-                    cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
-                        ?: BigDecimal.ZERO
-                evmRpcFetcher?.let { evmRpc ->
-                    return allValue.add(evmRpc.allTokenValue(isUsd))
-                }
-                return allValue
-
-            } else if (supportCosmos()) {
-                return cosmosFetcher?.allAssetValue(isUsd)?.add(cosmosFetcher?.allTokenValue(isUsd))
-                    ?: BigDecimal.ZERO
-
-            } else {
-                return evmRpcFetcher?.allAssetValue(isUsd)?.add(evmRpcFetcher?.allTokenValue(isUsd))
-                    ?: BigDecimal.ZERO
-            }
+        return if (isUsd == true) {
+            coinUsdValue.add(tokenUsdValue)
+        } else {
+            coinValue.add(tokenValue)
         }
-        return BigDecimal.ZERO
     }
 }
 
@@ -663,6 +654,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
     chains.add(ChainAxelar())
+    chains.add(ChainBabylon())
     chains.add(ChainBand())
     chains.add(ChainBase())
     chains.add(ChainBerachain())
@@ -707,7 +699,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHaqqEvm())
     chains.add(ChainHumansEvm())
     chains.add(ChainInjective())
-    chains.add(ChainInt3face())
     chains.add(ChainIris())
     chains.add(ChainIxo())
     chains.add(ChainJackal())
@@ -721,8 +712,10 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKyve())
     chains.add(ChainLava())
     chains.add(ChainLikeCoin())
+    chains.add(ChainLombard())
     chains.add(ChainLum880())
     chains.add(ChainLum118())
+//    chains.add(ChainManifest())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -795,7 +788,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainBitcoin86Testnet())
-    chains.add(ChainGnoTestnet())
+//    chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())
@@ -804,6 +797,8 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
     chains.add(ChainXionTestnet())
+//    chains.add(ChainXrplEvmTestnet())
+//    chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
@@ -832,7 +827,15 @@ data class AccountKeyType(
 )
 
 val DEFAULT_DISPLAY_CHAIN = mutableListOf(
-    "cosmos118", "ethereum60", "neutron118", "kava60", "osmosis118", "dydx118"
+    "cosmos118",
+    "bitcoin86",
+    "ethereum60",
+    "suiMainnet",
+    "neutron118",
+    "kava60",
+    "osmosis118",
+    "dydx118",
+    "mantra118"
 )
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

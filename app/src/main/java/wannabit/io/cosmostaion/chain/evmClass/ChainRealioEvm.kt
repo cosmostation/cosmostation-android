@@ -31,7 +31,5 @@ class ChainRealioEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "RIO"
-    override var coinGeckoId: String = "realio-network"
-    override var coinLogo: Int = R.drawable.token_rio
     override var evmRpcURL: String = "https://realio-rpc-evm.genznodes.dev"
 }

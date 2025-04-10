@@ -31,73 +31,80 @@ class MajorCryptoViewHolder(
             stakedLayout.visibility = View.GONE
             earnedLayout.visibility = View.GONE
 
-            tokenImg.setImageResource(chain.coinLogo)
-            tokenName.text = chain.coinSymbol
-            tokenPrice.text = formatAssetValue(BaseData.getPrice(chain.coinGeckoId))
+            BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol
+                tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
 
-            BaseData.lastUpDown(chain.coinGeckoId).let { lastUpDown ->
-                tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                tokenPriceChange.text = priceChangeStatus(lastUpDown)
-            }
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                }
 
-            chain.btcFetcher()?.let { fetcher ->
-                val price = BaseData.getPrice(chain.coinGeckoId)
-                val availableAmount =
-                    fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                val stakedAmount = fetcher.btcStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                val unStakedAmount = fetcher.btcUnStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                val withdrawAbleAmount = fetcher.btcWithdrawAbleAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
-                val pendingInputAmount =
-                    fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                chain.btcFetcher()?.let { fetcher ->
+                    val price = BaseData.getPrice(asset.coinGeckoId)
 
-                val totalAmount = availableAmount.add(stakedAmount).add(unStakedAmount).add(withdrawAbleAmount).add(pendingInputAmount)
-                val value = totalAmount.multiply(price).setScale(6, RoundingMode.DOWN)
+                    val availableAmount =
+                        fetcher.btcBalances.movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                    val stakedAmount =
+                        fetcher.btcStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                    val unStakedAmount =
+                        fetcher.btcUnStakingAmount().movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                    val withdrawAbleAmount = fetcher.btcWithdrawAbleAmount().movePointLeft(8)
+                        .setScale(8, RoundingMode.DOWN)
+                    val pendingInputAmount =
+                        fetcher.btcPendingInput.movePointLeft(8).setScale(8, RoundingMode.DOWN)
 
-                with(Prefs) {
-                    total.visibility = if (hideValue) View.GONE else View.VISIBLE
-                    totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
-                    hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+                    val totalAmount = availableAmount.add(stakedAmount).add(unStakedAmount)
+                        .add(withdrawAbleAmount).add(pendingInputAmount)
+                    val value = totalAmount.multiply(price).setScale(6, RoundingMode.DOWN)
 
-                    if (chain.isSupportStaking()) {
-                        unstakingLayout.visibility = View.VISIBLE
-                        withdrawableLayout.visibility = View.VISIBLE
-                        totalStakedLayout.visibility = View.VISIBLE
-                    } else {
-                        unstakingLayout.visibility = View.GONE
-                        withdrawableLayout.visibility = View.GONE
-                        totalStakedLayout.visibility = View.GONE
+                    with(Prefs) {
+                        total.visibility = if (hideValue) View.GONE else View.VISIBLE
+                        totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
+                        hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
+
+                        if (chain.isSupportStaking()) {
+                            unstakingLayout.visibility = View.VISIBLE
+                            withdrawableLayout.visibility = View.VISIBLE
+                            totalStakedLayout.visibility = View.VISIBLE
+                        } else {
+                            unstakingLayout.visibility = View.GONE
+                            withdrawableLayout.visibility = View.GONE
+                            totalStakedLayout.visibility = View.GONE
+                        }
+
+                        total.text = if (hideValue) "" else formatAmount(
+                            totalAmount.toPlainString(), 6
+                        )
+                        totalValue.text = if (hideValue) "" else formatAssetValue(value)
+
+                        available.hiddenStatus(
+                            formatAmount(
+                                availableAmount.toPlainString(), 6
+                            )
+                        )
+                        totalStaked.hiddenStatus(
+                            formatAmount(
+                                stakedAmount.toPlainString(), 6
+                            )
+                        )
+                        unstaking.hiddenStatus(
+                            formatAmount(
+                                unStakedAmount.toPlainString(), 6
+                            )
+                        )
+                        withdrawable.hiddenStatus(
+                            formatAmount(
+                                withdrawAbleAmount.toPlainString(), 6
+                            )
+                        )
+                        pending.hiddenStatus(
+                            formatAmount(
+                                pendingInputAmount.toPlainString(), 6
+                            )
+                        )
                     }
-
-                    total.text = if (hideValue) "" else formatAmount(
-                        totalAmount.toPlainString(), 6
-                    )
-                    totalValue.text = if (hideValue) "" else formatAssetValue(value)
-
-                    available.hiddenStatus(
-                        formatAmount(
-                            availableAmount.toPlainString(), 6
-                        )
-                    )
-                    totalStaked.hiddenStatus(
-                        formatAmount(
-                            stakedAmount.toPlainString(), 6
-                        )
-                    )
-                    unstaking.hiddenStatus(
-                        formatAmount(
-                            unStakedAmount.toPlainString(), 6
-                        )
-                    )
-                    withdrawable.hiddenStatus(
-                        formatAmount(
-                            withdrawAbleAmount.toPlainString(), 6
-                        )
-                    )
-                    pending.hiddenStatus(
-                        formatAmount(
-                            pendingInputAmount.toPlainString(), 6
-                        )
-                    )
                 }
             }
         }
@@ -115,7 +122,7 @@ class MajorCryptoViewHolder(
 
             BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                 tokenImg.setTokenImg(asset)
-                tokenName.text = asset.symbol?.uppercase()
+                tokenName.text = asset.symbol
 
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
                 BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->

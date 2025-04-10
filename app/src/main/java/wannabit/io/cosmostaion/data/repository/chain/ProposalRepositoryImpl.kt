@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.data.model.req.ProposalList
 import wannabit.io.cosmostaion.data.model.req.ProposalListReq
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 import java.time.Instant
@@ -204,46 +205,179 @@ class ProposalRepositoryImpl : ProposalRepository {
                 }
 
             } catch (e: Exception) {
-                val response = lcdApi(chain).lcdV1beta1Proposals("200", key, true)
-                val keyObject = response["pagination"].asJsonObject["next_key"] ?: null
-                val nextKey = if (keyObject?.isJsonNull == false) {
-                    keyObject.asString
-                } else {
-                    ""
-                }
-                val keyByteString = ByteString.copyFromUtf8(nextKey)
-                val tempProposals = response["proposals"].asJsonArray
-
-                val cosmosProposals: MutableList<CosmosProposal> = mutableListOf()
-                tempProposals.forEach { proposal ->
-                    val content = proposal.asJsonObject["content"].asJsonObject
-                    val title = if (content.has("title")) {
-                        content["title"].asString
+                try {
+                    val response = lcdApi(chain).lcdV1beta1Proposals("200", key, true)
+                    val keyObject = response["pagination"].asJsonObject["next_key"] ?: null
+                    val nextKey = if (keyObject?.isJsonNull == false) {
+                        keyObject.asString
                     } else {
-                        content["@type"].asString.split(".").last()
-                    }
-                    val endTime =
-                        Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
-
-                    val cosmosProposal = CosmosProposal(
-                        proposal.asJsonObject["proposal_id"].asString,
-                        title,
-                        "",
-                        proposal.asJsonObject["status"].asString,
-                        endTime.toString(),
-                        false,
-                        "",
-                        "",
-                        "",
                         ""
-                    )
-                    cosmosProposals.add(cosmosProposal)
-                }
+                    }
+                    val keyByteString = ByteString.copyFromUtf8(nextKey)
+                    val tempProposals = response["proposals"].asJsonArray
 
-                return safeApiCall(Dispatchers.IO) {
-                    Pair(cosmosProposals, keyByteString)
+                    val cosmosProposals: MutableList<CosmosProposal> = mutableListOf()
+                    tempProposals.forEach { proposal ->
+                        val content = proposal.asJsonObject["content"].asJsonObject
+                        val title = if (content.has("title")) {
+                            content["title"].asString
+                        } else {
+                            content["@type"].asString.split(".").last()
+                        }
+                        val endTime =
+                            Instant.parse(proposal.asJsonObject["voting_end_time"].asString).epochSecond * 1000
+
+                        val cosmosProposal = CosmosProposal(
+                            proposal.asJsonObject["proposal_id"].asString,
+                            title,
+                            "",
+                            proposal.asJsonObject["status"].asString,
+                            endTime.toString(),
+                            false,
+                            "",
+                            "",
+                            "",
+                            ""
+                        )
+                        cosmosProposals.add(cosmosProposal)
+                    }
+
+                    return safeApiCall(Dispatchers.IO) {
+                        Pair(cosmosProposals, keyByteString)
+                    }
+
+                } catch (e: Exception) {
+                    return safeApiCall(Dispatchers.IO) {
+                        Pair(mutableListOf(), ByteString.copyFromUtf8(""))
+                    }
                 }
             }
+        }
+    }
+
+    override suspend fun onChainVoteStatus(
+        chain: BaseChain, proposals: MutableList<CosmosProposal>
+    ): NetworkResult<MutableList<OnChainVote>> {
+        val result: MutableList<OnChainVote> = mutableListOf()
+        proposals.forEach { proposal ->
+            if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+                val channel = chain.cosmosFetcher?.getChannel()
+                try {
+                    val stub = com.cosmos.gov.v1.QueryGrpc.newBlockingStub(channel)
+                        .withDeadlineAfter(20L, TimeUnit.SECONDS)
+                    val request = com.cosmos.gov.v1.QueryProto.QueryVoteRequest.newBuilder()
+                        .setProposalId(proposal.id?.toLong() ?: 0L).setVoter(chain.address).build()
+                    val response = stub.vote(request).vote
+
+                    val voteType = if (response.optionsList.size > 1) {
+                        "WEIGHT"
+
+                    } else {
+                        val myVote = response.optionsList[0].option.name
+                        if (myVote.contains("OPTION_YES")) {
+                            "YES"
+                        } else if (myVote.contains("OPTION_NO")) {
+                            "NO"
+                        } else if (myVote.contains("OPTION_ABSTAIN")) {
+                            "ABSTAIN"
+                        } else {
+                            "VETO"
+                        }
+                    }
+
+                    result.add(OnChainVote(proposal.id.toString(), voteType))
+
+                } catch (e: Exception) {
+                    try {
+                        val stub = com.cosmos.gov.v1beta1.QueryGrpc.newBlockingStub(channel)
+                            .withDeadlineAfter(20L, TimeUnit.SECONDS)
+                        val request =
+                            com.cosmos.gov.v1beta1.QueryProto.QueryVoteRequest.newBuilder()
+                                .setProposalId(proposal.id?.toLong() ?: 0L).setVoter(chain.address)
+                                .build()
+                        val response = stub.vote(request).vote
+
+                        val voteType = if (response.optionsList.size > 1) {
+                            "WEIGHT"
+
+                        } else {
+                            val myVote = response.optionsList[0].option.name
+                            if (myVote.contains("OPTION_YES")) {
+                                "YES"
+                            } else if (myVote.contains("OPTION_NO")) {
+                                "NO"
+                            } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                "ABSTAIN"
+                            } else {
+                                "VETO"
+                            }
+                        }
+
+                        result.add(OnChainVote(proposal.id.toString(), voteType))
+
+                    } catch (e: Exception) {
+                        result.add(OnChainVote(proposal.id.toString(), "UnKnown"))
+                    }
+                }
+
+            } else {
+                try {
+                    val response = lcdApi(chain).lcdV1VoteStatus(proposal.id ?: "0", chain.address)
+                    val myVoteProposalId = response["vote"].asJsonObject["proposal_id"].asString
+                    val options = response["vote"].asJsonObject["options"].asJsonArray
+
+                    val voteType = if (options.size() > 1) {
+                        "WEIGHT"
+
+                    } else {
+                        val myVote = options[0].asJsonObject["option"].asString
+                        if (myVote.contains("OPTION_YES")) {
+                            "YES"
+                        } else if (myVote.contains("OPTION_NO")) {
+                            "NO"
+                        } else if (myVote.contains("OPTION_ABSTAIN")) {
+                            "ABSTAIN"
+                        } else {
+                            "VETO"
+                        }
+                    }
+
+                    result.add(OnChainVote(myVoteProposalId, voteType))
+
+                } catch (e: Exception) {
+                    try {
+                        val response =
+                            lcdApi(chain).lcdV1beta1VoteStatus(proposal.id ?: "0", chain.address)
+                        val myVoteProposalId = response["vote"].asJsonObject["proposal_id"].asString
+                        val options = response["vote"].asJsonObject["options"].asJsonArray
+
+                        val voteType = if (options.size() > 1) {
+                            "WEIGHT"
+
+                        } else {
+                            val myVote = options[0].asJsonObject["option"].asString
+                            if (myVote.contains("OPTION_YES")) {
+                                "YES"
+                            } else if (myVote.contains("OPTION_NO")) {
+                                "NO"
+                            } else if (myVote.contains("OPTION_ABSTAIN")) {
+                                "ABSTAIN"
+                            } else {
+                                "VETO"
+                            }
+                        }
+
+                        result.add(OnChainVote(myVoteProposalId, voteType))
+
+                    } catch (e: Exception) {
+                        result.add(OnChainVote(proposal.id.toString(), "UnKnown"))
+                    }
+                }
+            }
+        }
+
+        return safeApiCall(Dispatchers.IO) {
+            result
         }
     }
 

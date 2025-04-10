@@ -24,11 +24,11 @@
             android:id="@+id/send_title"
             style="@style/font_sb_16"
             android:layout_width="0dp"
-            android:maxLines="1"
-            android:ellipsize="middle"
-            android:layout_marginStart="@dimen/space_8"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
             android:layout_weight="1"
+            android:ellipsize="middle"
+            android:maxLines="1"
             android:textColor="@color/color_base01" />
 
     </LinearLayout>
@@ -36,7 +36,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/recipient_chain_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_68"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginTop="@dimen/space_16"
         app:cardCornerRadius="@dimen/space_12"
@@ -48,40 +48,134 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/chain_img"
-                android:layout_width="@dimen/space_110"
-                android:layout_height="@dimen/space_110"
-                android:layout_marginEnd="-16dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/chain_evmos"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/default_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_68"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/recipient_title"
-                style="@style/font_sm_12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_14"
-                android:text="@string/title_recipient_chain"
-                android:textColor="@color/color_base02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/chain_img"
+                    android:layout_width="@dimen/space_110"
+                    android:layout_height="@dimen/space_110"
+                    android:layout_marginEnd="-16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/chain_evmos"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/chain_name"
-                style="@style/font_sb_12"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/recipient_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_14"
+                    android:text="@string/title_recipient_chain"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/chain_name"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recipient_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ibc_send_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_6"
-                android:layout_marginBottom="15dp"
-                android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipient_title" />
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/default_layout">
+
+                <View
+                    android:id="@+id/send_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:background="@color/color_base07"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ibc_img"
+                        android:layout_width="@dimen/space_18"
+                        android:layout_height="@dimen/space_18"
+                        android:layout_marginVertical="@dimen/space_10"
+                        android:src="@drawable/icon_ibc" />
+
+                    <TextView
+                        android:id="@+id/ibc_description_msg1"
+                        style="@style/font_sm_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:layout_marginStart="@dimen/space_2"
+                        android:layout_toRightOf="@+id/ibc_img"
+                        android:text="IBC Send from"
+                        android:textColor="@color/color_base03" />
+
+                    <TextView
+                        android:id="@+id/send_from_chain"
+                        style="@style/font_sb_11"
+                        android:textColor="@color/color_base02"
+                        android:layout_marginStart="@dimen/space_2"
+                        android:text="KAVA"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ibc_description_msg1"/>
+
+                    <TextView
+                        android:id="@+id/ibc_description_msg2"
+                        style="@style/font_sm_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:layout_marginStart="@dimen/space_2"
+                        android:layout_toRightOf="@+id/send_from_chain"
+                        android:text="to"
+                        android:textColor="@color/color_base03" />
+
+                    <TextView
+                        android:id="@+id/send_to_chain"
+                        style="@style/font_sb_11"
+                        android:textColor="@color/color_base02"
+                        android:layout_marginStart="@dimen/space_2"
+                        android:text="INJECTIVE"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/ibc_description_msg2"/>
+
+                    <TextView
+                        android:id="@+id/ibc_description_msg3"
+                        style="@style/font_sm_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:layout_marginStart="@dimen/space_2"
+                        android:layout_toRightOf="@+id/send_to_chain"
+                        android:text="network"
+                        android:textColor="@color/color_base03" />
+
+                </RelativeLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -253,9 +347,9 @@
                 style="@style/font_sm_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16"
                 android:layout_marginTop="@dimen/space_6"
                 android:layout_marginBottom="@dimen/space_15"
-                android:layout_marginHorizontal="@dimen/space_16"
                 android:text="@string/str_tap_for_add_memo_msg"
                 android:textColor="@color/color_base03"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -300,9 +394,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/str_fee_tip_msg"
                 android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="@id/fee_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/fee_title"
-                app:layout_constraintBottom_toBottomOf="@id/fee_title"/>
+                app:layout_constraintTop_toTopOf="@+id/fee_title" />
 
             <View
                 android:id="@+id/view1"

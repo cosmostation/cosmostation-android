@@ -63,6 +63,16 @@ interface LcdApi {
         @Query("pagination.reverse") reverse: Boolean
     ): JsonObject
 
+    @GET("cosmos/gov/v1/proposals/{proposal_id}/votes/{voter}")
+    suspend fun lcdV1VoteStatus(
+        @Path("proposal_id") proposalId: String, @Path("voter") voter: String
+    ): JsonObject
+
+    @GET("cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{voter}")
+    suspend fun lcdV1beta1VoteStatus(
+        @Path("proposal_id") proposalId: String, @Path("voter") voter: String
+    ): JsonObject
+
     //initia
     @GET("initia/mstaking/v1/delegations/{address}")
     suspend fun lcdInitiaDelegationInfo(@Path("address") address: String?): JsonObject
@@ -139,8 +149,7 @@ interface LcdApi {
 
     @GET("api/address/{address}/txs")
     suspend fun bitTxHistory(
-        @Path("address") address: String,
-        @Query("after_txid") afterTxId: String
+        @Path("address") address: String, @Query("after_txid") afterTxId: String
     ): MutableList<JsonObject>
 
     @GET("api/blocks/tip/height")
@@ -159,6 +168,9 @@ interface LcdApi {
 
     @GET("cosmos/base/node/v1beta1/status")
     suspend fun lcdChainHeight(): JsonObject
+
+    @GET("babylon/btccheckpoint/v1/params")
+    suspend fun lcdBtcCheckpointParam(): JsonObject
 
     @GET("babylon/epoching/v1/current_epoch")
     suspend fun lcdCurrentEpoch(): JsonObject

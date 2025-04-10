@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.chain
 
+import android.content.Context
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.tendermint.v1beta1.QueryProto.GetNodeInfoRequest
 import com.cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub
@@ -21,25 +23,21 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
-import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.jsonRpcResponse
-import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.common.setView
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
-import wannabit.io.cosmostaion.ui.main.setting.SettingBottomAdapter
 import java.io.IOException
 
 class EndPointViewHolder(
-    private val binding: ItemEndpointBinding
+    private val context: Context, private val binding: ItemEndpointBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var gapTime: Double? = null
 
     fun evmBind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: SettingBottomAdapter.EndpointListener?
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
             provider.text = endpoint.get("provider").asString
@@ -47,7 +45,9 @@ class EndPointViewHolder(
 
             val checkTime = System.currentTimeMillis() / 1000.0
             val url = endpoint.get("url").asString
-            checkImg.goneOrVisible(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
+
+            chainView.goneOrVisible(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
+            endpointView.setView(fromChain?.evmRpcFetcher()?.getEvmRpc() != url)
 
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -55,26 +55,63 @@ class EndPointViewHolder(
                     web3j.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
                     gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                     withContext(Dispatchers.Main) {
-                        speedImg.visibility = View.VISIBLE
-                        connectTime.visibility = View.VISIBLE
                         gapTime?.let {
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base01
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base02
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base01
+                                )
+                            )
+
                             if (it <= 1.2) {
-                                speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                apiStatus.text = "Faster"
+
                             } else if (it <= 3) {
-                                speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                apiStatus.text = "Normal"
+
                             } else {
-                                speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                apiStatus.text = "Slower"
                             }
-                            connectTime.text = formatAmount(it.toString(), 4)
                         }
                     }
 
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        speedImg.visibility = View.VISIBLE
-                        connectTime.visibility = View.VISIBLE
-                        speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                        connectTime.text = "Unknown"
+                        provider.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
+                        providerUrl.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
+
+                        loading.visibility = View.GONE
+                        apiStatus.text = "Closed"
+                        apiStatus.visibility = View.VISIBLE
+                        apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                        apiStatus.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
                     }
                 }
             }
@@ -86,9 +123,7 @@ class EndPointViewHolder(
     }
 
     fun bind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: SettingBottomAdapter.EndpointListener?
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
             provider.text = endpoint.get("provider").asString
@@ -98,11 +133,26 @@ class EndPointViewHolder(
             val host = endpoint.get("url").asString.split(":")[0].trim()
             val port =
                 endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            checkImg.visibleOrGone(
-                fromChain?.cosmosFetcher()
+
+            if (fromChain?.cosmosFetcher()
                     ?.endPointType(fromChain) == CosmosEndPointType.USE_GRPC && fromChain.cosmosFetcher()
                     ?.getGrpc()?.first == host
-            )
+            ) {
+                chainView.visibility = View.VISIBLE
+                endpointView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context, R.color.color_base08
+                    )
+                )
+
+            } else {
+                chainView.visibility = View.GONE
+                endpointView.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context, R.color.color_transparent
+                    )
+                )
+            }
 
             CoroutineScope(Dispatchers.IO).launch {
                 val channel = getChannel(host, port)
@@ -114,37 +164,90 @@ class EndPointViewHolder(
                     if (response.defaultNodeInfo.network == fromChain?.chainIdCosmos) {
                         gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                         withContext(Dispatchers.Main) {
-                            speedImg.visibility = View.VISIBLE
-                            connectTime.visibility = View.VISIBLE
                             gapTime?.let {
+                                provider.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base01
+                                    )
+                                )
+                                providerUrl.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base02
+                                    )
+                                )
+
+                                loading.visibility = View.GONE
+                                apiStatus.visibility = View.VISIBLE
+                                apiStatus.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base01
+                                    )
+                                )
+
                                 if (it <= 1.2) {
-                                    speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                    apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                    apiStatus.text = "Faster"
+
                                 } else if (it <= 3) {
-                                    speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                    apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                    apiStatus.text = "Normal"
+
                                 } else {
-                                    speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                    apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                    apiStatus.text = "Slower"
                                 }
-                                connectTime.text = formatAmount(it.toString(), 4)
                             }
                         }
 
                     } else {
                         channel.shutdown()
                         withContext(Dispatchers.Main) {
-                            speedImg.visibility = View.VISIBLE
-                            connectTime.visibility = View.VISIBLE
-                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                            connectTime.text = "ChainID failed"
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.text = "Closed"
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
                         }
                     }
 
                 } catch (e: Exception) {
                     channel.shutdown()
                     withContext(Dispatchers.Main) {
-                        speedImg.visibility = View.VISIBLE
-                        connectTime.visibility = View.VISIBLE
-                        speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                        connectTime.text = "Unknown"
+                        provider.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
+                        providerUrl.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
+
+                        loading.visibility = View.GONE
+                        apiStatus.text = "Closed"
+                        apiStatus.visibility = View.VISIBLE
+                        apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                        apiStatus.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base04
+                            )
+                        )
                     }
                 }
             }
@@ -156,9 +259,7 @@ class EndPointViewHolder(
     }
 
     fun lcdBind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: SettingBottomAdapter.EndpointListener?
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
             fromChain?.let { chain ->
@@ -171,10 +272,25 @@ class EndPointViewHolder(
                     url += "/"
                 }
                 url += "cosmos/base/tendermint/v1beta1/node_info"
-                checkImg.visibleOrGone(
-                    chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_LCD && chain.cosmosFetcher?.getLcd()
+
+                if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_LCD && chain.cosmosFetcher?.getLcd()
                         ?.contains(endpoint["url"].asString) == true
-                )
+                ) {
+                    chainView.visibility = View.VISIBLE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base08
+                        )
+                    )
+
+                } else {
+                    chainView.visibility = View.GONE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_transparent
+                        )
+                    )
+                }
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -193,32 +309,89 @@ class EndPointViewHolder(
                             if (network == chain.chainIdCosmos) {
                                 gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                 withContext(Dispatchers.Main) {
-                                    speedImg.visibility = View.VISIBLE
-                                    connectTime.visibility = View.VISIBLE
                                     gapTime?.let {
+                                        provider.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base01
+                                            )
+                                        )
+                                        providerUrl.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base02
+                                            )
+                                        )
+
+                                        loading.visibility = View.GONE
+                                        apiStatus.visibility = View.VISIBLE
+                                        apiStatus.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base01
+                                            )
+                                        )
+
                                         if (it <= 1.2) {
-                                            speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                            apiStatus.text = "Faster"
+
                                         } else if (it <= 3) {
-                                            speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                            apiStatus.text = "Normal"
+
                                         } else {
-                                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                            apiStatus.text = "Slower"
                                         }
-                                        connectTime.text = formatAmount(it.toString(), 4)
                                     }
                                 }
 
                             } else {
-                                speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                                connectTime.text = "ChainID Failed"
+                                withContext(Dispatchers.Main) {
+                                    provider.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
+                                    providerUrl.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
+
+                                    loading.visibility = View.GONE
+                                    apiStatus.text = "Closed"
+                                    apiStatus.visibility = View.VISIBLE
+                                    apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                                    apiStatus.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
+                                }
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            speedImg.visibility = View.VISIBLE
-                            connectTime.visibility = View.VISIBLE
-                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                            connectTime.text = "Unknown"
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.text = "Closed"
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
                         }
                     }
                 }
@@ -231,9 +404,7 @@ class EndPointViewHolder(
     }
 
     fun suiBind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: SettingBottomAdapter.EndpointListener?
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
             (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
@@ -242,7 +413,22 @@ class EndPointViewHolder(
 
                 val checkTime = System.currentTimeMillis() / 1000.0
                 val url = endpoint.get("url").asString
-                checkImg.goneOrVisible(fetcher.suiRpc() != url)
+                if (fetcher.suiRpc() != url) {
+                    chainView.visibility = View.GONE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_transparent
+                        )
+                    )
+
+                } else {
+                    chainView.visibility = View.VISIBLE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base08
+                        )
+                    )
+                }
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -254,35 +440,88 @@ class EndPointViewHolder(
                         if (suiChainIdResponse.isSuccessful) {
                             gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             withContext(Dispatchers.Main) {
-                                speedImg.visibility = View.VISIBLE
-                                connectTime.visibility = View.VISIBLE
                                 gapTime?.let {
+                                    provider.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+                                    providerUrl.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base02
+                                        )
+                                    )
+
+                                    loading.visibility = View.GONE
+                                    apiStatus.visibility = View.VISIBLE
+                                    apiStatus.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+
                                     if (it <= 1.2) {
-                                        speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                        apiStatus.text = "Faster"
+
                                     } else if (it <= 3) {
-                                        speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                        apiStatus.text = "Normal"
+
                                     } else {
-                                        speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                        apiStatus.text = "Slower"
                                     }
-                                    connectTime.text = formatAmount(it.toString(), 4)
                                 }
                             }
 
                         } else {
                             withContext(Dispatchers.Main) {
-                                speedImg.visibility = View.VISIBLE
-                                connectTime.visibility = View.VISIBLE
-                                speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                                connectTime.text = "Unknown"
+                                provider.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
+                                providerUrl.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
+
+                                loading.visibility = View.GONE
+                                apiStatus.text = "Closed"
+                                apiStatus.visibility = View.VISIBLE
+                                apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                                apiStatus.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            speedImg.visibility = View.VISIBLE
-                            connectTime.visibility = View.VISIBLE
-                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                            connectTime.text = "Unknown"
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.text = "Closed"
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
                         }
                     }
                 }
@@ -295,9 +534,7 @@ class EndPointViewHolder(
     }
 
     fun rpcBind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: SettingBottomAdapter.EndpointListener?
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
             (fromChain as ChainGnoTestnet).gnoRpcFetcher()?.let { fetcher ->
@@ -306,7 +543,22 @@ class EndPointViewHolder(
 
                 val checkTime = System.currentTimeMillis() / 1000.0
                 var url = endpoint.get("url").asString
-                checkImg.goneOrVisible(fetcher.gnoRpc() != url)
+                if (fetcher.gnoRpc() != url) {
+                    chainView.visibility = View.GONE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_transparent
+                        )
+                    )
+
+                } else {
+                    chainView.visibility = View.VISIBLE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base08
+                        )
+                    )
+                }
                 url += "/health"
 
                 CoroutineScope(Dispatchers.IO).launch {
@@ -316,36 +568,89 @@ class EndPointViewHolder(
                             if (response.isSuccessful) {
                                 gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                 withContext(Dispatchers.Main) {
-                                    speedImg.visibility = View.VISIBLE
-                                    connectTime.visibility = View.VISIBLE
                                     gapTime?.let {
+                                        provider.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base01
+                                            )
+                                        )
+                                        providerUrl.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base02
+                                            )
+                                        )
+
+                                        loading.visibility = View.GONE
+                                        apiStatus.visibility = View.VISIBLE
+                                        apiStatus.setTextColor(
+                                            ContextCompat.getColorStateList(
+                                                context, R.color.color_base01
+                                            )
+                                        )
+
                                         if (it <= 1.2) {
-                                            speedImg.setImageResource(R.drawable.icon_vote_passed)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                            apiStatus.text = "Faster"
+
                                         } else if (it <= 3) {
-                                            speedImg.setImageResource(R.drawable.icon_vote_deposit)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                            apiStatus.text = "Normal"
+
                                         } else {
-                                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
+                                            apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                            apiStatus.text = "Slower"
                                         }
-                                        connectTime.text = formatAmount(it.toString(), 4)
                                     }
                                 }
 
                             } else {
                                 withContext(Dispatchers.Main) {
-                                    speedImg.visibility = View.VISIBLE
-                                    connectTime.visibility = View.VISIBLE
-                                    speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                                    connectTime.text = "Unknown"
+                                    provider.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
+                                    providerUrl.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
+
+                                    loading.visibility = View.GONE
+                                    apiStatus.text = "Closed"
+                                    apiStatus.visibility = View.VISIBLE
+                                    apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                                    apiStatus.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base04
+                                        )
+                                    )
                                 }
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            speedImg.visibility = View.VISIBLE
-                            connectTime.visibility = View.VISIBLE
-                            speedImg.setImageResource(R.drawable.icon_vote_rejected)
-                            connectTime.text = "Unknown"
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.text = "Closed"
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
                         }
                     }
                 }

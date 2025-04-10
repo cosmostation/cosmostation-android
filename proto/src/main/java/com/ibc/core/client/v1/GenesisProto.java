@@ -167,13 +167,16 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * create localhost on initialization
+     * Deprecated: create_localhost has been deprecated.
+     * The localhost client is automatically created at genesis.
      * </pre>
      *
-     * <code>bool create_localhost = 5 [json_name = "createLocalhost"];</code>
+     * <code>bool create_localhost = 5 [json_name = "createLocalhost", deprecated = true];</code>
+     * @deprecated ibc.core.client.v1.GenesisState.create_localhost is deprecated.
+     *     See ibc/core/client/v1/genesis.proto;l=22
      * @return The createLocalhost.
      */
-    boolean getCreateLocalhost();
+    @java.lang.Deprecated boolean getCreateLocalhost();
 
     /**
      * <pre>
@@ -440,14 +443,17 @@ public final class GenesisProto {
     private boolean createLocalhost_ = false;
     /**
      * <pre>
-     * create localhost on initialization
+     * Deprecated: create_localhost has been deprecated.
+     * The localhost client is automatically created at genesis.
      * </pre>
      *
-     * <code>bool create_localhost = 5 [json_name = "createLocalhost"];</code>
+     * <code>bool create_localhost = 5 [json_name = "createLocalhost", deprecated = true];</code>
+     * @deprecated ibc.core.client.v1.GenesisState.create_localhost is deprecated.
+     *     See ibc/core/client/v1/genesis.proto;l=22
      * @return The createLocalhost.
      */
     @java.lang.Override
-    public boolean getCreateLocalhost() {
+    @java.lang.Deprecated public boolean getCreateLocalhost() {
       return createLocalhost_;
     }
 
@@ -2122,26 +2128,32 @@ public final class GenesisProto {
       private boolean createLocalhost_ ;
       /**
        * <pre>
-       * create localhost on initialization
+       * Deprecated: create_localhost has been deprecated.
+       * The localhost client is automatically created at genesis.
        * </pre>
        *
-       * <code>bool create_localhost = 5 [json_name = "createLocalhost"];</code>
+       * <code>bool create_localhost = 5 [json_name = "createLocalhost", deprecated = true];</code>
+       * @deprecated ibc.core.client.v1.GenesisState.create_localhost is deprecated.
+       *     See ibc/core/client/v1/genesis.proto;l=22
        * @return The createLocalhost.
        */
       @java.lang.Override
-      public boolean getCreateLocalhost() {
+      @java.lang.Deprecated public boolean getCreateLocalhost() {
         return createLocalhost_;
       }
       /**
        * <pre>
-       * create localhost on initialization
+       * Deprecated: create_localhost has been deprecated.
+       * The localhost client is automatically created at genesis.
        * </pre>
        *
-       * <code>bool create_localhost = 5 [json_name = "createLocalhost"];</code>
+       * <code>bool create_localhost = 5 [json_name = "createLocalhost", deprecated = true];</code>
+       * @deprecated ibc.core.client.v1.GenesisState.create_localhost is deprecated.
+       *     See ibc/core/client/v1/genesis.proto;l=22
        * @param value The createLocalhost to set.
        * @return This builder for chaining.
        */
-      public Builder setCreateLocalhost(boolean value) {
+      @java.lang.Deprecated public Builder setCreateLocalhost(boolean value) {
 
         createLocalhost_ = value;
         bitField0_ |= 0x00000010;
@@ -2150,13 +2162,16 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * create localhost on initialization
+       * Deprecated: create_localhost has been deprecated.
+       * The localhost client is automatically created at genesis.
        * </pre>
        *
-       * <code>bool create_localhost = 5 [json_name = "createLocalhost"];</code>
+       * <code>bool create_localhost = 5 [json_name = "createLocalhost", deprecated = true];</code>
+       * @deprecated ibc.core.client.v1.GenesisState.create_localhost is deprecated.
+       *     See ibc/core/client/v1/genesis.proto;l=22
        * @return This builder for chaining.
        */
-      public Builder clearCreateLocalhost() {
+      @java.lang.Deprecated public Builder clearCreateLocalhost() {
         bitField0_ = (bitField0_ & ~0x00000010);
         createLocalhost_ = false;
         onChanged();
@@ -2296,8 +2311,8 @@ public final class GenesisProto {
   }
   /**
    * <pre>
-   * GenesisMetadata defines the genesis type for metadata that clients may return
-   * with ExportMetadata
+   * GenesisMetadata defines the genesis type for metadata that will be used
+   * to export all client store keys that are not client or consensus states.
    * </pre>
    *
    * Protobuf type {@code ibc.core.client.v1.GenesisMetadata}
@@ -2536,8 +2551,8 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * GenesisMetadata defines the genesis type for metadata that clients may return
-     * with ExportMetadata
+     * GenesisMetadata defines the genesis type for metadata that will be used
+     * to export all client store keys that are not client or consensus states.
      * </pre>
      *
      * Protobuf type {@code ibc.core.client.v1.GenesisMetadata}
@@ -3836,7 +3851,7 @@ public final class GenesisProto {
     java.lang.String[] descriptorData = {
       "\n ibc/core/client/v1/genesis.proto\022\022ibc." +
       "core.client.v1\032\037ibc/core/client/v1/clien" +
-      "t.proto\032\024gogoproto/gogo.proto\"\342\003\n\014Genesi" +
+      "t.proto\032\024gogoproto/gogo.proto\"\346\003\n\014Genesi" +
       "sState\022c\n\007clients\030\001 \003(\0132).ibc.core.clien" +
       "t.v1.IdentifiedClientStateB\036\310\336\037\000\252\337\037\026Iden" +
       "tifiedClientStatesR\007clients\022v\n\021clients_c" +
@@ -3846,20 +3861,20 @@ public final class GenesisProto {
       "etadata\030\003 \003(\0132-.ibc.core.client.v1.Ident" +
       "ifiedGenesisMetadataB\004\310\336\037\000R\017clientsMetad" +
       "ata\0228\n\006params\030\004 \001(\0132\032.ibc.core.client.v1" +
-      ".ParamsB\004\310\336\037\000R\006params\022)\n\020create_localhos" +
-      "t\030\005 \001(\010R\017createLocalhost\0220\n\024next_client_" +
-      "sequence\030\006 \001(\004R\022nextClientSequence\"?\n\017Ge" +
-      "nesisMetadata\022\020\n\003key\030\001 \001(\014R\003key\022\024\n\005value" +
-      "\030\002 \001(\014R\005value:\004\210\240\037\000\"\214\001\n\031IdentifiedGenesi" +
-      "sMetadata\022\033\n\tclient_id\030\001 \001(\tR\010clientId\022R" +
-      "\n\017client_metadata\030\002 \003(\0132#.ibc.core.clien" +
-      "t.v1.GenesisMetadataB\004\310\336\037\000R\016clientMetada" +
-      "taB\311\001\n\026com.ibc.core.client.v1B\014GenesisPr" +
-      "otoZ8github.com/cosmos/ibc-go/v7/modules" +
-      "/core/02-client/types\242\002\003ICC\252\002\022Ibc.Core.C" +
-      "lient.V1\312\002\022Ibc\\Core\\Client\\V1\342\002\036Ibc\\Core" +
-      "\\Client\\V1\\GPBMetadata\352\002\025Ibc::Core::Clie" +
-      "nt::V1b\006proto3"
+      ".ParamsB\004\310\336\037\000R\006params\022-\n\020create_localhos" +
+      "t\030\005 \001(\010B\002\030\001R\017createLocalhost\0220\n\024next_cli" +
+      "ent_sequence\030\006 \001(\004R\022nextClientSequence\"?" +
+      "\n\017GenesisMetadata\022\020\n\003key\030\001 \001(\014R\003key\022\024\n\005v" +
+      "alue\030\002 \001(\014R\005value:\004\210\240\037\000\"\214\001\n\031IdentifiedGe" +
+      "nesisMetadata\022\033\n\tclient_id\030\001 \001(\tR\010client" +
+      "Id\022R\n\017client_metadata\030\002 \003(\0132#.ibc.core.c" +
+      "lient.v1.GenesisMetadataB\004\310\336\037\000R\016clientMe" +
+      "tadataB\312\001\n\026com.ibc.core.client.v1B\014Genes" +
+      "isProtoZ9github.com/cosmos/ibc-go/v10/mo" +
+      "dules/core/02-client/types\242\002\003ICC\252\002\022Ibc.C" +
+      "ore.Client.V1\312\002\022Ibc\\Core\\Client\\V1\342\002\036Ibc" +
+      "\\Core\\Client\\V1\\GPBMetadata\352\002\025Ibc::Core:" +
+      ":Client::V1b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -31,7 +31,5 @@ class ChainXplaEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "XPLA"
-    override var coinGeckoId: String = "xpla"
-    override var coinLogo: Int = R.drawable.token_xpla
     override var evmRpcURL: String = "https://rpc-xpla-evm.cosmostation.io"
 }

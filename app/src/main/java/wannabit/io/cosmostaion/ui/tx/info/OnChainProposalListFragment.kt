@@ -13,6 +13,8 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.OnChainVote
+import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.chain.ProposalViewModel
 import wannabit.io.cosmostaion.databinding.FragmentOnChainProposalListBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.VoteFragment
@@ -20,7 +22,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.VoteFragment
 class OnChainProposalListFragment : Fragment() {
 
     private var _binding: FragmentOnChainProposalListBinding? = null
-    private val binding: FragmentOnChainProposalListBinding? get() = _binding
+    private val binding get() = _binding
 
     private lateinit var selectedChain: BaseChain
 
@@ -30,6 +32,7 @@ class OnChainProposalListFragment : Fragment() {
     private var votingPeriods: MutableList<CosmosProposal> = mutableListOf()
     private var etcProposals: MutableList<CosmosProposal> = mutableListOf()
     private var toVoteList: MutableList<String>? = mutableListOf()
+    private var myVotes: MutableList<OnChainVote>? = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -56,6 +59,7 @@ class OnChainProposalListFragment : Fragment() {
         initData()
         setUpProposalsData()
         setUpClickAction()
+        setUpVoteInfo()
     }
 
     private fun initData() {
@@ -77,11 +81,8 @@ class OnChainProposalListFragment : Fragment() {
             proposalViewModel.proposalResult.observe(viewLifecycleOwner) { response ->
                 votingPeriods.clear()
                 etcProposals.clear()
-                loading.visibility = View.GONE
 
                 if (response?.isNotEmpty() == true) {
-                    recycler.visibility = View.VISIBLE
-                    emptyLayout.visibility = View.GONE
                     response.forEach { proposal ->
                         if (proposal.isVotingPeriod()) {
                             votingPeriods.add(proposal)
@@ -89,12 +90,23 @@ class OnChainProposalListFragment : Fragment() {
                             etcProposals.add(proposal)
                         }
                     }
-                    initRecyclerView()
+
+                    proposalViewModel.onChainVoteStatus(selectedChain, votingPeriods)
 
                 } else {
+                    loading.visibility = View.GONE
                     recycler.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                 }
+            }
+
+            proposalViewModel.onChainvoteStatusResult.observe(viewLifecycleOwner) { response ->
+                myVotes = response
+                loading.visibility = View.GONE
+                recycler.visibility = View.VISIBLE
+                emptyLayout.visibility = View.GONE
+
+                initRecyclerView()
             }
 
             proposalViewModel.errorMessage.observe(viewLifecycleOwner) {
@@ -113,6 +125,7 @@ class OnChainProposalListFragment : Fragment() {
                 votingPeriods,
                 etcProposals,
                 toVoteList,
+                myVotes,
                 listener = proposalCheckAction
             )
             setHasFixedSize(true)
@@ -167,6 +180,12 @@ class OnChainProposalListFragment : Fragment() {
                     requireActivity().supportFragmentManager, VoteFragment::class.java.name
                 )
             }
+        }
+    }
+
+    private fun setUpVoteInfo() {
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) {
+            proposalViewModel.onChainVoteStatus(selectedChain, votingPeriods)
         }
     }
 
