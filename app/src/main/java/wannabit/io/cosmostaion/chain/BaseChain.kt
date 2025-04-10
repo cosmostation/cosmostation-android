@@ -715,7 +715,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLombard())
     chains.add(ChainLum880())
     chains.add(ChainLum118())
-    chains.add(ChainManifest())
+//    chains.add(ChainManifest())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -797,8 +797,8 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
     chains.add(ChainXionTestnet())
-    chains.add(ChainXrplEvmTestnet())
-    chains.add(ChainZkcloudTestnet())
+//    chains.add(ChainXrplEvmTestnet())
+//    chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
