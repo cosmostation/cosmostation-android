@@ -2,14 +2,13 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -76,16 +75,18 @@ class BabylonBtcStatusFragment : BottomSheetDialogFragment() {
                 title.text = getString(R.string.title_staked_btc, asset.symbol)
 
                 var btcStakedAmount = BigDecimal.ZERO
-                (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcStakedStatus?.forEach { status ->
+                (selectedChain as ChainBabylon).babylonFetcher?.btcStakedStatus?.forEach { status ->
                     if (status["status_desc"].asString == "ACTIVE") {
                         btcStakedAmount =
                             btcStakedAmount.add(status["total_sat"].asString.toBigDecimal())
                     }
                 }
-                val dpBtcStakedAmount = btcStakedAmount.movePointLeft(asset.decimals ?: 6).setScale(asset.decimals?: 6, RoundingMode.DOWN)
+                val dpBtcStakedAmount = btcStakedAmount.movePointLeft(asset.decimals ?: 6)
+                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
 
                 tokenImg.setTokenImg(asset)
-                btcStakedStatusAmount.text = formatAmount(dpBtcStakedAmount.toString(), asset.decimals ?: 6)
+                btcStakedStatusAmount.text =
+                    formatAmount(dpBtcStakedAmount.toString(), asset.decimals ?: 6)
                 btcStakedDenom.text = asset.symbol
             }
         }

@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.web3j.crypto.Keys
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -26,7 +27,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -476,7 +476,7 @@ class CosmosDetailFragment : Fragment() {
                 }
 
                 when (selectedChain) {
-                    is ChainBabylonTestnet -> {
+                    is ChainBabylon -> {
                         handleOneClickWithDelay(
                             BabylonStakeInfoFragment.newInstance(selectedChain), null
                         )
@@ -596,7 +596,7 @@ class CosmosDetailFragment : Fragment() {
                                 return@setOnClickListener
                             }
 
-                            val isClaim = selectedChain is ChainBabylonTestnet
+                            val isClaim = selectedChain is ChainBabylon
 
                             handleOneClickWithDelay(
                                 null, ClaimRewardFragment.newInstance(
@@ -728,7 +728,7 @@ class CosmosDetailFragment : Fragment() {
                                     return@setOnClickListener
                                 }
 
-                                val isCompounding = selectedChain is ChainBabylonTestnet
+                                val isCompounding = selectedChain is ChainBabylon
 
                                 handleOneClickWithDelay(
                                     null, CompoundingFragment.newInstance(

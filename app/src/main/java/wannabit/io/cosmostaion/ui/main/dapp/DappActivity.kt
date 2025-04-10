@@ -1126,7 +1126,6 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-            Log.e("Test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -1134,13 +1133,11 @@ class DappActivity : BaseActivity() {
                         val params = messageJson.getJSONObject("params")
                         val chainId = params.getString("chainName")
                         BaseData.baseAccount?.let { account ->
-                            Log.e("Test12345 : ", selectedChain.toString())
                             val chain = if (selectedChain == null) {
                                 selectedChain(allChains, chainId)
                             } else {
                                 selectedChain
                             }
-                            Log.e("Test12345 : ", selectedChain?.address.toString())
 
                             val accountJson = JSONObject()
                             accountJson.put("isLedger", false)
@@ -1319,7 +1316,6 @@ class DappActivity : BaseActivity() {
                             allChains?.map { chain -> chain.chainIdEvm.uppercase() }?.distinct()
                         val chainId = (messageJson.getJSONArray("params")
                             .get(0) as JSONObject).getString("chainId")
-                        Log.e("test12345 : ", chainId)
 
                         if (evmChainIds?.contains(chainId.uppercase()) == true) {
                             currentEvmChainId = chainId

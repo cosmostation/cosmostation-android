@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.data.model.res.CoinType
 import wannabit.io.cosmostaion.databinding.ItemBabylonCoinBinding
@@ -174,7 +174,7 @@ class CoinAdapter(
 
             VIEW_TYPE_STAKE_ITEM -> {
                 when (selectedChain) {
-                    is ChainBabylonTestnet -> {
+                    is ChainBabylon -> {
                         val binding = ItemBabylonCoinBinding.inflate(
                             LayoutInflater.from(parent.context), parent, false
                         )
@@ -280,7 +280,7 @@ class CoinAdapter(
                 }
 
                 holder.itemView.setOnLongClickListener { view ->
-                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.isEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && (selectedChain as ChainBabylon).babylonFetcher?.btcRewards?.isEmpty() == true) {
                         onItemClickListener?.let {
                             it(selectedChain, selectedChain.stakeDenom, position, coin.type)
                         }
@@ -293,7 +293,7 @@ class CoinAdapter(
                             context,
                             selectedChain,
                             selectedChain.cosmosFetcher?.cosmosRewards,
-                            (selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards
+                            (selectedChain as ChainBabylon).babylonFetcher?.btcRewards
                         )
 
                         if (scaleX == 1.0f && scaleY == 1.0f) {

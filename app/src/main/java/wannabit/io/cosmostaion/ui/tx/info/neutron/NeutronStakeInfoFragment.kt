@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.tx.info.neutron
 
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -7,6 +8,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -97,6 +99,16 @@ class NeutronStakeInfoFragment : Fragment() {
                 )
                 rewardDenom.text = asset.symbol
                 txView.setBackgroundResource(R.drawable.item_bg)
+
+                claimImg.setColorFilter(
+                    ContextCompat.getColor(requireContext(), R.color.color_base02),
+                    PorterDuff.Mode.SRC_IN
+                )
+
+                compoundImg.setColorFilter(
+                    ContextCompat.getColor(requireContext(), R.color.color_base02),
+                    PorterDuff.Mode.SRC_IN
+                )
             }
 
             neutronStakingPagerAdapter = NeutronStakingPagerAdapter(

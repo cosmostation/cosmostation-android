@@ -1,11 +1,15 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,14 +23,15 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentMajorDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
 
@@ -208,8 +213,63 @@ class MajorDetailFragment : Fragment() {
                 if (selectedChain is ChainSui) {
                     handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
                 } else {
-                    requireActivity().makeToast("Ongoing...")
-                    return@setOnMenuButtonClickListener
+                    if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                        val savedTime = Prefs.getDappInfoHideTime(2)
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime >= savedTime) {
+                            showBabylonInfo()
+                        } else {
+                            Intent(requireActivity(), DappActivity::class.java).apply {
+                                putExtra("dapp", selectedChain.btcStakingDapp())
+                                putExtra("selectedBitChain", selectedChain as Parcelable)
+                                startActivity(this)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showBabylonInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogBabylonInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_babylon_bg)
+
+            var isBabylonPinned = false
+            btnCheck.setOnClickListener {
+                isBabylonPinned = !isBabylonPinned
+                if (isBabylonPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isBabylonPinned) {
+                    Prefs.setDappInfoHideTime(2)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", selectedChain.btcStakingDapp())
+                    putExtra("selectedBitChain", selectedChain as Parcelable)
+                    startActivity(this)
                 }
             }
         }

@@ -137,10 +137,11 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/claim_img"
                         android:layout_width="@dimen/space_20"
                         android:layout_height="@dimen/space_20"
                         android:layout_gravity="center"
-                        android:layout_marginVertical="@dimen/space_14"
+                        android:layout_marginVertical="@dimen/space_16"
                         android:src="@drawable/icon_claim_reward" />
 
                     <TextView
@@ -168,9 +169,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/compound_img"
                         android:layout_width="@dimen/space_20"
                         android:layout_height="@dimen/space_20"
-                        android:layout_marginVertical="@dimen/space_14"
+                        android:layout_marginVertical="@dimen/space_16"
                         android:src="@drawable/icon_compounding" />
 
                     <TextView
@@ -179,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/space_4"
-                        android:text="Compound all"
+                        android:text="Compound All"
                         android:textColor="@color/color_base01"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

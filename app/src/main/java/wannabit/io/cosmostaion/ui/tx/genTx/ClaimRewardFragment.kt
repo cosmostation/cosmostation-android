@@ -25,10 +25,10 @@ import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -134,7 +134,7 @@ class ClaimRewardFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             if (isClaim) {
-                (selectedChain as ChainBabylonTestnet).apply {
+                (selectedChain as ChainBabylon).apply {
                     rewardView.visibility = View.GONE
                     babylonRewardView.visibility = View.VISIBLE
 
@@ -193,11 +193,11 @@ class ClaimRewardFragment : BaseTxFragment() {
                             formatAmount(btcRewardAmount.toPlainString(), asset.decimals ?: 6)
                         btcRewardsDenom.text = asset.symbol
 
-                        if (((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.size
+                        if (((selectedChain as ChainBabylon).babylonFetcher?.btcRewards?.size
                                 ?: 0) > 1
                         ) {
                             btcRewardsCnt.text =
-                                "+ " + ((selectedChain as ChainBabylonTestnet).babylonFetcher?.btcRewards?.size
+                                "+ " + ((selectedChain as ChainBabylon).babylonFetcher?.btcRewards?.size
                                     ?: (0 - 1))
                         } else {
                             btcRewardsCnt.visibility = View.GONE

@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -28,6 +28,14 @@ class BabylonCoinViewHolder(
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             btcStakedStatusLayout.setOnClickListener {
                 listener.btcStatus()
+            }
+
+            val denom = if (chain.isTestnet) "sBTC" else "BTC"
+            btcStakedStatusTitle.text = context.getString(R.string.str_staked_btc_status, denom)
+            if (chain.isTestnet) {
+                btcImg.setImageResource(R.drawable.token_btc_signet)
+            } else {
+                btcImg.setImageResource(R.drawable.token_btc)
             }
 
             chain.stakeDenom.let { stakeDenom ->
@@ -62,7 +70,7 @@ class BabylonCoinViewHolder(
                         ?: BigDecimal.ZERO
 
                     val btcRewardAmount =
-                        (chain as ChainBabylonTestnet).babylonFetcher?.btcRewardAmountSum(stakeDenom)
+                        (chain as ChainBabylon).babylonFetcher?.btcRewardAmountSum(stakeDenom)
                             ?.movePointLeft(
                                 asset.decimals ?: 6
                             )?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
@@ -74,10 +82,13 @@ class BabylonCoinViewHolder(
                             context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
                     }
 
-                    val denom = if (chain.isTestnet) "sBTC" else "BTC"
+                    btcRewardTitle.text = context.getString(
+                        R.string.str_btc_reward, denom
+                    )
+
                     if (chain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
                         btcRewardTitle.text =
-                            context.getString(R.string.str_btc_reward, denom) + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
+                            btcRewardTitle.text.toString() + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
                                     ?: 0) > 0
                             ) " +${chain.babylonFetcher?.btcRewardOtherDenoms()}" else ""
                     }

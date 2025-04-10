@@ -71,6 +71,7 @@ import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -86,7 +87,6 @@ import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
@@ -350,7 +350,7 @@ object Signer {
     ): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
 
-        if (selectedChain is ChainBabylonTestnet && isClaimAll && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
+        if (selectedChain is ChainBabylon && isClaimAll && selectedChain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
             val babylonIncentiveMsg =
                 com.babylon.incentive.TxProto.MsgWithdrawReward.newBuilder().setType("BTC_STAKER")
                     .setAddress(selectedChain.address).build()
@@ -418,7 +418,7 @@ object Signer {
                             .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin)
                             .build()
 
-                    if (selectedChain is ChainBabylonTestnet) {
+                    if (selectedChain is ChainBabylon) {
                         val wrappedMsgDelegate =
                             com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder()
                                 .setMsg(delegateMsg).build()
