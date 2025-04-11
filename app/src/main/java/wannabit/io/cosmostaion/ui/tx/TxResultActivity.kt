@@ -64,6 +64,8 @@ class TxResultActivity : BaseActivity() {
     private lateinit var walletViewModel: WalletViewModel
     private lateinit var txViewModel: TxViewModel
 
+    private var isConfirmed = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTxResultBinding.inflate(layoutInflater)
@@ -197,6 +199,9 @@ class TxResultActivity : BaseActivity() {
                     }
 
                     else -> {
+                        if (txResultType == TxResultType.BTC_STAKE && !isConfirmed) {
+                            return@setOnClickListener
+                        }
                         finish()
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
@@ -354,6 +359,7 @@ class TxResultActivity : BaseActivity() {
                 if (response.isSuccessful) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         binding.apply {
+                            isConfirmed = true
                             loading.visibility = View.GONE
                             successLayout.visibility = View.VISIBLE
                             successHash.text = txHash

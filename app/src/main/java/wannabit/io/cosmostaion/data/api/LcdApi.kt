@@ -164,9 +164,6 @@ interface LcdApi {
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
 
-    @GET("babylon/btcstaking/v1/finality_providers?pagination.limit=500")
-    suspend fun btcFinalityProvider(): JsonObject
-
     @GET("babylon/finality/v1/finality_providers/{height}")
     suspend fun btcFinalityVotingPower(@Path("height") height: Long): JsonObject
 

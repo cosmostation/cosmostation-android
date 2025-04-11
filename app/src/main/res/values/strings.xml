@@ -129,6 +129,7 @@
     <string name="str_edit">Edit</string>
     <string name="str_delete">Delete</string>
     <string name="str_search_validator">Search validator</string>
+    <string name="str_search_provider" translatable="false">Search Provider</string>
     <string name="str_connect">Connect</string>
     <string name="str_restore_wallet">Restore wallet</string>
     <string name="str_another_account">Create another account</string>

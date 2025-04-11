@@ -25,9 +25,9 @@ class BtcFetcher(private val chain: BaseChain) {
     var btcHistory: MutableList<JsonObject> = mutableListOf()
 
     var btcFinalityProviders: MutableList<FinalityProvider> = mutableListOf()
-    var btcActiveStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
-    var btcUnBondingStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
-    var btcWithdrawAbleStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
+    var btcActiveStakingData: List<Pair<JsonObject, FinalityProvider>>? = null
+    var btcUnBondingStakingData: List<Pair<JsonObject, FinalityProvider>>? = null
+    var btcWithdrawAbleStakingData: List<Pair<JsonObject, FinalityProvider>>? = null
     var btcParams: ParamsProto.Params? = null
 
     var btcNetworkInfo: JsonObject? = null

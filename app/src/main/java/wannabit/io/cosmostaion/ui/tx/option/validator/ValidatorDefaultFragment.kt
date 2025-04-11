@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
@@ -64,9 +65,15 @@ class ValidatorDefaultFragment(
 
     private fun initView() {
         binding.apply {
-            selectTitle.text = getString(R.string.title_select_validator)
+            if (selectedChain is ChainBitCoin86) {
+                selectTitle.text = getString(R.string.title_select_Provider)
+                searchView.queryHint = getString(R.string.str_search_provider)
+            } else {
+                selectTitle.text = getString(R.string.title_select_validator)
+                searchView.queryHint = getString(R.string.str_search_validator)
+            }
             searchBar.visibility = View.VISIBLE
-            searchView.queryHint = getString(R.string.str_search_validator)
+
             when (selectedChain) {
                 is ChainInitiaTestnet -> selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                     ?.let {

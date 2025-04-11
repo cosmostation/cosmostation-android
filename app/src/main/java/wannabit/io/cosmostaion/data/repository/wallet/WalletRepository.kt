@@ -253,7 +253,7 @@ interface WalletRepository {
     suspend fun statusHeight(channel: ManagedChannel?): NetworkResult<Long>
 
     suspend fun btcFinalityVotingPower(
-        channel: ManagedChannel?,
+        chain: BaseChain,
         height: Long
     ): NetworkResult<MutableList<com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse>>
 

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.tx.genTx.major
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.PorterDuff
@@ -27,9 +26,9 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -189,7 +188,11 @@ class BtcStakingFragment : BaseTxFragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             BaseData.baseAccount?.let { account ->
-                val targetChain = result.firstOrNull { it.apiName == "babylon-testnet" }
+                val targetChain = if (selectedChain.isTestnet) {
+                    result.firstOrNull { it.apiName == "babylon-testnet" }
+                } else {
+                    result.firstOrNull { it.apiName == "babylon" }
+                }
 
                 targetChain?.let { chain ->
                     when (account.type) {
@@ -233,20 +236,25 @@ class BtcStakingFragment : BaseTxFragment() {
 
         walletViewModel.btcEstimateFee.observe(viewLifecycleOwner) { fee ->
             binding.apply {
-                val balanceAmount = (selectedChain as ChainBitCoin86).btcFetcher?.btcBalances
-                btcFeeAmount = fee.toBigDecimal()
-                availableAmount = balanceAmount?.subtract(btcFeeAmount)
-                if (availableAmount <= BigDecimal.ZERO) {
-                    availableAmount = BigDecimal.ZERO
+                try {
+                    val balanceAmount = (selectedChain as ChainBitCoin86).btcFetcher?.btcBalances
+                    btcFeeAmount = fee.toBigDecimal()
+                    availableAmount = balanceAmount?.subtract(btcFeeAmount)
+                    if (availableAmount <= BigDecimal.ZERO) {
+                        availableAmount = BigDecimal.ZERO
+                    }
+
+                    loading.visibility = View.GONE
+                    validatorView.visibility = View.VISIBLE
+                    amountView.visibility = View.VISIBLE
+                    rewardView.visibility = View.VISIBLE
+                    feeView.visibility = View.VISIBLE
+
+                    updateFeeView()
+
+                } catch (e: Exception) {
+
                 }
-
-                loading.visibility = View.GONE
-                validatorView.visibility = View.VISIBLE
-                amountView.visibility = View.VISIBLE
-                rewardView.visibility = View.VISIBLE
-                feeView.visibility = View.VISIBLE
-
-                updateFeeView()
             }
         }
     }
@@ -354,7 +362,6 @@ class BtcStakingFragment : BaseTxFragment() {
         }
     }
 
-    @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
             validatorView.setOnClickListener {
@@ -435,7 +442,7 @@ class BtcStakingFragment : BaseTxFragment() {
                     babylonTxFee,
                     "",
                     this,
-                    babylonChain ?: ChainBabylonTestnet(),
+                    babylonChain ?: ChainBabylon(),
                     BitcoinJs
                 )
             }
@@ -495,7 +502,7 @@ class BtcStakingFragment : BaseTxFragment() {
                     babylonTxFee,
                     "",
                     selectedChain as ChainBitCoin86,
-                    babylonChain ?: ChainBabylonTestnet(),
+                    babylonChain ?: ChainBabylon(),
                     BitcoinJs
                 )
             }

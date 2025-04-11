@@ -130,9 +130,7 @@ class ValidatorDefaultViewHolder(
         binding.apply {
             val apiName = if (chain.isTestnet) "babylon-testnet" else "babylon"
             monikerImg.setProviderImg(
-                chain,
-                apiName,
-                finalityProvider.provider.btcPk.toByteArray().toHex()
+                chain, apiName, finalityProvider.provider.btcPk.toByteArray().toHex()
             )
 
             monikerName.text = finalityProvider.provider.description.moniker ?: "Unknown"
@@ -146,7 +144,10 @@ class ValidatorDefaultViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            votingPower.text = formatAmount(finalityProvider.votingPower, 0)
+            val dpVotingPower = finalityProvider.votingPower.toBigDecimal().movePointLeft(8)
+                .setScale(8, RoundingMode.DOWN)
+            votingPower.text = formatAmount(dpVotingPower.toPlainString(), 8)
+
             val commissionRate =
                 finalityProvider.provider.commission?.toBigDecimal()?.movePointLeft(16)
                     ?.setScale(2, RoundingMode.DOWN)

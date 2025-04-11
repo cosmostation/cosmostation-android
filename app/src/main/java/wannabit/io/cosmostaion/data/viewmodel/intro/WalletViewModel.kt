@@ -24,6 +24,7 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
@@ -216,11 +217,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
 
-    private val _finalityLoadCompleted = MutableLiveData<Boolean>()
-    val finalityLoadCompleted: LiveData<Boolean> get() = _finalityLoadCompleted
-
     fun loadBtcStakeData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
-        val channel = ChainBabylonTestnet().cosmosFetcher()?.getChannel()
+        val channel = if (chain.isTestnet) {
+            ChainBabylonTestnet().cosmosFetcher()?.getChannel()
+        } else {
+            ChainBabylon().cosmosFetcher()?.getChannel()
+        }
         if (chain.btcFetcher()?.btcFinalityProviders?.isNotEmpty() == true) {
             return@launch
         }
@@ -238,7 +240,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             val statusHeightResult = loadStatusHeightDeferred.await()
             if (statusHeightResult is NetworkResult.Success) {
                 when (val response = walletRepository.btcFinalityVotingPower(
-                    channel, statusHeightResult.data
+                    chain, statusHeightResult.data
                 )) {
                     is NetworkResult.Success -> {
                         finalityVotingPower = response.data
@@ -371,7 +373,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                     }
                 chain.btcFetcher()?.btcWithdrawAbleStakingData = matchedWithdrawPairs
             }
-            _finalityLoadCompleted.postValue(true)
 
         } finally {
             channel?.shutdown()
@@ -484,8 +485,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 )
             }
 
-            val availableUTxo =
-                JsonParser.parseString(chain.btcFetcher?.btcUtxo).asJsonArray
+            val availableUTxo = JsonParser.parseString(chain.btcFetcher?.btcUtxo).asJsonArray
             val dpAvailableUTxo = GsonBuilder().setPrettyPrinting().create().toJson(availableUTxo)
 
             val estimateFeeFunction = """function estimateFeeFunction() {     

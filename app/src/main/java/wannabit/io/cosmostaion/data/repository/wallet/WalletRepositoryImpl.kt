@@ -43,6 +43,7 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
@@ -1457,11 +1458,15 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun btcFinalityVotingPower(
-        channel: ManagedChannel?, height: Long
+        chain: BaseChain, height: Long
     ): NetworkResult<MutableList<ActiveFinalityProvidersAtHeightResponse>> {
         return safeApiCall(Dispatchers.IO) {
-            lcdApi(ChainBabylonTestnet()).btcFinalityVotingPower(height)
-                .finalityProviderWithVotingPower()
+            val babylonChain = if (chain.isTestnet) {
+                ChainBabylonTestnet()
+            } else {
+                ChainBabylon()
+            }
+            lcdApi(babylonChain).btcFinalityVotingPower(height).finalityProviderWithVotingPower()
         }
     }
 
@@ -1496,7 +1501,12 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun btcClientTip(chain: BaseChain): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
-            lcdApi(ChainBabylonTestnet()).btcClientTioHeight()
+            val babylonChain = if (chain.isTestnet) {
+                ChainBabylonTestnet()
+            } else {
+                ChainBabylon()
+            }
+            lcdApi(babylonChain).btcClientTioHeight()
         }
     }
 
