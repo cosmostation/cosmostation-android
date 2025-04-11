@@ -197,6 +197,7 @@
     <string name="str_sort_multi">Multi-Network Support</string>
     <string name="str_sort_multi_description">Sort the list by the number of supported networks</string>
     <string name="str_select_chain">Select chain</string>
+    <string name="str_insufficient_balance">Insufficient %1$s balance for fees.</string>
 
 
     //title
@@ -276,6 +277,7 @@
     <string name="title_delegate_amount">Delegate amount</string>
     <string name="title_undelegate_amount">Undelegate amount</string>
     <string name="title_select_validator">Select validator</string>
+    <string name="title_select_Provider" translatable="false">Select Finality Provider</string>
     <string name="title_redelegate_amount">Redelegate amount</string>
     <string name="title_reward_address_change">Reward address change</string>
     <string name="title_current_reward_address">Current reward address</string>
@@ -356,6 +358,7 @@
     <string name="title_compounding" translatable="false">%1$s Compounding</string>
     <string name="title_staked_btc" translatable="false">Staked %1$s</string>
     <string name="title_select_option">Select Sort Option</string>
+    <string name="title_additional_fee" translatable="false">Additional Fee in $%1$s</string>
 
 
     // msg
@@ -466,6 +469,8 @@
     <string name="str_btc_status_msg">This is the combined amount of %1$s staked in Taproot and Native Segwit.</string>
     <string name="str_reward_msg">$%1$s Reward Distribution</string>
     <string name="str_reward_msg1">Rewards are paid in $%1$s to my %2$s address.</string>
+    <string name="str_additional_btc_fee_msg">BTC staking requires an additional fee in BABY, deducted from your BABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
 
 
     // header

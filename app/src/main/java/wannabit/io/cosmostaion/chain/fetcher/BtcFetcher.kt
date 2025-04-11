@@ -25,12 +25,15 @@ class BtcFetcher(private val chain: BaseChain) {
     var btcHistory: MutableList<JsonObject> = mutableListOf()
 
     var btcFinalityProviders: MutableList<FinalityProvider> = mutableListOf()
+    var btcActiveStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
+    var btcUnBondingStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
+    var btcWithdrawAbleStakingData: List<Pair<JsonObject, FinalityProvider>> = mutableListOf()
     var btcParams: ParamsProto.Params? = null
 
     var btcNetworkInfo: JsonObject? = null
     var btcClientTipHeight: Long? = 0L
     var btcFastFee: Long? = 0L
-    var btcUtxo: MutableList<JsonObject> = mutableListOf()
+    var btcUtxo: String? = ""
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
@@ -56,7 +59,7 @@ class BtcFetcher(private val chain: BaseChain) {
     fun btcUnStakingAmount(): BigDecimal {
         var result = BigDecimal.ZERO
         btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
-            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING") {
+            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING" || data.asJsonObject["state"].asString == "TIMELOCK_UNBONDING") {
                 result =
                     result.add(data.asJsonObject["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal())
             }
@@ -67,7 +70,7 @@ class BtcFetcher(private val chain: BaseChain) {
     fun btcWithdrawAbleAmount(): BigDecimal {
         var result = BigDecimal.ZERO
         btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
-            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING_WITHDRAWABLE") {
+            if (data.asJsonObject["state"].asString.contains("WITHDRAWABLE")) {
                 result =
                     result.add(data.asJsonObject["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal())
             }

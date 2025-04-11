@@ -1,21 +1,19 @@
 package wannabit.io.cosmostaion.ui.tx.info.major
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemBtcActiveBinding
+import wannabit.io.cosmostaion.ui.tx.info.StakingInfoAdapter.ClickListener
 
 class BtcActiveInfoAdapter(
-    private val selectedChain: BaseChain
+    private val selectedChain: BaseChain, private var listener: ClickListener
 ) : ListAdapter<Pair<JsonObject, FinalityProvider>, BtcActiveViewHolder>(BtcStakingInfoDiffCallback()) {
-
-    private var onItemClickListener: ((JsonObject) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BtcActiveViewHolder {
         val binding =
@@ -25,16 +23,11 @@ class BtcActiveInfoAdapter(
 
     override fun onBindViewHolder(holder: BtcActiveViewHolder, position: Int) {
         val staked = currentList[position]
-        holder.bind(selectedChain, staked)
-
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.let {
-//                it(staked)
-            }
-        }
+        holder.bind(selectedChain, staked, listener)
     }
 
-    private class BtcStakingInfoDiffCallback : DiffUtil.ItemCallback<Pair<JsonObject, FinalityProvider>>() {
+    private class BtcStakingInfoDiffCallback :
+        DiffUtil.ItemCallback<Pair<JsonObject, FinalityProvider>>() {
 
         override fun areItemsTheSame(
             oldItem: Pair<JsonObject, FinalityProvider>, newItem: Pair<JsonObject, FinalityProvider>
@@ -49,7 +42,7 @@ class BtcActiveInfoAdapter(
         }
     }
 
-    fun setOnItemClickListener(listener: (JsonObject) -> Unit) {
-        onItemClickListener = listener
+    interface ClickListener {
+        fun selectStakingAction(staked: Pair<JsonObject, FinalityProvider>)
     }
 }

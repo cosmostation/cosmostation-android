@@ -142,6 +142,7 @@
     <string name="str_sort_multi">다중 네트워크 지원</string>
     <string name="str_sort_multi_description">지원되는 네트워크 수로 정렬</string>
     <string name="str_select_chain">체인 선택</string>
+    <string name="str_insufficient_balance">수수료로 사용할 %1$s 코인이 부족합니다.</string>
 
 
     //title
@@ -363,6 +364,8 @@
     <string name="str_btc_status_msg">Taproot과 Native Segwit에 스테이킹된 %1$s의 총합입니다.</string>
     <string name="str_reward_msg">$%1$s로 리워드 지급</string>
     <string name="str_reward_msg1">리워드는 $%1$s로 지급되며, 나의 %2$s 주소로 전송됩니다.</string>
+    <string name="str_additional_btc_fee_msg">BTC 스테이킹에는 BTC 코인 외에 BABY 코인이 추가 수수료로 사용되며, 추가 수수료는 &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt; 주소에 보유한 BABY 코인에서 차감됩니다.</string>
+    <string name="str_additional_sbtc_fee_msg">sBTC 스테이킹에는 sBTC 코인 외에 tBABY 코인이 추가 수수료로 사용되며, 추가 수수료는 &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt; 주소에 보유한 tBABY 코인에서 차감됩니다.</string>
 
 
     // error

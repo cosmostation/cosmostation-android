@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.setProviderImg
 import wannabit.io.cosmostaion.databinding.ItemBtcActiveBinding
+import wannabit.io.cosmostaion.ui.tx.info.StakingInfoAdapter
 import java.math.RoundingMode
 import kotlin.math.roundToInt
 
@@ -25,7 +26,11 @@ class BtcActiveViewHolder(
     val context: Context, private val binding: ItemBtcActiveBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(chain: BaseChain, staked: Pair<JsonObject, FinalityProvider>) {
+    fun bind(
+        chain: BaseChain,
+        staked: Pair<JsonObject, FinalityProvider>,
+        listener: BtcActiveInfoAdapter.ClickListener
+    ) {
         binding.apply {
             (chain as ChainBitCoin86).apply {
                 delegationView.setBackgroundResource(R.drawable.item_bg)
@@ -33,7 +38,7 @@ class BtcActiveViewHolder(
                     ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
                 )
                 delegationView.setOnClickListener {
-//                listener.selectStakingAction(validator)
+                    listener.selectStakingAction(staked)
                 }
                 val apiName = if (chain.isTestnet) "babylon-testnet" else "babylon"
 

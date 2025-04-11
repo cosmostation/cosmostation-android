@@ -272,4 +272,8 @@ interface WalletRepository {
     suspend fun mempoolUtxo(
         chain: ChainBitCoin86
     ): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun mempoolIsValidAddress(
+        chain: ChainBitCoin86
+    ): NetworkResult<JsonObject>
 }

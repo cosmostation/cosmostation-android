@@ -53,6 +53,7 @@ class MajorDetailFragment : Fragment() {
 
     private lateinit var walletViewModel: WalletViewModel
 
+    private var isCompleted = false
     private var isClickable = true
 
     companion object {
@@ -81,6 +82,7 @@ class MajorDetailFragment : Fragment() {
         initData()
         initTab()
         setUpClickAction()
+        setUpObserve()
     }
 
     override fun onResume() {
@@ -235,7 +237,7 @@ class MajorDetailFragment : Fragment() {
                     handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
 
                 } else {
-                    if ((selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.isEmpty() == true) {
+                    if ((selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.isEmpty() == true || !isCompleted) {
                         requireContext().makeToast(R.string.error_wait_moment)
                         fabMenu.close(true)
                         return@setOnMenuButtonClickListener
@@ -256,6 +258,12 @@ class MajorDetailFragment : Fragment() {
 //                    }
                 }
             }
+        }
+    }
+
+    private fun setUpObserve() {
+        walletViewModel.finalityLoadCompleted.observe(viewLifecycleOwner) { completed ->
+            isCompleted = completed
         }
     }
 

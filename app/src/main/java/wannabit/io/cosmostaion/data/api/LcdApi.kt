@@ -158,6 +158,9 @@ interface LcdApi {
     @GET("api/address/{address}/utxo")
     suspend fun bitUtxo(@Path("address") address: String): MutableList<JsonObject>
 
+    @GET("api/v1/validate-address/{address}")
+    suspend fun bitIsValidAddress(@Path("address") address: String): JsonObject
+
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
 

@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.FragmentBtcStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcStakingFragment
 
@@ -82,6 +83,15 @@ class BtcStakeInfoFragment : Fragment() {
                     else -> "Unstaking"
                 }
             }.attach()
+
+            if ((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData?.isNotEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcUnBondingStakingData?.isNotEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcWithdrawAbleStakingData?.isNotEmpty() == true) {
+                emptyStake.visibility = View.GONE
+                stakingDataView.visibility = View.VISIBLE
+
+            } else {
+                emptyStake.visibility = View.VISIBLE
+                stakingDataView.visibility = View.GONE
+            }
         }
     }
 
@@ -118,7 +128,7 @@ class BtcStakeInfoFragment : Fragment() {
 
         init {
             fragments.add(BtcActiveFragment.newInstance(selectedChain))
-//            fragments.add(SuiPendingFragment.newInstance(selectedChain))
+            fragments.add(BtcNotActiveFragment.newInstance(selectedChain))
         }
 
         override fun getItemCount(): Int {

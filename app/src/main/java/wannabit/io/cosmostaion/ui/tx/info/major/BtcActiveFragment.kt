@@ -8,21 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentSuiActiveBinding
+import wannabit.io.cosmostaion.ui.tx.option.general.BtcStakeOptionFragment
 
 class BtcActiveFragment : Fragment() {
 
@@ -32,8 +28,6 @@ class BtcActiveFragment : Fragment() {
     private lateinit var selectedChain: BaseChain
 
     private lateinit var btcActiveInfoAdapter: BtcActiveInfoAdapter
-
-    private var activeList: MutableList<JsonObject> = mutableListOf()
 
     private var isClickable = true
 
@@ -79,59 +73,21 @@ class BtcActiveFragment : Fragment() {
 
     private fun updateView() {
         binding.apply {
-            lifecycleScope.launch(Dispatchers.IO) {
-                refresher.isRefreshing = false
-                activeList.clear()
-                (selectedChain as ChainBitCoin86).btcFetcher?.btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
-                    if (data.asJsonObject["state"].asString == "ACTIVE") {
-                        activeList.add(data.asJsonObject)
-                    }
-                }
-                val providers = (selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders
-                    ?: mutableListOf()
+            refresher.isRefreshing = false
+            if ((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData?.isEmpty() == true) {
+                emptyLayout.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
 
-                val matchedPairs: List<Pair<JsonObject, FinalityProvider>> =
-                    activeList.mapNotNull { active ->
-                        val pkHex =
-                            active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+            } else {
+                btcActiveInfoAdapter = BtcActiveInfoAdapter(selectedChain, selectClickAction)
+                recycler.setHasFixedSize(true)
+                recycler.layoutManager = LinearLayoutManager(requireContext())
+                recycler.adapter = btcActiveInfoAdapter
 
-                        val matchedProvider = providers.firstOrNull { provider ->
-                            provider.provider.btcPk.toByteArray().toHex() == pkHex
-                        }
+                emptyLayout.visibility = View.GONE
+                recycler.visibility = View.VISIBLE
 
-                        if (matchedProvider != null) {
-                            Pair(active, matchedProvider)
-                        } else {
-                            null
-                        }
-                    }
-
-                withContext(Dispatchers.Main) {
-                    if (activeList.isEmpty()) {
-                        emptyStake.visibility = View.VISIBLE
-                        recycler.visibility = View.GONE
-
-                    } else {
-                        btcActiveInfoAdapter = BtcActiveInfoAdapter(selectedChain)
-                        recycler.setHasFixedSize(true)
-                        recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = btcActiveInfoAdapter
-
-                        emptyStake.visibility = View.GONE
-                        recycler.visibility = View.VISIBLE
-
-                        btcActiveInfoAdapter.submitList(matchedPairs)
-                        if (::btcActiveInfoAdapter.isInitialized) {
-                            btcActiveInfoAdapter.setOnItemClickListener { staked ->
-//                                handleOneClickWithDelay(
-//                                    SuiUnStakingFragment(
-//                                        selectedChain, staked
-//                                    )
-//                                )
-                            }
-                        }
-                    }
-                }
+                btcActiveInfoAdapter.submitList((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData)
             }
         }
     }
@@ -144,8 +100,8 @@ class BtcActiveFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadChainData(
-                        selectedChain, account.id, isRefresh = true
+                    ApplicationViewModel.shared.loadBtcData(
+                        account.id, selectedChain as ChainBitCoin86, isRefresh = true
                     )
                 }
             }
@@ -160,12 +116,20 @@ class BtcActiveFragment : Fragment() {
             }
         }
 
-//        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
-//            if (selectedChain.tag == tag) {
-//                ApplicationViewModel.shared.notifySuiTxEvent()
-//                updateView()
-//            }
-//        }
+        ApplicationViewModel.shared.txFetchedResult.observe(viewLifecycleOwner) { tag ->
+            if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.notifySuiTxEvent()
+                updateView()
+            }
+        }
+    }
+
+    private val selectClickAction = object : BtcActiveInfoAdapter.ClickListener {
+        override fun selectStakingAction(staked: Pair<JsonObject, FinalityProvider>) {
+            handleOneClickWithDelay(
+                BtcStakeOptionFragment(selectedChain, staked)
+            )
+        }
     }
 
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {

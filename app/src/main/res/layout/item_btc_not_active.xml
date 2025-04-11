@@ -48,14 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_10"
-                android:layout_marginTop="@dimen/space_15"
                 android:layout_marginEnd="@dimen/space_4"
                 android:ellipsize="end"
                 android:maxWidth="@dimen/space_110"
                 android:maxLines="1"
                 android:textColor="@color/color_base01"
+                app:layout_constraintBottom_toBottomOf="@+id/moniker_img"
                 app:layout_constraintStart_toEndOf="@id/moniker_img"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/moniker_img" />
 
             <ImageView
                 android:id="@+id/click_img"
@@ -68,37 +68,37 @@
                 app:layout_constraintStart_toEndOf="@+id/moniker"
                 app:layout_constraintTop_toTopOf="@+id/moniker" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/commission_layout"
+            <ImageView
+                android:id="@+id/status_img"
+                android:src="@drawable/icon_withdrawable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_5"
-                app:layout_constraintStart_toStartOf="@id/moniker"
-                app:layout_constraintTop_toBottomOf="@+id/moniker">
+                android:layout_marginEnd="@dimen/space_4"
+                app:layout_constraintTop_toTopOf="@+id/status"
+                app:layout_constraintBottom_toBottomOf="@+id/status"
+                app:layout_constraintEnd_toStartOf="@+id/status"/>
 
-                <TextView
-                    android:id="@+id/commission_title"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Commission : "
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/status"
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base01"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/commission"
-                    style="@style/font_sb_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/commission_title"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/remain_time"
+                style="@style/font_sm_11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_7"
+                android:layout_marginEnd="@dimen/space_16"
+                android:textColor="@color/color_base02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status" />
 
             <View
                 android:id="@+id/view"
@@ -122,7 +122,7 @@
                     style="@style/font_sm_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_staked"
+                    android:text="@string/str_unstaking"
                     android:textColor="@color/color_base02"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -142,42 +142,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/staked_title"
                     app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/reward_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginTop="@dimen/space_10"
-                app:layout_constraintTop_toBottomOf="@+id/staked_layout">
-
-                <TextView
-                    android:id="@+id/time_rock_title"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time Lock"
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/time_rock"
-                    style="@style/font_sb_12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_20"
-                    android:ellipsize="end"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:textColor="@color/color_base01"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/time_rock_title"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

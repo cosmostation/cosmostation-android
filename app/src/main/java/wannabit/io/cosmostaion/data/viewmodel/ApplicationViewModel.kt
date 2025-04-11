@@ -1319,7 +1319,7 @@ class ApplicationViewModel(
     }
 
     fun loadBtcData(
-        id: Long, chain: ChainBitCoin86, isEdit: Boolean? = false
+        id: Long, chain: ChainBitCoin86, isEdit: Boolean? = false, isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.btcFetcher()?.let { fetcher ->
             chain.apply {
@@ -1359,6 +1359,16 @@ class ApplicationViewModel(
                             }
                         }
 
+                        when (val networkInfo = walletRepository.btcNetworkInfo(chain)) {
+                            is NetworkResult.Success -> {
+                                chain.btcFetcher()?.btcNetworkInfo = networkInfo.data
+                            }
+
+                            is NetworkResult.Error -> {
+                                _chainDataErrorMessage.postValue("error type : ${networkInfo.errorType}  error message : ${networkInfo.errorMessage}")
+                            }
+                        }
+
                         fetchState = FetchState.SUCCESS
                         val refAddress = RefAddress(
                             id,
@@ -1379,6 +1389,8 @@ class ApplicationViewModel(
                         withContext(Dispatchers.Main) {
                             if (isEdit == true) {
                                 editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }
@@ -1390,6 +1402,8 @@ class ApplicationViewModel(
                         withContext(Dispatchers.Main) {
                             if (isEdit == true) {
                                 editFetchedResult.value = tag
+                            } else if (isRefresh == true) {
+                                refreshStakingInfoFetchedResult.value = tag
                             } else {
                                 fetchedResult.value = tag
                             }

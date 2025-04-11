@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.tx.genTx.major
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.TxResultType
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
@@ -66,11 +68,13 @@ class BtcStakingFragment : BaseTxFragment() {
 
     private lateinit var selectedChain: BaseChain
     private var babylonChain: BaseChain? = null
+    private var provider: String? = ""
     private var finalityProvider: FinalityProvider? = null
 
     private var selectedFeePosition = 0
     private var availableAmount = BigDecimal.ZERO
     private var btcFeeAmount = BigDecimal.ZERO
+    private var babylonFeeAmount = BigDecimal.ZERO
     private var toStakeAmount = ""
     private var babylonTxFee: TxProto.Fee? = null
 
@@ -78,9 +82,10 @@ class BtcStakingFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain): BtcStakingFragment {
+        fun newInstance(selectedChain: BaseChain, provider: String? = ""): BtcStakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
+                putString("provider", provider)
             }
             val fragment = BtcStakingFragment()
             fragment.arguments = args
@@ -123,6 +128,7 @@ class BtcStakingFragment : BaseTxFragment() {
                     selectedChain = it
                 }
             }
+            provider = arguments?.getString("provider") ?: ""
             initBabylonKeyData { chain ->
                 if (chain != null) {
                     val denom = if (selectedChain.isTestnet) "tBABY" else "BABY"
@@ -148,12 +154,26 @@ class BtcStakingFragment : BaseTxFragment() {
                 )
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+            infoImg.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.color_sub_blue),
+                PorterDuff.Mode.SRC_IN
+            )
 
-            if (finalityProvider == null) {
+            if (provider?.isEmpty() == true) {
                 (selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.firstOrNull { it.provider.description.moniker == "Cosmostation" }
                     ?.let { provider ->
                         finalityProvider = provider
                     } ?: run {
+                    finalityProvider =
+                        (selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.first()
+                }
+
+            } else {
+                (selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.firstOrNull {
+                    it.provider.btcPk.toByteArray().toHex() == provider
+                }?.let { provider ->
+                    finalityProvider = provider
+                } ?: run {
                     finalityProvider =
                         (selectedChain as ChainBitCoin86).btcFetcher?.btcFinalityProviders?.first()
                 }
@@ -216,6 +236,9 @@ class BtcStakingFragment : BaseTxFragment() {
                 val balanceAmount = (selectedChain as ChainBitCoin86).btcFetcher?.btcBalances
                 btcFeeAmount = fee.toBigDecimal()
                 availableAmount = balanceAmount?.subtract(btcFeeAmount)
+                if (availableAmount <= BigDecimal.ZERO) {
+                    availableAmount = BigDecimal.ZERO
+                }
 
                 loading.visibility = View.GONE
                 validatorView.visibility = View.VISIBLE
@@ -368,19 +391,29 @@ class BtcStakingFragment : BaseTxFragment() {
             }
 
             btnStake.setOnClickListener {
-                Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    suiDelegateResultLauncher.launch(this)
-                    if (Build.VERSION.SDK_INT >= 34) {
-                        requireActivity().overrideActivityTransition(
-                            Activity.OVERRIDE_TRANSITION_OPEN,
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
-                        )
+                handleOneClickWithDelay(
+                    BtcAdditionalFeeFragment.newInstance(
+                        selectedChain, babylonChain, babylonFeeAmount.toString()
+                    )
+                )
 
-                    } else {
-                        requireActivity().overridePendingTransition(
-                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                        )
+                requireActivity().supportFragmentManager.setFragmentResultListener(
+                    "tx", this@BtcStakingFragment
+                ) { _, _ ->
+                    Intent(requireContext(), PasswordCheckActivity::class.java).apply {
+                        btcDelegateResultLauncher.launch(this)
+                        if (Build.VERSION.SDK_INT >= 34) {
+                            requireActivity().overrideActivityTransition(
+                                Activity.OVERRIDE_TRANSITION_OPEN,
+                                R.anim.anim_slide_in_bottom,
+                                R.anim.anim_fade_out
+                            )
+
+                        } else {
+                            requireActivity().overridePendingTransition(
+                                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                            )
+                        }
                     }
                 }
             }
@@ -426,6 +459,7 @@ class BtcStakingFragment : BaseTxFragment() {
                     val gasRate = selectedFeeData?.gasRate
 
                     val feeCoinAmount = gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
+                    babylonFeeAmount = feeCoinAmount
                     val feeCoin =
                         CoinProto.Coin.newBuilder().setDenom(babylonTxFee?.getAmount(0)?.denom)
                             .setAmount(feeCoinAmount.toString()).build()
@@ -444,10 +478,15 @@ class BtcStakingFragment : BaseTxFragment() {
         }
     }
 
-    private val suiDelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private val btcDelegateResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
+
+                val fragment = requireActivity().supportFragmentManager.findFragmentByTag(
+                    BtcAdditionalFeeFragment::class.java.name
+                ) as? BottomSheetDialogFragment
+                fragment?.dismiss()
 
                 txViewModel.btcStakeBroadcast(
                     babylonChain?.cosmosFetcher?.getChannel(),
@@ -463,9 +502,9 @@ class BtcStakingFragment : BaseTxFragment() {
         }
 
     private fun setUpBroadcast() {
-        txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
+        txViewModel.btcStakeBroadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TxResultActivity::class.java).apply {
-                response?.let { txResponse ->
+                response.first?.let { txResponse ->
                     if (txResponse.code > 0) {
                         putExtra("isSuccess", false)
                     } else {
@@ -473,6 +512,12 @@ class BtcStakingFragment : BaseTxFragment() {
                     }
                     putExtra("errorMsg", txResponse.rawLog)
                     putExtra("selectedChain", babylonChain?.tag)
+
+                    putExtra("txResultType", TxResultType.BTC_STAKE.toString())
+                    putExtra("selectedBitChain", selectedChain.tag)
+                    putExtra("stakeTx", response.second)
+                    putExtra("toStakeAmount", toStakeAmount)
+                    putExtra("provider", finalityProvider?.provider?.btcPk?.toByteArray()?.toHex())
                     val hash = txResponse.txhash
                     if (!TextUtils.isEmpty(hash)) putExtra("txHash", hash)
                     startActivity(this)
@@ -506,6 +551,6 @@ class BtcStakingFragment : BaseTxFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-        txViewModel.broadcastTx.removeObservers(viewLifecycleOwner)
+        txViewModel.btcStakeBroadcast.removeObservers(viewLifecycleOwner)
     }
 }

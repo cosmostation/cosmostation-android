@@ -32,6 +32,7 @@ open class ChainBitCoin86 : BaseChain(), Parcelable {
     override var coinSymbol: String = "BTC"
 
     override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-mainnet"
+    override var apiUrl: String = "https://staking-api.babylonlabs.io"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey

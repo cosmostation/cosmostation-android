@@ -76,7 +76,6 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
-import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitExternalApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
@@ -1483,8 +1482,7 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun btcParams(channel: ManagedChannel?): NetworkResult<Params> {
         val stub = com.babylon.btcstaking.v1.QueryGrpc.newBlockingStub(channel)
             .withDeadlineAfter(duration, TimeUnit.SECONDS)
-        val request =
-            com.babylon.btcstaking.v1.QueryProto.QueryParamsRequest.newBuilder().build()
+        val request = com.babylon.btcstaking.v1.QueryProto.QueryParamsRequest.newBuilder().build()
         return safeApiCall(Dispatchers.IO) {
             stub.params(request).params
         }
@@ -1511,6 +1509,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun mempoolUtxo(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitUtxo(chain.mainAddress)
+        }
+    }
+
+    override suspend fun mempoolIsValidAddress(chain: ChainBitCoin86): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitApi(chain).bitIsValidAddress(chain.mainAddress)
         }
     }
 }

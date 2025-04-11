@@ -6,10 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.cosmos.staking.v1beta1.StakingProto.Validator
+import com.google.gson.JsonObject
 import com.initia.mstaking.v1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
 
 class ValidatorAdapter(
@@ -17,6 +21,7 @@ class ValidatorAdapter(
 ) : ListAdapter<Any, ValidatorViewHolder>(ValidatorDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
+    private var onBitItemClickListener: ((Pair<JsonObject, FinalityProvider>) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValidatorViewHolder {
         val binding =
@@ -27,6 +32,15 @@ class ValidatorAdapter(
     override fun onBindViewHolder(holder: ValidatorViewHolder, position: Int) {
         val validator = currentList[position]
         when (selectedChain) {
+            is ChainBitCoin86 -> {
+                holder.bitBind(selectedChain, validator as Pair<JsonObject, FinalityProvider>)
+                holder.itemView.setOnClickListener {
+                    onBitItemClickListener?.let {
+                        it(validator)
+                    }
+                }
+            }
+
             is ChainInitiaTestnet -> {
                 holder.initiaBind(selectedChain, validator as StakingProto.Validator)
                 holder.itemView.setOnClickListener {
@@ -77,5 +91,9 @@ class ValidatorAdapter(
 
     fun setOnItemClickListener(listener: (String) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setOnBitItemClickListener(listener: (Pair<JsonObject, FinalityProvider>) -> Unit) {
+        onBitItemClickListener = listener
     }
 }

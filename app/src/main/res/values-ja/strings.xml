@@ -148,6 +148,7 @@
     <string name="str_sort_multi">マルチネットワークサポート</string>
     <string name="str_sort_multi_description">サポートされているネットワーク数を並べ替えます</string>
     <string name="str_select_chain">チェーン選択</string>
+    <string name="str_insufficient_balance">手数料として使用する%1$sコインが不足しています。</string>
 
 
     //title
@@ -366,6 +367,8 @@
     <string name="str_btc_status_msg">これは、TaprootとNative Segwitにステーキングされた%1$sの合計です。</string>
     <string name="str_reward_msg">$%1$sでリワード支給</string>
     <string name="str_reward_msg1">リワードは$%1$sで支給され、私の%2$sアドレスに送信されます。</string>
+    <string name="str_additional_btc_fee_msg">BTC staking requires an additional fee in BABY, deducted from your BABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

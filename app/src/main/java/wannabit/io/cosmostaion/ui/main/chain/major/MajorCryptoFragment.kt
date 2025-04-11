@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
-import org.bitcoinj.core.Transaction
-import org.bitcoinj.params.TestNet3Params
-import org.bouncycastle.util.encoders.Hex
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
@@ -118,13 +114,6 @@ class MajorCryptoFragment : Fragment() {
                     }
                 }
             }
-        }
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            val params = TestNet3Params.get()
-            val txBytes = Hex.decode("02000000010d84e3f16690c7f6b3f039cc1c71ad40241996688b4717154f3c9ab9d83d2e300100000000ffffffff022cd1070000000000225120c2f1145e9cb31f12375d027e0e0ac0d5023a8f499eaebd53d2e086974e17f7b6fa0f5f000000000022512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc00000000")
-            val tx = Transaction(params, txBytes)
-            Log.e("test12345 : ", tx.txId.toString())
         }
     }
 

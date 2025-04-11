@@ -13,7 +13,9 @@ import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.gno.bank.BankProto.MsgSend
 import com.gno.vm.VmProto.MsgCall
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -311,6 +313,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val suiBroadcast = SingleLiveEvent<JsonObject>()
 
     val bitBroadcast = SingleLiveEvent<String?>()
+
+    val btcStakeBroadcast = SingleLiveEvent<Pair<AbciProto.TxResponse?, String?>>()
 
     fun broadcast(
         managedChannel: ManagedChannel?,
@@ -736,11 +740,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 )
             }
 
-            val utxo =
-                "[\\n {\\n  \\\"txid\\\" : \\\"ca565b9eafaad83a99d775d5fd3e6600a391090036480d70c7c06c6ae659c58d\\\",\\n  \\\"vout\\\" : 1,\\n  \\\"value\\\" : 6072980,\\n  \\\"status\\\" : {\\n   \\\"block_hash\\\" : \\\"0000008a6461915fb98eb2cb195c2819cb73ac004012aa01acc954bf7d79af2c\\\",\\n   \\\"block_time\\\" : 1744193036,\\n   \\\"confirmed\\\" : true,\\n   \\\"block_height\\\" : 243075\\n  },\\n  \\\"scriptPubKey\\\" : \\\"512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc\\\"\\n }\\n]"
+            val availableUTxo =
+                JsonParser.parseString(selectedChain.btcFetcher?.btcUtxo).asJsonArray
+            val dpAvailableUTxo = GsonBuilder().setPrettyPrinting().create().toJson(availableUTxo)
 
             val preStakingFunction = """function preStakingFunction() {     
-                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, '${utxo}', ${feeRate}, '${babylonAddress}');
+                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, `$dpAvailableUTxo`, ${feeRate}, '${babylonAddress}');
                          return txValue;
                     }""".trimMargin()
             bitcoinJS.mergeFunction(preStakingFunction)
@@ -789,7 +794,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val msg = Signer.btcCreateBTCDelegation(msgCreateBTCDelegation)
             val response = txRepository.broadcastTx(managedChannel, msg, fee, memo, babylonChain)
 
-            broadcast.postValue(response)
+            btcStakeBroadcast.postValue(Pair(response, msgValue["stakingTx"].asString))
 
         } catch (e: Exception) {
             errorMessage.postValue(e.message.toString())
@@ -828,11 +833,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 )
             }
 
-            val utxo =
-                "[\\n {\\n  \\\"txid\\\" : \\\"ca565b9eafaad83a99d775d5fd3e6600a391090036480d70c7c06c6ae659c58d\\\",\\n  \\\"vout\\\" : 1,\\n  \\\"value\\\" : 6072980,\\n  \\\"status\\\" : {\\n   \\\"block_hash\\\" : \\\"0000008a6461915fb98eb2cb195c2819cb73ac004012aa01acc954bf7d79af2c\\\",\\n   \\\"block_time\\\" : 1744193036,\\n   \\\"confirmed\\\" : true,\\n   \\\"block_height\\\" : 243075\\n  },\\n  \\\"scriptPubKey\\\" : \\\"512065ea2f5039ac4fadc4d92da078423c72acdf6ab75efe79de1943bd0daf5a71dc\\\"\\n }\\n]"
+            val availableUTxo =
+                JsonParser.parseString(selectedChain.btcFetcher?.btcUtxo).asJsonArray
+            val dpAvailableUTxo = GsonBuilder().setPrettyPrinting().create().toJson(availableUTxo)
 
             val preStakingFunction = """function preStakingFunction() {     
-                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, '${utxo}', ${feeRate}, '${babylonAddress}');
+                    const txValue = preStakeRegistrationBabylonTransaction('${stakerBtcInfo}', '${stakingInput}', ${tipHeight}, `$dpAvailableUTxo`, ${feeRate}, '${babylonAddress}');
                          return txValue;
                     }""".trimMargin()
             bitcoinJS.mergeFunction(preStakingFunction)
@@ -887,6 +893,142 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 simulate.postValue(response)
             } else {
                 errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun btcStakeActiveBroadcast(
+        provider: String?, toStakeAmount: String, stakeTx: String, selectedChain: ChainBitCoin86
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val version = selectedChain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
+                "params"
+            )?.asJsonObject?.get("bbn")?.asJsonArray?.last()?.asJsonObject?.get("version")?.asInt
+                ?: 6
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", selectedChain.mainAddress)
+                addProperty("stakerPublicKeyHex", selectedChain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", toStakeAmount.toLong())
+                addProperty(
+                    "stakingTimelock",
+                    selectedChain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val availableUTxo =
+                JsonParser.parseString(selectedChain.btcFetcher?.btcUtxo).asJsonArray
+            val dpAvailableUTxo = GsonBuilder().setPrettyPrinting().create().toJson(availableUTxo)
+
+            val createStakingFunction = """function createStakingFunction() {     
+                    const active = createSignedBtcStakingTransaction('${stakerBtcInfo}', '${stakingInput}', '${stakeTx}', `$dpAvailableUTxo`, ${version});
+                         return active;
+                    }""".trimMargin()
+            BitcoinJs.mergeFunction(createStakingFunction)
+            val txHash = BitcoinJs.executeFunction("createStakingFunction()") ?: ""
+
+            val response = txRepository.broadcastBitSend(
+                selectedChain, txHash
+            )
+
+            if (!response.isNullOrEmpty()) {
+                bitBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun btcUnStakeBroadcast(chain: ChainBitCoin86, txHex: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = txRepository.broadcastBitSend(
+                    chain, txHex
+                )
+
+                if (!response.isNullOrEmpty()) {
+                    bitBroadcast.postValue(response)
+                } else {
+                    errorMessage.postValue(response)
+                }
+
+            } catch (e: Exception) {
+                errorMessage.postValue(e.message.toString())
+            }
+        }
+
+    fun btcUnStakeSimulate(
+        staked: Pair<JsonObject, FinalityProvider>?, selectedChain: ChainBitCoin86
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val network = if (selectedChain.isTestnet) "testnet" else "mainnet"
+            val privateKeyHex = selectedChain.privateKey?.toHex()
+            val signerAddress = selectedChain.mainAddress
+            val stakingParams =
+                selectedChain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
+                    "params"
+                )?.asJsonObject?.get("bbn")?.asJsonArray
+
+            val initBTCStakingFunction = """function initBTCStakingFunction() {
+                                            const signMessage = initBTCStaking('${network}', '${privateKeyHex}', '${signerAddress}', '${stakingParams.toString()}');
+                                            return signMessage;
+                                        }""".trimMargin()
+            BitcoinJs.mergeFunction(initBTCStakingFunction)
+            BitcoinJs.executeFunction("initBTCStakingFunction()")
+
+            val version = selectedChain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
+                "params"
+            )?.asJsonObject?.get("bbn")?.asJsonArray?.last()?.asJsonObject?.get("version")?.asInt
+                ?: 6
+
+            val provider = staked?.second?.provider?.btcPk?.toByteArray()?.toHex()
+            val toStakeAmount =
+                staked?.first?.get("delegation_staking")?.asJsonObject?.get("staking_amount")?.asString
+
+            val stakeTx =
+                staked?.first?.get("delegation_staking")?.asJsonObject?.get("staking_tx_hex")?.asString
+            val unBondingTx =
+                staked?.first?.get("delegation_unbonding")?.asJsonObject?.get("unbonding_tx")?.asString
+            val covenants =
+                staked?.first?.get("delegation_unbonding")?.asJsonObject?.get("covenant_unbonding_signatures")?.asJsonArray
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", signerAddress)
+                addProperty("stakerPublicKeyHex", selectedChain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", toStakeAmount?.toLong())
+                addProperty(
+                    "stakingTimelock",
+                    selectedChain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val covenantsToJson = GsonBuilder().setPrettyPrinting().create().toJson(covenants)
+
+            val createSignedBtcUnbonding = """function createSignedBtcUnbonding() {
+                    const unbonding = createSignedBtcUnbondingTransaction('${stakerBtcInfo}', '${stakingInput}', ${version}, '${stakeTx}', '${unBondingTx}', `$covenantsToJson`);
+                         return unbonding;
+                    }""".trimMargin()
+            BitcoinJs.mergeFunction(createSignedBtcUnbonding)
+            val simulateData = BitcoinJs.executeFunction("createSignedBtcUnbonding()") ?: ""
+
+            if (simulateData.isNotEmpty()) {
+                simulate.postValue(simulateData)
+            } else {
+                errorMessage.postValue(simulateData)
             }
 
         } catch (e: Exception) {

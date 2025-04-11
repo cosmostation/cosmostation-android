@@ -100,10 +100,10 @@ class SuiActiveFragment : Fragment() {
 
                     val active = activeList.filter { it.second["status"].asString != "Pending" }
                     if (active.isEmpty()) {
-                        emptyStake.visibility = View.VISIBLE
+                        emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {
-                        emptyStake.visibility = View.GONE
+                        emptyLayout.visibility = View.GONE
                         recycler.visibility = View.VISIBLE
 
                         suiStakingInfoAdapter = SuiStakingInfoAdapter(selectedChain)
