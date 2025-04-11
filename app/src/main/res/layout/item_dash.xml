@@ -241,14 +241,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
                 android:layout_marginTop="@dimen/space_10"
-                android:background="@color/color_divider"
+                android:background="@color/color_border"
                 app:layout_constraintTop_toBottomOf="@+id/chain_img" />
 
             <View
                 android:id="@+id/vertical_view"
                 android:layout_width="0.6dp"
                 android:layout_height="35dp"
-                android:background="@color/color_divider"
+                android:background="@color/color_border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/chain_name"
                 app:layout_constraintTop_toBottomOf="@+id/view" />

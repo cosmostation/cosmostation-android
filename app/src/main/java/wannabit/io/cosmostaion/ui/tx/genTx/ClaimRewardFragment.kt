@@ -233,6 +233,12 @@ class ClaimRewardFragment : BaseTxFragment() {
                             validators.firstOrNull { it.operatorAddress == maxValidator?.delegation?.validatorAddress }?.description?.moniker?.trim()
                     }
 
+                    if (delegations.size > 1) {
+                        validatorCnt.text = "+ " + (delegations.size - 1)
+                    } else {
+                        validatorCnt.visibility = View.GONE
+                    }
+
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)
                         ?.let { asset ->
                             val rewardAmount =
