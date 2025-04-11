@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,10 +23,8 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.dpTimeNotSecond
 import wannabit.io.cosmostaion.common.formatPercent
 import wannabit.io.cosmostaion.common.formatTxTime
-import wannabit.io.cosmostaion.common.gapTime
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
@@ -143,7 +140,20 @@ class AboutFragment : Fragment() {
                 val unBondingTime = unBondingTime()
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {
                     if (selectedChain is ChainBabylon) {
-                        if (selectedChain.isTestnet) "Est. 1 Day" else "Est. 1 Week"
+                        try {
+                            val stakingUnBondingTime =
+                                selectedChain.getChainParam()?.getAsJsonObject("params")
+                                    ?.getAsJsonObject("staking_params")?.getAsJsonObject("params")
+                                    ?.get("unbonding_time")?.asString
+                            val number = stakingUnBondingTime?.replace(Regex("\\D"), "")
+                            val hour = number?.toInt()?.div(3600)?.toDouble()?.toBigDecimal()
+                                ?.setScale(0, RoundingMode.UP)
+                            "Est. ${hour.toString()} Hours"
+
+                        } catch (e: Exception) {
+                            "-"
+                        }
+
                     } else {
                         "$unBondingTime Days"
                     }

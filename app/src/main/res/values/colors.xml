@@ -10,6 +10,7 @@
     <color name="color_base08">#393A50</color>
     <color name="color_base09">#2C2D44</color>
     <color name="color_divider">#1AFFFFFF</color>
+    <color name="color_border">#0AFFFFFF</color>
 
     <color name="color_search">#66505267</color>
 

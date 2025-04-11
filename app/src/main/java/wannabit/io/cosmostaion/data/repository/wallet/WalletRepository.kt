@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
-import com.babylon.btccheckpoint.v1.ParamsProto
 import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
@@ -222,8 +221,6 @@ interface WalletRepository {
     suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>>
-
-    suspend fun btcCheckPointParam(channel: ManagedChannel?, chain: BaseChain): NetworkResult<ParamsProto.Params>
 
     suspend fun chainHeight(
         channel: ManagedChannel?, chain: BaseChain
