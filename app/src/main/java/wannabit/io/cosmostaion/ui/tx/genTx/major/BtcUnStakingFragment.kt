@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
 import wannabit.io.cosmostaion.ui.tx.option.validator.ProviderFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ProviderListener
 import java.math.BigDecimal
@@ -226,7 +227,7 @@ class BtcUnStakingFragment(
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ProviderFragment(selectedChain, object : ProviderListener {
+                    ProviderFragment(selectedChain, BtcTxType.BTC_UNSTAKE, object : ProviderListener {
                         override fun select(staked: Pair<JsonObject, FinalityProvider>) {
                             btcActiveStakingData = staked
                             updateValidatorView()
@@ -239,7 +240,7 @@ class BtcUnStakingFragment(
 
             btnUnstake.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    btcDelegateResultLauncher.launch(this)
+                    btcUnBondingResultLauncher.launch(this)
                     if (Build.VERSION.SDK_INT >= 34) {
                         requireActivity().overrideActivityTransition(
                             Activity.OVERRIDE_TRANSITION_OPEN,
@@ -287,7 +288,7 @@ class BtcUnStakingFragment(
         }
     }
 
-    private val btcDelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private val btcUnBondingResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE

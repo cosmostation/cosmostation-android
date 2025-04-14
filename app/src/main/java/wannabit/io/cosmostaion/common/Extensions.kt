@@ -345,6 +345,11 @@ fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
     toast.show()
 }
 
+fun Context.makeToastWithData(msg: Int, data: String) {
+    val msgData = getString(msg, data)
+    Toast.makeText(this, msgData, Toast.LENGTH_SHORT).show()
+}
+
 fun String.hexToBigDecimal(): BigDecimal {
     if (this.isEmpty()) {
         return BigDecimal.ZERO

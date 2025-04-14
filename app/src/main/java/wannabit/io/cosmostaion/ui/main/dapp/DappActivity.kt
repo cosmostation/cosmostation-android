@@ -1146,23 +1146,6 @@ class DappActivity : BaseActivity() {
                             accountJson.put("name", account.name)
                             accountJson.put("publicKey", chain?.publicKey?.bytesToHex())
                             appToWebResult(messageJson, accountJson, messageId)
-
-
-//                            selectedChain(allChains, chainId)?.let { chain ->
-//                                selectChain = chain
-//                                val accountJson = JSONObject()
-//                                accountJson.put("isLedger", false)
-//                                accountJson.put("isEthermint", selectChain?.supportEvm)
-//                                accountJson.put("address", selectChain?.address)
-//                                accountJson.put("name", account.name)
-//                                accountJson.put("publicKey", selectChain?.publicKey?.bytesToHex())
-//                                appToWebResult(messageJson, accountJson, messageId)
-//
-//                            } ?: run {
-//                                appToWebError(
-//                                    messageJson, messageId, "Invalid method parameter(s)."
-//                                )
-//                            }
                         }
                     }
                 }

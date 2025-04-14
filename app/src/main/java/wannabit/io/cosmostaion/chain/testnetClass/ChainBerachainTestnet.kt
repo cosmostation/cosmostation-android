@@ -26,5 +26,5 @@ class ChainBerachainTestnet : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://bartio.rpc.berachain.com/"
+    override var evmRpcURL: String = "https://bartio.rpc.berachain.com"
 }

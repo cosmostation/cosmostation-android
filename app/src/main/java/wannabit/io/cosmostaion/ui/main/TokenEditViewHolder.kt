@@ -35,6 +35,7 @@ class TokenEditViewHolder(
                             if (token.fetched) {
                                 skeletonTokenAmount.visibility = View.GONE
                                 skeletonTokenValue.visibility = View.GONE
+
                                 tokenAmount.text = formatAmount(amount.toPlainString(), 6)
                                 chain.cosmosFetcher?.let {
                                     tokenValue.text =
@@ -59,8 +60,11 @@ class TokenEditViewHolder(
                         evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
                             ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
                                 if (evmToken.fetched) {
+                                    tokenImg.setTokenImg(token.image)
+                                    tokenImg.clipToOutline = true
                                     skeletonTokenAmount.visibility = View.GONE
                                     skeletonTokenValue.visibility = View.GONE
+
                                     tokenAmount.text = formatAmount(amount.toPlainString(), 6)
                                     chain.evmRpcFetcher?.let {
                                         tokenValue.text =
@@ -85,8 +89,11 @@ class TokenEditViewHolder(
                         token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
                             ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
                                 if (token.fetched) {
+                                    tokenImg.setTokenImg(token.image)
+                                    tokenImg.clipToOutline = true
                                     skeletonTokenAmount.visibility = View.GONE
                                     skeletonTokenValue.visibility = View.GONE
+
                                     tokenAmount.text = formatAmount(amount.toPlainString(), 6)
                                     chain.gnoRpcFetcher?.let {
                                         tokenValue.text =

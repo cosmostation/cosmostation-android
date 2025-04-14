@@ -12,9 +12,12 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
 
 class ProviderFragment(
-    private val selectedChain: BaseChain, val listener: ProviderListener
+    private val selectedChain: BaseChain,
+    private val btcTxType: BtcTxType,
+    val listener: ProviderListener
 ) : BottomSheetDialogFragment() {
 
     private var _binding: FragmentCommonBottomBinding? = null
@@ -42,7 +45,11 @@ class ProviderFragment(
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = validatorAdapter
-            validatorAdapter.submitList((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData as List<Any>)
+            if (btcTxType == BtcTxType.BTC_UNSTAKE) {
+                validatorAdapter.submitList((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData as List<Any>)
+            } else {
+                validatorAdapter.submitList((selectedChain as ChainBitCoin86).btcFetcher?.btcWithdrawAbleStakingData as List<Any>)
+            }
 
             validatorAdapter.setOnBitItemClickListener {
                 listener.select(it)

@@ -223,6 +223,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         } else {
             ChainBabylon().cosmosFetcher()?.getChannel()
         }
+
         if (chain.btcFetcher()?.btcFinalityProviders?.isNotEmpty() == true) {
             return@launch
         }
@@ -236,6 +237,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             val loadFinalityProviderDeferred =
                 async { walletRepository.btcFinalityProviders(channel) }
             val loadBtcParamsDeferred = async { walletRepository.btcParams(channel) }
+            val loadFeeDeferred = async { walletRepository.btcFee(chain) }
 
             val statusHeightResult = loadStatusHeightDeferred.await()
             if (statusHeightResult is NetworkResult.Success) {
@@ -260,6 +262,13 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             val btcParamsResult = loadBtcParamsDeferred.await()
             if (btcParamsResult is NetworkResult.Success) {
                 chain.btcFetcher()?.btcParams = btcParamsResult.data
+            }
+
+            val btcFeeResult = loadFeeDeferred.await()
+            if (btcFeeResult is NetworkResult.Success && btcFeeResult.data is JsonObject) {
+                chain.btcFetcher()?.btcFastFee = btcFeeResult.data["fastestFee"].asLong
+            } else {
+                chain.btcFetcher()?.btcFastFee = 0L
             }
 
             withContext(Dispatchers.Default) {
@@ -396,12 +405,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             try {
                 val loadBtcClientTipHeightDeferred =
                     async { walletRepository.btcClientTip(this@apply) }
-                val loadFeeDeferred = async { walletRepository.btcFee(this@apply) }
                 val loadIsValidDeferred = async { walletRepository.mempoolIsValidAddress(chain) }
                 val loadUtxoDeferred = async { walletRepository.mempoolUtxo(chain) }
 
                 val btcClientTipHeightResult = loadBtcClientTipHeightDeferred.await()
-                val feeResult = loadFeeDeferred.await()
                 val isValidAddressResult = loadIsValidDeferred.await()
                 val utxoResult = loadUtxoDeferred.await()
 
@@ -410,12 +417,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         btcClientTipHeightResult.data["header"].asJsonObject["height"].asLong
                 } else {
                     btcFetcher()?.btcClientTipHeight = 0L
-                }
-
-                if (feeResult is NetworkResult.Success && feeResult.data is JsonObject) {
-                    btcFetcher()?.btcFastFee = feeResult.data["fastestFee"].asLong
-                } else {
-                    btcFetcher()?.btcFastFee = 0L
                 }
 
                 if (isValidAddressResult is NetworkResult.Success && isValidAddressResult.data is JsonObject) {

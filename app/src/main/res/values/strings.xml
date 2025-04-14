@@ -360,6 +360,7 @@
     <string name="title_staked_btc" translatable="false">Staked %1$s</string>
     <string name="title_select_option">Select Sort Option</string>
     <string name="title_additional_fee" translatable="false">Additional Fee in $%1$s</string>
+    <string name="title_time_lock_unstaking" translatable="false">Time Lock and Unstaking</string>
 
 
     // msg
@@ -472,6 +473,8 @@
     <string name="str_reward_msg1">Rewards are paid in $%1$s to my %2$s address.</string>
     <string name="str_additional_btc_fee_msg">BTC staking requires an additional fee in BABY, deducted from your BABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
     <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_time_lock_msg">After staking $%1$s, it is locked for up to &lt;font color="#BED1F2"&gt;%2$s weeks.&lt;/font&gt;\nAfter this period, it becomes automatically withdrawable without unstaking.</string>
+    <string name="str_unstaking_msg">You can unstake at any time, It will become withdrawable after a &lt;font color="#BED1F2"&gt;7-day&lt;/font&gt; unstaking period.</string>
 
 
     // header
@@ -541,6 +544,8 @@
     <string name="error_memo_count">Please check your memo size.</string>
     <string name="error_pending_balance">Waiting for the previous transaction to be processed</string>
     <string name="error_js">The data cannot be read because it is not in the correct format</string>
+    <string name="error_at_least_btc_balance">Staking amount must be at least %1$s</string>
+    <string name="error_max_btc_balance">Staking amount must be no more than %1$s</string>
 
 
     // tx

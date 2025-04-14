@@ -298,7 +298,7 @@ class DepositEarningFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.EARN_DEPOSIT,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.EARN_DEPOSIT,
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(

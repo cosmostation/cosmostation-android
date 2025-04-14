@@ -268,6 +268,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
                     InsertAmountFragment.newInstance(
+                        selectedChain,
                         TxType.UN_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,

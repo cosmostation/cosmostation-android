@@ -369,6 +369,8 @@
     <string name="str_reward_msg1">リワードは$%1$sで支給され、私の%2$sアドレスに送信されます。</string>
     <string name="str_additional_btc_fee_msg">BTC staking requires an additional fee in BABY, deducted from your BABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
     <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_time_lock_msg">%1$sをステーキングすると、最大&lt;font color="#BED1F2"&gt;%2$s週&lt;/font&gt;間ロックされます。\nこの期間が終了すると、アンステーキングせずに自動的に出金可能になります。</string>
+    <string name="str_unstaking_msg">いつでもアンステーキングが可能で、アンステーキング後7日間の期間を経て出金できるようになります。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -417,6 +419,8 @@
     <string name="error_memo_count">メモのサイズを確認してください。</string>
     <string name="error_pending_balance">前回の取引が処理されるのを待っています。</string>
     <string name="error_js">データの形式が正しくないため、読み取ることができません。</string>
+    <string name="error_at_least_btc_balance">ステーキングするには最低 %1$s が必要です。</string>
+    <string name="error_max_btc_balance">ステーキング金額は最大で %1$s までです。</string>
 
 
     <string name="tx_unknown">不明</string>

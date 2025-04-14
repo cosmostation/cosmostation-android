@@ -243,7 +243,7 @@ class SuiStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.SUI_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.SUI_DELEGATE,
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAsset(

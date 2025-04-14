@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -37,6 +38,7 @@ import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
@@ -1563,4 +1565,82 @@ class ApplicationViewModel(
                 }
             }
         }
+
+    var refreshStakeData = SingleLiveEvent<Boolean>()
+
+    fun refreshBtcStakeData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
+        val activeList: MutableList<JsonObject> = mutableListOf()
+        val unBondingList: MutableList<JsonObject> = mutableListOf()
+        val withdrawAbleList: MutableList<JsonObject> = mutableListOf()
+
+        chain.btcFetcher()?.btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
+            if (data.asJsonObject["state"].asString == "ACTIVE") {
+                activeList.add(data.asJsonObject)
+            }
+
+            if (data.asJsonObject["state"].asString == "EARLY_UNBONDING" || data.asJsonObject["state"].asString == "TIMELOCK_UNBONDING") {
+                unBondingList.add(data.asJsonObject)
+            }
+
+            if (data.asJsonObject["state"].asString.contains("EARLY_UNBONDING_WITHDRAWABLE")) {
+                withdrawAbleList.add(data.asJsonObject)
+            }
+        }
+
+        val matchedActivePairs: List<Pair<JsonObject, FinalityProvider>> =
+            activeList.mapNotNull { active ->
+                val pkHex =
+                    active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                val matchedProvider =
+                    chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                        provider.provider.btcPk.toByteArray().toHex() == pkHex
+                    }
+
+                if (matchedProvider != null) {
+                    Pair(active, matchedProvider)
+                } else {
+                    null
+                }
+            }
+        chain.btcFetcher()?.btcActiveStakingData = matchedActivePairs
+
+        val matchedUnBondingPairs: List<Pair<JsonObject, FinalityProvider>> =
+            unBondingList.mapNotNull { active ->
+                val pkHex =
+                    active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                val matchedProvider =
+                    chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                        provider.provider.btcPk.toByteArray().toHex() == pkHex
+                    }
+
+                if (matchedProvider != null) {
+                    Pair(active, matchedProvider)
+                } else {
+                    null
+                }
+            }
+        chain.btcFetcher()?.btcUnBondingStakingData = matchedUnBondingPairs
+
+        val matchedWithdrawPairs: List<Pair<JsonObject, FinalityProvider>> =
+            withdrawAbleList.mapNotNull { active ->
+                val pkHex =
+                    active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                val matchedProvider =
+                    chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                        provider.provider.btcPk.toByteArray().toHex() == pkHex
+                    }
+
+                if (matchedProvider != null) {
+                    Pair(active, matchedProvider)
+                } else {
+                    null
+                }
+            }
+        chain.btcFetcher()?.btcWithdrawAbleStakingData = matchedWithdrawPairs
+
+        refreshStakeData.postValue(true)
+    }
 }

@@ -17,13 +17,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/title_unstake_img"
+            android:id="@+id/title_withdraw_img"
             android:layout_width="@dimen/space_24"
             android:layout_height="@dimen/space_24"
             android:src="@drawable/token_default" />
 
         <TextView
-            android:id="@+id/title_unstake"
+            android:id="@+id/title_withdraw"
             style="@style/font_sb_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
             android:paddingTop="@dimen/space_15">
 
             <TextView
-                android:id="@+id/undelegate_amount_title"
+                android:id="@+id/withdraw_amount_title"
                 style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/undelegate_amount_msg"
+                android:id="@+id/withdraw_amount_msg"
                 style="@style/font_sm_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,37 +132,37 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/undelegate_amount_title" />
+                app:layout_constraintTop_toBottomOf="@+id/withdraw_amount_title" />
 
             <TextView
-                android:id="@+id/undelegate_amount"
+                android:id="@+id/withdraw_amount"
                 style="@style/font_sb_14"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_2"
                 android:gravity="end"
                 android:textColor="@color/color_base01"
-                app:layout_constraintEnd_toStartOf="@+id/undelegate_denom"
+                app:layout_constraintEnd_toStartOf="@+id/withdraw_denom"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/undelegate_denom"
+                android:id="@+id/withdraw_denom"
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base01"
-                app:layout_constraintBaseline_toBaselineOf="@+id/undelegate_amount"
+                app:layout_constraintBaseline_toBaselineOf="@+id/withdraw_amount"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
-                android:id="@+id/undelegate_value"
+                android:id="@+id/withdraw_value"
                 style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/undelegate_denom" />
+                app:layout_constraintTop_toBottomOf="@+id/withdraw_denom" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -174,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_20"
-        app:layout_constraintBottom_toTopOf="@+id/btn_unstake"
+        app:layout_constraintBottom_toTopOf="@+id/btn_withdraw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -307,7 +307,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btn_unstake"
+        android:id="@+id/btn_withdraw"
         style="@style/font_sb_16"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_54"
@@ -315,7 +315,7 @@
         android:layout_marginBottom="@dimen/space_12"
         android:background="@drawable/button_disable_bg"
         android:enabled="false"
-        android:text="@string/str_unstake"
+        android:text="@string/str_withdraw"
         android:textAllCaps="false"
         android:textColor="@color/color_base03"
         app:layout_constraintBottom_toBottomOf="parent"

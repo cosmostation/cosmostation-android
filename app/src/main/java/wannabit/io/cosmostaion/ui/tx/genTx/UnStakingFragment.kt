@@ -428,7 +428,7 @@ class UnStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.UN_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.UN_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(

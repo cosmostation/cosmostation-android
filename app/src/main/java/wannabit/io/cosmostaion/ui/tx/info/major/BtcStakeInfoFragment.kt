@@ -14,8 +14,11 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.makeToastWithData
 import wannabit.io.cosmostaion.databinding.FragmentBtcStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcStakingFragment
+import java.math.RoundingMode
 
 class BtcStakeInfoFragment : Fragment() {
 
@@ -84,13 +87,13 @@ class BtcStakeInfoFragment : Fragment() {
                 }
             }.attach()
 
-            if ((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData?.isNotEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcUnBondingStakingData?.isNotEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcWithdrawAbleStakingData?.isNotEmpty() == true) {
-                emptyStake.visibility = View.GONE
-                stakingDataView.visibility = View.VISIBLE
-
-            } else {
+            if ((selectedChain as ChainBitCoin86).btcFetcher?.btcActiveStakingData?.isEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcUnBondingStakingData?.isEmpty() == true && (selectedChain as ChainBitCoin86).btcFetcher?.btcWithdrawAbleStakingData?.isEmpty() == true) {
                 emptyStake.visibility = View.VISIBLE
                 stakingDataView.visibility = View.GONE
+
+            } else {
+                emptyStake.visibility = View.GONE
+                stakingDataView.visibility = View.VISIBLE
             }
         }
     }
@@ -101,7 +104,28 @@ class BtcStakeInfoFragment : Fragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
 
+            btnInfo.setOnClickListener {
+                handleOneClickWithDelay(BtcInfoFragment.newInstance(selectedChain))
+            }
+
             btnStake.setOnClickListener {
+                val btcBalance = (selectedChain as ChainBitCoin86).btcFetcher?.btcBalances
+                val minStakeBalance =
+                    (selectedChain as ChainBitCoin86).btcFetcher?.btcParams?.minStakingValueSat
+                        ?: 50000L
+                val dpMinStakeBalance = minStakeBalance.toBigDecimal().movePointLeft(8).setScale(8, RoundingMode.DOWN)
+                val denom = if (selectedChain.isTestnet) {
+                    "sBTC"
+                } else {
+                    "BTC"
+                }
+
+                if (minStakeBalance.toBigDecimal() >= btcBalance) {
+                    requireActivity().makeToastWithData(R.string.error_at_least_btc_balance,
+                        "$dpMinStakeBalance $denom"
+                    )
+                    return@setOnClickListener
+                }
                 handleOneClickWithDelay(BtcStakingFragment.newInstance(selectedChain))
             }
         }
@@ -145,3 +169,5 @@ class BtcStakeInfoFragment : Fragment() {
         super.onDestroyView()
     }
 }
+
+enum class BtcTxType { BTC_UNSTAKE, BTC_WITHDRAW }

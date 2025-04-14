@@ -111,6 +111,12 @@ class BtcActiveFragment : Fragment() {
     private fun observeViewModels() {
         ApplicationViewModel.shared.refreshStakingInfoFetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
+                ApplicationViewModel.shared.refreshBtcStakeData(selectedChain as ChainBitCoin86)
+            }
+        }
+
+        ApplicationViewModel.shared.refreshStakeData.observe(viewLifecycleOwner) { response ->
+            if (response) {
                 ApplicationViewModel.shared.notifyRefreshEvent()
                 updateView()
             }

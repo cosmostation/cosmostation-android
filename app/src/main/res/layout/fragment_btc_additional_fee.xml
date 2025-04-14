@@ -32,6 +32,8 @@
         style="@style/font_sm_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="@dimen/space_4"
+        android:lineSpacingMultiplier="1.0"
         android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_8"
         android:textColor="@color/color_base03"

@@ -18,7 +18,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentSuiActiveBinding
-import wannabit.io.cosmostaion.ui.tx.option.general.BtcStakeOptionFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcWithdrawFragment
 
 class BtcNotActiveFragment : Fragment() {
 
@@ -122,7 +122,7 @@ class BtcNotActiveFragment : Fragment() {
     private val selectClickAction = object : BtcNotActiveInfoAdapter.ClickListener {
         override fun selectWithdrawAction(staked: Pair<JsonObject, FinalityProvider>?) {
             handleOneClickWithDelay(
-                BtcStakeOptionFragment(selectedChain, staked)
+                BtcWithdrawFragment(selectedChain, staked)
             )
         }
     }

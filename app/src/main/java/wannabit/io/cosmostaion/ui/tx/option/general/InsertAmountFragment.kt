@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
+import wannabit.io.cosmostaion.common.makeToastWithData
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.FragmentInsertAmountBinding
@@ -27,6 +30,7 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentInsertAmountBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var fromChain: BaseChain
     private lateinit var txType: TxType
     private var availableAmount: String? = ""
     private var toAmount: String? = ""
@@ -37,6 +41,7 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
     companion object {
         @JvmStatic
         fun newInstance(
+            fromChain: BaseChain,
             txType: TxType,
             availableAmount: String?,
             toAmount: String?,
@@ -44,6 +49,7 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
             listener: AmountSelectListener
         ): InsertAmountFragment {
             val args = Bundle().apply {
+                putParcelable("fromChain", fromChain)
                 putSerializable("txType", txType)
                 putString("availableAmount", availableAmount)
                 putString("toAmount", toAmount)
@@ -78,12 +84,18 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    getParcelable(
+                        "fromChain", BaseChain::class.java
+                    )?.let { fromChain = it }
                     getSerializable(
                         "txType", TxType::class.java
                     )?.let { txType = it }
                     getParcelable("toAsset", Asset::class.java)?.let { toAsset = it }
 
                 } else {
+                    (getParcelable("fromChain") as? BaseChain)?.let {
+                        fromChain = it
+                    }
                     (getSerializable("txType") as? TxType)?.let {
                         txType = it
                     }
@@ -311,6 +323,41 @@ class InsertAmountFragment : BottomSheetDialogFragment() {
                 val originalAmount =
                     BigDecimal(amountTxt.text.toString().trim()).movePointRight(assetDecimal)
                         .setScale(0, RoundingMode.DOWN)
+
+                if (txType == TxType.BTC_DELEGATE && fromChain is ChainBitCoin86) {
+                    val minStakeBalance =
+                        (fromChain as ChainBitCoin86).btcFetcher?.btcParams?.minStakingValueSat
+                            ?: 50000L
+                    val maxStakeBalance =
+                        (fromChain as ChainBitCoin86).btcFetcher?.btcParams?.maxStakingValueSat
+                            ?: 35000000000L
+                    val dpMinStakeBalance = minStakeBalance.toBigDecimal().movePointLeft(8)
+                        .setScale(8, RoundingMode.DOWN)
+                    val dpMaxStakeBalance = maxStakeBalance.toBigDecimal().movePointLeft(8)
+                        .setScale(8, RoundingMode.DOWN)
+                    val denom = if (fromChain.isTestnet) {
+                        "sBTC"
+                    } else {
+                        "BTC"
+                    }
+
+                    if (originalAmount < minStakeBalance.toBigDecimal()) {
+                        requireActivity().makeToastWithData(
+                            R.string.error_at_least_btc_balance,
+                            "$dpMinStakeBalance $denom"
+                        )
+                        return@setOnClickListener
+                    }
+
+                    if (originalAmount > maxStakeBalance.toBigDecimal()) {
+                        requireActivity().makeToastWithData(
+                            R.string.error_max_btc_balance,
+                            "$dpMaxStakeBalance $denom"
+                        )
+                        return@setOnClickListener
+                    }
+                }
+
                 amountSelectListener?.select(originalAmount.toPlainString())
                 dismiss()
             }

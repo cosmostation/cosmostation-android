@@ -268,7 +268,7 @@ class CreateMintFragment : BaseTxFragment() {
         binding.apply {
             collateralAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_COLLATERAL,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.MINT_CREATE_COLLATERAL,
                         collateralAvailableAmount.toString(),
                         toCollateralAmount,
                         collateralAsset,
@@ -282,7 +282,7 @@ class CreateMintFragment : BaseTxFragment() {
 
             principalAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.MINT_CREATE_PRINCIPAL,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.MINT_CREATE_PRINCIPAL,
                         collateralParam.expectUSDXLTV(
                             toCollateralAmount.toBigDecimal(), priceFeed
                         ).toString(),

@@ -383,7 +383,7 @@ class BtcStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.BTC_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.BTC_DELEGATE,
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAssetWithSymbol(

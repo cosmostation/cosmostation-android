@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -91,6 +93,7 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         initView()
         setUpClickAction()
         initSearchView()
+        setUpTokenAmount()
 //        view.viewTreeObserver.addOnGlobalLayoutListener(object :
 //            ViewTreeObserver.OnGlobalLayoutListener {
 //            override fun onGlobalLayout() {
@@ -281,6 +284,32 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                     return true
                 }
             })
+        }
+    }
+
+    private fun setUpTokenAmount() {
+        walletViewModel.editCw20Balance.observe(this) { contract ->
+            val index = searchTokens?.indexOfFirst { it.contract == contract }
+            val token = searchTokens?.firstOrNull { it.contract == contract }
+            if (index != null && index >= 0 && token?.fetched == true) {
+                tokenEditAdapter.notifyItemChanged(index)
+            }
+        }
+
+        walletViewModel.editErc20Balance.observe(this) { contract ->
+            val index = searchTokens?.indexOfFirst { it.contract == contract }
+            val token = searchTokens?.firstOrNull { it.contract == contract }
+            if (index != null && index >= 0 && token?.fetched == true) {
+                tokenEditAdapter.notifyItemChanged(index)
+            }
+        }
+
+        walletViewModel.editGrc20Balance.observe(this) { contract ->
+            val index = searchTokens?.indexOfFirst { it.contract == contract }
+            val token = searchTokens?.firstOrNull { it.contract == contract }
+            if (index != null && index >= 0 && token?.fetched == true) {
+                tokenEditAdapter.notifyItemChanged(index)
+            }
         }
     }
 

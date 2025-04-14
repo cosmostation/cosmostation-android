@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
-        android:text="@string/title_progression_of_status"
+        android:text="@string/title_time_lock_unstaking"
         android:textColor="@color/color_base01"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_view" />
@@ -38,66 +38,45 @@
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <TextView
-        android:id="@+id/dialog_number0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/font_sb_14"
-        android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_16"
-        android:textColor="@color/color_base02"
-        android:text="01."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1"/>
-
-    <TextView
         android:id="@+id/dialog_title0"
         style="@style/font_sb_14"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
         android:gravity="start"
-        android:text="Pending State"
+        android:text="Time Lock"
         android:textColor="@color/color_base01"
-        app:layout_constraintStart_toEndOf="@+id/dialog_number0"
-        app:layout_constraintTop_toTopOf="@+id/dialog_number0"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_number0"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
 
     <TextView
         android:id="@+id/dialog_msg0"
         style="@style/font_sm_12"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
         android:layout_marginTop="@dimen/space_8"
         android:gravity="start"
-        android:maxWidth="@dimen/space_300"
-        android:text="@string/str_pending_state_msg"
+        android:lineSpacingExtra="@dimen/space_4"
+        android:lineSpacingMultiplier="1.0"
+        android:text="@string/str_time_lock_msg"
         android:textColor="@color/color_base03"
-        app:layout_constraintStart_toStartOf="@+id/dialog_title0"
-        app:layout_constraintTop_toBottomOf="@id/dialog_title0" />
-
-    <TextView
-        android:id="@+id/dialog_number1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/font_sb_14"
-        android:layout_marginStart="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_30"
-        android:textColor="@color/color_base02"
-        android:text="02."
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_msg0"/>
+        app:layout_constraintTop_toBottomOf="@id/dialog_title0" />
 
     <TextView
         android:id="@+id/dialog_title1"
         style="@style/font_sb_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_4"
-        android:text="Active State"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_30"
+        android:text="Unstaking"
         android:textColor="@color/color_base01"
-        app:layout_constraintStart_toEndOf="@+id/dialog_number1"
-        app:layout_constraintTop_toTopOf="@id/dialog_number1"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_number1"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_msg0" />
 
     <TextView
         android:id="@+id/dialog_msg1"
@@ -105,11 +84,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_8"
+        android:layout_marginHorizontal="@dimen/space_20"
         android:gravity="start"
-        android:maxWidth="@dimen/space_300"
-        android:text="@string/str_active_state_msg"
+        android:lineSpacingExtra="@dimen/space_4"
+        android:lineSpacingMultiplier="1.0"
+        android:text="@string/str_unstaking_msg"
         android:textColor="@color/color_base03"
-        app:layout_constraintStart_toStartOf="@+id/dialog_title1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_title1" />
 
     <LinearLayout

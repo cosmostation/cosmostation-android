@@ -228,7 +228,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
         binding.apply {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.EARN_WITHDRAW,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.EARN_WITHDRAW,
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
