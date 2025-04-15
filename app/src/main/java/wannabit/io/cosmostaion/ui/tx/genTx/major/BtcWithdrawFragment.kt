@@ -102,7 +102,7 @@ class BtcWithdrawFragment(
             BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.coinSymbol)
                 ?.let { asset ->
                     titleWithdrawImg.setTokenImg(asset)
-                    titleWithdraw.text = getString(R.string.title_staking, asset.symbol)
+                    titleWithdraw.text = getString(R.string.title_withdraw, asset.symbol)
                 }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
             updateValidatorView()

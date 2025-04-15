@@ -41,7 +41,7 @@ class ProviderFragment(
     private fun initView() {
         binding.apply {
             selectTitle.text = getString(R.string.title_select_Provider)
-            validatorAdapter = ValidatorAdapter(selectedChain)
+            validatorAdapter = ValidatorAdapter(selectedChain, btcTxType)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = validatorAdapter

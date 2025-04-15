@@ -103,7 +103,7 @@ class BtcUnStakingFragment(
             BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.coinSymbol)
                 ?.let { asset ->
                     titleUnstakeImg.setTokenImg(asset)
-                    titleUnstake.text = getString(R.string.title_staking, asset.symbol)
+                    titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
                 }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
             updateValidatorView()
