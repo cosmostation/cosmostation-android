@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -30,6 +31,17 @@ class MajorCryptoViewHolder(
             pendingLayout.visibility = View.VISIBLE
             stakedLayout.visibility = View.GONE
             earnedLayout.visibility = View.GONE
+
+            if (chain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || chain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+                totalStakedLayout.visibility = View.GONE
+                unstakingLayout.visibility = View.GONE
+                withdrawableLayout.visibility = View.GONE
+
+            } else {
+                totalStakedLayout.visibility = View.VISIBLE
+                unstakingLayout.visibility = View.VISIBLE
+                withdrawableLayout.visibility = View.VISIBLE
+            }
 
             BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
                 tokenImg.setTokenImg(asset)
@@ -63,16 +75,6 @@ class MajorCryptoViewHolder(
                         total.visibility = if (hideValue) View.GONE else View.VISIBLE
                         totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
                         hidingValue.visibility = if (hideValue) View.VISIBLE else View.GONE
-
-                        if (chain.isSupportStaking()) {
-                            unstakingLayout.visibility = View.VISIBLE
-                            withdrawableLayout.visibility = View.VISIBLE
-                            totalStakedLayout.visibility = View.VISIBLE
-                        } else {
-                            unstakingLayout.visibility = View.GONE
-                            withdrawableLayout.visibility = View.GONE
-                            totalStakedLayout.visibility = View.GONE
-                        }
 
                         total.text = if (hideValue) "" else formatAmount(
                             totalAmount.toPlainString(), 6

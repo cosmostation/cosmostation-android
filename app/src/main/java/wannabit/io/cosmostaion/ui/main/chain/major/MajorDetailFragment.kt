@@ -21,13 +21,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
@@ -136,7 +136,11 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            fabMenu.visibleOrGone(selectedChain is ChainSui || selectedChain.isSupportStaking())
+            if (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+                fabMenu.visibility = View.GONE
+            } else {
+                fabMenu.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -235,27 +239,31 @@ class MajorDetailFragment : Fragment() {
                     handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
 
                 } else {
-                    (selectedChain as ChainBitCoin86).btcFetcher?.let { btcFetcher ->
-                        if (btcFetcher.btcFinalityProviders.isEmpty() || btcFetcher.btcActiveStakingData == null || btcFetcher.btcUnBondingStakingData == null || btcFetcher.btcWithdrawAbleStakingData == null) {
-                            requireContext().makeToast(R.string.error_wait_moment)
-                            fabMenu.close(true)
-                            return@setOnMenuButtonClickListener
+                    if (selectedChain.isStakeEnabled()) {
+                        (selectedChain as ChainBitCoin86).btcFetcher?.let { btcFetcher ->
+                            if (btcFetcher.btcFinalityProviders.isEmpty() || btcFetcher.btcActiveStakingData == null || btcFetcher.btcUnBondingStakingData == null || btcFetcher.btcWithdrawAbleStakingData == null) {
+                                requireContext().makeToast(R.string.error_wait_moment)
+                                fabMenu.close(true)
+                                return@setOnMenuButtonClickListener
+                            }
+                            handleOneClickWithDelay(BtcStakeInfoFragment.newInstance(selectedChain))
                         }
-                        handleOneClickWithDelay(BtcStakeInfoFragment.newInstance(selectedChain))
+
+                    } else {
+                        if (selectedChain.btcStakingDapp().isNotEmpty()) {
+                            val savedTime = Prefs.getDappInfoHideTime(2)
+                            val currentTime = System.currentTimeMillis()
+                            if (currentTime >= savedTime) {
+                                showBabylonInfo()
+                            } else {
+                                Intent(requireActivity(), DappActivity::class.java).apply {
+                                    putExtra("dapp", selectedChain.btcStakingDapp())
+                                    putExtra("selectedBitChain", selectedChain as Parcelable)
+                                    startActivity(this)
+                                }
+                            }
+                        }
                     }
-//                    if (selectedChain.btcStakingDapp().isNotEmpty()) {
-//                        val savedTime = Prefs.getDappInfoHideTime(2)
-//                        val currentTime = System.currentTimeMillis()
-//                        if (currentTime >= savedTime) {
-//                            showBabylonInfo()
-//                        } else {
-//                            Intent(requireActivity(), DappActivity::class.java).apply {
-//                                putExtra("dapp", selectedChain.btcStakingDapp())
-//                                putExtra("selectedBitChain", selectedChain as Parcelable)
-//                                startActivity(this)
-//                            }
-//                        }
-//                    }
                 }
             }
         }

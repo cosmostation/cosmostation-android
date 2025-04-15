@@ -151,22 +151,24 @@ class DappActivity : BaseActivity() {
             }
         }
 
-        val ecoSystemChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("selectedChain", BaseChain::class.java)
-        } else {
-            (intent.getParcelableExtra("selectedChain")) as? BaseChain
-        }
-        selectedChain = allChains?.firstOrNull { it.name == ecoSystemChain?.name }
+        val ecoSystemChain = intent.getStringExtra("selectedChain")
+        selectedChain = allChains?.firstOrNull { it.tag == ecoSystemChain }
 
         val ecoMajorChain = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra("selectedBitChain", BaseChain::class.java)
         } else {
             (intent.getParcelableExtra("selectedBitChain")) as? BaseChain
         }
-        selectBitcoin = if (ecoMajorChain?.tag == "babylon118_T") {
-            allChains?.find { it is ChainBitCoin86 && it.isDefault }
-        } else {
-            allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
+        selectBitcoin = when (ecoMajorChain?.tag) {
+            "babylon118_T" -> {
+                allChains?.find { it is ChainBitCoin86 && it.isDefault }
+            }
+            "babylon118" -> {
+                allChains?.find { it is ChainBitCoin86 && it.isDefault }
+            }
+            else -> {
+                allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
+            }
         }
     }
 
@@ -1126,6 +1128,7 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
+            Log.e("Test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -1133,11 +1136,8 @@ class DappActivity : BaseActivity() {
                         val params = messageJson.getJSONObject("params")
                         val chainId = params.getString("chainName")
                         BaseData.baseAccount?.let { account ->
-                            val chain = if (selectedChain == null) {
-                                selectedChain(allChains, chainId)
-                            } else {
-                                selectedChain
-                            }
+                            val chain = selectedChain(allChains, chainId)
+                            selectedChain = chain
 
                             val accountJson = JSONObject()
                             accountJson.put("isLedger", false)
@@ -1739,6 +1739,7 @@ class DappActivity : BaseActivity() {
                 //babylon
                 "bit_requestAccount" -> {
                     withContext(Dispatchers.IO) {
+                        Log.e("Test12345 : ", selectBitcoin.toString())
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1814,6 +1815,8 @@ class DappActivity : BaseActivity() {
 
                 "bit_getAddress" -> {
                     withContext(Dispatchers.IO) {
+                        Log.e("Test12345 : ", selectBitcoin.toString())
+                        Log.e("Test123456 : ", selectBitcoin?.mainAddress.toString())
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }

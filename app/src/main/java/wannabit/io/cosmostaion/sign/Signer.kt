@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.sign
 
 import android.util.Base64.DEFAULT
 import android.util.Base64.encode
-import android.util.Log
 import com.babylon.btcstaking.v1.TxProto.MsgCreateBTCDelegation
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
