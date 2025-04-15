@@ -330,7 +330,7 @@ class BtcStakingFragment : BaseTxFragment() {
                 val dpFeeAmount = btcFeeAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val value = price.multiply(dpFeeAmount)
 
-                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 9)
+                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 8)
                 feeValue.text = formatAssetValue(value)
             }
         }
@@ -348,7 +348,7 @@ class BtcStakingFragment : BaseTxFragment() {
                 val value = price.multiply(dpAmount)
 
                 delegateAmountMsg.visibility = View.GONE
-                delegateAmount.text = formatAmount(dpAmount.toPlainString(), 9)
+                delegateAmount.text = formatAmount(dpAmount.toPlainString(), 6)
                 delegateAmount.setTextColor(
                     ContextCompat.getColor(
                         requireContext(), R.color.color_base01

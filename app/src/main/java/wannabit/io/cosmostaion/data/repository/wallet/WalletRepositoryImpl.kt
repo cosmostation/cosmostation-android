@@ -44,7 +44,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
@@ -572,6 +571,8 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun stakingRewards(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<BigDecimal?> {
+        val contractAddress =
+            chain.getChainListParam()?.getAsJsonObject("reward")?.get("address")?.asString ?: ""
         val req = RewardsReq(Rewards(chain.address))
         val jsonData = Gson().toJson(req)
         val queryData = ByteString.copyFromUtf8(jsonData)
@@ -580,7 +581,7 @@ class WalletRepositoryImpl : WalletRepository {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(8, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder().setAddress(
-                NEUTRON_REWARD_CONTRACT_ADDRESS
+                contractAddress
             ).setQueryData(queryData).build()
             safeApiCall(Dispatchers.IO) {
                 stub.smartContractState(request)?.let { response ->
@@ -591,7 +592,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdContractInfo(NEUTRON_REWARD_CONTRACT_ADDRESS, queryDataBase64)
+                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64)
                     .let { response ->
                         response["data"].asJsonObject["pending_rewards"].asJsonObject["amount"].asString.toBigDecimal()
                     }

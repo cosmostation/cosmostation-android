@@ -202,7 +202,7 @@ class BtcWithdrawFragment(
                 val dpFeeAmount = btcFeeAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val value = price.multiply(dpFeeAmount)
 
-                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 9)
+                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 8)
                 feeValue.text = formatAssetValue(value)
             }
         }

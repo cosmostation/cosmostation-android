@@ -79,7 +79,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
@@ -439,12 +438,15 @@ object Signer {
     fun contractClaimReward(selectedChain: BaseChain, toValidator: Validator?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
 
+        val contractAddress =
+            selectedChain.getChainListParam()?.getAsJsonObject("reward")?.get("address")?.asString
+                ?: ""
         val wasmMsgs = mutableListOf<MsgExecuteContract?>()
         val jsonData = Gson().toJson(ClaimReq(ClaimRewards()))
         val msg = ByteString.copyFromUtf8(jsonData)
         wasmMsgs.add(
             MsgExecuteContract.newBuilder().setSender(selectedChain.address)
-                .setContract(NEUTRON_REWARD_CONTRACT_ADDRESS).setMsg(msg).build()
+                .setContract(contractAddress).setMsg(msg).build()
         )
         wasmMsgs.forEach { msgWasm ->
             msgAnys.add(
