@@ -424,7 +424,7 @@ class StakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(

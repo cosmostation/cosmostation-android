@@ -34,7 +34,7 @@
         android:layout_height="@dimen/space_1"
         android:layout_marginHorizontal="@dimen/space_16"
         android:layout_marginTop="@dimen/space_16"
-        android:background="@color/color_base07"
+        android:background="@color/color_base08"
         app:layout_constraintTop_toBottomOf="@+id/dialog_title" />
 
     <TextView

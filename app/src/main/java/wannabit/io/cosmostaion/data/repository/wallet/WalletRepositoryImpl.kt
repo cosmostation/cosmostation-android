@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import com.babylon.btcstaking.v1.ParamsProto.Params
 import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
+import com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc
 import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
@@ -40,6 +42,7 @@ import org.web3j.protocol.http.HttpService
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
@@ -54,6 +57,7 @@ import wannabit.io.cosmostaion.chain.fetcher.currentEpoch
 import wannabit.io.cosmostaion.chain.fetcher.delegations
 import wannabit.io.cosmostaion.chain.fetcher.epochMsg
 import wannabit.io.cosmostaion.chain.fetcher.feeMarket
+import wannabit.io.cosmostaion.chain.fetcher.finalityProviderWithVotingPower
 import wannabit.io.cosmostaion.chain.fetcher.initiaDelegations
 import wannabit.io.cosmostaion.chain.fetcher.initiaUnDelegations
 import wannabit.io.cosmostaion.chain.fetcher.initiaValidators
@@ -66,6 +70,7 @@ import wannabit.io.cosmostaion.chain.fetcher.zenrockDelegations
 import wannabit.io.cosmostaion.chain.fetcher.zenrockUnDelegations
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
@@ -1417,6 +1422,88 @@ class WalletRepositoryImpl : WalletRepository {
                     results?.toMutableList()
                 }
             }
+        }
+    }
+
+    override suspend fun statusHeight(
+        channel: ManagedChannel?,
+    ): NetworkResult<Long> {
+        val stub = com.cosmos.base.node.v1beta1.ServiceGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.cosmos.base.node.v1beta1.QueryProto.StatusRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.status(request).height
+        }
+    }
+
+    override suspend fun btcFinalityVotingPower(
+        chain: BaseChain, height: Long
+    ): NetworkResult<MutableList<ActiveFinalityProvidersAtHeightResponse>> {
+        return safeApiCall(Dispatchers.IO) {
+            val babylonChain = if (chain.isTestnet) {
+                ChainBabylonTestnet()
+            } else {
+                ChainBabylon()
+            }
+            lcdApi(babylonChain).btcFinalityVotingPower(height).finalityProviderWithVotingPower()
+        }
+    }
+
+    override suspend fun btcFinalityProviders(
+        channel: ManagedChannel?
+    ): NetworkResult<MutableList<com.babylon.btcstaking.v1.QueryProto.FinalityProviderResponse>> {
+        val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
+        val stub = com.babylon.btcstaking.v1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request =
+            com.babylon.btcstaking.v1.QueryProto.QueryFinalityProvidersRequest.newBuilder()
+                .setPagination(pageRequest).build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.finalityProviders(request).finalityProvidersList
+        }
+    }
+
+    override suspend fun btcParams(channel: ManagedChannel?): NetworkResult<Params> {
+        val stub = com.babylon.btcstaking.v1.QueryGrpc.newBlockingStub(channel)
+            .withDeadlineAfter(duration, TimeUnit.SECONDS)
+        val request = com.babylon.btcstaking.v1.QueryProto.QueryParamsRequest.newBuilder().build()
+        return safeApiCall(Dispatchers.IO) {
+            stub.params(request).params
+        }
+    }
+
+    override suspend fun btcNetworkInfo(chain: BaseChain): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitExternalApi(chain).bitNetworkInfo()
+        }
+    }
+
+    override suspend fun btcClientTip(chain: BaseChain): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            val babylonChain = if (chain.isTestnet) {
+                ChainBabylonTestnet()
+            } else {
+                ChainBabylon()
+            }
+            lcdApi(babylonChain).btcClientTioHeight()
+        }
+    }
+
+    override suspend fun btcFee(chain: ChainBitCoin86): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitApi(chain).btcFee()
+        }
+    }
+
+    override suspend fun mempoolUtxo(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>> {
+        return safeApiCall(Dispatchers.IO) {
+            bitApi(chain).bitUtxo(chain.mainAddress)
+        }
+    }
+
+    override suspend fun mempoolIsValidAddress(chain: ChainBitCoin86): NetworkResult<JsonObject> {
+        return safeApiCall(Dispatchers.IO) {
+            bitApi(chain).bitIsValidAddress(chain.mainAddress)
         }
     }
 }

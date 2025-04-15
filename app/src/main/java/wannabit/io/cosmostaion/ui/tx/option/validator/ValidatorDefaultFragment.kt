@@ -13,7 +13,9 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
@@ -28,6 +30,7 @@ class ValidatorDefaultFragment(
     private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
     private val fromZenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null,
     private val suiFromValidator: MutableList<JsonObject>? = null,
+    private val finalityProvider: MutableList<FinalityProvider>? = null,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
 
@@ -36,6 +39,7 @@ class ValidatorDefaultFragment(
 
     private lateinit var validatorDefaultAdapter: ValidatorDefaultAdapter
     private lateinit var suiValidatorDefaultAdapter: SuiValidatorAdapter
+    private lateinit var finalityProviderAdapter: FinalityProviderAdapter
 
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
     private var searchInitiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator> =
@@ -43,6 +47,7 @@ class ValidatorDefaultFragment(
     private var searchZenrockValidators: MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV> =
         mutableListOf()
     private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
+    private var searchProviders: MutableList<FinalityProvider> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -60,9 +65,15 @@ class ValidatorDefaultFragment(
 
     private fun initView() {
         binding.apply {
-            selectTitle.text = getString(R.string.title_select_validator)
+            if (selectedChain is ChainBitCoin86) {
+                selectTitle.text = getString(R.string.title_select_Provider)
+                searchView.queryHint = getString(R.string.str_search_provider)
+            } else {
+                selectTitle.text = getString(R.string.title_select_validator)
+                searchView.queryHint = getString(R.string.str_search_validator)
+            }
             searchBar.visibility = View.VISIBLE
-            searchView.queryHint = getString(R.string.str_search_validator)
+
             when (selectedChain) {
                 is ChainInitiaTestnet -> selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                     ?.let {
@@ -77,6 +88,9 @@ class ValidatorDefaultFragment(
             }
             if (suiFromValidator != null) {
                 searchSuiValidators.addAll(suiFromValidator)
+            }
+            if (finalityProvider != null) {
+                searchProviders.addAll(finalityProvider)
             }
 
             initRecyclerView()
@@ -93,6 +107,18 @@ class ValidatorDefaultFragment(
                 suiValidatorDefaultAdapter.submitList(searchSuiValidators)
 
                 suiValidatorDefaultAdapter.setOnItemClickListener {
+                    listener.select(it)
+                    dismiss()
+                }
+
+            } else if (finalityProvider != null) {
+                finalityProviderAdapter = FinalityProviderAdapter(selectedChain)
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = finalityProviderAdapter
+                finalityProviderAdapter.submitList(searchProviders)
+
+                finalityProviderAdapter.setOnItemClickListener {
                     listener.select(it)
                     dismiss()
                 }

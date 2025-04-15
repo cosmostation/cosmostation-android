@@ -1,7 +1,5 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -38,30 +36,6 @@ class TokenEditAdapter(
         tokens?.get(position)?.let { token ->
             holder.bind(walletViewModel, selectChain, token)
             updateView(holder, token, displayTokens)
-
-            walletViewModel.editCw20Balance.observe(lifecycleOwner) { contract ->
-                if (contract == token.contract && token.fetched) {
-                    Handler(Looper.getMainLooper()).post {
-                        notifyItemChanged(position)
-                    }
-                }
-            }
-
-            walletViewModel.editErc20Balance.observe(lifecycleOwner) { contract ->
-                if (contract == token.contract && token.fetched) {
-                    Handler(Looper.getMainLooper()).post {
-                        notifyItemChanged(position)
-                    }
-                }
-            }
-
-            walletViewModel.editGrc20Balance.observe(lifecycleOwner) { contract ->
-                if (contract == token.contract && token.fetched) {
-                    Handler(Looper.getMainLooper()).post {
-                        notifyItemChanged(position)
-                    }
-                }
-            }
 
             holder.itemView.setOnClickListener {
                 if (displayTokens?.contains(token.contract) == true) {

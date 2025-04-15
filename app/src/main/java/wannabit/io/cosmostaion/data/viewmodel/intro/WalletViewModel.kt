@@ -4,10 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.babylon.btcstaking.v1.QueryProto
+import com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,11 +24,14 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -32,6 +39,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
+import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
@@ -40,12 +48,15 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Token
+import wannabit.io.cosmostaion.data.model.res.getAvailableUtxosFromRaw
+import wannabit.io.cosmostaion.data.model.res.printAvailableUtxosJson
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.Password
+import wannabit.io.cosmostaion.sign.BitcoinJs
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -205,6 +216,292 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
     private val _chainDataErrorMessage = MutableLiveData<String>()
     val chainDataErrorMessage: LiveData<String> get() = _chainDataErrorMessage
+
+    fun loadBtcStakeData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {
+        val channel = if (chain.isTestnet) {
+            ChainBabylonTestnet().cosmosFetcher()?.getChannel()
+        } else {
+            ChainBabylon().cosmosFetcher()?.getChannel()
+        }
+
+        if (chain.btcFetcher()?.btcFinalityProviders?.isNotEmpty() == true) {
+            return@launch
+        }
+
+        var finalityVotingPower = mutableListOf<ActiveFinalityProvidersAtHeightResponse>()
+        var finalityProviders = mutableListOf<QueryProto.FinalityProviderResponse>()
+        val tempFinalityProviders = mutableListOf<FinalityProvider>()
+
+        try {
+            val loadStatusHeightDeferred = async { walletRepository.statusHeight(channel) }
+            val loadFinalityProviderDeferred =
+                async { walletRepository.btcFinalityProviders(channel) }
+            val loadBtcParamsDeferred = async { walletRepository.btcParams(channel) }
+            val loadFeeDeferred = async { walletRepository.btcFee(chain) }
+
+            val statusHeightResult = loadStatusHeightDeferred.await()
+            if (statusHeightResult is NetworkResult.Success) {
+                when (val response = walletRepository.btcFinalityVotingPower(
+                    chain, statusHeightResult.data
+                )) {
+                    is NetworkResult.Success -> {
+                        finalityVotingPower = response.data
+                    }
+
+                    is NetworkResult.Error -> {
+                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
+            }
+
+            val finalityProviderResult = loadFinalityProviderDeferred.await()
+            if (finalityProviderResult is NetworkResult.Success) {
+                finalityProviders = finalityProviderResult.data
+            }
+
+            val btcParamsResult = loadBtcParamsDeferred.await()
+            if (btcParamsResult is NetworkResult.Success) {
+                chain.btcFetcher()?.btcParams = btcParamsResult.data
+            }
+
+            val btcFeeResult = loadFeeDeferred.await()
+            if (btcFeeResult is NetworkResult.Success && btcFeeResult.data is JsonObject) {
+                chain.btcFetcher()?.btcFastFee = btcFeeResult.data["fastestFee"].asLong
+            } else {
+                chain.btcFetcher()?.btcFastFee = 0L
+            }
+
+            withContext(Dispatchers.Default) {
+                tempFinalityProviders.clear()
+                if (finalityVotingPower.isNotEmpty() && finalityProviders.isNotEmpty()) {
+                    finalityProviders.forEach { provider ->
+                        val btcPk = provider.btcPk.toByteArray().toHex()
+                        val votingPower =
+                            finalityVotingPower.firstOrNull { it.btcPkHex == btcPk }?.votingPower
+                        if (votingPower != null) {
+                            tempFinalityProviders.add(
+                                FinalityProvider(
+                                    provider, votingPower.toString()
+                                )
+                            )
+
+                        } else {
+                            tempFinalityProviders.add(
+                                FinalityProvider(
+                                    provider, "0"
+                                )
+                            )
+                        }
+                    }
+                }
+
+                val dataTempProviders = tempFinalityProviders.toMutableList()
+                dataTempProviders.sortWith { o1, o2 ->
+                    when {
+                        o1.provider.description.moniker == "Cosmostation" -> -1
+                        o2.provider.description.moniker == "Cosmostation" -> 1
+                        o1.provider.jailed && !o2.provider.jailed -> 1
+                        !o1.provider.jailed && o2.provider.jailed -> -1
+                        o1.votingPower.toLong() > o2.votingPower.toLong() -> -1
+                        o1.votingPower.toLong() < o2.votingPower.toLong() -> 1
+                        else -> 0
+                    }
+                }
+
+                chain.btcFetcher()?.btcFinalityProviders = dataTempProviders
+
+                val activeList: MutableList<JsonObject> = mutableListOf()
+                val unBondingList: MutableList<JsonObject> = mutableListOf()
+                val withdrawAbleList: MutableList<JsonObject> = mutableListOf()
+
+                chain.btcFetcher()?.btcStakingData?.get("data")?.asJsonArray?.forEach { data ->
+                    if (data.asJsonObject["state"].asString == "ACTIVE") {
+                        activeList.add(data.asJsonObject)
+                    }
+
+                    if (data.asJsonObject["state"].asString == "EARLY_UNBONDING" || data.asJsonObject["state"].asString == "TIMELOCK_UNBONDING") {
+                        unBondingList.add(data.asJsonObject)
+                    }
+
+                    if (data.asJsonObject["state"].asString.contains("EARLY_UNBONDING_WITHDRAWABLE")) {
+                        withdrawAbleList.add(data.asJsonObject)
+                    }
+                }
+
+                val matchedActivePairs: List<Pair<JsonObject, FinalityProvider>> =
+                    activeList.mapNotNull { active ->
+                        val pkHex =
+                            active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                        val matchedProvider =
+                            chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                                provider.provider.btcPk.toByteArray().toHex() == pkHex
+                            }
+
+                        if (matchedProvider != null) {
+                            Pair(active, matchedProvider)
+                        } else {
+                            null
+                        }
+                    }
+                chain.btcFetcher()?.btcActiveStakingData = matchedActivePairs
+
+                val matchedUnBondingPairs: List<Pair<JsonObject, FinalityProvider>> =
+                    unBondingList.mapNotNull { active ->
+                        val pkHex =
+                            active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                        val matchedProvider =
+                            chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                                provider.provider.btcPk.toByteArray().toHex() == pkHex
+                            }
+
+                        if (matchedProvider != null) {
+                            Pair(active, matchedProvider)
+                        } else {
+                            null
+                        }
+                    }
+                chain.btcFetcher()?.btcUnBondingStakingData = matchedUnBondingPairs
+
+                val matchedWithdrawPairs: List<Pair<JsonObject, FinalityProvider>> =
+                    withdrawAbleList.mapNotNull { active ->
+                        val pkHex =
+                            active["finality_provider_btc_pks_hex"]?.asJsonArray?.firstOrNull()?.asString
+
+                        val matchedProvider =
+                            chain.btcFetcher()?.btcFinalityProviders?.firstOrNull { provider ->
+                                provider.provider.btcPk.toByteArray().toHex() == pkHex
+                            }
+
+                        if (matchedProvider != null) {
+                            Pair(active, matchedProvider)
+                        } else {
+                            null
+                        }
+                    }
+                chain.btcFetcher()?.btcWithdrawAbleStakingData = matchedWithdrawPairs
+            }
+
+        } finally {
+            channel?.shutdown()
+            try {
+                if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
+                    channel.shutdownNow()
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private val _btcDataLoadDone = MutableLiveData<Boolean>()
+    val btcDataLoadDone: LiveData<Boolean> = _btcDataLoadDone
+
+    fun loadBtcDelegateData(
+        chain: ChainBitCoin86
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        chain.apply {
+            try {
+                val loadBtcClientTipHeightDeferred =
+                    async { walletRepository.btcClientTip(this@apply) }
+                val loadIsValidDeferred = async { walletRepository.mempoolIsValidAddress(chain) }
+                val loadUtxoDeferred = async { walletRepository.mempoolUtxo(chain) }
+
+                val btcClientTipHeightResult = loadBtcClientTipHeightDeferred.await()
+                val isValidAddressResult = loadIsValidDeferred.await()
+                val utxoResult = loadUtxoDeferred.await()
+
+                if (btcClientTipHeightResult is NetworkResult.Success && btcClientTipHeightResult.data is JsonObject) {
+                    btcFetcher()?.btcClientTipHeight =
+                        btcClientTipHeightResult.data["header"].asJsonObject["height"].asLong
+                } else {
+                    btcFetcher()?.btcClientTipHeight = 0L
+                }
+
+                if (isValidAddressResult is NetworkResult.Success && isValidAddressResult.data is JsonObject) {
+                    val isValid = isValidAddressResult.data
+                    if (utxoResult is NetworkResult.Success) {
+                        val originalUTxo = utxoResult.data
+
+                        fun dummyHasInscription(txid: String, vout: Int): Boolean {
+                            return false
+                        }
+
+                        val availableUTxo = getAvailableUtxosFromRaw(
+                            originalUTxo.toString(), isValid.toString(), ::dummyHasInscription
+                        )
+                        btcFetcher()?.btcUtxo = printAvailableUtxosJson(availableUTxo)
+
+                    } else {
+                        btcFetcher()?.btcUtxo = ""
+                    }
+
+                }
+
+                val network = if (chain.isTestnet) "testnet" else "mainnet"
+                val privateKeyHex = chain.privateKey?.toHex()
+                val signerAddress = chain.mainAddress
+                val stakingParams =
+                    chain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
+                        "params"
+                    )?.asJsonObject?.get("bbn")?.asJsonArray
+
+                val initBTCStakingFunction = """function initBTCStakingFunction() {
+                                            const signMessage = initBTCStaking('${network}', '${privateKeyHex}', '${signerAddress}', '${stakingParams.toString()}');
+                                            return signMessage;
+                                        }""".trimMargin()
+                BitcoinJs.mergeFunction(initBTCStakingFunction)
+                BitcoinJs.executeFunction("initBTCStakingFunction()")
+
+                _btcDataLoadDone.postValue(true)
+
+            } catch (e: Exception) {
+                _btcDataLoadDone.postValue(false)
+            }
+        }
+    }
+
+    private val _btcEstimateFee = MutableLiveData<String>()
+    val btcEstimateFee: LiveData<String> = _btcEstimateFee
+
+    fun btcEstimateFee(
+        chain: ChainBitCoin86, bitcoinJs: BitcoinJs, finalityProvider: FinalityProvider?
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val feeRate = chain.btcFetcher?.btcFastFee
+            val tipHeight = chain.btcFetcher?.btcClientTipHeight
+            val provider = finalityProvider?.provider?.btcPk?.toByteArray()?.toHex()
+
+            val stakerBtcInfo = JsonObject().apply {
+                addProperty("address", chain.mainAddress)
+                addProperty("stakerPublicKeyHex", chain.publicKey?.toHex())
+            }
+
+            val stakingInput = JsonObject().apply {
+                addProperty("finalityProviderPkNoCoordHex", provider)
+                addProperty("stakingAmountSat", chain.btcFetcher?.btcParams?.minStakingValueSat)
+                addProperty(
+                    "stakingTimelock", chain.btcFetcher?.btcParams?.maxStakingTimeBlocks?.toLong()
+                )
+            }
+
+            val availableUTxo = JsonParser.parseString(chain.btcFetcher?.btcUtxo).asJsonArray
+            val dpAvailableUTxo = GsonBuilder().setPrettyPrinting().create().toJson(availableUTxo)
+
+            val estimateFeeFunction = """function estimateFeeFunction() {     
+                    const estimate = estimateBtcStakingFee('${stakerBtcInfo}', ${tipHeight}, '${stakingInput}', `$dpAvailableUTxo`, ${feeRate});
+                         return estimate;
+                    }""".trimMargin()
+            bitcoinJs.mergeFunction(estimateFeeFunction)
+            val estimateFee = bitcoinJs.executeFunction("estimateFeeFunction()")
+
+            _btcEstimateFee.postValue(estimateFee.toString())
+
+        } catch (e: Exception) {
+            _btcEstimateFee.postValue(e.message.toString())
+        }
+    }
 
     fun loadGrpcStakeData(
         chain: BaseChain

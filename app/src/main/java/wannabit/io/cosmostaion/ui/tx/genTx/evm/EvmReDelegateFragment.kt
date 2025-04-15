@@ -318,7 +318,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.RE_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.RE_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
                         selectedChain.stakeDenom?.let {

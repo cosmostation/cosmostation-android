@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.wallet
 
+import com.babylon.btcstaking.v1.ParamsProto.Params
 import com.babylon.epoching.v1.QueryProto.QueuedMessageResponse
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.distribution.v1beta1.DistributionProto
@@ -212,6 +213,8 @@ interface WalletRepository {
         fetcher: SuiFetcher, chain: ChainSui
     ): NetworkResult<MutableList<JsonObject>>
 
+
+    //Bitcoin
     suspend fun bitBalance(chain: ChainBitCoin86): NetworkResult<JsonObject>
 
     suspend fun bitStakingBalance(chain: BaseChain): NetworkResult<JsonObject>
@@ -220,7 +223,10 @@ interface WalletRepository {
 
     suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?>
 
-    suspend fun btcReward(channel: ManagedChannel?, chain: BaseChain): NetworkResult<MutableList<CoinProto.Coin>>
+    suspend fun btcReward(
+        channel: ManagedChannel?,
+        chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.Coin>>
 
     suspend fun chainHeight(
         channel: ManagedChannel?, chain: BaseChain
@@ -237,4 +243,31 @@ interface WalletRepository {
     suspend fun epochMessageType(
         channel: ManagedChannel?, chain: BaseChain, epochMsgs: MutableList<QueuedMessageResponse>?
     ): NetworkResult<MutableList<BabylonFetcher.BabylonEpochTxType>?>
+
+    suspend fun statusHeight(channel: ManagedChannel?): NetworkResult<Long>
+
+    suspend fun btcFinalityVotingPower(
+        chain: BaseChain,
+        height: Long
+    ): NetworkResult<MutableList<com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse>>
+
+    suspend fun btcFinalityProviders(
+        channel: ManagedChannel?
+    ): NetworkResult<MutableList<com.babylon.btcstaking.v1.QueryProto.FinalityProviderResponse>>
+
+    suspend fun btcParams(channel: ManagedChannel?): NetworkResult<Params>
+
+    suspend fun btcNetworkInfo(chain: BaseChain): NetworkResult<JsonObject>
+
+    suspend fun btcClientTip(chain: BaseChain): NetworkResult<JsonObject>
+
+    suspend fun btcFee(chain: ChainBitCoin86): NetworkResult<JsonObject>
+
+    suspend fun mempoolUtxo(
+        chain: ChainBitCoin86
+    ): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun mempoolIsValidAddress(
+        chain: ChainBitCoin86
+    ): NetworkResult<JsonObject>
 }

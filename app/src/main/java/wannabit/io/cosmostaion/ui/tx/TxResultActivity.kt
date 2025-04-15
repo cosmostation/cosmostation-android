@@ -22,19 +22,24 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
+import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.ActivityTxResultBinding
 import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -49,9 +54,17 @@ class TxResultActivity : BaseActivity() {
     private var fetchCnt = 15
     private var txResponse: ServiceProto.GetTxResponse? = null
 
+    private var selectedBitChain: BaseChain? = null
+    private var provider: String = ""
+    private var toStakeAmount: String = ""
+    private var stakeTx: String = ""
+
     private var txResultType: TxResultType? = TxResultType.COSMOS
 
     private lateinit var walletViewModel: WalletViewModel
+    private lateinit var txViewModel: TxViewModel
+
+    private var isConfirmed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +74,7 @@ class TxResultActivity : BaseActivity() {
         initViewModel()
         initView()
         setUpClickAction()
+        setUpBitTx()
     }
 
     private fun initViewModel() {
@@ -68,6 +82,12 @@ class TxResultActivity : BaseActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+
+        val txRepository = TxRepositoryImpl()
+        val txViewModelProviderFactory = TxViewModelProviderFactory(txRepository)
+        txViewModel = ViewModelProvider(
+            this, txViewModelProviderFactory
+        )[TxViewModel::class.java]
     }
 
     private fun initView() {
@@ -78,9 +98,16 @@ class TxResultActivity : BaseActivity() {
                 ).toString()
             }?.let { selectedChain = it }
 
+            BaseData.baseAccount?.allChains?.firstOrNull { chain ->
+                chain.tag == (intent.getStringExtra("selectedBitChain") ?: "")
+            }?.let { selectedBitChain = it }
+
             isSuccess = intent.getBooleanExtra("isSuccess", false)
             errorMsg = intent.getStringExtra("errorMsg") ?: ""
             txHash = intent.getStringExtra("txHash") ?: ""
+            provider = intent.getStringExtra("provider") ?: ""
+            toStakeAmount = intent.getStringExtra("toStakeAmount") ?: ""
+            stakeTx = intent.getStringExtra("stakeTx") ?: ""
             txResultType = TxResultType.valueOf(
                 intent.getStringExtra("txResultType") ?: TxResultType.COSMOS.toString()
             )
@@ -89,6 +116,13 @@ class TxResultActivity : BaseActivity() {
             if (selectedChain is ChainOktEvm) {
                 if (txHash.isNotEmpty()) {
                     updateView()
+                } else {
+                    showError()
+                }
+
+            } else if (selectedChain is ChainBitCoin86) {
+                if (isSuccess) {
+                    loadSelectBitTx(txHash)
                 } else {
                     showError()
                 }
@@ -138,7 +172,7 @@ class TxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                if (selectedChain is ChainOktEvm) {
+                if (selectedChain is ChainOktEvm || selectedChain is ChainBitCoin86 || selectedBitChain is ChainBitCoin86) {
                     historyToMintscan(selectedChain, txHash)
                 } else {
                     historyToMintscan(selectedChain, txResponse?.txResponse?.txhash)
@@ -165,6 +199,9 @@ class TxResultActivity : BaseActivity() {
                     }
 
                     else -> {
+                        if (txResultType == TxResultType.BTC_STAKE && !isConfirmed) {
+                            return@setOnClickListener
+                        }
                         finish()
                         BaseData.baseAccount?.let { account ->
                             selectedChain?.let { chain ->
@@ -191,7 +228,17 @@ class TxResultActivity : BaseActivity() {
                         override fun onNext(value: ServiceProto.GetTxResponse?) {
                             txResponse = value
                             Handler(Looper.getMainLooper()).postDelayed({
-                                updateView()
+                                if (txResultType == TxResultType.BTC_STAKE) {
+                                    txViewModel.btcStakeActiveBroadcast(
+                                        provider = provider,
+                                        toStakeAmount = toStakeAmount,
+                                        stakeTx = stakeTx,
+                                        selectedBitChain as ChainBitCoin86,
+                                    )
+
+                                } else {
+                                    updateView()
+                                }
                             }, 0)
                         }
 
@@ -229,7 +276,17 @@ class TxResultActivity : BaseActivity() {
                             ServiceProto.GetTxResponse.newBuilder().setTxResponse(txResultResponse)
                                 .build()
                         Handler(Looper.getMainLooper()).postDelayed({
-                            updateView()
+                            if (txResultType == TxResultType.BTC_STAKE) {
+                                txViewModel.btcStakeActiveBroadcast(
+                                    provider = provider,
+                                    toStakeAmount = toStakeAmount,
+                                    stakeTx = stakeTx,
+                                    selectedBitChain as ChainBitCoin86,
+                                )
+
+                            } else {
+                                updateView()
+                            }
                         }, 0)
 
                     } else {
@@ -247,6 +304,101 @@ class TxResultActivity : BaseActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun loadSelectBitTx(txHash: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response =
+                    RetrofitInstance.bitApi(selectedChain as ChainBitCoin86).bitTx(txHash)
+                if (response.isSuccessful) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.apply {
+                            loading.visibility = View.GONE
+                            successLayout.visibility = View.VISIBLE
+                            successHash.text = txHash
+                        }
+                    }, 0)
+
+                } else {
+                    fetchCnt -= 1
+                    if (isSuccess && fetchCnt > 0) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadSelectBitTx(txHash)
+                        }, 6000)
+
+                    } else {
+                        runOnUiThread {
+                            showMoreWait()
+                        }
+                    }
+                }
+
+            } catch (e: IOException) {
+                fetchCnt -= 1
+                if (isSuccess && fetchCnt > 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loadSelectBitTx(txHash)
+                    }, 6000)
+
+                } else {
+                    runOnUiThread {
+                        showMoreWait()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadBitTx(txHash: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response =
+                    RetrofitInstance.bitApi(selectedBitChain as ChainBitCoin86).bitTx(txHash)
+                if (response.isSuccessful) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.apply {
+                            isConfirmed = true
+                            loading.visibility = View.GONE
+                            successLayout.visibility = View.VISIBLE
+                            successHash.text = txHash
+                        }
+                    }, 0)
+
+                } else {
+                    fetchCnt -= 1
+                    if (isSuccess && fetchCnt > 0) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadBitTx(txHash)
+                        }, 6000)
+
+                    } else {
+                        runOnUiThread {
+                            showMoreWait()
+                        }
+                    }
+                }
+
+            } catch (e: IOException) {
+                fetchCnt -= 1
+                if (isSuccess && fetchCnt > 0) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        loadBitTx(txHash)
+                    }, 6000)
+
+                } else {
+                    runOnUiThread {
+                        showMoreWait()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setUpBitTx() {
+        txViewModel.bitBroadcast.observe(this) { txHash ->
+            loadBitTx(txHash ?: "")
         }
     }
 
@@ -306,4 +458,4 @@ class TxResultActivity : BaseActivity() {
     }
 }
 
-enum class TxResultType { COSMOS, SKIP, NFT }
+enum class TxResultType { COSMOS, SKIP, NFT, BTC_STAKE, BTC_UNSTAKE }

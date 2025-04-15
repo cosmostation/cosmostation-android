@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/round_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/font_sb_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/title_option"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_24"
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/stake_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+        <TextView
+            android:id="@+id/stake"
+            style="@style/font_sb_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_15"
+            android:text="@string/str_start_stake"
+            android:textColor="@color/color_base01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_14"
+            android:text="@string/str_stake_msg"
+            android:textColor="@color/color_base02"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stake" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view0"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/stake_layout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/unstake_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view0">
+
+        <TextView
+            android:id="@+id/unstake"
+            style="@style/font_sb_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_15"
+            android:text="@string/str_unstake"
+            android:textColor="@color/color_base01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_20"
+            android:layout_marginTop="@dimen/space_5"
+            android:layout_marginBottom="@dimen/space_14"
+            android:text="@string/str_unstake_msg"
+            android:textColor="@color/color_base02"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unstake" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:background="@color/color_base07"
+        app:layout_constraintTop_toBottomOf="@+id/unstake_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

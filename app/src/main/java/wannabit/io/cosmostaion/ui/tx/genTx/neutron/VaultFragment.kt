@@ -284,7 +284,7 @@ class VaultFragment : BaseTxFragment() {
         binding.apply {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(insertTxType(),
+                    InsertAmountFragment.newInstance(selectedChain, insertTxType(),
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(

@@ -95,6 +95,19 @@ class SuiStakeInfoFragment : Fragment() {
                     else -> "Pending"
                 }
             }.attach()
+
+            (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                if (fetcher.suiStakedList.isNotEmpty()) {
+                    emptyStake.visibility = View.GONE
+                    stakingDataView.visibility = View.VISIBLE
+                    epochView.visibility = View.VISIBLE
+
+                } else {
+                    emptyStake.visibility = View.VISIBLE
+                    stakingDataView.visibility = View.GONE
+                    epochView.visibility = View.GONE
+                }
+            }
         }
 
         initData()

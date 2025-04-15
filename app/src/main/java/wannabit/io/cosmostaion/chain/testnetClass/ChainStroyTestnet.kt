@@ -26,5 +26,5 @@ class ChainStroyTestnet : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/story-testnet/"
+    override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/story-testnet"
 }

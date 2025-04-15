@@ -329,7 +329,7 @@ class LendActionFragment : BaseTxFragment() {
                 when (lendActionType) {
                     LendActionType.DEPOSIT -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.LEND_DEPOSIT,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.LEND_DEPOSIT,
                                 availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
@@ -344,7 +344,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.WITHDRAW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.LEND_WITHDRAW,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.LEND_WITHDRAW,
                                 availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
@@ -358,7 +358,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.BORROW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.LEND_BORROW,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.LEND_BORROW,
                                 availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,
@@ -372,7 +372,7 @@ class LendActionFragment : BaseTxFragment() {
 
                     LendActionType.REPAY -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.LEND_REPAY,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.LEND_REPAY,
                                 availableAmount.toString(),
                                 toLendAmount,
                                 msAsset,

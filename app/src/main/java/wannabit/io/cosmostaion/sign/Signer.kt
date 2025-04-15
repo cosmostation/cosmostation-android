@@ -2,6 +2,8 @@ package wannabit.io.cosmostaion.sign
 
 import android.util.Base64.DEFAULT
 import android.util.Base64.encode
+import android.util.Log
+import com.babylon.btcstaking.v1.TxProto.MsgCreateBTCDelegation
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
@@ -675,6 +677,15 @@ object Signer {
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/kava.router.v1beta1.MsgWithdrawBurn")
                 .setValue(msgWithdraw?.toByteString()).build()
+        )
+        return msgAnys
+    }
+
+    fun btcCreateBTCDelegation(msgCreateBTCDelegation: MsgCreateBTCDelegation?): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        msgAnys.add(
+            Any.newBuilder().setTypeUrl("/babylon.btcstaking.v1.MsgCreateBTCDelegation")
+                .setValue(msgCreateBTCDelegation?.toByteString()).build()
         )
         return msgAnys
     }

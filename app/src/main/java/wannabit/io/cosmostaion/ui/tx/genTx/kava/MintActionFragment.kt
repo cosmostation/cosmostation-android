@@ -345,7 +345,7 @@ class MintActionFragment : BaseTxFragment() {
                 when (mintActionType) {
                     MintActionType.DEPOSIT -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.MINT_DEPOSIT,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.MINT_DEPOSIT,
                                 collateralAvailableAmount.toString(),
                                 toCollateralAmount,
                                 collateralAsset,
@@ -359,7 +359,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.WITHDRAW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.MINT_WITHDRAW,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.MINT_WITHDRAW,
                                 collateralAvailableAmount.toString(),
                                 toCollateralAmount,
                                 collateralAsset,
@@ -373,7 +373,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.BORROW -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.MINT_BORROW,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.MINT_BORROW,
                                 principalAvailableAmount.toString(),
                                 toPrincipalAmount,
                                 principalAsset,
@@ -387,7 +387,7 @@ class MintActionFragment : BaseTxFragment() {
 
                     MintActionType.REPAY -> {
                         handleOneClickWithDelay(
-                            InsertAmountFragment.newInstance(TxType.MINT_REPAY,
+                            InsertAmountFragment.newInstance(selectedChain, TxType.MINT_REPAY,
                                 principalAvailableAmount.toString(),
                                 toPrincipalAmount,
                                 principalAsset,

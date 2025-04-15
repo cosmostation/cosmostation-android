@@ -39,7 +39,11 @@ import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.squareup.moshi.Json
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -280,6 +284,11 @@ fun ImageView.setMonikerImg(chain: BaseChain, opAddress: String?) {
     }
 }
 
+fun ImageView.setProviderImg(chain: BaseChain, apiName: String, opAddress: String?) {
+    Picasso.get().load(chain.providerImg(apiName, opAddress))
+        .error(R.drawable.icon_default_vaildator).into(this)
+}
+
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
     if (imageUrl?.isNotEmpty() == true) {
         if (imageUrl.contains(".svg")) {
@@ -334,6 +343,11 @@ fun Context.showToast(view: View?, id: Int, isTx: Boolean) {
     val toast = Toast(this)
     toast.view = toastBinding.root
     toast.show()
+}
+
+fun Context.makeToastWithData(msg: Int, data: String) {
+    val msgData = getString(msg, data)
+    Toast.makeText(this, msgData, Toast.LENGTH_SHORT).show()
 }
 
 fun String.hexToBigDecimal(): BigDecimal {
@@ -612,6 +626,11 @@ fun gapTime(finishTime: Long): String {
         }
     }
     return result
+}
+
+fun addWeeksToMillis(baseMillis: Long, weeks: Int): Long {
+    val millisInAWeek = 7L * 24 * 60 * 60 * 1000
+    return baseMillis + (weeks * millisInAWeek)
 }
 
 fun View.visibleOrGone(visible: Boolean) {

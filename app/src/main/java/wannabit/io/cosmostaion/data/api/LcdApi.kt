@@ -158,9 +158,23 @@ interface LcdApi {
     @GET("api/address/{address}/utxo")
     suspend fun bitUtxo(@Path("address") address: String): MutableList<JsonObject>
 
+    @GET("api/v1/validate-address/{address}")
+    suspend fun bitIsValidAddress(@Path("address") address: String): JsonObject
+
     @GET("api/tx/{txhash}")
     suspend fun bitTx(@Path("txhash") txhash: String): Response<JsonObject>
 
+    @GET("babylon/finality/v1/finality_providers/{height}")
+    suspend fun btcFinalityVotingPower(@Path("height") height: Long): JsonObject
+
+    @GET("v2/network-info")
+    suspend fun bitNetworkInfo(): JsonObject
+
+    @GET("babylon/btclightclient/v1/tip")
+    suspend fun btcClientTioHeight(): JsonObject
+
+    @GET("api/v1/fees/recommended")
+    suspend fun btcFee(): JsonObject
 
     //Babylon
     @GET("babylon/incentive/address/{address}/reward_gauge")

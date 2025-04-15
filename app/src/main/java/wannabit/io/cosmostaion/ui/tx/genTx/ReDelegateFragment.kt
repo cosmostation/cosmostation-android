@@ -573,7 +573,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.RE_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.RE_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(

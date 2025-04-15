@@ -360,7 +360,7 @@ class PoolActionFragment : BaseTxFragment() {
 
             shareAmountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(TxType.POOL_WITHDRAW,
+                    InsertAmountFragment.newInstance(selectedChain, TxType.POOL_WITHDRAW,
                         deposit.sharesOwned,
                         toWithdrawAmount,
                         null,

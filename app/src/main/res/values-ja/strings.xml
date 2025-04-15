@@ -148,6 +148,7 @@
     <string name="str_sort_multi">マルチネットワークサポート</string>
     <string name="str_sort_multi_description">サポートされているネットワーク数を並べ替えます</string>
     <string name="str_select_chain">チェーン選択</string>
+    <string name="str_insufficient_balance">手数料として使用する%1$sコインが不足しています。</string>
 
 
     //title
@@ -364,6 +365,12 @@
     <string name="str_pending_state_msg">BABYLONチェーンでは、ステーキング関連の機能（ステーク、アンステーク、バリデーターの切り替え、アンステークのキャンセルなど）を実行すると、最初にPending状態になります。\nその後、現在のエポックが終了し、次のエポックに移行すると、該当するステーキング作業は即座にアクティブな状態へと移行します。</string>
     <string name="str_active_state_msg">Active状態とは、Pending状態が終了し、実行した機能が正常に有効化されている状態を意味します。\nこの状態では、ユーザーがリクエストしたステーキング関連の機能がすべて正常に動作します。</string>
     <string name="str_btc_status_msg">これは、TaprootとNative Segwitにステーキングされた%1$sの合計です。</string>
+    <string name="str_reward_msg">$%1$sでリワード支給</string>
+    <string name="str_reward_msg1">リワードは$%1$sで支給され、私の%2$sアドレスに送信されます。</string>
+    <string name="str_additional_btc_fee_msg">BTC staking requires an additional fee in BABY, deducted from your BABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
+    <string name="str_time_lock_msg">%1$sをステーキングすると、最大&lt;font color="#BED1F2"&gt;%2$s週&lt;/font&gt;間ロックされます。\nこの期間が終了すると、アンステーキングせずに自動的に出金可能になります。</string>
+    <string name="str_unstaking_msg">いつでもアンステーキングが可能で、アンステーキング後7日間の期間を経て出金できるようになります。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>
@@ -412,6 +419,8 @@
     <string name="error_memo_count">メモのサイズを確認してください。</string>
     <string name="error_pending_balance">前回の取引が処理されるのを待っています。</string>
     <string name="error_js">データの形式が正しくないため、読み取ることができません。</string>
+    <string name="error_at_least_btc_balance">ステーキングするには最低 %1$s が必要です。</string>
+    <string name="error_max_btc_balance">ステーキング金額は最大で %1$s までです。</string>
 
 
     <string name="tx_unknown">不明</string>

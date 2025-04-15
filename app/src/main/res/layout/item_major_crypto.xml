@@ -151,7 +151,7 @@
                     android:id="@+id/total_staked_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
+                    android:layout_marginTop="@dimen/space_11"
                     android:orientation="horizontal">
 
                     <TextView
@@ -179,7 +179,7 @@
                     android:id="@+id/unstaking_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
+                    android:layout_marginTop="@dimen/space_11"
                     android:orientation="horizontal">
 
                     <TextView
@@ -207,7 +207,7 @@
                     android:id="@+id/withdrawable_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_9"
+                    android:layout_marginTop="@dimen/space_11"
                     android:orientation="horizontal">
 
                     <TextView
