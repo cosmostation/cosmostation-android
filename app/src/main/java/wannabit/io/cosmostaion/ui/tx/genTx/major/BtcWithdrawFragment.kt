@@ -102,7 +102,7 @@ class BtcWithdrawFragment(
             BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.coinSymbol)
                 ?.let { asset ->
                     titleWithdrawImg.setTokenImg(asset)
-                    titleWithdraw.text = getString(R.string.title_staking, asset.symbol)
+                    titleWithdraw.text = getString(R.string.title_withdraw, asset.symbol)
                 }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
             updateValidatorView()
@@ -202,7 +202,7 @@ class BtcWithdrawFragment(
                 val dpFeeAmount = btcFeeAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val value = price.multiply(dpFeeAmount)
 
-                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 9)
+                feeAmount.text = formatAmount(dpFeeAmount.toPlainString(), 8)
                 feeValue.text = formatAssetValue(value)
             }
         }

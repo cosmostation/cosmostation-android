@@ -277,15 +277,13 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 }
                 searchStakeCoins.addAll(stakeCoins)
 
-                val mainCoin = (selectedChain.getChainListParam()
-                    ?.get("main_asset_denom")?.asString ?: "").uppercase()
+                val mainCoin = (selectedChain.getChainListParam()?.get("main_asset_denom")?.asString
+                    ?: "").uppercase()
                 if (mainCoin.isNotEmpty()) {
                     if (nativeCoins.isEmpty()) {
                         nativeCoins.add(
                             Coin(
-                                mainCoin,
-                                "0",
-                                CoinType.NATIVE
+                                mainCoin, "0", CoinType.NATIVE
                             )
                         )
 
@@ -293,9 +291,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         if (nativeCoins.none { coin -> coin.denom.uppercase() == mainCoin }) {
                             nativeCoins.add(
                                 Coin(
-                                    mainCoin,
-                                    "0",
-                                    CoinType.NATIVE
+                                    mainCoin, "0", CoinType.NATIVE
                                 )
                             )
                         }
@@ -915,7 +911,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             displayErc20TokenCoins.map { it.contract }
         }
 
-        TokenEditFragment.newInstance(selectedChain,
+        TokenEditFragment.newInstance(
+            selectedChain,
             allTokens,
             displayTokens.toMutableList(),
             object : TokenEditListener {

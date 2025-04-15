@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_REWARD_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -702,12 +701,15 @@ class ClaimRewardFragment : BaseTxFragment() {
     }
 
     private fun onBindWasmClaimRewardsMsg(): MutableList<Any> {
+        val contractAddress =
+            selectedChain.getChainListParam()?.getAsJsonObject("reward")?.get("address")?.asString
+                ?: ""
         val wasmMsgs = mutableListOf<MsgExecuteContract?>()
         val jsonData = Gson().toJson(ClaimReq(ClaimRewards()))
         val msg = ByteString.copyFromUtf8(jsonData)
         wasmMsgs.add(
             MsgExecuteContract.newBuilder().setSender(selectedChain.address)
-                .setContract(NEUTRON_REWARD_CONTRACT_ADDRESS).setMsg(msg).build()
+                .setContract(contractAddress).setMsg(msg).build()
         )
         return Signer.wasmMsg(wasmMsgs)
     }

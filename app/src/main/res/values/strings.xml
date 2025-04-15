@@ -357,6 +357,7 @@
     <string name="title_switch_validator" translatable="false">%1$s Switch Validator</string>
     <string name="title_rewards_claim" translatable="false">%1$s Rewards Claim</string>
     <string name="title_compounding" translatable="false">%1$s Compounding</string>
+    <string name="title_withdraw" translatable="false">%1$s Withdraw</string>
     <string name="title_staked_btc" translatable="false">Staked %1$s</string>
     <string name="title_select_option">Select Sort Option</string>
     <string name="title_additional_fee" translatable="false">Additional Fee in $%1$s</string>

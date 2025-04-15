@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.ui.main.chain.cosmos
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,9 +99,7 @@ class EcoSystemFragment : Fragment() {
 
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
-                    if (selectedChain.supportEvm) {
-                        putExtra("selectedChain", selectedChain as Parcelable)
-                    }
+                    putExtra("selectedChain", selectedChain.tag)
                     putExtra("dapp", it)
                     startActivity(this)
                 }

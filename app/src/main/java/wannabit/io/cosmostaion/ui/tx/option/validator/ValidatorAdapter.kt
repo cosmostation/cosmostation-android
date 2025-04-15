@@ -15,9 +15,10 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
+import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
 
 class ValidatorAdapter(
-    private val selectedChain: BaseChain
+    private val selectedChain: BaseChain, private val btcTxType: BtcTxType? = null
 ) : ListAdapter<Any, ValidatorViewHolder>(ValidatorDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
@@ -33,7 +34,7 @@ class ValidatorAdapter(
         val validator = currentList[position]
         when (selectedChain) {
             is ChainBitCoin86 -> {
-                holder.bitBind(selectedChain, validator as Pair<JsonObject, FinalityProvider>)
+                holder.bitBind(selectedChain, btcTxType, validator as Pair<JsonObject, FinalityProvider>)
                 holder.itemView.setOnClickListener {
                     onBitItemClickListener?.let {
                         it(validator)

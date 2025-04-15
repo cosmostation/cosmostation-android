@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.ui.main.chain.major
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
@@ -86,8 +88,14 @@ class MajorEcosystemFragment : Fragment() {
 
             ecoSystemAdapter.setOnItemClickListener {
                 Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dapp", it)
-                    startActivity(this)
+                    if (selectedChain is ChainBitCoin86) {
+                        putExtra("dapp", it)
+                        putExtra("selectedBitChain", selectedChain as Parcelable)
+                        startActivity(this)
+                    } else {
+                        putExtra("dapp", it)
+                        startActivity(this)
+                    }
                 }
             }
         }

@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setProviderImg
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
+import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
 import java.math.RoundingMode
 
 class ValidatorViewHolder(
@@ -114,21 +115,26 @@ class ValidatorViewHolder(
     }
 
     fun bitBind(
-        chain: ChainBitCoin86, staked: Pair<JsonObject, FinalityProvider>
+        chain: ChainBitCoin86, btcTxType: BtcTxType?, withdraw: Pair<JsonObject, FinalityProvider>
     ) {
         binding.apply {
             val apiName = if (chain.isTestnet) "babylon-testnet" else "babylon"
             monikerImg.setProviderImg(
                 chain,
                 apiName,
-                staked.first["finality_provider_btc_pks_hex"].asJsonArray.first().asString
+                withdraw.first["finality_provider_btc_pks_hex"].asJsonArray.first().asString
             )
-            monikerName.text = staked.second.provider.description.moniker ?: "Unknown"
+            monikerName.text = withdraw.second.provider.description.moniker ?: "Unknown"
+            if (btcTxType == BtcTxType.BTC_WITHDRAW) {
+                staked.text = "Withdraw"
+            } else {
+                staked.text = "Staked"
+            }
 
-            if (staked.second.provider.jailed) {
+            if (withdraw.second.provider.jailed) {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (staked.second.votingPower == "0") {
+            } else if (withdraw.second.votingPower == "0") {
                 jailedImg.visibility = View.VISIBLE
                 jailedImg.setImageResource(R.drawable.icon_inactive)
             } else {
@@ -137,7 +143,7 @@ class ValidatorViewHolder(
 
             BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
                 val amount =
-                    staked.first["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal()
+                    withdraw.first["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal()
                         .movePointLeft(asset.decimals ?: 8)
                         .setScale(asset.decimals ?: 8, RoundingMode.DOWN)
                 stakedAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 8)
