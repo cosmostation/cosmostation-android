@@ -18,6 +18,7 @@
     <string name="str_vesting" translatable="false">Vesting</string>
     <string name="str_staked" translatable="false">Staked</string>
     <string name="str_unstaking" translatable="false">Unstaking</string>
+    <string name="str_unstaked" translatable="false">Unstaked</string>
     <string name="str_reward" translatable="false">Reward</string>
     <string name="str_withdrawable" translatable="false">Withdrawable</string>
     <string name="str_btc_reward" translatable="false">%1$s Staking Reward</string>
@@ -582,7 +583,9 @@
 
     <string name="tx_ibc_update_client">IBC Update Client</string>
     <string name="tx_ibc_send">IBC Send</string>
+    <string name="tx_ibc_eureka_send">IBC Eureka Send</string>
     <string name="tx_ibc_receive">IBC Received</string>
+    <string name="tx_ibc_eureka_receive">IBC Eureka Received</string>
     <string name="tx_ibc_acknowledgement">IBC Acknowledgement</string>
     <string name="tx_reinvest">Compounding</string>
     <string name="tx_new_order">New Order</string>

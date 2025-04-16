@@ -454,7 +454,9 @@
     <string name="tx_unjail">検証人再活性</string>
     <string name="tx_ibc_update_client">IBC 更新クライアント\nアップデート</string>
     <string name="tx_ibc_send">IBC 送信</string>
+    <string name="tx_ibc_eureka_send">IBC Eureka 送信</string>
     <string name="tx_ibc_receive">IBCもらう</string>
+    <string name="tx_ibc_eureka_receive">IBC Eureka もらう</string>
     <string name="tx_ibc_acknowledgement">IBC 承認</string>
     <string name="tx_reinvest">コンパウンディング</string>
     <string name="tx_new_order">新規注文</string>

@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
+import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -627,8 +628,12 @@ data class CosmosHistory(
                     result = c.getString(R.string.tx_ibc_send)
                 } else if (msgType.contains("MsgUpdateClient")) {
                     result = c.getString(R.string.tx_ibc_update_client)
+                } else if (msgType.contains("v2.MsgSendPacket")) {
+                    result = c.getString(R.string.tx_ibc_eureka_send)
                 } else if (msgType.contains("MsgAcknowledgement")) {
                     result = c.getString(R.string.tx_ibc_acknowledgement)
+                } else if (msgType.contains("v2.MsgRecvPacket")) {
+                    result = c.getString(R.string.tx_ibc_eureka_receive)
                 } else if (msgType.contains("MsgRecvPacket")) {
                     result = c.getString(R.string.tx_ibc_receive)
                 }
@@ -642,6 +647,11 @@ data class CosmosHistory(
                     msg.forEach { secondMsg ->
                         if (secondMsg.asJsonObject["@type"].asString.contains("MsgRecvPacket")) {
                             result = c.getString(R.string.tx_ibc_receive)
+                        }
+                    }
+                    msg.forEach { secondMsg ->
+                        if (secondMsg.asJsonObject["@type"].asString.contains("v2.MsgRecvPacket")) {
+                            result = c.getString(R.string.tx_ibc_eureka_receive)
                         }
                     }
                 }
@@ -789,6 +799,112 @@ data class CosmosHistory(
                     return sortedCoins(chain, result)
                 }
 
+                var ibcReceived = false
+                msgs.forEach { msg ->
+                    var msgType = ""
+                    try {
+                        msgType = msg.asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgType = msg.asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (msgType.contains("ibc") && msgType.contains(
+                            "MsgRecvPacket"
+                        )
+                    ) {
+                        ibcReceived = true
+                    }
+                }
+                if (ibcReceived) {
+                    try {
+                        jsonArray.forEach { log ->
+                            log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
+                                ?.let { event ->
+                                    event.asJsonObject["attributes"].asJsonArray.forEach { attribute ->
+                                        if (attribute.asJsonObject["value"].asString == chain.address) {
+                                            event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }
+                                                ?.let { attributeFiltered ->
+                                                    attributeFiltered.asJsonObject["value"].asString?.let { rawAmount ->
+                                                        rawAmount.split(",").forEach { rawCoin ->
+                                                            val p = Pattern.compile("([0-9])+")
+                                                            val m = p.matcher(rawCoin)
+                                                            if (m.find()) {
+                                                                val amount = m.group()
+                                                                val denom: String =
+                                                                    rawCoin.substring(m.end())
+                                                                val coin =
+                                                                    CoinProto.Coin.newBuilder()
+                                                                        .setDenom(denom)
+                                                                        .setAmount(amount)
+                                                                        .build()
+                                                                result.add(coin)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                        }
+                                    }
+                                }
+                        }
+                        return sortedCoins(chain, result)
+
+                    } catch (e: Exception) {
+
+                    }
+                }
+
+                var ibcEurekaSend = false
+                msgs.forEach { msg ->
+                    var msgEurekaType = ""
+                    try {
+                        msgEurekaType = msg.asJsonObject["@type"].asString
+                    } catch (_: Exception) {
+                    }
+                    try {
+                        msgEurekaType = msg.asJsonObject["type"].asString
+                    } catch (_: Exception) {
+                    }
+
+                    if (msgEurekaType.contains("ibc") && msgEurekaType.contains(
+                            "v2.MsgSendPacket"
+                        )
+                    ) {
+                        ibcEurekaSend = true
+                    }
+                }
+
+                if (ibcEurekaSend) {
+                    try {
+                        jsonArray.forEach { log ->
+                            log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "ibc_transfer" }
+                                ?.let { event ->
+                                    event.asJsonObject["attributes"].asJsonArray.forEach { attribute ->
+                                        if (attribute.asJsonObject["value"].asString == chain.address) {
+                                            val amount =
+                                                event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }?.asJsonObject?.get(
+                                                    "value"
+                                                )?.asString
+                                            val denom =
+                                                event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "denom" }?.asJsonObject?.get(
+                                                    "value"
+                                                )?.asString
+                                            val coin = CoinProto.Coin.newBuilder().setDenom(denom)
+                                                .setAmount(amount).build()
+                                            result.add(coin)
+                                        }
+                                    }
+                                }
+                        }
+                        return sortedCoins(chain, result)
+
+                    } catch (e: Exception) {
+
+                    }
+                }
+
                 var allSend = true
                 msgs.forEach { msg ->
                     val msgType = try {
@@ -810,28 +926,19 @@ data class CosmosHistory(
                         } catch (e: Exception) {
                             null
                         }
+
                         if (msgType != null) {
                             val msgValue = msg.asJsonObject[msgType.replace(".", "-")]
                             try {
-                                msgValue.asJsonObject["from_address"].asString?.let { senderAddr ->
-                                    if (chain.address == senderAddr) {
-                                        val amount =
-                                            msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
-                                        totalAmount = totalAmount.add(amount)
-                                        denom =
-                                            msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
-                                    }
+                                val senderAddr = msgValue.asJsonObject["from_address"].asString
+                                val receiverAddr = msgValue.asJsonObject["to_address"].asString
 
-                                } ?: run {
-                                    msgValue.asJsonObject["to_address"].asString?.let { receiverAddr ->
-                                        if (chain.address == receiverAddr) {
-                                            val amount =
-                                                msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
-                                            totalAmount = totalAmount.add(amount)
-                                            denom =
-                                                msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
-                                        }
-                                    }
+                                if (senderAddr == chain.address || receiverAddr == chain.address) {
+                                    val amount =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["amount"].asString.toBigDecimal()
+                                    totalAmount = totalAmount.add(amount)
+                                    denom =
+                                        msgValue.asJsonObject["amount"].asJsonArray[0].asJsonObject["denom"].asString
                                 }
 
                             } catch (e: Exception) {
@@ -842,56 +949,6 @@ data class CosmosHistory(
                     val value = CoinProto.Coin.newBuilder().setDenom(denom)
                         .setAmount(totalAmount.toString()).build()
                     result.add(value)
-                    return sortedCoins(chain, result)
-                }
-
-                var ibcReceived = false
-                var msgType = ""
-                msgs.forEach { msg ->
-                    try {
-                        msgType = msg.asJsonObject["@type"].asString
-                    } catch (_: Exception) {
-                    }
-                    try {
-                        msgType = msg.asJsonObject["type"].asString
-                    } catch (_: Exception) {
-                    }
-
-                    if (msgType.contains("ibc") && msgType.contains(
-                            "MsgRecvPacket"
-                        )
-                    ) {
-                        ibcReceived = true
-                    }
-                }
-                if (ibcReceived) {
-                    jsonArray.forEach { log ->
-                        log.asJsonObject["events"].asJsonArray.firstOrNull { it.asJsonObject["type"].asString == "transfer" }
-                            ?.let { event ->
-                                event.asJsonObject["attributes"].asJsonArray.forEach { attribute ->
-                                    if (attribute.asJsonObject["value"].asString == chain.address) {
-                                        event.asJsonObject["attributes"].asJsonArray.firstOrNull { it.asJsonObject["key"].asString == "amount" }
-                                            ?.let { attributeFiltered ->
-                                                attributeFiltered.asJsonObject["value"].asString?.let { rawAmount ->
-                                                    rawAmount.split(",").forEach { rawCoin ->
-                                                        val p = Pattern.compile("([0-9])+")
-                                                        val m = p.matcher(rawCoin)
-                                                        if (m.find()) {
-                                                            val amount = m.group()
-                                                            val denom: String =
-                                                                rawCoin.substring(m.end())
-                                                            val coin = CoinProto.Coin.newBuilder()
-                                                                .setDenom(denom).setAmount(amount)
-                                                                .build()
-                                                            result.add(coin)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-                    }
                     return sortedCoins(chain, result)
                 }
             }

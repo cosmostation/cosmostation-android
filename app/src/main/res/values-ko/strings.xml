@@ -462,7 +462,9 @@
 
     <string name="tx_ibc_update_client">IBC 클라이언트 업데이트</string>
     <string name="tx_ibc_send">IBC 보내기</string>
+    <string name="tx_ibc_eureka_send">IBC 유레카 보내기</string>
     <string name="tx_ibc_receive">IBC 받기</string>
+    <string name="tx_ibc_eureka_receive">IBC 유레카 받기</string>
     <string name="tx_ibc_acknowledgement">IBC 승인</string>
     <string name="tx_reinvest">컴파운딩</string>
     <string name="tx_new_order">새 주문</string>
