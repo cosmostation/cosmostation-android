@@ -16,7 +16,7 @@ class EvmFetcher(var chain: BaseChain) {
     var web3j: Web3j? = null
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        evmTokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
+        evmTokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -25,13 +25,20 @@ class EvmFetcher(var chain: BaseChain) {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    fun allTokenValue(baseAccountId: Long, isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        evmTokens.forEach { tokenInfo ->
-            val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
-            val value =
-                price.multiply(tokenInfo.amount?.toBigDecimal()).movePointLeft(tokenInfo.decimals)
-                    .setScale(6, RoundingMode.DOWN)
+
+        val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.evmRpcFetcher?.evmTokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.evmRpcFetcher?.evmTokens?.filter { userDisplayToken.contains(it.address) }
+        }
+
+        displayTokenList?.forEach { token ->
+            val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+            val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                .setScale(6, RoundingMode.DOWN)
             result = result.add(value)
         }
         return result
@@ -49,8 +56,14 @@ class EvmFetcher(var chain: BaseChain) {
         return if (evmBalance > BigDecimal.ZERO) 1 else 0
     }
 
-    fun valueTokenCnt(): Int {
-        return evmTokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    fun displayTokenCnt(baseAccountId: Long): Int {
+        val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.evmRpcFetcher?.evmTokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.evmRpcFetcher?.evmTokens?.filter { userDisplayToken.contains(it.address) }
+        }
+        return displayTokenList?.count() ?: 0
     }
 
     fun getEvmRpc(): String {

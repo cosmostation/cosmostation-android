@@ -283,17 +283,17 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
-                    fromChain.cosmosFetcher?.let { grpc ->
-                        grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
-                            toSendToken = token
-                        }
-                    }
-
-                    fromChain.evmRpcFetcher?.let { evmRpc ->
-                        evmRpc.evmTokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
-                            toSendToken = token
-                        }
-                    }
+//                    fromChain.cosmosFetcher?.let { grpc ->
+//                        grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
+//                            toSendToken = token
+//                        }
+//                    }
+//
+//                    fromChain.evmRpcFetcher?.let { evmRpc ->
+//                        evmRpc.evmTokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
+//                            toSendToken = token
+//                        }
+//                    }
 
                     transferImg.setTokenImg(toSendToken?.image ?: "")
                     sendTitle.text = getString(
@@ -335,12 +335,12 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_GRC20 -> {
-                    fromChain.gnoRpcFetcher?.let { fetcher ->
-                        fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
-                            ?.let { token ->
-                                toSendToken = token
-                            }
-                    }
+//                    fromChain.gnoRpcFetcher?.let { fetcher ->
+//                        fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
+//                            ?.let { token ->
+//                                toSendToken = token
+//                            }
+//                    }
 
                     transferImg.setTokenImg(toSendToken?.image ?: "")
                     sendTitle.text = getString(
@@ -1146,13 +1146,13 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
 
                             } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-                                val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.contract)
-                                    .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
-                                    .build()
-                                txViewModel.rpcCallSimulate(
-                                    msgCall, cosmosTxFee, txMemo, this
-                                )
+//                                val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+//                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.contract)
+//                                    .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
+//                                    .build()
+//                                txViewModel.rpcCallSimulate(
+//                                    msgCall, cosmosTxFee, txMemo, this
+//                                )
 
                             } else {
                                 if (fromChain is ChainGnoTestnet) {
@@ -1326,10 +1326,10 @@ class CommonTransferFragment : BaseTxFragment() {
         val wasmSendReq = WasmSendReq(toAddress, toSendAmount)
         val jsonData = Gson().toJson(wasmSendReq)
         val msg = ByteString.copyFromUtf8(jsonData)
-        wasmMsgs.add(
-            MsgExecuteContract.newBuilder().setSender(fromChain.address)
-                .setContract(toSendToken?.contract).setMsg(msg).build()
-        )
+//        wasmMsgs.add(
+//            MsgExecuteContract.newBuilder().setSender(fromChain.address)
+//                .setContract(toSendToken?.contract).setMsg(msg).build()
+//        )
         return Signer.wasmMsg(wasmMsgs)
     }
 
@@ -1342,10 +1342,10 @@ class CommonTransferFragment : BaseTxFragment() {
         val wasmIbcSendReq = WasmIbcSendReq(assetPath?.ibcContract(), toSendAmount, encodeMsg)
         val jsonData = Gson().toJson(wasmIbcSendReq)
         val msg = ByteString.copyFromUtf8(jsonData)
-        wasmMsgs.add(
-            MsgExecuteContract.newBuilder().setSender(fromChain.address)
-                .setContract(toSendToken?.contract).setMsg(msg).build()
-        )
+//        wasmMsgs.add(
+//            MsgExecuteContract.newBuilder().setSender(fromChain.address)
+//                .setContract(toSendToken?.contract).setMsg(msg).build()
+//        )
         return Signer.wasmMsg(wasmMsgs)
     }
 
@@ -1401,14 +1401,14 @@ class CommonTransferFragment : BaseTxFragment() {
                                         this
                                     )
                                 } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-                                    val msgCall =
-                                        com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-                                            .setCaller(fromChain.address)
-                                            .setPkgPath(toSendToken?.contract).setFunc("Transfer")
-                                            .addAllArgs(listOf(toAddress, toSendAmount)).build()
-                                    txViewModel.rpcCallBroadcast(
-                                        msgCall, cosmosTxFee, txMemo, this
-                                    )
+//                                    val msgCall =
+//                                        com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+//                                            .setCaller(fromChain.address)
+//                                            .setPkgPath(toSendToken?.contract).setFunc("Transfer")
+//                                            .addAllArgs(listOf(toAddress, toSendAmount)).build()
+//                                    txViewModel.rpcCallBroadcast(
+//                                        msgCall, cosmosTxFee, txMemo, this
+//                                    )
 
                                 } else {
                                     if (fromChain is ChainGnoTestnet) {
@@ -1617,36 +1617,36 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {
         val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
-        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.contract == denom }
+//        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.contract == denom }
 
         BaseData.assets?.forEach { asset ->
-            if (msAsset != null) {
-                if (asset.chain == fromChain.apiName && asset.beforeChain(fromChain.apiName) == toChain.apiName && asset.denom.equals(
-                        denom, true
-                    )
-                ) {
-                    return AssetPath(
-                        asset.ibc_info?.client?.channel, asset.ibc_info?.client?.port
-                    )
-                }
-                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.equals(
-                        denom, true
-                    ) == true
-                ) {
-                    return AssetPath(
-                        asset.ibc_info.counterparty.channel, asset.ibc_info.counterparty.port
-                    )
-                }
-            } else {
-                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom.equals(
-                        msToken.contract, true
-                    )
-                ) {
-                    return AssetPath(
-                        asset.ibc_info?.counterparty?.channel, asset.ibc_info?.counterparty?.port
-                    )
-                }
-            }
+//            if (msAsset != null) {
+//                if (asset.chain == fromChain.apiName && asset.beforeChain(fromChain.apiName) == toChain.apiName && asset.denom.equals(
+//                        denom, true
+//                    )
+//                ) {
+//                    return AssetPath(
+//                        asset.ibc_info?.client?.channel, asset.ibc_info?.client?.port
+//                    )
+//                }
+//                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.equals(
+//                        denom, true
+//                    ) == true
+//                ) {
+//                    return AssetPath(
+//                        asset.ibc_info.counterparty.channel, asset.ibc_info.counterparty.port
+//                    )
+//                }
+//            } else {
+//                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom.equals(
+//                        msToken.contract, true
+//                    )
+//                ) {
+//                    return AssetPath(
+//                        asset.ibc_info?.counterparty?.channel, asset.ibc_info?.counterparty?.port
+//                    )
+//                }
+//            }
         }
         return null
     }

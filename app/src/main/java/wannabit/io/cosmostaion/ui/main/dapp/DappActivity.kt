@@ -1128,7 +1128,6 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-            Log.e("Test12345 : ", messageJson.getString("method"))
 
             when (messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -1739,7 +1738,6 @@ class DappActivity : BaseActivity() {
                 //babylon
                 "bit_requestAccount" -> {
                     withContext(Dispatchers.IO) {
-                        Log.e("Test12345 : ", selectBitcoin.toString())
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }
@@ -1815,8 +1813,6 @@ class DappActivity : BaseActivity() {
 
                 "bit_getAddress" -> {
                     withContext(Dispatchers.IO) {
-                        Log.e("Test12345 : ", selectBitcoin.toString())
-                        Log.e("Test123456 : ", selectBitcoin?.mainAddress.toString())
                         if (selectBitcoin == null) {
                             selectBitcoin = allChains?.find { it is ChainBitCoin86 && it.isDefault }
                         }

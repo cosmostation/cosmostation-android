@@ -137,27 +137,27 @@ data class BaseAccount(
 
                 is ChainOktEvm -> {
                     chain.coinValue = chain.oktFetcher()?.allAssetValue()
-                    chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue()
+                    chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue(id)
                 }
 
                 is ChainGnoTestnet -> {
                     chain.coinValue = chain.gnoRpcFetcher()?.allAssetValue()
-                    chain.tokenValue = chain.gnoRpcFetcher()?.allGrc20TokenValue()
+                    chain.tokenValue = chain.gnoRpcFetcher()?.allGrc20TokenValue(id)
                 }
 
                 else -> {
                     if (chain.isEvmCosmos()) {
                         chain.coinValue = chain.cosmosFetcher()?.allAssetValue()
-                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue()
-                            ?.add(chain.evmRpcFetcher()?.allTokenValue())
+                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue(id)
+                            ?.add(chain.evmRpcFetcher()?.allTokenValue(id))
 
                     } else if (chain.supportCosmos()) {
                         chain.coinValue = chain.cosmosFetcher()?.allAssetValue()
-                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue()
+                        chain.tokenValue = chain.cosmosFetcher()?.allTokenValue(id)
 
                     } else {
                         chain.coinValue = chain.evmRpcFetcher()?.allAssetValue()
-                        chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue()
+                        chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue(id)
                     }
                 }
             }

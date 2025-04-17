@@ -45,6 +45,9 @@ import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
+import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -127,10 +130,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         price(BaseData.currencyName().lowercase())
         val loadParamDeferred = async { walletRepository.param() }
         val loadAssetDeferred = async { walletRepository.asset() }
+        val loadCw20Deferred = async { walletRepository.cw20() }
+        val loadErc20Deferred = async { walletRepository.erc20() }
+        val loadGrc20Deferred = async { walletRepository.grc20() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemTest() }
 
         val responses = awaitAll(
-            loadParamDeferred, loadAssetDeferred, loadEcoSystemDeferred
+            loadParamDeferred,
+            loadAssetDeferred,
+            loadCw20Deferred,
+            loadErc20Deferred,
+            loadGrc20Deferred,
+            loadEcoSystemDeferred
         )
 
         responses.forEach { response ->
@@ -146,6 +157,18 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is AssetResponse -> {
                             response.data.assets?.let { BaseData.assets = it }
+                        }
+
+                        is Cw20TokenResponse -> {
+                            response.data.assets?.let { BaseData.cw20Tokens = it }
+                        }
+
+                        is Erc20TokenResponse -> {
+                            response.data.assets?.let { BaseData.erc20Tokens = it }
+                        }
+
+                        is Grc20TokenResponse -> {
+                            response.data.assets?.let { BaseData.grc20Tokens = it }
                         }
 
                         is MutableList<*> -> {
@@ -722,7 +745,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             walletRepository.erc20Balance(chain, token)
             withContext(Dispatchers.Main) {
-                _editErc20Balance.value = token.contract
+                _editErc20Balance.value = token.address
             }
         }
     }
@@ -734,7 +757,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             walletRepository.cw20Balance(channel, chain, token)
             withContext(Dispatchers.Main) {
-                _editCw20Balance.value = token.contract
+                _editCw20Balance.value = token.address
             }
         }
     }
@@ -746,7 +769,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         viewModelScope.launch(Dispatchers.IO) {
             walletRepository.grc20Balance(chain, token)
             withContext(Dispatchers.Main) {
-                _editGrc20Balance.value = token.contract
+                _editGrc20Balance.value = token.address
             }
         }
     }

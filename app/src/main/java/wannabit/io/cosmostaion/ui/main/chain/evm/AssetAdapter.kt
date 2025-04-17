@@ -67,7 +67,7 @@ class AssetAdapter(
 
                             holder.itemView.setOnClickListener {
                                 onItemClickListener?.let {
-                                    it(evmChain, token.contract)
+                                    it(evmChain, token.address)
                                 }
                             }
                         }
@@ -93,7 +93,7 @@ class AssetAdapter(
 
                             holder.itemView.setOnClickListener {
                                 onItemClickListener?.let {
-                                    it(evmChain, token.contract)
+                                    it(evmChain, token.address)
                                 }
                             }
                         }

@@ -67,7 +67,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        tokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
+        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -76,9 +76,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    fun allTokenValue(baseAccountId: Long, isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        tokens.forEach { token ->
+        val userDisplayToken = Prefs.getDisplayCw20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+
+        displayTokenList?.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId, isUsd)
             val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
                 .setScale(6, RoundingMode.DOWN)
@@ -96,8 +103,14 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
     }
 
-    fun valueTokenCnt(): Int {
-        return tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    fun displayTokenCnt(baseAccountId: Long): Int {
+        val userDisplayToken = Prefs.getDisplayCw20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+        return displayTokenList?.count() ?: 0
     }
 
     fun balanceAmount(denom: String): BigDecimal {

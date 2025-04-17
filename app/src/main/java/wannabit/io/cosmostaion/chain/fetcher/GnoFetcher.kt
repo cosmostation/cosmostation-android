@@ -25,7 +25,7 @@ class GnoFetcher(private val chain: BaseChain) {
     }
 
     fun grc20TokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        grc20Tokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
+        grc20Tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -34,9 +34,17 @@ class GnoFetcher(private val chain: BaseChain) {
         }
     }
 
-    fun allGrc20TokenValue(isUsd: Boolean? = false): BigDecimal {
+    fun allGrc20TokenValue(baseAccountId: Long, isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        grc20Tokens.forEach { token ->
+
+        val userDisplayToken = Prefs.getDisplayGrc20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.gnoRpcFetcher?.grc20Tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.gnoRpcFetcher?.grc20Tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+
+        displayTokenList?.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId, isUsd)
             val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
                 .setScale(6, RoundingMode.DOWN)
@@ -45,8 +53,14 @@ class GnoFetcher(private val chain: BaseChain) {
         return result
     }
 
-    fun valueGrc20TokenCnt(): Int {
-        return grc20Tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    fun displayTokenCnt(baseAccountId: Long): Int {
+        val userDisplayToken = Prefs.getDisplayGrc20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.gnoRpcFetcher?.grc20Tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.gnoRpcFetcher?.grc20Tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+        return displayTokenList?.count() ?: 0
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -70,7 +84,7 @@ class GnoFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
+    private fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (gnoBalances?.isNotEmpty() == true) {
             gnoBalances?.forEach { balance ->

@@ -372,7 +372,7 @@ class HistoryViewHolder(
                 }
 
             } else {
-                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.contract.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
+                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address.uppercase() == historyGroup.second["tokenAddress"].asString.uppercase() }
                     ?.let { asset ->
                         txAmount.text =
                             formatAmount(historyGroup.second["amount"].asString, asset.decimals)

@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.model.res
 
 import android.content.Context
-import android.util.Log
 import com.cosmos.base.v1beta1.CoinProto
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -1146,7 +1145,7 @@ data class CosmosHistory(
                                     null
                                 }
                                 if (amount != null) {
-                                    chain.cosmosFetcher?.tokens?.firstOrNull { it.contract == contractAddress }
+                                    chain.cosmosFetcher?.tokens?.firstOrNull { it.address == contractAddress }
                                         ?.let { cw20 ->
                                             return Pair(cw20, amount.toBigDecimal())
                                         }
@@ -1175,7 +1174,7 @@ data class CosmosHistory(
                             val hexData = Base64.decode(data).toHex()
                             val contractAddress = dataValue.asJsonObject["to"].asString
                             if (hexData.startsWith("a9059cbb")) {
-                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.contract == contractAddress }
+                                chain.evmRpcFetcher?.evmTokens?.firstOrNull { it.address == contractAddress }
                                     ?.let { erc20 ->
                                         return Pair(erc20, hexData.takeLast(64).hexToBigDecimal())
                                     }
