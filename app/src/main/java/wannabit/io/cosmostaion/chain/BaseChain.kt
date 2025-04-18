@@ -792,7 +792,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainBitcoin86Testnet())
-//    chains.add(ChainGnoTestnet())
+    chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
     chains.add(ChainMantraTestnet())
     chains.add(ChainNeutronTestnet())

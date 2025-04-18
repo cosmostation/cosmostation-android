@@ -1373,6 +1373,7 @@ class ApplicationViewModel(
                                     )
                                     fetcher.gnoBalances = tempBalances
 
+                                    fetchState = FetchState.SUCCESS
                                     val refAddress = RefAddress(
                                         id,
                                         tag,
@@ -1409,6 +1410,7 @@ class ApplicationViewModel(
                                         accountData["account_number"].asString.toLong()
                                     fetcher.gnoSequence = accountData["sequence"].asString.toLong()
 
+                                    fetchState = FetchState.SUCCESS
                                     val refAddress = RefAddress(
                                         id,
                                         tag,
@@ -1473,7 +1475,6 @@ class ApplicationViewModel(
                                     tokenValue = fetcher.allGrc20TokenValue(id)
                                     tokenUsdValue = fetcher.allGrc20TokenValue(id, true)
                                     tokenCnt = fetcher.displayTokenCnt(id)
-                                    fetchState = FetchState.SUCCESS
 
                                     withContext(Dispatchers.Main) {
                                         if (isEdit == true) {
