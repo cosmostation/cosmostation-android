@@ -22,7 +22,6 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.cosmwasm.wasm.v1.TxProto.MsgExecuteContract
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import wannabit.io.cosmostaion.R
@@ -37,12 +36,13 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.WasmCw721SendReq
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentNftTransferBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
@@ -57,7 +57,7 @@ import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
 import java.math.RoundingMode
 
 class NftTransferFragment(
-    val fromChain: BaseChain, val info: JsonObject?, val token: Cw721TokenModel?
+    val fromChain: BaseChain, val info: Cw721?, val token: Cw721TokenModel?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentNftTransferBinding? = null
@@ -130,7 +130,7 @@ class NftTransferFragment(
             }
             nftId.text = "#" + token?.tokenId
             info?.let {
-                nftTitle.text = it.asJsonObject["name"].asString
+                nftTitle.text = it.name
             }
         }
     }
@@ -450,7 +450,8 @@ class NftTransferFragment(
     private fun updateFeeViewWithSimulate(gasUsed: String?) {
         txFee?.let { fee ->
             gasUsed?.toLong()?.let { gas ->
-                val gasLimit = (gas.toDouble() * fromChain.simulatedGasMultiply()).toLong().toBigDecimal()
+                val gasLimit =
+                    (gas.toDouble() * fromChain.simulatedGasMultiply()).toLong().toBigDecimal()
                 if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                     fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                         it.denom == fee.getAmount(
@@ -519,7 +520,7 @@ class NftTransferFragment(
                 val msg = ByteString.copyFromUtf8(jsonData)
                 wasmMsgs.add(
                     MsgExecuteContract.newBuilder().setSender(fromChain.address)
-                        .setContract(info.asJsonObject["contractAddress"]?.asString).setMsg(msg)
+                        .setContract(info.contractAddress).setMsg(msg)
                         .build()
                 )
             }

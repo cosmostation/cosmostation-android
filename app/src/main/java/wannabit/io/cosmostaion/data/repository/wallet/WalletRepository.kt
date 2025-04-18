@@ -20,6 +20,8 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
 import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
@@ -50,6 +52,8 @@ interface WalletRepository {
     suspend fun erc20(): NetworkResult<Erc20TokenResponse>
 
     suspend fun grc20(): NetworkResult<Grc20TokenResponse>
+
+    suspend fun cw721(): NetworkResult<Cw721Response>
 
     suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain
@@ -173,14 +177,12 @@ interface WalletRepository {
 
     suspend fun evmBalance(chain: BaseChain): NetworkResult<String>
 
-    suspend fun cw721Info(chain: String): NetworkResult<JsonObject>
-
     suspend fun cw721TokenIds(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenInfo(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721, tokenId: String
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenDetail(

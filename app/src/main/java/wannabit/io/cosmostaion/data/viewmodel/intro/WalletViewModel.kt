@@ -46,6 +46,8 @@ import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
 import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
@@ -133,6 +135,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadCw20Deferred = async { walletRepository.cw20() }
         val loadErc20Deferred = async { walletRepository.erc20() }
         val loadGrc20Deferred = async { walletRepository.grc20() }
+        val loadCw721Deferred = async { walletRepository.cw721() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemTest() }
 
         val responses = awaitAll(
@@ -141,6 +144,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             loadCw20Deferred,
             loadErc20Deferred,
             loadGrc20Deferred,
+            loadCw721Deferred,
             loadEcoSystemDeferred
         )
 
@@ -169,6 +173,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is Grc20TokenResponse -> {
                             response.data.assets?.let { BaseData.grc20Tokens = it }
+                        }
+
+                        is Cw721Response -> {
+                            response.data.assets?.let { BaseData.cw721Tokens = it }
                         }
 
                         is MutableList<*> -> {
@@ -1047,7 +1055,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
     }
 
     var cw721ModelResult = SingleLiveEvent<String>()
-    fun cw721AllTokens(chain: BaseChain, list: JsonObject) = viewModelScope.launch(Dispatchers.IO) {
+    fun cw721AllTokens(chain: BaseChain, list: Cw721) = viewModelScope.launch(Dispatchers.IO) {
         val channel = chain.cosmosFetcher?.getChannel()
         when (val response = walletRepository.cw721TokenIds(channel, chain, list)) {
             is NetworkResult.Success -> {
@@ -1064,7 +1072,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                             when (val tokenDetail =
                                                 walletRepository.cw721TokenDetail(
                                                     chain,
-                                                    list.asJsonObject["contractAddress"].asString,
+                                                    list.contractAddress,
                                                     tokenId
                                                 )) {
                                                 is NetworkResult.Success -> {

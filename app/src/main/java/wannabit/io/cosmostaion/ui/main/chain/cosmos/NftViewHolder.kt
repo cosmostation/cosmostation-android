@@ -8,13 +8,14 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.fetcher.suiNftUrl
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.databinding.ItemNftBinding
 
 class NftViewHolder(
     val context: Context,
     private val binding: ItemNftBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(info: JsonObject, nft: Cw721TokenModel) {
+    fun bind(info: Cw721, nft: Cw721TokenModel) {
         binding.apply {
             nftImg.clipToOutline = true
             nft.tokenDetail?.let {
@@ -26,7 +27,7 @@ class NftViewHolder(
             } ?: run {
                 nftImg.setImageResource(R.drawable.icon_nft_default_alpha)
             }
-            nftTitle.text = info["name"].asString + " #" + nft.tokenId
+            nftTitle.text = info.name + " #" + nft.tokenId
         }
     }
 

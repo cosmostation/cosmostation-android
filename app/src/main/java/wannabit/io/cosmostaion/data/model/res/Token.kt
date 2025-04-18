@@ -13,6 +13,9 @@ data class Erc20TokenResponse(val assets: List<Token>?)
 @JsonClass(generateAdapter = true)
 data class Grc20TokenResponse(val assets: List<Token>?)
 
+@JsonClass(generateAdapter = true)
+data class Cw721Response(val assets: List<Cw721>?)
+
 @Parcelize
 data class Token(
     val chainName: String,
@@ -35,3 +38,11 @@ data class Token(
     var type: String? = ""
         get() = field ?: ""
 }
+
+@Parcelize
+data class Cw721(
+    val chain: String,
+    val id: Long,
+    val name: String,
+    val contractAddress: String
+): Parcelable

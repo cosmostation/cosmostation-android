@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemNftBinding
 
-class NftAdapter(val line: BaseChain) :
+class NftAdapter(private val line: BaseChain) :
     ListAdapter<Cw721Model, RecyclerView.ViewHolder>(Cw72lDiffCallback()) {
 
-    private var onItemClickListener: ((BaseChain, JsonObject?, Cw721TokenModel?) -> Unit)? = null
+    private var onItemClickListener: ((BaseChain, Cw721?, Cw721TokenModel?) -> Unit)? = null
 
     companion object {
         const val VIEW_TYPE_NFT_HEADER = 0
@@ -127,7 +127,7 @@ class NftAdapter(val line: BaseChain) :
 
         fun bind(model: Cw721Model) {
             binding.apply {
-                headerTitle.text = model.info["name"].asString
+                headerTitle.text = model.info.name
                 headerCnt.text = model.tokens.size.toString()
             }
         }
@@ -144,7 +144,7 @@ class NftAdapter(val line: BaseChain) :
         }
     }
 
-    fun setOnItemClickListener(listener: (BaseChain, JsonObject?, Cw721TokenModel?) -> Unit) {
+    fun setOnItemClickListener(listener: (BaseChain, Cw721?, Cw721TokenModel?) -> Unit) {
         onItemClickListener = listener
     }
 }

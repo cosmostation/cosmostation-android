@@ -193,49 +193,26 @@ class ApplicationViewModel(
         chain.apply {
             fetchState = FetchState.BUSY
             chain.cosmosFetcher()?.tokens =
-                BaseData.cw20Tokens
-                    ?.filter { it.chainName == chain.apiName }
-                    ?.map { token ->
-                        token.type = "cw20"
-                        token
-                    }
-                    ?.toMutableList()
-                    ?: mutableListOf()
+                BaseData.cw20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "cw20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
 
             chain.evmRpcFetcher()?.evmTokens =
-                BaseData.erc20Tokens
-                    ?.filter { it.chainName == chain.apiName }
-                    ?.map { token ->
-                        token.type = "erc20"
-                        token
-                    }
-                    ?.toMutableList()
-                    ?: mutableListOf()
+                BaseData.erc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "erc20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
 
             chain.gnoRpcFetcher?.grc20Tokens =
-                BaseData.grc20Tokens
-                    ?.filter { it.chainName == chain.apiName }
-                    ?.map { token ->
-                        token.type = "grc20"
-                        token
-                    }
-                    ?.toMutableList()
+                BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "grc20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
+
+            chain.cosmosFetcher?.cw721Tokens =
+                BaseData.cw721Tokens?.filter { it.chain == chain.apiName }?.toMutableList()
                     ?: mutableListOf()
-
-            if (isSupportCw721()) {
-                when (val response = walletRepository.cw721Info(apiName)) {
-                    is NetworkResult.Success -> {
-                        val data = response.data["assets"].asJsonArray
-                        data.forEach {
-                            cosmosFetcher?.cw721s?.add(it.asJsonObject)
-                        }
-                    }
-
-                    is NetworkResult.Error -> {
-                        _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                    }
-                }
-            }
 
             if (this is ChainBitCoin86) {
                 loadBtcData(baseAccountId, this, isEdit)

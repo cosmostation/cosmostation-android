@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,12 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentNftBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_HEADER
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.NftAdapter.Companion.VIEW_TYPE_NFT_ITEM
 import wannabit.io.cosmostaion.ui.tx.genTx.NftTransferFragment
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class NftFragment : Fragment() {
 
@@ -155,7 +156,8 @@ class NftFragment : Fragment() {
         isBusy = true
         selectedChain.cosmosFetcher?.cw721Fetched = false
         selectedChain.cosmosFetcher?.cw721Models?.clear()
-        selectedChain.cosmosFetcher?.cw721s?.asSequence()?.concurrentForEach { list ->
+        selectedChain.cosmosFetcher?.cw721Tokens?.asSequence()?.concurrentForEach { list ->
+
             walletViewModel.cw721AllTokens(selectedChain, list)
         }
     }
@@ -164,7 +166,7 @@ class NftFragment : Fragment() {
         walletViewModel.cw721ModelResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
                 selectedChain.cosmosFetcher?.cw721Fetched = true
-                selectedChain.cosmosFetcher?.cw721Models?.sortWith(compareBy { it.info.asJsonObject["id"].asDouble })
+                selectedChain.cosmosFetcher?.cw721Models?.sortWith(compareBy { it.info.id })
                 selectedChain.cosmosFetcher?.cw721Models?.forEach { cw721Model ->
                     cw721Model.sortId()
                 }

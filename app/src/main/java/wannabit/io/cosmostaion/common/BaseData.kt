@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.data.model.res.Asset
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -26,6 +27,7 @@ object BaseData {
     var cw20Tokens: List<Token>? = mutableListOf()
     var erc20Tokens: List<Token>? = mutableListOf()
     var grc20Tokens: List<Token>? = mutableListOf()
+    var cw721Tokens: List<Cw721>? = mutableListOf()
     var ecosystems: MutableList<JsonObject>? = mutableListOf()
 
     var isBackGround = false

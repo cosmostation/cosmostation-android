@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AssetPath
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -51,7 +52,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
-    var cw721s = mutableListOf<JsonObject>()
+    var cw721Tokens = mutableListOf<Cw721>()
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
 

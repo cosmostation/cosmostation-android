@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
 import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
@@ -49,11 +50,11 @@ interface MintscanApi {
     @GET("v11/assets/erc20")
     suspend fun erc20token(): Erc20TokenResponse
 
-    @GET("v11/assets/erc20")
+    @GET("v11/assets/grc20")
     suspend fun grc20token(): Grc20TokenResponse
 
-    @GET("v11/assets/{chain}/cw721")
-    suspend fun cw721Info(@Path("chain") chain: String): JsonObject
+    @GET("v11/assets/cw721")
+    suspend fun cw721(): Cw721Response
 
     @GET("v10/{chain}/contracts/{contractAddress}/nft-url/{tokenId}")
     suspend fun cw721Detail(

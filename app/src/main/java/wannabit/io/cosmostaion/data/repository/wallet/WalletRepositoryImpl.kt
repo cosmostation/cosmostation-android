@@ -96,6 +96,8 @@ import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
 import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
@@ -169,6 +171,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun grc20(): NetworkResult<Grc20TokenResponse> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.grc20token()
+        }
+    }
+
+    override suspend fun cw721(): NetworkResult<Cw721Response> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.cw721()
         }
     }
 
@@ -846,14 +854,8 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun cw721Info(chain: String): NetworkResult<JsonObject> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.cw721Info(chain)
-        }
-    }
-
     override suspend fun cw721TokenIds(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721
     ): NetworkResult<JsonObject?> {
         val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(chain.address))
         val jsonData = Gson().toJson(req)
@@ -863,7 +865,7 @@ class WalletRepositoryImpl : WalletRepository {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .setAddress(list.contractAddress).setQueryData(queryData)
                 .build()
             return safeApiCall {
                 stub.smartContractState(request)?.let { response ->
@@ -880,7 +882,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             lcdApi(chain).lcdContractInfo(
-                list.asJsonObject["contractAddress"].asString, queryDataBase64
+                list.contractAddress, queryDataBase64
             ).let { response ->
                 return safeApiCall {
                     val tokens = response["data"].asJsonObject["tokens"].asJsonArray
@@ -895,7 +897,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenInfo(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721, tokenId: String
     ): NetworkResult<JsonObject?> {
         val req = StarCw721TokenInfoReq(NftInfo(tokenId))
         val jsonData = Gson().toJson(req)
@@ -905,7 +907,7 @@ class WalletRepositoryImpl : WalletRepository {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .setAddress(list.contractAddress).setQueryData(queryData)
                 .build()
             return safeApiCall(Dispatchers.IO) {
                 stub.smartContractState(request)?.let { response ->
@@ -916,7 +918,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             lcdApi(chain).lcdContractInfo(
-                list.asJsonObject["contractAddress"].asString, queryDataBase64
+                list.contractAddress, queryDataBase64
             ).let { response ->
                 return safeApiCall {
                     response.asJsonObject["data"].asJsonObject

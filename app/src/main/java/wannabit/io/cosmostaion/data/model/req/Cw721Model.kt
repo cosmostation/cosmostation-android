@@ -1,9 +1,10 @@
 package wannabit.io.cosmostaion.data.model.req
 
 import com.google.gson.JsonObject
+import wannabit.io.cosmostaion.data.model.res.Cw721
 
 data class Cw721Model(
-    var info: JsonObject,
+    var info: Cw721,
     var tokens: MutableList<Cw721TokenModel>
 ) {
     fun sortId() {
