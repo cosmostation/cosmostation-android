@@ -19,6 +19,11 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
+import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
+import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
@@ -42,7 +47,13 @@ interface WalletRepository {
 
     suspend fun param(): NetworkResult<JsonObject?>
 
-    suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>>
+    suspend fun cw20(): NetworkResult<Cw20TokenResponse>
+
+    suspend fun erc20(): NetworkResult<Erc20TokenResponse>
+
+    suspend fun grc20(): NetworkResult<Grc20TokenResponse>
+
+    suspend fun cw721(): NetworkResult<Cw721Response>
 
     suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain
@@ -164,18 +175,14 @@ interface WalletRepository {
         chain: BaseChain
     ): NetworkResult<JsonObject?>
 
-    suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>>
-
     suspend fun evmBalance(chain: BaseChain): NetworkResult<String>
 
-    suspend fun cw721Info(chain: String): NetworkResult<JsonObject>
-
     suspend fun cw721TokenIds(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenInfo(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721, tokenId: String
     ): NetworkResult<JsonObject?>
 
     suspend fun cw721TokenDetail(
@@ -224,8 +231,7 @@ interface WalletRepository {
     suspend fun btcStakingStatus(chain: BaseChain): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun btcReward(
-        channel: ManagedChannel?,
-        chain: BaseChain
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.Coin>>
 
     suspend fun chainHeight(
@@ -247,8 +253,7 @@ interface WalletRepository {
     suspend fun statusHeight(channel: ManagedChannel?): NetworkResult<Long>
 
     suspend fun btcFinalityVotingPower(
-        chain: BaseChain,
-        height: Long
+        chain: BaseChain, height: Long
     ): NetworkResult<MutableList<com.babylon.finality.v1.QueryProto.ActiveFinalityProvidersAtHeightResponse>>
 
     suspend fun btcFinalityProviders(

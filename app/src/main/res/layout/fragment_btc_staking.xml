@@ -221,12 +221,12 @@
         app:layout_constraintBottom_toTopOf="@id/fee_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/space_16"
+            android:paddingHorizontal="@dimen/space_16"
             android:paddingTop="@dimen/space_16"
             android:paddingBottom="@dimen/space_12">
 

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -12,7 +11,6 @@ import wannabit.io.cosmostaion.databinding.ItemTokenEditBinding
 
 class TokenEditAdapter(
     private val walletViewModel: WalletViewModel,
-    private val lifecycleOwner: LifecycleOwner,
     private val selectChain: BaseChain,
     private val tokens: MutableList<Token>?,
     private val displayTokens: MutableList<String>?
@@ -38,10 +36,10 @@ class TokenEditAdapter(
             updateView(holder, token, displayTokens)
 
             holder.itemView.setOnClickListener {
-                if (displayTokens?.contains(token.contract) == true) {
-                    displayTokens.removeIf { it == token.contract }
+                if (displayTokens?.contains(token.address) == true) {
+                    displayTokens.removeIf { it == token.address }
                 } else {
-                    displayTokens?.add(token.contract)
+                    displayTokens?.add(token.address)
                 }
                 updateView(holder, token, displayTokens)
                 onItemClickListener?.let {
@@ -55,7 +53,7 @@ class TokenEditAdapter(
         holder: TokenEditViewHolder, token: Token, displayTokens: MutableList<String>?
     ) {
         holder.binding.apply {
-            if (displayTokens?.contains(token.contract) == true) {
+            if (displayTokens?.contains(token.address) == true) {
                 editView.setBackgroundResource(R.drawable.item_select_bg)
             } else {
                 editView.setBackgroundResource(R.drawable.cell_bg)
@@ -70,6 +68,7 @@ class TokenEditAdapter(
         }
         notifyDataSetChanged()
     }
+
 
     fun setOnItemClickListener(listener: (MutableList<String>) -> Unit) {
         onItemClickListener = listener

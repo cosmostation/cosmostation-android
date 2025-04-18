@@ -81,7 +81,7 @@ class AssetViewHolder(
                         hideValue.visibility = View.GONE
 
                         assetAmount.text = formatAmount(amount.toPlainString(), 6)
-                        assetAmountValue.text = evmChain.evmRpcFetcher?.tokenValue(token.contract)
+                        assetAmountValue.text = evmChain.evmRpcFetcher?.tokenValue(token.address)
                             ?.let { formatAssetValue(it) }
                     }
                 }

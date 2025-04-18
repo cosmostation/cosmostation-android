@@ -95,6 +95,11 @@ import wannabit.io.cosmostaion.data.model.req.VotingPowerReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
+import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
+import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
@@ -151,17 +156,27 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun token(chain: BaseChain): NetworkResult<MutableList<Token>> {
+    override suspend fun cw20(): NetworkResult<Cw20TokenResponse> {
         return safeApiCall(Dispatchers.IO) {
-            if (chain.isSupportCw20()) {
-                mintscanApi.cw20token(chain.apiName)
-            } else if (chain.isSupportErc20()) {
-                mintscanApi.erc20token(chain.apiName)
-            } else if (chain.isSupportGrc20()) {
-                mintscanApi.grc20token(chain.apiName)
-            } else {
-                mutableListOf()
-            }
+            mintscanApi.cw20token()
+        }
+    }
+
+    override suspend fun erc20(): NetworkResult<Erc20TokenResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.erc20token()
+        }
+    }
+
+    override suspend fun grc20(): NetworkResult<Grc20TokenResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.grc20token()
+        }
+    }
+
+    override suspend fun cw721(): NetworkResult<Cw721Response> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.cw721()
         }
     }
 
@@ -409,7 +424,7 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.contract)
+            val request = QuerySmartContractStateRequest.newBuilder().setAddress(token.address)
                 .setQueryData(queryData).build()
             try {
                 stub.smartContractState(request)?.let { response ->
@@ -425,7 +440,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             try {
-                lcdApi(chain).lcdContractInfo(token.contract, queryDataBase64).let { response ->
+                lcdApi(chain).lcdContractInfo(token.address, queryDataBase64).let { response ->
                     token.amount = response["data"].asJsonObject["balance"].asString
                     token.fetched = true
                 }
@@ -451,7 +466,7 @@ class WalletRepositoryImpl : WalletRepository {
 
             val txData = FunctionEncoder.encode(function)
             val response = chain.web3j?.ethCall(
-                Transaction.createEthCallTransaction(chain.evmAddress, token.contract, txData),
+                Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
@@ -470,7 +485,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun grc20Balance(chain: BaseChain, grc20Token: Token) {
-        val queryData = grc20Token.contract + ".BalanceOf(\"${chain.address}\")"
+        val queryData = grc20Token.address + ".BalanceOf(\"${chain.address}\")"
         val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
         val grc20BalanceRequest = JsonRpcRequest(
             method = "abci_query", params = listOf("vm/qeval", queryDataBase64, "0", false)
@@ -592,10 +607,9 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             safeApiCall(Dispatchers.IO) {
-                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64)
-                    .let { response ->
-                        response["data"].asJsonObject["pending_rewards"].asJsonObject["amount"].asString.toBigDecimal()
-                    }
+                lcdApi(chain).lcdContractInfo(contractAddress, queryDataBase64).let { response ->
+                    response["data"].asJsonObject["pending_rewards"].asJsonObject["amount"].asString.toBigDecimal()
+                }
             }
         }
     }
@@ -831,12 +845,6 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun evmToken(chain: BaseChain): NetworkResult<MutableList<Token>> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanApi.erc20token(chain.apiName)
-        }
-    }
-
     override suspend fun evmBalance(chain: BaseChain): NetworkResult<String> {
         return safeApiCall(Dispatchers.IO) {
             val web3j = Web3j.build(HttpService(chain.evmRpcFetcher?.getEvmRpc()))
@@ -846,14 +854,8 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun cw721Info(chain: String): NetworkResult<JsonObject> {
-        return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.cw721Info(chain)
-        }
-    }
-
     override suspend fun cw721TokenIds(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721
     ): NetworkResult<JsonObject?> {
         val req = StarCw721TokenIdReq(wannabit.io.cosmostaion.data.model.req.Token(chain.address))
         val jsonData = Gson().toJson(req)
@@ -863,7 +865,7 @@ class WalletRepositoryImpl : WalletRepository {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .setAddress(list.contractAddress).setQueryData(queryData)
                 .build()
             return safeApiCall {
                 stub.smartContractState(request)?.let { response ->
@@ -880,7 +882,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             lcdApi(chain).lcdContractInfo(
-                list.asJsonObject["contractAddress"].asString, queryDataBase64
+                list.contractAddress, queryDataBase64
             ).let { response ->
                 return safeApiCall {
                     val tokens = response["data"].asJsonObject["tokens"].asJsonArray
@@ -895,7 +897,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun cw721TokenInfo(
-        channel: ManagedChannel?, chain: BaseChain, list: JsonObject, tokenId: String
+        channel: ManagedChannel?, chain: BaseChain, list: Cw721, tokenId: String
     ): NetworkResult<JsonObject?> {
         val req = StarCw721TokenInfoReq(NftInfo(tokenId))
         val jsonData = Gson().toJson(req)
@@ -905,7 +907,7 @@ class WalletRepositoryImpl : WalletRepository {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
             val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.asJsonObject["contractAddress"].asString).setQueryData(queryData)
+                .setAddress(list.contractAddress).setQueryData(queryData)
                 .build()
             return safeApiCall(Dispatchers.IO) {
                 stub.smartContractState(request)?.let { response ->
@@ -916,7 +918,7 @@ class WalletRepositoryImpl : WalletRepository {
         } else {
             val queryDataBase64 = Base64.toBase64String(queryData.toByteArray())
             lcdApi(chain).lcdContractInfo(
-                list.asJsonObject["contractAddress"].asString, queryDataBase64
+                list.contractAddress, queryDataBase64
             ).let { response ->
                 return safeApiCall {
                     response.asJsonObject["data"].asJsonObject

@@ -40,7 +40,6 @@ import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
-import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VestingData
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
@@ -193,58 +192,27 @@ class ApplicationViewModel(
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
             fetchState = FetchState.BUSY
-            cosmosFetcher()?.let {
-                if (isSupportCw20()) {
-                    when (val response = walletRepository.token(this)) {
-                        is NetworkResult.Success -> {
-                            cosmosFetcher?.tokens = response.data
-                        }
+            chain.cosmosFetcher()?.tokens =
+                BaseData.cw20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "cw20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
 
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
+            chain.evmRpcFetcher()?.evmTokens =
+                BaseData.erc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "erc20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
 
-                if (isSupportErc20()) {
-                    when (val response = walletRepository.evmToken(this)) {
-                        is NetworkResult.Success -> {
-                            chain.evmRpcFetcher()?.evmTokens = response.data
-                        }
+            chain.gnoRpcFetcher?.grc20Tokens =
+                BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "grc20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
 
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
-
-                if (isSupportGrc20()) {
-                    when (val response = walletRepository.token(this)) {
-                        is NetworkResult.Success -> {
-                            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens = response.data
-                        }
-
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
-
-                if (isSupportCw721()) {
-                    when (val response = walletRepository.cw721Info(apiName)) {
-                        is NetworkResult.Success -> {
-                            val data = response.data["assets"].asJsonArray
-                            data.forEach {
-                                cosmosFetcher?.cw721s?.add(it.asJsonObject)
-                            }
-                        }
-
-                        is NetworkResult.Error -> {
-                            _chainDataErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-                        }
-                    }
-                }
-            }
+            chain.cosmosFetcher?.cw721Tokens =
+                BaseData.cw721Tokens?.filter { it.chain == chain.apiName }?.toMutableList()
+                    ?: mutableListOf()
 
             if (this is ChainBitCoin86) {
                 loadBtcData(baseAccountId, this, isEdit)
@@ -406,16 +374,10 @@ class ApplicationViewModel(
             try {
                 if (chain.supportEvm) {
                     evmRpcFetcher()?.let { evmRpcFetcher ->
-                        val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
                         val loadEvmBalanceDeferred =
                             async { walletRepository.evmBalance(this@apply) }
 
-                        val tokenResult = loadEvmTokenDeferred.await()
                         val balanceResult = loadEvmBalanceDeferred.await()
-
-                        if (tokenResult is NetworkResult.Success && tokenResult.data is MutableList<*> && tokenResult.data.all { it is Token }) {
-                            evmRpcFetcher.evmTokens = tokenResult.data
-                        }
 
                         if (balanceResult is NetworkResult.Success && balanceResult.data is String) {
                             web3j = Web3j.build(HttpService(evmRpcFetcher.getEvmRpc()))
@@ -717,7 +679,7 @@ class ApplicationViewModel(
                                 }
 
                         } else {
-                            cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.contract) }
+                            cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
                                 ?.map { token ->
                                     async { walletRepository.cw20Balance(channel, chain, token) }
                                 }
@@ -731,13 +693,13 @@ class ApplicationViewModel(
                             evmAddress,
                             "0",
                             "0",
-                            cosmosFetcher?.allTokenValue(true)?.toPlainString(),
+                            cosmosFetcher?.allTokenValue(id, true)?.toPlainString(),
                             0
                         )
                         BaseData.updateRefAddressesToken(cwRefAddress)
-                        cw20TokenValue = cosmosFetcher?.allTokenValue()
-                        cw20TokenUsdValue = cosmosFetcher?.allTokenValue(true)
-                        cw20TokenCnt = chain.cosmosFetcher()?.valueTokenCnt() ?: 0
+                        cw20TokenValue = cosmosFetcher?.allTokenValue(id)
+                        cw20TokenUsdValue = cosmosFetcher?.allTokenValue(id, true)
+                        cw20TokenCnt = chain.cosmosFetcher()?.displayTokenCnt(id) ?: 0
                     }
 
                     if (isSupportErc20()) {
@@ -755,7 +717,7 @@ class ApplicationViewModel(
                                         }
 
                                 } else {
-                                    evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
+                                    evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
                                         .map { token ->
                                             async {
                                                 walletRepository.erc20Balance(
@@ -773,7 +735,7 @@ class ApplicationViewModel(
                                     evmAddress,
                                     "0",
                                     "0",
-                                    evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                    evmRpcFetcher.allTokenValue(id, true).toPlainString(),
                                     cosmosFetcher?.cosmosBalances?.count {
                                         BaseData.getAsset(
                                             apiName, it.denom
@@ -781,13 +743,9 @@ class ApplicationViewModel(
                                     }?.toLong() ?: 0L
                                 )
                                 BaseData.updateRefAddressesToken(evmRefAddress)
-                                erc20TokenValue = evmRpcFetcher.allTokenValue()
-                                erc20TokenUsdValue = evmRpcFetcher.allTokenValue(true)
-                                erc20TokenCnt = if (Prefs.getDisplayErc20s(id, chain.tag) != null) {
-                                    Prefs.getDisplayErc20s(id, chain.tag)?.size.toString().toInt()
-                                } else {
-                                    evmRpcFetcher.valueTokenCnt()
-                                }
+                                erc20TokenValue = evmRpcFetcher.allTokenValue(id)
+                                erc20TokenUsdValue = evmRpcFetcher.allTokenValue(id, true)
+                                erc20TokenCnt = evmRpcFetcher.displayTokenCnt(id)
                             }
                         }
                     }
@@ -833,15 +791,9 @@ class ApplicationViewModel(
             chain.apply {
                 evmRpcFetcher()?.let { evmRpcFetcher ->
                     val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, tag)
-                    val loadEvmTokenDeferred = async { walletRepository.evmToken(this@apply) }
                     val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
 
-                    val tokenResult = loadEvmTokenDeferred.await()
                     val balanceResult = loadEvmBalanceDeferred.await()
-
-                    if (tokenResult is NetworkResult.Success && tokenResult.data is MutableList<*> && tokenResult.data.all { it is Token }) {
-                        evmRpcFetcher.evmTokens = tokenResult.data
-                    }
 
                     if (balanceResult is NetworkResult.Success && balanceResult.data is String) {
                         web3j = Web3j.build(HttpService(evmRpcFetcher.getEvmRpc()))
@@ -924,7 +876,7 @@ class ApplicationViewModel(
                                     }
 
                             } else {
-                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
+                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
                                     .map { token ->
                                         async {
                                             walletRepository.erc20Balance(
@@ -942,13 +894,13 @@ class ApplicationViewModel(
                                 evmAddress,
                                 "0",
                                 "0",
-                                evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenValue = evmRpcFetcher.allTokenValue()
-                            tokenUsdValue = evmRpcFetcher.allTokenValue(true)
-                            tokenCnt = evmRpcFetcher.valueTokenCnt()
+                            tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
+                            tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
+                            tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
 
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
@@ -1012,7 +964,7 @@ class ApplicationViewModel(
                                     }
 
                             } else {
-                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.contract) }
+                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
                                     .map { token ->
                                         async { walletRepository.erc20Balance(this@apply, token) }
                                     }
@@ -1026,20 +978,13 @@ class ApplicationViewModel(
                                 evmAddress,
                                 "0",
                                 "0",
-                                evmRpcFetcher.allTokenValue(true).toPlainString(),
+                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenValue = evmRpcFetcher.allTokenValue()
-                            tokenUsdValue = evmRpcFetcher.allTokenValue(true)
-                            tokenCnt =
-                                if (Prefs.getDisplayErc20s(baseAccountId, chain.tag) != null) {
-                                    Prefs.getDisplayErc20s(
-                                        baseAccountId, chain.tag
-                                    )?.size.toString().toInt()
-                                } else {
-                                    evmRpcFetcher.valueTokenCnt()
-                                }
+                            tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
+                            tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
+                            tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
 
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
@@ -1428,6 +1373,7 @@ class ApplicationViewModel(
                                     )
                                     fetcher.gnoBalances = tempBalances
 
+                                    fetchState = FetchState.SUCCESS
                                     val refAddress = RefAddress(
                                         id,
                                         tag,
@@ -1464,6 +1410,7 @@ class ApplicationViewModel(
                                         accountData["account_number"].asString.toLong()
                                     fetcher.gnoSequence = accountData["sequence"].asString.toLong()
 
+                                    fetchState = FetchState.SUCCESS
                                     val refAddress = RefAddress(
                                         id,
                                         tag,
@@ -1502,7 +1449,7 @@ class ApplicationViewModel(
                                             }
 
                                     } else {
-                                        fetcher.grc20Tokens.filter { userDisplayToken.contains(it.contract) }
+                                        fetcher.grc20Tokens.filter { userDisplayToken.contains(it.address) }
                                             .map { token ->
                                                 async {
                                                     walletRepository.grc20Balance(
@@ -1520,14 +1467,14 @@ class ApplicationViewModel(
                                         "",
                                         "0",
                                         "0",
-                                        gnoRpcFetcher?.allGrc20TokenValue(true)?.toPlainString(),
+                                        gnoRpcFetcher?.allGrc20TokenValue(id, true)
+                                            ?.toPlainString(),
                                         0
                                     )
                                     BaseData.updateRefAddressesToken(grcRefAddress)
-                                    tokenValue = fetcher.allGrc20TokenValue()
-                                    tokenUsdValue = fetcher.allGrc20TokenValue(true)
-                                    tokenCnt = fetcher.valueGrc20TokenCnt()
-                                    fetchState = FetchState.SUCCESS
+                                    tokenValue = fetcher.allGrc20TokenValue(id)
+                                    tokenUsdValue = fetcher.allGrc20TokenValue(id, true)
+                                    tokenCnt = fetcher.displayTokenCnt(id)
 
                                     withContext(Dispatchers.Main) {
                                         if (isEdit == true) {

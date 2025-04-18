@@ -16,14 +16,14 @@ import wannabit.io.cosmostaion.chain.fetcher.InitiaFetcher
 class ChainInitiaTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Initia Testnet"
-    override var tag: String = "initia_T"
+    override var tag: String = "initia60_T"
     override var logo: Int = R.drawable.chain_initia_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "initia-testnet"
 
-    override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
+    override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
-        ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
+        ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC

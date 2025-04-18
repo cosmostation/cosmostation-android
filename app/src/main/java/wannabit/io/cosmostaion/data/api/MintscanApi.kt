@@ -14,11 +14,14 @@ import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
+import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Cw721Response
+import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
+import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
-import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
@@ -41,17 +44,17 @@ interface MintscanApi {
     @GET("v11/utils/params")
     suspend fun param(): JsonObject
 
-    @GET("v11/assets/{chain}/cw20/info")
-    suspend fun cw20token(@Path("chain") chain: String): MutableList<Token>
+    @GET("v11/assets/cw20")
+    suspend fun cw20token(): Cw20TokenResponse
 
-    @GET("v11/assets/{chain}/erc20/info")
-    suspend fun erc20token(@Path("chain") chain: String): MutableList<Token>
+    @GET("v11/assets/erc20")
+    suspend fun erc20token(): Erc20TokenResponse
 
-    @GET("v11/assets/{chain}/grc20/info")
-    suspend fun grc20token(@Path("chain") chain: String): MutableList<Token>
+    @GET("v11/assets/grc20")
+    suspend fun grc20token(): Grc20TokenResponse
 
-    @GET("v11/assets/{chain}/cw721")
-    suspend fun cw721Info(@Path("chain") chain: String): JsonObject
+    @GET("v11/assets/cw721")
+    suspend fun cw721(): Cw721Response
 
     @GET("v10/{chain}/contracts/{contractAddress}/nft-url/{tokenId}")
     suspend fun cw721Detail(
@@ -100,6 +103,9 @@ interface MintscanApi {
 
     @GET("v11/{chain}/btc/stakers")
     suspend fun bitStakedStatus(
-        @Path("chain") chain: String?, @Query("staker_addr") address: String, @Query("limit") limit: String?, @Query("search_after") searchAfter: String? = ""
+        @Path("chain") chain: String?,
+        @Query("staker_addr") address: String,
+        @Query("limit") limit: String?,
+        @Query("search_after") searchAfter: String? = ""
     ): JsonObject?
 }

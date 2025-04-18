@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.databinding.ItemTokenEditBinding
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 class TokenEditViewHolder(
@@ -26,91 +27,102 @@ class TokenEditViewHolder(
             tokenImg.setTokenImg(token.image)
             tokenImg.clipToOutline = true
             tokenName.text = token.symbol
-            tokenAddress.text = token.contract
+            tokenAddress.text = token.address
 
-            chain.cosmosFetcher()?.tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
-                ?.let { token ->
-                    token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
-                        ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
+            skeletonTokenAmount.visibility = View.VISIBLE
+            skeletonTokenValue.visibility = View.VISIBLE
+            tokenAmount.visibility = View.GONE
+            tokenValue.visibility = View.GONE
+
+            chain.cosmosFetcher()?.tokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
+                ?.let { cw20Token ->
+                    if (cw20Token.fetched) {
+                        val dpAmount =
+                            cw20Token.amount?.toBigDecimal()?.movePointLeft(cw20Token.decimals)
+                                ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+
+                        skeletonTokenAmount.visibility = View.GONE
+                        skeletonTokenValue.visibility = View.GONE
+                        tokenAmount.visibility = View.VISIBLE
+                        tokenValue.visibility = View.VISIBLE
+
+                        tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
+                        chain.cosmosFetcher?.let {
+                            tokenValue.text = formatAssetValue(it.tokenValue(cw20Token.address))
+                        }
+
+                    } else {
+                        skeletonTokenAmount.visibility = View.VISIBLE
+                        skeletonTokenValue.visibility = View.VISIBLE
+                        tokenAmount.visibility = View.GONE
+                        tokenValue.visibility = View.GONE
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val channel = chain.cosmosFetcher?.getChannel()
+                            walletViewModel.cw20Balance(channel, chain, cw20Token)
+                        }
+                    }
+
+                } ?: run {
+                chain.evmRpcFetcher()?.evmTokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
+                    ?.let { evmToken ->
+                        if (evmToken.fetched) {
+                            val dpAmount =
+                                evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+
+                            skeletonTokenAmount.visibility = View.GONE
+                            skeletonTokenValue.visibility = View.GONE
+                            tokenAmount.visibility = View.VISIBLE
+                            tokenValue.visibility = View.VISIBLE
+
+                            tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
+                            chain.evmRpcFetcher?.let {
+                                tokenValue.text = formatAssetValue(it.tokenValue(evmToken.address))
+                            }
+
+                        } else {
+                            skeletonTokenAmount.visibility = View.VISIBLE
+                            skeletonTokenValue.visibility = View.VISIBLE
+                            tokenAmount.visibility = View.GONE
+                            tokenValue.visibility = View.GONE
+
+                            CoroutineScope(Dispatchers.IO).launch {
+                                walletViewModel.erc20Balance(chain, token)
+                            }
+                        }
+
+                    } ?: run {
+                    (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
+                        ?.let { grcToken ->
                             if (token.fetched) {
+                                val dpAmount = grcToken.amount?.toBigDecimal()
+                                    ?.movePointLeft(grcToken.decimals)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+
                                 skeletonTokenAmount.visibility = View.GONE
                                 skeletonTokenValue.visibility = View.GONE
+                                tokenAmount.visibility = View.VISIBLE
+                                tokenValue.visibility = View.VISIBLE
 
-                                tokenAmount.text = formatAmount(amount.toPlainString(), 6)
-                                chain.cosmosFetcher?.let {
+                                tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
+                                chain.gnoRpcFetcher?.let {
                                     tokenValue.text =
-                                        formatAssetValue(it.tokenValue(token.contract))
+                                        formatAssetValue(it.grc20TokenValue(token.address))
                                 }
 
                             } else {
                                 skeletonTokenAmount.visibility = View.VISIBLE
                                 skeletonTokenValue.visibility = View.VISIBLE
-                                tokenAmount.text = ""
-                                tokenValue.text = ""
+                                tokenAmount.visibility = View.GONE
+                                tokenValue.visibility = View.GONE
+
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    val channel = chain.cosmosFetcher?.getChannel()
-                                    walletViewModel.cw20Balance(channel, chain, token)
+                                    walletViewModel.grc20Balance(chain, token)
                                 }
                             }
                         }
-
-                } ?: run {
-                chain.evmRpcFetcher()?.evmTokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
-                    ?.let { evmToken ->
-                        evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
-                            ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
-                                if (evmToken.fetched) {
-                                    tokenImg.setTokenImg(token.image)
-                                    tokenImg.clipToOutline = true
-                                    skeletonTokenAmount.visibility = View.GONE
-                                    skeletonTokenValue.visibility = View.GONE
-
-                                    tokenAmount.text = formatAmount(amount.toPlainString(), 6)
-                                    chain.evmRpcFetcher?.let {
-                                        tokenValue.text =
-                                            formatAssetValue(it.tokenValue(evmToken.contract))
-                                    }
-
-                                } else {
-                                    skeletonTokenAmount.visibility = View.VISIBLE
-                                    skeletonTokenValue.visibility = View.VISIBLE
-                                    tokenAmount.text = ""
-                                    tokenValue.text = ""
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        walletViewModel.erc20Balance(chain, token)
-                                    }
-                                }
-                            }
-                    }
-
-            } ?: run {
-                (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { it.chain == chain.apiName && it.contract == token.contract }
-                    ?.let { token ->
-                        token.amount?.toBigDecimal()?.movePointLeft(token.decimals)
-                            ?.setScale(6, RoundingMode.DOWN)?.let { amount ->
-                                if (token.fetched) {
-                                    tokenImg.setTokenImg(token.image)
-                                    tokenImg.clipToOutline = true
-                                    skeletonTokenAmount.visibility = View.GONE
-                                    skeletonTokenValue.visibility = View.GONE
-
-                                    tokenAmount.text = formatAmount(amount.toPlainString(), 6)
-                                    chain.gnoRpcFetcher?.let {
-                                        tokenValue.text =
-                                            formatAssetValue(it.grc20TokenValue(token.contract))
-                                    }
-
-                                } else {
-                                    skeletonTokenAmount.visibility = View.VISIBLE
-                                    skeletonTokenValue.visibility = View.VISIBLE
-                                    tokenAmount.text = ""
-                                    tokenValue.text = ""
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        walletViewModel.grc20Balance(chain, token)
-                                    }
-                                }
-                            }
-                    }
+                }
             }
         }
     }

@@ -78,12 +78,25 @@ data class CounterParty(
 }
 
 data class AssetPath(
-    var channel: String?, var port: String?
+    var direction: DirectionIBC? = DirectionIBC.UNKNOWN,
+    var ibcInfo: IbcInfo?
 ) {
-    fun ibcContract(): String {
-        port?.let {
-            return it.replace("wasm.".toRegex(), "")
+
+    fun getChannel(): String? {
+        return when (direction) {
+            DirectionIBC.BACKWARD -> ibcInfo?.client?.channel
+            DirectionIBC.FORWARD -> ibcInfo?.counterparty?.channel
+            else -> null
         }
-        return ""
+    }
+
+    fun getPort(): String? {
+        return when (direction) {
+            DirectionIBC.BACKWARD -> ibcInfo?.client?.port?.replace("wasm.", "")
+            DirectionIBC.FORWARD -> ibcInfo?.counterparty?.port?.replace("wasm.", "")
+            else -> null
+        }
     }
 }
+
+enum class DirectionIBC { UNKNOWN, FORWARD, BACKWARD }

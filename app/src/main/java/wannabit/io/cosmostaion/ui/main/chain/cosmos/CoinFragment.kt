@@ -348,8 +348,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 erc20Tokens.sortBy { it.symbol.lowercase() }
                 Prefs.getDisplayErc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
                     erc20Tokens.sortWith { o1, o2 ->
-                        val address0 = o1.contract
-                        val address1 = o2.contract
+                        val address0 = o1.address
+                        val address1 = o2.address
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -368,14 +368,14 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     erc20Tokens.forEach { token ->
-                        if (userCustomTokens.contains(token.contract) && !displayErc20TokenCoins.contains(
+                        if (userCustomTokens.contains(token.address) && !displayErc20TokenCoins.contains(
                                 token
                             )
                         ) {
                             displayErc20TokenCoins.add(token)
                             erc20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.ERC20
+                                    token.address, token.amount.toString(), CoinType.ERC20
                                 )
                             )
                         }
@@ -386,12 +386,14 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 } ?: run {
                     erc20Tokens.sortWith { o1, o2 ->
                         when {
+                            o1.wallet_preload == true && o2.wallet_preload == false -> -1
+                            o1.wallet_preload == false && o2.wallet_preload == true -> 1
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
-                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(o1.contract)
+                                val value0 = selectedChain.evmRpcFetcher?.tokenValue(o1.address)
                                     ?: BigDecimal.ZERO
-                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(o2.contract)
+                                val value1 = selectedChain.evmRpcFetcher?.tokenValue(o2.address)
                                     ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
@@ -399,14 +401,11 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     erc20Tokens.forEach { token ->
-                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayErc20TokenCoins.contains(
-                                token
-                            ) && token.wallet_preload == true
-                        ) {
+                        if (!displayErc20TokenCoins.contains(token) && token.wallet_preload == true) {
                             displayErc20TokenCoins.add(token)
                             erc20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.ERC20
+                                    token.address, token.amount.toString(), CoinType.ERC20
                                 )
                             )
                         }
@@ -422,8 +421,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
                 Prefs.getDisplayCw20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
                     cw20Tokens.sortWith { o1, o2 ->
-                        val address0 = o1.contract
-                        val address1 = o2.contract
+                        val address0 = o1.address
+                        val address1 = o2.address
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -442,14 +441,14 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     cw20Tokens.forEach { token ->
-                        if (userCustomTokens.contains(token.contract) && !displayCw20TokenCoins.contains(
+                        if (userCustomTokens.contains(token.address) && !displayCw20TokenCoins.contains(
                                 token
                             )
                         ) {
                             displayCw20TokenCoins.add(token)
                             cw20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.CW20
+                                    token.address, token.amount.toString(), CoinType.CW20
                                 )
                             )
                         }
@@ -460,12 +459,14 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 } ?: run {
                     cw20Tokens.sortWith { o1, o2 ->
                         when {
+                            o1.wallet_preload == true && o2.wallet_preload == false -> -1
+                            o1.wallet_preload == false && o2.wallet_preload == true -> 1
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
-                                val value0 = selectedChain.cosmosFetcher?.tokenValue(o1.contract)
+                                val value0 = selectedChain.cosmosFetcher?.tokenValue(o1.address)
                                     ?: BigDecimal.ZERO
-                                val value1 = selectedChain.cosmosFetcher?.tokenValue(o2.contract)
+                                val value1 = selectedChain.cosmosFetcher?.tokenValue(o2.address)
                                     ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
@@ -473,14 +474,11 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     cw20Tokens.forEach { token ->
-                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayCw20TokenCoins.contains(
-                                token
-                            ) && token.wallet_preload == true
-                        ) {
+                        if (!displayCw20TokenCoins.contains(token) && token.wallet_preload == true) {
                             displayCw20TokenCoins.add(token)
                             cw20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.CW20
+                                    token.address, token.amount.toString(), CoinType.CW20
                                 )
                             )
                         }
@@ -496,8 +494,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
                 Prefs.getDisplayGrc20s(account.id, selectedChain.tag)?.let { userCustomTokens ->
                     grc20Tokens.sortWith { o1, o2 ->
-                        val address0 = o1.contract
-                        val address1 = o2.contract
+                        val address0 = o1.address
+                        val address1 = o2.address
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -516,14 +514,14 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     grc20Tokens.forEach { token ->
-                        if (userCustomTokens.contains(token.contract) && !displayGrc20TokenCoins.contains(
+                        if (userCustomTokens.contains(token.address) && !displayGrc20TokenCoins.contains(
                                 token
                             )
                         ) {
                             displayGrc20TokenCoins.add(token)
                             grc20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.GRC20
+                                    token.address, token.amount.toString(), CoinType.GRC20
                                 )
                             )
                         }
@@ -534,14 +532,16 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 } ?: run {
                     grc20Tokens.sortWith { o1, o2 ->
                         when {
+                            o1.wallet_preload == true && o2.wallet_preload == false -> -1
+                            o1.wallet_preload == false && o2.wallet_preload == true -> 1
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
                                 val value0 =
-                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o1.contract)
+                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o1.address)
                                         ?: BigDecimal.ZERO
                                 val value1 =
-                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o2.contract)
+                                    selectedChain.gnoRpcFetcher?.grc20TokenValue(o2.address)
                                         ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
@@ -549,14 +549,11 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     grc20Tokens.forEach { token ->
-                        if (BigDecimal.ZERO < token.amount?.toBigDecimal() && !displayGrc20TokenCoins.contains(
-                                token
-                            ) && token.wallet_preload == true
-                        ) {
+                        if (!displayGrc20TokenCoins.contains(token) && token.wallet_preload == true) {
                             displayGrc20TokenCoins.add(token)
                             grc20TokenCoins.add(
                                 Coin(
-                                    token.contract, token.amount.toString(), CoinType.GRC20
+                                    token.address, token.amount.toString(), CoinType.GRC20
                                 )
                             )
                         }
@@ -902,17 +899,16 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             allErc20TokenCoins
         }
         val displayTokens = if (selectedChain.isSupportCw20() && selectedChain.isSupportErc20()) {
-            (displayCw20TokenCoins.map { it.contract } + displayErc20TokenCoins.map { it.contract }).toMutableList()
+            (displayCw20TokenCoins.map { it.address } + displayErc20TokenCoins.map { it.address }).toMutableList()
         } else if (selectedChain.isSupportCw20()) {
-            displayCw20TokenCoins.map { it.contract }
+            displayCw20TokenCoins.map { it.address }
         } else if (selectedChain.isSupportGrc20()) {
-            displayGrc20TokenCoins.map { it.contract }
+            displayGrc20TokenCoins.map { it.address }
         } else {
-            displayErc20TokenCoins.map { it.contract }
+            displayErc20TokenCoins.map { it.address }
         }
 
-        TokenEditFragment.newInstance(
-            selectedChain,
+        TokenEditFragment.newInstance(selectedChain,
             allTokens,
             displayTokens.toMutableList(),
             object : TokenEditListener {

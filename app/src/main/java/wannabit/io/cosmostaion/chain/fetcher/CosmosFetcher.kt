@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.res.AssetPath
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
@@ -51,7 +52,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     var cosmosBaseFees = mutableListOf<CoinProto.DecCoin>()
 
     var tokens = mutableListOf<Token>()
-    var cw721s = mutableListOf<JsonObject>()
+    var cw721Tokens = mutableListOf<Cw721>()
     var cw721Fetched = false
     var cw721Models = mutableListOf<Cw721Model>()
 
@@ -67,7 +68,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun tokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
-        tokens.firstOrNull { it.contract == address }?.let { tokenInfo ->
+        tokens.firstOrNull { it.address == address }?.let { tokenInfo ->
             val price = BaseData.getPrice(tokenInfo.coinGeckoId, isUsd)
             return price.multiply(tokenInfo.amount?.toBigDecimal())
                 .movePointLeft(tokenInfo.decimals).setScale(6, RoundingMode.DOWN)
@@ -76,9 +77,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
         }
     }
 
-    fun allTokenValue(isUsd: Boolean? = false): BigDecimal {
+    fun allTokenValue(baseAccountId: Long, isUsd: Boolean? = false): BigDecimal {
         var result = BigDecimal.ZERO
-        tokens.forEach { token ->
+        val userDisplayToken = Prefs.getDisplayCw20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+
+        displayTokenList?.forEach { token ->
             val price = BaseData.getPrice(token.coinGeckoId, isUsd)
             val value = price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
                 .setScale(6, RoundingMode.DOWN)
@@ -96,8 +104,14 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
     }
 
-    fun valueTokenCnt(): Int {
-        return tokens.count { BigDecimal.ZERO < it.amount?.toBigDecimal() }
+    fun displayTokenCnt(baseAccountId: Long): Int {
+        val userDisplayToken = Prefs.getDisplayCw20s(baseAccountId, chain.tag)
+        val displayTokenList = if (userDisplayToken == null) {
+            chain.cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+        } else {
+            chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
+        }
+        return displayTokenList?.count() ?: 0
     }
 
     fun balanceAmount(denom: String): BigDecimal {
@@ -384,15 +398,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
             val ibcClientStub =
                 QueryGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val ibcClientRequest =
-                QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.channel)
-                    .setPortId(assetPath?.port).build()
+                QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.getChannel())
+                    .setPortId(assetPath?.getPort()).build()
             val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
             val lastHeight =
                 TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
             return lastHeight.revisionNumber
 
         } else {
-            RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.channel, assetPath?.port)
+            RetrofitInstance.lcdApi(chain)
+                .lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort())
                 .revisionNumber()
         }
     }
@@ -604,11 +619,6 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
 
     } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
         com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-            return Triple(account.address, account.accountNumber, account.sequence)
-        }
-
-    } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
-        com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
 

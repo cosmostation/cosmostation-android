@@ -160,6 +160,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSelfTestnet
@@ -719,7 +720,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLombard())
     chains.add(ChainLum880())
     chains.add(ChainLum118())
-//    chains.add(ChainManifest())
+    chains.add(ChainManifest())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -792,17 +793,18 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainBitcoin86Testnet())
-//    chains.add(ChainGnoTestnet())
+    chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
     chains.add(ChainMantraTestnet())
+    chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
     chains.add(ChainSelfTestnet())
 //    chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
     chains.add(ChainXionTestnet())
-//    chains.add(ChainXrplEvmTestnet())
-//    chains.add(ChainZkcloudTestnet())
+    chains.add(ChainXrplEvmTestnet())
+    chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {

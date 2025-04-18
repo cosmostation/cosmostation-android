@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.data.model.res.Asset
+import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -23,6 +24,10 @@ object BaseData {
     var prices: List<Price>? = mutableListOf()
     var usdPrices: List<Price>? = mutableListOf()
     var assets: List<Asset>? = mutableListOf()
+    var cw20Tokens: List<Token>? = mutableListOf()
+    var erc20Tokens: List<Token>? = mutableListOf()
+    var grc20Tokens: List<Token>? = mutableListOf()
+    var cw721Tokens: List<Cw721>? = mutableListOf()
     var ecosystems: MutableList<JsonObject>? = mutableListOf()
 
     var isBackGround = false
@@ -59,12 +64,12 @@ object BaseData {
     }
 
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
-        return if (chain.isSupportGrc20()) {
-            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
+        return if (chain.isSupportErc20()) {
+            chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else if (chain.isSupportCw20()) {
-            chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
+            chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else {
-            chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chain == chainName && token.contract == address }
+            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         }
     }
 

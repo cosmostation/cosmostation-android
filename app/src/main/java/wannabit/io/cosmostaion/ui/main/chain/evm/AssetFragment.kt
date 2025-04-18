@@ -108,8 +108,8 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             BaseData.baseAccount?.let { account ->
                 Prefs.getDisplayErc20s(account.id, selectedEvmChain.tag)?.let { userCustomTokens ->
                     evmTokens.sortWith { token0, token1 ->
-                        val address0 = token0.contract
-                        val address1 = token1.contract
+                        val address0 = token0.address
+                        val address1 = token1.address
 
                         val containsToken0 = userCustomTokens.contains(address0)
                         val containsToken1 = userCustomTokens.contains(address1)
@@ -127,7 +127,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                         }
                     }
                     evmTokens.forEach { token ->
-                        if (userCustomTokens.contains(token.contract) && !displayErc20Tokens.contains(
+                        if (userCustomTokens.contains(token.address) && !displayErc20Tokens.contains(
                                 token
                             )
                         ) {
@@ -138,12 +138,14 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                 } ?: run {
                     evmTokens.sortWith { o1, o2 ->
                         when {
+                            o1.wallet_preload == true && o2.wallet_preload == false -> -1
+                            o1.wallet_preload == false && o2.wallet_preload == true -> 1
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
-                                val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.contract)
+                                val value0 = selectedEvmChain.evmRpcFetcher?.tokenValue(o1.address)
                                     ?: BigDecimal.ZERO
-                                val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.contract)
+                                val value1 = selectedEvmChain.evmRpcFetcher?.tokenValue(o2.address)
                                     ?: BigDecimal.ZERO
                                 value1.compareTo(value0)
                             }
@@ -151,11 +153,10 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                     }
 
                     evmTokens.forEach { token ->
-                        if ((token.symbol.uppercase() == selectedEvmChain.getMainAssetSymbol()
-                                .uppercase() || (token.amount?.toBigDecimal()
-                                ?: BigDecimal.ZERO) > BigDecimal.ZERO) && !displayErc20Tokens.contains(
+                        if (token.symbol.uppercase() == selectedEvmChain.getMainAssetSymbol()
+                                .uppercase() || (!displayErc20Tokens.contains(
                                 token
-                            )
+                            ) && token.wallet_preload == true)
                         ) {
                             displayErc20Tokens.add(token)
                         }
@@ -295,7 +296,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     override fun showTokenList() {
         TokenEditFragment.newInstance(selectedEvmChain,
             allErc20Tokens,
-            displayErc20Tokens.map { it.contract }.toMutableList(),
+            displayErc20Tokens.map { it.address }.toMutableList(),
             object : TokenEditListener {
                 override fun edit() {
                     BaseData.baseAccount?.let { account ->

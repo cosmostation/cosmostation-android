@@ -4,8 +4,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
@@ -94,40 +92,9 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         setUpClickAction()
         initSearchView()
         setUpTokenAmount()
-//        view.viewTreeObserver.addOnGlobalLayoutListener(object :
-//            ViewTreeObserver.OnGlobalLayoutListener {
-//            override fun onGlobalLayout() {
-//                calculateBottomSheetMargin()
-//                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-//            }
-//        })
     }
 
-//    private fun calculateBottomSheetMargin() {
-//        dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-//            ?.let { bottomSheet ->
-//                val location = intArrayOf(0, 0)
-//                bottomSheet.getLocationOnScreen(location)
-//
-//                val params = binding.root.layoutParams as? FrameLayout.LayoutParams
-//                params?.let {
-//                    it.bottomMargin = location[1] - 90
-//                    binding.root.layoutParams = it
-//                }
-//            }
-//    }
-
     private fun initView() {
-//        val behavior =
-//            BottomSheetBehavior.from(dialog!!.findViewById(com.google.android.material.R.id.design_bottom_sheet))
-//        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-//            override fun onStateChanged(bottomSheet: View, newState: Int) {}
-//
-//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//                calculateBottomSheetMargin()
-//            }
-//        })
-
         binding.apply {
             selectTitle.text = getString(R.string.title_edit_token_list)
             segmentView.visibility = View.GONE
@@ -203,14 +170,9 @@ class TokenEditFragment : BottomSheetDialogFragment() {
         binding.apply {
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
-            tokenEditAdapter =
-                TokenEditAdapter(
-                    walletViewModel,
-                    viewLifecycleOwner,
-                    fromChain,
-                    searchTokens,
-                    displayTokens
-                )
+            tokenEditAdapter = TokenEditAdapter(
+                walletViewModel, fromChain, searchTokens, displayTokens
+            )
             recycler.adapter = tokenEditAdapter
 
             tokenEditAdapter.setOnItemClickListener { selectDisplayTokens ->
@@ -242,10 +204,11 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                                         token.symbol.contains(
                                             searchTxt,
                                             ignoreCase = true
-                                        ) || token.contract.contains(searchTxt, ignoreCase = true)
+                                        ) || token.address.contains(searchTxt, ignoreCase = true)
                                     }?.let { searchTokens?.addAll(it) }
                             }
                         }
+
                         if (searchTokens?.isEmpty() == true) {
                             emptyLayout.visibility = View.VISIBLE
                             recycler.visibility = View.GONE
@@ -264,13 +227,13 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                                 allTokens?.let { tokens ->
                                     searchTokens?.addAll(tokens.filter {
                                         it.symbol.contains(
-                                            searchTxt,
-                                            ignoreCase = true
-                                        ) || it.contract.contains(searchTxt, ignoreCase = true)
+                                            searchTxt, ignoreCase = true
+                                        ) || it.address.contains(searchTxt, ignoreCase = true)
                                     })
                                 }
                             }
                         }
+
                         if (searchTokens?.isEmpty() == true) {
                             emptyLayout.visibility = View.VISIBLE
                             recycler.visibility = View.GONE
@@ -279,7 +242,6 @@ class TokenEditFragment : BottomSheetDialogFragment() {
                             recycler.visibility = View.VISIBLE
                             tokenEditAdapter.notifyDataSetChanged()
                         }
-
                     }
                     return true
                 }
@@ -289,24 +251,24 @@ class TokenEditFragment : BottomSheetDialogFragment() {
 
     private fun setUpTokenAmount() {
         walletViewModel.editCw20Balance.observe(this) { contract ->
-            val index = searchTokens?.indexOfFirst { it.contract == contract }
-            val token = searchTokens?.firstOrNull { it.contract == contract }
+            val index = searchTokens?.indexOfFirst { it.address == contract }
+            val token = searchTokens?.firstOrNull { it.address == contract }
             if (index != null && index >= 0 && token?.fetched == true) {
                 tokenEditAdapter.notifyItemChanged(index)
             }
         }
 
         walletViewModel.editErc20Balance.observe(this) { contract ->
-            val index = searchTokens?.indexOfFirst { it.contract == contract }
-            val token = searchTokens?.firstOrNull { it.contract == contract }
+            val index = searchTokens?.indexOfFirst { it.address == contract }
+            val token = searchTokens?.firstOrNull { it.address == contract }
             if (index != null && index >= 0 && token?.fetched == true) {
                 tokenEditAdapter.notifyItemChanged(index)
             }
         }
 
         walletViewModel.editGrc20Balance.observe(this) { contract ->
-            val index = searchTokens?.indexOfFirst { it.contract == contract }
-            val token = searchTokens?.firstOrNull { it.contract == contract }
+            val index = searchTokens?.indexOfFirst { it.address == contract }
+            val token = searchTokens?.firstOrNull { it.address == contract }
             if (index != null && index >= 0 && token?.fetched == true) {
                 tokenEditAdapter.notifyItemChanged(index)
             }
@@ -324,29 +286,45 @@ class TokenEditFragment : BottomSheetDialogFragment() {
 
             btnConfirm.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    displayTokens?.let { tokenList ->
-                        if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
-                            tokenList.filter { contract ->
-                                allTokens?.filter { it.type == "cw20" }?.map { it.contract }
-                                    ?.contains(contract) == true
-                            }.let { Prefs.setDisplayCw20s(account.id, fromChain.tag, it) }
-
-                            tokenList.filter { contract ->
-                                allTokens?.filter { it.type == "erc20" }?.map { it.contract }
-                                    ?.contains(contract) == true
-                            }.let { Prefs.setDisplayErc20s(account.id, fromChain.tag, it) }
-
-                        } else if (fromChain.isSupportCw20()) {
-                            Prefs.setDisplayCw20s(account.id, fromChain.tag, tokenList)
-
-                        } else if (fromChain.isSupportGrc20()) {
-                            Prefs.setDisplayGrc20s(account.id, fromChain.tag, tokenList)
-
-                        } else {
-                            Prefs.setDisplayErc20s(account.id, fromChain.tag, tokenList)
+                    if (fromChain.isSupportCw20() && fromChain.isSupportErc20()) {
+                        displayTokens?.filter { contract ->
+                            allTokens?.filter { it.type == "cw20" }?.map { it.address }
+                                ?.contains(contract) == true
+                        }.let {
+                            Prefs.setDisplayCw20s(
+                                account.id,
+                                fromChain.tag,
+                                it ?: mutableListOf()
+                            )
                         }
-                        tokenEditListener?.edit()
+
+                        displayTokens?.filter { contract ->
+                            allTokens?.filter { it.type == "erc20" }?.map { it.address }
+                                ?.contains(contract) == true
+                        }.let {
+                            Prefs.setDisplayErc20s(
+                                account.id,
+                                fromChain.tag,
+                                it ?: mutableListOf()
+                            )
+                        }
+
+                    } else if (fromChain.isSupportCw20()) {
+                        Prefs.setDisplayCw20s(
+                            account.id, fromChain.tag, displayTokens ?: mutableListOf()
+                        )
+
+                    } else if (fromChain.isSupportErc20()) {
+                        Prefs.setDisplayErc20s(
+                            account.id, fromChain.tag, displayTokens ?: mutableListOf()
+                        )
+
+                    } else {
+                        Prefs.setDisplayGrc20s(
+                            account.id, fromChain.tag, displayTokens ?: mutableListOf()
+                        )
                     }
+                    tokenEditListener?.edit()
                 }
                 dismiss()
             }
