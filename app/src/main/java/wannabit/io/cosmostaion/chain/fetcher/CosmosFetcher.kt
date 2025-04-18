@@ -406,7 +406,8 @@ open class CosmosFetcher(private val chain: BaseChain) {
             return lastHeight.revisionNumber
 
         } else {
-            RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort())
+            RetrofitInstance.lcdApi(chain)
+                .lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort())
                 .revisionNumber()
         }
     }
@@ -618,11 +619,6 @@ fun Any.accountInfos(): Triple<String, Long, Long> {
 
     } else if (rawAccount.typeUrl.contains(com.injective.types.v1beta1.AccountProto.EthAccount.getDescriptor().fullName)) {
         com.injective.types.v1beta1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
-            return Triple(account.address, account.accountNumber, account.sequence)
-        }
-
-    } else if (rawAccount.typeUrl.contains(com.artela.types.v1.AccountProto.EthAccount.getDescriptor().fullName)) {
-        com.artela.types.v1.AccountProto.EthAccount.parseFrom(rawAccount.value).baseAccount?.let { account ->
             return Triple(account.address, account.accountNumber, account.sequence)
         }
 

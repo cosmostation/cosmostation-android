@@ -741,11 +741,12 @@ object Signer {
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
-        } else if (chain is ChainArtelaTestnet) {
-            val pubKey = com.artela.crypto.v1.ethsecp256k1.KeysProto.PubKey.newBuilder().setKey(
-                ByteString.copyFrom(ecKey.pubKey)
-            ).build()
-            Any.newBuilder().setTypeUrl("/artela.crypto.v1.ethsecp256k1.PubKey")
+        } else if (chain is ChainInitiaTestnet) {
+            val pubKey =
+                com.initia.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder().setKey(
+                    ByteString.copyFrom(ecKey.pubKey)
+                ).build()
+            Any.newBuilder().setTypeUrl("/initia.crypto.v1beta1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
         } else if (chain is ChainStratosEvm) {
