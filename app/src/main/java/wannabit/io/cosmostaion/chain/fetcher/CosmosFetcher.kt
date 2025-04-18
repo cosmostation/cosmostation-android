@@ -397,15 +397,15 @@ open class CosmosFetcher(private val chain: BaseChain) {
             val ibcClientStub =
                 QueryGrpc.newBlockingStub(getChannel()).withDeadlineAfter(8L, TimeUnit.SECONDS)
             val ibcClientRequest =
-                QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.channel)
-                    .setPortId(assetPath?.port).build()
+                QueryChannelClientStateRequest.newBuilder().setChannelId(assetPath?.getChannel())
+                    .setPortId(assetPath?.getPort()).build()
             val ibcClientResponse = ibcClientStub.channelClientState(ibcClientRequest)
             val lastHeight =
                 TendermintProto.ClientState.parseFrom(ibcClientResponse.identifiedClientState.clientState.value).latestHeight
             return lastHeight.revisionNumber
 
         } else {
-            RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.channel, assetPath?.port)
+            RetrofitInstance.lcdApi(chain).lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort())
                 .revisionNumber()
         }
     }

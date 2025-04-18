@@ -385,7 +385,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
             val msgTransfer =
                 MsgTransfer.newBuilder().setSender(selectedChain.address).setReceiver(toAddress)
-                    .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
+                    .setSourceChannel(assetPath?.getChannel()).setSourcePort(assetPath?.getPort())
                     .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
 
             val response = txRepository.broadcastIbcSendTx(
@@ -421,7 +421,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
             val msgTransfer =
                 MsgTransfer.newBuilder().setSender(selectedChain.address).setReceiver(toAddress)
-                    .setSourceChannel(assetPath?.channel).setSourcePort(assetPath?.port)
+                    .setSourceChannel(assetPath?.getChannel()).setSourcePort(assetPath?.getPort())
                     .setTimeoutHeight(height).setTimeoutTimestamp(0).setToken(sendCoin).build()
 
             val response = txRepository.simulateIbcSendTx(

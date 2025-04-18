@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.data.model.req.WasmIbcSendReq
 import wannabit.io.cosmostaion.data.model.req.WasmSendReq
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.AssetPath
+import wannabit.io.cosmostaion.data.model.res.DirectionIBC
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.databinding.FragmentCommonTransferBinding
@@ -283,17 +284,17 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20 -> {
-//                    fromChain.cosmosFetcher?.let { grpc ->
-//                        grpc.tokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
-//                            toSendToken = token
-//                        }
-//                    }
-//
-//                    fromChain.evmRpcFetcher?.let { evmRpc ->
-//                        evmRpc.evmTokens.firstOrNull { it.contract == toSendDenom }?.let { token ->
-//                            toSendToken = token
-//                        }
-//                    }
+                    fromChain.cosmosFetcher?.let { grpc ->
+                        grpc.tokens.firstOrNull { it.address == toSendDenom }?.let { token ->
+                            toSendToken = token
+                        }
+                    }
+
+                    fromChain.evmRpcFetcher?.let { evmRpc ->
+                        evmRpc.evmTokens.firstOrNull { it.address == toSendDenom }?.let { token ->
+                            toSendToken = token
+                        }
+                    }
 
                     transferImg.setTokenImg(toSendToken?.image ?: "")
                     sendTitle.text = getString(
@@ -335,12 +336,12 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.ONLY_COSMOS_GRC20 -> {
-//                    fromChain.gnoRpcFetcher?.let { fetcher ->
-//                        fetcher.grc20Tokens.firstOrNull { it.contract == toSendDenom }
-//                            ?.let { token ->
-//                                toSendToken = token
-//                            }
-//                    }
+                    fromChain.gnoRpcFetcher?.let { fetcher ->
+                        fetcher.grc20Tokens.firstOrNull { it.address == toSendDenom }
+                            ?.let { token ->
+                                toSendToken = token
+                            }
+                    }
 
                     transferImg.setTokenImg(toSendToken?.image ?: "")
                     sendTitle.text = getString(
@@ -521,50 +522,27 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 
     private fun initData() {
-        recipientAbleChains.add(fromChain)
-        if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-            BaseData.assets?.forEach { asset ->
-                if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
-                    if (asset.chain == fromChain.apiName && asset.denom?.lowercase() == toSendDenom.lowercase()) {
-                        addRecipientChainIfNotExists(asset.beforeChain(fromChain.apiName))
-
-                    } else if (asset.justBeforeChain() == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.lowercase() == toSendDenom.lowercase()) {
-                        addRecipientChainIfNotExists(asset.chain)
-                    }
-                } else {
-                    if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.dpDenom?.lowercase() == toSendDenom.lowercase()) {
-                        addRecipientChainIfNotExists(asset.chain)
-                    }
-                }
-            }
-            recipientAbleChains.sortWith { o1, o2 ->
-                when {
-                    o1.name == fromChain.name -> -1
-                    o2.name == fromChain.name -> 1
-                    o1.name == "Cosmos" -> -1
-                    o2.name == "Cosmos" -> 1
-                    else -> 0
-                }
-            }
-
-            binding.recipientChainView.setOnClickListener {
-                handleOneClickWithDelay(
-                    ChainFragment.newInstance(fromChain, toChain, recipientAbleChains,
-                        ChainListType.SELECT_TRANSFER,
-                        object : ChainSelectListener {
-                            override fun select(chainName: String) {
-                                if (toChain.name != chainName) {
-                                    recipientAbleChains.firstOrNull { it.name == chainName }
-                                        ?.let { chain ->
-                                            updateToChain(chain)
-                                            updateRecipientAddressView("")
-                                        }
-                                }
+        recipientAbleChains = checkIBCRecipientAbleChains(fromChain, toSendDenom)
+        binding.recipientChainView.setOnClickListener {
+            handleOneClickWithDelay(
+                ChainFragment.newInstance(fromChain,
+                    toChain,
+                    recipientAbleChains,
+                    ChainListType.SELECT_TRANSFER,
+                    object : ChainSelectListener {
+                        override fun select(chainName: String) {
+                            if (toChain.name != chainName) {
+                                recipientAbleChains.firstOrNull { it.name == chainName }
+                                    ?.let { chain ->
+                                        updateToChain(chain)
+                                        updateRecipientAddressView("")
+                                    }
                             }
-                        })
-                )
-            }
+                        }
+                    })
+            )
         }
+
         updateToChain(recipientAbleChains[0])
     }
 
@@ -1070,6 +1048,7 @@ class CommonTransferFragment : BaseTxFragment() {
             if (toSendAmount.toBigDecimal() <= BigDecimal.ZERO) {
                 return
             }
+            assetPath = assetPath(fromChain, toChain, toSendDenom)
 
             when (transferStyle) {
                 TransferStyle.WEB3_STYLE -> {
@@ -1128,13 +1107,9 @@ class CommonTransferFragment : BaseTxFragment() {
                 else -> {
                     fromChain.apply {
                         if (!isSimulable()) {
-                            if (chainIdCosmos != toChain.chainIdCosmos) {
-                                assetPath = assetPath(
-                                    fromChain, toChain, toSendDenom
-                                )
-                            }
                             return updateFeeViewWithSimulate(null)
                         }
+
                         if (chainIdCosmos == toChain.chainIdCosmos) {
                             if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                                 txViewModel.simulate(
@@ -1146,13 +1121,13 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
 
                             } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-//                                val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-//                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.contract)
-//                                    .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
-//                                    .build()
-//                                txViewModel.rpcCallSimulate(
-//                                    msgCall, cosmosTxFee, txMemo, this
-//                                )
+                                val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.address)
+                                    .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
+                                    .build()
+                                txViewModel.rpcCallSimulate(
+                                    msgCall, cosmosTxFee, txMemo, this
+                                )
 
                             } else {
                                 if (fromChain is ChainGnoTestnet) {
@@ -1175,9 +1150,6 @@ class CommonTransferFragment : BaseTxFragment() {
                             }
 
                         } else {
-                            assetPath = assetPath(
-                                fromChain, toChain, toSendDenom
-                            )
                             if (sendAssetType == SendAssetType.ONLY_COSMOS_CW20) {
                                 txViewModel.simulate(
                                     fromChain.cosmosFetcher?.getChannel(),
@@ -1326,26 +1298,26 @@ class CommonTransferFragment : BaseTxFragment() {
         val wasmSendReq = WasmSendReq(toAddress, toSendAmount)
         val jsonData = Gson().toJson(wasmSendReq)
         val msg = ByteString.copyFromUtf8(jsonData)
-//        wasmMsgs.add(
-//            MsgExecuteContract.newBuilder().setSender(fromChain.address)
-//                .setContract(toSendToken?.contract).setMsg(msg).build()
-//        )
+        wasmMsgs.add(
+            MsgExecuteContract.newBuilder().setSender(fromChain.address)
+                .setContract(toSendToken?.address).setMsg(msg).build()
+        )
         return Signer.wasmMsg(wasmMsgs)
     }
 
     private fun onBindWasmIbcSendMsg(): MutableList<Any> {
         val wasmMsgs = mutableListOf<MsgExecuteContract?>()
-        val wasmIbcReq = WasmIbcSendMsg(assetPath?.channel, toAddress, 900)
+        val wasmIbcReq = WasmIbcSendMsg(assetPath?.getChannel(), toAddress, 900)
         val msgData = Gson().toJson(wasmIbcReq).toByteArray(StandardCharsets.UTF_8)
         val encodeMsg = Base64.encodeToString(msgData, Base64.NO_WRAP)
 
-        val wasmIbcSendReq = WasmIbcSendReq(assetPath?.ibcContract(), toSendAmount, encodeMsg)
+        val wasmIbcSendReq = WasmIbcSendReq(assetPath?.getPort(), toSendAmount, encodeMsg)
         val jsonData = Gson().toJson(wasmIbcSendReq)
         val msg = ByteString.copyFromUtf8(jsonData)
-//        wasmMsgs.add(
-//            MsgExecuteContract.newBuilder().setSender(fromChain.address)
-//                .setContract(toSendToken?.contract).setMsg(msg).build()
-//        )
+        wasmMsgs.add(
+            MsgExecuteContract.newBuilder().setSender(fromChain.address)
+                .setContract(toSendToken?.address).setMsg(msg).build()
+        )
         return Signer.wasmMsg(wasmMsgs)
     }
 
@@ -1401,14 +1373,14 @@ class CommonTransferFragment : BaseTxFragment() {
                                         this
                                     )
                                 } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-//                                    val msgCall =
-//                                        com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-//                                            .setCaller(fromChain.address)
-//                                            .setPkgPath(toSendToken?.contract).setFunc("Transfer")
-//                                            .addAllArgs(listOf(toAddress, toSendAmount)).build()
-//                                    txViewModel.rpcCallBroadcast(
-//                                        msgCall, cosmosTxFee, txMemo, this
-//                                    )
+                                    val msgCall =
+                                        com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
+                                            .setCaller(fromChain.address)
+                                            .setPkgPath(toSendToken?.address).setFunc("Transfer")
+                                            .addAllArgs(listOf(toAddress, toSendAmount)).build()
+                                    txViewModel.rpcCallBroadcast(
+                                        msgCall, cosmosTxFee, txMemo, this
+                                    )
 
                                 } else {
                                     if (fromChain is ChainGnoTestnet) {
@@ -1592,15 +1564,6 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun addRecipientChainIfNotExists(apiName: String?) {
-        allChains().filter { !it.isTestnet && it.supportCosmos() }
-            .firstOrNull { it.apiName == apiName }?.let { sendAble ->
-                if (recipientAbleChains.none { it.apiName == sendAble.apiName }) {
-                    recipientAbleChains.add(sendAble)
-                }
-            }
-    }
-
     private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
         if (isClickable) {
             isClickable = false
@@ -1615,39 +1578,65 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {
-        val msAsset = BaseData.assets?.firstOrNull { it.denom?.lowercase() == denom.lowercase() }
-//        val msToken = fromChain.cosmosFetcher?.tokens?.firstOrNull { it.contract == denom }
+    private fun checkIBCRecipientAbleChains(
+        fromChain: BaseChain, denom: String
+    ): MutableList<BaseChain> {
+        val allIbcChains = allChains().filter { !it.isTestnet && it.supportCosmos() }
+
+        val result = mutableListOf<BaseChain>()
+        result.add(fromChain)
+
+        if (denom.startsWith("0x")) {
+            return result
+        }
+
+        BaseData.assets?.firstOrNull { it.chain == fromChain.apiName && it.denom == denom }
+            ?.let { asset ->
+                val sendAble =
+                    allIbcChains.firstOrNull { it.apiName == asset.ibc_info?.counterparty?.chain }
+                if (sendAble != null && result.none { it.apiName == sendAble.apiName }) {
+                    result.add(sendAble)
+                }
+            }
 
         BaseData.assets?.forEach { asset ->
-//            if (msAsset != null) {
-//                if (asset.chain == fromChain.apiName && asset.beforeChain(fromChain.apiName) == toChain.apiName && asset.denom.equals(
-//                        denom, true
-//                    )
-//                ) {
-//                    return AssetPath(
-//                        asset.ibc_info?.client?.channel, asset.ibc_info?.client?.port
-//                    )
-//                }
-//                if (asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom?.equals(
-//                        denom, true
-//                    ) == true
-//                ) {
-//                    return AssetPath(
-//                        asset.ibc_info.counterparty.channel, asset.ibc_info.counterparty.port
-//                    )
-//                }
-//            } else {
-//                if (msToken != null && asset.chain == toChain.apiName && asset.beforeChain(toChain.apiName) == fromChain.apiName && asset.ibc_info?.counterparty?.dpDenom.equals(
-//                        msToken.contract, true
-//                    )
-//                ) {
-//                    return AssetPath(
-//                        asset.ibc_info?.counterparty?.channel, asset.ibc_info?.counterparty?.port
-//                    )
-//                }
-//            }
+            if (asset.ibc_info?.counterparty?.chain == fromChain.apiName && asset.ibc_info.counterparty.dpDenom == denom) {
+                val sendAble = allIbcChains.firstOrNull { it.apiName == asset.chain }
+                if (sendAble != null && result.none { it.apiName == sendAble.apiName }) {
+                    result.add(sendAble)
+                }
+            }
         }
+
+        result.sortWith { a, b ->
+            when {
+                a.name == fromChain.name -> -1
+                b.name == fromChain.name -> 1
+                a.name == "Cosmos" -> -1
+                b.name == "Cosmos" -> 1
+                a.name == "Ethereum" -> -1
+                b.name == "Ethereum" -> 1
+                a.name == "Osmosis" -> -1
+                b.name == "Osmosis" -> 1
+                else -> 0
+            }
+        }
+
+        return result
+    }
+
+    private fun assetPath(fromChain: BaseChain, toChain: BaseChain, denom: String): AssetPath? {
+        BaseData.assets?.firstOrNull {
+            it.chain == fromChain.apiName && it.denom == denom && it.ibc_info?.counterparty?.chain == toChain.apiName
+        }?.let { asset ->
+            return AssetPath(DirectionIBC.BACKWARD, asset.ibc_info)
+        }
+
+        BaseData.assets?.firstOrNull { it.chain == toChain.apiName && it.ibc_info?.counterparty?.chain == fromChain.apiName && it.ibc_info.counterparty.dpDenom == denom }
+            ?.let { asset ->
+                return AssetPath(DirectionIBC.FORWARD, asset.ibc_info)
+            }
+
         return null
     }
 
