@@ -22,7 +22,6 @@ class ChainSui : BaseChain(), Parcelable {
 
     override var name: String = "Sui"
     override var tag: String = "suiMainnet"
-    override var logo: Int = R.drawable.chain_sui
     override var apiName: String = "sui"
 
     override var accountKeyType = AccountKeyType(PubKeyType.SUI_ED25519, "m/44'/784'/0'/0/X")

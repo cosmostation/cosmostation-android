@@ -15,7 +15,6 @@ class ChainCoreum : BaseChain(), Parcelable {
 
     override var name: String = "Coreum"
     override var tag: String = "coreum990"
-    override var logo: Int = R.drawable.chain_coreum
     override var apiName: String = "coreum"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/990'/0'/0/X")

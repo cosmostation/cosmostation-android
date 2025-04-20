@@ -15,7 +15,6 @@ class ChainStratosEvm : BaseChain(), Parcelable {
 
     override var name: String = "Stratos"
     override var tag: String = "stratos60"
-    override var logo: Int = R.drawable.chain_stratos
     override var apiName: String = "stratos"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

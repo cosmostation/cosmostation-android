@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.DialogQrBinding
 
 class QrDialog(
@@ -79,7 +80,7 @@ class QrDialog(
                             chainBadge.visibility = View.GONE
                             chainTypeBadge.visibility = View.GONE
                         }
-                        chainImg.setImageResource(chain.logo)
+                        chainImg.setChainLogo(chain)
 
                         bitmap = barcodeEncoder.encodeBitmap(
                             chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
@@ -90,7 +91,7 @@ class QrDialog(
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.mainAddress
                         accountPath.text = chain.getHDPath(account.lastHDPath)
-                        chainImg.setImageResource(chain.logo)
+                        chainImg.setChainLogo(chain)
 
                         if (selectedChain is ChainBitCoin86) {
                             when (selectedChain.accountKeyType.pubkeyType) {
@@ -109,7 +110,8 @@ class QrDialog(
                                 PubKeyType.BTC_NESTED_SEGWIT -> {
                                     chainTypeBadge.visibility = View.VISIBLE
                                     chainBadge.visibility = View.GONE
-                                    chainTypeBadge.text = context.getString(R.string.str_nested_segwit)
+                                    chainTypeBadge.text =
+                                        context.getString(R.string.str_nested_segwit)
                                     chainBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,
@@ -121,7 +123,8 @@ class QrDialog(
                                 PubKeyType.BTC_NATIVE_SEGWIT -> {
                                     chainBadge.visibility = View.GONE
                                     chainTypeBadge.visibility = View.VISIBLE
-                                    chainTypeBadge.text = context.getString(R.string.str_native_segwit)
+                                    chainTypeBadge.text =
+                                        context.getString(R.string.str_native_segwit)
                                     chainTypeBadge.setTextColor(
                                         ContextCompat.getColorStateList(
                                             context,
@@ -162,7 +165,7 @@ class QrDialog(
                         accountPath.text = chain.getHDPath(account.lastHDPath)
                         chainBadge.visibility = View.GONE
                         chainTypeBadge.visibility = View.GONE
-                        chainImg.setImageResource(chain.logo)
+                        chainImg.setChainLogo(chain)
 
                         bitmap = barcodeEncoder.encodeBitmap(
                             chain.evmAddress, BarcodeFormat.QR_CODE, 540, 540, hints

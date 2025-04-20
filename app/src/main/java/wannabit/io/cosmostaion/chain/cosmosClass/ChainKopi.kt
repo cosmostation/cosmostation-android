@@ -15,7 +15,6 @@ class ChainKopi : BaseChain(), Parcelable {
 
     override var name: String = "Kopi"
     override var tag: String = "kopi118"
-    override var logo: Int = R.drawable.chain_kopi
     override var apiName: String = "kopi"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

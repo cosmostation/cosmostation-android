@@ -15,7 +15,6 @@ class ChainNeutronTestnet : ChainNeutron(), Parcelable {
 
     override var name: String = "Neutron Testnet"
     override var tag: String = "neutron118_T"
-    override var logo: Int = R.drawable.chain_neutron_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "neutron-testnet"
 

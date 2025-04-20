@@ -14,7 +14,6 @@ class ChainXrplEvmTestnet : BaseChain(), Parcelable {
 
     override var name: String = "XRPL EVM Testnet"
     override var tag: String = "xrplevm60_T"
-    override var logo: Int = R.drawable.chain_xrpl_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "xrplevm-testnet"
 

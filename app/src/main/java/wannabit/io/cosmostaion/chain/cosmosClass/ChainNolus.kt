@@ -15,7 +15,6 @@ class ChainNolus : BaseChain(), Parcelable {
 
     override var name: String = "Nolus"
     override var tag: String = "nolus118"
-    override var logo: Int = R.drawable.chain_nolus
     override var apiName: String = "nolus"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

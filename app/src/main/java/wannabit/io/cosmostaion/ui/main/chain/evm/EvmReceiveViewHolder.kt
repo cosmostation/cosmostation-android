@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
@@ -43,7 +44,7 @@ class EvmReceiveViewHolder(
                 setQrAddress(context, selectChain.evmAddress)
             }
 
-            chainImg.setImageResource(selectChain.logo)
+            chainImg.setChainLogo(selectChain)
             accountPath.text = selectChain.getHDPath(account.lastHDPath)
             if (selectChain is ChainBitCoin86) {
                 when (selectChain.accountKeyType.pubkeyType) {

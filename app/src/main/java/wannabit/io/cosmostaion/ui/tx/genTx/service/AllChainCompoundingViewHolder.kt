@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.ItemAllChainCompoundingBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -24,7 +25,7 @@ class AllChainCompoundingViewHolder(
             deleteView.setBackgroundResource(R.drawable.cell_bg)
 
             compoundAbleReward.apply {
-                chainImg.setImageResource(baseChain.logo)
+                chainImg.setChainLogo(baseChain)
                 chainName.text = baseChain.name
 
                 if (!baseChain.isDefault) {

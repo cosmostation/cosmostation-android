@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.ItemWalletSelectBinding
 import java.math.RoundingMode
 
@@ -51,7 +52,7 @@ class WalletSelectViewHolder(
         selectListener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
 
             if (chain.isEvmCosmos()) {
@@ -252,7 +253,7 @@ class WalletSelectViewHolder(
         selectListener: WalletSelectAdapter.SelectListener
     ) {
         binding.apply {
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
             chainTypeBadge.visibility = View.GONE
 

@@ -15,7 +15,6 @@ class ChainAssetMantle : BaseChain(), Parcelable {
 
     override var name: String = "AssetMantle"
     override var tag: String = "assetmantle118"
-    override var logo: Int = R.drawable.chain_assetmantle
     override var apiName: String = "asset-mantle"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

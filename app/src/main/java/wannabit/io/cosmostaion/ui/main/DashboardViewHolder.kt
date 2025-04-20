@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
@@ -18,6 +20,7 @@ import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
@@ -46,7 +49,7 @@ class DashboardViewHolder(
     fun proBind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
 
             simpleLayout.visibility = View.GONE
@@ -185,7 +188,7 @@ class DashboardViewHolder(
     fun testnetProBind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
 
             simpleLayout.visibility = View.GONE
@@ -317,7 +320,7 @@ class DashboardViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            simpleChainImg.setImageResource(chain.logo)
+            simpleChainImg.setChainLogo(chain)
             simpleChainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 
@@ -400,7 +403,7 @@ class DashboardViewHolder(
     fun testnetBind(chain: BaseChain) {
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
-            simpleChainImg.setImageResource(chain.logo)
+            simpleChainImg.setChainLogo(chain)
             simpleChainName.text = chain.name
             handler.removeCallbacks(starEvmAddressAnimation)
 

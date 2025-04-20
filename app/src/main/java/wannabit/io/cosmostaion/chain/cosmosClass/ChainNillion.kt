@@ -15,7 +15,6 @@ class ChainNillion : BaseChain(), Parcelable {
 
     override var name: String = "Nillion"
     override var tag: String = "nillion118"
-    override var logo: Int = R.drawable.chain_nillion
     override var apiName: String = "nillion"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -15,7 +15,6 @@ class ChainBand : BaseChain(), Parcelable {
 
     override var name: String = "Band"
     override var tag: String = "band494"
-    override var logo: Int = R.drawable.chain_band
     override var apiName: String = "band"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/494'/0'/0/X")

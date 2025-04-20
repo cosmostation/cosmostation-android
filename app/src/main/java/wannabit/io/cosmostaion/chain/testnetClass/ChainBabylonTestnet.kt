@@ -16,7 +16,6 @@ class ChainBabylonTestnet : ChainBabylon(), Parcelable {
 
     override var name: String = "Babylon Testnet"
     override var tag: String = "babylon118_T"
-    override var logo: Int = R.drawable.chain_babylon_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "babylon-testnet"
 

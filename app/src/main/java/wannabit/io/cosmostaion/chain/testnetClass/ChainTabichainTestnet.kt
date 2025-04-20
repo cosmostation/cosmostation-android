@@ -15,7 +15,6 @@ class ChainTabichainTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Tabichain Testnet"
     override var tag: String = "tabichain118_T"
-    override var logo: Int = R.drawable.chain_tabichain_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "tabichain-testnet"
 

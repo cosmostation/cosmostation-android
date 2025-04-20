@@ -15,7 +15,6 @@ class ChainLombard : BaseChain(), Parcelable {
 
     override var name: String = "Lombard"
     override var tag: String = "lombard118"
-    override var logo: Int = R.drawable.chain_lombard
     override var apiName: String = "lombard"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

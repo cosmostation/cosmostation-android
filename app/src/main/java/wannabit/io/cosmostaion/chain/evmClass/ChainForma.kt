@@ -14,7 +14,6 @@ class ChainForma : BaseChain(), Parcelable {
 
     override var name: String = "Forma"
     override var tag: String = "forma60"
-    override var logo: Int = R.drawable.chain_forma
     override var apiName: String = "forma"
 
     override var supportEvm: Boolean = true

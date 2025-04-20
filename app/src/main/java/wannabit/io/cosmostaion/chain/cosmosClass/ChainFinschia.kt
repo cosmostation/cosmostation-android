@@ -15,7 +15,6 @@ class ChainFinschia : BaseChain(), Parcelable {
 
     override var name: String = "Finschia"
     override var tag: String = "finschia438"
-    override var logo: Int = R.drawable.chain_finschia
     override var apiName: String = "finschia"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/438'/0'/0/X")

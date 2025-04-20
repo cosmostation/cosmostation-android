@@ -16,7 +16,6 @@ open class ChainBitcoin86Testnet : ChainBitCoin86(), Parcelable {
 
     override var name: String = "Bitcoin Signet"
     override var tag: String = "bitcoin86_T"
-    override var logo: Int = R.drawable.chain_bitcoin_signet
     override var isTestnet: Boolean = true
     override var apiName: String = "bitcoin-testnet"
 

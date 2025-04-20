@@ -9,16 +9,17 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.ActivityEvmBinding
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
+import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.ActivityEvmBinding
 
 class EvmActivity : BaseActivity() {
 
@@ -75,7 +76,7 @@ class EvmActivity : BaseActivity() {
             val x = (0..width - 150 - 150).random().toFloat()
             val y = (800..height - 150).random().toFloat()
 
-            setImageResource(chain.logo)
+            setChainLogo(chain)
             alpha = 0f
             this.x = x
             this.y = y

@@ -15,7 +15,6 @@ class ChainOsmosis : BaseChain(), Parcelable {
 
     override var name: String = "Osmosis"
     override var tag: String = "osmosis118"
-    override var logo: Int = R.drawable.chain_osmosis
     override var apiName: String = "osmosis"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

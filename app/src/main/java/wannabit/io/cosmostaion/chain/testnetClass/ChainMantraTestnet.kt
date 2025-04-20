@@ -15,7 +15,6 @@ class ChainMantraTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Mantra Testnet"
     override var tag: String = "mantra_T"
-    override var logo: Int = R.drawable.chain_mantra_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "mantra-testnet"
 

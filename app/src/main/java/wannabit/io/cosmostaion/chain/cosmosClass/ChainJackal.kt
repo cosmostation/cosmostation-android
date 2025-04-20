@@ -15,7 +15,6 @@ class ChainJackal : BaseChain(), Parcelable {
 
     override var name: String = "Jackal"
     override var tag: String = "jackal118"
-    override var logo: Int = R.drawable.chain_jackal
     override var apiName: String = "jackal"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

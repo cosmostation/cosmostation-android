@@ -18,7 +18,6 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
 
     override var name: String = "OKT"
     override var tag: String = "okt996_Keccak"
-    override var logo: Int = R.drawable.chain_okt
     override var isDefault: Boolean = false
     override var apiName: String = "okc"
 

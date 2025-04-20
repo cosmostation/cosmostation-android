@@ -17,7 +17,6 @@ class ChainZenrock : BaseChain(), Parcelable {
 
     override var name: String = "Zenrock"
     override var tag: String = "zenrock118"
-    override var logo: Int = R.drawable.chain_zenrock
     override var apiName: String = "zenrock"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

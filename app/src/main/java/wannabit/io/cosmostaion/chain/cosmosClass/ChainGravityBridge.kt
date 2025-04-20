@@ -15,7 +15,6 @@ class ChainGravityBridge : BaseChain(), Parcelable {
 
     override var name: String = "G-Bridge"
     override var tag: String = "gravity-bridge118"
-    override var logo: Int = R.drawable.chain_gravitybridge
     override var apiName: String = "gravity-bridge"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

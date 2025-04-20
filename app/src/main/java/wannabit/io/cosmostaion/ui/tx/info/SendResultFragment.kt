@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.gapPastTime
 import wannabit.io.cosmostaion.common.historyToMintscan
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.txDpTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -110,7 +111,7 @@ class SendResultFragment(val selectedChain: BaseChain, private val history: Cosm
                 val x = (0..width - 150 - 150).random().toFloat()
                 val y = (800..height - 150).random().toFloat()
 
-                setImageResource(chain.logo)
+                setChainLogo(chain)
                 alpha = 0f
                 this.x = x
                 this.y = y

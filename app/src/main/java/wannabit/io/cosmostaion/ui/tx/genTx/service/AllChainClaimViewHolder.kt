@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.goneOrVisible
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.ItemAllChainClaimBinding
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -27,7 +28,7 @@ class AllChainClaimViewHolder(
             deleteView.setBackgroundResource(R.drawable.cell_bg)
 
             valueAbleReward.apply {
-                chainImg.setImageResource(baseChain.logo)
+                chainImg.setChainLogo(baseChain)
                 chainName.text = baseChain.name
                 chainRewardAddress.text = baseChain.cosmosFetcher()?.rewardAddress
                 chainDiffer.goneOrVisible(baseChain.address.uppercase() == baseChain.cosmosFetcher()?.rewardAddress?.uppercase())

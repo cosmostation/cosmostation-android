@@ -17,7 +17,6 @@ class ChainInitiaTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Initia Testnet"
     override var tag: String = "initia60_T"
-    override var logo: Int = R.drawable.chain_initia_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "initia-testnet"
 

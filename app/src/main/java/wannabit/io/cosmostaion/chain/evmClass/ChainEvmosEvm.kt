@@ -15,7 +15,6 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
 
     override var name: String = "Evmos"
     override var tag: String = "evmos60"
-    override var logo: Int = R.drawable.chain_evmos
     override var apiName: String = "evmos"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

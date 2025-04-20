@@ -15,7 +15,6 @@ class ChainManifest : BaseChain(), Parcelable {
 
     override var name: String = "Manifest"
     override var tag: String = "manifest118"
-    override var logo: Int = R.drawable.chain_manifest
     override var apiName: String = "manifest"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -15,7 +15,6 @@ class ChainKyve : BaseChain(), Parcelable {
 
     override var name: String = "Kyve"
     override var tag: String = "kyve118"
-    override var logo: Int = R.drawable.chain_kyve
     override var apiName: String = "kyve"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

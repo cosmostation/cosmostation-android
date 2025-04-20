@@ -15,7 +15,6 @@ class ChainZkcloudTestnet : BaseChain(), Parcelable {
 
     override var name: String = "ZkCloud Testnet"
     override var tag: String = "zkcloud118_T"
-    override var logo: Int = R.drawable.chain_zkcloud_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "zkcloud-testnet"
 

@@ -15,7 +15,6 @@ class ChainLum118 : BaseChain(), Parcelable {
 
     override var name: String = "Lum"
     override var tag: String = "lum118"
-    override var logo: Int = R.drawable.chain_lum
     override var isDefault: Boolean = false
     override var apiName: String = "lum"
 

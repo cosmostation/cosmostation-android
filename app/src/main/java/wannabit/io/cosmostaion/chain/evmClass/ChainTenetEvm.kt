@@ -15,7 +15,6 @@ class ChainTenetEvm : BaseChain(), Parcelable {
 
     override var name: String = "Tenet"
     override var tag: String = "tenet60"
-    override var logo: Int = R.drawable.chain_tenet
     override var apiName: String = "tenet"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

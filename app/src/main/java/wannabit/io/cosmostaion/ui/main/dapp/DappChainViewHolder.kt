@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.setView
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemDappChainBinding
@@ -21,7 +22,7 @@ class DappChainViewHolder(
 
             } else {
                 allChains().first { it.apiName == supportChain }.let { chain ->
-                    chainImg.setImageResource(chain.logo)
+                    chainImg.setChainLogo(chain)
                     chainName.text = chain.name.uppercase()
                     dapps.text = "${
                         BaseData.ecosystems?.map { it["chains"].asJsonArray }?.flatten()

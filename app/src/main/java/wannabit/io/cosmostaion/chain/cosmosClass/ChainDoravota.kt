@@ -15,7 +15,6 @@ class ChainDoravota : BaseChain(), Parcelable {
 
     override var name: String = "Dora vota"
     override var tag: String = "Doravota118"
-    override var logo: Int = R.drawable.chain_doravota
     override var apiName: String = "doravota"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

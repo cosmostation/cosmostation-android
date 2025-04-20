@@ -15,7 +15,6 @@ class ChainAxelar : BaseChain(), Parcelable {
 
     override var name: String = "Axelar"
     override var tag: String = "axelar118"
-    override var logo: Int = R.drawable.chain_axelar
     override var apiName: String = "axelar"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -15,7 +15,6 @@ class ChainSommelier : BaseChain(), Parcelable {
 
     override var name: String = "Sommelier"
     override var tag: String = "sommelier118"
-    override var logo: Int = R.drawable.chain_sommelier
     override var apiName: String = "sommelier"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

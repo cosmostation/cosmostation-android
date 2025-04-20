@@ -15,7 +15,6 @@ class ChainIxo : BaseChain(), Parcelable {
 
     override var name: String = "Impact"
     override var tag: String = "ixo118"
-    override var logo: Int = R.drawable.chain_ixo
     override var apiName: String = "ixo"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

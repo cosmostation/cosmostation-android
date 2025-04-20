@@ -14,7 +14,6 @@ class ChainBerachain : BaseChain(), Parcelable {
 
     override var name: String = "Berachain"
     override var tag: String = "berachain60"
-    override var logo: Int = R.drawable.chain_berachain
     override var apiName: String = "berachain"
 
     override var supportEvm: Boolean = true

@@ -15,7 +15,6 @@ class ChainUnification : BaseChain(), Parcelable {
 
     override var name: String = "Unification"
     override var tag: String = "unification5555"
-    override var logo: Int = R.drawable.chain_unification
     override var apiName: String = "unification"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/5555'/0'/0/X")

@@ -15,7 +15,6 @@ class ChainAtomone : BaseChain(), Parcelable {
 
     override var name: String = "Atomone"
     override var tag: String = "atomone118"
-    override var logo: Int = R.drawable.chain_atomone
     override var apiName: String = "atomone"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

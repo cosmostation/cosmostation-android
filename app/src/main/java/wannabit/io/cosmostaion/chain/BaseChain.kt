@@ -185,7 +185,6 @@ open class BaseChain : Parcelable {
 
     open var name: String = ""
     open var tag: String = ""
-    open var logo: Int = R.drawable.token_default
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
     open var apiName: String = ""
@@ -321,6 +320,10 @@ open class BaseChain : Parcelable {
         } catch (e: Exception) {
             JsonObject()
         }
+    }
+
+    fun chainLogo(): String {
+        return getChainListParam()?.get("chain_image")?.asString ?: ""
     }
 
     fun getMainAssetDenom(): String {

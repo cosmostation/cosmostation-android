@@ -21,6 +21,7 @@ import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.CustomDappNetworkBinding
@@ -130,7 +131,7 @@ class DappDetailFragment : BottomSheetDialogFragment() {
                 val view =
                     CustomDappNetworkBinding.inflate(networkInflater, supportNetworkView, false)
                 allChains().first { it.apiName == supportChain.asString }.let { chain ->
-                    view.chainImg.setImageResource(chain.logo)
+                    view.chainImg.setChainLogo(chain)
                     view.chainName.text = chain.name.uppercase()
                 }
                 supportNetworkView.addView(view.root)

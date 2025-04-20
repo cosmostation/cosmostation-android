@@ -15,7 +15,6 @@ class ChainIris : BaseChain(), Parcelable {
 
     override var name: String = "Iris"
     override var tag: String = "iris118"
-    override var logo: Int = R.drawable.chain_iris
     override var apiName: String = "iris"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

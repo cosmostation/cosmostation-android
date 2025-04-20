@@ -15,7 +15,6 @@ class ChainCarbon : BaseChain(), Parcelable {
 
     override var name: String = "Carbon"
     override var tag: String = "carbon118"
-    override var logo: Int = R.drawable.chain_carbon
     override var apiName: String = "carbon"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

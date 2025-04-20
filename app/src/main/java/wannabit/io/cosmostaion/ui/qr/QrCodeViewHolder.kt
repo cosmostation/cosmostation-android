@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemQrBinding
@@ -36,7 +37,7 @@ class QrCodeViewHolder(
 
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
-            chainImg.setImageResource(selectChain.logo)
+            chainImg.setChainLogo(selectChain)
             setQrAddress(context, selectChain.evmAddress)
 
             chainBadge.visibility = View.GONE
@@ -72,7 +73,7 @@ class QrCodeViewHolder(
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name)
             setQrAddress(context, address)
-            chainImg.setImageResource(selectChain.logo)
+            chainImg.setChainLogo(selectChain)
 
             if (selectChain is ChainBitCoin86) {
                 chainTypeBadge.visibility = View.GONE

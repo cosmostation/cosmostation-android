@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.data.model.res.CosmosProposal
 import wannabit.io.cosmostaion.databinding.ItemAllChainVoteBinding
 import wannabit.io.cosmostaion.databinding.ItemAllChainVoteLayoutBinding
@@ -133,7 +134,7 @@ class AllChainAllVoteAdapter(
             binding.apply {
                 binding.apply {
                     voteAllModel.basechain?.let { chain ->
-                        chainImg.setImageResource(chain.logo)
+                        chainImg.setChainLogo(chain)
                         chainName.text = chain.name
                         voteCnt.text = voteAllModel.proposals.size.toString()
 

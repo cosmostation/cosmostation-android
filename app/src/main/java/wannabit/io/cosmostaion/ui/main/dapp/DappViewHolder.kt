@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.CustomImageBinding
 import wannabit.io.cosmostaion.databinding.ItemDappBinding
@@ -38,7 +39,7 @@ class DappViewHolder(
             chains.forEach { supportChain ->
                 val view = CustomImageBinding.inflate(inflater, chainContainer, false)
                 allChains().first { it.apiName == supportChain.asString }.let { chain ->
-                    view.chainImg.setImageResource(chain.logo)
+                    view.chainImg.setChainLogo(chain)
                     if (chains.size() == 1) {
                         addInfo.text = chain.name.uppercase()
                     } else if (chains.size() > 7) {

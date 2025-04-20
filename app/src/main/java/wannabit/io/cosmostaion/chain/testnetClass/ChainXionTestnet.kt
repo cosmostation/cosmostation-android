@@ -15,7 +15,6 @@ class ChainXionTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Xion Testnet"
     override var tag: String = "xion118_T"
-    override var logo: Int = R.drawable.chain_xion_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "xion-testnet"
 

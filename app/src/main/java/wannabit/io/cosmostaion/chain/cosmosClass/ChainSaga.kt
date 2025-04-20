@@ -15,7 +15,6 @@ class ChainSaga : BaseChain(), Parcelable {
 
     override var name: String = "Saga"
     override var tag: String = "saga118"
-    override var logo: Int = R.drawable.chain_saga
     override var apiName: String = "saga"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -32,6 +32,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.dapp.DappViewModel
 import wannabit.io.cosmostaion.data.viewmodel.dapp.DappViewModelProviderFactory
@@ -352,7 +353,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                                     } else {
                                         allChains().first { it.apiName == chain }
                                             .let { supportChain ->
-                                                chainImg.setImageResource(supportChain.logo)
+                                                chainImg.setChainLogo(supportChain)
                                                 chainNetwork.text = chain.uppercase()
                                             }
                                     }

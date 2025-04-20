@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
@@ -549,7 +550,7 @@ class CommonTransferFragment : BaseTxFragment() {
     private fun initToChain() {
         binding.apply {
             toChain = fromChain
-            chainImg.setImageResource(toChain.logo)
+            chainImg.setChainLogo(toChain)
             chainName.text = toChain.name
         }
     }
@@ -575,7 +576,7 @@ class CommonTransferFragment : BaseTxFragment() {
         binding.apply {
             if (chain.tag != toChain.tag) {
                 toChain = chain
-                chainImg.setImageResource(chain.logo)
+                chainImg.setChainLogo(chain)
                 chainName.text = chain.name
                 updateRecipientAddressView("")
             }

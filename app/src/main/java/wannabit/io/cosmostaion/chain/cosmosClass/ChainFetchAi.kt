@@ -15,7 +15,6 @@ open class ChainFetchAi : BaseChain(), Parcelable {
 
     override var name: String = "ASI Alliance"
     override var tag: String = "fetchai118"
-    override var logo: Int = R.drawable.chain_fetchai
     override var apiName: String = "fetchai"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

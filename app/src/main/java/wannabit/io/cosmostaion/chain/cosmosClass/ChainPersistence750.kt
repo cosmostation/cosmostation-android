@@ -15,7 +15,6 @@ class ChainPersistence750 : BaseChain(), Parcelable {
 
     override var name: String = "Persistence"
     override var tag: String = "persistence750"
-    override var logo: Int = R.drawable.chain_persistence
     override var isDefault: Boolean = false
     override var apiName: String = "persistence"
 

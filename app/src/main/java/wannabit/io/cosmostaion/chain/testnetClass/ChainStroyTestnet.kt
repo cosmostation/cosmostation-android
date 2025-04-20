@@ -14,7 +14,6 @@ class ChainStroyTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Story Testnet"
     override var tag: String = "story60_T"
-    override var logo: Int = R.drawable.chain_story_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "story-testnet"
 
