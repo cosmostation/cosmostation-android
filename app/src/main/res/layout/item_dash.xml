@@ -247,7 +247,7 @@
             <View
                 android:id="@+id/vertical_view"
                 android:layout_width="0.6dp"
-                android:layout_height="35dp"
+                android:layout_height="38dp"
                 android:background="@color/color_border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/chain_name"

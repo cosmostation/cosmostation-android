@@ -58,12 +58,14 @@
                 <TextView
                     android:id="@+id/rest_endpoint"
                     style="@style/font_sm_11"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_6"
+                    android:layout_marginEnd="@dimen/space_16"
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
+                    app:layout_constraintEnd_toStartOf="@+id/rest_endpoint_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chain_name" />
 
@@ -110,12 +112,14 @@
                 <TextView
                     android:id="@+id/rpc_endpoint"
                     style="@style/font_sm_11"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_2"
+                    android:layout_marginEnd="@dimen/space_16"
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
+                    app:layout_constraintEnd_toStartOf="@+id/rpc_endpoint_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/evm_chain_name" />
 
@@ -138,12 +142,14 @@
                 <TextView
                     android:id="@+id/evm_rpc_endpoint"
                     style="@style/font_sm_11"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginEnd="@dimen/space_16"
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:textColor="@color/color_base02"
+                    app:layout_constraintEnd_toStartOf="@+id/evm_rpc_endpoint_type"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rpc_endpoint" />
 
