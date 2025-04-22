@@ -173,6 +173,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.hexToString
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
@@ -187,6 +188,7 @@ open class BaseChain : Parcelable {
     open var tag: String = ""
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
+    open var isOtherChainImage: Boolean = false
     open var apiName: String = ""
     open var accountPrefix: String = ""
 
@@ -323,7 +325,11 @@ open class BaseChain : Parcelable {
     }
 
     fun chainLogo(): String {
-        return getChainListParam()?.get("chain_image")?.asString ?: ""
+        return if (isOtherChainImage) {
+            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}2.png"
+        } else {
+            getChainListParam()?.get("chain_image")?.asString ?: ""
+        }
     }
 
     fun getMainAssetDenom(): String {
