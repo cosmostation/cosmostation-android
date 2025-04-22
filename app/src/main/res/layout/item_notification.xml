@@ -29,7 +29,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:src="@drawable/chain_kava"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

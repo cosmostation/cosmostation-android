@@ -160,6 +160,7 @@
     <string name="title_address_book">주소록 관리</string>
     <string name="title_general">일반</string>
     <string name="title_language">언어</string>
+    <string name="title_theme">테마</string>
     <string name="title_currency">통화</string>
     <string name="title_price_change_color">가격 변동 색상</string>
     <string name="title_notification">알람</string>

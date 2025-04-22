@@ -27,7 +27,6 @@
             android:id="@+id/ns_img"
             android:layout_width="@dimen/space_40"
             android:layout_height="@dimen/space_40"
-            android:src="@drawable/chain_osmosis"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

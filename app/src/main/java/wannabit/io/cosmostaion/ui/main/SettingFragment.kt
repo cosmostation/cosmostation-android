@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.main.setting.NoticeActivity
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
 import wannabit.io.cosmostaion.ui.main.setting.StyleFragment
+import wannabit.io.cosmostaion.ui.main.setting.ThemeFragment
 import wannabit.io.cosmostaion.ui.main.setting.general.DevDialogActivity
 import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
@@ -92,6 +93,7 @@ class SettingFragment : Fragment() {
                 chainView,
                 addressBookView,
                 languageView,
+                themeView,
                 currencyView,
                 styleView,
                 priceView,
@@ -190,6 +192,17 @@ class SettingFragment : Fragment() {
                     language.text = getString(R.string.str_system)
                 }
             }
+
+            when (Prefs.theme) {
+                0 -> {
+                    theme.text = getString(R.string.title_dark_theme)
+                }
+
+                else -> {
+                    theme.text = getString(R.string.title_cosmic_theme)
+                }
+            }
+
             currency.text = BaseData.currencyName()
             style.text = if (Prefs.style == 0) {
                 getString(R.string.str_simple)
@@ -238,6 +251,22 @@ class SettingFragment : Fragment() {
                 handleOneClickWithDelay(
                     SettingBottomFragment.newInstance(null, SettingType.LANGUAGE)
                 )
+            }
+
+            themeView.setOnClickListener {
+                handleOneClickWithDelay(
+                    ThemeFragment()
+                )
+                parentFragmentManager.setFragmentResultListener(
+                    "theme", this@SettingFragment
+                ) { _, bundle ->
+                    val theme = bundle.getInt("theme")
+                    if (Prefs.theme != theme) {
+                        Prefs.theme = theme
+                        ApplicationViewModel.shared.themeOption(true)
+                    }
+                    updateDefaultView()
+                }
             }
 
             currencyView.setOnClickListener {

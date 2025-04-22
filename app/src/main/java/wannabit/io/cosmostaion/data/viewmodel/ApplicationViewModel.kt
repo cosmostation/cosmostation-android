@@ -160,6 +160,11 @@ class ApplicationViewModel(
         styleOptionResult.postValue(isChanged)
     }
 
+    var themeOptionResult = SingleLiveEvent<Boolean>()
+    fun themeOption(isChanged: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        themeOptionResult.postValue(isChanged)
+    }
+
     private var _changeBgResult = MutableLiveData<Int>()
     val changeBgResult: LiveData<Int> get() = _changeBgResult
     fun changeBg(bg: Int) = viewModelScope.launch(Dispatchers.IO) {

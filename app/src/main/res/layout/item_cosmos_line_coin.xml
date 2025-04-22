@@ -109,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.6dp"
                 android:layout_marginTop="@dimen/space_14"
-                android:background="@color/color_divider"
+                android:background="@color/color_border"
                 app:layout_constraintTop_toBottomOf="@+id/token_info_layout" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
