@@ -88,7 +88,7 @@ interface MintscanApi {
     suspend fun ecoSystemInfo(@Path("chain") chain: String): MutableList<JsonObject>
 
     @GET("eco_list.json")
-    suspend fun ecoSystemTestInfo(): MutableList<JsonObject>
+    suspend fun ecoSystemInfo(): MutableList<JsonObject>
 
     @GET("v10/notice?include_content=true&flatform=MOBILE")
     suspend fun notice(): NoticeResponse

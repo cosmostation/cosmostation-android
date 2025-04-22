@@ -77,7 +77,7 @@ import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitExternalApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoTestApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoMainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
@@ -864,9 +864,9 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.contractAddress).setQueryData(queryData)
-                .build()
+            val request =
+                QuerySmartContractStateRequest.newBuilder().setAddress(list.contractAddress)
+                    .setQueryData(queryData).build()
             return safeApiCall {
                 stub.smartContractState(request)?.let { response ->
                     val tokenIds =
@@ -906,9 +906,9 @@ class WalletRepositoryImpl : WalletRepository {
         if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.cosmwasm.wasm.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(duration, TimeUnit.SECONDS)
-            val request = QuerySmartContractStateRequest.newBuilder()
-                .setAddress(list.contractAddress).setQueryData(queryData)
-                .build()
+            val request =
+                QuerySmartContractStateRequest.newBuilder().setAddress(list.contractAddress)
+                    .setQueryData(queryData).build()
             return safeApiCall(Dispatchers.IO) {
                 stub.smartContractState(request)?.let { response ->
                     Gson().fromJson(response.data.toStringUtf8(), JsonObject::class.java)
@@ -941,9 +941,9 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun ecoSystemTest(): NetworkResult<MutableList<JsonObject>> {
+    override suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
-            ecoTestApi.ecoSystemTestInfo()
+            ecoMainApi.ecoSystemInfo()
         }
     }
 

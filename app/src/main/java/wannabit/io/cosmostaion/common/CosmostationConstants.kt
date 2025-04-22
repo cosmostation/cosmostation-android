@@ -23,7 +23,7 @@ object CosmostationConstants {
     const val CHAIN_MONIKER_URL = "https://serve.dev-mintscan.com/assets/moniker/"
 
     //test
-    const val ECO_SYSTEM_TEST_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/ecosystem_dev/wallet_mobile/"
+    const val ECO_SYSTEM_MAIN_URL = "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet/"
 
     //cosmostation
     const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"

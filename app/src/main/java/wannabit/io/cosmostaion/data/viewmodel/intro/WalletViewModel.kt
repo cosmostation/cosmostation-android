@@ -136,7 +136,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadErc20Deferred = async { walletRepository.erc20() }
         val loadGrc20Deferred = async { walletRepository.grc20() }
         val loadCw721Deferred = async { walletRepository.cw721() }
-        val loadEcoSystemDeferred = async { walletRepository.ecoSystemTest() }
+        val loadEcoSystemDeferred = async { walletRepository.ecoSystemInfo() }
 
         val responses = awaitAll(
             loadParamDeferred,
