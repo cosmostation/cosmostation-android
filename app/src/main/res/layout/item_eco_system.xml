@@ -68,7 +68,7 @@
 
             <TextView
                 android:id="@+id/dapp_description"
-                style="@style/font_sm_11"
+                style="@style/font_sr_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_12"
@@ -78,7 +78,7 @@
                 android:maxLines="3"
                 android:minLines="3"
                 android:lines="3"
-                android:lineSpacingExtra="@dimen/space_4"
+                android:lineSpacingExtra="@dimen/space_3"
                 android:lineSpacingMultiplier="1.0"
                 android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="parent"
