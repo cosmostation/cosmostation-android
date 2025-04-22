@@ -15,7 +15,6 @@ class ChainAkash : BaseChain(), Parcelable {
 
     override var name: String = "Akash"
     override var tag: String = "akash118"
-    override var logo: Int = R.drawable.chain_akash
     override var apiName: String = "akash"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

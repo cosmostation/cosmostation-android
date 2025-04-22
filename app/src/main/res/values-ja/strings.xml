@@ -167,6 +167,7 @@
     <string name="title_address_book">連絡先の管理</string>
     <string name="title_general">一般</string>
     <string name="title_language">言語</string>
+    <string name="title_theme">テーマ</string>
     <string name="title_currency">カレント</string>
     <string name="title_price_change_color">価格変動の色</string>
     <string name="title_notification">通知</string>

@@ -15,7 +15,6 @@ class ChainSource : BaseChain(), Parcelable {
 
     override var name: String = "Source"
     override var tag: String = "source118"
-    override var logo: Int = R.drawable.chain_source
     override var apiName: String = "source"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

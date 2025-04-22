@@ -15,7 +15,6 @@ class ChainLikeCoin : BaseChain(), Parcelable {
 
     override var name: String = "Likecoin"
     override var tag: String = "likecoin118"
-    override var logo: Int = R.drawable.chain_likecoin
     override var apiName: String = "likecoin"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainEndpointBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
@@ -81,7 +82,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
             }
 
             fromChain?.let { chain ->
-                chainImg.setImageResource(chain.logo)
+                chainImg.setChainLogo(chain)
                 selectTitle.text = getString(R.string.title_select_end_point, fromChain?.name)
 
                 when (endPointType) {

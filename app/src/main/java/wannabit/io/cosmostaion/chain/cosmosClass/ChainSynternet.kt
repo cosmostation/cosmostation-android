@@ -15,7 +15,6 @@ class ChainSynternet : BaseChain(), Parcelable {
 
     override var name: String = "Synternet"
     override var tag: String = "synternet118"
-    override var logo: Int = R.drawable.chain_synternet
     override var apiName: String = "synternet"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

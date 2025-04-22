@@ -15,7 +15,6 @@ class ChainPundix : BaseChain(), Parcelable {
 
     override var name: String = "Pundi-X"
     override var tag: String = "pundi-x118"
-    override var logo: Int = R.drawable.chain_pundix
     override var apiName: String = "pundix"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

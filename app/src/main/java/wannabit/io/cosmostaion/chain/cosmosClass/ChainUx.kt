@@ -15,7 +15,6 @@ class ChainUx : BaseChain(), Parcelable {
 
     override var name: String = "UX(Umee)"
     override var tag: String = "ux118"
-    override var logo: Int = R.drawable.chain_ux
     override var apiName: String = "umee"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

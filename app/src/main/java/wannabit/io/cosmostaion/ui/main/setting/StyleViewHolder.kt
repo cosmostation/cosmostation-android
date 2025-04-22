@@ -29,4 +29,25 @@ class StyleViewHolder(
             }
         }
     }
+
+    fun themeBind(theme: String) {
+        binding.apply {
+            styleView.setBackgroundResource(R.drawable.item_bg)
+
+            title.text = theme
+            if (theme.contains("Dark")) {
+                content.text = context.getString(R.string.str_dark_theme_msg)
+                styleImg.setImageResource(R.drawable.icon_dark_theme)
+            } else {
+                content.text = context.getString(R.string.str_cosmic_theme_msg)
+                styleImg.setImageResource(R.drawable.icon_cosmic_theme)
+            }
+
+            if (Prefs.theme == adapterPosition) {
+                styleView.setBackgroundResource(R.drawable.item_select_bg2)
+            } else {
+                styleView.setBackgroundResource(R.drawable.item_bg)
+            }
+        }
+    }
 }

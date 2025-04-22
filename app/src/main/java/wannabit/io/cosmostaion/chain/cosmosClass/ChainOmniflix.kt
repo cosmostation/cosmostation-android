@@ -15,7 +15,6 @@ class ChainOmniflix : BaseChain(), Parcelable {
 
     override var name: String = "Omniflix"
     override var tag: String = "omniflix118"
-    override var logo: Int = R.drawable.chain_omniflix
     override var apiName: String = "omniflix"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

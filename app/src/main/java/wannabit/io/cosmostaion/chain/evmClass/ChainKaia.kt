@@ -14,7 +14,6 @@ class ChainKaia : BaseChain(), Parcelable {
 
     override var name: String = "Kaia"
     override var tag: String = "kaia60"
-    override var logo: Int = R.drawable.chain_kaia
     override var apiName: String = "kaia"
 
     override var supportEvm: Boolean = true

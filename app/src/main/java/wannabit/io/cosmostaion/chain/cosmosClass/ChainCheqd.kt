@@ -15,7 +15,6 @@ class ChainCheqd : BaseChain(), Parcelable {
 
     override var name: String = "Cheqd"
     override var tag: String = "cheqd118"
-    override var logo: Int = R.drawable.chain_cheqd
     override var apiName: String = "cheqd"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

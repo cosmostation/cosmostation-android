@@ -15,7 +15,6 @@ class ChainDHealth : BaseChain(), Parcelable {
 
     override var name: String = "dHealth"
     override var tag: String = "dhealth10111"
-    override var logo: Int = R.drawable.chain_dhealth
     override var apiName: String = "dhealth"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/10111'/0'/0/X")

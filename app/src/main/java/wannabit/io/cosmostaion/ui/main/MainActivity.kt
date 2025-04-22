@@ -122,6 +122,11 @@ class MainActivity : BaseActivity() {
                 binding.accountName.text = account?.name
             }
         }
+
+        ApplicationViewModel.shared.themeOptionResult.observe(this) {
+            CosmostationApp.instance.setRandomBackgroundImage()
+            binding.parentLayout.setBackgroundResource(Prefs.background)
+        }
     }
 
     private fun initView() {

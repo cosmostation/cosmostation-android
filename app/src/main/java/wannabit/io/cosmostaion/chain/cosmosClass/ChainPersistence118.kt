@@ -15,7 +15,6 @@ class ChainPersistence118 : BaseChain(), Parcelable {
 
     override var name: String = "Persistence"
     override var tag: String = "persistence118"
-    override var logo: Int = R.drawable.chain_persistence
     override var apiName: String = "persistence"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

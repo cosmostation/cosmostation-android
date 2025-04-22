@@ -15,7 +15,6 @@ class ChainArtelaTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Artela Testnet"
     override var tag: String = "artela60_T"
-    override var logo: Int = R.drawable.chain_artela_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "artela-testnet"
 

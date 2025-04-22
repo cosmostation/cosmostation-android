@@ -22,6 +22,7 @@ object Prefs {
     private const val LAST_PARAM_TIME = "PRE_LAST_PARAM_TIME"
     private const val LAST_CURRENCY = "PRE_CURRENCY"
     private const val LANGUAGE = "PRE_LANGUAGE"
+    private const val THEME = "PRE_THEME"
     private const val STYLE = "PRE_STYLE"
     private const val PRICE_STYLE = "PRE_PRICE_STYLE"
     private const val LAST_TIME = "PRE_LAST_TIME"
@@ -125,6 +126,10 @@ object Prefs {
     var language: Int
         get() = preference.getInt(LANGUAGE, 0)
         set(value) = preference.edit().putInt(LANGUAGE, value).apply()
+
+    var theme: Int
+        get() = preference.getInt(THEME, 0)
+        set(value) = preference.edit().putInt(THEME, value).apply()
 
     var style: Int
         get() = preference.getInt(STYLE, 0)

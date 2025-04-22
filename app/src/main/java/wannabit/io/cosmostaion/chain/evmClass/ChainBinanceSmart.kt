@@ -14,7 +14,6 @@ class ChainBinanceSmart : BaseChain(), Parcelable {
 
     override var name: String = "BSC"
     override var tag: String = "binance60"
-    override var logo: Int = R.drawable.chain_binance
     override var apiName: String = "bnb-smart-chain"
 
     override var supportEvm: Boolean = true

@@ -15,7 +15,6 @@ class ChainMilkyway : BaseChain(), Parcelable {
 
     override var name: String = "Milkyway"
     override var tag: String = "milkyway118"
-    override var logo: Int = R.drawable.chain_milkyway
     override var apiName: String = "milkyway"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

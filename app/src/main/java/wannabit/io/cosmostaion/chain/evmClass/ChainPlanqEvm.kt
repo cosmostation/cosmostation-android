@@ -15,7 +15,6 @@ class ChainPlanqEvm : BaseChain(), Parcelable {
 
     override var name: String = "Planq"
     override var tag: String = "planq60"
-    override var logo: Int = R.drawable.chain_planq
     override var apiName: String = "planq"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

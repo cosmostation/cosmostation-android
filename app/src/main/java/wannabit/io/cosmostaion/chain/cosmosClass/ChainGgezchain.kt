@@ -15,7 +15,6 @@ class ChainGgezchain : BaseChain(), Parcelable {
 
     override var name: String = "GGEZ1 Chain"
     override var tag: String = "ggezchain118"
-    override var logo: Int = R.drawable.chain_ggezchain
     override var apiName: String = "ggezchain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

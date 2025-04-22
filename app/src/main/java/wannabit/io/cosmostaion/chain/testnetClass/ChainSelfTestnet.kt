@@ -15,7 +15,6 @@ class ChainSelfTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Selfchain Testnet"
     override var tag: String = "selfchain118_T"
-    override var logo: Int = R.drawable.chain_selfchain_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "selfchain-testnet"
 

@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.ItemSetAddressBookBinding
 
@@ -21,7 +22,7 @@ class SetAddressBookViewHolder(
 
             } else {
                 allChains().firstOrNull { it.name == addressBook.chainName }?.let { chain ->
-                    chainImg.setImageResource(chain.logo)
+                    chainImg.setChainLogo(chain)
                 }
             }
             addressName.text = addressBook.bookName

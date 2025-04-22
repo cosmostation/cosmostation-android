@@ -15,7 +15,6 @@ class ChainBostrom : BaseChain(), Parcelable {
 
     override var name: String = "Bostrom"
     override var tag: String = "bostrom118"
-    override var logo: Int = R.drawable.chain_bostrom
     override var apiName: String = "bostrom"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

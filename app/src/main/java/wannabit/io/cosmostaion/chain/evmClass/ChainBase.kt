@@ -14,7 +14,6 @@ class ChainBase : BaseChain(), Parcelable {
 
     override var name: String = "Base"
     override var tag: String = "base60"
-    override var logo: Int = R.drawable.chain_base
     override var apiName: String = "base"
 
     override var supportEvm: Boolean = true

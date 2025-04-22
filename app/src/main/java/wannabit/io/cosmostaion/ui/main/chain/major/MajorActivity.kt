@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -75,7 +76,7 @@ class MajorActivity : BaseActivity() {
             val x = (0..width - 150 - 150).random().toFloat()
             val y = (800..height - 150).random().toFloat()
 
-            setImageResource(chain.logo)
+            setChainLogo(chain)
             alpha = 0f
             this.x = x
             this.y = y

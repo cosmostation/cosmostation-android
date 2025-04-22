@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
 
@@ -45,7 +46,7 @@ class ChainEditViewHolder(
     ) {
         binding.apply {
             updateView(chain, displayChains)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
             skeletonChainValue.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
@@ -171,7 +172,7 @@ class ChainEditViewHolder(
     ) {
         binding.apply {
             updateView(chain, displayChains)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
 
             if (chain is ChainBitCoin86) {

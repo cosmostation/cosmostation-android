@@ -14,7 +14,6 @@ class ChainFantom : BaseChain(), Parcelable {
 
     override var name: String = "Fantom"
     override var tag: String = "fantom60"
-    override var logo: Int = R.drawable.chain_fantom
     override var apiName: String = "fantom"
 
     override var supportEvm: Boolean = true

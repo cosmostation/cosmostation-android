@@ -232,6 +232,7 @@
     <string name="title_address_book">Address book</string>
     <string name="title_general">General</string>
     <string name="title_language">Language</string>
+    <string name="title_theme">Theme</string>
     <string name="title_currency">Currency</string>
     <string name="title_price_change_color">Price change color</string>
     <string name="title_notification">Notification</string>
@@ -348,6 +349,7 @@
     <string name="title_send_info">Send detail info</string>
     <string name="title_nft_transfer">Send NFT</string>
     <string name="title_select_style">Select style</string>
+    <string name="title_select_theme" translatable="false">Select theme</string>
     <string name="title_delist">Discontinuation of support</string>
     <string name="title_legacy_path">Legacy path will not support</string>
     <string name="title_support_inject">Support Injection</string>
@@ -477,6 +479,8 @@
     <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
     <string name="str_time_lock_msg">After staking $%1$s, it is locked for up to &lt;font color="#BED1F2"&gt;%2$s weeks.&lt;/font&gt;\nAfter this period, it becomes automatically withdrawable without unstaking.</string>
     <string name="str_unstaking_msg">You can unstake at any time, It will become withdrawable after a &lt;font color="#BED1F2"&gt;7-day&lt;/font&gt; unstaking period.</string>
+    <string name="str_dark_theme_msg" translatable="false">Softly,calmly. Dive deeper with Dark Theme</string>
+    <string name="str_cosmic_theme_msg" translatable="false">Like a scene from space - a new view every time</string>
 
 
     // header
@@ -796,6 +800,9 @@
     <string name="title_language_en" translatable="false">English(United States)</string>
     <string name="title_language_kr" translatable="false">한국어(대한민국)</string>
     <string name="title_language_ja" translatable="false">日本語(日本)</string>
+
+    <string name="title_dark_theme" translatable="false">Dark</string>
+    <string name="title_cosmic_theme" translatable="false">Cosmic</string>
 
     // currency
     <string-array name="currency_unit_array" translatable="false">

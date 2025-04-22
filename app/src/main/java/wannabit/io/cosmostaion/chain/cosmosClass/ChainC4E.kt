@@ -15,7 +15,6 @@ class ChainC4E : BaseChain(), Parcelable {
 
     override var name: String = "Chain4Energy"
     override var tag: String = "chain4energy"
-    override var logo: Int = R.drawable.chain_chain4energy
     override var apiName: String = "chain4energy"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

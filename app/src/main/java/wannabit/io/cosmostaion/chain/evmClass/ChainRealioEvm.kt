@@ -15,7 +15,6 @@ class ChainRealioEvm : BaseChain(), Parcelable {
 
     override var name: String = "Realio"
     override var tag: String = "realio60"
-    override var logo: Int = R.drawable.chain_realio
     override var apiName: String = "realio"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

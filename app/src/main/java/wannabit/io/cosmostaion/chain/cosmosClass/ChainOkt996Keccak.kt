@@ -18,8 +18,8 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
 
     override var name: String = "OKT"
     override var tag: String = "okt996_Keccak"
-    override var logo: Int = R.drawable.chain_okt
     override var isDefault: Boolean = false
+    override var isOtherChainImage: Boolean = true
     override var apiName: String = "okc"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/996'/0'/0/X")

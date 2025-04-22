@@ -15,7 +15,6 @@ open class ChainAgoric564 : BaseChain(), Parcelable {
 
     override var name: String = "Agoric"
     override var tag: String = "agoric564"
-    override var logo: Int = R.drawable.chain_agoric
     override var apiName: String = "agoric"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/564'/0'/0/X")

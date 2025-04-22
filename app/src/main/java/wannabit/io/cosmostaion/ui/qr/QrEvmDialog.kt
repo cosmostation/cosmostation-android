@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.DialogQrEvmBinding
 
 class QrEvmDialog(
@@ -46,7 +47,7 @@ class QrEvmDialog(
                 ethAddressView.setBackgroundResource(R.drawable.cell_bg)
                 ethChainName.text = chain.name + " Evm Style Address"
                 ethAddress.text = chain.evmAddress
-                ethChainImg.setImageResource(chain.logo)
+                ethChainImg.setChainLogo(chain)
 
                 bitmap = barcodeEncoder.encodeBitmap(
                     chain.evmAddress, BarcodeFormat.QR_CODE, 400, 400, hints
@@ -56,7 +57,7 @@ class QrEvmDialog(
                 ethQrImg.clipToOutline = true
 
                 chainName.text = chain.name + " Cosmos Style Address"
-                chainImg.setImageResource(chain.logo)
+                chainImg.setChainLogo(chain)
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = chain.address
 

@@ -16,7 +16,6 @@ class ChainGnoTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Gno Testnet"
     override var tag: String = "gno118_T"
-    override var logo: Int = R.drawable.chain_gno_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "gno-testnet"
 

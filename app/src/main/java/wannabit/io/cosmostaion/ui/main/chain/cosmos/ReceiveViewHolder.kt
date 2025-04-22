@@ -12,6 +12,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
@@ -32,7 +33,7 @@ class ReceiveViewHolder(
 
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
-            chainImg.setImageResource(selectChain.logo)
+            chainImg.setChainLogo(selectChain)
             setQrAddress(context, selectChain.evmAddress)
 
             chainBadge.visibility = View.GONE
@@ -61,7 +62,7 @@ class ReceiveViewHolder(
 
             receiveTitle.text =
                 context.getString(R.string.str_deposit_caution_msg, selectChain.name)
-            chainImg.setImageResource(selectChain.logo)
+            chainImg.setChainLogo(selectChain)
             setQrAddress(context, selectChain.address)
 
             if (!selectChain.isDefault) {

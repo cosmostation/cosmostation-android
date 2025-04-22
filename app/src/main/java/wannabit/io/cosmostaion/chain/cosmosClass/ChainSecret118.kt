@@ -15,7 +15,6 @@ class ChainSecret118 : BaseChain(), Parcelable {
 
     override var name: String = "Secret"
     override var tag: String = "secret118"
-    override var logo: Int = R.drawable.chain_secret
     override var isDefault: Boolean = false
     override var apiName: String = "secret"
 

@@ -15,7 +15,6 @@ class ChainDungeon : BaseChain(), Parcelable {
 
     override var name: String = "Dungeon"
     override var tag: String = "dungeon118"
-    override var logo: Int = R.drawable.chain_dungeon
     override var apiName: String = "dungeon"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -15,7 +15,6 @@ class ChainMigaloo : BaseChain(), Parcelable {
 
     override var name: String = "Migaloo"
     override var tag: String = "migaloo118"
-    override var logo: Int = R.drawable.chain_migaloo
     override var apiName: String = "migaloo"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

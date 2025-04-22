@@ -15,7 +15,6 @@ class ChainGovgen : BaseChain(), Parcelable {
 
     override var name: String = "Govgen"
     override var tag: String = "govgen118"
-    override var logo: Int = R.drawable.chain_govgen
     override var apiName: String = "govgen"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

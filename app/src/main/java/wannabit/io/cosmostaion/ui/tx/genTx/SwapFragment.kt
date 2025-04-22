@@ -56,6 +56,7 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.handlerRight
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -232,7 +233,7 @@ class SwapFragment : BaseTxFragment() {
             txFee = baseFee()
             inputChain?.let { chain ->
                 fromAddress.text = chain.address
-                inputChainImg.setImageResource(chain.logo)
+                inputChainImg.setChainLogo(chain)
                 inputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, inputAsset.denom)?.let { inputMsAsset ->
                     inputTokenImg.setTokenImg(inputMsAsset.image ?: "")
@@ -263,7 +264,7 @@ class SwapFragment : BaseTxFragment() {
 
             outputChain?.let { chain ->
                 toAddress.text = chain.address
-                outputChainImg.setImageResource(chain.logo)
+                outputChainImg.setChainLogo(chain)
                 outputChainName.text = chain.name
                 BaseData.getAsset(chain.apiName, outputAsset.denom)?.let { outputMsAsset ->
                     outputTokenImg.setTokenImg(outputMsAsset.image ?: "")

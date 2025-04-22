@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
 class ChainManageViewHolder(
@@ -17,7 +18,7 @@ class ChainManageViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
 
             when (chain) {
                 is ChainBitCoin86 -> {
@@ -106,7 +107,7 @@ class ChainManageViewHolder(
     fun testnetBind(chain: BaseChain) {
         binding.apply {
             chainView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
 
             when (chain) {
                 is ChainBitCoin86 -> {

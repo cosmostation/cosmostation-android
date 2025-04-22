@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemPrivateBinding
@@ -26,7 +27,7 @@ class PrivateViewHolder(
     fun bind(account: BaseAccount, chain: BaseChain) {
         binding.apply {
             privateView.setBackgroundResource(R.drawable.item_bg)
-            chainImg.setImageResource(chain.logo)
+            chainImg.setChainLogo(chain)
             chainName.text = chain.name
             chainPath.text = chain.getHDPath(account.lastHDPath)
             chainPrivateKey.text = "0x" + chain.privateKey?.toHex()

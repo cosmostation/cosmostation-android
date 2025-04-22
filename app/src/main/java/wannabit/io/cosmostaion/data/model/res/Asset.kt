@@ -24,28 +24,6 @@ data class Asset(
     val ibc_info: IbcInfo?,
 ) : Parcelable {
 
-    fun beforeChain(apiName: String): String? {
-        ibc_info?.path?.let {
-            val chainPath = it.split(">")
-            chainPath.lastIndexOf(apiName).apply {
-                if (this > 0) {
-                    return chainPath[this - 1]
-                }
-            }
-        }
-        return null
-    }
-
-    fun justBeforeChain(): String? {
-        ibc_info?.path?.let {
-            val chainPath = it.split(">")
-            if (chainPath.count() > 1) {
-                return chainPath[chainPath.count() - 2]
-            }
-        }
-        return null
-    }
-
     fun assetColor(): Int {
         return Color.parseColor("#ffffff")
     }

@@ -15,7 +15,6 @@ class ChainPryzm : BaseChain(), Parcelable {
 
     override var name: String = "Pryzm"
     override var tag: String = "pryzm"
-    override var logo: Int = R.drawable.chain_pryzm
     override var apiName: String = "pryzm"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

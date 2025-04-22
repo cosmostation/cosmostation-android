@@ -62,16 +62,20 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
     }
 
     fun setRandomBackgroundImage() {
-        val imageArray = intArrayOf(
-            R.drawable.bg_00,
-            R.drawable.bg_01,
-            R.drawable.bg_02,
-            R.drawable.bg_03,
-            R.drawable.bg_04
-        )
+        if (Prefs.theme == 0) {
+            Prefs.background = R.drawable.bg_default
+        } else {
+            val imageArray = intArrayOf(
+                R.drawable.bg_00,
+                R.drawable.bg_01,
+                R.drawable.bg_02,
+                R.drawable.bg_03,
+                R.drawable.bg_04
+            )
 
-        val randomIndex = (Math.random() * imageArray.size).toInt()
-        Prefs.background = imageArray[randomIndex]
+            val randomIndex = (Math.random() * imageArray.size).toInt()
+            Prefs.background = imageArray[randomIndex]
+        }
     }
 
     private fun initWalletConnectV2() {

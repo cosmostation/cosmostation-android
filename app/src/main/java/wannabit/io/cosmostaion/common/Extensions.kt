@@ -35,6 +35,8 @@ import coil.decode.SvgDecoder
 import coil.dispose
 import coil.load
 import coil.request.CachePolicy
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.staking.v1beta1.StakingProto
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -229,6 +231,13 @@ fun FragmentActivity.toMoveFragment(
         R.animator.to_right, R.animator.from_right, R.animator.to_left, R.animator.from_left
     ).add(R.id.fragment_container, moveFragment).hide(currentFragment).setReorderingAllowed(true)
         .addToBackStack(stackName).commit()
+}
+
+fun ImageView.setChainLogo(chain: BaseChain) {
+    Glide.with(context).load(chain.chainLogo()).diskCacheStrategy(
+        DiskCacheStrategy.ALL
+    ).placeholder(R.drawable.chain_default).error(R.drawable.chain_default)
+        .into(this)
 }
 
 fun ImageView.setTokenImg(asset: Asset) {

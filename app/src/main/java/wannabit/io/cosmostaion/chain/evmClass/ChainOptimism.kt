@@ -14,7 +14,6 @@ class ChainOptimism : BaseChain(), Parcelable {
 
     override var name: String = "Optimism"
     override var tag: String = "optimism60"
-    override var logo: Int = R.drawable.chain_optimism
     override var apiName: String = "optimism"
 
     override var supportEvm: Boolean = true

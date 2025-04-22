@@ -60,7 +60,6 @@
                     android:layout_height="@dimen/space_110"
                     android:layout_marginEnd="-16dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/chain_evmos"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

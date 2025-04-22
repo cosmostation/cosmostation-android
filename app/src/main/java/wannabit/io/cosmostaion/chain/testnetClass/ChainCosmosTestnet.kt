@@ -15,7 +15,6 @@ class ChainCosmosTestnet : BaseChain(), Parcelable {
 
     override var name: String = "Cosmos Testnet"
     override var tag: String = "cosmos118_T"
-    override var logo: Int = R.drawable.chain_cosmos_testnet
     override var isTestnet: Boolean = true
     override var apiName: String = "cosmos-testnet"
 

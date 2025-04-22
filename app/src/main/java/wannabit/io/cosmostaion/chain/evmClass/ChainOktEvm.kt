@@ -19,7 +19,6 @@ open class ChainOktEvm : BaseChain(), Parcelable {
 
     override var name: String = "OKT"
     override var tag: String = "okt60_Keccak"
-    override var logo: Int = R.drawable.chain_evm_okt
     override var apiName: String = "okc"
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD

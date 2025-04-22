@@ -15,7 +15,6 @@ class ChainKi : BaseChain(), Parcelable {
 
     override var name: String = "KiChain"
     override var tag: String = "ki118"
-    override var logo: Int = R.drawable.chain_ki
     override var apiName: String = "ki-chain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

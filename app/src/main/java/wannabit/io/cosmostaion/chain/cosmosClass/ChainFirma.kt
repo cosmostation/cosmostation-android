@@ -15,7 +15,6 @@ class ChainFirma : BaseChain(), Parcelable {
 
     override var name: String = "Firmachain"
     override var tag: String = "Firmachain7777777"
-    override var logo: Int = R.drawable.chain_firmachain
     override var apiName: String = "firmachain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/7777777'/0'/0/X")

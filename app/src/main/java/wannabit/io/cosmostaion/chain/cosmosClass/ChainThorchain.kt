@@ -15,7 +15,6 @@ class ChainThorchain : BaseChain(), Parcelable {
 
     override var name: String = "Thorchain"
     override var tag: String = "thorchain931"
-    override var logo: Int = R.drawable.chain_thorchain
     override var apiName: String = "thorchain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/931'/0'/0/X")

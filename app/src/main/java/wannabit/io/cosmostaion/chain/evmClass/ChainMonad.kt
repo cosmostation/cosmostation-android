@@ -14,7 +14,6 @@ open class ChainMonad : BaseChain(), Parcelable {
 
     override var name: String = "Monad"
     override var tag: String = "monad60"
-    override var logo: Int = R.drawable.chain_monad
     override var apiName: String = "monad"
 
     override var supportEvm: Boolean = true

@@ -14,7 +14,6 @@ class ChainPolygon : BaseChain(), Parcelable {
 
     override var name: String = "Polygon"
     override var tag: String = "polygon60"
-    override var logo: Int = R.drawable.chain_polygon
     override var apiName: String = "polygon"
 
     override var supportEvm: Boolean = true

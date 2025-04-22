@@ -15,7 +15,6 @@ class ChainBitCoin84 : ChainBitCoin86(), Parcelable {
 
     override var name: String = "Bitcoin"
     override var tag: String = "bitcoin84"
-    override var logo: Int = R.drawable.chain_bitcoin
     override var isDefault: Boolean = false
     override var apiName: String = "bitcoin"
 

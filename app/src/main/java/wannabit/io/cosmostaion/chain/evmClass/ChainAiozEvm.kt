@@ -15,7 +15,6 @@ class ChainAiozEvm : BaseChain(), Parcelable {
 
     override var name: String = "Aioz"
     override var tag: String = "aioz60"
-    override var logo: Int = R.drawable.chain_aioz
     override var apiName: String = "aioz"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

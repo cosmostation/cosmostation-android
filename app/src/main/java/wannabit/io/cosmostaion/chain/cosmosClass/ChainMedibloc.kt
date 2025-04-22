@@ -15,7 +15,6 @@ class ChainMedibloc : BaseChain(), Parcelable {
 
     override var name: String = "Medibloc"
     override var tag: String = "medibloc371"
-    override var logo: Int = R.drawable.chain_medibloc
     override var apiName: String = "medibloc"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/371'/0'/0/X")

@@ -49,6 +49,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
@@ -173,6 +175,7 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.CosmostationConstants.CHAIN_BASE_URL
 import wannabit.io.cosmostaion.common.hexToString
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.database.Prefs
@@ -185,9 +188,9 @@ open class BaseChain : Parcelable {
 
     open var name: String = ""
     open var tag: String = ""
-    open var logo: Int = R.drawable.token_default
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
+    open var isOtherChainImage: Boolean = false
     open var apiName: String = ""
     open var accountPrefix: String = ""
 
@@ -320,6 +323,14 @@ open class BaseChain : Parcelable {
                 ?: JsonObject()
         } catch (e: Exception) {
             JsonObject()
+        }
+    }
+
+    fun chainLogo(): String {
+        return if (isOtherChainImage) {
+            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}2.png"
+        } else {
+            getChainListParam()?.get("chain_image")?.asString ?: ""
         }
     }
 
@@ -702,7 +713,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
+    chains.add(ChainHippocrat())
     chains.add(ChainHumansEvm())
+    chains.add(ChainInitia())
     chains.add(ChainInjective())
     chains.add(ChainIris())
     chains.add(ChainIxo())

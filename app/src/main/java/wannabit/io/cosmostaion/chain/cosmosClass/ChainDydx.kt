@@ -15,7 +15,6 @@ class ChainDydx : BaseChain(), Parcelable {
 
     override var name: String = "Dydx"
     override var tag: String = "dydx118"
-    override var logo: Int = R.drawable.chain_dydx
     override var apiName: String = "dydx"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

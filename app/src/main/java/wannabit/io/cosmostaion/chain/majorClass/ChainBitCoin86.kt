@@ -21,7 +21,6 @@ open class ChainBitCoin86 : BaseChain(), Parcelable {
 
     override var name: String = "Bitcoin"
     override var tag: String = "bitcoin86"
-    override var logo: Int = R.drawable.chain_bitcoin
     override var apiName: String = "bitcoin"
 
     override var accountKeyType = AccountKeyType(PubKeyType.BTC_TAPROOT, "m/86'/0'/0'/0/X")

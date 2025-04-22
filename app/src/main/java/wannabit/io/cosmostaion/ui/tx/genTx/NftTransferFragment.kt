@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.getdAmount
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -109,7 +110,7 @@ class NftTransferFragment(
     private fun initToChain() {
         binding.apply {
             toChain = fromChain
-            chainImg.setImageResource(toChain.logo)
+            chainImg.setChainLogo(toChain)
             chainName.text = toChain.name.uppercase()
         }
     }

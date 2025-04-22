@@ -18,7 +18,6 @@ open class ChainBabylon : BaseChain(), Parcelable {
 
     override var name: String = "Babylon"
     override var tag: String = "babylon118"
-    override var logo: Int = R.drawable.chain_babylon
     override var apiName: String = "babylon"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

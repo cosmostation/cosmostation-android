@@ -15,7 +15,6 @@ class ChainQuasar : BaseChain(), Parcelable {
 
     override var name: String = "Quasar"
     override var tag: String = "quasar118"
-    override var logo: Int = R.drawable.chain_quasar
     override var apiName: String = "quasar"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

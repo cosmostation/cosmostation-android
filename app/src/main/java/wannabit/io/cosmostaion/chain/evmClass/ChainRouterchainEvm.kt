@@ -15,7 +15,6 @@ class ChainRouterchainEvm : BaseChain(), Parcelable {
 
     override var name: String = "RouterChain"
     override var tag: String = "routerchain60"
-    override var logo: Int = R.drawable.chain_routerchain
     override var apiName: String = "routerchain"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
