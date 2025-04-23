@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.genTx.major
+package wannabit.io.cosmostaion.ui.tx.genTx.major.bit
 
 import android.app.Activity
 import android.content.Intent
@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultType
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
+import wannabit.io.cosmostaion.ui.tx.info.major.btc.BtcTxType
 import wannabit.io.cosmostaion.ui.tx.option.validator.ProviderFragment
 import wannabit.io.cosmostaion.ui.tx.option.validator.ProviderListener
 import java.math.BigDecimal

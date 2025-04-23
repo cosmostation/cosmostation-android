@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.iota
 
 import android.os.Build
 import android.os.Bundle
@@ -13,26 +13,26 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_STAKE
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_FEE_STAKE
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MIN_STAKE
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentSuiStakeInfoBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiStakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.iota.IotaStakingFragment
 import java.math.BigDecimal
 import java.util.Date
 import java.util.Timer
 import java.util.TimerTask
 
-class SuiStakeInfoFragment : Fragment() {
+class IotaStakeInfoFragment : Fragment() {
 
     private var _binding: FragmentSuiStakeInfoBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
 
-    private lateinit var suiStakePagerAdapter: SuiStakePagerAdapter
+    private lateinit var iotaStakePagerAdapter: IotaStakePagerAdapter
 
     private var epoch: Long = 0
     private var epochStartTimestampMs: Long = 0
@@ -43,11 +43,11 @@ class SuiStakeInfoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain): SuiStakeInfoFragment {
+        fun newInstance(selectedChain: BaseChain): IotaStakeInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
-            val fragment = SuiStakeInfoFragment()
+            val fragment = IotaStakeInfoFragment()
             fragment.arguments = args
             return fragment
         }
@@ -79,12 +79,12 @@ class SuiStakeInfoFragment : Fragment() {
                 }
             }
 
-            titleManageStake.text = getString(R.string.title_manage_stake, "SUI")
+            titleManageStake.text = getString(R.string.title_manage_stake, "IOTA")
 
-            suiStakePagerAdapter = SuiStakePagerAdapter(
-                this@SuiStakeInfoFragment, selectedChain
+            iotaStakePagerAdapter = IotaStakePagerAdapter(
+                this@IotaStakeInfoFragment, selectedChain
             )
-            viewPager.adapter = suiStakePagerAdapter
+            viewPager.adapter = iotaStakePagerAdapter
             viewPager.offscreenPageLimit = 1
             viewPager.isUserInputEnabled = false
             tabLayout.bringToFront()
@@ -96,8 +96,8 @@ class SuiStakeInfoFragment : Fragment() {
                 }
             }.attach()
 
-            (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                if (fetcher.suiStakedList.isNotEmpty()) {
+            (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                if (fetcher.iotaStakedList.isNotEmpty()) {
                     emptyStake.visibility = View.GONE
                     stakingDataView.visibility = View.VISIBLE
                     epochView.visibility = View.VISIBLE
@@ -118,11 +118,12 @@ class SuiStakeInfoFragment : Fragment() {
             epochView.setBackgroundResource(R.drawable.item_bg)
             updateTime()
 
-            (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                epoch = fetcher.suiSystem["result"].asJsonObject["epoch"].asLong
+            (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                epoch = fetcher.iotaSystem["result"].asJsonObject["epoch"].asLong
                 epochStartTimestampMs =
-                    fetcher.suiSystem["result"].asJsonObject["epochStartTimestampMs"].asLong
-                epochDurationMs = fetcher.suiSystem["result"].asJsonObject["epochDurationMs"].asLong
+                    fetcher.iotaSystem["result"].asJsonObject["epochStartTimestampMs"].asLong
+                epochDurationMs =
+                    fetcher.iotaSystem["result"].asJsonObject["epochDurationMs"].asLong
                 currentEpoch.text = "#$epoch"
             }
         }
@@ -159,22 +160,22 @@ class SuiStakeInfoFragment : Fragment() {
             }
 
             btnInfo.setOnClickListener {
-                handleOneClickWithDelay(SuiInfoFragment.newInstance(selectedChain))
+//                handleOneClickWithDelay(SuiInfoFragment.newInstance(selectedChain))
             }
 
             btnStake.setOnClickListener {
-                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    val suiBalance = fetcher.suiBalanceAmount(SUI_MAIN_DENOM) ?: BigDecimal.ZERO
-                    if (suiBalance < SUI_MIN_STAKE.toBigDecimal()
-                            .add(SUI_FEE_STAKE.toBigDecimal())
+                (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                    val iotaBalance = fetcher.iotaBalanceAmount(IOTA_MAIN_DENOM) ?: BigDecimal.ZERO
+                    if (iotaBalance < IOTA_MIN_STAKE.toBigDecimal()
+                            .add(IOTA_FEE_STAKE.toBigDecimal())
                     ) {
                         requireActivity().showToast(
-                            view, R.string.error_not_enough_sui_stake, false
+                            view, R.string.error_not_enough_iota_stake, false
                         )
                         return@setOnClickListener
                     }
                 }
-                handleOneClickWithDelay(SuiStakingFragment.newInstance(selectedChain))
+                handleOneClickWithDelay(IotaStakingFragment.newInstance(selectedChain))
             }
         }
     }
@@ -193,14 +194,14 @@ class SuiStakeInfoFragment : Fragment() {
         }
     }
 
-    class SuiStakePagerAdapter(
+    class IotaStakePagerAdapter(
         fragment: Fragment, selectedChain: BaseChain
     ) : FragmentStateAdapter(fragment) {
         private val fragments = mutableListOf<Fragment>()
 
         init {
-            fragments.add(SuiActiveFragment.newInstance(selectedChain))
-            fragments.add(SuiPendingFragment.newInstance(selectedChain))
+            fragments.add(IotaActiveFragment.newInstance(selectedChain))
+            fragments.add(IotaPendingFragment.newInstance(selectedChain))
         }
 
         override fun getItemCount(): Int {

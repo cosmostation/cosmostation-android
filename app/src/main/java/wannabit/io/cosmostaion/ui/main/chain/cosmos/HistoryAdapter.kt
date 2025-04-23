@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -62,6 +63,24 @@ class HistoryAdapter(
                     val headerIndex = suiHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = suiHistoryList.filter { it.first == headerDate }.size
                     holder.bindSuiHistory(chain, historySuiGroup, headerIndex, headerCnt, position)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(chain, null, historySuiGroup.second["digest"].asString)
+                        }
+                    }
+                }
+            }
+
+            is ChainIota -> {
+                val iotaHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historySuiGroup = iotaHistoryList[position]
+
+                historySuiGroup.second.let { header ->
+                    val headerDate = dpTimeToYear(header["timestampMs"].asString.toLong())
+                    val headerIndex = iotaHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = iotaHistoryList.filter { it.first == headerDate }.size
+                    holder.bindIotaHistory(chain, historySuiGroup, headerIndex, headerCnt, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {

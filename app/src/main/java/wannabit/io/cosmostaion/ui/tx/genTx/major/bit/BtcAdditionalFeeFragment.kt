@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.genTx.major
+package wannabit.io.cosmostaion.ui.tx.genTx.major.bit
 
 import android.graphics.PorterDuff
 import android.os.Build

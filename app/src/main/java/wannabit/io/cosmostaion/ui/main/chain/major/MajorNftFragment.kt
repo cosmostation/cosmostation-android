@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentMajorNftBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiNftTransferFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.sui.SuiNftTransferFragment
 
 class MajorNftFragment : Fragment() {
 

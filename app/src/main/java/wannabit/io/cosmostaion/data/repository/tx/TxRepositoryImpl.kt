@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -49,7 +50,6 @@ import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.IOTA_FEE_SEND
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -1989,9 +1989,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun iotaExecuteTx(
-        fetcher: IotaFetcher,
-        txBytes: String,
-        signatures: MutableList<String>
+        fetcher: IotaFetcher, txBytes: String, signatures: MutableList<String>
     ): NetworkResult<JsonObject> {
         return try {
             val param =
@@ -2105,6 +2103,67 @@ class TxRepositoryImpl : TxRepository {
             return e.message.toString()
         }
         return ""
+    }
+
+    override suspend fun simulateIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ): String {
+        try {
+            val txBytes = unsafeIotaStake(fetcher, sender, amount, validator, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val response = iotaDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
+
+                    } else {
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
+    override suspend fun unsafeIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val response = RetrofitInstance.suiApi.unSafeStake(
+                SuiStakeReq(
+                    sender, validator, gasBudget, amount, fetcher.iotaRpc()
+                )
+            )
+            safeApiCall(Dispatchers.IO) {
+                Base64.toBase64String(Utils.hexToBytes(response))
+            }
+
+        } catch (e: Exception) {
+            Log.e("Test12344 : ", e.message.toString())
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
     }
 
 

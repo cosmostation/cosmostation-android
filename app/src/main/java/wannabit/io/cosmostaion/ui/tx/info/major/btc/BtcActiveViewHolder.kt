@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.setProviderImg
 import wannabit.io.cosmostaion.databinding.ItemBtcActiveBinding
-import wannabit.io.cosmostaion.ui.tx.info.StakingInfoAdapter
 import java.math.RoundingMode
 import kotlin.math.roundToInt
 

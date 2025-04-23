@@ -187,3 +187,8 @@ fun String?.iotaCoinSymbol(): String? {
     }
     return "Unknown"
 }
+
+fun JsonObject.iotaValidatorVp(): BigDecimal {
+    return this["stakingPoolIotaBalance"].asString.toBigDecimal().movePointLeft(9)
+        .setScale(9, RoundingMode.DOWN)
+}

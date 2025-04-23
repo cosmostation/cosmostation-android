@@ -126,32 +126,56 @@ class MajorAboutFragment : Fragment() {
                     "-"
                 }
 
-                unbondingTime.text = if (selectedChain is ChainSui) {
+                unbondingTime.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
                     getString(R.string.str_instant)
                 } else {
                     "-"
                 }
                 chainInflation.text = "-"
-                if (selectedChain is ChainSui) {
-                    val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                        if (fetcher.suiApys.isNotEmpty()) {
-                            fetcher.suiApys[0]["apy"].asString?.let { apy ->
-                                formatPercent(
-                                    apy.toBigDecimal().movePointRight(2)
-                                        .setScale(2, RoundingMode.DOWN)
-                                        .toString()
-                                )
-                            } ?: run {
+                when (selectedChain) {
+                    is ChainSui -> {
+                        val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                            if (fetcher.suiApys.isNotEmpty()) {
+                                fetcher.suiApys[0]["apy"].asString?.let { apy ->
+                                    formatPercent(
+                                        apy.toBigDecimal().movePointRight(2)
+                                            .setScale(2, RoundingMode.DOWN)
+                                            .toString()
+                                    )
+                                } ?: run {
+                                    "-"
+                                }
+
+                            } else {
                                 "-"
                             }
-                        } else {
-                            "-"
                         }
+                        chainApr.text = apy
                     }
-                    chainApr.text = apy
 
-                } else {
-                    chainApr.text = "-"
+                    is ChainIota -> {
+                        val apy = (selectedChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                            if (fetcher.iotaApys.isNotEmpty()) {
+                                fetcher.iotaApys[0]["apy"].asString?.let { apy ->
+                                    formatPercent(
+                                        apy.toBigDecimal().movePointRight(2)
+                                            .setScale(2, RoundingMode.DOWN)
+                                            .toString()
+                                    )
+                                } ?: run {
+                                    "-"
+                                }
+
+                            } else {
+                                "-"
+                            }
+                        }
+                        chainApr.text = apy
+                    }
+
+                    else -> {
+                        chainApr.text = "-"
+                    }
                 }
             }
         }

@@ -11,9 +11,10 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.iotaValidatorVp
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -117,12 +118,25 @@ class ValidatorDefaultViewHolder(
         binding.apply {
             jailedImg.visibility = View.GONE
             monikerImg.setImageFromSvg(
-                toValidator.suiValidatorImg(), R.drawable.icon_default_vaildator
+                toValidator.moveValidatorImg(), R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator.suiValidatorName().trim()
+            monikerName.text = toValidator.moveValidatorName().trim()
 
             votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
-            commission.text = formatString("${toValidator.suiValidatorCommission()}%", 3)
+            commission.text = formatString("${toValidator.moveValidatorCommission()}%", 3)
+        }
+    }
+
+    fun iotaBind(toValidator: JsonObject) {
+        binding.apply {
+            jailedImg.visibility = View.GONE
+            monikerImg.setImageFromSvg(
+                toValidator.moveValidatorImg(), R.drawable.icon_default_vaildator
+            )
+            monikerName.text = toValidator.moveValidatorName().trim()
+
+            votingPower.text = formatAmount(toValidator.iotaValidatorVp().toString(), 0)
+            commission.text = formatString("${toValidator.moveValidatorCommission()}%", 3)
         }
     }
 

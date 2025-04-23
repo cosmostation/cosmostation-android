@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -39,8 +40,9 @@ import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcStakeInfoFragment
-import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.btc.BtcStakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.iota.IotaStakeInfoFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.sui.SuiStakeInfoFragment
 import java.math.BigDecimal
 
 class MajorDetailFragment : Fragment() {
@@ -121,7 +123,8 @@ class MajorDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
+                    accountValue.text =
+                        formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
@@ -228,7 +231,8 @@ class MajorDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
+                    accountValue.text =
+                        formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
@@ -238,6 +242,9 @@ class MajorDetailFragment : Fragment() {
             fabMenu.setOnMenuButtonClickListener {
                 if (selectedChain is ChainSui) {
                     handleOneClickWithDelay(SuiStakeInfoFragment.newInstance(selectedChain))
+
+                } else if (selectedChain is ChainIota) {
+                    handleOneClickWithDelay(IotaStakeInfoFragment.newInstance(selectedChain))
 
                 } else {
                     if (selectedChain.isStakeEnabled()) {

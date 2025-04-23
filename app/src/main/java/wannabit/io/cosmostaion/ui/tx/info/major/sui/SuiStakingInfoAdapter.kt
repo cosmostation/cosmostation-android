@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.sui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

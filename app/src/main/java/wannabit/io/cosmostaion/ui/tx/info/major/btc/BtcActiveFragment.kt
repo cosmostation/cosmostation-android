@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.os.Build
 import android.os.Bundle

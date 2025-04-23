@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.data.repository.chain
 import com.google.gson.JsonObject
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -20,6 +21,14 @@ interface HistoryRepository {
 
     suspend fun suiToHistory(
         fetcher: SuiFetcher, address: String
+    ): NetworkResult<MutableList<JsonObject>?>
+
+    suspend fun iotaFromHistory(
+        fetcher: IotaFetcher, address: String
+    ): NetworkResult<MutableList<JsonObject>?>
+
+    suspend fun iotaToHistory(
+        fetcher: IotaFetcher, address: String
     ): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun ethHistory(

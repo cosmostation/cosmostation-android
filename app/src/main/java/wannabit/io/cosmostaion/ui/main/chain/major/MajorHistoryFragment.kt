@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -35,6 +36,7 @@ class MajorHistoryFragment : Fragment() {
     private var hasMore = false
 
     private val suiHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private val iotaHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
     private val bitHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
@@ -91,7 +93,7 @@ class MajorHistoryFragment : Fragment() {
             }
 
             else -> {
-//                historyViewModel.suiHistory(selectedChain as ChainSui)
+                historyViewModel.iotaHistory(selectedChain as ChainIota)
             }
         }
     }
@@ -110,8 +112,8 @@ class MajorHistoryFragment : Fragment() {
                 }
 
                 else -> {
-//                    suiHistoryGroup.clear()
-//                    historyViewModel.suiHistory(selectedChain as ChainSui)
+                    iotaHistoryGroup.clear()
+                    historyViewModel.iotaHistory(selectedChain as ChainIota)
                 }
             }
         }
@@ -172,6 +174,22 @@ class MajorHistoryFragment : Fragment() {
                 suiHistoryGroup.addAll(historyGroup)
                 if (historyGroup.isNotEmpty()) {
                     historyAdapter.submitList(suiHistoryGroup as List<Any>?)
+                }
+
+                binding.loading.visibility = View.GONE
+                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
+                historyAdapter.notifyDataSetChanged()
+            }
+        }
+
+        historyViewModel.iotaHistoryResult.observe(viewLifecycleOwner) { response ->
+            iotaHistoryGroup.clear()
+            binding.refresher.isRefreshing = false
+            response?.let { historyGroup ->
+                iotaHistoryGroup.addAll(historyGroup)
+                if (historyGroup.isNotEmpty()) {
+                    historyAdapter.submitList(iotaHistoryGroup as List<Any>?)
                 }
 
                 binding.loading.visibility = View.GONE

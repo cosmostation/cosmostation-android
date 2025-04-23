@@ -281,6 +281,14 @@ interface TxRepository {
         gasBudget: String
     ): String
 
+    suspend fun simulateIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ): String
+
+    suspend fun unsafeIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String>
+
 
     // bit
     suspend fun mempoolUtxo(

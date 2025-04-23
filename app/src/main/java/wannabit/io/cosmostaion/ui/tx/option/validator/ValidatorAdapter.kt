@@ -14,7 +14,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
+import wannabit.io.cosmostaion.ui.tx.info.major.btc.BtcTxType
 
 class ValidatorAdapter(
     private val selectedChain: BaseChain, private val btcTxType: BtcTxType? = null

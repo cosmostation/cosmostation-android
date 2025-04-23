@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.iota
 
 import android.os.Build
 import android.os.Bundle
@@ -17,20 +17,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentSuiActiveBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.SuiUnStakingFragment
 
-class SuiActiveFragment : Fragment() {
+class IotaActiveFragment : Fragment() {
 
     private var _binding: FragmentSuiActiveBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
 
-    private lateinit var suiStakingInfoAdapter: SuiStakingInfoAdapter
+    private lateinit var iotaStakingInfoAdapter: IotaStakingInfoAdapter
 
     private var activeList: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
@@ -38,11 +37,11 @@ class SuiActiveFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain): SuiActiveFragment {
+        fun newInstance(selectedChain: BaseChain): IotaActiveFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
-            val fragment = SuiActiveFragment()
+            val fragment = IotaActiveFragment()
             fragment.arguments = args
             return fragment
         }
@@ -81,12 +80,12 @@ class SuiActiveFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 refresher.isRefreshing = false
                 activeList.clear()
-                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    fetcher.suiStakedList.forEach { suiStaked ->
-                        suiStaked["stakes"].asJsonArray.forEach { stakes ->
+                (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                    fetcher.iotaStakedList.forEach { iotaStaked ->
+                        iotaStaked["stakes"].asJsonArray.forEach { stakes ->
                             activeList.add(
                                 Pair(
-                                    suiStaked["validatorAddress"].asString, stakes.asJsonObject
+                                    iotaStaked["validatorAddress"].asString, stakes.asJsonObject
                                 )
                             )
                         }
@@ -106,19 +105,19 @@ class SuiActiveFragment : Fragment() {
                         emptyLayout.visibility = View.GONE
                         recycler.visibility = View.VISIBLE
 
-                        suiStakingInfoAdapter = SuiStakingInfoAdapter(selectedChain)
+                        iotaStakingInfoAdapter = IotaStakingInfoAdapter(selectedChain)
                         recycler.setHasFixedSize(true)
                         recycler.layoutManager = LinearLayoutManager(requireContext())
-                        recycler.adapter = suiStakingInfoAdapter
+                        recycler.adapter = iotaStakingInfoAdapter
 
-                        suiStakingInfoAdapter.submitList(active)
-                        if (::suiStakingInfoAdapter.isInitialized) {
-                            suiStakingInfoAdapter.setOnItemClickListener { staked ->
-                                handleOneClickWithDelay(
-                                    SuiUnStakingFragment(
-                                        selectedChain, staked
-                                    )
-                                )
+                        iotaStakingInfoAdapter.submitList(active)
+                        if (::iotaStakingInfoAdapter.isInitialized) {
+                            iotaStakingInfoAdapter.setOnItemClickListener { staked ->
+//                                handleOneClickWithDelay(
+//                                    SuiUnStakingFragment(
+//                                        selectedChain, staked
+//                                    )
+//                                )
                             }
                         }
                     }
@@ -131,13 +130,12 @@ class SuiActiveFragment : Fragment() {
         binding.refresher.setOnRefreshListener {
             if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
+
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    ApplicationViewModel.shared.loadSuiData(
-                        account.id,
-                        selectedChain,
-                        isRefresh = true
+                    ApplicationViewModel.shared.loadIotaData(
+                        account.id, selectedChain, isRefresh = true
                     )
                 }
             }

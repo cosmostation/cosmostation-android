@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.databinding.ItemBtcNotActiveBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcActiveInfoAdapter.ClickListener
 
 class BtcNotActiveInfoAdapter(
     private val selectedChain: BaseChain,

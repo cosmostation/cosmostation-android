@@ -11,6 +11,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -88,6 +89,56 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                         result.add(Pair(headerDate, history))
                     }
                     _suiHistoryResult.postValue(result)
+
+                } else {
+                    if (fromHistoryResult is NetworkResult.Error) {
+                        _errorMessage.postValue("error type : ${fromHistoryResult.errorType}  error message : ${fromHistoryResult.errorMessage}")
+
+                    } else if (toHistoryResult is NetworkResult.Error) {
+                        _errorMessage.postValue("error type : ${toHistoryResult.errorType}  error message : ${toHistoryResult.errorMessage}")
+                    }
+                }
+
+            } catch (_: Exception) {
+
+            }
+        }
+    }
+
+    private var _iotaHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
+    val iotaHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _iotaHistoryResult
+
+    fun iotaHistory(chain: ChainIota) = viewModelScope.launch(Dispatchers.IO) {
+        chain.iotaFetcher()?.let { fetcher ->
+            fetcher.iotaHistory.clear()
+
+            try {
+                val loadFromHistoryDeferred =
+                    async { historyRepository.iotaFromHistory(fetcher, chain.mainAddress) }
+                val loadToHistoryDeferred =
+                    async { historyRepository.iotaToHistory(fetcher, chain.mainAddress) }
+
+                val fromHistoryResult = loadFromHistoryDeferred.await()
+                val toHistoryResult = loadToHistoryDeferred.await()
+
+                if (fromHistoryResult is NetworkResult.Success && toHistoryResult is NetworkResult.Success) {
+                    val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
+                    fetcher.iotaHistory.addAll(fromHistoryResult.data ?: mutableListOf())
+                    toHistoryResult.data?.forEach { to ->
+                        val existingItem =
+                            fetcher.iotaHistory.firstOrNull { it["digest"].asString == to["digest"].asString }
+                        if (existingItem == null) {
+                            fetcher.iotaHistory.add(to)
+                        }
+                    }
+                    fetcher.iotaHistory.sortByDescending {
+                        it["checkpoint"].asString.toLongOrNull() ?: 0L
+                    }
+                    fetcher.iotaHistory.forEach { history ->
+                        val headerDate = dpTimeToYear(history["timestampMs"].asString.toLong())
+                        result.add(Pair(headerDate, history))
+                    }
+                    _iotaHistoryResult.postValue(result)
 
                 } else {
                     if (fromHistoryResult is NetworkResult.Error) {

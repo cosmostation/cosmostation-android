@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +18,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentSuiActiveBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcWithdrawFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.bit.BtcWithdrawFragment
 
 class BtcNotActiveFragment : Fragment() {
 

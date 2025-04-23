@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.os.Build
 import android.os.Bundle
@@ -14,10 +14,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.makeToastWithData
 import wannabit.io.cosmostaion.databinding.FragmentBtcStakeInfoBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcStakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.bit.BtcStakingFragment
 import java.math.RoundingMode
 
 class BtcStakeInfoFragment : Fragment() {

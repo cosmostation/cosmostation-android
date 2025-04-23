@@ -9,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.iotaCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTimeToMonth
@@ -282,6 +285,175 @@ class HistoryViewHolder(
 
                         BaseData.getAsset(chain.apiName, SUI_MAIN_DENOM)?.let { asset ->
                             historySuiGroup.second["balanceChanges"].asJsonArray.firstOrNull { it.asJsonObject["coinType"].asString == SUI_MAIN_DENOM }
+                                ?.let { balance ->
+                                    val amount =
+                                        balance.asJsonObject["amount"].asString.toBigDecimal()
+                                    val dpAmount =
+                                        amount.add(gasFee).movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
+                                }
+                        }
+                    }
+                }
+
+                else -> {
+                    txDenom.text = "-"
+                    txAmount.text = ""
+                }
+            }
+        }
+    }
+
+    fun bindIotaHistory(
+        chain: ChainIota,
+        historyIotaGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate = dpTimeToYear(historyIotaGroup.second["timestampMs"].asString.toLong())
+            val currentDate = formatCurrentTimeToYear()
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            if (historyIotaGroup.second["effects"].asJsonObject["status"].asJsonObject["status"].asString == "success") {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
+
+            var title = ""
+            var description = ""
+            val txs =
+                historyIotaGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["transactions"].asJsonArray
+            val sender =
+                historyIotaGroup.second["transaction"].asJsonObject["data"].asJsonObject["sender"].asString
+            title = if (sender == chain.mainAddress) {
+                context.getString(R.string.tx_send)
+            } else {
+                context.getString(R.string.tx_receive)
+            }
+
+            if (txs.size() > 0) {
+                description = txs.last().asJsonObject.entrySet().first().key ?: ""
+                description = if (txs.size() > 1) {
+                    description + " + " + txs.size()
+                } else {
+                    description
+                }
+
+                txs.forEach { tx ->
+                    if (tx.asJsonObject["MoveCall"] != null) {
+                        val txType = tx.asJsonObject["MoveCall"].asJsonObject["function"].asString
+                        if (txType.contains("request_withdraw_stake")) {
+                            title = context.getString(R.string.str_unstake)
+                        } else if (txType.contains("request_add_stake")) {
+                            title = context.getString(R.string.str_stake)
+                        } else if (txType.contains("swap")) {
+                            title = context.getString(R.string.title_swap)
+                        } else if (txType.contains("mint")) {
+                            title = "Supply"
+                        } else if (txType.contains("redeem")) {
+                            title = "Redeem"
+                        } else if (txType.contains("unwrap")) {
+                            title = "unwrap"
+                        }
+                    }
+                }
+
+            } else {
+                txDenom.text = "-"
+                txAmount.text = ""
+            }
+
+            txMessage.text = title.ifEmpty {
+                description
+            }
+            txHash.text = historyIotaGroup.second["digest"].asString
+            txTime.text = dpTimeToMonth(historyIotaGroup.second["timestampMs"].asString.toLong())
+            txHeight.text = "(" + historyIotaGroup.second["checkpoint"].asString + ")"
+
+            when (title) {
+                context.getString(R.string.tx_send), context.getString(R.string.tx_receive) -> {
+                    historyIotaGroup.second["balanceChanges"]?.let { balanceChanges ->
+                        if (title == context.getString(R.string.tx_send)) {
+                            balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString != chain.mainAddress }
+                        } else {
+                            balanceChanges.asJsonArray.firstOrNull { it.asJsonObject["owner"].asJsonObject["AddressOwner"].asString == chain.mainAddress }
+                        }?.let { change ->
+                            val symbol = change.asJsonObject["coinType"].asString
+                            val amount = change.asJsonObject["amount"].asString
+                            val intAmount = abs(amount.toLong())
+
+                            chain.iotaFetcher?.let { fetcher ->
+                                val asset = BaseData.getAsset(chain.apiName, symbol)
+                                val metaData = fetcher.iotaCoinMeta[symbol]
+
+                                if (asset != null) {
+                                    val dpAmount =
+                                        intAmount.toBigDecimal().movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
+
+                                } else if (metaData != null) {
+                                    txDenom.text = metaData["symbol"].asString
+                                    val dpAmount = intAmount.toBigDecimal()
+                                        .movePointLeft(metaData["decimals"].asInt)
+                                        ?.setScale(18, RoundingMode.DOWN)
+                                    txAmount.text = formatAmount(dpAmount.toString(), 9)
+
+                                } else {
+                                    txDenom.text = symbol.iotaCoinSymbol()
+                                    val dpAmount = intAmount.toBigDecimal().movePointLeft(9)
+                                        ?.setScale(18, RoundingMode.DOWN)
+                                    txAmount.text = formatAmount(dpAmount.toString(), 9)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                context.getString(
+                    R.string.str_stake
+                ) -> {
+                    historyIotaGroup.second["transaction"].asJsonObject["data"].asJsonObject["transaction"].asJsonObject["inputs"].asJsonArray?.let { inputs ->
+                        inputs.forEach { input ->
+                            if (input.asJsonObject["type"].asString == "pure" && input.asJsonObject["valueType"].asString == "u64") {
+                                BaseData.getAsset(chain.apiName, IOTA_MAIN_DENOM)?.let { asset ->
+                                    val dpAmount =
+                                        input.asJsonObject["value"].asString.toBigDecimal()
+                                            .movePointLeft(asset.decimals ?: 9)
+                                            .setScale(asset.decimals ?: 9, RoundingMode.DOWN)
+                                    txAmount.text =
+                                        formatAmount(dpAmount.toString(), asset.decimals ?: 9)
+                                    txDenom.text = asset.symbol
+                                }
+                            }
+                        }
+                    }
+                }
+
+                context.getString(R.string.str_unstake) -> {
+                    historyIotaGroup.second["effects"].asJsonObject["gasUsed"].asJsonObject?.let { gasUsed ->
+                        val computationCost = gasUsed["computationCost"].asString.toBigDecimal()
+                        val storageCost = gasUsed["storageCost"].asString.toBigDecimal()
+                        val storageRebate = gasUsed["storageRebate"].asString.toBigDecimal()
+                        val gasFee = computationCost.add(storageCost).subtract(storageRebate)
+
+                        BaseData.getAsset(chain.apiName, IOTA_MAIN_DENOM)?.let { asset ->
+                            historyIotaGroup.second["balanceChanges"].asJsonArray.firstOrNull { it.asJsonObject["coinType"].asString == IOTA_MAIN_DENOM }
                                 ?.let { balance ->
                                     val amount =
                                         balance.asJsonObject["amount"].asString.toBigDecimal()

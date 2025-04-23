@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.genTx.major
+package wannabit.io.cosmostaion.ui.tx.genTx.major.iota
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -18,12 +18,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MIN_STAKE
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
-import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
+import wannabit.io.cosmostaion.ui.tx.genTx.IotaTxType
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
@@ -49,7 +49,7 @@ import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class SuiStakingFragment : BaseTxFragment() {
+class IotaStakingFragment : BaseTxFragment() {
 
     private var _binding: FragmentStakingBinding? = null
     private val binding get() = _binding!!
@@ -57,7 +57,7 @@ class SuiStakingFragment : BaseTxFragment() {
     private lateinit var selectedChain: BaseChain
 
     private var selectedFeePosition = 0
-    private var suiFeeBudget = BigDecimal.ZERO
+    private var iotaFeeBudget = BigDecimal.ZERO
     private var availableAmount = BigDecimal.ZERO
     private var toStakeAmount = ""
     private var toValidator: JsonObject? = null
@@ -66,11 +66,11 @@ class SuiStakingFragment : BaseTxFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain): SuiStakingFragment {
+        fun newInstance(selectedChain: BaseChain): IotaStakingFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
-            val fragment = SuiStakingFragment()
+            val fragment = IotaStakingFragment()
             fragment.arguments = args
             return fragment
         }
@@ -118,12 +118,13 @@ class SuiStakingFragment : BaseTxFragment() {
             btnFee.visibility = View.GONE
 
             initFee()
-            (selectedChain as ChainSui).suiFetcher?.let { fetcher ->
-                if (fetcher.suiValidators.isNotEmpty()) {
-                    toValidator = fetcher.suiValidators[0]
+            (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                if (fetcher.iotaValidators.isNotEmpty()) {
+                    toValidator = fetcher.iotaValidators[0]
                     updateValidatorView()
                 }
-                availableAmount = fetcher.suiBalanceAmount(SUI_MAIN_DENOM)?.subtract(suiFeeBudget)
+                availableAmount =
+                    fetcher.iotaBalanceAmount(IOTA_MAIN_DENOM)?.subtract(iotaFeeBudget)
             }
         }
     }
@@ -142,17 +143,17 @@ class SuiStakingFragment : BaseTxFragment() {
             )
 
             feeSegment.visibility = View.VISIBLE
-            val suiGasTitle = listOf(
+            val iotaGasTitle = listOf(
                 "Default"
             )
-            for (i in suiGasTitle.indices) {
+            for (i in iotaGasTitle.indices) {
                 val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
                 feeSegment.addView(
                     segmentView.root,
                     i,
                     LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                 )
-                segmentView.btnTitle.text = suiGasTitle[i]
+                segmentView.btnTitle.text = iotaGasTitle[i]
             }
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
@@ -160,8 +161,8 @@ class SuiStakingFragment : BaseTxFragment() {
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
-                suiFeeBudget =
-                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
+                iotaFeeBudget =
+                    (selectedChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_STAKE)
                 updateFeeView()
             }
         }
@@ -171,20 +172,20 @@ class SuiStakingFragment : BaseTxFragment() {
         binding.apply {
             jailedImg.visibility = View.GONE
             monikerImg.setImageFromSvg(
-                toValidator?.suiValidatorImg(), R.drawable.icon_default_vaildator
+                toValidator?.moveValidatorImg(), R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator?.suiValidatorName()
-            commissionPercent.text = formatString("${toValidator?.suiValidatorCommission()}%", 3)
+            monikerName.text = toValidator?.moveValidatorName()
+            commissionPercent.text = formatString("${toValidator?.moveValidatorCommission()}%", 3)
             txSimulate()
         }
     }
 
     private fun updateFeeView() {
         binding.apply {
-            (selectedChain as ChainSui).apply {
+            (selectedChain as ChainIota).apply {
                 val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
-                val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                val dpBudget = iotaFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
 
                 feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
@@ -197,7 +198,7 @@ class SuiStakingFragment : BaseTxFragment() {
         binding.apply {
             toStakeAmount = toAmount
 
-            (selectedChain as ChainSui).apply {
+            (selectedChain as ChainIota).apply {
                 val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpAmount =
@@ -212,12 +213,12 @@ class SuiStakingFragment : BaseTxFragment() {
                     )
                 )
                 delegateDenom.visibility = View.VISIBLE
-                delegateDenom.text = (selectedChain as ChainSui).coinSymbol
+                delegateDenom.text = (selectedChain as ChainIota).coinSymbol
                 delegateValue.text = formatAssetValue(value)
                 txSimulate()
 
-                if (toStakeAmount.toBigDecimal() < SUI_MIN_STAKE.toBigDecimal()) {
-                    requireActivity().makeToast(R.string.error_staking_min_sui)
+                if (toStakeAmount.toBigDecimal() < IOTA_MIN_STAKE.toBigDecimal()) {
+                    requireActivity().makeToast(R.string.error_staking_min_iota)
                 }
             }
         }
@@ -229,12 +230,12 @@ class SuiStakingFragment : BaseTxFragment() {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
                     ValidatorDefaultFragment(selectedChain,
-                        suiFromValidator = (selectedChain as ChainSui).suiFetcher()?.suiValidators
+                        iotaFromValidator = (selectedChain as ChainIota).iotaFetcher?.iotaValidators
                             ?: mutableListOf(),
                         listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    (selectedChain as ChainSui).suiFetcher()?.suiValidators?.firstOrNull { it["suiAddress"].asString == validatorAddress }
+                                    (selectedChain as ChainIota).iotaFetcher?.iotaValidators?.firstOrNull { it["iotaAddress"].asString == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -243,7 +244,8 @@ class SuiStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(selectedChain, TxType.SUI_DELEGATE,
+                    InsertAmountFragment.newInstance(selectedChain,
+                        TxType.IOTA_DELEGATE,
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAsset(
@@ -259,7 +261,7 @@ class SuiStakingFragment : BaseTxFragment() {
 
             btnStake.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    suiDelegateResultLauncher.launch(this)
+                    iotaDelegateResultLauncher.launch(this)
                     if (Build.VERSION.SDK_INT >= 34) {
                         requireActivity().overrideActivityTransition(
                             Activity.OVERRIDE_TRANSITION_OPEN,
@@ -279,14 +281,14 @@ class SuiStakingFragment : BaseTxFragment() {
     private fun txSimulate() {
         binding.apply {
             if (toValidator == null) return
-            if (toStakeAmount.isEmpty() || toStakeAmount.toBigDecimal() < SUI_MIN_STAKE.toBigDecimal()) return
+            if (toStakeAmount.isEmpty() || toStakeAmount.toBigDecimal() < IOTA_MIN_STAKE.toBigDecimal()) return
             btnStake.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            (selectedChain as ChainSui).apply {
-                suiFetcher()?.let { fetcher ->
-                    toValidator?.get("suiAddress")?.asString?.let { validator ->
-                        txViewModel.suiStakeSimulate(
-                            fetcher, mainAddress, toStakeAmount, validator, suiFeeBudget.toString()
+            (selectedChain as ChainIota).apply {
+                iotaFetcher?.let { fetcher ->
+                    toValidator?.get("iotaAddress")?.asString?.let { validator ->
+                        txViewModel.iotaStakeSimulate(
+                            fetcher, mainAddress, toStakeAmount, validator, iotaFeeBudget.toString()
                         )
                     }
                 }
@@ -296,7 +298,7 @@ class SuiStakingFragment : BaseTxFragment() {
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
-            suiFeeBudget = gasUsed?.toBigDecimal()
+            iotaFeeBudget = gasUsed?.toBigDecimal()
             updateFeeView()
             isBroadCastTx(true)
         }
@@ -308,24 +310,24 @@ class SuiStakingFragment : BaseTxFragment() {
         }
     }
 
-    private val suiDelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private val iotaDelegateResultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                (selectedChain as ChainSui).apply {
-                    suiFetcher()?.let { fetcher ->
-                        toValidator?.get("suiAddress")?.asString?.let { validator ->
-                            txViewModel.suiStakeBroadcast(
-                                fetcher,
-                                mainAddress,
-                                toStakeAmount,
-                                validator,
-                                suiFeeBudget.toString(),
-                                this
-                            )
-                        }
-                    }
-                }
+//                (selectedChain as ChainSui).apply {
+//                    suiFetcher()?.let { fetcher ->
+//                        toValidator?.get("suiAddress")?.asString?.let { validator ->
+//                            txViewModel.suiStakeBroadcast(
+//                                fetcher,
+//                                mainAddress,
+//                                toStakeAmount,
+//                                validator,
+//                                iotaFeeBudget.toString(),
+//                                this
+//                            )
+//                        }
+//                    }
+//                }
             }
         }
 

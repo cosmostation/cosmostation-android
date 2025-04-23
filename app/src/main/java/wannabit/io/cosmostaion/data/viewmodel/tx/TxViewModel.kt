@@ -674,6 +674,25 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    fun iotaStakeSimulate(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateIotaStake(
+                fetcher, sender, amount, validator, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
     private var _bitTxDataResult = MutableLiveData<Pair<MutableList<JsonObject>?, String>>()
     val bitTxDataResult: LiveData<Pair<MutableList<JsonObject>?, String>> get() = _bitTxDataResult
     fun bitTxData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {

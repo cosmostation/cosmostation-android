@@ -1,15 +1,13 @@
-package wannabit.io.cosmostaion.ui.tx.info.major
+package wannabit.io.cosmostaion.ui.tx.info.major.btc
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.databinding.ItemBtcActiveBinding
-import wannabit.io.cosmostaion.ui.tx.info.StakingInfoAdapter.ClickListener
 
 class BtcActiveInfoAdapter(
     private val selectedChain: BaseChain, private var listener: ClickListener

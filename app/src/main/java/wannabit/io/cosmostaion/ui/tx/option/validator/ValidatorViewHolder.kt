@@ -17,7 +17,7 @@ import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setProviderImg
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
+import wannabit.io.cosmostaion.ui.tx.info.major.btc.BtcTxType
 import java.math.RoundingMode
 
 class ValidatorViewHolder(

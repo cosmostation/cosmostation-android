@@ -12,8 +12,8 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.FragmentBtcStakeOptionBinding
-import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcStakingFragment
-import wannabit.io.cosmostaion.ui.tx.genTx.major.BtcUnStakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.bit.BtcStakingFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.major.bit.BtcUnStakingFragment
 
 class BtcStakeOptionFragment(
     private val selectedChain: BaseChain, private val staked: Pair<JsonObject, FinalityProvider>?

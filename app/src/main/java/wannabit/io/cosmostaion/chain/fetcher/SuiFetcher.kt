@@ -224,18 +224,18 @@ fun JsonObject.suiNftUrl(): String? {
     return null
 }
 
-fun JsonObject.suiValidatorImg(): String? {
+fun JsonObject.moveValidatorImg(): String? {
     if (this["imageUrl"].asString != null) {
         return this["imageUrl"].asString
     }
     return null
 }
 
-fun JsonObject.suiValidatorName(): String {
+fun JsonObject.moveValidatorName(): String {
     return this["name"].asString ?: ""
 }
 
-fun JsonObject.suiValidatorCommission(): BigDecimal {
+fun JsonObject.moveValidatorCommission(): BigDecimal {
     return this["commissionRate"].asString.toBigDecimal().movePointLeft(2)
         .setScale(2, RoundingMode.DOWN)
 }
