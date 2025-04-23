@@ -12,9 +12,9 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -158,7 +158,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
         binding.apply {
             stakeLayout.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         handleOneClickWithDelay(
                             StakingFragment.newInstance(
                                 selectedChain, initiaToValidator = initiaValidator
@@ -186,7 +186,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             unstakeLayout.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         handleOneClickWithDelay(
                             UnStakingFragment.newInstance(
                                 selectedChain, initiaValidator = initiaValidator
@@ -214,7 +214,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             switchValidatorLayout.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         handleOneClickWithDelay(
                             ReDelegateFragment.newInstance(
                                 selectedChain, initiaFromValidator = initiaValidator
@@ -244,7 +244,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
                     when (selectedChain) {
-                        is ChainInitiaTestnet -> it.validatorAddress == initiaValidator?.operatorAddress
+                        is ChainInitia -> it.validatorAddress == initiaValidator?.operatorAddress
 
                         is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
 
@@ -278,7 +278,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 val claimableRewards: MutableList<DelegationDelegatorReward?> = mutableListOf()
                 selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
                     when (selectedChain) {
-                        is ChainInitiaTestnet -> it.validatorAddress == initiaValidator?.operatorAddress
+                        is ChainInitia -> it.validatorAddress == initiaValidator?.operatorAddress
 
                         is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
 
@@ -305,7 +305,7 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
 
             unstakeCancelLayout.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         handleOneClickWithDelay(
                             CancelUnBondingFragment.newInstance(
                                 selectedChain, initiaUnBondingEntry = initiaUnBondingEntry

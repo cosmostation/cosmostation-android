@@ -24,8 +24,8 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -154,14 +154,14 @@ class StakingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             when (selectedChain) {
-                is ChainInitiaTestnet -> {
+                is ChainInitia -> {
                     if (initiaToValidator == null) {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                             ?.let { validator ->
                                 initiaToValidator = validator
                             } ?: run {
                             initiaToValidator =
-                                (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.get(
+                                (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.get(
                                     0
                                 )
                         }
@@ -279,7 +279,7 @@ class StakingFragment : BaseTxFragment() {
 
                 val statusImage = when {
                     validator.jailed -> R.drawable.icon_jailed
-                    !validator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                    !validator.isActiveValidator(selectedChain as ChainInitia) -> R.drawable.icon_inactive
                     else -> 0
                 }
                 jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
@@ -407,8 +407,8 @@ class StakingFragment : BaseTxFragment() {
                         listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 when (selectedChain) {
-                                    is ChainInitiaTestnet -> initiaToValidator =
-                                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                    is ChainInitia -> initiaToValidator =
+                                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
 
                                     is ChainZenrock -> zenrockToValidator =
                                         (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == validatorAddress }
@@ -678,7 +678,7 @@ class StakingFragment : BaseTxFragment() {
 
     private fun onBindDelegateMsg(): MutableList<Any> {
         return when (selectedChain) {
-            is ChainInitiaTestnet -> {
+            is ChainInitia -> {
                 val msgDelegate = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
                     .setDelegatorAddress(selectedChain.address)
                     .setValidatorAddress(initiaToValidator?.operatorAddress).addAmount(toCoin)

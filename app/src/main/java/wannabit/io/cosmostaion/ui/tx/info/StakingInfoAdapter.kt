@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.staking.v1beta1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
 import wannabit.io.cosmostaion.databinding.ItemUnstakingInfoBinding
 
@@ -48,7 +48,7 @@ class StakingInfoAdapter(
             OptionType.STAKE -> {
                 if (holder is StakingViewHolder) {
                     when (selectedChain) {
-                        is ChainInitiaTestnet -> {
+                        is ChainInitia -> {
                             initiaDelegations?.get(position)?.let { delegation ->
                                 initiaValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
                                     ?.let { validator ->
@@ -87,7 +87,7 @@ class StakingInfoAdapter(
             OptionType.UNSTAKE -> {
                 if (holder is UnstakingViewHolder) {
                     when (selectedChain) {
-                        is ChainInitiaTestnet -> {
+                        is ChainInitia -> {
                             initiaUnBondings?.get(position)?.let { entry ->
                                 initiaValidators?.firstOrNull { it.operatorAddress == entry.validatorAddress }
                                     ?.let { validator ->
@@ -134,14 +134,14 @@ class StakingInfoAdapter(
     override fun getItemCount(): Int {
         return if (optionType == OptionType.STAKE) {
             when (selectedChain) {
-                is ChainInitiaTestnet -> initiaDelegations?.size ?: 0
+                is ChainInitia -> initiaDelegations?.size ?: 0
                 is ChainZenrock -> zenrockDelegations?.size ?: 0
                 else -> delegations?.size ?: 0
             }
 
         } else {
             when (selectedChain) {
-                is ChainInitiaTestnet -> initiaUnBondings?.size ?: 0
+                is ChainInitia -> initiaUnBondings?.size ?: 0
                 is ChainZenrock -> zenrockUnBondings?.size ?: 0
                 else -> unBondings?.size ?: 0
             }

@@ -24,8 +24,8 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -159,22 +159,22 @@ class ReDelegateFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             when (selectedChain) {
-                is ChainInitiaTestnet -> {
+                is ChainInitia -> {
                     if (initiaFromValidator != null) {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull {
-                            it.operatorAddress == (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.get(
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull {
+                            it.operatorAddress == (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.get(
                                 0
                             )?.delegation?.validatorAddress
                         }
                     }
 
                     val cosmostation =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }
                     initiaToValidator =
                         if (initiaFromValidator?.operatorAddress == cosmostation?.operatorAddress) {
-                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
+                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != cosmostation?.operatorAddress }
                         } else {
-                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaFromValidator?.operatorAddress }
+                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaFromValidator?.operatorAddress }
                         }
                 }
 
@@ -304,14 +304,14 @@ class ReDelegateFragment : BaseTxFragment() {
                     fromMonikerName.text = initiaFromValidator.description?.moniker?.trim()
                     val statusImage = when {
                         initiaFromValidator.jailed -> R.drawable.icon_jailed
-                        !initiaFromValidator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                        !initiaFromValidator.isActiveValidator(selectedChain as ChainInitia) -> R.drawable.icon_inactive
                         else -> 0
                     }
                     fromJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
                     fromJailedImg.setImageResource(statusImage)
 
                     val staked =
-                        (selectedChain as ChainInitiaTestnet?)?.initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                        (selectedChain as ChainInitia?)?.initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
                     staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
@@ -365,7 +365,7 @@ class ReDelegateFragment : BaseTxFragment() {
                 toMonikerName.text = initiaToValidator.description?.moniker?.trim()
                 val statusImage = when {
                     initiaToValidator.jailed -> R.drawable.icon_jailed
-                    !initiaToValidator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                    !initiaToValidator.isActiveValidator(selectedChain as ChainInitia) -> R.drawable.icon_inactive
                     else -> 0
                 }
                 toJailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
@@ -466,8 +466,8 @@ class ReDelegateFragment : BaseTxFragment() {
                 }
 
                 availableAmount = when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator?.operatorAddress }
+                    is ChainInitia -> {
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator?.operatorAddress }
                             ?.let {
                                 it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
                             }
@@ -493,17 +493,17 @@ class ReDelegateFragment : BaseTxFragment() {
                     ValidatorFragment(selectedChain, object : ValidatorListener {
                         override fun select(validatorAddress: String) {
                             when (selectedChain) {
-                                is ChainInitiaTestnet -> {
+                                is ChainInitia -> {
                                     if (initiaFromValidator?.operatorAddress != validatorAddress) {
                                         initiaFromValidator =
-                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                         updateFeeView()
                                         updateFromValidatorView()
                                     }
 
                                     if (initiaFromValidator?.operatorAddress == initiaToValidator?.operatorAddress) {
                                         initiaToValidator =
-                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaToValidator?.operatorAddress }
+                                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress != initiaToValidator?.operatorAddress }
                                         updateToValidatorView()
                                     }
                                 }
@@ -550,9 +550,9 @@ class ReDelegateFragment : BaseTxFragment() {
                         listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 when (selectedChain) {
-                                    is ChainInitiaTestnet -> {
+                                    is ChainInitia -> {
                                         initiaToValidator =
-                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                     }
 
                                     is ChainZenrock -> {
@@ -827,7 +827,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
     private fun onBindReDelegateMsg(): MutableList<Any> {
         return when (selectedChain) {
-            is ChainInitiaTestnet -> {
+            is ChainInitia -> {
                 val msgReDelegate = com.initia.mstaking.v1.TxProto.MsgBeginRedelegate.newBuilder()
                     .setDelegatorAddress(selectedChain.address)
                     .setValidatorSrcAddress(initiaFromValidator?.operatorAddress)

@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
@@ -17,7 +18,6 @@ import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
@@ -124,23 +124,23 @@ interface WalletRepository {
 
     //initia
     suspend fun initiaDelegation(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>>
 
     suspend fun initiaUnBonding(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.UnbondingDelegation>>
 
     suspend fun initiaBondedValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>>
 
     suspend fun initiaUnBondedValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>>
 
     suspend fun initiaUnBondingValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>>
 
     //zenrock

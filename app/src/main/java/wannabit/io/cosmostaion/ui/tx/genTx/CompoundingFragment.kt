@@ -22,9 +22,9 @@ import com.cosmos.tx.v1beta1.TxProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -143,14 +143,14 @@ class CompoundingFragment : BaseTxFragment() {
                 babylonCompoundingView.visibility = View.GONE
             }
 
-            if (selectedChain is ChainInitiaTestnet) {
+            if (selectedChain is ChainInitia) {
                 val cosmostationValAddress =
-                    (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
+                    (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
                 if (claimableRewards.any { it?.validatorAddress == cosmostationValAddress }) {
                     validatorName.text = "Cosmostation"
                 } else {
                     validatorName.text =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == claimableRewards[0]?.validatorAddress }?.description?.moniker?.trim()
                 }
 
             } else if (selectedChain is ChainZenrock) {

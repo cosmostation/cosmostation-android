@@ -17,8 +17,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.StakingFragment
@@ -91,8 +91,8 @@ class StakeInfoFragment : Fragment() {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 val delegations = when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
+                    is ChainInitia -> {
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations
                             ?: mutableListOf()
                     }
 
@@ -107,8 +107,8 @@ class StakeInfoFragment : Fragment() {
                 }
 
                 val unBondings = when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaUnbondings?.flatMap { unBonding ->
+                    is ChainInitia -> {
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaUnbondings?.flatMap { unBonding ->
                             unBonding.entriesList.map { entry ->
                                 InitiaUnBondingEntry(unBonding.validatorAddress, entry)
                             }

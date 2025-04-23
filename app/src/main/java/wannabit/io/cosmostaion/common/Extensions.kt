@@ -64,8 +64,8 @@ import org.json.JSONObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -939,7 +939,7 @@ fun StakingProto.Validator.isActiveValidator(chain: BaseChain): Boolean {
     }
 }
 
-fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: ChainInitiaTestnet): Boolean {
+fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: ChainInitia): Boolean {
     return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
         val maxProviderConsensusCnt = chain.getInterchainProviderParams()
             ?.get("max_provider_consensus_validators")?.asString.toString().toInt()

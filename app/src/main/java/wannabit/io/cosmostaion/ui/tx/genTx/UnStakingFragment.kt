@@ -24,8 +24,8 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -153,10 +153,10 @@ class UnStakingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             when (selectedChain) {
-                is ChainInitiaTestnet -> {
+                is ChainInitia -> {
                     if (initiaValidator != null) {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull {
-                            it.operatorAddress == (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.get(
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull {
+                            it.operatorAddress == (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.get(
                                 0
                             )?.delegation?.validatorAddress
                         }
@@ -270,14 +270,14 @@ class UnStakingFragment : BaseTxFragment() {
 
                     val statusImage = when {
                         validator.jailed -> R.drawable.icon_jailed
-                        !validator.isActiveValidator(selectedChain as ChainInitiaTestnet) -> R.drawable.icon_inactive
+                        !validator.isActiveValidator(selectedChain as ChainInitia) -> R.drawable.icon_inactive
                         else -> 0
                     }
                     jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
                     jailedImg.setImageResource(statusImage)
 
                     val staked =
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
                     staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
@@ -371,8 +371,8 @@ class UnStakingFragment : BaseTxFragment() {
                 }
 
                 availableAmount = when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaValidator?.operatorAddress }
+                    is ChainInitia -> {
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaValidator?.operatorAddress }
                             ?.let {
                                 it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
                             }
@@ -398,10 +398,10 @@ class UnStakingFragment : BaseTxFragment() {
                     ValidatorFragment(selectedChain, object : ValidatorListener {
                         override fun select(validatorAddress: String) {
                             when (selectedChain) {
-                                is ChainInitiaTestnet -> {
+                                is ChainInitia -> {
                                     if (initiaValidator?.operatorAddress != validatorAddress) {
                                         initiaValidator =
-                                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
+                                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == validatorAddress }
                                     }
                                 }
 
@@ -679,7 +679,7 @@ class UnStakingFragment : BaseTxFragment() {
 
     private fun onBindUnDelegateMsg(): MutableList<Any> {
         return when (selectedChain) {
-            is ChainInitiaTestnet -> {
+            is ChainInitia -> {
                 val msgUnDelegate = com.initia.mstaking.v1.TxProto.MsgUndelegate.newBuilder()
                     .setDelegatorAddress(selectedChain.address)
                     .setValidatorAddress(initiaValidator?.operatorAddress).addAmount(toCoin).build()

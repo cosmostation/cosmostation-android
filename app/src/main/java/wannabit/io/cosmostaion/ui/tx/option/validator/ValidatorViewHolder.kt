@@ -7,10 +7,10 @@ import com.google.gson.JsonObject
 import com.initia.mstaking.v1.StakingProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.isActiveValidator
@@ -56,7 +56,7 @@ class ValidatorViewHolder(
     }
 
     fun initiaBind(
-        chain: ChainInitiaTestnet, validator: StakingProto.Validator
+        chain: ChainInitia, validator: StakingProto.Validator
     ) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)

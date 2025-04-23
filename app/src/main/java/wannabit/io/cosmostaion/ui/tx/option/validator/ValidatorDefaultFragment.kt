@@ -12,11 +12,11 @@ import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 
@@ -75,7 +75,7 @@ class ValidatorDefaultFragment(
             searchBar.visibility = View.VISIBLE
 
             when (selectedChain) {
-                is ChainInitiaTestnet -> selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
+                is ChainInitia -> selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                     ?.let {
                         searchInitiaValidators.addAll(it)
                     }
@@ -130,7 +130,7 @@ class ValidatorDefaultFragment(
                 adapter = validatorDefaultAdapter
 
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         validatorDefaultAdapter.submitList(searchInitiaValidators as List<Any>?)
                         validatorDefaultAdapter.setOnItemClickListener {
                             listener.select(it)
@@ -179,7 +179,7 @@ class ValidatorDefaultFragment(
                             suiValidatorDefaultAdapter.notifyDataSetChanged()
                         } else {
                             when (selectedChain) {
-                                is ChainInitiaTestnet -> {
+                                is ChainInitia -> {
                                     selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                                         ?.let {
                                             searchInitiaValidators.addAll(it)
@@ -211,7 +211,7 @@ class ValidatorDefaultFragment(
 
                             } else {
                                 when (selectedChain) {
-                                    is ChainInitiaTestnet -> {
+                                    is ChainInitia -> {
                                         selectedChain.initiaFetcher()?.initiaValidators?.filterNot { it == fromInitiaValidator }
                                             ?.filter { validator ->
                                                 validator.description.moniker.contains(

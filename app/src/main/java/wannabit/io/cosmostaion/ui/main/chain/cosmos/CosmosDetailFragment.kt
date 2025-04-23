@@ -20,6 +20,7 @@ import org.web3j.crypto.Keys
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -28,7 +29,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -453,8 +453,8 @@ class CosmosDetailFragment : Fragment() {
     private fun setFabMenuClickAction() {
         binding.apply {
             fabStake.setOnClickListener {
-                if (selectedChain is ChainInitiaTestnet) {
-                    if ((selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.isEmpty() == true) {
+                if (selectedChain is ChainInitia) {
+                    if ((selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.isEmpty() == true) {
                         requireContext().makeToast(R.string.error_wait_moment)
                         fabMenu.close(true)
                         return@setOnClickListener
@@ -496,8 +496,8 @@ class CosmosDetailFragment : Fragment() {
 
             fabClaimReward.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        if ((selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.isNotEmpty() == true) {
+                    is ChainInitia -> {
+                        if ((selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.isNotEmpty() == true) {
                             if (selectedChain.cosmosFetcher?.rewardAllCoins()?.isEmpty() == true) {
                                 requireContext().makeToast(R.string.error_not_reward)
                                 return@setOnClickListener
@@ -617,8 +617,8 @@ class CosmosDetailFragment : Fragment() {
 
             fabCompounding.setOnClickListener {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        if (((selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.size
+                    is ChainInitia -> {
+                        if (((selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.size
                                 ?: 0) > 0
                         ) {
                             if (selectedChain.cosmosFetcher?.claimableRewards()?.size == 0) {

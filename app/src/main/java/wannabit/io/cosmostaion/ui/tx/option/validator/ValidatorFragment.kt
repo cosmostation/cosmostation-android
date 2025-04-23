@@ -11,8 +11,8 @@ import com.initia.mstaking.v1.StakingProto
 import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ValidatorFragment(
@@ -46,7 +46,7 @@ class ValidatorFragment(
             recycler.adapter = validatorAdapter
 
             when (selectedChain) {
-                is ChainInitiaTestnet -> {
+                is ChainInitia -> {
                     val validators: MutableList<StakingProto.Validator> = mutableListOf()
                     val delegations = selectedChain.initiaFetcher()?.initiaDelegations
                     delegations?.forEach { delegation ->

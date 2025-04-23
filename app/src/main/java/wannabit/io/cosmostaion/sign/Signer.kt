@@ -74,6 +74,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -86,9 +87,7 @@ import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
-import wannabit.io.cosmostaion.chain.testnetClass.ChainArtelaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -392,7 +391,7 @@ object Signer {
             )
 
             val deleAnyMsg = when (selectedChain) {
-                is ChainInitiaTestnet -> {
+                is ChainInitia -> {
                     val delegateMsg = com.initia.mstaking.v1.TxProto.MsgDelegate.newBuilder()
                         .setDelegatorAddress(selectedChain.address)
                         .setValidatorAddress(reward?.validatorAddress).addAmount(delegateCoin)
@@ -741,7 +740,7 @@ object Signer {
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
-        } else if (chain is ChainInitiaTestnet) {
+        } else if (chain is ChainInitia) {
             val pubKey =
                 com.initia.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder().setKey(
                     ByteString.copyFrom(ecKey.pubKey)

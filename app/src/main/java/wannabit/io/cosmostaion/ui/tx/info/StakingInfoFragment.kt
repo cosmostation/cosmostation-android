@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
@@ -76,12 +76,12 @@ class StakingInfoFragment : Fragment() {
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 when (selectedChain) {
-                    is ChainInitiaTestnet -> {
+                    is ChainInitia -> {
                         var delegations =
-                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaDelegations
+                            (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations
                                 ?: mutableListOf()
                         val validators =
-                            (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators
+                            (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators
                                 ?: mutableListOf()
                         val cosmostationValAddress =
                             validators.firstOrNull { it.description.moniker == "Cosmostation" }?.operatorAddress
