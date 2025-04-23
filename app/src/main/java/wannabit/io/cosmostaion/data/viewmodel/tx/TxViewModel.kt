@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.isHexString
@@ -311,6 +312,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val simulate = SingleLiveEvent<String?>()
 
     val suiBroadcast = SingleLiveEvent<JsonObject>()
+
+    val iotaBroadcast = SingleLiveEvent<JsonObject>()
 
     val bitBroadcast = SingleLiveEvent<String?>()
 
@@ -607,6 +610,57 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         try {
             val response = txRepository.simulateSuiUnStake(
                 fetcher, sender, objectId, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    // iota
+    fun iotaBroadcast(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastIotaSend(
+                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                iotaBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun iotaSimulate(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateIotaSend(
+                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget
             )
 
             if (response.toLongOrNull() != null) {

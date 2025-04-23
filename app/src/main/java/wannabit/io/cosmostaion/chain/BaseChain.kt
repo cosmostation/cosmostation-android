@@ -155,6 +155,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -255,7 +256,8 @@ open class BaseChain : Parcelable {
         parentPath: List<ChildNumber>,
         lastPath: String
     ) {
-        privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
+        privateKey =
+            BaseKey.getPrivateKey(this, accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(context, privateKey)
     }
 
@@ -643,7 +645,7 @@ open class BaseChain : Parcelable {
         return ""
     }
 
-    fun allValue(isUsd: Boolean?): BigDecimal {
+    fun allValue(isUsd: Boolean?): BigDecimal? {
         return if (isUsd == true) {
             coinUsdValue.add(tokenUsdValue)
         } else {
@@ -717,6 +719,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHumansEvm())
     chains.add(ChainInitia())
     chains.add(ChainInjective())
+    chains.add(ChainIota())
     chains.add(ChainIris())
     chains.add(ChainIxo())
     chains.add(ChainJackal())
@@ -859,7 +862,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

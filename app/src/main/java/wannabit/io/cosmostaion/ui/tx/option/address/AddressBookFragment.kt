@@ -249,7 +249,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
 
-                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
@@ -362,7 +362,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             evmRecycler.visibility = View.GONE
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN -> {
                             if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE

@@ -80,21 +80,39 @@ class MajorHistoryFragment : Fragment() {
                 selectedChain = it
             }
         }
-        if (selectedChain is ChainBitCoin86) {
-            historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
-        } else {
-            historyViewModel.suiHistory(selectedChain as ChainSui)
+
+        when (selectedChain) {
+            is ChainBitCoin86 -> {
+                historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
+            }
+
+            is ChainSui -> {
+                historyViewModel.suiHistory(selectedChain as ChainSui)
+            }
+
+            else -> {
+//                historyViewModel.suiHistory(selectedChain as ChainSui)
+            }
         }
     }
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
-            if (selectedChain is ChainBitCoin86) {
-                bitHistoryGroup.clear()
-                historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
-            } else {
-                suiHistoryGroup.clear()
-                historyViewModel.suiHistory(selectedChain as ChainSui)
+            when (selectedChain) {
+                is ChainBitCoin86 -> {
+                    bitHistoryGroup.clear()
+                    historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
+                }
+
+                is ChainSui -> {
+                    suiHistoryGroup.clear()
+                    historyViewModel.suiHistory(selectedChain as ChainSui)
+                }
+
+                else -> {
+//                    suiHistoryGroup.clear()
+//                    historyViewModel.suiHistory(selectedChain as ChainSui)
+                }
             }
         }
     }

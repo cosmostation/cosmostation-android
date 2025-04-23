@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
@@ -18,8 +20,8 @@ import java.math.BigDecimal
 class MajorCryptoAdapter(
     val context: Context,
     val selectedChain: BaseChain,
-    private val suiBalances: MutableList<Pair<String?, BigDecimal?>>,
-    private val suiNativeBalances: MutableList<Pair<String?, BigDecimal?>>
+    private val moveBalances: MutableList<Pair<String?, BigDecimal?>>,
+    private val moveNativeBalances: MutableList<Pair<String?, BigDecimal?>>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -61,19 +63,31 @@ class MajorCryptoAdapter(
         when (holder) {
             is MajorCryptoViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAIN_ITEM) {
-                    if (selectedChain is ChainSui) {
-                        holder.bind(selectedChain)
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(selectedChain, SUI_MAIN_DENOM)
+                    when (selectedChain) {
+                        is ChainSui -> {
+                            holder.bind(selectedChain)
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(selectedChain, SUI_MAIN_DENOM)
+                                }
                             }
                         }
 
-                    } else {
-                        holder.bitcoinBind(selectedChain as ChainBitCoin86)
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(selectedChain, "")
+                        is ChainIota -> {
+                            holder.iotaBind(selectedChain)
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(selectedChain, IOTA_MAIN_DENOM)
+                                }
+                            }
+                        }
+
+                        else -> {
+                            holder.bitcoinBind(selectedChain as ChainBitCoin86)
+                            holder.itemView.setOnClickListener {
+                                onItemClickListener?.let {
+                                    it(selectedChain, "")
+                                }
                             }
                         }
                     }
@@ -88,10 +102,10 @@ class MajorCryptoAdapter(
 
             is CoinViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                    val balance = if (suiBalances.isNotEmpty()) {
-                        suiNativeBalances[position - 2]
+                    val balance = if (moveBalances.isNotEmpty()) {
+                        moveNativeBalances[position - 2]
                     } else {
-                        suiNativeBalances[position - 1]
+                        moveNativeBalances[position - 1]
                     }
                     holder.suiBind(selectedChain, balance)
 
@@ -109,8 +123,8 @@ class MajorCryptoAdapter(
 
     override fun getItemViewType(position: Int): Int {
         if (selectedChain is ChainSui) {
-            if (suiBalances.isNotEmpty()) {
-                return if (suiNativeBalances.isNotEmpty()) {
+            if (moveBalances.isNotEmpty()) {
+                return if (moveNativeBalances.isNotEmpty()) {
                     when (position) {
                         0 -> VIEW_TYPE_MAIN_ITEM
                         1 -> VIEW_TYPE_COIN_HEADER
@@ -121,7 +135,7 @@ class MajorCryptoAdapter(
                 }
 
             } else {
-                return if (suiNativeBalances.isNotEmpty()) {
+                return if (moveNativeBalances.isNotEmpty()) {
                     if (position == 0) VIEW_TYPE_COIN_HEADER
                     else VIEW_TYPE_COIN_ITEM
                 } else {
@@ -136,16 +150,16 @@ class MajorCryptoAdapter(
 
     override fun getItemCount(): Int {
         return if (selectedChain is ChainSui) {
-            return if (suiBalances.isNotEmpty()) {
-                if (suiNativeBalances.isNotEmpty()) {
-                    suiBalances.size + suiNativeBalances.size + 1
+            return if (moveBalances.isNotEmpty()) {
+                if (moveNativeBalances.isNotEmpty()) {
+                    moveBalances.size + moveNativeBalances.size + 1
                 } else {
-                    suiBalances.size
+                    moveBalances.size
                 }
 
             } else {
-                if (suiNativeBalances.isNotEmpty()) {
-                    suiNativeBalances.size + 1
+                if (moveNativeBalances.isNotEmpty()) {
+                    moveNativeBalances.size + 1
                 } else {
                     0
                 }
@@ -164,7 +178,7 @@ class MajorCryptoAdapter(
             binding.apply {
                 headerTitle.text = context.getString(R.string.str_native_coins)
                 headerCnt.text = if (selectedChain is ChainSui) {
-                    suiNativeBalances.size.toString()
+                    moveNativeBalances.size.toString()
                 } else {
                     "0"
                 }

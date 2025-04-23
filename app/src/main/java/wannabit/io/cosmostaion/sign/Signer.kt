@@ -1216,7 +1216,7 @@ object Signer {
         return String(encode(sigData), Charset.forName("UTF-8"))
     }
 
-    fun suiSignature(selectedChain: BaseChain, txByte: String): MutableList<String> {
+    fun moveSignature(selectedChain: BaseChain, txByte: String): MutableList<String> {
         val data = byteArrayOf(0, 0, 0) + Base64.decode(txByte)
         val blake2b = Blake2b.Blake2b256()
         blake2b.update(data)

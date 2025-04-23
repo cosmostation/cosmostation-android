@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
+import java.math.BigDecimal
 
 class EvmDetailFragment : Fragment() {
 
@@ -93,7 +94,7 @@ class EvmDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedEvmChain.allValue(false))
+                    accountValue.text = formatAssetValue(selectedEvmChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
@@ -114,7 +115,7 @@ class EvmDetailFragment : Fragment() {
                         accountValue.textSize = 18f
                         btnHide.setImageResource(R.drawable.icon_hide)
                     } else {
-                        accountValue.text = formatAssetValue(selectedEvmChain.allValue(false))
+                        accountValue.text = formatAssetValue(selectedEvmChain.allValue(false) ?: BigDecimal.ZERO)
                         accountValue.textSize = 24f
                         btnHide.setImageResource(R.drawable.icon_not_hide)
                     }
@@ -237,7 +238,7 @@ class EvmDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedEvmChain.allValue(false))
+                    accountValue.text = formatAssetValue(selectedEvmChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }

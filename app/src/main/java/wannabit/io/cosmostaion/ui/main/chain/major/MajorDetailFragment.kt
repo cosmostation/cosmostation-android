@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.BtcStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.info.major.SuiStakeInfoFragment
+import java.math.BigDecimal
 
 class MajorDetailFragment : Fragment() {
 
@@ -120,7 +121,7 @@ class MajorDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                    accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
@@ -227,7 +228,7 @@ class MajorDetailFragment : Fragment() {
                     accountValue.textSize = 18f
                     btnHide.setImageResource(R.drawable.icon_hide)
                 } else {
-                    accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                    accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                     accountValue.textSize = 24f
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }

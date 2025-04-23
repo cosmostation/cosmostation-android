@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
@@ -33,7 +34,7 @@ class EvmReceiveViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            if (selectChain is ChainSui || selectChain is ChainBitCoin86) {
+            if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
                 receiveTitle.text =
                     context.getString(R.string.str_deposit_caution_msg, selectChain.name)
                 setQrAddress(context, selectChain.mainAddress)
@@ -54,8 +55,7 @@ class EvmReceiveViewHolder(
                         chainTypeBadge.text = context.getString(R.string.str_legacy)
                         chainBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base02
+                                context, R.color.color_base02
                             )
                         )
                     }
@@ -66,8 +66,7 @@ class EvmReceiveViewHolder(
                         chainTypeBadge.text = context.getString(R.string.str_nested_segwit)
                         chainBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base02
+                                context, R.color.color_base02
                             )
                         )
                     }
@@ -78,8 +77,7 @@ class EvmReceiveViewHolder(
                         chainTypeBadge.text = context.getString(R.string.str_native_segwit)
                         chainTypeBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit)
@@ -91,8 +89,7 @@ class EvmReceiveViewHolder(
                         chainTypeBadge.text = context.getString(R.string.str_taproot)
                         chainTypeBadge.setTextColor(
                             ContextCompat.getColorStateList(
-                                context,
-                                R.color.color_base01
+                                context, R.color.color_base01
                             )
                         )
                         chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
@@ -105,11 +102,12 @@ class EvmReceiveViewHolder(
             }
 
             receiveView.setOnClickListener {
-                val address = if (selectChain is ChainSui || selectChain is ChainBitCoin86) {
-                    selectChain.mainAddress
-                } else {
-                    selectChain.evmAddress
-                }
+                val address =
+                    if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
+                        selectChain.mainAddress
+                    } else {
+                        selectChain.evmAddress
+                    }
 
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

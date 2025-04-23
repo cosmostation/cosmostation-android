@@ -43,11 +43,14 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_FEE_SEND
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
@@ -157,7 +160,8 @@ class TxRepositoryImpl : TxRepository {
                 method = "abci_query",
                 params = listOf("auth/accounts/${chain.address}", "", "0", true)
             )
-            val authResponse = jsonRpcResponse(chain.gnoRpcFetcher()?.gnoRpc() ?: chain.mainUrl, authRequest)
+            val authResponse =
+                jsonRpcResponse(chain.gnoRpcFetcher()?.gnoRpc() ?: chain.mainUrl, authRequest)
             val jsonResponse = Gson().fromJson(
                 authResponse.body?.string(), JsonObject::class.java
             )
@@ -1628,7 +1632,7 @@ class TxRepositoryImpl : TxRepository {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
                 if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1711,7 +1715,7 @@ class TxRepositoryImpl : TxRepository {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
                 if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1780,7 +1784,7 @@ class TxRepositoryImpl : TxRepository {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
                 if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1848,7 +1852,7 @@ class TxRepositoryImpl : TxRepository {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
                 if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.suiSignature(selectedChain, txBytes.data)
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1902,6 +1906,209 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
+    // iota
+    override suspend fun unSafePayIota(
+        fetcher: IotaFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val param = listOf(sender, coins, recipient, amounts, gasBudget)
+
+            val iotaUnSafePayIotaRequest = JsonRpcRequest(
+                method = "unsafe_payIota", params = param
+            )
+            val iotaUnSafePayIotaResponse =
+                jsonRpcResponse(fetcher.iotaRpc(), iotaUnSafePayIotaRequest)
+            val iotaUnSafePayIotaJsonObject = Gson().fromJson(
+                iotaUnSafePayIotaResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaUnSafePayIotaJsonObject["result"].asJsonObject["txBytes"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun unSafePayEtc(
+        fetcher: IotaFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val param = listOf(sender, coins, recipient, amounts, null, gasBudget)
+
+            val suiUnSafePayRequest = JsonRpcRequest(
+                method = "unsafe_pay", params = param
+            )
+            val suiUnSafePayResponse = jsonRpcResponse(fetcher.iotaRpc(), suiUnSafePayRequest)
+            val suiUnSafePayJsonObject = Gson().fromJson(
+                suiUnSafePayResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                suiUnSafePayJsonObject["result"].asJsonObject["txBytes"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun iotaDryRun(
+        fetcher: IotaFetcher, txBytes: String
+    ): NetworkResult<JsonObject> {
+        return try {
+            val iotaDryRunRequest = JsonRpcRequest(
+                method = "iota_dryRunTransactionBlock", params = listOf(txBytes)
+            )
+            val iotaDryRunResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaDryRunRequest)
+            val iotaDryRunJsonObject = Gson().fromJson(
+                iotaDryRunResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaDryRunJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun iotaExecuteTx(
+        fetcher: IotaFetcher,
+        txBytes: String,
+        signatures: MutableList<String>
+    ): NetworkResult<JsonObject> {
+        return try {
+            val param =
+                listOf(txBytes, signatures, mapOf("showEffects" to true), "WaitForLocalExecution")
+            val iotaExecuteRequest = JsonRpcRequest(
+                method = "iota_executeTransactionBlock", params = param
+            )
+            val iotaExecuteResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaExecuteRequest)
+            val iotaxecuteJsonObject = Gson().fromJson(
+                iotaExecuteResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaxecuteJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun broadcastIotaSend(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = if (sendDenom == IOTA_MAIN_DENOM) {
+                unSafePayIota(
+                    fetcher, sender, coins, recipient, amounts, gasBudget
+                )
+            } else {
+                unSafePayEtc(
+                    fetcher, sender, coins, recipient, amounts, gasBudget
+                )
+            }
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = iotaDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = iotaExecuteTx(
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
+    override suspend fun simulateIotaSend(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): String {
+        try {
+            val txBytes = if (sendDenom == IOTA_MAIN_DENOM) {
+                unSafePayIota(
+                    fetcher, sender, coins, recipient, amounts, gasBudget
+                )
+            } else {
+                unSafePayEtc(
+                    fetcher, sender, coins, recipient, amounts, gasBudget
+                )
+            }
+
+            if (txBytes is NetworkResult.Success) {
+                val response = iotaDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
+
+                    } else {
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
+
+    // bit
     override suspend fun mempoolUtxo(chain: ChainBitCoin86): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.bitApi(chain).bitUtxo(chain.mainAddress)
@@ -2020,7 +2227,9 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(
+                selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest
+            )
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2044,7 +2253,9 @@ class TxRepositoryImpl : TxRepository {
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
             )
-            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
+            val simulateResponse = jsonRpcResponse(
+                selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest
+            )
             val simulateJsonObject = Gson().fromJson(
                 simulateResponse.body?.string(), JsonObject::class.java
             )
@@ -2079,7 +2290,9 @@ class TxRepositoryImpl : TxRepository {
             val broadcastRequest = JsonRpcRequest(
                 method = "broadcast_tx_async", params = listOf(txByte)
             )
-            val broadcastResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest)
+            val broadcastResponse = jsonRpcResponse(
+                selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, broadcastRequest
+            )
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
@@ -2103,7 +2316,9 @@ class TxRepositoryImpl : TxRepository {
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
             )
-            val simulateResponse = jsonRpcResponse(selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest)
+            val simulateResponse = jsonRpcResponse(
+                selectedChain.gnoRpcFetcher?.gnoRpc() ?: selectedChain.mainUrl, simulateRequest
+            )
             val simulateJsonObject = Gson().fromJson(
                 simulateResponse.body?.string(), JsonObject::class.java
             )

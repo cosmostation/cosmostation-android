@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemEditBinding
+import java.math.BigDecimal
 
 class ChainEditViewHolder(
     val context: Context, private val binding: ItemEditBinding
@@ -136,7 +137,7 @@ class ChainEditViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    chainValue.text = formatAssetValue(chain.allValue(false))
+                    chainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {
@@ -256,7 +257,7 @@ class ChainEditViewHolder(
                     chainValue.visibility = View.VISIBLE
                     assetCnt.visibility = View.VISIBLE
 
-                    chainValue.text = formatAssetValue(chain.allValue(false))
+                    chainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                     val coinCntString = chain.coinCnt.toString() + " Coins"
                     val tokenCnt = chain.tokenCnt
                     assetCnt.text = if (tokenCnt > 0) {

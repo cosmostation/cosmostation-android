@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
+import java.math.BigDecimal
 
 
 class DashboardViewHolder(
@@ -151,7 +152,7 @@ class DashboardViewHolder(
                         chainValue.text = "✱✱✱✱"
                         chainValue.textSize = 10f
                     } else {
-                        chainValue.text = formatAssetValue(chain.allValue(false))
+                        chainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                         chainValue.textSize = 14f
                     }
 
@@ -283,7 +284,7 @@ class DashboardViewHolder(
                         chainValue.text = "✱✱✱✱"
                         chainValue.textSize = 10f
                     } else {
-                        chainValue.text = formatAssetValue(chain.allValue(false))
+                        chainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                         chainValue.textSize = 14f
                     }
 
@@ -378,7 +379,7 @@ class DashboardViewHolder(
                         simpleChainValue.text = "✱✱✱✱"
                         simpleChainValue.textSize = 10f
                     } else {
-                        simpleChainValue.text = formatAssetValue(chain.allValue(false))
+                        simpleChainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                         simpleChainValue.textSize = 14f
                     }
                 }
@@ -448,7 +449,7 @@ class DashboardViewHolder(
                         simpleChainValue.text = "✱✱✱✱"
                         simpleChainValue.textSize = 10f
                     } else {
-                        simpleChainValue.text = formatAssetValue(chain.allValue(false))
+                        simpleChainValue.text = formatAssetValue(chain.allValue(false) ?: BigDecimal.ZERO)
                         simpleChainValue.textSize = 14f
                     }
                 }

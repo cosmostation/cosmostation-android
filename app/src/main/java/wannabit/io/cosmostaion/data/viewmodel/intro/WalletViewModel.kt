@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
@@ -893,6 +894,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
                         }
                     }
+                }
+            }
+
+            is ChainIota -> {
+                chain.iotaFetcher()?.let { fetcher ->
+
                 }
             }
 

@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -68,6 +69,7 @@ import wannabit.io.cosmostaion.chain.fetcher.validators
 import wannabit.io.cosmostaion.chain.fetcher.zenrockDelegations
 import wannabit.io.cosmostaion.chain.fetcher.zenrockUnDelegations
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
@@ -1099,6 +1101,168 @@ class WalletRepositoryImpl : WalletRepository {
             )
             val result = mutableListOf<JsonObject>()
             suiApysJsonObject["result"].asJsonObject["apys"].asJsonArray.forEach { apy ->
+                result.add(apy.asJsonObject)
+            }
+            safeApiCall(Dispatchers.IO) {
+                result
+            }
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                mutableListOf()
+            }
+        }
+    }
+
+    override suspend fun iotaBalance(
+        fetcher: IotaFetcher,
+        chain: ChainIota
+    ): NetworkResult<JsonObject?> {
+        return try {
+            val iotaAllBalanceRequest = JsonRpcRequest(
+                method = "iotax_getAllBalances", params = listOf(chain.mainAddress)
+            )
+            val iotaAllBalanceResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaAllBalanceRequest)
+            val iotaAllBalanceJsonObject = Gson().fromJson(
+                iotaAllBalanceResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaAllBalanceJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                null
+            }
+        }
+    }
+
+    override suspend fun iotaSystemState(
+        fetcher: IotaFetcher,
+        chain: ChainIota
+    ): NetworkResult<JsonObject> {
+        return try {
+            val iotaLatestIotaSystemRequest = JsonRpcRequest(
+                method = "iotax_getLatestIotaSystemState", params = listOf()
+            )
+            val iotaLatestIotaSystemResponse =
+                jsonRpcResponse(fetcher.iotaRpc(), iotaLatestIotaSystemRequest)
+            val iotaLatestIotaSystemJsonObject = Gson().fromJson(
+                iotaLatestIotaSystemResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaLatestIotaSystemJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun iotaOwnedObject(fetcher: IotaFetcher, chain: ChainIota, cursor: String?) {
+        val params = if (cursor == null) {
+            listOf(
+                chain.mainAddress, mapOf(
+                    "filter" to null, "options" to mapOf(
+                        "showContent" to true, "showDisplay" to true, "showType" to true
+                    )
+                )
+            )
+        } else {
+            listOf(
+                chain.mainAddress, mapOf(
+                    "filter" to null, "options" to mapOf(
+                        "showContent" to true, "showDisplay" to true, "showType" to true
+                    )
+                ), cursor
+            )
+        }
+
+        try {
+            val iotaOwnedObjectRequest = JsonRpcRequest(
+                method = "iotax_getOwnedObjects", params = params
+            )
+            val iotaOwnedObjectResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaOwnedObjectRequest)
+            val iotaOwnedObjectJsonObject = Gson().fromJson(
+                iotaOwnedObjectResponse.body?.string(), JsonObject::class.java
+            )
+            iotaOwnedObjectJsonObject["result"].asJsonObject["data"].asJsonArray.forEach { data ->
+                fetcher.iotaObjects.add(data.asJsonObject)
+            }
+            if (iotaOwnedObjectJsonObject["result"].asJsonObject["hasNextPage"].asBoolean && iotaOwnedObjectJsonObject["result"].asJsonObject["nextCursor"].asString != null) {
+                iotaOwnedObject(
+                    fetcher,
+                    chain,
+                    iotaOwnedObjectJsonObject["result"].asJsonObject["nextCursor"].asString
+                )
+            }
+
+        } catch (e: Exception) {
+
+        }
+    }
+
+    override suspend fun iotaStakes(
+        fetcher: IotaFetcher,
+        chain: ChainIota
+    ): NetworkResult<JsonObject> {
+        return try {
+            val iotaStakesRequest = JsonRpcRequest(
+                method = "iotax_getStakes", params = listOf(chain.mainAddress)
+            )
+            val iotaStakesResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaStakesRequest)
+            val iotaStakesJsonObject = Gson().fromJson(
+                iotaStakesResponse.body?.string(), JsonObject::class.java
+            )
+            return safeApiCall(Dispatchers.IO) {
+                iotaStakesJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun iotaCoinMetadata(
+        fetcher: IotaFetcher,
+        chain: ChainIota,
+        coinType: String?
+    ): NetworkResult<JsonObject> {
+        return try {
+            val iotaCoinMetadataRequest = JsonRpcRequest(
+                method = "iotax_getCoinMetadata", params = listOf(coinType)
+            )
+            val iotaCoinMetadataResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaCoinMetadataRequest)
+            val iotaCoinMetadataJsonObject = Gson().fromJson(
+                iotaCoinMetadataResponse.body?.string(), JsonObject::class.java
+            )
+            return safeApiCall(Dispatchers.IO) {
+                iotaCoinMetadataJsonObject
+            }
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun iotaApys(
+        fetcher: IotaFetcher,
+        chain: ChainIota
+    ): NetworkResult<MutableList<JsonObject>> {
+        return try {
+            val iotaApysRequest = JsonRpcRequest(
+                method = "iotax_getValidatorsApy", params = listOf()
+            )
+            val iotaApysResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaApysRequest)
+            val iotaApysJsonObject = Gson().fromJson(
+                iotaApysResponse.body?.string(), JsonObject::class.java
+            )
+            val result = mutableListOf<JsonObject>()
+            iotaApysJsonObject["result"].asJsonObject["apys"].asJsonArray.forEach { apy ->
                 result.add(apy.asJsonObject)
             }
             safeApiCall(Dispatchers.IO) {

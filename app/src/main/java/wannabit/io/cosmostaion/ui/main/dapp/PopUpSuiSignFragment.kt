@@ -96,7 +96,7 @@ class PopUpSuiSignFragment(
                     if (method == "sui_signMessage") {
                         val messageBytes = Base64.decode(txJsonObject["message"].asString)
                         updateData = txJsonObject["message"].asString
-                        signature = Signer.suiSignature(
+                        signature = Signer.moveSignature(
                             selectedChain as ChainSui, txJsonObject["message"].asString
                         )[0]
 
@@ -172,7 +172,7 @@ class PopUpSuiSignFragment(
                             }
                             gasCost = computationCost.add(dpCost).setScale(0, RoundingMode.DOWN)
                             updateData = txBytes
-                            signature = Signer.suiSignature(selectedChain as ChainSui, txBytes)[0]
+                            signature = Signer.moveSignature(selectedChain as ChainSui, txBytes)[0]
                         }
 
                         withContext(Dispatchers.Main) {
