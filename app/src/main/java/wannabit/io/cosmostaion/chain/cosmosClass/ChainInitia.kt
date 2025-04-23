@@ -23,11 +23,11 @@ open class ChainInitia : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uinit"
     override var accountPrefix: String = "init"
-    override var grpcHost: String = "grpc.initia.mainnet.cosmostation.io"
-    override var lcdUrl: String = "https://lcd.initia.mainnet.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://rest.initia.xyz/"
 
     override fun cosmosFetcher(): CosmosFetcher? {
         if (cosmosFetcher == null) {

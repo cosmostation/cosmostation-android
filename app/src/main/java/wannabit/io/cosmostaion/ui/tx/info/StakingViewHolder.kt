@@ -10,9 +10,9 @@ import com.cosmos.staking.v1beta1.StakingProto
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -153,7 +153,7 @@ class StakingViewHolder(
     }
 
     fun initiaBind(
-        chain: ChainInitiaTestnet,
+        chain: ChainInitia,
         validator: com.initia.mstaking.v1.StakingProto.Validator,
         delegation: com.initia.mstaking.v1.StakingProto.DelegationResponse,
         listener: StakingInfoAdapter.ClickListener

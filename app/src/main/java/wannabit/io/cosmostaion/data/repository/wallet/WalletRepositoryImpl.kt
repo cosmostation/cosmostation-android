@@ -43,6 +43,7 @@ import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
@@ -70,7 +71,6 @@ import wannabit.io.cosmostaion.chain.fetcher.zenrockUnDelegations
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -615,7 +615,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaDelegation(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.DelegationResponse>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
@@ -634,7 +634,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaUnBonding(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.UnbondingDelegation>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.initia.mstaking.v1.QueryGrpc.newBlockingStub(channel)
@@ -653,7 +653,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaBondedValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -674,7 +674,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaUnBondedValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()
@@ -694,7 +694,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun initiaUnBondingValidator(
-        channel: ManagedChannel?, chain: ChainInitiaTestnet
+        channel: ManagedChannel?, chain: ChainInitia
     ): NetworkResult<MutableList<com.initia.mstaking.v1.StakingProto.Validator>> {
         return if (chain.initiaFetcher()?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(500).build()

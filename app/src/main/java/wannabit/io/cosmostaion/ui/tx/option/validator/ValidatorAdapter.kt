@@ -9,11 +9,10 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.gson.JsonObject
 import com.initia.mstaking.v1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
-import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
 import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
 
@@ -34,7 +33,11 @@ class ValidatorAdapter(
         val validator = currentList[position]
         when (selectedChain) {
             is ChainBitCoin86 -> {
-                holder.bitBind(selectedChain, btcTxType, validator as Pair<JsonObject, FinalityProvider>)
+                holder.bitBind(
+                    selectedChain,
+                    btcTxType,
+                    validator as Pair<JsonObject, FinalityProvider>
+                )
                 holder.itemView.setOnClickListener {
                     onBitItemClickListener?.let {
                         it(validator)
@@ -42,7 +45,7 @@ class ValidatorAdapter(
                 }
             }
 
-            is ChainInitiaTestnet -> {
+            is ChainInitia -> {
                 holder.initiaBind(selectedChain, validator as StakingProto.Validator)
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {

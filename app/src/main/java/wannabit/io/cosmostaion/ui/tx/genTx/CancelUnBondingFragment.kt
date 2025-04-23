@@ -23,8 +23,8 @@ import com.google.protobuf.Any
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.dpToPx
@@ -151,8 +151,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
             var unBondingAmount: BigDecimal?
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
                 unBondingAmount = when (selectedChain) {
-                    is ChainInitiaTestnet -> {
-                        (selectedChain as ChainInitiaTestnet).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
+                    is ChainInitia -> {
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
                             ?.let { validator ->
                                 validatorName.text = validator.description.moniker?.trim()
                             }
@@ -506,7 +506,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
 
     private fun onBindCancelUnBondingMsg(): MutableList<Any> {
         return when (selectedChain) {
-            is ChainInitiaTestnet -> {
+            is ChainInitia -> {
                 val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
                     .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount)
                     .build()

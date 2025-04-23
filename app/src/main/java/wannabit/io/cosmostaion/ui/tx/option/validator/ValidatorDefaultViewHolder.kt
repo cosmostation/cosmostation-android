@@ -8,13 +8,13 @@ import com.google.gson.JsonObject
 import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -57,7 +57,7 @@ class ValidatorDefaultViewHolder(
     }
 
     fun initiaBind(
-        chain: ChainInitiaTestnet, validator: com.initia.mstaking.v1.StakingProto.Validator
+        chain: ChainInitia, validator: com.initia.mstaking.v1.StakingProto.Validator
     ) {
         binding.apply {
             monikerImg.setMonikerImg(chain, validator.operatorAddress)

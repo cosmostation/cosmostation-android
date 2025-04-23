@@ -22,6 +22,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
@@ -32,7 +33,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -399,7 +399,7 @@ class ApplicationViewModel(
                     async { walletRepository.rewardAddress(channel, chain) }
                 val loadFeeMarketDeferred = async { walletRepository.baseFee(channel, chain) }
 
-                if (chain is ChainInitiaTestnet) {
+                if (chain is ChainInitia) {
                     val loadDelegationDeferred =
                         async { walletRepository.initiaDelegation(channel, chain) }
                     val loadUnBondingDeferred =

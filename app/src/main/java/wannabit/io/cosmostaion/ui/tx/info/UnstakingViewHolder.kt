@@ -9,8 +9,8 @@ import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
-import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpTime
 import wannabit.io.cosmostaion.common.formatAmount
@@ -64,7 +64,7 @@ class UnstakingViewHolder(
     }
 
     fun initiaBind(
-        chain: ChainInitiaTestnet,
+        chain: ChainInitia,
         validator: com.initia.mstaking.v1.StakingProto.Validator,
         entry: InitiaUnBondingEntry,
         listener: StakingInfoAdapter.ClickListener
