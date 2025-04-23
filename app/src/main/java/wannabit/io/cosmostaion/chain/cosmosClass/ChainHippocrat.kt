@@ -24,6 +24,6 @@ class ChainHippocrat : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ahp"
     override var accountPrefix: String = "hippo"
-    override var grpcHost: String = "grpc.mainnet.hippocrat.cosmostation.io"
-    override var lcdUrl: String = "https://lcd.mainnet.hippocrat.cosmostation.io/"
+    override var grpcHost: String = "grpc.hippocrat.mainnet.cosmostation.io"
+    override var lcdUrl: String = "https://lcd.hippocrat.mainnet.cosmostation.io/"
 }
