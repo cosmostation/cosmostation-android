@@ -16,6 +16,7 @@ class ChainRouterchainEvm : BaseChain(), Parcelable {
     override var name: String = "RouterChain"
     override var tag: String = "routerchain60"
     override var apiName: String = "routerchain"
+    override var isOtherChainImage: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

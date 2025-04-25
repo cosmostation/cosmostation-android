@@ -16,6 +16,7 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
     override var name: String = "Dymension"
     override var tag: String = "dymension60"
     override var apiName: String = "dymension"
+    override var isOtherChainImage: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

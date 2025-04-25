@@ -16,8 +16,8 @@ class ChainXpla : BaseChain(), Parcelable {
     override var name: String = "Xpla"
     override var tag: String = "xpla60"
     override var isDefault: Boolean = false
-    override var isOtherChainImage: Boolean = true
     override var apiName: String = "xpla"
+    override var isOtherChainImage: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

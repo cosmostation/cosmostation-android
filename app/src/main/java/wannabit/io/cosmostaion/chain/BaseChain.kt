@@ -330,7 +330,7 @@ open class BaseChain : Parcelable {
 
     fun chainLogo(): String {
         return if (isOtherChainImage) {
-            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}2.png"
+            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}_evm.png"
         } else {
             getChainListParam()?.get("chain_image")?.asString ?: ""
         }

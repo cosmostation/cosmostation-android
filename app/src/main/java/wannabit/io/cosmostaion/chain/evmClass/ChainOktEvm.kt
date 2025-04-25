@@ -20,6 +20,7 @@ open class ChainOktEvm : BaseChain(), Parcelable {
     override var name: String = "OKT"
     override var tag: String = "okt60_Keccak"
     override var apiName: String = "okc"
+    override var isOtherChainImage: Boolean = true
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "okt"

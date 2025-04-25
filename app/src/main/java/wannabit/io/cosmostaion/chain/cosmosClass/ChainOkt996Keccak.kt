@@ -19,8 +19,8 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
     override var name: String = "OKT"
     override var tag: String = "okt996_Keccak"
     override var isDefault: Boolean = false
-    override var isOtherChainImage: Boolean = true
     override var apiName: String = "okc"
+    override var isOtherChainImage: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/996'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

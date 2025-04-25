@@ -15,7 +15,7 @@ class ChainOkt996Secp : ChainOkt996Keccak(), Parcelable {
 
     override var tag: String = "okt996_Secp"
     override var isDefault: Boolean = false
-    override var isOtherChainImage: Boolean = true
+    override var isOtherChainImage: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/996'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
