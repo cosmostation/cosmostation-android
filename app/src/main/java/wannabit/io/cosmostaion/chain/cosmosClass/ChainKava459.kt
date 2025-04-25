@@ -17,7 +17,6 @@ open class ChainKava459 : ChainKavaEvm(), Parcelable {
     override var tag: String = "kava459"
     override var isDefault: Boolean = false
     override var apiName: String = "kava"
-    override var isOtherChainImage: Boolean = false
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/459'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

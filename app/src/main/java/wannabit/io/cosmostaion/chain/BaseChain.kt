@@ -191,7 +191,6 @@ open class BaseChain : Parcelable {
     open var tag: String = ""
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
-    open var isOtherChainImage: Boolean = false
     open var apiName: String = ""
     open var accountPrefix: String = ""
 
@@ -251,10 +250,7 @@ open class BaseChain : Parcelable {
     }
 
     suspend fun setInfoWithSeed(
-        context: Context,
-        seed: ByteArray?,
-        parentPath: List<ChildNumber>,
-        lastPath: String
+        context: Context, seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
     ) {
         privateKey =
             BaseKey.getPrivateKey(this, accountKeyType.pubkeyType, seed, parentPath, lastPath)
@@ -265,22 +261,14 @@ open class BaseChain : Parcelable {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
-            address =
-                BaseKey.getAddressFromPubKey(
-                    context,
-                    publicKey,
-                    accountKeyType.pubkeyType,
-                    accountPrefix
-                )
+            address = BaseKey.getAddressFromPubKey(
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+            )
 
         } else {
-            evmAddress =
-                BaseKey.getAddressFromPubKey(
-                    context,
-                    publicKey,
-                    accountKeyType.pubkeyType,
-                    accountPrefix
-                )
+            evmAddress = BaseKey.getAddressFromPubKey(
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+            )
             if (supportCosmos()) {
                 address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
             }
@@ -329,7 +317,9 @@ open class BaseChain : Parcelable {
     }
 
     fun chainLogo(): String {
-        return if (isOtherChainImage) {
+        return if (isTestnet) {
+            getChainListParam()?.get("chain_image")?.asString ?: ""
+        } else if (isEvmCosmos()) {
             "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}_evm.png"
         } else {
             getChainListParam()?.get("chain_image")?.asString ?: ""

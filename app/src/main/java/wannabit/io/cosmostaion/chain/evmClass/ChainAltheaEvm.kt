@@ -16,7 +16,6 @@ class ChainAltheaEvm : BaseChain(), Parcelable {
     override var name: String = "Althea"
     override var tag: String = "althea60"
     override var apiName: String = "althea"
-    override var isOtherChainImage: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

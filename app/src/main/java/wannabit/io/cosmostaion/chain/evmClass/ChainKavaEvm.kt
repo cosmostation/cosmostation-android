@@ -19,7 +19,6 @@ open class ChainKavaEvm : BaseChain(), Parcelable {
     override var name: String = "Kava"
     override var tag: String = "kava60"
     override var apiName: String = "kava"
-    override var isOtherChainImage: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(

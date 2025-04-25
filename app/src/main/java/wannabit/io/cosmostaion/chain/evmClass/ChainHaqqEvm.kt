@@ -16,7 +16,6 @@ class ChainHaqqEvm : BaseChain(), Parcelable {
     override var name: String = "Haqq"
     override var tag: String = "haqq60"
     override var apiName: String = "haqq"
-    override var isOtherChainImage: Boolean = true
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
