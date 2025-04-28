@@ -82,7 +82,7 @@ class CosmosActivity : BaseActivity() {
                 this.y = y
                 layoutParams = FrameLayout.LayoutParams(800, 800)
 
-                ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
+                ObjectAnimator.ofFloat(this, "alpha", 0f, 0.04f).apply {
                     duration = 3000
                     start()
                 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/space_9"
-    android:layout_marginBottom="@dimen/space_9">
+    android:layout_marginBottom="@dimen/space_16">
 
     <ImageView
         android:id="@+id/thumbnail_img"
