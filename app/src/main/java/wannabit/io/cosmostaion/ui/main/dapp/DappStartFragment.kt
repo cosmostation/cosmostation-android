@@ -155,14 +155,17 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 }?.toSet() ?: emptySet()
                 supportChains = dappChains.toMutableList()
                 supportChains?.sortWith { o1, o2 ->
+                    val o1IsTestnet = o1.contains("testnet", ignoreCase = true)
+                    val o2IsTestnet = o2.contains("testnet", ignoreCase = true)
+
                     when {
-                        o1 == "cosmos" -> -1
-                        o2 == "cosmos" -> -1
-                        o1.compareTo(o2) != 0 -> o1.compareTo(o2)
-                        else -> 0
+                        o1IsTestnet && !o2IsTestnet -> 1
+                        !o1IsTestnet && o2IsTestnet -> -1
+                        else -> o1.compareTo(o2, ignoreCase = true)
                     }
                 }
                 supportChains?.add(0, "All Network")
+
                 dappViewModel.fetchDappList()
 
                 withContext(Dispatchers.Main) {

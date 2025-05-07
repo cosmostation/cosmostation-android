@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.databinding.ItemBtcNotActiveBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
+import wannabit.io.cosmostaion.ui.main.chain.evm.EvmEcoSystemAdapter.Companion.VIEW_TYPE_INJECT_HEADER
 
 class BtcNotActiveInfoAdapter(
     private val selectedChain: BaseChain,
@@ -113,9 +114,9 @@ class BtcNotActiveInfoAdapter(
         private val binding: ItemStickyHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewType: Int) {
+        fun bind(position: Int) {
             binding.apply {
-                if (viewType == VIEW_TYPE_WITHDRAW_HEADER) {
+                if (getItemViewType(position) == VIEW_TYPE_WITHDRAW_HEADER) {
                     headerTitle.text = "Withdrawable"
                     headerCnt.text = withdrawAbleList?.size.toString()
                 } else {
