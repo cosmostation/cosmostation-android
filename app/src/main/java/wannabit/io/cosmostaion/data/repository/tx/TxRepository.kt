@@ -298,12 +298,37 @@ interface TxRepository {
         fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
     ): String
 
+    suspend fun broadcastIotaStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
     suspend fun simulateIotaStake(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String
 
+    suspend fun broadcastIotaUnStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+    ): String
+
     suspend fun unsafeIotaStake(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unsafeIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String>
 
 

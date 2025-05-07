@@ -5,8 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,72 +12,44 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.IOTA_MIN_STAKE
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
-import wannabit.io.cosmostaion.common.formatString
-import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.databinding.FragmentStakingBinding
+import wannabit.io.cosmostaion.databinding.FragmentSuiUnstakingBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.IotaTxType
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
-import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
-import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
-import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultFragment
-import wannabit.io.cosmostaion.ui.tx.option.validator.ValidatorDefaultListener
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class IotaStakingFragment : BaseTxFragment() {
+class IotaUnStakingFragment(
+    private val selectedChain: BaseChain, private val staked: Pair<String, JsonObject>?
+) : BaseTxFragment() {
 
-    private var _binding: FragmentStakingBinding? = null
+    private var _binding: FragmentSuiUnstakingBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var selectedChain: BaseChain
 
     private var selectedFeePosition = 0
     private var iotaFeeBudget = BigDecimal.ZERO
-    private var availableAmount = BigDecimal.ZERO
-    private var toStakeAmount = ""
-    private var toValidator: JsonObject? = null
-
-    private var isClickable = true
-
-    companion object {
-        @JvmStatic
-        fun newInstance(selectedChain: BaseChain): IotaStakingFragment {
-            val args = Bundle().apply {
-                putParcelable("selectedChain", selectedChain)
-            }
-            val fragment = IotaStakingFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentStakingBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSuiUnstakingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -94,37 +64,57 @@ class IotaStakingFragment : BaseTxFragment() {
 
     private fun initView() {
         binding.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arguments?.getParcelable("selectedChain", BaseChain::class.java)
-                    ?.let { selectedChain = it }
-            } else {
-                (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
-                    selectedChain = it
-                }
-            }
-
             BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                titleStakeImg.setTokenImg(asset)
-                titleStake.text = getString(R.string.title_staking, asset.symbol)
+                titleUnstakeImg.setTokenImg(asset)
+                titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
             }
 
-            listOf(validatorView, amountView, memoView, feeView).forEach {
+            listOf(stakeCoinView, feeView).forEach {
                 it.setBackgroundResource(
                     R.drawable.cell_bg
                 )
             }
-            memoView.visibility = View.GONE
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
             btnFee.visibility = View.GONE
-
             initFee()
+            initValidatorView()
+        }
+    }
+
+    private fun initValidatorView() {
+        binding.apply {
             (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
-                if (fetcher.iotaValidators.isNotEmpty()) {
-                    toValidator = fetcher.iotaValidators[0]
-                    updateValidatorView()
-                }
-                availableAmount =
-                    fetcher.iotaBalanceAmount(IOTA_MAIN_DENOM)?.subtract(iotaFeeBudget)
+                fetcher.iotaValidators.firstOrNull { it["iotaAddress"].asString == staked?.first }
+                    ?.let { validator ->
+                        monikerImg.setImageFromSvg(
+                            validator.moveValidatorImg(), R.drawable.icon_default_vaildator
+                        )
+                        monikerName.text = validator.moveValidatorName()
+                        objectId.text = staked?.second?.get("stakedIotaId")?.asString
+
+                        val principal = try {
+                            staked?.second?.get("principal")?.asLong?.toBigDecimal()
+                                ?.movePointLeft(9)?.setScale(9, RoundingMode.DOWN)
+                        } catch (e: Exception) {
+                            BigDecimal.ZERO
+                        }
+
+                        val estimatedReward = try {
+                            staked?.second?.get("estimatedReward")?.asLong?.toBigDecimal()
+                                ?.movePointLeft(9)?.setScale(9, RoundingMode.DOWN)
+                        } catch (e: Exception) {
+                            BigDecimal.ZERO
+                        }
+
+                        principalTxt.text = formatAmount(principal.toString(), 9)
+                        earned.text = formatAmount(estimatedReward.toString(), 9)
+                        totalStaked.text =
+                            formatAmount(principal?.add(estimatedReward).toString(), 9)
+                        startEarning.text =
+                            "Epoch #" + staked?.second?.get("stakeActiveEpoch")?.asString
+                    }
+
+                txSimulate()
             }
         }
     }
@@ -162,21 +152,9 @@ class IotaStakingFragment : BaseTxFragment() {
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
                 iotaFeeBudget =
-                    (selectedChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_STAKE)
+                    (selectedChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_UNSTAKE)
                 updateFeeView()
             }
-        }
-    }
-
-    private fun updateValidatorView() {
-        binding.apply {
-            jailedImg.visibility = View.GONE
-            monikerImg.setImageFromSvg(
-                toValidator?.moveValidatorImg(), R.drawable.icon_default_vaildator
-            )
-            monikerName.text = toValidator?.moveValidatorName()
-            commissionPercent.text = formatString("${toValidator?.moveValidatorCommission()}%", 3)
-            txSimulate()
         }
     }
 
@@ -194,74 +172,12 @@ class IotaStakingFragment : BaseTxFragment() {
         }
     }
 
-    private fun updateAmountView(toAmount: String) {
-        binding.apply {
-            toStakeAmount = toAmount
-
-            (selectedChain as ChainIota).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
-                val price = BaseData.getPrice(coinGeckoId)
-                val dpAmount =
-                    toStakeAmount.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
-                val value = price.multiply(dpAmount)
-
-                delegateAmountMsg.visibility = View.GONE
-                delegateAmount.text = formatAmount(dpAmount.toPlainString(), 9)
-                delegateAmount.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_base01
-                    )
-                )
-                delegateDenom.visibility = View.VISIBLE
-                delegateDenom.text = (selectedChain as ChainIota).coinSymbol
-                delegateValue.text = formatAssetValue(value)
-                txSimulate()
-
-                if (toStakeAmount.toBigDecimal() < IOTA_MIN_STAKE.toBigDecimal()) {
-                    requireActivity().makeToast(R.string.error_staking_min_iota)
-                }
-            }
-        }
-    }
-
     @SuppressLint("WrongConstant")
     private fun setUpClickAction() {
         binding.apply {
-            validatorView.setOnClickListener {
-                handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
-                        iotaFromValidator = (selectedChain as ChainIota).iotaFetcher?.iotaValidators
-                            ?: mutableListOf(),
-                        listener = object : ValidatorDefaultListener {
-                            override fun select(validatorAddress: String) {
-                                toValidator =
-                                    (selectedChain as ChainIota).iotaFetcher?.iotaValidators?.firstOrNull { it["iotaAddress"].asString == validatorAddress }
-                                updateValidatorView()
-                            }
-                        })
-                )
-            }
-
-            amountView.setOnClickListener {
-                handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(selectedChain,
-                        TxType.IOTA_DELEGATE,
-                        availableAmount.toString(),
-                        toStakeAmount,
-                        BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
-                        ),
-                        object : AmountSelectListener {
-                            override fun select(toAmount: String) {
-                                updateAmountView(toAmount)
-                            }
-                        })
-                )
-            }
-
-            btnStake.setOnClickListener {
+            btnUnstake.setOnClickListener {
                 Intent(requireContext(), PasswordCheckActivity::class.java).apply {
-                    iotaDelegateResultLauncher.launch(this)
+                    iotaUnStakeresultLauncher.launch(this)
                     if (Build.VERSION.SDK_INT >= 34) {
                         requireActivity().overrideActivityTransition(
                             Activity.OVERRIDE_TRANSITION_OPEN,
@@ -280,15 +196,14 @@ class IotaStakingFragment : BaseTxFragment() {
 
     private fun txSimulate() {
         binding.apply {
-            if (toValidator == null) return
-            if (toStakeAmount.isEmpty() || toStakeAmount.toBigDecimal() < IOTA_MIN_STAKE.toBigDecimal()) return
-            btnStake.updateButtonView(false)
+            btnUnstake.updateButtonView(false)
+            if (staked == null) return
             backdropLayout.visibility = View.VISIBLE
             (selectedChain as ChainIota).apply {
                 iotaFetcher?.let { fetcher ->
-                    toValidator?.get("iotaAddress")?.asString?.let { validator ->
-                        txViewModel.iotaStakeSimulate(
-                            fetcher, mainAddress, toStakeAmount, validator, iotaFeeBudget.toString()
+                    staked.second.get("stakedIotaId").asString?.let { objectId ->
+                        txViewModel.iotaUnStakeSimulate(
+                            fetcher, mainAddress, objectId, iotaFeeBudget.toString()
                         )
                     }
                 }
@@ -310,20 +225,15 @@ class IotaStakingFragment : BaseTxFragment() {
         }
     }
 
-    private val iotaDelegateResultLauncher: ActivityResultLauncher<Intent> =
+    private val iotaUnStakeresultLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
                 (selectedChain as ChainIota).apply {
                     iotaFetcher?.let { fetcher ->
-                        toValidator?.get("iotaAddress")?.asString?.let { validator ->
-                            txViewModel.iotaStakeBroadcast(
-                                fetcher,
-                                mainAddress,
-                                toStakeAmount,
-                                validator,
-                                iotaFeeBudget.toString(),
-                                this
+                        staked?.second?.get("stakedIotaId")?.asString?.let { objectId ->
+                            txViewModel.iotaUnStakeBroadcast(
+                                fetcher, mainAddress, objectId, iotaFeeBudget.toString(), this
                             )
                         }
                     }
@@ -356,21 +266,7 @@ class IotaStakingFragment : BaseTxFragment() {
     private fun isBroadCastTx(isSuccess: Boolean) {
         binding.apply {
             backdropLayout.visibility = View.GONE
-            btnStake.updateButtonView(isSuccess)
-        }
-    }
-
-    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
-        if (isClickable) {
-            isClickable = false
-
-            bottomSheetDialogFragment.show(
-                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
-            )
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                isClickable = true
-            }, 300)
+            btnUnstake.updateButtonView(isSuccess)
         }
     }
 

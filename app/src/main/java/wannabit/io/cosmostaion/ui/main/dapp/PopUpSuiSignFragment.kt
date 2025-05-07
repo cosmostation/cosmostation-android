@@ -116,7 +116,7 @@ class PopUpSuiSignFragment(
                         var format = ""
                         var gasCost = BigDecimal.ZERO
 
-                        val response = RetrofitInstance.suiApi.transactionBlock(
+                        val response = RetrofitInstance.moveApi.transactionBlock(
                             SuiTransactionBlock(
                                 txJsonObject["transactionBlockSerialized"].asString,
                                 mainAddress,

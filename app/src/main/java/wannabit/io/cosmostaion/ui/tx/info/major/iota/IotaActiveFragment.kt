@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentSuiActiveBinding
+import wannabit.io.cosmostaion.ui.tx.genTx.major.iota.IotaUnStakingFragment
 
 class IotaActiveFragment : Fragment() {
 
@@ -113,11 +114,11 @@ class IotaActiveFragment : Fragment() {
                         iotaStakingInfoAdapter.submitList(active)
                         if (::iotaStakingInfoAdapter.isInitialized) {
                             iotaStakingInfoAdapter.setOnItemClickListener { staked ->
-//                                handleOneClickWithDelay(
-//                                    SuiUnStakingFragment(
-//                                        selectedChain, staked
-//                                    )
-//                                )
+                                handleOneClickWithDelay(
+                                    IotaUnStakingFragment(
+                                        selectedChain, staked
+                                    )
+                                )
                             }
                         }
                     }

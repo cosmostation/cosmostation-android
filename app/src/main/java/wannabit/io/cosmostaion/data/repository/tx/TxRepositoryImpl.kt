@@ -67,13 +67,13 @@ import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.LFee
+import wannabit.io.cosmostaion.data.model.req.MoveStakeReq
+import wannabit.io.cosmostaion.data.model.req.MoveUnStakeReq
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
 import wannabit.io.cosmostaion.data.model.req.NSStargazeInfoReq
 import wannabit.io.cosmostaion.data.model.req.ResolveRecord
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
-import wannabit.io.cosmostaion.data.model.req.SuiStakeReq
-import wannabit.io.cosmostaion.data.model.req.SuiUnStakeReq
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -1524,8 +1524,8 @@ class TxRepositoryImpl : TxRepository {
         fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
     ): NetworkResult<String> {
         return try {
-            val response = RetrofitInstance.suiApi.unSafeStake(
-                SuiStakeReq(
+            val response = RetrofitInstance.moveApi.unSafeStake(
+                MoveStakeReq(
                     sender, validator, gasBudget, amount, fetcher.suiRpc()
                 )
             )
@@ -1544,8 +1544,8 @@ class TxRepositoryImpl : TxRepository {
         fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String> {
         return try {
-            val response = RetrofitInstance.suiApi.unSafeUnStake(
-                SuiUnStakeReq(
+            val response = RetrofitInstance.moveApi.unSafeUnStake(
+                MoveUnStakeReq(
                     sender, objectId, gasBudget, fetcher.suiRpc()
                 )
             )
@@ -2198,6 +2198,35 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
+    override suspend fun broadcastIotaStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = unsafeIotaStake(fetcher, sender, validator, amount, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = iotaDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = iotaExecuteTx(
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
     override suspend fun simulateIotaStake(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String {
@@ -2238,13 +2267,101 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
+    override suspend fun broadcastIotaUnStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = unsafeIotaUnStake(fetcher, sender, objectId, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = iotaDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = iotaExecuteTx(
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
+    override suspend fun simulateIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+    ): String {
+        try {
+            val txBytes = unsafeIotaUnStake(fetcher, sender, objectId, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val response = iotaDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
+
+                    } else {
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
     override suspend fun unsafeIotaStake(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
     ): NetworkResult<String> {
         return try {
-            val response = RetrofitInstance.suiApi.unSafeStake(
-                SuiStakeReq(
+            val response = RetrofitInstance.moveApi.unSafeIotaStake(
+                MoveStakeReq(
                     sender, validator, gasBudget, amount, fetcher.iotaRpc()
+                )
+            )
+            safeApiCall(Dispatchers.IO) {
+                Base64.toBase64String(Utils.hexToBytes(response))
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                e.message.toString()
+            }
+        }
+    }
+
+    override suspend fun unsafeIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val response = RetrofitInstance.moveApi.unSafeIotaUnStake(
+                MoveUnStakeReq(
+                    sender, objectId, gasBudget, fetcher.iotaRpc()
                 )
             )
             safeApiCall(Dispatchers.IO) {
