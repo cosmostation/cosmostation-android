@@ -141,6 +141,7 @@
     <string name="str_search_chain">Search chain</string>
     <string name="str_search_token">Search token</string>
     <string name="str_search">Search</string>
+    <string name="str_search_account">Search account</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">Under Maintenance</string>
     <string name="str_mintscan">Mintscan</string>
@@ -481,6 +482,7 @@
     <string name="str_unstaking_msg">You can unstake at any time, It will become withdrawable after a &lt;font color="#BED1F2"&gt;7-day&lt;/font&gt; unstaking period.</string>
     <string name="str_dark_theme_msg" translatable="false">Softly,calmly. Dive deeper with Dark Theme</string>
     <string name="str_cosmic_theme_msg" translatable="false">Like a scene from space - a new view every time</string>
+    <string name="str_send_to_evm" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘0x...’&lt;/font&gt; address</string>
 
 
     // header

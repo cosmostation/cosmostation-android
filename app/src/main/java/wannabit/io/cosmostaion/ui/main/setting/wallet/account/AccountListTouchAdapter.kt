@@ -4,14 +4,19 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
 class AccountListTouchAdapter(
-    val listener: ItemTouchHelperListener
+    val listener: ItemTouchHelperListener,
+    val searchTxt: CharSequence
 ) : ItemTouchHelper.Callback() {
 
     private var itemTouchHelperListener: ItemTouchHelperListener = listener
 
-    override fun isLongPressDragEnabled(): Boolean { return true }
+    override fun isLongPressDragEnabled(): Boolean {
+        return searchTxt.isEmpty()
+    }
 
-    override fun isItemViewSwipeEnabled(): Boolean { return false }
+    override fun isItemViewSwipeEnabled(): Boolean {
+        return false
+    }
 
     override fun getMovementFlags(
         recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder

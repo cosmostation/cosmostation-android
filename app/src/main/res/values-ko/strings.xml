@@ -96,6 +96,7 @@
     <string name="str_search_chain">체인 검색</string>
     <string name="str_search_token">토큰 검색</string>
     <string name="str_search">검색</string>
+    <string name="str_search_account">계정 검색</string>
     <string name="str_go_playstore">플레이스토어 이동</string>
     <string name="str_under_maintenance">점검중</string>
     <string name="str_mintscan">민트스캔</string>

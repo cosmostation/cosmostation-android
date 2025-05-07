@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,6 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.makeToast
@@ -59,6 +61,11 @@ class AccountListFragment : Fragment() {
     private val accountViewModel: AccountViewModel by activityViewModels()
 
     private var manageAccount: BaseAccount? = null
+    private var mnemonicAccounts: MutableList<BaseAccount> = mutableListOf()
+    private var searchMnemonicAccounts: MutableList<BaseAccount> = mutableListOf()
+    private var privateAccounts: MutableList<BaseAccount> = mutableListOf()
+    private var searchPrivateAccounts: MutableList<BaseAccount> = mutableListOf()
+
     private var isClickable = true
 
     override fun onCreateView(
@@ -72,6 +79,7 @@ class AccountListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        initSearchView()
         setUpClickAction()
         checkAccountData()
         checkChangeNameData()
@@ -81,13 +89,18 @@ class AccountListFragment : Fragment() {
         binding.recycler.apply {
             CoroutineScope(Dispatchers.IO).launch {
                 val appDatabase = AppDatabase.getInstance()
-                val mnemonicAccounts =
+                mnemonicAccounts =
                     appDatabase.baseAccountDao().selectsAccount(BaseAccountType.MNEMONIC)
-                val privateAccounts =
+                        .toMutableList()
+                searchMnemonicAccounts.addAll(mnemonicAccounts)
+
+                privateAccounts =
                     appDatabase.baseAccountDao().selectsAccount(BaseAccountType.PRIVATE_KEY)
+                        .toMutableList()
+                searchPrivateAccounts.addAll(privateAccounts)
 
                 withContext(Dispatchers.Main) {
-                    initRecyclerView(mnemonicAccounts, privateAccounts)
+                    initRecyclerView()
                 }
             }
         }
@@ -119,20 +132,21 @@ class AccountListFragment : Fragment() {
         }
     }
 
-    private fun initRecyclerView(
-        mnemonicAccounts: List<BaseAccount>, privateAccounts: List<BaseAccount>
-    ) {
+    private fun initRecyclerView() {
         binding.recycler.apply {
             accountListAdapter = AccountListAdapter(
-                requireContext(), mnemonicAccounts, privateAccounts, updateOrderAction
+                requireContext(), searchMnemonicAccounts, searchPrivateAccounts, updateOrderAction
             )
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = accountListAdapter
-            ItemTouchHelper(AccountListTouchAdapter(accountListAdapter)).apply {
+            ItemTouchHelper(
+                AccountListTouchAdapter(
+                    accountListAdapter, binding.searchView.query
+                )
+            ).apply {
                 attachToRecyclerView(binding.recycler)
             }
-            accountListAdapter.submitList(mnemonicAccounts + privateAccounts)
 
             accountListAdapter.setOnItemClickListener { account ->
                 handleOneClickWithDelay(
@@ -141,6 +155,49 @@ class AccountListFragment : Fragment() {
                     )
                 )
             }
+        }
+    }
+
+    private fun initSearchView() {
+        binding.apply {
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchMnemonicAccounts.clear()
+                    searchPrivateAccounts.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchMnemonicAccounts.addAll(mnemonicAccounts)
+                        searchPrivateAccounts.addAll(privateAccounts)
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            searchMnemonicAccounts.addAll(mnemonicAccounts.filter { account ->
+                                account.name.contains(searchTxt, ignoreCase = true)
+                            })
+
+                            searchPrivateAccounts.addAll(privateAccounts.filter { account ->
+                                account.name.contains(searchTxt, ignoreCase = true)
+                            })
+                        }
+                    }
+
+                    if (searchMnemonicAccounts.isEmpty() && searchPrivateAccounts.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        accountListAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
         }
     }
 
@@ -390,10 +447,17 @@ class AccountListFragment : Fragment() {
 
     private fun checkAccountData() {
         accountViewModel.baseAccounts.observe(viewLifecycleOwner) { result ->
-            val mnemonicAccounts = result.filter { it.type == BaseAccountType.MNEMONIC }
-            val privateAccounts = result.filter { it.type == BaseAccountType.PRIVATE_KEY }
+            mnemonicAccounts = result.filter { it.type == BaseAccountType.MNEMONIC }.toMutableList()
+            privateAccounts =
+                result.filter { it.type == BaseAccountType.PRIVATE_KEY }.toMutableList()
 
-            initRecyclerView(mnemonicAccounts, privateAccounts)
+            searchMnemonicAccounts.clear()
+            searchPrivateAccounts.clear()
+
+            searchMnemonicAccounts.addAll(mnemonicAccounts)
+            searchPrivateAccounts.addAll(privateAccounts)
+
+            initRecyclerView()
         }
     }
 

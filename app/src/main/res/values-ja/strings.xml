@@ -100,6 +100,7 @@
     <string name="str_search_chain">チェーン検索</string>
     <string name="str_search_token">トークン検索です</string>
     <string name="str_search">検索</string>
+    <string name="str_search_account">アカウント検索</string>
     <string name="str_go_playstore">Go playstore</string>
     <string name="str_under_maintenance">点検中</string>
     <string name="str_mintscan">Mintscan</string>

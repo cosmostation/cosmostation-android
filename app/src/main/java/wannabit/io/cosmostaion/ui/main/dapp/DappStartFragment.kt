@@ -74,7 +74,6 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
         initView()
         initButtonView()
-        initRecyclerView()
         initSearchView()
         setUpClickAction()
         setUpObserve()
@@ -233,16 +232,12 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            ecosystems.forEach { ecosystem ->
-                val isPinnedValue = Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
-                ecosystem.addProperty("isPinned", isPinnedValue)
-            }
-
             binding.emptyLayout.visibility = View.GONE
             dappListAdapter = DappListAdapter(requireContext(), selectPinAction)
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = dappListAdapter
+
             dappListAdapter.submitList(ecosystems.filter { ecosystem ->
                 val popular = if (ecosystem.has("is_default")) {
                     ecosystem["is_default"].asBoolean

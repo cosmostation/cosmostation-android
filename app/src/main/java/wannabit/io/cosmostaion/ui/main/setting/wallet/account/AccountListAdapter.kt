@@ -5,22 +5,19 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.database.model.BaseAccount
-import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ItemAccountListBinding
 import wannabit.io.cosmostaion.databinding.ItemStickyHeaderBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 
 class AccountListAdapter(
     val context: Context,
-    private var mnemonicAccounts: List<BaseAccount>,
-    private var privateAccounts: List<BaseAccount>,
+    private var mnemonicAccounts: MutableList<BaseAccount>,
+    private var privateAccounts: MutableList<BaseAccount>,
     val listener: AccountSortListener
-) : ListAdapter<BaseAccount, RecyclerView.ViewHolder>(AccountListDiffCallback()),
-    ItemTouchHelperListener {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ItemTouchHelperListener {
 
     private var onItemClickListener: ((BaseAccount) -> Unit)? = null
 
@@ -77,13 +74,17 @@ class AccountListAdapter(
                             }
 
                         } else {
-                            val privateAccount =
-                                privateAccounts[(position - (mnemonicAccounts.size + 2)).coerceAtLeast(0)]
-                            holder.bind(privateAccount)
+                            if (privateAccounts.isNotEmpty()) {
+                                val privateAccount =
+                                    privateAccounts[(position - (mnemonicAccounts.size + 2)).coerceAtLeast(
+                                        0
+                                    )]
+                                holder.bind(privateAccount)
 
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(privateAccount)
+                                holder.itemView.setOnClickListener {
+                                    onItemClickListener?.let {
+                                        it(privateAccount)
+                                    }
                                 }
                             }
                         }
@@ -108,29 +109,40 @@ class AccountListAdapter(
     override fun getItemViewType(position: Int): Int {
         if (mnemonicAccounts.isEmpty() && privateAccounts.isEmpty()) return VIEW_TYPE_PRIVATE_ITEM
         return if (mnemonicAccounts.isNotEmpty()) {
-            when {
-                position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
-                position < 1 + mnemonicAccounts.size -> VIEW_TYPE_MNEMONIC_ITEM
-                position < 2 + mnemonicAccounts.size -> VIEW_TYPE_PRIVATE_HEADER
-                else -> VIEW_TYPE_PRIVATE_ITEM
+            if (privateAccounts.isNotEmpty()) {
+                when {
+                    position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
+                    position < 1 + mnemonicAccounts.size -> VIEW_TYPE_MNEMONIC_ITEM
+                    position < 2 + mnemonicAccounts.size -> VIEW_TYPE_PRIVATE_HEADER
+                    else -> VIEW_TYPE_PRIVATE_ITEM
+                }
+
+            } else {
+                when {
+                    position == 0 -> VIEW_TYPE_MNEMONIC_HEADER
+                    else -> VIEW_TYPE_MNEMONIC_ITEM
+                }
             }
+
         } else {
             if (position == 0) VIEW_TYPE_PRIVATE_HEADER else VIEW_TYPE_PRIVATE_ITEM
         }
     }
 
     override fun getItemCount(): Int {
-        return currentList.size + if (mnemonicAccounts.isNotEmpty() && privateAccounts.isNotEmpty()) 2 else 1
-    }
+        return if (mnemonicAccounts.isNotEmpty()) {
+            if (privateAccounts.isNotEmpty()) {
+                mnemonicAccounts.size + privateAccounts.size + 2
+            } else {
+                mnemonicAccounts.size + 1
+            }
 
-    private class AccountListDiffCallback : DiffUtil.ItemCallback<BaseAccount>() {
-
-        override fun areItemsTheSame(oldItem: BaseAccount, newItem: BaseAccount): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: BaseAccount, newItem: BaseAccount): Boolean {
-            return oldItem == newItem
+        } else {
+            if (privateAccounts.isNotEmpty()) {
+                privateAccounts.size + 1
+            } else {
+                0
+            }
         }
     }
 
@@ -142,13 +154,11 @@ class AccountListAdapter(
             binding.apply {
                 if (viewType == VIEW_TYPE_MNEMONIC_HEADER) {
                     headerTitle.text = context.getString(R.string.title_mnemonic_account)
-                    headerCnt.text =
-                        currentList.filter { it.type == BaseAccountType.MNEMONIC }.size.toString()
+                    headerCnt.text = mnemonicAccounts.size.toString()
 
                 } else {
                     headerTitle.text = context.getString(R.string.title_private_account)
-                    headerCnt.text =
-                        currentList.filter { it.type == BaseAccountType.PRIVATE_KEY }.size.toString()
+                    headerCnt.text = privateAccounts.size.toString()
                 }
             }
         }

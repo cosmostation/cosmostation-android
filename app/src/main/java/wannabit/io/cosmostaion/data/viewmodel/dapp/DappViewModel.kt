@@ -20,6 +20,11 @@ class DappViewModel : ViewModel() {
     val sortedBy: LiveData<List<JsonObject>> get() = _sortedBy
 
     fun fetchDappList() {
+        ecosystems?.forEach { ecosystem ->
+            val isPinnedValue = Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+            ecosystem.addProperty("isPinned", isPinnedValue)
+        }
+
         if (Prefs.dappFilter == 0) {
             ecosystems?.sortWith(compareByDescending<JsonObject> {
                 it["isPinned"].asBoolean
