@@ -50,18 +50,6 @@ object RetrofitInstance {
             .baseUrl(CosmostationConstants.SKIP_API_URL).build()
     }
 
-    private val ecoSystemRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.ECO_SYSTEM_URL).build()
-    }
-
-    private val ecoSystemMainRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.ECO_SYSTEM_MAIN_URL).build()
-    }
-
     private fun lcdRetrofit(chain: BaseChain): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
@@ -122,14 +110,6 @@ object RetrofitInstance {
 
     val skipApi: SkipApi by lazy {
         skipRetrofit.create(SkipApi::class.java)
-    }
-
-    val ecoApi: MintscanApi by lazy {
-        ecoSystemRetrofit.create(MintscanApi::class.java)
-    }
-
-    val ecoMainApi: MintscanApi by lazy {
-        ecoSystemMainRetrofit.create(MintscanApi::class.java)
     }
 
     val suiApi: LcdApi by lazy {

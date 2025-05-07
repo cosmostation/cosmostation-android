@@ -78,8 +78,6 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitExternalApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoApi
-import wannabit.io.cosmostaion.data.api.RetrofitInstance.ecoMainApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
@@ -937,15 +935,9 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
-    override suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>> {
-        return safeApiCall(Dispatchers.IO) {
-            ecoApi.ecoSystemInfo(chain)
-        }
-    }
-
     override suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
-            ecoMainApi.ecoSystemInfo()
+            mintscanJsonApi.ecoSystemInfo()
         }
     }
 
@@ -1114,8 +1106,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun iotaBalance(
-        fetcher: IotaFetcher,
-        chain: ChainIota
+        fetcher: IotaFetcher, chain: ChainIota
     ): NetworkResult<JsonObject?> {
         return try {
             val iotaAllBalanceRequest = JsonRpcRequest(
@@ -1137,8 +1128,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun iotaSystemState(
-        fetcher: IotaFetcher,
-        chain: ChainIota
+        fetcher: IotaFetcher, chain: ChainIota
     ): NetworkResult<JsonObject> {
         return try {
             val iotaLatestIotaSystemRequest = JsonRpcRequest(
@@ -1204,8 +1194,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun iotaStakes(
-        fetcher: IotaFetcher,
-        chain: ChainIota
+        fetcher: IotaFetcher, chain: ChainIota
     ): NetworkResult<JsonObject> {
         return try {
             val iotaStakesRequest = JsonRpcRequest(
@@ -1227,15 +1216,14 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun iotaCoinMetadata(
-        fetcher: IotaFetcher,
-        chain: ChainIota,
-        coinType: String?
+        fetcher: IotaFetcher, chain: ChainIota, coinType: String?
     ): NetworkResult<JsonObject> {
         return try {
             val iotaCoinMetadataRequest = JsonRpcRequest(
                 method = "iotax_getCoinMetadata", params = listOf(coinType)
             )
-            val iotaCoinMetadataResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaCoinMetadataRequest)
+            val iotaCoinMetadataResponse =
+                jsonRpcResponse(fetcher.iotaRpc(), iotaCoinMetadataRequest)
             val iotaCoinMetadataJsonObject = Gson().fromJson(
                 iotaCoinMetadataResponse.body?.string(), JsonObject::class.java
             )
@@ -1250,8 +1238,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun iotaApys(
-        fetcher: IotaFetcher,
-        chain: ChainIota
+        fetcher: IotaFetcher, chain: ChainIota
     ): NetworkResult<MutableList<JsonObject>> {
         return try {
             val iotaApysRequest = JsonRpcRequest(

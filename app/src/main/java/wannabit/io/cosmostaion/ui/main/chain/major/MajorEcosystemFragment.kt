@@ -8,14 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter
 import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
@@ -26,8 +23,6 @@ class MajorEcosystemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
-
-    private lateinit var walletViewModel: WalletViewModel
 
     private lateinit var ecoSystemAdapter: EcoSystemAdapter
 
@@ -47,22 +42,16 @@ class MajorEcosystemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEcoSystemBinding.inflate(layoutInflater, container, false)
-        initViewModel()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpEcoSystemInfo()
+        initData()
     }
 
-    private fun initViewModel() {
-        val walletRepository = WalletRepositoryImpl()
-        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel =
-            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
-
+    private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable("selectedChain", BaseChain::class.java)
                 ?.let { selectedChain = it }
@@ -72,10 +61,10 @@ class MajorEcosystemFragment : Fragment() {
             }
         }
 
-        walletViewModel.ecoSystemList(selectedChain.apiName)
+        updateView()
     }
 
-    private fun updateView(infos: MutableList<JsonObject>) {
+    private fun initRecyclerView(infos: MutableList<JsonObject>?) {
         binding.apply {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
@@ -92,6 +81,7 @@ class MajorEcosystemFragment : Fragment() {
                         putExtra("dapp", it)
                         putExtra("selectedBitChain", selectedChain as Parcelable)
                         startActivity(this)
+
                     } else {
                         putExtra("dapp", it)
                         startActivity(this)
@@ -101,15 +91,18 @@ class MajorEcosystemFragment : Fragment() {
         }
     }
 
-    private fun setUpEcoSystemInfo() {
-        walletViewModel.ecoSystemListResult.observe(viewLifecycleOwner) { infos ->
-            runCatching {
-                if (infos?.isNotEmpty() == true) {
-                    updateView(infos)
-                }
-            }.onFailure {
-                it.printStackTrace()
+    private fun updateView() {
+        val infos = BaseData.originEcosystems?.filter { ecosystem ->
+            ecosystem["chains"].asJsonArray?.mapNotNull { it.asString }
+                ?.contains(selectedChain.apiName) == true
+        }?.sortedByDescending { it["is_default"]?.asBoolean == true }?.toMutableList()
+
+        runCatching {
+            if (infos?.isNotEmpty() == true) {
+                initRecyclerView(infos)
             }
+        }.onFailure {
+            it.printStackTrace()
         }
     }
 
