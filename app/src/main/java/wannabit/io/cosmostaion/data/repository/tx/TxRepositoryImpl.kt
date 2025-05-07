@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -1966,6 +1965,31 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun unsafeIotaTransferObject(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): NetworkResult<String> {
+        return try {
+            val param = listOf(sender, objectId, null, gasBudget, recipient)
+
+            val iotaUnSafeTransferObjectRequest = JsonRpcRequest(
+                method = "unsafe_transferObject", params = param
+            )
+            val iotaUnSafeTransferObjectResponse =
+                jsonRpcResponse(fetcher.iotaRpc(), iotaUnSafeTransferObjectRequest)
+            val iotaUnSafeTransferObjectJsonObject = Gson().fromJson(
+                iotaUnSafeTransferObjectResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                iotaUnSafeTransferObjectJsonObject["result"].asJsonObject["txBytes"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
     override suspend fun iotaDryRun(
         fetcher: IotaFetcher, txBytes: String
     ): NetworkResult<JsonObject> {
@@ -2105,6 +2129,75 @@ class TxRepositoryImpl : TxRepository {
         return ""
     }
 
+    override suspend fun broadcastIotaNftSend(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject {
+        try {
+            val txBytes = unsafeIotaTransferObject(fetcher, sender, objectId, recipient, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val dryRes = iotaDryRun(fetcher, txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                    val broadRes = iotaExecuteTx(
+                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                    )
+                    if (broadRes is NetworkResult.Success) {
+                        return broadRes.data
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return JsonObject()
+        }
+        return JsonObject()
+    }
+
+    override suspend fun simulateIotaNftSend(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): String {
+        try {
+            val txBytes = unsafeIotaTransferObject(fetcher, sender, objectId, recipient, gasBudget)
+
+            if (txBytes is NetworkResult.Success) {
+                val response = iotaDryRun(fetcher, txBytes.data)
+                if (response is NetworkResult.Success) {
+                    if (response.data["error"] != null) {
+                        return response.data["error"].asJsonObject["message"].asString
+
+                    } else {
+                        val computationCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                        val storageCost =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                        val storageRebate =
+                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                        val gasCost = if (storageCost > storageRebate) {
+                            computationCost.add(storageCost).subtract(storageRebate).multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        } else {
+                            computationCost.multiply(
+                                BigDecimal("1.3")
+                            ).setScale(0, RoundingMode.DOWN)
+                        }
+                        return gasCost.toString()
+                    }
+                }
+            }
+
+        } catch (e: Exception) {
+            return e.message.toString()
+        }
+        return ""
+    }
+
     override suspend fun simulateIotaStake(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String {
@@ -2159,7 +2252,6 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            Log.e("Test12344 : ", e.message.toString())
             safeApiCall(Dispatchers.IO) {
                 ""
             }

@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentSuiStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.major.sui.SuiStakingFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.MoveInfoFragment
 import java.math.BigDecimal
 import java.util.Date
 import java.util.Timer
@@ -159,7 +160,7 @@ class SuiStakeInfoFragment : Fragment() {
             }
 
             btnInfo.setOnClickListener {
-                handleOneClickWithDelay(SuiInfoFragment.newInstance(selectedChain))
+                handleOneClickWithDelay(MoveInfoFragment.newInstance(selectedChain))
             }
 
             btnStake.setOnClickListener {

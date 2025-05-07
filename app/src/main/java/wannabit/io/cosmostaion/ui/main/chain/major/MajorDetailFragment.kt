@@ -153,7 +153,7 @@ class MajorDetailFragment : Fragment() {
             val tableTitles = mutableListOf<String>()
             tableTitles.add("Crypto")
 
-            if (selectedChain is ChainSui) tableTitles.add("NFTs")
+            if (selectedChain is ChainSui || selectedChain is ChainIota) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
             tableTitles.add("History")

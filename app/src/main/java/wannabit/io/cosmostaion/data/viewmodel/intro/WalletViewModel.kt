@@ -871,7 +871,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val coinType = balance.asJsonObject["coinType"].asString
                                     val amount =
                                         balance.asJsonObject["totalBalance"].asString.toBigDecimal()
-                                    fetcher.suiBalances = fetcher.suiBalances
                                     fetcher.suiBalances.add(Pair(coinType, amount))
                                 }
                                 fetcher.suiBalances.sortWith { o1, o2 ->
@@ -902,7 +901,39 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             is ChainIota -> {
                 chain.iotaFetcher()?.let { fetcher ->
+                    chain.apply {
+                        when (val response = walletRepository.iotaBalance(fetcher, this)) {
+                            is NetworkResult.Success -> {
+                                fetcher.iotaBalances.clear()
+                                response.data?.get("result")?.asJsonArray?.forEach { balance ->
+                                    val coinType = balance.asJsonObject["coinType"].asString
+                                    val amount =
+                                        balance.asJsonObject["totalBalance"].asString.toBigDecimal()
+                                    fetcher.iotaBalances.add(Pair(coinType, amount))
+                                }
+                                fetcher.iotaBalances.sortWith { o1, o2 ->
+                                    when {
+                                        o1.first == SUI_MAIN_DENOM -> -1
+                                        o2.first == SUI_MAIN_DENOM -> 1
+                                        else -> 0
+                                    }
+                                }
 
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = fetcher.iotaBalances.size
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

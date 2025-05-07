@@ -674,6 +674,48 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    fun iotaNftSendBroadcast(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastIotaNftSend(
+                fetcher, sender, objectId, recipient, gasBudget, selectedChain
+            )
+            if (response["error"] == null) {
+                iotaBroadcast.postValue(response)
+            } else {
+                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun iotaNftSendSimulate(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateIotaNftSend(
+                fetcher, sender, objectId, recipient, gasBudget
+            )
+
+            if (response.toLongOrNull() != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
     fun iotaStakeSimulate(
         fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
@@ -693,6 +735,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+    // Bit
     private var _bitTxDataResult = MutableLiveData<Pair<MutableList<JsonObject>?, String>>()
     val bitTxDataResult: LiveData<Pair<MutableList<JsonObject>?, String>> get() = _bitTxDataResult
     fun bitTxData(chain: ChainBitCoin86) = viewModelScope.launch(Dispatchers.IO) {

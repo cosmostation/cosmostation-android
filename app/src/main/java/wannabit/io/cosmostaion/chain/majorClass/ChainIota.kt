@@ -100,5 +100,3 @@ const val IOTA_FEE_SEND = "4000000"
 const val IOTA_FEE_STAKE = "50000000"
 const val IOTA_FEE_UNSTAKE = "50000000"
 const val IOTA_FEE_DEFAULT = "70000000"
-
-//const val SUI_API = "https://us-central1-splash-wallet-60bd6.cloudfunctions.net"

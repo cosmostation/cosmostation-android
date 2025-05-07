@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.chain.majorClass.IOTA_MIN_STAKE
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentSuiStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.major.iota.IotaStakingFragment
+import wannabit.io.cosmostaion.ui.tx.info.major.MoveInfoFragment
 import java.math.BigDecimal
 import java.util.Date
 import java.util.Timer
@@ -160,7 +161,7 @@ class IotaStakeInfoFragment : Fragment() {
             }
 
             btnInfo.setOnClickListener {
-//                handleOneClickWithDelay(SuiInfoFragment.newInstance(selectedChain))
+                handleOneClickWithDelay(MoveInfoFragment.newInstance(selectedChain))
             }
 
             btnStake.setOnClickListener {

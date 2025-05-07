@@ -82,8 +82,8 @@ class IotaFetcher(private val chain: BaseChain) {
     fun stakedAmount(): BigDecimal {
         var staked = BigDecimal.ZERO
         var earned = BigDecimal.ZERO
-        iotaStakedList.forEach { suiStaked ->
-            suiStaked["stakes"].asJsonArray.forEach { stakes ->
+        iotaStakedList.forEach { iotaStaked ->
+            iotaStaked["stakes"].asJsonArray.forEach { stakes ->
                 staked = staked.add(stakes.asJsonObject["principal"].asLong.toBigDecimal())
                 earned = earned.add(
                     stakes.asJsonObject.get("estimatedReward")?.asLong?.toBigDecimal()
@@ -109,8 +109,8 @@ class IotaFetcher(private val chain: BaseChain) {
 
     fun principalAmount(): BigDecimal {
         var staked = BigDecimal.ZERO
-        iotaStakedList.forEach { suiStaked ->
-            suiStaked["stakes"].asJsonArray.forEach { stakes ->
+        iotaStakedList.forEach { iotaStaked ->
+            iotaStaked["stakes"].asJsonArray.forEach { stakes ->
                 staked = staked.add(stakes.asJsonObject["principal"].asLong.toBigDecimal())
             }
         }
@@ -119,8 +119,8 @@ class IotaFetcher(private val chain: BaseChain) {
 
     fun estimateRewardAmount(): BigDecimal {
         var earned = BigDecimal.ZERO
-        iotaStakedList.forEach { suiStaked ->
-            suiStaked["stakes"].asJsonArray.forEach { stakes ->
+        iotaStakedList.forEach { iotaStaked ->
+            iotaStaked["stakes"].asJsonArray.forEach { stakes ->
                 if (stakes.asJsonObject["estimatedReward"] != null) {
                     earned =
                         earned.add(stakes.asJsonObject["estimatedReward"].asLong.toBigDecimal())
@@ -131,9 +131,9 @@ class IotaFetcher(private val chain: BaseChain) {
     }
 
     fun iotaAllNfts(): MutableList<JsonObject> {
-        return iotaObjects.filter { suiObject ->
-            val types = suiObject["data"].asJsonObject["type"].asString.lowercase()
-            (!types.contains("stakedsui") && !types.contains("coin"))
+        return iotaObjects.filter { iotaObject ->
+            val types = iotaObject["data"].asJsonObject["type"].asString.lowercase()
+            (!types.contains("stakediota") && !types.contains("coin"))
         }.toMutableList()
     }
 

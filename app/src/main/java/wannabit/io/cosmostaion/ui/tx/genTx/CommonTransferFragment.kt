@@ -610,7 +610,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
             } else if (sendAssetType == SendAssetType.IOTA_COIN) {
                 transferStyle = TransferStyle.IOTA_STYLE
-                memoView.visibility = View.VISIBLE
+                memoView.visibility = View.GONE
 
             } else if (sendAssetType == SendAssetType.BIT_COIN) {
                 transferStyle = TransferStyle.BIT_COIN_STYLE
@@ -1796,7 +1796,7 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, ONLY_COSMOS_GRC20, IOTA_COIN }
-enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, SUI_ETC_STYLE, BIT_COIN_STYLE, IOTA_STYLE }
+enum class SendAssetType { ONLY_EVM_COIN, COSMOS_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, ONLY_COSMOS_GRC20, IOTA_COIN, IOTA_NFT }
+enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, SUI_ETC_STYLE, BIT_COIN_STYLE, IOTA_STYLE, IOTA_ETC_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }
 enum class IotaTxType { IOTA_SEND_COIN, IOTA_SEND_NFT, IOTA_STAKE, IOTA_UNSTAKE }

@@ -709,7 +709,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHumansEvm())
     chains.add(ChainInitia())
     chains.add(ChainInjective())
-//    chains.add(ChainIota())
+    chains.add(ChainIota())
     chains.add(ChainIris())
     chains.add(ChainIxo())
     chains.add(ChainJackal())

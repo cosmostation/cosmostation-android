@@ -254,6 +254,10 @@ interface TxRepository {
         gasBudget: String
     ): NetworkResult<String>
 
+    suspend fun unsafeIotaTransferObject(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): NetworkResult<String>
+
     suspend fun iotaDryRun(fetcher: IotaFetcher, txBytes: String): NetworkResult<JsonObject>
 
     suspend fun iotaExecuteTx(
@@ -279,6 +283,19 @@ interface TxRepository {
         recipient: MutableList<String>,
         amounts: MutableList<String>,
         gasBudget: String
+    ): String
+
+    suspend fun broadcastIotaNftSend(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaNftSend(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
     ): String
 
     suspend fun simulateIotaStake(

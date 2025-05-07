@@ -21,6 +21,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.goneOrVisible
@@ -437,6 +438,136 @@ class EndPointViewHolder(
                         )
                         val suiChainIdResponse =
                             jsonRpcResponse(fetcher.suiRpc(), suiChainIdRequest)
+                        if (suiChainIdResponse.isSuccessful) {
+                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                            withContext(Dispatchers.Main) {
+                                gapTime?.let {
+                                    provider.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+                                    providerUrl.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base02
+                                        )
+                                    )
+
+                                    loading.visibility = View.GONE
+                                    apiStatus.visibility = View.VISIBLE
+                                    apiStatus.setTextColor(
+                                        ContextCompat.getColorStateList(
+                                            context, R.color.color_base01
+                                        )
+                                    )
+
+                                    if (it <= 1.2) {
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                                        apiStatus.text = "Faster"
+
+                                    } else if (it <= 3) {
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                                        apiStatus.text = "Normal"
+
+                                    } else {
+                                        apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                                        apiStatus.text = "Slower"
+                                    }
+                                }
+                            }
+
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                provider.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
+                                providerUrl.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
+
+                                loading.visibility = View.GONE
+                                apiStatus.text = "Closed"
+                                apiStatus.visibility = View.VISIBLE
+                                apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                                apiStatus.setTextColor(
+                                    ContextCompat.getColorStateList(
+                                        context, R.color.color_base04
+                                    )
+                                )
+                            }
+                        }
+
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            provider.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                            providerUrl.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+
+                            loading.visibility = View.GONE
+                            apiStatus.text = "Closed"
+                            apiStatus.visibility = View.VISIBLE
+                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+                            apiStatus.setTextColor(
+                                ContextCompat.getColorStateList(
+                                    context, R.color.color_base04
+                                )
+                            )
+                        }
+                    }
+                }
+
+                endpointView.setOnClickListener {
+                    listener?.rpcSelect(endpoint.get("url").asString, gapTime)
+                }
+            }
+        }
+    }
+
+    fun iotaBind(
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
+    ) {
+        binding.apply {
+            (fromChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                provider.text = endpoint.get("provider").asString
+                providerUrl.text = endpoint.get("url").asString.replace("https://", "")
+
+                val checkTime = System.currentTimeMillis() / 1000.0
+                val url = endpoint.get("url").asString
+                if (fetcher.iotaRpc() != url) {
+                    chainView.visibility = View.GONE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_transparent
+                        )
+                    )
+
+                } else {
+                    chainView.visibility = View.VISIBLE
+                    endpointView.setBackgroundColor(
+                        ContextCompat.getColor(
+                            context, R.color.color_base08
+                        )
+                    )
+                }
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val suiChainIdRequest = JsonRpcRequest(
+                            method = "iota_getChainIdentifier", params = listOf()
+                        )
+                        val suiChainIdResponse =
+                            jsonRpcResponse(fetcher.iotaRpc(), suiChainIdRequest)
                         if (suiChainIdResponse.isSuccessful) {
                             gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             withContext(Dispatchers.Main) {

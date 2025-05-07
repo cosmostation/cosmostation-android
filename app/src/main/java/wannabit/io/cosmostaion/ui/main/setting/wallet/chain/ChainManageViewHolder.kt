@@ -6,6 +6,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.setChainLogo
@@ -37,6 +38,15 @@ class ChainManageViewHolder(
                     chainName.text = chain.name
                     restEndpoint.text = chain.suiFetcher()?.suiRpc()?.replace("https://", "")
                     restEndpointType.text = "SUI RPC"
+                }
+
+                is ChainIota -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
+
+                    chainName.text = chain.name
+                    restEndpoint.text = chain.iotaFetcher()?.iotaRpc()?.replace("https://", "")
+                    restEndpointType.text = "IOTA RPC"
                 }
 
                 else -> {

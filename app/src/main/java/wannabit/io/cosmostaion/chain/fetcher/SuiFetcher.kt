@@ -204,7 +204,7 @@ fun JsonObject?.assetImg(): String {
     }
 }
 
-fun JsonObject.suiRawNftUrlString(): String? {
+fun JsonObject.moveRawNftUrlString(): String? {
     return try {
         this["display"].asJsonObject["data"].asJsonObject["image_url"].asString
     } catch (e: Exception) {
@@ -212,9 +212,9 @@ fun JsonObject.suiRawNftUrlString(): String? {
     }
 }
 
-fun JsonObject.suiNftUrl(): String? {
+fun JsonObject.moveNftUrl(): String? {
     var urlString: String?
-    suiRawNftUrlString()?.let { url ->
+    moveRawNftUrlString()?.let { url ->
         if (url.startsWith("ipfs://")) {
             urlString = url.replace("ipfs://", "https://ipfs.io/ipfs/")
             return urlString

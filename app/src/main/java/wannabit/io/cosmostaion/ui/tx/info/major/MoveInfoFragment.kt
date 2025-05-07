@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.info.major.sui
+package wannabit.io.cosmostaion.ui.tx.info.major
 
 import android.os.Build
 import android.os.Bundle
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.databinding.FragmentSuiInfoBinding
 
-class SuiInfoFragment : BottomSheetDialogFragment() {
+class MoveInfoFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentSuiInfoBinding? = null
     private val binding get() = _binding!!
@@ -20,11 +21,11 @@ class SuiInfoFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(selectedChain: BaseChain): SuiInfoFragment {
+        fun newInstance(selectedChain: BaseChain): MoveInfoFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
             }
-            val fragment = SuiInfoFragment()
+            val fragment = MoveInfoFragment()
             fragment.arguments = args
             return fragment
         }
@@ -56,14 +57,21 @@ class SuiInfoFragment : BottomSheetDialogFragment() {
         }
 
         binding.apply {
-            (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                val epoch = fetcher.suiSystem["result"].asJsonObject["epoch"].asLong
+            val epoch = if (selectedChain is ChainSui) {
+                (selectedChain as ChainSui).suiFetcher?.let { fetcher ->
+                    fetcher.suiSystem["result"].asJsonObject["epoch"].asLong
+                }
 
-                dialogMsg0.text = getString(R.string.str_sui_guide_msg0)
-                dialogMsg1.text = getString(R.string.str_sui_guide_msg1, "#$epoch")
-                dialogMsg2.text = getString(R.string.str_sui_guide_msg2, "#" + (epoch + 1))
-                dialogMsg3.text = getString(R.string.str_sui_guide_msg3)
+            } else {
+                (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
+                    fetcher.iotaSystem["result"].asJsonObject["epoch"].asLong
+                }
             }
+
+            dialogMsg0.text = getString(R.string.str_sui_guide_msg0)
+            dialogMsg1.text = getString(R.string.str_sui_guide_msg1, "#$epoch")
+            dialogMsg2.text = getString(R.string.str_sui_guide_msg2, "#" + ((epoch ?: 0) + 1))
+            dialogMsg3.text = getString(R.string.str_sui_guide_msg3)
         }
     }
 

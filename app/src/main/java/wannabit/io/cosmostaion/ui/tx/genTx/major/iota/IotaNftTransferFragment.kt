@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.tx.genTx.major.sui
+package wannabit.io.cosmostaion.ui.tx.genTx.major.iota
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -21,7 +21,7 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.moveNftUrl
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -36,26 +36,26 @@ import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TransferTxResultActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.IotaTxType
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
 import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
 import wannabit.io.cosmostaion.ui.tx.option.address.TransferAddressFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class SuiNftTransferFragment(
-    private val fromChain: BaseChain, private val toSendSuiNFT: JsonObject?
+class IotaNftTransferFragment(
+    private val fromChain: BaseChain, private val toSendIotaNFT: JsonObject?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentNftTransferBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var toChain: BaseChain
-    private val sendAssetType = SendAssetType.SUI_NFT
+    private val sendAssetType = SendAssetType.IOTA_NFT
 
     private var selectedFeePosition = 0
-    private var suiFeeBudget = BigDecimal.ZERO
+    private var iotaFeeBudget = BigDecimal.ZERO
     private var toAddress = ""
 
     private var isClickable = true
@@ -103,7 +103,7 @@ class SuiNftTransferFragment(
     private fun initNft() {
         binding.apply {
             nftImg.clipToOutline = true
-            toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
+            toSendIotaNFT?.get("data")?.asJsonObject?.let { data ->
                 data.moveNftUrl()?.let { url ->
                     Glide.with(requireActivity()).load(url).diskCacheStrategy(
                         DiskCacheStrategy.ALL
@@ -138,17 +138,17 @@ class SuiNftTransferFragment(
             )
 
             feeSegment.visibility = View.VISIBLE
-            val suiGasTitle = listOf(
+            val iotaGasTitle = listOf(
                 "Default"
             )
-            for (i in suiGasTitle.indices) {
+            for (i in iotaGasTitle.indices) {
                 val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
                 feeSegment.addView(
                     segmentView.root,
                     i,
                     LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
                 )
-                segmentView.btnTitle.text = suiGasTitle[i]
+                segmentView.btnTitle.text = iotaGasTitle[i]
             }
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
@@ -156,8 +156,8 @@ class SuiNftTransferFragment(
             BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
-                suiFeeBudget =
-                    (fromChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_SEND_NFT)
+                iotaFeeBudget =
+                    (fromChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_SEND_NFT)
                 updateFeeView()
             }
         }
@@ -179,10 +179,10 @@ class SuiNftTransferFragment(
 
     private fun updateFeeView() {
         binding.apply {
-            (fromChain as ChainSui).apply {
+            (fromChain as ChainIota).apply {
                 val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
-                val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                val dpBudget = iotaFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
 
                 feeAmount.text = formatAmount(dpBudget.toPlainString(), 9)
@@ -196,7 +196,8 @@ class SuiNftTransferFragment(
         binding.apply {
             addressView.setOnClickListener {
                 handleOneClickWithDelay(
-                    TransferAddressFragment.newInstance(fromChain,
+                    TransferAddressFragment.newInstance(
+                        fromChain,
                         toChain,
                         toAddress,
                         sendAssetType,
@@ -231,15 +232,15 @@ class SuiNftTransferFragment(
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
-                (fromChain as ChainSui).apply {
-                    suiFetcher()?.let { fetcher ->
-                        toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
-                            txViewModel.suiNftSendBroadcast(
+                (fromChain as ChainIota).apply {
+                    iotaFetcher?.let { fetcher ->
+                        toSendIotaNFT?.get("data")?.asJsonObject?.let { data ->
+                            txViewModel.iotaNftSendBroadcast(
                                 fetcher,
                                 mainAddress,
                                 data.asJsonObject["objectId"].asString,
                                 toAddress,
-                                suiFeeBudget.toString(),
+                                iotaFeeBudget.toString(),
                                 this
                             )
                         }
@@ -253,15 +254,15 @@ class SuiNftTransferFragment(
             if (toAddress.isEmpty()) return
             btnNftSend.updateButtonView(false)
             backdropLayout.visibility = View.VISIBLE
-            (fromChain as ChainSui).apply {
-                suiFetcher()?.let { fetcher ->
-                    toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
-                        txViewModel.suiNftSendSimulate(
+            (fromChain as ChainIota).apply {
+                iotaFetcher?.let { fetcher ->
+                    toSendIotaNFT?.get("data")?.asJsonObject?.let { data ->
+                        txViewModel.iotaNftSendSimulate(
                             fetcher,
                             mainAddress,
                             data.asJsonObject["objectId"].asString,
                             toAddress,
-                            suiFeeBudget.toString()
+                            iotaFeeBudget.toString()
                         )
                     }
                 }
@@ -271,7 +272,7 @@ class SuiNftTransferFragment(
 
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
-            suiFeeBudget = gasUsed?.toBigDecimal()
+            iotaFeeBudget = gasUsed?.toBigDecimal()
             updateFeeView()
             isBroadCastTx(true)
         }
@@ -284,7 +285,7 @@ class SuiNftTransferFragment(
     }
 
     private fun setUpBroadcast() {
-        txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
+        txViewModel.iotaBroadcast.observe(viewLifecycleOwner) { response ->
             if (response["result"] != null) {
                 val status =
                     response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
@@ -296,7 +297,7 @@ class SuiNftTransferFragment(
                     }
                     putExtra("txHash", response["result"].asJsonObject["digest"].asString)
                     putExtra("fromChainTag", fromChain.tag)
-                    putExtra("transferStyle", TransferStyle.SUI_STYLE.ordinal)
+                    putExtra("transferStyle", TransferStyle.IOTA_STYLE.ordinal)
                     putExtra("suiResult", response.toString())
                     startActivity(this)
                 }
