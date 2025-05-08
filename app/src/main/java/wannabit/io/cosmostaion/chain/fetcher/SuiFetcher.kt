@@ -225,7 +225,7 @@ fun JsonObject.moveNftUrl(): String? {
 }
 
 fun JsonObject.moveValidatorImg(): String? {
-    if (this["imageUrl"].asString != null) {
+    if (this.has("imageUrl")) {
         return this["imageUrl"].asString
     }
     return null

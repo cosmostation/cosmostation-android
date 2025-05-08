@@ -1,16 +1,30 @@
 package wannabit.io.cosmostaion.ui.tx.option.validator
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.CachePolicy
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
 
-class IotaValidatorAdapter :
+class IotaValidatorAdapter(private val context: Context) :
     ListAdapter<JsonObject, ValidatorDefaultViewHolder>(ValidatorDefaultDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
+
+    private val coilImageLoader by lazy {
+        ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .build()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ValidatorDefaultViewHolder {
         val binding =
@@ -20,7 +34,7 @@ class IotaValidatorAdapter :
 
     override fun onBindViewHolder(holder: ValidatorDefaultViewHolder, position: Int) {
         val validator = currentList[position]
-        holder.iotaBind(validator)
+        holder.iotaBind(validator, coilImageLoader)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {

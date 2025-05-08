@@ -118,7 +118,7 @@ class ValidatorDefaultFragment(
                 }
 
             } else if (iotaFromValidator != null) {
-                iotaValidatorDefaultAdapter = IotaValidatorAdapter()
+                iotaValidatorDefaultAdapter = IotaValidatorAdapter(requireContext())
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = iotaValidatorDefaultAdapter
