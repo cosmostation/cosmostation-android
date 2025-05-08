@@ -28,7 +28,7 @@ class ChainIota : BaseChain(), Parcelable {
     override var stakeDenom: String = IOTA_MAIN_DENOM
     override var coinSymbol: String = "IOTA"
 
-    override var mainUrl: String = "https://api.testnet.iota.cafe"
+    override var mainUrl: String = "https://api.mainnet.iota.cafe"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey

@@ -90,7 +90,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
@@ -105,7 +104,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
@@ -754,7 +752,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
     chains.add(ChainPundix())
-    chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
@@ -772,7 +769,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
     chains.add(ChainSource())
-    chains.add(ChainStafi())
     chains.add(ChainStargaze())
     chains.add(ChainStory())
     chains.add(ChainStratosEvm())

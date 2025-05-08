@@ -11,9 +11,9 @@ import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.MoveStakeReq
+import wannabit.io.cosmostaion.data.model.req.MoveTransactionBlock
 import wannabit.io.cosmostaion.data.model.req.MoveUnStakeReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
-import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 
 interface LcdApi {
@@ -137,7 +137,7 @@ interface LcdApi {
     suspend fun unSafeUnStake(@Body parameters: MoveUnStakeReq): String
 
     @POST("buildSuiTransaction")
-    suspend fun transactionBlock(@Body parameters: SuiTransactionBlock): Response<String>
+    suspend fun transactionBlock(@Body parameters: MoveTransactionBlock): Response<String>
 
     //Iota
     @POST("buildIotaStakingRequest")
@@ -145,6 +145,9 @@ interface LcdApi {
 
     @POST("buildIotaUnstakingRequest")
     suspend fun unSafeIotaUnStake(@Body parameters: MoveUnStakeReq): String
+
+    @POST("buildIotaTransaction")
+    suspend fun iotaTransactionBlock(@Body parameters: MoveTransactionBlock): Response<String>
 
 
     //Bit

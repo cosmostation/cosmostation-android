@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -104,6 +105,7 @@ class DappActivity : BaseActivity() {
 
     private var selectedChain: BaseChain? = null
     private var selectSuiChain: BaseChain? = null
+    private var selectIotaChain: BaseChain? = null
     private var selectBitcoin: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
@@ -950,6 +952,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun showIotaSignDialog(
+        bundle: Bundle, signListener: PopUpIotaSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpIotaSignFragment(
+                selectIotaChain,
+                bundle.getLong("id"),
+                data,
+                bundle.getString("method"),
+                signListener
+            ).show(
+                supportFragmentManager, PopUpIotaSignFragment::class.java.name
+            )
+        }
+    }
+
     private fun showBitSignDialog(
         bundle: Bundle, signListener: PopUpBitSignFragment.WcSignRawDataListener
     ) {
@@ -1129,8 +1147,9 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
+            val method = messageJson.getString("method")
 
-            when (messageJson.getString("method")) {
+            when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
@@ -1743,6 +1762,93 @@ class DappActivity : BaseActivity() {
                         })
                 }
 
+                //iota
+                "iota_getAccount" -> {
+                    if (selectIotaChain == null) {
+                        selectIotaChain = allChains?.find { it.name == "Iota" }
+                    }
+                    val accountJson = JSONObject()
+                    accountJson.put("address", selectIotaChain?.mainAddress)
+                    accountJson.put("publicKey", "0x" + selectIotaChain?.publicKey?.bytesToHex())
+                    appToWebResult(
+                        messageJson, accountJson, messageId
+                    )
+                }
+
+                "iota_getChain" -> {
+                    selectIotaChain = allChains?.find { it.name == "Iota" }
+                    appToWebResult(
+                        messageJson, "mainnet", messageId
+                    )
+                }
+
+                "iota_signTransaction", "iota_signTransactionBlock" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle = signBundle(0, params.toString(), "iota_signTransaction")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                val signed = JSONObject()
+                                signed.put("bytes", data)
+                                signed.put("signature", signature)
+                                appToWebResult(
+                                    messageJson, signed, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
+                "iota_signAndExecuteTransactionBlock", "iota_signAndExecuteTransaction" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle =
+                        signBundle(0, params.toString(), "iota_signAndExecuteTransactionBlock")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                approveIotaSignExecuteRequest(
+                                    messageJson, messageId, data, signature
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
+                "iota_signMessage", "iota_signPersonalMessage" -> {
+                    val params = messageJson.getJSONObject("params")
+                    if (params.getString("accountAddress")
+                            .lowercase() != selectIotaChain?.mainAddress?.lowercase()
+                    ) {
+                        appToWebError(messageJson, messageId, "Wrong address")
+                        return
+                    }
+                    val signBundle = signBundle(0, params.toString(), "iota_signMessage")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                val signed = JSONObject()
+                                signed.put("bytes", data)
+                                signed.put("signature", signature)
+                                appToWebResult(
+                                    messageJson, signed, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
                 //babylon
                 "bit_requestAccount" -> {
                     withContext(Dispatchers.IO) {
@@ -2108,6 +2214,40 @@ class DappActivity : BaseActivity() {
                 val suiExecuteResponse = jsonRpcResponse(fetcher.suiRpc(), suiExecuteRequest)
                 val suiExecuteJsonObject = JSONObject(suiExecuteResponse.body?.string())
                 appToWebResult(messageJson, suiExecuteJsonObject.getJSONObject("result"), messageId)
+            }
+        }
+    }
+
+    private fun approveIotaSignExecuteRequest(
+        messageJson: JSONObject, messageId: String, txByte: String, signature: String
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            (selectSuiChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                val params = messageJson.getJSONObject("params")
+                val txJsonObject = JsonParser.parseString(params.toString()).asJsonObject
+                val options = if (txJsonObject["options"] != null) {
+                    formatJsonOptions(
+                        Gson().fromJson(
+                            txJsonObject["options"], JsonObject::class.java
+                        )
+                    )
+                } else {
+                    mapOf("showInput" to true, "showEffects" to true, "showEvents" to true)
+                }
+
+                val param = listOf(
+                    txByte, mutableListOf(signature), options, "WaitForLocalExecution"
+                )
+                val iotaExecuteRequest = JsonRpcRequest(
+                    method = "iota_executeTransactionBlock", params = param
+                )
+                val iotaExecuteResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaExecuteRequest)
+                val iotaExecuteJsonObject = JSONObject(iotaExecuteResponse.body?.string())
+                appToWebResult(
+                    messageJson,
+                    iotaExecuteJsonObject.getJSONObject("result"),
+                    messageId
+                )
             }
         }
     }

@@ -18,7 +18,7 @@ import net.i2p.crypto.eddsa.Utils
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -34,8 +34,7 @@ import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-
-class PopUpSuiSignFragment(
+class PopUpIotaSignFragment(
     var selectedChain: BaseChain?,
     private val id: Long,
     private val data: String,
@@ -68,7 +67,7 @@ class PopUpSuiSignFragment(
         binding.apply {
             signView.setBackgroundResource(R.drawable.cell_bg)
             feeView.setBackgroundResource(R.drawable.cell_bg)
-            if (method == "sui_signMessage") {
+            if (method == "iota_signMessage") {
                 dialogTitle.text = getString(R.string.str_permit_request)
                 warnMsg.visibility = View.GONE
                 feeView.visibility = View.INVISIBLE
@@ -82,8 +81,8 @@ class PopUpSuiSignFragment(
                         requireContext(), R.color.color_accent_red
                     )
                 )
-                dappFeeTokenImg.setImg(R.drawable.token_sui)
-                dappFeeToken.text = "SUI"
+                dappFeeTokenImg.setImg(R.drawable.token_iota)
+                dappFeeToken.text = "IOTA"
             }
         }
     }
@@ -91,13 +90,13 @@ class PopUpSuiSignFragment(
     private fun parsingRequest() {
         lifecycleScope.launch(Dispatchers.IO) {
             val txJsonObject = JsonParser.parseString(data).asJsonObject
-            (selectedChain as ChainSui).apply {
-                suiFetcher()?.let { fetcher ->
-                    if (method == "sui_signMessage") {
+            (selectedChain as ChainIota).apply {
+                iotaFetcher()?.let { fetcher ->
+                    if (method == "iota_signMessage") {
                         val messageBytes = Base64.decode(txJsonObject["message"].asString)
                         updateData = txJsonObject["message"].asString
                         signature = Signer.moveSignature(
-                            selectedChain as ChainSui, txJsonObject["message"].asString
+                            selectedChain as ChainIota, txJsonObject["message"].asString
                         )[0]
 
                         withContext(Dispatchers.Main) {
@@ -116,23 +115,23 @@ class PopUpSuiSignFragment(
                         var format = ""
                         var gasCost = BigDecimal.ZERO
 
-                        val response = RetrofitInstance.moveApi.transactionBlock(
+                        val response = RetrofitInstance.moveApi.iotaTransactionBlock(
                             MoveTransactionBlock(
                                 txJsonObject["transactionBlockSerialized"].asString,
                                 mainAddress,
-                                fetcher.suiRpc()
+                                fetcher.iotaRpc()
                             )
                         )
 
                         if (response.isSuccessful) {
                             val txBytes = Base64.toBase64String(Utils.hexToBytes(response.body()))
-                            val suiDryRunRequest = JsonRpcRequest(
-                                method = "sui_dryRunTransactionBlock", params = listOf(txBytes)
+                            val iotaDryRunRequest = JsonRpcRequest(
+                                method = "iota_dryRunTransactionBlock", params = listOf(txBytes)
                             )
-                            val suiDryRunResponse =
-                                jsonRpcResponse(fetcher.suiRpc(), suiDryRunRequest)
-                            val suiDryRunJsonObject = Gson().fromJson(
-                                suiDryRunResponse.body?.string(), JsonObject::class.java
+                            val iotaDryRunResponse =
+                                jsonRpcResponse(fetcher.iotaRpc(), iotaDryRunRequest)
+                            val iotaDryRunJsonObject = Gson().fromJson(
+                                iotaDryRunResponse.body?.string(), JsonObject::class.java
                             )
 
                             txSerialized.addProperty("sender", selectedChain?.mainAddress)
@@ -140,29 +139,29 @@ class PopUpSuiSignFragment(
                                 txSerialized["gasData"].asJsonObject?.let { gasData ->
                                     gasData.addProperty(
                                         "budget",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["budget"].asString
+                                        iotaDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["budget"].asString
                                     )
                                     gasData.addProperty(
                                         "price",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["price"].asString
+                                        iotaDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["price"].asString
                                     )
                                     gasData.addProperty(
                                         "owner",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["owner"].asString
+                                        iotaDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["owner"].asString
                                     )
                                     gasData.add(
                                         "payment",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["payment"].asJsonArray
+                                        iotaDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["payment"].asJsonArray
                                     )
                                 }
                             }
                             format = formatJsonString(txSerialized.toString())
                             val computationCost =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
+                                iotaDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
                             val storageCost =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
+                                iotaDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
                             val storageRebate =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                                iotaDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
 
                             val cost = storageCost.subtract(storageRebate)
                             val dpCost = if (cost > BigDecimal.ZERO) {
@@ -172,7 +171,7 @@ class PopUpSuiSignFragment(
                             }
                             gasCost = computationCost.add(dpCost).setScale(0, RoundingMode.DOWN)
                             updateData = txBytes
-                            signature = Signer.moveSignature(selectedChain as ChainSui, txBytes)[0]
+                            signature = Signer.moveSignature(selectedChain as ChainIota, txBytes)[0]
                         }
 
                         withContext(Dispatchers.Main) {
@@ -181,7 +180,7 @@ class PopUpSuiSignFragment(
                                 binding.btnConfirm.isEnabled = true
                                 signData.text = format
                                 val coinGeckoId = BaseData.getAsset(
-                                    apiName, (selectedChain as ChainSui).stakeDenom
+                                    apiName, (selectedChain as ChainIota).stakeDenom
                                 )?.coinGeckoId
                                 val price = BaseData.getPrice(coinGeckoId)
                                 val dpBudget =

@@ -21,5 +21,5 @@ data class MoveUnStakeReq(
     val address: String, val objectId: String?, val gas: String, val rpc: String
 )
 
-data class SuiTransactionBlock(val txBlock: String, val address: String, val rpc: String)
+data class MoveTransactionBlock(val txBlock: String, val address: String, val rpc: String)
 
