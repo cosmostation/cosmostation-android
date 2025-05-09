@@ -357,7 +357,7 @@ class TxRepositoryImpl : TxRepository {
 
                     var rawTransaction: RawTransaction? = null
 
-                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN) {
                         rawTransaction = RawTransaction.createEtherTransaction(
                             chainID,
                             nonce,
@@ -392,7 +392,7 @@ class TxRepositoryImpl : TxRepository {
                 } else {
                     var rawTransaction: RawTransaction? = null
 
-                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
+                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN) {
                         rawTransaction = RawTransaction.createEtherTransaction(
                             nonce,
                             web3j.ethGasPrice().send().gasPrice,

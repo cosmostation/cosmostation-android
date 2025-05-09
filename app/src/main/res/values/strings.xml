@@ -483,6 +483,7 @@
     <string name="str_dark_theme_msg" translatable="false">Softly,calmly. Dive deeper with Dark Theme</string>
     <string name="str_cosmic_theme_msg" translatable="false">Like a scene from space - a new view every time</string>
     <string name="str_send_to_evm" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘0x...’&lt;/font&gt; address</string>
+    <string name="str_send_to_cosmos" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘%1$s...’&lt;/font&gt; address or IBC Send</string>
 
 
     // header

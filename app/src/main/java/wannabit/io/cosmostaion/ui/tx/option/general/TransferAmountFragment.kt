@@ -153,29 +153,6 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         }
                 }
 
-                SendAssetType.COSMOS_EVM_COIN -> {
-                    if (transferType == TransferStyle.WEB3_STYLE) {
-                        assetDecimal = 18
-                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
-                            .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                                availableDenom.text = fromChain.coinSymbol
-                            }
-
-                    } else {
-                        toSendAsset?.let { asset ->
-                            assetDecimal = asset.decimals ?: 6
-                            availableAmount.toBigDecimal().movePointLeft(assetDecimal)
-                                ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                                    available.text =
-                                        formatAmount(amount.toPlainString(), assetDecimal)
-                                    availableDenom.text = asset.symbol
-                                    availableDenom.setTextColor(asset.assetColor())
-                                }
-                        }
-                    }
-                }
-
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset?.let { asset ->
                         assetDecimal = asset.decimals ?: 6

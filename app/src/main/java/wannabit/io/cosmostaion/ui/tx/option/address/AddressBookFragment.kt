@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.tx.option.address
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
@@ -154,7 +156,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
                                 if (fromChain.supportCosmos()) {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
+                                    if (addressBook.address.startsWith("0x") && BaseKey.isValidEthAddress(addressBook.address) && addressBook.address != ByteUtils.convertBech32ToEvm(
                                             senderAddress
                                         )
                                     ) {
@@ -170,54 +172,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
                                 }
                             }
-                    }
-
-                    SendAssetType.COSMOS_EVM_COIN -> {
-                        AppDatabase.getInstance().refAddressDao().selectAll()
-                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
-                            .forEach { refAddress ->
-                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
-                                    if (Prefs.displayLegacy) {
-                                        refAddresses.add(refAddress)
-                                    } else {
-                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
-                                            ?.let { chain ->
-                                                if (chain.isDefault) {
-                                                    refAddresses.add(refAddress)
-                                                }
-                                            }
-                                    }
-                                }
-                            }
-
-                        AppDatabase.getInstance().addressBookDao().selectAll()
-                            .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                    addressBooks.add(addressBook)
-                                }
-                            }
-
-                        if (fromChain.tag == toChain.tag) {
-                            AppDatabase.getInstance().refAddressDao().selectAll()
-                                .forEach { refAddress ->
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
-                                    ) {
-                                        refEvmAddresses.add(refAddress)
-                                    }
-                                }
-
-                            AppDatabase.getInstance().addressBookDao().selectAll()
-                                .forEach { addressBook ->
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        ) && !BaseUtils.isValidSuiAddress(addressBook.address)
-                                    ) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
-                                }
-                        }
                     }
 
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
@@ -317,33 +271,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                             segmentView.visibility = View.GONE
                             recycler.visibility = View.GONE
-                        }
-
-                        SendAssetType.COSMOS_EVM_COIN -> {
-                            if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
-                                recycler.visibility = View.GONE
-                                emptyLayout.visibility = View.VISIBLE
-
-                            } else {
-                                recycler.visibility = View.VISIBLE
-                                emptyLayout.visibility = View.GONE
-                                initCosmosRecyclerView(
-                                    refAddresses, addressBooks
-                                )
-                            }
-
-                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                                return@withContext
-                            } else {
-                                initEvmRecyclerView(refEvmAddresses, evmAddressBooks)
-                            }
-
-                            segmentView.visibility = View.VISIBLE
-                            evmRecycler.visibility = View.GONE
-                            initSegmentView()
-                            segmentAction(
-                                refEvmAddresses, refAddresses, evmAddressBooks, addressBooks
-                            )
                         }
 
                         SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
