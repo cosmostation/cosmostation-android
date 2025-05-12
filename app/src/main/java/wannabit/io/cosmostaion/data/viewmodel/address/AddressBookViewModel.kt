@@ -53,7 +53,8 @@ class AddressBookViewModel(private val addressRepository: AddressRepository) : V
                         }
 
                     } else if (addressBook.chainName.contains("Bitcoin")) {
-                        val chain = allChains().firstOrNull { it.name == addressBook.chainName }
+                        val chain =
+                            allChains().firstOrNull { it.isDefault && it.name == addressBook.chainName }
                         addressBook.chainName = chain?.tag ?: ""
 
                     } else {
