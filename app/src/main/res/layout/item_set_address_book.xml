@@ -20,22 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingVertical="@dimen/space_12"
-            android:paddingStart="@dimen/space_16">
+            android:paddingHorizontal="@dimen/space_16">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/info_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/space_4"
-                android:layout_marginEnd="@dimen/space_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/chain_img"
-                    android:layout_width="@dimen/space_30"
-                    android:layout_height="@dimen/space_30"
+                    android:layout_width="@dimen/space_24"
+                    android:layout_height="@dimen/space_24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/chain_default"/>
@@ -46,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
+                    android:layout_marginStart="@dimen/space_4"
                     android:maxWidth="@dimen/space_150"
                     android:maxLines="1"
                     android:textColor="@color/color_base01"
@@ -76,7 +75,6 @@
                 android:layout_marginTop="@dimen/space_4"
                 android:ellipsize="middle"
                 android:maxLines="1"
-                android:layout_marginHorizontal="@dimen/space_10"
                 android:textColor="@color/color_base02"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

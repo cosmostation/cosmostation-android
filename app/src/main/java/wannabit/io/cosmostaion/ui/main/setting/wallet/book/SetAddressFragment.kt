@@ -1,14 +1,23 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
+import android.app.Activity
+import android.app.Dialog
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.bitcoinj.core.Address
 import org.bitcoinj.params.MainNetParams
@@ -16,12 +25,14 @@ import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
@@ -39,6 +50,8 @@ class SetAddressFragment : BottomSheetDialogFragment() {
     private lateinit var addressBookType: AddressBookType
 
     private val addressBookViewModel: AddressBookViewModel by activityViewModels()
+
+    private var isClickable = true
 
     companion object {
         @JvmStatic
@@ -102,6 +115,16 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 getString("memo")?.let { memo = it }
             }
 
+            recipientChainView.setBackgroundResource(R.drawable.cell_bg)
+            memoDescriptionView.setBackgroundResource(R.drawable.cell_bg)
+            memoImg.setColorFilter(
+                ContextCompat.getColor(requireContext(), R.color.color_sub_blue),
+                PorterDuff.Mode.SRC_IN
+            )
+
+            if (toChain == null && addressBookType == AddressBookType.ManualNew) {
+                toChain = ChainCosmos()
+            }
             initView()
         }
     }
@@ -170,17 +193,58 @@ class SetAddressFragment : BottomSheetDialogFragment() {
 
     private fun updateView() {
         binding.apply {
-            val addressInput = addressTxt.text.toString().trim()
-            if (BaseKey.isValidEthAddress(addressInput) || BaseUtils.isValidSuiAddress(addressInput)) {
-                memoLayout.visibility = View.GONE
+            toChain?.let { chain ->
+                chainName.text = chain.name
+                chainImg.setChainLogo(chain)
 
-            } else {
-                allChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
-                    ?.let { chain ->
-                        if (BaseUtils.isValidBechAddress(chain, addressInput)) {
-                            memoLayout.visibility = View.VISIBLE
-                        }
+                val addressInput = addressTxt.text.toString().trim()
+                if (chain.isEvmCosmos()) {
+                    if (addressInput.isNotEmpty() && BaseKey.isValidEthAddress(addressInput)) {
+                        memoLayout.visibility = View.GONE
+                        memoDescriptionView.visibility = View.GONE
+                    } else {
+                        memoLayout.visibility = View.VISIBLE
+                        memoDescriptionView.visibility = View.VISIBLE
                     }
+
+                } else if (chain.supportCosmos() || chain is ChainBitCoin86) {
+                    memoLayout.visibility = View.VISIBLE
+                    memoDescriptionView.visibility = View.VISIBLE
+                } else {
+                    memoLayout.visibility = View.GONE
+                    memoDescriptionView.visibility = View.GONE
+                }
+
+            } ?: run {
+                chainName.text = "EVM Networks (Universal)"
+                chainImg.setImageResource(R.drawable.evm_universal)
+                memoLayout.visibility = View.GONE
+                memoDescriptionView.visibility = View.GONE
+            }
+            chainImg.alpha = 0.2f
+        }
+    }
+
+    private fun updateMemoView() {
+        binding.apply {
+            val addressInput = addressTxt.text.toString().trim()
+            if (toChain?.isEvmCosmos() == true) {
+                if (BaseKey.isValidEthAddress(addressInput) || BaseUtils.isValidSuiAddress(
+                        addressInput
+                    )
+                ) {
+                    memoLayout.visibility = View.GONE
+                    memoDescriptionView.visibility = View.GONE
+
+                } else {
+                    allChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
+                        ?.let { chain ->
+                            if (BaseUtils.isValidBechAddress(chain, addressInput)) {
+                                memoLayout.visibility = View.VISIBLE
+                                memoDescription.visibility = View.VISIBLE
+                            }
+                        }
+                }
             }
         }
     }
@@ -196,7 +260,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 override fun onTextChanged(
                     s: CharSequence?, start: Int, before: Int, count: Int
                 ) {
-                    updateView()
+                    updateMemoView()
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
@@ -206,6 +270,21 @@ class SetAddressFragment : BottomSheetDialogFragment() {
 
     private fun setUpClickAction() {
         binding.apply {
+            recipientChainView.setOnClickListener {
+                if (addressBookType != AddressBookType.ManualNew) {
+                    return@setOnClickListener
+                }
+                handleOneClickWithDelay(
+                    SetChainTypeBookFragment.newInstance(toChain?.tag,
+                        object : ChainSelectAddressListener {
+                            override fun select(chainTag: String) {
+                                toChain = allChains().firstOrNull { it.tag == chainTag }
+                                updateView()
+                            }
+                        })
+                )
+            }
+
             btnConfirm.setOnClickListener {
                 val nameInput = nameTxt.text.toString().trim()
                 if (nameInput.isEmpty()) {
@@ -217,45 +296,47 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     requireContext().makeToast(R.string.error_invalid_address)
                     return@setOnClickListener
                 }
-                val memoInput = memoTxt.text.toString().trim()
 
                 when (addressBookType) {
                     AddressBookType.ManualNew -> {
-                        getRecipientChain(addressInput)?.let { targetChain ->
-                            if (targetChain is ChainBitCoin86) {
-                                val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
-                                if (memoByteLength > 80) {
-                                    requireContext().makeToast(R.string.error_memo_count)
-                                    return@setOnClickListener
-                                }
-                            }
-                            val addressBook = AddressBook(
-                                nameInput,
-                                targetChain.name,
-                                addressInput,
-                                memoInput,
-                                Calendar.getInstance().timeInMillis
-                            )
-                            addressBookViewModel.updateAddressBook(addressBook)
-                            dismiss()
-
-                        } ?: run {
-                            requireActivity().makeToast(R.string.error_invalid_address)
-                            return@setOnClickListener
-                        }
-                    }
-
-                    AddressBookType.ManualEdit -> {
-                        if (addressBook?.chainName?.contains("Bitcoin") == true) {
-                            val memoByteLength = memoInput.toByteArray(Charsets.UTF_8).size
+                        if (toChain is ChainBitCoin86) {
+                            val memoByteLength =
+                                memoTxt.text.toString().trim().toByteArray(Charsets.UTF_8).size
                             if (memoByteLength > 80) {
                                 requireContext().makeToast(R.string.error_memo_count)
                                 return@setOnClickListener
                             }
                         }
+
+                        val memoInput = if (memoLayout.isVisible) {
+                            memoTxt.text.toString().trim()
+                        } else {
+                            ""
+                        }
+
+                        val addressBook = AddressBook(
+                            nameInput,
+                            toChain?.tag ?: "EVM-universal",
+                            addressInput,
+                            memoInput,
+                            Calendar.getInstance().timeInMillis
+                        )
+                        addressBookViewModel.updateAddressBook(addressBook)
+                        dismiss()
+                    }
+
+                    AddressBookType.ManualEdit -> {
+                        if (toChain is ChainBitCoin86) {
+                            val memoByteLength =
+                                memoTxt.text.toString().trim().toByteArray(Charsets.UTF_8).size
+                            if (memoByteLength > 80) {
+                                requireContext().makeToast(R.string.error_memo_count)
+                                return@setOnClickListener
+                            }
+                        }
+
                         addressBook?.bookName = nameInput
-                        addressBook?.address = addressInput
-                        addressBook?.memo = memoInput
+                        addressBook?.memo = memoTxt.text.toString().trim()
                         addressBook?.lastTime = Calendar.getInstance().timeInMillis
                         addressBookViewModel.updateAddressBook(addressBook!!)
                         dismiss()
@@ -263,8 +344,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
 
                     AddressBookType.AfterTxEdit -> {
                         addressBook?.bookName = nameInput
-                        addressBook?.address = addressInput
-                        addressBook?.memo = memoInput
+                        addressBook?.memo = memoTxt.text.toString().trim()
                         addressBook?.lastTime = Calendar.getInstance().timeInMillis
                         addressBookViewModel.updateAddressBook(addressBook!!)
                         dismiss()
@@ -273,9 +353,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     AddressBookType.AfterTxNew -> {
                         val addressBook = AddressBook(
                             nameInput,
-                            toChain!!.name,
+                            toChain?.tag ?: "",
                             addressInput,
-                            memoInput,
+                            memoTxt.text.toString().trim(),
                             Calendar.getInstance().timeInMillis
                         )
                         addressBookViewModel.updateAddressBook(addressBook)
@@ -291,61 +371,115 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             return false
         }
 
-        try {
-            return try {
-                Address.fromString(MainNetParams.get(), address)
-                true
+        if (toChain == null) {
+            return BaseKey.isValidEthAddress(address)
 
-            } catch (e: Exception) {
-                Address.fromString(TestNet3Params.get(), address)
-                true
-            }
-
-        } catch (e: Exception) {
-            if (BaseKey.isValidEthAddress(address) || BaseUtils.isValidSuiAddress(address)) {
-                return true
+        } else if (toChain is ChainBitCoin86) {
+            if (toChain?.isTestnet == true) {
+                return try {
+                    Address.fromString(TestNet3Params.get(), address)
+                    true
+                } catch (e: Exception) {
+                    false
+                }
 
             } else {
-                allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-                    ?.let { chain ->
-                        if (BaseUtils.isValidBechAddress(chain, address)) {
-                            return true
-                        }
-                    }
+                return try {
+                    Address.fromString(MainNetParams.get(), address)
+                    true
+                } catch (e: Exception) {
+                    false
+                }
             }
+
+        } else if (toChain is ChainSui || toChain is ChainIota) {
+            return BaseUtils.isValidSuiAddress(address)
+
+        } else if (toChain?.isEvmCosmos() == true) {
+            return if (address?.startsWith("0x") == true && BaseKey.isValidEthAddress(address)) {
+                true
+            } else {
+                val prefix = address?.substringBefore('1')
+                toChain?.accountPrefix == prefix
+            }
+
+        } else if (toChain?.supportCosmos() == true) {
+            val prefix = address?.substringBefore('1')
+            return toChain?.accountPrefix == prefix
+
+        } else {
+            return address?.startsWith("0x") == true && BaseKey.isValidEthAddress(address)
         }
-        return false
     }
 
-    private fun getRecipientChain(address: String?): BaseChain? {
-        if (address?.isEmpty() == true) {
-            return null
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.setOnShowListener { dialogInterface ->
+            val bottomSheetDialog = dialogInterface as BottomSheetDialog
+            setupRatio(bottomSheetDialog)
         }
+        return dialog
+    }
 
-        try {
-            return try {
-                Address.fromString(MainNetParams.get(), address)
-                ChainBitCoin86()
-            } catch (e: Exception) {
-                Address.fromString(TestNet3Params.get(), address)
-                ChainBitcoin86Testnet()
-            }
+    private fun setupRatio(bottomSheetDialog: BottomSheetDialog) {
+        val bottomSheet = bottomSheetDialog.findViewById<View>(R.id.design_bottom_sheet) as View
+        val behavior = BottomSheetBehavior.from(bottomSheet)
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = bottomSheetDialogDefaultHeight(windowHeight())
+        bottomSheet.layoutParams = layoutParams
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
 
-        } catch (e: Exception) {
-            if (BaseUtils.isValidSuiAddress(address)) {
-                return ChainSui()
+    private fun bottomSheetDialogDefaultHeight(windowHeight: Int): Int {
+        return windowHeight * 18 / 20
+    }
 
-            } else if (BaseKey.isValidEthAddress(address)) {
-                return BaseChain()
+    private fun windowHeight(): Int {
+        val displayMetrics = DisplayMetrics()
+        (context as Activity?)!!.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
 
-            } else {
-                allChains().firstOrNull { address?.startsWith(it.accountPrefix + "1") == true }
-                    ?.let { chain ->
-                        return chain
+    override fun onStart() {
+        super.onStart()
+
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+        bottomSheet?.let { sheet ->
+            val behavior = BottomSheetBehavior.from(sheet)
+            behavior.isHideable = true
+
+            behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    when (newState) {
+                        BottomSheetBehavior.STATE_HIDDEN -> dismiss()
+                        BottomSheetBehavior.STATE_COLLAPSED -> {
+                            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                        }
+
+                        else -> {}
                     }
-            }
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+            })
         }
-        return null
+    }
+
+    private fun handleOneClickWithDelay(bottomSheetDialogFragment: BottomSheetDialogFragment) {
+        if (isClickable) {
+            isClickable = false
+
+            bottomSheetDialogFragment.show(
+                requireActivity().supportFragmentManager, bottomSheetDialogFragment::class.java.name
+            )
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                isClickable = true
+            }, 300)
+        }
     }
 
     override fun onDestroyView() {

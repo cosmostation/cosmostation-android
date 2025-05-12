@@ -130,11 +130,7 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE ||
-                transferStyle == TransferStyle.SUI_ETC_STYLE ||
-                transferStyle == TransferStyle.IOTA_STYLE ||
-                transferStyle == TransferStyle.IOTA_ETC_STYLE
-            ) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -182,11 +178,7 @@ class TransferTxResultActivity : BaseActivity() {
                     viewFailMintscan.visibility = View.GONE
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE ||
-                transferStyle == TransferStyle.SUI_ETC_STYLE ||
-                transferStyle == TransferStyle.IOTA_STYLE ||
-                transferStyle == TransferStyle.IOTA_ETC_STYLE
-            ) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
                 if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
@@ -493,7 +485,7 @@ class TransferTxResultActivity : BaseActivity() {
                     if (existed.memo != toMemo) {
                         withContext(Dispatchers.Main) {
                             SetAddressFragment.newInstance(
-                                existed, null, "", toMemo, AddressBookType.AfterTxEdit
+                                existed, toChain, "", toMemo, AddressBookType.AfterTxEdit
                             ).show(
                                 supportFragmentManager, SetAddressFragment::class.java.name
                             )
@@ -543,11 +535,7 @@ class TransferTxResultActivity : BaseActivity() {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
 
-            if (transferStyle == TransferStyle.SUI_STYLE ||
-                transferStyle == TransferStyle.SUI_ETC_STYLE ||
-                transferStyle == TransferStyle.IOTA_STYLE ||
-                transferStyle == TransferStyle.IOTA_ETC_STYLE
-            ) {
+            if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
                 val errorMsg =
                     suiResult?.get("result")?.asJsonObject?.get("effects")?.asJsonObject?.get("status")?.asJsonObject?.get(
                         "error"

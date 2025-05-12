@@ -24,4 +24,7 @@ interface AddressBookDao {
 
     @Query("update AddressBook set bookName = :bookName, memo = :memo, lastTime = :lastTime where id = :addressBookId")
     suspend fun updateAddressBook(addressBookId: Long, bookName: String, memo: String?, lastTime: Long)
+
+    @Query("update AddressBook set chainName = :chainName where id = :addressBookId")
+    suspend fun updateAddressBookWithChainTag(addressBookId: Long, chainName: String)
 }

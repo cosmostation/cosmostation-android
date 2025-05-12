@@ -279,6 +279,7 @@
     <string name="title_legacy_path">レガシーパスはサポートされません</string>
     <string name="title_support_inject">インジェクションをサポート</string>
     <string name="title_select_option">ソートオプション選択</string>
+    <string name="title_enter_memo">メモ入力</string>
 
 
     <string name="str_update_msg">新しいバージョンが出ました。 \n\nプレイストアでアップデートをお願いします。</string>
@@ -373,6 +374,7 @@
     <string name="str_additional_sbtc_fee_msg">sBTC staking requires an additional fee in tBABY, deducted from your tBABY balance at &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt;</string>
     <string name="str_time_lock_msg">%1$sをステーキングすると、最大&lt;font color="#BED1F2"&gt;%2$s週&lt;/font&gt;間ロックされます。\nこの期間が終了すると、アンステーキングせずに自動的に出金可能になります。</string>
     <string name="str_unstaking_msg">いつでもアンステーキングが可能で、アンステーキング後7日間の期間を経て出金できるようになります。</string>
+    <string name="str_meme_description">メモを入力せずにCosmosエコシステムコインを中央化取引所に入金すると、資産損失が発生する可能性があります。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

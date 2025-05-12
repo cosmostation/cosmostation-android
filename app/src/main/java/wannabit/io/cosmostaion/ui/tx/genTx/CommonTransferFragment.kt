@@ -1575,6 +1575,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
                 putExtra("fromChainTag", fromChain.tag)
                 putExtra("toChainTag", toChain.tag)
+                putExtra("recipientAddress", toAddress)
                 putExtra("transferStyle", transferStyle.ordinal)
                 startActivity(this)
             }

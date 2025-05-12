@@ -53,6 +53,7 @@ object Prefs {
     private const val DAPP_FILTER = "PRE_DAPP_FILTER"
     private const val DAPP_PINNED = "PRE_DAPP_PINNED"
     private const val DAPP_HIDE = "PRE_DAPP_HIDE"
+    private const val UPDATE_ADDRESS_BOOK = "PRE_UPDATE_ADDRESS_BOOK"
 
 
     private val preference =
@@ -208,6 +209,10 @@ object Prefs {
     var dappFilter: Int
         get() = preference.getInt(DAPP_FILTER, 0)
         set(value) = preference.edit().putInt(DAPP_FILTER, value).apply()
+
+    var isUpdateAddressBook: Boolean
+        get() = preference.getBoolean(UPDATE_ADDRESS_BOOK, false)
+        set(value) = preference.edit().putBoolean(UPDATE_ADDRESS_BOOK, value).apply()
 
     fun setDappHideTime(id: Int) {
         val key = "$DAPP_HIDE:$id"

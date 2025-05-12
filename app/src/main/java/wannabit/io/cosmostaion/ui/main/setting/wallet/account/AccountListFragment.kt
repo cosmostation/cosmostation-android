@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveFragment
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.account.AccountViewModel
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -160,6 +161,7 @@ class AccountListFragment : Fragment() {
 
     private fun initSearchView() {
         binding.apply {
+            searchBar.visibleOrGone(mnemonicAccounts.size + privateAccounts.size > 15)
             searchView.setQuery("", false)
             searchView.clearFocus()
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

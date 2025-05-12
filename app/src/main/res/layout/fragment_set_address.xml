@@ -2,156 +2,253 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
 
-    <androidx.core.widget.NestedScrollView
+    <View
+        android:id="@+id/top_view"
+        android:layout_width="@dimen/space_40"
+        android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@drawable/round_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/font_sb_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:text="@string/title_address_book"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_view" />
+
+    <TextView
+        android:id="@+id/address_set_msg"
+        style="@style/font_sm_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginEnd="35dp"
+        android:text="@string/str_set_address_msg"
+        android:textColor="@color/color_base03"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/recipient_chain_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_24"
+        app:cardCornerRadius="@dimen/space_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_set_msg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="@dimen/space_68"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <View
-                android:id="@+id/top_view"
-                android:layout_width="@dimen/space_40"
-                android:layout_height="@dimen/space_4"
-                android:layout_marginTop="@dimen/space_20"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/round_view"
+            <ImageView
+                android:id="@+id/chain_img"
+                android:layout_width="@dimen/space_110"
+                android:layout_height="@dimen/space_110"
+                android:layout_marginEnd="-16dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recipient_title"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_14"
+                android:text="@string/title_recipient_chain"
+                android:textColor="@color/color_base02"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title"
-                style="@style/font_sb_16"
+                android:id="@+id/chain_name"
+                style="@style/font_sb_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/top_view"
-                android:layout_marginTop="@dimen/space_16"
-                android:layout_marginStart="@dimen/space_20"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginBottom="15dp"
                 android:textColor="@color/color_base01"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_view"
-                android:text="@string/title_address_book"/>
-
-            <TextView
-                android:id="@+id/address_set_msg"
-                style="@style/font_sm_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/top_view"
-                android:layout_marginTop="@dimen/space_12"
-                android:layout_marginStart="@dimen/space_20"
-                android:layout_marginEnd="@dimen/space_44"
-                android:textColor="@color/color_base02"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/str_set_address_msg"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/name_layout"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_62"
-                android:layout_marginTop="@dimen/space_24"
-                app:endIconDrawable="@drawable/icon_clear"
-                app:errorTextColor="@color/color_red"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/address_set_msg">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name_txt"
-                    style="@style/InputEditText"
-                    android:textSize="@dimen/text_size_12"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/str_name"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:maxLines="2"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/address_layout"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_62"
-                android:layout_marginTop="@dimen/space_16"
-                app:endIconDrawable="@drawable/icon_clear"
-                app:errorTextColor="@color/color_red"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/name_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address_txt"
-                    style="@style/InputEditText"
-                    android:textSize="@dimen/text_size_12"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/str_address"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:maxLines="2"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/memo_layout"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_62"
-                android:layout_marginTop="@dimen/space_16"
-                app:endIconDrawable="@drawable/icon_clear"
-                app:errorTextColor="@color/color_red"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/color_base01"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/address_layout">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/memo_txt"
-                    style="@style/InputEditText"
-                    android:textSize="@dimen/text_size_12"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/str_memo"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:maxLines="2"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btn_confirm"
-                style="@style/font_sb_16"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_54"
-                android:layout_marginTop="@dimen/space_60"
-                android:layout_marginHorizontal="@dimen/space_16"
-                android:layout_marginBottom="@dimen/space_12"
-                android:background="@drawable/button_common_bg"
-                android:text="@string/str_confirm"
-                android:textAllCaps="false"
-                android:textColor="@color/color_base01"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/memo_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/recipient_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_layout"
+        style="@style/TextInputAddressBookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        app:endIconDrawable="@drawable/icon_clear"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/color_base01"
+        app:errorTextColor="@color/color_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipient_chain_view">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_txt"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/str_name"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="2"
+            android:textSize="@dimen/text_size_12" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/address_layout"
+        style="@style/TextInputAddressBookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_20"
+        app:endIconDrawable="@drawable/icon_clear"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/color_base01"
+        app:errorTextColor="@color/color_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/address_txt"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/str_address"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:maxLines="2"
+            android:textSize="@dimen/text_size_12" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/memo_layout"
+        style="@style/TextInputAddressBookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_62"
+        android:layout_marginTop="@dimen/space_6"
+        app:endIconDrawable="@drawable/icon_clear"
+        app:endIconMode="clear_text"
+        app:endIconTint="@color/color_base01"
+        app:errorTextColor="@color/color_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/memo_txt"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/str_memo"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="2"
+            android:textSize="@dimen/text_size_12" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/memo_description_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="@dimen/space_16"
+        app:cardCornerRadius="@dimen/space_12"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/memo_img"
+                android:layout_width="@dimen/space_16"
+                android:layout_height="@dimen/space_16"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_16"
+                android:src="@drawable/icon_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/font_sb_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_2"
+                android:text="@string/title_enter_memo"
+                android:textColor="@color/color_sub_blue"
+                app:layout_constraintBottom_toBottomOf="@+id/memo_img"
+                app:layout_constraintStart_toEndOf="@+id/memo_img"
+                app:layout_constraintTop_toTopOf="@id/memo_img" />
+
+            <TextView
+                android:id="@+id/memo_description"
+                style="@style/font_sr_11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_marginBottom="@dimen/space_16"
+                android:text="@string/str_meme_description"
+                android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/memo_img" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/font_sb_16"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_54"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginBottom="@dimen/space_12"
+        android:background="@drawable/button_common_bg"
+        android:text="@string/str_confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/color_base01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
