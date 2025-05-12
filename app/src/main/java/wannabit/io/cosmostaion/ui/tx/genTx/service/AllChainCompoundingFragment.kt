@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
@@ -96,7 +97,7 @@ class AllChainCompoundingFragment : BaseTxFragment() {
             lifecycleScope.launch(Dispatchers.IO) {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
-                        account.sortedDisplayChains().filter { !it.isTestnet && it.supportCosmos() }
+                        account.sortedDisplayChains().filter { !it.isTestnet && it.supportCosmos() && it !is ChainNeutron }
                             .forEach { chain ->
                                 val compoundAble = chain.cosmosFetcher?.compoundAbleRewards()
                                 val txFee = chain.getInitPayableFee(requireContext())

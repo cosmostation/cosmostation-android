@@ -36,22 +36,23 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
-import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
-import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
+import wannabit.io.cosmostaion.databinding.FragmentAllChainClaimBinding
+import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
@@ -98,7 +99,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         for (chain in account.sortedDisplayChains()
-                            .filter { !it.isTestnet && it.supportCosmos() }) {
+                            .filter { !it.isTestnet && it.supportCosmos() && it !is ChainNeutron }) {
                             val valueAbleReward = chain.cosmosFetcher?.valueAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward?.isNotEmpty() == true && txFee != null) {
