@@ -595,7 +595,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     if (position == 0) {
-                        if (chain.isEvmCosmos()) {
+                        if (chain.isEvmCosmos() && chain !is ChainOktEvm) {
                             handleOneClickWithDelay(SelectSendTypeFragment.newInstance(selectedChain, denom))
 
                         } else {

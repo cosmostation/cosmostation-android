@@ -52,6 +52,10 @@ class AddressBookViewModel(private val addressRepository: AddressRepository) : V
                             addressBook.chainName = ChainSui().tag
                         }
 
+                    } else if (addressBook.chainName.contains("Bitcoin")) {
+                        val chain = allChains().firstOrNull { it.name == addressBook.chainName }
+                        addressBook.chainName = chain?.tag ?: ""
+
                     } else {
                         val prefix = addressBook.address.substringBefore('1')
                         val chainTag =
