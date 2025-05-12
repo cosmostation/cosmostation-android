@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -104,6 +105,7 @@ class DappActivity : BaseActivity() {
 
     private var selectedChain: BaseChain? = null
     private var selectSuiChain: BaseChain? = null
+    private var selectIotaChain: BaseChain? = null
     private var selectBitcoin: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
@@ -163,9 +165,11 @@ class DappActivity : BaseActivity() {
             "babylon118_T" -> {
                 allChains?.find { it is ChainBitCoin86 && it.isDefault }
             }
+
             "babylon118" -> {
                 allChains?.find { it is ChainBitCoin86 && it.isDefault }
             }
+
             else -> {
                 allChains?.firstOrNull { it.tag == ecoMajorChain?.tag }
             }
@@ -547,8 +551,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -562,8 +565,7 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(
-                            signBundle,
+                        showSignDialog(signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -599,8 +601,7 @@ class DappActivity : BaseActivity() {
                         val signBundle = signBundle(
                             id, requestJson.toString(), "personal_sign"
                         )
-                        showEvmSignDialog(
-                            signBundle,
+                        showEvmSignDialog(signBundle,
                             object : PopUpEvmSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     val response = Sign.Params.Response(
@@ -627,7 +628,8 @@ class DappActivity : BaseActivity() {
                         val signBundle = signBundle(
                             id, requestJson.get(0).toString(), "eth_sendTransaction"
                         )
-                        showEvmSignDialog(signBundle,
+                        showEvmSignDialog(
+                            signBundle,
                             object : PopUpEvmSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     lifecycleScope.launch(Dispatchers.IO) {
@@ -672,7 +674,8 @@ class DappActivity : BaseActivity() {
                         }
 
                         val signBundle = signBundle(id, params, "eth_signTypedData")
-                        showEvmSignDialog(signBundle,
+                        showEvmSignDialog(
+                            signBundle,
                             object : PopUpEvmSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     val response = Sign.Params.Response(
@@ -949,6 +952,22 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun showIotaSignDialog(
+        bundle: Bundle, signListener: PopUpIotaSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpIotaSignFragment(
+                selectIotaChain,
+                bundle.getLong("id"),
+                data,
+                bundle.getString("method"),
+                signListener
+            ).show(
+                supportFragmentManager, PopUpIotaSignFragment::class.java.name
+            )
+        }
+    }
+
     private fun showBitSignDialog(
         bundle: Bundle, signListener: PopUpBitSignFragment.WcSignRawDataListener
     ) {
@@ -1128,8 +1147,9 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
+            val method = messageJson.getString("method")
 
-            when (messageJson.getString("method")) {
+            when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
@@ -1207,7 +1227,8 @@ class DappActivity : BaseActivity() {
                 "cos_signMessage" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_message")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignMessageRequest(messageJson, messageId, data)
@@ -1224,7 +1245,8 @@ class DappActivity : BaseActivity() {
                 "cos_signAmino" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_amino")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignAminoInjectRequest(messageJson, messageId, data)
@@ -1241,7 +1263,8 @@ class DappActivity : BaseActivity() {
                 "cos_signDirect" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sign_direct")
-                    showSignDialog(signBundle,
+                    showSignDialog(
+                        signBundle,
                         object : PopUpCosmosSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 approveSignDirectInjectRequest(messageJson, messageId, data)
@@ -1535,8 +1558,7 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(
-                        signBundle,
+                    showEvmSignDialog(signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1559,7 +1581,8 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "eth_signTypedData")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -1577,7 +1600,8 @@ class DappActivity : BaseActivity() {
                 "eth_sendTransaction" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params[0].toString(), "eth_sendTransaction")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 lifecycleScope.launch(Dispatchers.IO) {
@@ -1674,7 +1698,8 @@ class DappActivity : BaseActivity() {
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
@@ -1695,7 +1720,8 @@ class DappActivity : BaseActivity() {
                     val params = messageJson.getJSONObject("params")
                     val signBundle =
                         signBundle(0, params.toString(), "sui_signAndExecuteTransactionBlock")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 approveSuiSignExecuteRequest(
@@ -1718,11 +1744,99 @@ class DappActivity : BaseActivity() {
                         return
                     }
                     val signBundle = signBundle(0, params.toString(), "sui_signMessage")
-                    showSuiSignDialog(signBundle,
+                    showSuiSignDialog(
+                        signBundle,
                         object : PopUpSuiSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String, signature: String) {
                                 val signed = JSONObject()
                                 signed.put("messageBytes", data)
+                                signed.put("signature", signature)
+                                appToWebResult(
+                                    messageJson, signed, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
+                //iota
+                "iota_getAccount" -> {
+                    if (selectIotaChain == null) {
+                        selectIotaChain = allChains?.find { it.name == "Iota" }
+                    }
+                    val accountJson = JSONObject()
+                    accountJson.put("address", selectIotaChain?.mainAddress)
+                    accountJson.put("publicKey", "0x" + selectIotaChain?.publicKey?.bytesToHex())
+                    appToWebResult(
+                        messageJson, accountJson, messageId
+                    )
+                }
+
+                "iota_getChain" -> {
+                    selectIotaChain = allChains?.find { it.name == "Iota" }
+                    appToWebResult(
+                        messageJson, "mainnet", messageId
+                    )
+                }
+
+                "iota_signTransaction", "iota_signTransactionBlock" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle = signBundle(0, params.toString(), "iota_signTransaction")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                val signed = JSONObject()
+                                signed.put("bytes", data)
+                                signed.put("signature", signature)
+                                appToWebResult(
+                                    messageJson, signed, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
+                "iota_signAndExecuteTransactionBlock", "iota_signAndExecuteTransaction" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle =
+                        signBundle(0, params.toString(), "iota_signAndExecuteTransactionBlock")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                approveIotaSignExecuteRequest(
+                                    messageJson, messageId, data, signature
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "User rejected the request.")
+                            }
+                        })
+                }
+
+                "iota_signMessage", "iota_signPersonalMessage" -> {
+                    val params = messageJson.getJSONObject("params")
+                    if (params.getString("accountAddress")
+                            .lowercase() != selectIotaChain?.mainAddress?.lowercase()
+                    ) {
+                        appToWebError(messageJson, messageId, "Wrong address")
+                        return
+                    }
+                    val signBundle = signBundle(0, params.toString(), "iota_signMessage")
+                    showIotaSignDialog(
+                        signBundle,
+                        object : PopUpIotaSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String, signature: String) {
+                                val signed = JSONObject()
+                                signed.put("bytes", data)
                                 signed.put("signature", signature)
                                 appToWebResult(
                                     messageJson, signed, messageId
@@ -1887,8 +2001,7 @@ class DappActivity : BaseActivity() {
                         }
 
                         val signBundle = signBundle(0, params.toString(), "bit_sendBitcoin")
-                        showBitSignDialog(
-                            signBundle,
+                        showBitSignDialog(signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     lifecycleScope.launch(Dispatchers.IO) {
@@ -1930,8 +2043,7 @@ class DappActivity : BaseActivity() {
                     withContext(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
                         val signBundle = signBundle(0, params.toString(), "bit_signMessage")
-                        showBitSignDialog(
-                            signBundle,
+                        showBitSignDialog(signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     appToWebResult(
@@ -1952,8 +2064,7 @@ class DappActivity : BaseActivity() {
                     withContext(Dispatchers.IO) {
                         val params = messageJson.getString("params")
                         val signBundle = signBundle(0, params, "bit_signPsbt")
-                        showBitSignDialog(
-                            signBundle,
+                        showBitSignDialog(signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     appToWebResult(
@@ -2103,6 +2214,40 @@ class DappActivity : BaseActivity() {
                 val suiExecuteResponse = jsonRpcResponse(fetcher.suiRpc(), suiExecuteRequest)
                 val suiExecuteJsonObject = JSONObject(suiExecuteResponse.body?.string())
                 appToWebResult(messageJson, suiExecuteJsonObject.getJSONObject("result"), messageId)
+            }
+        }
+    }
+
+    private fun approveIotaSignExecuteRequest(
+        messageJson: JSONObject, messageId: String, txByte: String, signature: String
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            (selectSuiChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                val params = messageJson.getJSONObject("params")
+                val txJsonObject = JsonParser.parseString(params.toString()).asJsonObject
+                val options = if (txJsonObject["options"] != null) {
+                    formatJsonOptions(
+                        Gson().fromJson(
+                            txJsonObject["options"], JsonObject::class.java
+                        )
+                    )
+                } else {
+                    mapOf("showInput" to true, "showEffects" to true, "showEvents" to true)
+                }
+
+                val param = listOf(
+                    txByte, mutableListOf(signature), options, "WaitForLocalExecution"
+                )
+                val iotaExecuteRequest = JsonRpcRequest(
+                    method = "iota_executeTransactionBlock", params = param
+                )
+                val iotaExecuteResponse = jsonRpcResponse(fetcher.iotaRpc(), iotaExecuteRequest)
+                val iotaExecuteJsonObject = JSONObject(iotaExecuteResponse.body?.string())
+                appToWebResult(
+                    messageJson,
+                    iotaExecuteJsonObject.getJSONObject("result"),
+                    messageId
+                )
             }
         }
     }

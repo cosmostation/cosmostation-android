@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
-import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_DAPP_HEADER
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_INJECT_HEADER
@@ -26,8 +23,6 @@ class EvmEcoSystemFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var selectedEvmChain: BaseChain
-
-    private lateinit var walletViewModel: WalletViewModel
 
     private lateinit var evmEcoSystemAdapter: EvmEcoSystemAdapter
 
@@ -47,22 +42,16 @@ class EvmEcoSystemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEcoSystemBinding.inflate(layoutInflater, container, false)
-        initViewModel()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpEcoSystemInfo()
+        initData()
     }
 
-    private fun initViewModel() {
-        val walletRepository = WalletRepositoryImpl()
-        val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
-        walletViewModel =
-            ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
-
+    private fun initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arguments?.getParcelable("selectedEvmChain", BaseChain::class.java)
                 ?.let { selectedEvmChain = it }
@@ -72,10 +61,10 @@ class EvmEcoSystemFragment : Fragment() {
             }
         }
 
-        walletViewModel.ecoSystemList(selectedEvmChain.apiName)
+        updateView()
     }
 
-    private fun updateView(infos: MutableList<JsonObject>) {
+    private fun initRecyclerView(infos: MutableList<JsonObject>?) {
         binding.apply {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
@@ -107,49 +96,52 @@ class EvmEcoSystemFragment : Fragment() {
         }
     }
 
-    private fun setUpEcoSystemInfo() {
-        walletViewModel.ecoSystemListResult.observe(viewLifecycleOwner) { infos ->
-            if (selectedEvmChain is ChainEthereum) {
-                val inject = JsonObject().apply {
-                    addProperty("name", "Injection Example")
-                    addProperty(
-                        "description",
-                        "This page offers examples and guidance for integrating and using the Cosmostation app in applications."
-                    )
-                    addProperty(
-                        "thumbnail",
-                        "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/injection.png"
-                    )
-                    addProperty(
-                        "link", "https://cosmostation.github.io/cosmostation-app-injection-example/"
-                    )
-                    addProperty("type", "Develop Tool")
-                }
-                val github = JsonObject().apply {
-                    addProperty("name", "Injection Github")
-                    addProperty(
-                        "description",
-                        "This GitHub provides sample code and guides for integrating Cosmostation Wallet with DApps."
-                    )
-                    addProperty(
-                        "thumbnail",
-                        "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/github.png"
-                    )
-                    addProperty(
-                        "link", "https://github.com/cosmostation/cosmostation-app-injection-example"
-                    )
-                    addProperty("type", "Github")
-                }
-                infos?.add(0, inject)
-                infos?.add(1, github)
+    private fun updateView() {
+        val infos = BaseData.originEcosystems?.filter { ecosystem ->
+            ecosystem["chains"].asJsonArray?.mapNotNull { it.asString }
+                ?.contains(selectedEvmChain.apiName) == true
+        }?.sortedByDescending { it["is_default"]?.asBoolean == true }?.toMutableList()
+
+        if (selectedEvmChain is ChainEthereum) {
+            val inject = JsonObject().apply {
+                addProperty("name", "Injection Example")
+                addProperty(
+                    "description",
+                    "This page offers examples and guidance for integrating and using the Cosmostation app in applications."
+                )
+                addProperty(
+                    "thumbnail",
+                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/injection.png"
+                )
+                addProperty(
+                    "link", "https://cosmostation.github.io/cosmostation-app-injection-example/"
+                )
+                addProperty("type", "Develop Tool")
             }
-            runCatching {
-                if (infos?.isNotEmpty() == true) {
-                    updateView(infos)
-                }
-            }.onFailure {
-                it.printStackTrace()
+            val github = JsonObject().apply {
+                addProperty("name", "Injection Github")
+                addProperty(
+                    "description",
+                    "This GitHub provides sample code and guides for integrating Cosmostation Wallet with DApps."
+                )
+                addProperty(
+                    "thumbnail",
+                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/github.png"
+                )
+                addProperty(
+                    "link", "https://github.com/cosmostation/cosmostation-app-injection-example"
+                )
+                addProperty("type", "Github")
             }
+            infos?.add(0, inject)
+            infos?.add(1, github)
+        }
+        runCatching {
+            if (infos?.isNotEmpty() == true) {
+                initRecyclerView(infos)
+            }
+        }.onFailure {
+            it.printStackTrace()
         }
     }
 

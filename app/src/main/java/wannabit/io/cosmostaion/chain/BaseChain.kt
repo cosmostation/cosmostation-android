@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainInt3Face
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
@@ -66,6 +67,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLombard
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLumera
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainManifest
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
@@ -90,7 +92,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuasar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
@@ -105,7 +106,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStafi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
@@ -155,12 +155,14 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainLumeraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
@@ -190,7 +192,6 @@ open class BaseChain : Parcelable {
     open var tag: String = ""
     open var isTestnet: Boolean = false
     open var isDefault: Boolean = true
-    open var isOtherChainImage: Boolean = false
     open var apiName: String = ""
     open var accountPrefix: String = ""
 
@@ -250,12 +251,10 @@ open class BaseChain : Parcelable {
     }
 
     suspend fun setInfoWithSeed(
-        context: Context,
-        seed: ByteArray?,
-        parentPath: List<ChildNumber>,
-        lastPath: String
+        context: Context, seed: ByteArray?, parentPath: List<ChildNumber>, lastPath: String
     ) {
-        privateKey = BaseKey.getPrivateKey(accountKeyType.pubkeyType, seed, parentPath, lastPath)
+        privateKey =
+            BaseKey.getPrivateKey(this, accountKeyType.pubkeyType, seed, parentPath, lastPath)
         setInfoWithPrivateKey(context, privateKey)
     }
 
@@ -263,22 +262,14 @@ open class BaseChain : Parcelable {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
-            address =
-                BaseKey.getAddressFromPubKey(
-                    context,
-                    publicKey,
-                    accountKeyType.pubkeyType,
-                    accountPrefix
-                )
+            address = BaseKey.getAddressFromPubKey(
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+            )
 
         } else {
-            evmAddress =
-                BaseKey.getAddressFromPubKey(
-                    context,
-                    publicKey,
-                    accountKeyType.pubkeyType,
-                    accountPrefix
-                )
+            evmAddress = BaseKey.getAddressFromPubKey(
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+            )
             if (supportCosmos()) {
                 address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
             }
@@ -327,8 +318,10 @@ open class BaseChain : Parcelable {
     }
 
     fun chainLogo(): String {
-        return if (isOtherChainImage) {
-            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}2.png"
+        return if (isTestnet) {
+            getChainListParam()?.get("chain_image")?.asString ?: ""
+        } else if (isEvmCosmos()) {
+            "$CHAIN_BASE_URL$apiName/resource/chain_${apiName}_evm.png"
         } else {
             getChainListParam()?.get("chain_image")?.asString ?: ""
         }
@@ -643,7 +636,7 @@ open class BaseChain : Parcelable {
         return ""
     }
 
-    fun allValue(isUsd: Boolean?): BigDecimal {
+    fun allValue(isUsd: Boolean?): BigDecimal? {
         return if (isUsd == true) {
             coinUsdValue.add(tokenUsdValue)
         } else {
@@ -717,6 +710,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHumansEvm())
     chains.add(ChainInitia())
     chains.add(ChainInjective())
+    chains.add(ChainInt3Face())
+    chains.add(ChainIota())
     chains.add(ChainIris())
     chains.add(ChainIxo())
     chains.add(ChainJackal())
@@ -733,6 +728,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLombard())
     chains.add(ChainLum880())
     chains.add(ChainLum118())
+//    chains.add(ChainLumera())
     chains.add(ChainManifest())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
@@ -761,7 +757,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
     chains.add(ChainPundix())
-    chains.add(ChainQuasar())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
@@ -779,7 +774,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
     chains.add(ChainSource())
-    chains.add(ChainStafi())
     chains.add(ChainStargaze())
     chains.add(ChainStory())
     chains.add(ChainStratosEvm())
@@ -808,6 +802,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitcoin86Testnet())
     chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
+    chains.add(ChainLumeraTestnet())
     chains.add(ChainMantraTestnet())
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
@@ -859,7 +854,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, NONE }
+enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

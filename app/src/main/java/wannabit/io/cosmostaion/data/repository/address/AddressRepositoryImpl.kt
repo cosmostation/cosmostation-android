@@ -20,6 +20,16 @@ class AddressRepositoryImpl : AddressRepository {
     }
 
     override suspend fun updateAddressBook(addressBook: AddressBook) {
-        AppDatabase.getInstance().addressBookDao().updateAddressBook(addressBook.id, addressBook.bookName, addressBook.memo, addressBook.lastTime)
+        AppDatabase.getInstance().addressBookDao().updateAddressBook(
+            addressBook.id,
+            addressBook.bookName,
+            addressBook.memo,
+            addressBook.lastTime
+        )
+    }
+
+    override suspend fun updateAddressBookWithChainTag(addressBook: AddressBook) {
+        AppDatabase.getInstance().addressBookDao()
+            .updateAddressBookWithChainTag(addressBook.id, addressBook.chainName)
     }
 }

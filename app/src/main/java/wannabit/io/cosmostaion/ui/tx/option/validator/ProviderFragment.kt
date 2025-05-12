@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
-import wannabit.io.cosmostaion.ui.tx.info.major.BtcTxType
+import wannabit.io.cosmostaion.ui.tx.info.major.btc.BtcTxType
 
 class ProviderFragment(
     private val selectedChain: BaseChain,

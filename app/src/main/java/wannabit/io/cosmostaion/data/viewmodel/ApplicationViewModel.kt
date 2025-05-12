@@ -28,9 +28,12 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
+import wannabit.io.cosmostaion.chain.fetcher.iotaCoinType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -225,6 +228,8 @@ class ApplicationViewModel(
                 loadOktLcdData(this, baseAccountId, isEdit)
             } else if (this is ChainSui) {
                 loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
+            } else if (this is ChainIota) {
+                loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
             } else {
                 if (this is ChainGnoTestnet) {
                     loadRpcData(this, baseAccountId, isEdit)
@@ -1229,6 +1234,177 @@ class ApplicationViewModel(
                     coinValue = fetcher.allAssetValue()
                     coinUsdValue = fetcher.allAssetValue(true)
                     coinCnt = fetcher.suiBalances.size
+
+                    withContext(Dispatchers.Main) {
+                        if (isEdit == true) {
+                            editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    fetchState = FetchState.FAIL
+                    withContext(Dispatchers.Main) {
+                        if (isEdit == true) {
+                            editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadIotaData(
+        id: Long,
+        chain: BaseChain,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        (chain as ChainIota).iotaFetcher()?.let { fetcher ->
+            chain.apply {
+                fetcher.iotaSystem = JsonObject()
+                fetcher.iotaBalances.clear()
+                fetcher.iotaStakedList.clear()
+                fetcher.iotaObjects.clear()
+                fetcher.iotaValidators.clear()
+                fetcher.iotaApys.clear()
+                fetcher.iotaCoinMeta.clear()
+
+                try {
+                    val loadSystemStateDeferred =
+                        async { walletRepository.iotaSystemState(fetcher, this@apply) }
+                    val loadOwnedObjectDeferred =
+                        async { walletRepository.iotaOwnedObject(fetcher, this@apply, null) }
+                    val loadStakesDeferred =
+                        async { walletRepository.iotaStakes(fetcher, this@apply) }
+                    val loadApysDeferred = async { walletRepository.iotaApys(fetcher, this@apply) }
+
+                    val systemStateResult = loadSystemStateDeferred.await()
+                    loadOwnedObjectDeferred.await()
+                    val stakesResult = loadStakesDeferred.await()
+                    val apysResult = loadApysDeferred.await()
+
+                    if (systemStateResult is NetworkResult.Success) {
+                        fetcher.iotaSystem = systemStateResult.data
+                        fetcher.iotaSystem["result"].asJsonObject["activeValidators"].asJsonArray.forEach { validator ->
+                            fetcher.iotaValidators.add(validator.asJsonObject)
+                        }
+
+                        fetcher.iotaValidators.sortWith { o1, o2 ->
+                            when {
+                                o1["name"].asString == "Cosmostation" -> -1
+                                o2["name"].asString == "Cosmostation" -> 1
+                                else -> o2["votingPower"]?.asInt?.compareTo(
+                                    o1["votingPower"]?.asInt ?: 0
+                                ) ?: 0
+                            }
+                        }
+
+                    } else if (systemStateResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
+                    }
+
+                    if (apysResult is NetworkResult.Success) {
+                        fetcher.iotaApys = apysResult.data
+                        fetcher.iotaApys.sortByDescending {
+                            it["apy"]?.asDouble ?: Double.MIN_VALUE
+                        }
+
+                    } else if (apysResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${apysResult.errorType}  error message : ${apysResult.errorMessage}")
+                    }
+
+                    fetcher.iotaObjects.forEach { suiObject ->
+                        val coinType =
+                            suiObject["data"].asJsonObject["type"].asString.iotaCoinType()
+                        if (coinType != null) {
+                            val fields =
+                                suiObject["data"].asJsonObject["content"].asJsonObject["fields"].asJsonObject
+                            fields?.get("balance")?.let { balance ->
+                                val index =
+                                    fetcher.iotaBalances.indexOfFirst { it.first == coinType }
+                                if (index != -1) {
+                                    val alreadyAmount = fetcher.iotaBalances[index].second
+                                    val sumAmount =
+                                        alreadyAmount?.add(balance.asString.toBigDecimal())
+                                    fetcher.iotaBalances[index] = Pair(coinType, sumAmount)
+
+                                } else {
+                                    val newAmount = balance.asString.toBigDecimal()
+                                    fetcher.iotaBalances.add(Pair(coinType, newAmount))
+                                }
+                            }
+                        }
+                    }
+
+                    if (stakesResult is NetworkResult.Success) {
+                        stakesResult.data["result"].asJsonArray.forEach { stake ->
+                            fetcher.iotaStakedList.add(stake.asJsonObject)
+                        }
+
+                    } else if (stakesResult is NetworkResult.Error) {
+                        _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
+                    }
+
+                    withContext(Dispatchers.Default) {
+                        val coinMetaDeferred = fetcher.iotaBalances.map { (coinType, _) ->
+                            async {
+                                walletRepository.iotaCoinMetadata(fetcher, this@apply, coinType)
+                            }
+                        }
+
+                        coinMetaDeferred.forEachIndexed { index, deferred ->
+                            val coinMetadataResult = deferred.await()
+                            if (coinMetadataResult is NetworkResult.Success && fetcher.iotaBalances.isNotEmpty()) {
+                                fetcher.iotaBalances[index].first?.let { type ->
+                                    val result = coinMetadataResult.data["result"]
+                                    val resultData = when (result) {
+                                        is JsonObject -> {
+                                            result.asJsonObject
+                                        }
+
+                                        else -> {
+                                            null
+                                        }
+                                    }
+                                    if (resultData != null) {
+                                        fetcher.iotaCoinMeta[type] = resultData
+                                    }
+                                }
+
+                            } else if (coinMetadataResult is NetworkResult.Error) {
+                                _chainDataErrorMessage.postValue("Coin metadata fetch error: ${coinMetadataResult.errorMessage}")
+                            }
+                        }
+                    }
+
+                    fetchState = FetchState.SUCCESS
+                    val refAddress = RefAddress(
+                        id,
+                        tag,
+                        mainAddress,
+                        "",
+                        fetcher.allAssetValue(true).toString(),
+                        fetcher.iotaBalanceAmount(IOTA_MAIN_DENOM).toString(),
+                        "0",
+                        fetcher.iotaBalances.size.toLong()
+                    )
+                    BaseData.updateRefAddressesMain(refAddress)
+                    coinValue = fetcher.allAssetValue()
+                    coinUsdValue = fetcher.allAssetValue(true)
+                    coinCnt = fetcher.iotaBalances.size
 
                     withContext(Dispatchers.Main) {
                         if (isEdit == true) {

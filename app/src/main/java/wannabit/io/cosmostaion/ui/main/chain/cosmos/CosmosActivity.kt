@@ -82,7 +82,7 @@ class CosmosActivity : BaseActivity() {
                 this.y = y
                 layoutParams = FrameLayout.LayoutParams(800, 800)
 
-                ObjectAnimator.ofFloat(this, "alpha", 0f, 0.1f).apply {
+                ObjectAnimator.ofFloat(this, "alpha", 0f, 0.04f).apply {
                     duration = 3000
                     start()
                 }
@@ -117,5 +117,5 @@ enum class TxType {
     DELEGATE, UN_DELEGATE, RE_DELEGATE, VAULT_DEPOSIT, VAULT_WITHDRAW,
     MINT_CREATE_COLLATERAL, MINT_CREATE_PRINCIPAL, MINT_DEPOSIT, MINT_WITHDRAW, MINT_BORROW, MINT_REPAY,
     LEND_DEPOSIT, LEND_WITHDRAW, LEND_BORROW, LEND_REPAY, POOL_WITHDRAW, EARN_DEPOSIT, EARN_WITHDRAW,
-    SUI_DELEGATE, BTC_DELEGATE
+    SUI_DELEGATE, BTC_DELEGATE, IOTA_DELEGATE
 }

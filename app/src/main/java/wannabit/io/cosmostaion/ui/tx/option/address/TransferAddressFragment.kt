@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
@@ -179,20 +178,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         return@setOnClickListener
                     }
 
-                    if (fromChain.address.equals(address, true)) {
-                        requireContext().makeToast(R.string.error_self_sending)
-                        return@setOnClickListener
-                    }
-
-                    if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
-                        if (address.equals(ByteUtils.convertBech32ToEvm(fromChain.address), true)) {
-                            requireContext().makeToast(R.string.error_self_sending)
-                            return@setOnClickListener
-                        }
-                    }
-
                     if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
                         if (BaseKey.isValidEthAddress(address)) {
+                            if (fromChain.evmAddress.equals(address, true)) {
+                                requireContext().makeToast(R.string.error_self_sending)
+                                return@setOnClickListener
+                            }
+
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
@@ -209,27 +201,11 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                                 toChain, address
                             )
                         ) {
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
-                            )
-                            dismiss()
-                            return@setOnClickListener
-                        }
+                            if (fromChain.address.equals(address, true)) {
+                                requireContext().makeToast(R.string.error_self_sending)
+                                return@setOnClickListener
+                            }
 
-                        txViewModel.icnsAddress(
-                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
-                        )
-
-                    } else if (sendAssetType == SendAssetType.COSMOS_EVM_COIN) {
-                        if (BaseKey.isValidEthAddress(address)) {
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
-                            )
-                            dismiss()
-                            return@setOnClickListener
-                        }
-
-                        if (BaseUtils.isValidBechAddress(toChain, address)) {
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
@@ -246,6 +222,11 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                                 toChain as ChainBitCoin86, address
                             )
                         ) {
+                            if (fromChain.mainAddress.equals(address, true)) {
+                                requireContext().makeToast(R.string.error_self_sending)
+                                return@setOnClickListener
+                            }
+
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )
@@ -257,8 +238,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.SUI_COIN) {
+                    } else if (sendAssetType == SendAssetType.SUI_COIN || sendAssetType == SendAssetType.IOTA_COIN) {
                         if (BaseUtils.isValidSuiAddress(address)) {
+                            if (fromChain.mainAddress.equals(address, true)) {
+                                requireContext().makeToast(R.string.error_self_sending)
+                                return@setOnClickListener
+                            }
+
                             addressListener?.selectAddress(
                                 address, addressBookMemo
                             )

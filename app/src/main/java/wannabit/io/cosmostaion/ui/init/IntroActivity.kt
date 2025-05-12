@@ -32,7 +32,12 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.data.repository.address.AddressRepositoryImpl
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModelProviderFactory
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.legacy.LegacyMigrationHelper
@@ -45,14 +50,13 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitListene
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountInitSelectFragment
 import wannabit.io.cosmostaion.ui.password.AppLockActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModelProviderFactory
 
 class IntroActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIntroBinding
 
     private lateinit var walletViewModel: WalletViewModel
+    private lateinit var addressBookViewModel: AddressBookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +90,13 @@ class IntroActivity : AppCompatActivity() {
         val walletViewModelProviderFactory = WalletViewModelProviderFactory(walletRepository)
         walletViewModel =
             ViewModelProvider(this, walletViewModelProviderFactory)[WalletViewModel::class.java]
+
+        val addressRepository = AddressRepositoryImpl()
+        val addressBookViewModelProviderFactory =
+            AddressBookViewModelProviderFactory(addressRepository)
+        addressBookViewModel = ViewModelProvider(
+            this, addressBookViewModelProviderFactory
+        )[AddressBookViewModel::class.java]
     }
 
     override fun onPostResume() {
@@ -94,6 +105,8 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
+        updateAddressBook()
+
         if (Prefs.version < BaseConstant.DB_VERSION) {
             LegacyMigrationHelper.migratePassword()
             LegacyMigrationHelper.migrateWallet()
@@ -333,6 +346,13 @@ class IntroActivity : AppCompatActivity() {
             }
         })
         binding.bottomLayer.startAnimation(mFadeOutAni)
+    }
+
+    private fun updateAddressBook() {
+        if (!Prefs.isUpdateAddressBook) {
+            addressBookViewModel.updateAddressBookWithChainTag()
+            Prefs.isUpdateAddressBook = true
+        }
     }
 
     private fun showNetworkErrorDialog() {

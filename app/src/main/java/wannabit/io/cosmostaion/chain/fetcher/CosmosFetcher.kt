@@ -21,6 +21,7 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
@@ -284,9 +285,17 @@ open class CosmosFetcher(private val chain: BaseChain) {
                     BaseData.getAsset(chain.apiName, reward.rewardList[i].denom)?.let { asset ->
                         val calAmount = rewardAmount.movePointLeft(asset.decimals ?: 6)
                             .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        if (calAmount > BigDecimal("0.1")) {
-                            result.add(reward)
-                            return@loop
+                        if (chain is ChainBabylon) {
+                            if (calAmount > BigDecimal.ZERO) {
+                                result.add(reward)
+                                return@loop
+                            }
+
+                        } else {
+                            if (calAmount > BigDecimal("0.1")) {
+                                result.add(reward)
+                                return@loop
+                            }
                         }
                     }
                 }

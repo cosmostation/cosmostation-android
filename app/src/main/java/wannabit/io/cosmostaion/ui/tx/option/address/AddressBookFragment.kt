@@ -5,27 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
+import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
-import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookBinding
-import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface AddressBookSelectListener {
@@ -153,71 +150,22 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (fromChain.supportCosmos()) {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
-                                    ) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
+                                if (addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    if (fromChain.supportCosmos()) {
+                                        if (addressBook.chainName == toChain.tag && BaseKey.isValidEthAddress(
+                                                addressBook.address
+                                            ) || addressBook.chainName == "EVM-universal"
+                                        ) {
+                                            evmAddressBooks.add(addressBook)
+                                        }
 
-                                } else {
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != senderAddress && !BaseUtils.isValidSuiAddress(
-                                            addressBook.address
-                                        )
-                                    ) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
-                                }
-                            }
-                    }
-
-                    SendAssetType.COSMOS_EVM_COIN -> {
-                        AppDatabase.getInstance().refAddressDao().selectAll()
-                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
-                            .forEach { refAddress ->
-                                if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
-                                    if (Prefs.displayLegacy) {
-                                        refAddresses.add(refAddress)
                                     } else {
-                                        allChains().firstOrNull { it.tag == refAddress.chainTag }
-                                            ?.let { chain ->
-                                                if (chain.isDefault) {
-                                                    refAddresses.add(refAddress)
-                                                }
-                                            }
+                                        if (addressBook.chainName == "EVM-universal" || addressBook.chainName == toChain.tag) {
+                                            evmAddressBooks.add(addressBook)
+                                        }
                                     }
                                 }
                             }
-
-                        AppDatabase.getInstance().addressBookDao().selectAll()
-                            .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                    addressBooks.add(addressBook)
-                                }
-                            }
-
-                        if (fromChain.tag == toChain.tag) {
-                            AppDatabase.getInstance().refAddressDao().selectAll()
-                                .forEach { refAddress ->
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
-                                    ) {
-                                        refEvmAddresses.add(refAddress)
-                                    }
-                                }
-
-                            AppDatabase.getInstance().addressBookDao().selectAll()
-                                .forEach { addressBook ->
-                                    if (addressBook.address.startsWith("0x") && addressBook.address != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        ) && !BaseUtils.isValidSuiAddress(addressBook.address)
-                                    ) {
-                                        evmAddressBooks.add(addressBook)
-                                    }
-                                }
-                        }
                     }
 
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
@@ -240,26 +188,37 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && !addressBook.address.startsWith(
-                                        "0x"
-                                    ) && addressBook.address.lowercase() != senderAddress.lowercase()
-                                ) {
-                                    addressBooks.add(addressBook)
+                                if (addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    if (fromChain.isTestnet) {
+                                        if (addressBook.chainName == toChain.tag) {
+                                            addressBooks.add(addressBook)
+                                        }
+
+                                    } else {
+                                        val chain =
+                                            allChains().firstOrNull { it.tag == addressBook.chainName }
+                                        if (chain?.isTestnet == false) {
+                                            val prefix = addressBook.address.substringBefore('1')
+                                            if (toChain.accountPrefix == prefix) {
+                                                addressBooks.add(addressBook)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                     }
 
-                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
-                                if (refAddress.chainTag == toChain.tag && refAddress.dpAddress != fromChain.mainAddress) {
+                                if (refAddress.chainTag == toChain.tag && refAddress.dpAddress?.lowercase() != fromChain.mainAddress.lowercase()) {
                                     refMajorAddresses.add(refAddress)
                                 }
                             }
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                if (addressBook.chainName == toChain.tag && addressBook.address.lowercase() != senderAddress.lowercase()) {
                                     majorAddressBook.add(addressBook)
                                 }
                             }
@@ -291,8 +250,15 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.name && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                    majorAddressBook.add(addressBook)
+                                if (addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    val chain =
+                                        allChains().firstOrNull { it.tag == addressBook.chainName }
+                                    if (fromChain.isTestnet && chain?.isTestnet == true && chain is ChainBitcoin86Testnet) {
+                                        majorAddressBook.add(addressBook)
+
+                                    } else if (!fromChain.isTestnet && chain?.isTestnet == false && chain is ChainBitCoin86) {
+                                        majorAddressBook.add(addressBook)
+                                    }
                                 }
                             }
                     }
@@ -319,33 +285,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             recycler.visibility = View.GONE
                         }
 
-                        SendAssetType.COSMOS_EVM_COIN -> {
-                            if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
-                                recycler.visibility = View.GONE
-                                emptyLayout.visibility = View.VISIBLE
-
-                            } else {
-                                recycler.visibility = View.VISIBLE
-                                emptyLayout.visibility = View.GONE
-                                initCosmosRecyclerView(
-                                    refAddresses, addressBooks
-                                )
-                            }
-
-                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                                return@withContext
-                            } else {
-                                initEvmRecyclerView(refEvmAddresses, evmAddressBooks)
-                            }
-
-                            segmentView.visibility = View.VISIBLE
-                            evmRecycler.visibility = View.GONE
-                            initSegmentView()
-                            segmentAction(
-                                refEvmAddresses, refAddresses, evmAddressBooks, addressBooks
-                            )
-                        }
-
                         SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
                             if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
                                 recycler.visibility = View.GONE
@@ -362,7 +301,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             evmRecycler.visibility = View.GONE
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
                             if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
@@ -413,80 +352,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
             evmAddressBookAdapter.setOnItemClickListener { address, memo ->
                 addressBookSelectListener?.select(address, memo)
                 dismiss()
-            }
-        }
-    }
-
-    private fun initSegmentView() {
-        binding.apply {
-            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
-            styleSegment.apply {
-                setSelectedBackground(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
-                )
-                setRipple(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_accent_purple
-                    )
-                )
-            }
-
-            for (i in 0 until 2) {
-                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
-                styleSegment.addView(
-                    segmentView.root,
-                    i,
-                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
-                )
-
-                when (i) {
-                    0 -> {
-                        segmentView.btnTitle.text = "Cosmos Style"
-                    }
-
-                    else -> {
-                        segmentView.btnTitle.text = "EVM Style"
-                    }
-                }
-            }
-        }
-    }
-
-    private fun segmentAction(
-        refEvmAddresses: MutableList<RefAddress>,
-        refAddresses: MutableList<RefAddress>,
-        evmAddressBooks: MutableList<AddressBook>,
-        addressBooks: MutableList<AddressBook>
-    ) {
-        binding.apply {
-            styleSegment.setOnPositionChangedListener { position ->
-                when (position) {
-                    0 -> {
-                        if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
-                            recycler.visibility = View.GONE
-                            emptyLayout.visibility = View.VISIBLE
-
-                        } else {
-                            recycler.visibility = View.VISIBLE
-                            emptyLayout.visibility = View.GONE
-                        }
-                        evmRecycler.visibility = View.GONE
-                    }
-
-                    else -> {
-                        if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                            evmRecycler.visibility = View.GONE
-                            emptyLayout.visibility = View.VISIBLE
-
-                        } else {
-                            evmRecycler.visibility = View.VISIBLE
-                            emptyLayout.visibility = View.GONE
-                        }
-                        recycler.visibility = View.GONE
-                    }
-                }
             }
         }
     }

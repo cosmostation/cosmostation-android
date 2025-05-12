@@ -23,8 +23,8 @@ import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
 import wannabit.io.cosmostaion.BuildConfig
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import java.security.SecureRandom
 
@@ -62,9 +62,13 @@ object BaseKey {
         return getHDSeed(MnemonicCode().toEntropy(words))
     }
 
-    private fun getEd25519PrivateKey(seed: ByteArray?, lastPath: String): ByteArray {
+    private fun getEd25519PrivateKey(
+        chain: BaseChain,
+        seed: ByteArray?,
+        lastPath: String
+    ): ByteArray {
         var pair = ByteUtils.shaking(seed, "ed25519 seed".toByteArray())
-        val components = ChainSui().getHDPath(lastPath).split("/")
+        val components = chain.getHDPath(lastPath).split("/")
         val nodes = mutableListOf<Int>()
         for (component in components.subList(1, components.size)) {
             val index = component.trim('\'').toInt()
@@ -84,10 +88,14 @@ object BaseKey {
     }
 
     fun getPrivateKey(
-        pubKeyType: PubKeyType, seed: ByteArray?, parentPaths: List<ChildNumber>, lastPath: String
+        chain: BaseChain,
+        pubKeyType: PubKeyType,
+        seed: ByteArray?,
+        parentPaths: List<ChildNumber>,
+        lastPath: String
     ): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519) {
-            getEd25519PrivateKey(seed, lastPath)
+        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519) {
+            getEd25519PrivateKey(chain, seed, lastPath)
         } else {
             val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
             val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
@@ -99,13 +107,12 @@ object BaseKey {
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
         return when (pubKeyType) {
-            PubKeyType.SUI_ED25519 -> {
+            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519 -> {
                 val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
                 val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
                 val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
                 val publicKey = EdDSAPublicKey(pubKeySpec)
                 publicKey.abyte
-
             }
 
             else -> {
@@ -129,7 +136,6 @@ object BaseKey {
                 val ripemd160 = ByteUtils.hashToRIPMD160(sha256Hash)
                 val converted = ByteUtils.convertBits(ripemd160, 8, 5, true)
                 result = Bech32.encode(Bech32.Encoding.BECH32, prefix, converted)
-
             }
 
             PubKeyType.ETH_KECCAK256, PubKeyType.BERA_SECP256K1 -> {
@@ -137,7 +143,6 @@ object BaseKey {
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)
                 result = "0x" + Keys.getAddress(pub).toHex()
-
             }
 
             PubKeyType.SUI_ED25519 -> {
@@ -148,7 +153,15 @@ object BaseKey {
                     val hex = Utils.bytesToHex(blake2b.digest())
                     result = "0x${hex.substring(0, 64)}"
                 }
+            }
 
+            PubKeyType.IOTA_ED25519 -> {
+                pubKey?.let { pub ->
+                    val blake2b = Blake2b.Blake2b256()
+                    blake2b.update(pub)
+                    val hex = Utils.bytesToHex(blake2b.digest())
+                    result = "0x${hex.substring(0, 64)}"
+                }
             }
 
             else -> {

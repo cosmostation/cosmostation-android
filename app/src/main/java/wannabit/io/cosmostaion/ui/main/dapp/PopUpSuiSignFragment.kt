@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setImg
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
-import wannabit.io.cosmostaion.data.model.req.SuiTransactionBlock
+import wannabit.io.cosmostaion.data.model.req.MoveTransactionBlock
 import wannabit.io.cosmostaion.databinding.FragmentSuiSignBinding
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
@@ -96,7 +96,7 @@ class PopUpSuiSignFragment(
                     if (method == "sui_signMessage") {
                         val messageBytes = Base64.decode(txJsonObject["message"].asString)
                         updateData = txJsonObject["message"].asString
-                        signature = Signer.suiSignature(
+                        signature = Signer.moveSignature(
                             selectedChain as ChainSui, txJsonObject["message"].asString
                         )[0]
 
@@ -116,8 +116,8 @@ class PopUpSuiSignFragment(
                         var format = ""
                         var gasCost = BigDecimal.ZERO
 
-                        val response = RetrofitInstance.suiApi.transactionBlock(
-                            SuiTransactionBlock(
+                        val response = RetrofitInstance.moveApi.transactionBlock(
+                            MoveTransactionBlock(
                                 txJsonObject["transactionBlockSerialized"].asString,
                                 mainAddress,
                                 fetcher.suiRpc()
@@ -172,7 +172,7 @@ class PopUpSuiSignFragment(
                             }
                             gasCost = computationCost.add(dpCost).setScale(0, RoundingMode.DOWN)
                             updateData = txBytes
-                            signature = Signer.suiSignature(selectedChain as ChainSui, txBytes)[0]
+                            signature = Signer.moveSignature(selectedChain as ChainSui, txBytes)[0]
                         }
 
                         withContext(Dispatchers.Main) {

@@ -78,7 +78,7 @@
                 android:maxLines="3"
                 android:minLines="3"
                 android:lines="3"
-                android:lineSpacingExtra="@dimen/space_3"
+                android:lineSpacingExtra="@dimen/space_2"
                 android:lineSpacingMultiplier="1.0"
                 android:textColor="@color/color_base02"
                 app:layout_constraintBottom_toBottomOf="parent"

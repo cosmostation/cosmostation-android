@@ -15,7 +15,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
@@ -30,6 +30,7 @@ class ValidatorDefaultFragment(
     private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
     private val fromZenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null,
     private val suiFromValidator: MutableList<JsonObject>? = null,
+    private val iotaFromValidator: MutableList<JsonObject>? = null,
     private val finalityProvider: MutableList<FinalityProvider>? = null,
     val listener: ValidatorDefaultListener
 ) : BottomSheetDialogFragment() {
@@ -39,6 +40,7 @@ class ValidatorDefaultFragment(
 
     private lateinit var validatorDefaultAdapter: ValidatorDefaultAdapter
     private lateinit var suiValidatorDefaultAdapter: SuiValidatorAdapter
+    private lateinit var iotaValidatorDefaultAdapter: IotaValidatorAdapter
     private lateinit var finalityProviderAdapter: FinalityProviderAdapter
 
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
@@ -47,6 +49,7 @@ class ValidatorDefaultFragment(
     private var searchZenrockValidators: MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV> =
         mutableListOf()
     private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
+    private var searchIotaValidators: MutableList<JsonObject> = mutableListOf()
     private var searchProviders: MutableList<FinalityProvider> = mutableListOf()
 
     override fun onCreateView(
@@ -89,6 +92,9 @@ class ValidatorDefaultFragment(
             if (suiFromValidator != null) {
                 searchSuiValidators.addAll(suiFromValidator)
             }
+            if (iotaFromValidator != null) {
+                searchIotaValidators.addAll(iotaFromValidator)
+            }
             if (finalityProvider != null) {
                 searchProviders.addAll(finalityProvider)
             }
@@ -107,6 +113,18 @@ class ValidatorDefaultFragment(
                 suiValidatorDefaultAdapter.submitList(searchSuiValidators)
 
                 suiValidatorDefaultAdapter.setOnItemClickListener {
+                    listener.select(it)
+                    dismiss()
+                }
+
+            } else if (iotaFromValidator != null) {
+                iotaValidatorDefaultAdapter = IotaValidatorAdapter(requireContext())
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = iotaValidatorDefaultAdapter
+                iotaValidatorDefaultAdapter.submitList(searchIotaValidators)
+
+                iotaValidatorDefaultAdapter.setOnItemClickListener {
                     listener.select(it)
                     dismiss()
                 }
@@ -172,11 +190,17 @@ class ValidatorDefaultFragment(
                     searchInitiaValidators.clear()
                     searchZenrockValidators.clear()
                     searchSuiValidators.clear()
+                    searchIotaValidators.clear()
 
                     if (StringUtils.isEmpty(newText)) {
                         if (suiFromValidator != null) {
                             searchSuiValidators.addAll(suiFromValidator)
                             suiValidatorDefaultAdapter.notifyDataSetChanged()
+
+                        } else if (iotaFromValidator != null) {
+                            searchIotaValidators.addAll(iotaFromValidator)
+                            iotaValidatorDefaultAdapter.notifyDataSetChanged()
+
                         } else {
                             when (selectedChain) {
                                 is ChainInitia -> {
@@ -204,10 +228,17 @@ class ValidatorDefaultFragment(
                         newText?.let { searchTxt ->
                             if (suiFromValidator != null) {
                                 suiFromValidator.filter { validator ->
-                                    validator.suiValidatorName()
+                                    validator.moveValidatorName()
                                         .contains(searchTxt, ignoreCase = true)
                                 }.let { searchSuiValidators.addAll(it) }
                                 suiValidatorDefaultAdapter.notifyDataSetChanged()
+
+                            } else if (iotaFromValidator != null) {
+                                iotaFromValidator.filter { validator ->
+                                    validator.moveValidatorName()
+                                        .contains(searchTxt, ignoreCase = true)
+                                }.let { searchIotaValidators.addAll(it) }
+                                iotaValidatorDefaultAdapter.notifyDataSetChanged()
 
                             } else {
                                 when (selectedChain) {

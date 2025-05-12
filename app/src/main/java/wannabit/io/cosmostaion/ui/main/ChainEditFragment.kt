@@ -207,7 +207,7 @@ class ChainEditFragment : BaseTxFragment() {
                         mainnetChains = account.allChains.filter { !it.isTestnet }.toMutableList()
                         toDisplayChains.add("cosmos118")
                         for (chain in mainnetChains) {
-                            if (chain.allValue(true) > BigDecimal.ONE && chain.tag != "cosmos118") {
+                            if ((chain.allValue(true) ?: BigDecimal.ZERO) > BigDecimal.ONE && chain.tag != "cosmos118") {
                                 toDisplayChains.add(chain.tag)
                             }
                         }

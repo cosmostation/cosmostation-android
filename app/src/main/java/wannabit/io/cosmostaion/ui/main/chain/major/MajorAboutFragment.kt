@@ -13,6 +13,7 @@ import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -119,38 +120,62 @@ class MajorAboutFragment : Fragment() {
                 stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin86)
                 stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin86)
 
-                stakingDenom.text = if (selectedChain is ChainSui) {
+                stakingDenom.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
                 } else {
                     "-"
                 }
 
-                unbondingTime.text = if (selectedChain is ChainSui) {
+                unbondingTime.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
                     getString(R.string.str_instant)
                 } else {
                     "-"
                 }
                 chainInflation.text = "-"
-                if (selectedChain is ChainSui) {
-                    val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                        if (fetcher.suiApys.isNotEmpty()) {
-                            fetcher.suiApys[0]["apy"].asString?.let { apy ->
-                                formatPercent(
-                                    apy.toBigDecimal().movePointRight(2)
-                                        .setScale(2, RoundingMode.DOWN)
-                                        .toString()
-                                )
-                            } ?: run {
+                when (selectedChain) {
+                    is ChainSui -> {
+                        val apy = (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                            if (fetcher.suiApys.isNotEmpty()) {
+                                fetcher.suiApys[0]["apy"].asString?.let { apy ->
+                                    formatPercent(
+                                        apy.toBigDecimal().movePointRight(2)
+                                            .setScale(2, RoundingMode.DOWN)
+                                            .toString()
+                                    )
+                                } ?: run {
+                                    "-"
+                                }
+
+                            } else {
                                 "-"
                             }
-                        } else {
-                            "-"
                         }
+                        chainApr.text = apy
                     }
-                    chainApr.text = apy
 
-                } else {
-                    chainApr.text = "-"
+                    is ChainIota -> {
+                        val apy = (selectedChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                            if (fetcher.iotaApys.isNotEmpty()) {
+                                fetcher.iotaApys[0]["apy"].asString?.let { apy ->
+                                    formatPercent(
+                                        apy.toBigDecimal().movePointRight(2)
+                                            .setScale(2, RoundingMode.DOWN)
+                                            .toString()
+                                    )
+                                } ?: run {
+                                    "-"
+                                }
+
+                            } else {
+                                "-"
+                            }
+                        }
+                        chainApr.text = apy
+                    }
+
+                    else -> {
+                        chainApr.text = "-"
+                    }
                 }
             }
         }

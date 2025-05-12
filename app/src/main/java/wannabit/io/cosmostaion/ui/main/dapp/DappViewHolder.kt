@@ -36,7 +36,7 @@ class DappViewHolder(
             chainContainer.removeAllViews()
 
             val inflater = LayoutInflater.from(context)
-            chains.forEach { supportChain ->
+            chains.take(7).forEach { supportChain ->
                 val view = CustomImageBinding.inflate(inflater, chainContainer, false)
                 allChains().first { it.apiName == supportChain.asString }.let { chain ->
                     view.chainImg.setChainLogo(chain)

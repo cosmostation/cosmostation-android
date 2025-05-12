@@ -65,6 +65,7 @@ import wannabit.io.cosmostaion.ui.tx.info.neutron.DaoProposalListFragment
 import wannabit.io.cosmostaion.ui.tx.info.neutron.NeutronStakeInfoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.VaultSelectFragment
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 class CosmosDetailFragment : Fragment() {
@@ -313,7 +314,7 @@ class CosmosDetailFragment : Fragment() {
                         accountValue.textSize = 18f
                         btnHide.setImageResource(R.drawable.icon_hide)
                     } else {
-                        accountValue.text = formatAssetValue(selectedChain.allValue(false))
+                        accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                         accountValue.textSize = 24f
                         btnHide.setImageResource(R.drawable.icon_not_hide)
                     }
@@ -579,13 +580,34 @@ class CosmosDetailFragment : Fragment() {
                                     requireContext().makeToast(R.string.error_not_reward)
                                     return@setOnClickListener
                                 }
-                                if (selectedChain.cosmosFetcher?.claimableRewards()
-                                        ?.isEmpty() == true
-                                ) {
-                                    requireContext().showToast(
-                                        view, R.string.error_wasting_fee, false
-                                    )
-                                    return@setOnClickListener
+
+                                if (selectedChain is ChainBabylon) {
+                                    val babyReward =
+                                        selectedChain.cosmosFetcher?.rewardAmountSum(selectedChain.stakeDenom)
+                                            ?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN)
+                                            ?: BigDecimal.ZERO
+                                    val btcReward =
+                                        (selectedChain as ChainBabylon).babylonFetcher?.btcRewardAmountSum(
+                                            selectedChain.stakeDenom
+                                        )?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN)
+                                            ?: BigDecimal.ZERO
+
+                                    if (babyReward.add(btcReward) < BigDecimal("0.1")) {
+                                        requireContext().showToast(
+                                            view, R.string.error_wasting_fee, false
+                                        )
+                                        return@setOnClickListener
+                                    }
+
+                                } else {
+                                    if (selectedChain.cosmosFetcher?.claimableRewards()
+                                            ?.isEmpty() == true
+                                    ) {
+                                        requireContext().showToast(
+                                            view, R.string.error_wasting_fee, false
+                                        )
+                                        return@setOnClickListener
+                                    }
                                 }
                             }
 

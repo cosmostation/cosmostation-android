@@ -12,6 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
@@ -152,29 +153,6 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         }
                 }
 
-                SendAssetType.COSMOS_EVM_COIN -> {
-                    if (transferType == TransferStyle.WEB3_STYLE) {
-                        assetDecimal = 18
-                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
-                            .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                                availableDenom.text = fromChain.coinSymbol
-                            }
-
-                    } else {
-                        toSendAsset?.let { asset ->
-                            assetDecimal = asset.decimals ?: 6
-                            availableAmount.toBigDecimal().movePointLeft(assetDecimal)
-                                ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
-                                    available.text =
-                                        formatAmount(amount.toPlainString(), assetDecimal)
-                                    availableDenom.text = asset.symbol
-                                    availableDenom.setTextColor(asset.assetColor())
-                                }
-                        }
-                    }
-                }
-
                 SendAssetType.ONLY_COSMOS_COIN -> {
                     toSendAsset?.let { asset ->
                         assetDecimal = asset.decimals ?: 6
@@ -200,6 +178,16 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
 
                 SendAssetType.SUI_COIN -> {
                     (fromChain as ChainSui).apply {
+                        assetDecimal = assetDecimal(toSendDenom)
+                        availableDenom.text = assetSymbol(toSendDenom)
+                        val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)
+                        available.text = formatAmount(amount.toString(), assetDecimal)
+                    }
+                }
+
+                SendAssetType.IOTA_COIN -> {
+                    (fromChain as ChainIota).apply {
                         assetDecimal = assetDecimal(toSendDenom)
                         availableDenom.text = assetSymbol(toSendDenom)
                         val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)

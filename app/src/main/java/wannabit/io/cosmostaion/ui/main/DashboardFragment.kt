@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -173,7 +174,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) return
             if (chain.fetchState == FetchState.SUCCESS) {
-                if (chain is ChainSui || chain is ChainBitCoin86) {
+                if (chain is ChainSui || chain is ChainIota || chain is ChainBitCoin86) {
                     Intent(requireContext(), MajorActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)
@@ -328,7 +329,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 dpChains.forEach { chain ->
-                    totalSum = totalSum.add(chain.allValue(false))
+                    totalSum = totalSum.add(chain.allValue(false) ?: BigDecimal.ZERO)
                 }
                 totalChainValue = totalSum
 

@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.SUI_API
+import wannabit.io.cosmostaion.chain.majorClass.MOVE_API
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import java.util.concurrent.TimeUnit
 
@@ -50,18 +50,6 @@ object RetrofitInstance {
             .baseUrl(CosmostationConstants.SKIP_API_URL).build()
     }
 
-    private val ecoSystemRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.ECO_SYSTEM_URL).build()
-    }
-
-    private val ecoSystemMainRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(CosmostationConstants.ECO_SYSTEM_MAIN_URL).build()
-    }
-
     private fun lcdRetrofit(chain: BaseChain): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
@@ -76,10 +64,10 @@ object RetrofitInstance {
             .baseUrl(chain.lcdUrl).build()
     }
 
-    private val suiRetrofit: Retrofit by lazy {
+    private val moveRetrofit: Retrofit by lazy {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(SUI_API).build()
+            .baseUrl(MOVE_API).build()
     }
 
     private fun bitRetrofit(chain: ChainBitCoin86): Retrofit {
@@ -124,15 +112,7 @@ object RetrofitInstance {
         skipRetrofit.create(SkipApi::class.java)
     }
 
-    val ecoApi: MintscanApi by lazy {
-        ecoSystemRetrofit.create(MintscanApi::class.java)
-    }
-
-    val ecoMainApi: MintscanApi by lazy {
-        ecoSystemMainRetrofit.create(MintscanApi::class.java)
-    }
-
-    val suiApi: LcdApi by lazy {
-        suiRetrofit.create(LcdApi::class.java)
+    val moveApi: LcdApi by lazy {
+        moveRetrofit.create(LcdApi::class.java)
     }
 }

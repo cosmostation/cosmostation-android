@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.common.CosmostationConstants.MOON_PAY_PUBLIC_KEY
 import wannabit.io.cosmostaion.common.CosmostationConstants.MOON_PAY_URL
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
+import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.databinding.FragmentServiceBinding
 import wannabit.io.cosmostaion.ui.main.dapp.DappStartFragment
 import wannabit.io.cosmostaion.ui.main.setting.SettingBottomFragment
@@ -29,8 +30,6 @@ import wannabit.io.cosmostaion.ui.tx.genTx.SwapFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainClaimFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainCompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.service.AllChainVoteFragment
-import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
-import wannabit.io.cosmostaion.ui.main.dapp.DappWepFragment
 import java.net.URLEncoder
 
 class ServiceFragment : Fragment() {
@@ -162,11 +161,8 @@ class ServiceFragment : Fragment() {
             }
 
             dappView.setOnClickListener {
-//                handleOneClickWithDelay(
-//                    DappStartFragment()
-//                )
                 handleOneClickWithDelay(
-                    DappWepFragment()
+                    DappStartFragment()
                 )
             }
 

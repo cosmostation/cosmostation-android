@@ -13,4 +13,6 @@ interface AddressRepository {
     suspend fun deleteAddressBook(addressBook: AddressBook)
 
     suspend fun updateAddressBook(addressBook: AddressBook)
+
+    suspend fun updateAddressBookWithChainTag(addressBook: AddressBook)
 }

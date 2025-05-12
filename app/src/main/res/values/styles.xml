@@ -82,6 +82,21 @@
         <item name="boxCornerRadiusTopStart">10dp</item>
     </style>
 
+    <style name="TextInputAddressBookLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginStart">@dimen/space_12</item>
+        <item name="android:layout_marginEnd">@dimen/space_12</item>
+        <item name="boxStrokeColor">@color/text_input_address_book_layout_stroke_color</item>
+        <item name="android:textColorHint">@color/color_base04</item>
+        <item name="hintTextColor">@color/color_base01</item>
+        <item name="errorEnabled">true</item>
+        <item name="colorError">@color/color_red01</item>
+        <item name="errorIconDrawable">@android:color/transparent</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+    </style>
+
     <style name="InputEditText" parent="">
         <item name="android:textColor">@color/color_base01</item>
         <item name="android:paddingStart">@dimen/space_16</item>

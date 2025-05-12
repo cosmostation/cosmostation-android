@@ -74,7 +74,6 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
         initView()
         initButtonView()
-        initRecyclerView()
         initSearchView()
         setUpClickAction()
         setUpObserve()
@@ -155,14 +154,17 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 }?.toSet() ?: emptySet()
                 supportChains = dappChains.toMutableList()
                 supportChains?.sortWith { o1, o2 ->
+                    val o1IsTestnet = o1.contains("testnet", ignoreCase = true)
+                    val o2IsTestnet = o2.contains("testnet", ignoreCase = true)
+
                     when {
-                        o1 == "cosmos" -> -1
-                        o2 == "cosmos" -> -1
-                        o1.compareTo(o2) != 0 -> o1.compareTo(o2)
-                        else -> 0
+                        o1IsTestnet && !o2IsTestnet -> 1
+                        !o1IsTestnet && o2IsTestnet -> -1
+                        else -> o1.compareTo(o2, ignoreCase = true)
                     }
                 }
                 supportChains?.add(0, "All Network")
+
                 dappViewModel.fetchDappList()
 
                 withContext(Dispatchers.Main) {
@@ -230,16 +232,12 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
     private fun initRecyclerView() {
         binding.recycler.apply {
-            ecosystems.forEach { ecosystem ->
-                val isPinnedValue = Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
-                ecosystem.addProperty("isPinned", isPinnedValue)
-            }
-
             binding.emptyLayout.visibility = View.GONE
             dappListAdapter = DappListAdapter(requireContext(), selectPinAction)
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = dappListAdapter
+
             dappListAdapter.submitList(ecosystems.filter { ecosystem ->
                 val popular = if (ecosystem.has("is_default")) {
                     ecosystem["is_default"].asBoolean
@@ -402,11 +400,20 @@ class DappStartFragment : BottomSheetDialogFragment() {
     }
 
     private fun centerButtonInScrollView(scrollView: HorizontalScrollView, button: View) {
-        val scrollViewCenterX = scrollView.width / 2
-        val buttonX = button.left - scrollView.scrollX
-        val buttonCenterX = buttonX + button.width / 2
-        val scrollToX = buttonCenterX - scrollViewCenterX
-        scrollView.smoothScrollTo(scrollToX, 0)
+        val scrollViewWidth = scrollView.width
+        val scrollViewHeight = scrollView.height
+
+        val buttonX = button.left
+        val buttonY = button.top
+        val buttonWidth = button.width
+        val buttonHeight = button.height
+
+        val scrollToX = buttonX - (scrollViewWidth - buttonWidth) / 2
+        val scrollToY = buttonY - (scrollViewHeight - buttonHeight) / 2
+
+        scrollView.post {
+            scrollView.smoothScrollTo(scrollToX, scrollToY)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

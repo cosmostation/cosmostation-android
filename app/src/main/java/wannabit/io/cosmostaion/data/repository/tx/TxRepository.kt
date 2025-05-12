@@ -9,6 +9,7 @@ import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -232,6 +233,103 @@ interface TxRepository {
     suspend fun simulateSuiUnStake(
         fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): String
+
+
+    // iota
+    suspend fun unSafePayIota(
+        fetcher: IotaFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unSafePayEtc(
+        fetcher: IotaFetcher,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unsafeIotaTransferObject(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun iotaDryRun(fetcher: IotaFetcher, txBytes: String): NetworkResult<JsonObject>
+
+    suspend fun iotaExecuteTx(
+        fetcher: IotaFetcher, txBytes: String, signatures: MutableList<String>
+    ): NetworkResult<JsonObject>
+
+    suspend fun broadcastIotaSend(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaSend(
+        fetcher: IotaFetcher,
+        sendDenom: String,
+        sender: String,
+        coins: MutableList<String>,
+        recipient: MutableList<String>,
+        amounts: MutableList<String>,
+        gasBudget: String
+    ): String
+
+    suspend fun broadcastIotaNftSend(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        recipient: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaNftSend(
+        fetcher: IotaFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+    ): String
+
+    suspend fun broadcastIotaStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        validator: String,
+        amount: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+    ): String
+
+    suspend fun broadcastIotaUnStake(
+        fetcher: IotaFetcher,
+        sender: String,
+        objectId: String,
+        gasBudget: String,
+        selectedChain: BaseChain
+    ): JsonObject
+
+    suspend fun simulateIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+    ): String
+
+    suspend fun unsafeIotaStake(
+        fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+    ): NetworkResult<String>
+
+    suspend fun unsafeIotaUnStake(
+        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+    ): NetworkResult<String>
 
 
     // bit

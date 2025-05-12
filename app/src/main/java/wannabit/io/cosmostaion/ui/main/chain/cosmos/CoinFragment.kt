@@ -589,17 +589,31 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
             if (::coinAdapter.isInitialized) {
                 coinAdapter.setOnItemClickListener { chain, denom, position, type ->
-                    val sendAssetType = if (position == 0) {
-                        if (chain is ChainOktEvm) {
-                            SendAssetType.ONLY_EVM_COIN
-                        } else if (chain.isEvmCosmos()) {
-                            SendAssetType.COSMOS_EVM_COIN
+                    if (!selectedChain.isSendEnabled()) {
+                        requireActivity().makeToast(R.string.error_tranfer_disabled)
+                        return@setOnItemClickListener
+                    }
+
+                    if (position == 0) {
+                        if (chain.isEvmCosmos()) {
+                            handleOneClickWithDelay(SelectSendTypeFragment.newInstance(selectedChain, denom))
+
                         } else {
-                            SendAssetType.ONLY_COSMOS_COIN
+                            val sendAssetType = if (chain is ChainOktEvm) {
+                                SendAssetType.ONLY_EVM_COIN
+                            } else {
+                                SendAssetType.ONLY_COSMOS_COIN
+                            }
+
+                            if (chain is ChainOkt996Keccak) {
+                                startLegacyTransfer(chain, denom)
+                            } else {
+                                startTransfer(chain, denom, sendAssetType)
+                            }
                         }
 
                     } else {
-                        when (type) {
+                        val sendAssetType = when (type) {
                             CoinType.CW20 -> {
                                 SendAssetType.ONLY_COSMOS_CW20
                             }
@@ -616,17 +630,12 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                                 SendAssetType.ONLY_COSMOS_COIN
                             }
                         }
-                    }
 
-                    if (!selectedChain.isSendEnabled()) {
-                        requireActivity().makeToast(R.string.error_tranfer_disabled)
-                        return@setOnItemClickListener
-                    }
-
-                    if (chain is ChainOkt996Keccak || chain is ChainOktEvm && sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
-                        startLegacyTransfer(chain, denom)
-                    } else {
-                        startTransfer(chain, denom, sendAssetType)
+                        if (chain is ChainOkt996Keccak || chain is ChainOktEvm && sendAssetType == SendAssetType.ONLY_COSMOS_COIN) {
+                            startLegacyTransfer(chain, denom)
+                        } else {
+                            startTransfer(chain, denom, sendAssetType)
+                        }
                     }
                 }
             }

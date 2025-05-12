@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookManageOptionBinding
 
@@ -61,10 +62,11 @@ class AddressBookManageOptionFragment : BottomSheetDialogFragment() {
     private fun setUpClickAction() {
         binding.apply {
             editLayout.setOnClickListener {
+                val toChain = allChains().firstOrNull { it.tag == addressBook.chainName }
                 handleOneClickWithDelay(
                     SetAddressFragment.newInstance(
                         addressBook,
-                        null,
+                        toChain,
                         "",
                         "",
                         AddressBookType.ManualEdit

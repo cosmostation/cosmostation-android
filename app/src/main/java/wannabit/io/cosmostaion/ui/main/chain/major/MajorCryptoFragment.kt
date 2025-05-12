@@ -27,7 +27,9 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
@@ -50,10 +52,10 @@ class MajorCryptoFragment : Fragment() {
 
     private lateinit var selectedChain: BaseChain
 
-    private var suiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
-    private var searchSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
-    private var suiNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
-    private var searchSuiNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private var moveBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private var searchMoveBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private var moveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private var searchMoveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
 
     private var isClickable = true
 
@@ -119,48 +121,88 @@ class MajorCryptoFragment : Fragment() {
 
     private fun sortAssets() {
         lifecycleScope.launch(Dispatchers.IO) {
-            suiBalances.clear()
-            searchSuiBalances.clear()
-            suiNativeBalances.clear()
-            searchSuiNativeBalances.clear()
+            moveBalances.clear()
+            searchMoveBalances.clear()
+            moveNativeBalances.clear()
+            searchMoveNativeBalances.clear()
 
-            if (selectedChain is ChainSui) {
-                (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
-                    tempSuiBalances.addAll(fetcher.suiBalances)
+            when (selectedChain) {
+                is ChainSui -> {
+                    (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
+                        val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> =
+                            mutableListOf()
+                        tempSuiBalances.addAll(fetcher.suiBalances)
 
-                    if (tempSuiBalances.none { it.first == SUI_MAIN_DENOM }) {
-                        tempSuiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
-                    }
-                    synchronized(tempSuiBalances) {
-                        tempSuiBalances.sortWith { o1, o2 ->
-                            when {
-                                o1.first == SUI_MAIN_DENOM -> -1
-                                o2.first == SUI_MAIN_DENOM -> 1
-                                else -> {
-                                    val value0 = fetcher.suiBalanceValue(o1.first ?: "")
-                                    val value1 = fetcher.suiBalanceValue(o2.first ?: "")
-                                    value1.compareTo(value0)
+                        if (tempSuiBalances.none { it.first == SUI_MAIN_DENOM }) {
+                            tempSuiBalances.add(Pair(SUI_MAIN_DENOM, BigDecimal.ZERO))
+                        }
+                        synchronized(tempSuiBalances) {
+                            tempSuiBalances.sortWith { o1, o2 ->
+                                when {
+                                    o1.first == SUI_MAIN_DENOM -> -1
+                                    o2.first == SUI_MAIN_DENOM -> 1
+                                    else -> {
+                                        val value0 = fetcher.suiBalanceValue(o1.first ?: "")
+                                        val value1 = fetcher.suiBalanceValue(o2.first ?: "")
+                                        value1.compareTo(value0)
+                                    }
                                 }
                             }
                         }
-                    }
-                    tempSuiBalances.firstOrNull()?.let { suiBalances.add(it) }
-                    searchSuiBalances.addAll(suiBalances)
-                    suiNativeBalances.addAll(tempSuiBalances.drop(1))
-                    searchSuiNativeBalances.addAll(suiNativeBalances)
 
-                    withContext(Dispatchers.Main) {
-                        initRecyclerView()
-                        initSearchView(fetcher.suiBalances, suiBalances)
+                        tempSuiBalances.firstOrNull()?.let { moveBalances.add(it) }
+                        searchMoveBalances.addAll(moveBalances)
+                        moveNativeBalances.addAll(tempSuiBalances.drop(1))
+                        searchMoveNativeBalances.addAll(moveNativeBalances)
+
+                        withContext(Dispatchers.Main) {
+                            initRecyclerView()
+                            initSearchView(fetcher.suiBalances, moveBalances)
+                        }
                     }
                 }
 
-            } else {
-                (selectedChain as ChainBitCoin86).btcFetcher()?.let {
-                    withContext(Dispatchers.Main) {
-                        initRecyclerView()
-                        binding.searchBar.visibility = View.GONE
+                is ChainIota -> {
+                    (selectedChain as ChainIota).iotaFetcher()?.let { fetcher ->
+                        val tempIotaBalances: MutableList<Pair<String?, BigDecimal?>> =
+                            mutableListOf()
+                        tempIotaBalances.addAll(fetcher.iotaBalances)
+
+                        if (tempIotaBalances.none { it.first == IOTA_MAIN_DENOM }) {
+                            tempIotaBalances.add(Pair(IOTA_MAIN_DENOM, BigDecimal.ZERO))
+                        }
+                        synchronized(tempIotaBalances) {
+                            tempIotaBalances.sortWith { o1, o2 ->
+                                when {
+                                    o1.first == IOTA_MAIN_DENOM -> -1
+                                    o2.first == IOTA_MAIN_DENOM -> 1
+                                    else -> {
+                                        val value0 = fetcher.iotaBalanceValue(o1.first ?: "")
+                                        val value1 = fetcher.iotaBalanceValue(o2.first ?: "")
+                                        value1.compareTo(value0)
+                                    }
+                                }
+                            }
+                        }
+
+                        tempIotaBalances.firstOrNull()?.let { moveBalances.add(it) }
+                        searchMoveBalances.addAll(moveBalances)
+                        moveNativeBalances.addAll(tempIotaBalances.drop(1))
+                        searchMoveNativeBalances.addAll(moveNativeBalances)
+
+                        withContext(Dispatchers.Main) {
+                            initRecyclerView()
+                            initSearchView(fetcher.iotaBalances, moveBalances)
+                        }
+                    }
+                }
+
+                else -> {
+                    (selectedChain as ChainBitCoin86).btcFetcher()?.let {
+                        withContext(Dispatchers.Main) {
+                            initRecyclerView()
+                            binding.searchBar.visibility = View.GONE
+                        }
                     }
                 }
             }
@@ -170,7 +212,7 @@ class MajorCryptoFragment : Fragment() {
     private fun initRecyclerView() {
         if (isAdded) {
             majorCryptoAdapter = MajorCryptoAdapter(
-                requireContext(), selectedChain, searchSuiBalances, searchSuiNativeBalances
+                requireContext(), selectedChain, searchMoveBalances, searchMoveNativeBalances
             )
             binding.recycler.apply {
                 setHasFixedSize(true)
@@ -179,10 +221,10 @@ class MajorCryptoFragment : Fragment() {
                 majorCryptoAdapter.notifyDataSetChanged()
 
                 majorCryptoAdapter.setOnItemClickListener { chain, denom ->
-                    val sendAssetType = if (chain is ChainSui) {
-                        SendAssetType.SUI_COIN
-                    } else {
-                        SendAssetType.BIT_COIN
+                    val sendAssetType = when (chain) {
+                        is ChainSui -> SendAssetType.SUI_COIN
+                        is ChainIota -> SendAssetType.IOTA_COIN
+                        else -> SendAssetType.BIT_COIN
                     }
 
                     if (chain is ChainBitCoin86) {
@@ -237,17 +279,17 @@ class MajorCryptoFragment : Fragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    if (selectedChain is ChainSui) {
-                        searchSuiBalances.clear()
-                        searchSuiNativeBalances.clear()
+                    if (selectedChain is ChainSui || selectedChain is ChainIota) {
+                        searchMoveBalances.clear()
+                        searchMoveNativeBalances.clear()
 
                         if (StringUtils.isEmpty(newText)) {
-                            searchSuiBalances.addAll(tempSuiBalances)
-                            searchSuiNativeBalances.addAll(suiNativeBalances)
+                            searchMoveBalances.addAll(tempSuiBalances)
+                            searchMoveNativeBalances.addAll(moveNativeBalances)
 
                         } else {
                             newText?.let { searchTxt ->
-                                searchSuiBalances.addAll(tempSuiBalances.filter { balance ->
+                                searchMoveBalances.addAll(tempSuiBalances.filter { balance ->
                                     balance.first?.let { denom ->
                                         BaseData.getAsset(selectedChain.apiName, denom)
                                             ?.let { asset ->
@@ -256,7 +298,7 @@ class MajorCryptoFragment : Fragment() {
                                     } ?: false
                                 })
 
-                                searchSuiNativeBalances.addAll(suiNativeBalances.filter { balance ->
+                                searchMoveNativeBalances.addAll(moveNativeBalances.filter { balance ->
                                     balance.first?.let { denom ->
                                         val asset = BaseData.getAsset(selectedChain.apiName, denom)
                                         val metaData =
@@ -279,7 +321,8 @@ class MajorCryptoFragment : Fragment() {
                             }
                         }
                     }
-                    if (searchSuiBalances.isEmpty() && searchSuiNativeBalances.isEmpty()) {
+
+                    if (searchMoveBalances.isEmpty() && searchMoveNativeBalances.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
                     } else {
@@ -300,14 +343,24 @@ class MajorCryptoFragment : Fragment() {
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
-                    if (selectedChain is ChainSui) {
-                        ApplicationViewModel.shared.loadSuiData(
-                            account.id, selectedChain
-                        )
-                    } else {
-                        ApplicationViewModel.shared.loadBtcData(
-                            account.id, selectedChain as ChainBitCoin86
-                        )
+                    when (selectedChain) {
+                        is ChainSui -> {
+                            ApplicationViewModel.shared.loadSuiData(
+                                account.id, selectedChain
+                            )
+                        }
+
+                        is ChainIota -> {
+                            ApplicationViewModel.shared.loadIotaData(
+                                account.id, selectedChain
+                            )
+                        }
+
+                        else -> {
+                            ApplicationViewModel.shared.loadBtcData(
+                                account.id, selectedChain as ChainBitCoin86
+                            )
+                        }
                     }
                 }
             }

@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.data.repository.address.AddressRepository
 import wannabit.io.cosmostaion.database.model.AddressBook
 
@@ -36,5 +39,32 @@ class AddressBookViewModel(private val addressRepository: AddressRepository) : V
     fun deleteAddressBook(addressBook: AddressBook) = viewModelScope.launch(Dispatchers.IO) {
         addressRepository.deleteAddressBook(addressBook)
         _addressBookAllResult.postValue(addressRepository.selectAllAddressBook())
+    }
+
+    fun updateAddressBookWithChainTag() = viewModelScope.launch(Dispatchers.IO) {
+        if (addressRepository.selectAllAddressBook().isNotEmpty()) {
+            addressRepository.selectAllAddressBook().forEach { addressBook ->
+                if (addressBook.chainName.isNotEmpty()) {
+                    if (addressBook.address.startsWith("0x")) {
+                        if (BaseKey.isValidEthAddress(addressBook.address)) {
+                            addressBook.chainName = "EVM-universal"
+                        } else {
+                            addressBook.chainName = ChainSui().tag
+                        }
+
+                    } else {
+                        val prefix = addressBook.address.substringBefore('1')
+                        val chainTag =
+                            allChains().firstOrNull { it.isDefault && it.accountPrefix == prefix }?.tag
+                                ?: ""
+                        addressBook.chainName = chainTag
+                    }
+
+                } else {
+                    addressBook.chainName = "EVM-universal"
+                }
+                addressRepository.updateAddressBookWithChainTag(addressBook)
+            }
+        }
     }
 }

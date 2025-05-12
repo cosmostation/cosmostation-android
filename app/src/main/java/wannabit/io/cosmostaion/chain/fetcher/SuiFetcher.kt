@@ -204,7 +204,7 @@ fun JsonObject?.assetImg(): String {
     }
 }
 
-fun JsonObject.suiRawNftUrlString(): String? {
+fun JsonObject.moveRawNftUrlString(): String? {
     return try {
         this["display"].asJsonObject["data"].asJsonObject["image_url"].asString
     } catch (e: Exception) {
@@ -212,9 +212,9 @@ fun JsonObject.suiRawNftUrlString(): String? {
     }
 }
 
-fun JsonObject.suiNftUrl(): String? {
+fun JsonObject.moveNftUrl(): String? {
     var urlString: String?
-    suiRawNftUrlString()?.let { url ->
+    moveRawNftUrlString()?.let { url ->
         if (url.startsWith("ipfs://")) {
             urlString = url.replace("ipfs://", "https://ipfs.io/ipfs/")
             return urlString
@@ -224,18 +224,18 @@ fun JsonObject.suiNftUrl(): String? {
     return null
 }
 
-fun JsonObject.suiValidatorImg(): String? {
-    if (this["imageUrl"].asString != null) {
+fun JsonObject.moveValidatorImg(): String? {
+    if (this.has("imageUrl")) {
         return this["imageUrl"].asString
     }
     return null
 }
 
-fun JsonObject.suiValidatorName(): String {
+fun JsonObject.moveValidatorName(): String {
     return this["name"].asString ?: ""
 }
 
-fun JsonObject.suiValidatorCommission(): BigDecimal {
+fun JsonObject.moveValidatorCommission(): BigDecimal {
     return this["commissionRate"].asString.toBigDecimal().movePointLeft(2)
         .setScale(2, RoundingMode.DOWN)
 }

@@ -13,8 +13,10 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
+import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
@@ -189,8 +191,6 @@ interface WalletRepository {
         chain: BaseChain, contractAddress: String, tokenId: String
     ): NetworkResult<JsonObject>
 
-    suspend fun ecoSystem(chain: String): NetworkResult<MutableList<JsonObject>>
-
     suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>>
 
     suspend fun notice(): NetworkResult<NoticeResponse>
@@ -218,6 +218,32 @@ interface WalletRepository {
 
     suspend fun suiApys(
         fetcher: SuiFetcher, chain: ChainSui
+    ): NetworkResult<MutableList<JsonObject>>
+
+
+    //Iota
+    suspend fun iotaBalance(
+        fetcher: IotaFetcher, chain: ChainIota
+    ): NetworkResult<JsonObject?>
+
+    suspend fun iotaSystemState(
+        fetcher: IotaFetcher, chain: ChainIota
+    ): NetworkResult<JsonObject>
+
+    suspend fun iotaOwnedObject(
+        fetcher: IotaFetcher, chain: ChainIota, cursor: String?
+    )
+
+    suspend fun iotaStakes(
+        fetcher: IotaFetcher, chain: ChainIota
+    ): NetworkResult<JsonObject>
+
+    suspend fun iotaCoinMetadata(
+        fetcher: IotaFetcher, chain: ChainIota, coinType: String?
+    ): NetworkResult<JsonObject>
+
+    suspend fun iotaApys(
+        fetcher: IotaFetcher, chain: ChainIota
     ): NetworkResult<MutableList<JsonObject>>
 
 

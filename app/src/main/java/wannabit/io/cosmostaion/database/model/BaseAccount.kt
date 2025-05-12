@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseKey
@@ -129,6 +130,10 @@ data class BaseAccount(
 
                 is ChainSui -> {
                     chain.coinValue = chain.suiFetcher()?.allAssetValue()
+                }
+
+                is ChainIota -> {
+                    chain.coinValue = chain.iotaFetcher()?.allAssetValue()
                 }
 
                 is ChainOkt996Keccak -> {

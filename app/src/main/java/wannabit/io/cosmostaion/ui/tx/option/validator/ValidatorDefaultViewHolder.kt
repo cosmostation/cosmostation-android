@@ -3,17 +3,23 @@ package wannabit.io.cosmostaion.ui.tx.option.validator
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
+import coil.request.CachePolicy
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorCommission
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.iotaValidatorVp
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
+import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -117,12 +123,38 @@ class ValidatorDefaultViewHolder(
         binding.apply {
             jailedImg.visibility = View.GONE
             monikerImg.setImageFromSvg(
-                toValidator.suiValidatorImg(), R.drawable.icon_default_vaildator
+                toValidator.moveValidatorImg(), R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator.suiValidatorName().trim()
+            monikerName.text = toValidator.moveValidatorName().trim()
 
             votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
-            commission.text = formatString("${toValidator.suiValidatorCommission()}%", 3)
+            commission.text = formatString("${toValidator.moveValidatorCommission()}%", 3)
+        }
+    }
+
+    fun iotaBind(toValidator: JsonObject, coilImageLoader: ImageLoader) {
+        binding.apply {
+            jailedImg.visibility = View.GONE
+            val rawImageUrl = toValidator.moveValidatorImg()
+
+            val imageUrl = rawImageUrl?.let {
+                if (it.endsWith(".svg", ignoreCase = true)) {
+                    "$it?ts=${System.currentTimeMillis()}"
+                } else it
+            }
+
+            if (imageUrl != null) {
+                monikerImg.load(imageUrl, coilImageLoader) {
+                    placeholder(R.drawable.icon_default_vaildator)
+                    error(R.drawable.icon_default_vaildator)
+                }
+            } else {
+                monikerImg.load(R.drawable.icon_default_vaildator, coilImageLoader)
+            }
+            monikerName.text = toValidator.moveValidatorName().trim()
+
+            votingPower.text = formatAmount(toValidator.iotaValidatorVp().toString(), 0)
+            commission.text = formatString("${toValidator.moveValidatorCommission()}%", 3)
         }
     }
 

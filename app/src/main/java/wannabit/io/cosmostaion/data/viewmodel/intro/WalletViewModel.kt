@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
@@ -183,6 +184,9 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             if (response.data.isEmpty()) {
                                 mutableListOf<JsonObject>()
                             } else {
+                                BaseData.originEcosystems?.clear()
+                                BaseData.originEcosystems?.addAll(response.data as MutableList<JsonObject>)
+
                                 val ecoList = response.data as MutableList<JsonObject>
                                 ecoList.forEach { ecosystem ->
                                     val isPinnedValue =
@@ -867,7 +871,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val coinType = balance.asJsonObject["coinType"].asString
                                     val amount =
                                         balance.asJsonObject["totalBalance"].asString.toBigDecimal()
-                                    fetcher.suiBalances = fetcher.suiBalances
                                     fetcher.suiBalances.add(Pair(coinType, amount))
                                 }
                                 fetcher.suiBalances.sortWith { o1, o2 ->
@@ -880,6 +883,44 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                                 fetchState = FetchState.SUCCESS
                                 coinCnt = fetcher.suiBalances.size
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            is ChainIota -> {
+                chain.iotaFetcher()?.let { fetcher ->
+                    chain.apply {
+                        when (val response = walletRepository.iotaBalance(fetcher, this)) {
+                            is NetworkResult.Success -> {
+                                fetcher.iotaBalances.clear()
+                                response.data?.get("result")?.asJsonArray?.forEach { balance ->
+                                    val coinType = balance.asJsonObject["coinType"].asString
+                                    val amount =
+                                        balance.asJsonObject["totalBalance"].asString.toBigDecimal()
+                                    fetcher.iotaBalances.add(Pair(coinType, amount))
+                                }
+                                fetcher.iotaBalances.sortWith { o1, o2 ->
+                                    when {
+                                        o1.first == SUI_MAIN_DENOM -> -1
+                                        o2.first == SUI_MAIN_DENOM -> 1
+                                        else -> 0
+                                    }
+                                }
+
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = fetcher.iotaBalances.size
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }
@@ -1071,9 +1112,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         is NetworkResult.Success -> {
                                             when (val tokenDetail =
                                                 walletRepository.cw721TokenDetail(
-                                                    chain,
-                                                    list.contractAddress,
-                                                    tokenId
+                                                    chain, list.contractAddress, tokenId
                                                 )) {
                                                 is NetworkResult.Success -> {
                                                     Cw721TokenModel(
@@ -1112,23 +1151,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
             is NetworkResult.Error -> {
                 _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    private val _ecoSystemErrorMessage = MutableLiveData<String>()
-    val ecoSystemErrorMessage: LiveData<String> get() = _ecoSystemErrorMessage
-
-    private var _ecoSystemListResult = MutableLiveData<MutableList<JsonObject>?>()
-    val ecoSystemListResult: LiveData<MutableList<JsonObject>?> get() = _ecoSystemListResult
-    fun ecoSystemList(chain: String) = CoroutineScope(Dispatchers.IO).launch {
-        when (val response = walletRepository.ecoSystem(chain)) {
-            is NetworkResult.Success -> {
-                _ecoSystemListResult.postValue(response.data)
-            }
-
-            is NetworkResult.Error -> {
-                _ecoSystemErrorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
             }
         }
     }

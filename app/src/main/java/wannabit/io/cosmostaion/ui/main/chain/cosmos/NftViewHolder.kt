@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.fetcher.suiNftUrl
+import wannabit.io.cosmostaion.chain.fetcher.moveNftUrl
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.databinding.ItemNftBinding
@@ -34,7 +34,7 @@ class NftViewHolder(
     fun suiBind(suiNft: JsonObject) {
         binding.apply {
             nftImg.clipToOutline = true
-            suiNft["data"].asJsonObject.suiNftUrl()?.let { url ->
+            suiNft["data"].asJsonObject.moveNftUrl()?.let { url ->
                 Glide.with(context).load(url).diskCacheStrategy(
                     DiskCacheStrategy.ALL
                 ).placeholder(R.drawable.icon_nft_default).error(R.drawable.icon_nft_default)
