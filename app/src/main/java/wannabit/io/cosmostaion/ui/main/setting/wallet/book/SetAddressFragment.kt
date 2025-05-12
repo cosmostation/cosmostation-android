@@ -121,10 +121,6 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 ContextCompat.getColor(requireContext(), R.color.color_sub_blue),
                 PorterDuff.Mode.SRC_IN
             )
-
-            if (toChain == null && addressBookType == AddressBookType.ManualNew) {
-                toChain = ChainCosmos()
-            }
             initView()
         }
     }

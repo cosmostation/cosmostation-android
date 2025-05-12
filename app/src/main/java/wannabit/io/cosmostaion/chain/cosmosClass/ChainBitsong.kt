@@ -22,9 +22,9 @@ class ChainBitsong : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(639, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ubtsg"
     override var accountPrefix: String = "bitsong"
-    override var grpcHost: String = "grpc-bitsong.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-bitsong.cosmostation.io/"
+    override var grpcHost: String = "grpc-bitsong-ia.cosmosia.notional.ventures"
+    override var lcdUrl: String = "https://lcd.explorebitsong.com/"
 }

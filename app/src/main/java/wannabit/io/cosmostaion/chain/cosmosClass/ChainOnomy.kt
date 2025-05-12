@@ -22,9 +22,9 @@ class ChainOnomy : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "anom"
     override var accountPrefix: String = "onomy"
-    override var grpcHost: String = "grpc-onomy-protocol.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-onomy-protocol.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://rest-mainnet.onomy.io/"
 }

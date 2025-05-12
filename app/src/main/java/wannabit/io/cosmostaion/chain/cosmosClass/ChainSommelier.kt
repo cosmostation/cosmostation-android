@@ -22,9 +22,9 @@ class ChainSommelier : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "usomm"
     override var accountPrefix: String = "somm"
-    override var grpcHost: String = "grpc-sommelier.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-sommelier.cosmostation.io/"
+    override var grpcHost: String = "sommelier-grpc.lavenderfive.com"
+    override var lcdUrl: String = "https://sommelier-api.polkachu.com/"
 }
