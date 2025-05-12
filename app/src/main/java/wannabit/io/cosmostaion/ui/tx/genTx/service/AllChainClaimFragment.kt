@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
@@ -99,7 +98,7 @@ class AllChainClaimFragment : BaseTxFragment() {
                 BaseData.baseAccount?.let { account ->
                     if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
                         for (chain in account.sortedDisplayChains()
-                            .filter { !it.isTestnet && it.supportCosmos() && it !is ChainNeutron }) {
+                            .filter { !it.isTestnet && it.supportCosmos()}) {
                             val valueAbleReward = chain.cosmosFetcher?.valueAbleRewards()
                             val txFee = chain.getInitPayableFee(requireContext())
                             if (valueAbleReward?.isNotEmpty() == true && txFee != null) {
