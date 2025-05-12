@@ -400,11 +400,20 @@ class DappStartFragment : BottomSheetDialogFragment() {
     }
 
     private fun centerButtonInScrollView(scrollView: HorizontalScrollView, button: View) {
-        val scrollViewCenterX = scrollView.width / 2
-        val buttonX = button.left - scrollView.scrollX
-        val buttonCenterX = buttonX + button.width / 2
-        val scrollToX = buttonCenterX - scrollViewCenterX
-        scrollView.smoothScrollTo(scrollToX, 0)
+        val scrollViewWidth = scrollView.width
+        val scrollViewHeight = scrollView.height
+
+        val buttonX = button.left
+        val buttonY = button.top
+        val buttonWidth = button.width
+        val buttonHeight = button.height
+
+        val scrollToX = buttonX - (scrollViewWidth - buttonWidth) / 2
+        val scrollToY = buttonY - (scrollViewHeight - buttonHeight) / 2
+
+        scrollView.post {
+            scrollView.smoothScrollTo(scrollToX, scrollToY)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -170,7 +170,7 @@
             style="@style/InputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/str_memo"
+            android:hint="@string/title_memo"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="2"

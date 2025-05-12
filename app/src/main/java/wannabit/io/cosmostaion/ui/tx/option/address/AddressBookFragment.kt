@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
@@ -186,9 +188,22 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                val prefix = addressBook.address.substringBefore('1')
-                                if (addressBook.address.lowercase() != senderAddress.lowercase() && toChain.accountPrefix == prefix) {
-                                    addressBooks.add(addressBook)
+                                if (addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    if (fromChain.isTestnet) {
+                                        if (addressBook.chainName == toChain.tag) {
+                                            addressBooks.add(addressBook)
+                                        }
+
+                                    } else {
+                                        val chain =
+                                            allChains().firstOrNull { it.tag == addressBook.chainName }
+                                        if (chain?.isTestnet == false) {
+                                            val prefix = addressBook.address.substringBefore('1')
+                                            if (toChain.accountPrefix == prefix) {
+                                                addressBooks.add(addressBook)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                     }
@@ -235,8 +250,15 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
-                                if (addressBook.chainName == toChain.tag && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                    majorAddressBook.add(addressBook)
+                                if (addressBook.address.lowercase() != senderAddress.lowercase()) {
+                                    val chain =
+                                        allChains().firstOrNull { it.tag == addressBook.chainName }
+                                    if (fromChain.isTestnet && chain?.isTestnet == true && chain is ChainBitcoin86Testnet) {
+                                        majorAddressBook.add(addressBook)
+
+                                    } else if (!fromChain.isTestnet && chain?.isTestnet == false && chain is ChainBitCoin86) {
+                                        majorAddressBook.add(addressBook)
+                                    }
                                 }
                             }
                     }
