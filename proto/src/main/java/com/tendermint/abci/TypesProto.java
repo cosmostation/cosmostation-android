@@ -36959,7 +36959,7 @@ public final class TypesProto {
 
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -36968,7 +36968,7 @@ public final class TypesProto {
         getEventsList();
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -36976,7 +36976,7 @@ public final class TypesProto {
     com.tendermint.abci.TypesProto.Event getEvents(int index);
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -36984,7 +36984,7 @@ public final class TypesProto {
     int getEventsCount();
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -36993,7 +36993,7 @@ public final class TypesProto {
         getEventsOrBuilderList();
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37004,7 +37004,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37015,7 +37015,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37025,7 +37025,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37035,7 +37035,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37046,7 +37046,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37180,7 +37180,7 @@ public final class TypesProto {
     private java.util.List<com.tendermint.abci.TypesProto.Event> events_;
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37191,7 +37191,7 @@ public final class TypesProto {
     }
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37203,7 +37203,7 @@ public final class TypesProto {
     }
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37214,7 +37214,7 @@ public final class TypesProto {
     }
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37225,7 +37225,7 @@ public final class TypesProto {
     }
     /**
      * <pre>
-     * set of block events emmitted as part of executing the block
+     * set of block events emitted as part of executing the block
      * </pre>
      *
      * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -37242,7 +37242,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37255,7 +37255,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37269,7 +37269,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37282,7 +37282,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -37295,7 +37295,7 @@ public final class TypesProto {
     /**
      * <pre>
      * the result of executing each transaction including the events
-     * the particular transction emitted. This should match the order
+     * the particular transaction emitted. This should match the order
      * of the transactions delivered in the block itself
      * </pre>
      *
@@ -38004,7 +38004,7 @@ public final class TypesProto {
 
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38018,7 +38018,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38032,7 +38032,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38046,7 +38046,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38067,7 +38067,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38085,7 +38085,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38105,7 +38105,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38126,7 +38126,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38144,7 +38144,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38162,7 +38162,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38181,7 +38181,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38198,7 +38198,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38215,7 +38215,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38226,7 +38226,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38240,7 +38240,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38255,7 +38255,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38266,7 +38266,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38278,7 +38278,7 @@ public final class TypesProto {
       }
       /**
        * <pre>
-       * set of block events emmitted as part of executing the block
+       * set of block events emitted as part of executing the block
        * </pre>
        *
        * <code>repeated .tendermint.abci.Event events = 1 [json_name = "events", (.gogoproto.nullable) = false, (.gogoproto.jsontag) = "events,omitempty"];</code>
@@ -38317,7 +38317,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38333,7 +38333,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38349,7 +38349,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38365,7 +38365,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38388,7 +38388,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38408,7 +38408,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38430,7 +38430,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38453,7 +38453,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38473,7 +38473,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38493,7 +38493,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38514,7 +38514,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38533,7 +38533,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38552,7 +38552,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38565,7 +38565,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38581,7 +38581,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38598,7 +38598,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38611,7 +38611,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
@@ -38625,7 +38625,7 @@ public final class TypesProto {
       /**
        * <pre>
        * the result of executing each transaction including the events
-       * the particular transction emitted. This should match the order
+       * the particular transaction emitted. This should match the order
        * of the transactions delivered in the block itself
        * </pre>
        *
