@@ -28,7 +28,7 @@ class PrivateViewHolder(
         binding.apply {
             privateView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
             chainPath.text = chain.getHDPath(account.lastHDPath)
             chainPrivateKey.text = "0x" + chain.privateKey?.toHex()
 

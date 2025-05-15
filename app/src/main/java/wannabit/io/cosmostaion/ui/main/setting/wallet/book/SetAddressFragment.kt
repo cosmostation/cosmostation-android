@@ -190,7 +190,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
     private fun updateView() {
         binding.apply {
             toChain?.let { chain ->
-                chainName.text = chain.name
+                chainName.text = chain.getChainName()
                 chainImg.setChainLogo(chain)
 
                 val addressInput = addressTxt.text.toString().trim()
@@ -271,7 +271,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     return@setOnClickListener
                 }
                 handleOneClickWithDelay(
-                    SetChainTypeBookFragment.newInstance(toChain?.tag,
+                    SetChainTypeBookFragment.newInstance(toChain,
                         object : ChainSelectAddressListener {
                             override fun select(chainTag: String) {
                                 toChain = allChains().firstOrNull { it.tag == chainTag }

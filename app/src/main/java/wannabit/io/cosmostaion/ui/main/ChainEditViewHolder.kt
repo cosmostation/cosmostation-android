@@ -48,7 +48,7 @@ class ChainEditViewHolder(
         binding.apply {
             updateView(chain, displayChains)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
             skeletonChainValue.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
             respondLayout.visibility = View.GONE
@@ -174,7 +174,7 @@ class ChainEditViewHolder(
         binding.apply {
             updateView(chain, displayChains)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
 
             if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE

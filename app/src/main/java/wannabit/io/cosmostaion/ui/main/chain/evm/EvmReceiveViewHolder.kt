@@ -36,12 +36,12 @@ class EvmReceiveViewHolder(
 
             if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
                 receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name)
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName())
                 setQrAddress(context, selectChain.mainAddress)
 
             } else {
                 receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.name + " EVM")
+                    context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName() + " EVM")
                 setQrAddress(context, selectChain.evmAddress)
             }
 

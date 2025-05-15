@@ -197,15 +197,15 @@ class PrivateCheckFragment : Fragment() {
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
-                                chain.name.contains(
+                                chain.getChainName()?.contains(
                                     searchTxt, ignoreCase = true
-                                )
+                                ) == true
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
-                                chain.name.contains(
+                                chain.getChainName()?.contains(
                                     searchTxt, ignoreCase = true
-                                )
+                                ) == true
                             })
                         }
                     }

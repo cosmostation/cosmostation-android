@@ -12,7 +12,7 @@ class ChainViewHolder(
     fun bind(chain: BaseChain) {
         binding.apply {
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
         }
     }
 }

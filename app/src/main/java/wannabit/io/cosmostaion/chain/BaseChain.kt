@@ -317,6 +317,14 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getChainName(): String? {
+        return if (getChainListParam()?.has("chain_name") == true) {
+            getChainListParam()?.get("chain_name")?.asString
+        } else {
+            name
+        }
+    }
+
     fun chainLogo(): String {
         return if (isTestnet) {
             getChainListParam()?.get("chain_image")?.asString ?: ""

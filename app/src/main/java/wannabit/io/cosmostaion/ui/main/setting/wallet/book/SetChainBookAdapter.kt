@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemSetChainBookBinding
 
 class SetChainBookAdapter(
-    private val toChain: String?,
-) : ListAdapter<String, SetChainBookViewHolder>(ChainDiffCallback()) {
+    private val toChain: BaseChain?,
+) : ListAdapter<BaseChain?, SetChainBookViewHolder>(ChainDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
@@ -19,24 +20,25 @@ class SetChainBookAdapter(
     }
 
     override fun onBindViewHolder(holder: SetChainBookViewHolder, position: Int) {
-        val chainTag = currentList[position]
-        holder.bind(chainTag, toChain)
+        val chain = currentList[position]
+        holder.bind(chain, toChain)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(chainTag)
+                val tag = chain?.tag ?: "EVM-universal"
+                it(tag)
             }
         }
     }
 
-    private class ChainDiffCallback : DiffUtil.ItemCallback<String>() {
+    private class ChainDiffCallback : DiffUtil.ItemCallback<BaseChain?>() {
 
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areItemsTheSame(oldItem: BaseChain, newItem: BaseChain): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: BaseChain, newItem: BaseChain): Boolean {
+            return oldItem.tag == newItem.tag
         }
     }
 

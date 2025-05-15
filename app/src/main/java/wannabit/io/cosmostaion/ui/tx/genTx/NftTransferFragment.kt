@@ -111,7 +111,7 @@ class NftTransferFragment(
         binding.apply {
             toChain = fromChain
             chainImg.setChainLogo(toChain)
-            chainName.text = toChain.name.uppercase()
+            chainName.text = toChain.getChainName()
         }
     }
 

@@ -83,7 +83,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
 
             fromChain?.let { chain ->
                 chainImg.setChainLogo(chain)
-                selectTitle.text = getString(R.string.title_select_end_point, fromChain?.name)
+                selectTitle.text = getString(R.string.title_select_end_point, fromChain?.getChainName())
 
                 when (endPointType) {
                     EndPointType.END_POINT_SUI -> {

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.databinding.FragmentSetChainTypeBookBinding
 
@@ -29,18 +31,18 @@ class SetChainTypeBookFragment : BottomSheetDialogFragment() {
 
     private lateinit var setChainBookAdapter: SetChainBookAdapter
 
-    private var toChain: String? = ""
+    private var toChain: BaseChain? = null
 
-    private var recipientAbleChains: MutableList<String>? = mutableListOf()
-    private var searchRecipientAbleChains: MutableList<String> = mutableListOf()
+    private var recipientAbleChains: MutableList<BaseChain?>? = mutableListOf()
+    private var searchRecipientAbleChains: MutableList<BaseChain?>? = mutableListOf()
 
     companion object {
         @JvmStatic
         fun newInstance(
-            toChain: String?, listener: ChainSelectAddressListener
+            toChain: BaseChain?, listener: ChainSelectAddressListener
         ): SetChainTypeBookFragment {
             val args = Bundle().apply {
-                putString("toChain", toChain)
+                putParcelable("toChain", toChain)
             }
             val fragment = SetChainTypeBookFragment()
             fragment.arguments = args
@@ -110,14 +112,17 @@ class SetChainTypeBookFragment : BottomSheetDialogFragment() {
                 )
             }
 
-            toChain = arguments?.getString("toChain") ?: ""
-            if (toChain?.isEmpty() == true) {
-                toChain = "EVM-universal"
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                arguments?.getParcelable("toChain", BaseChain::class.java)?.let { toChain = it }
+            } else {
+                (arguments?.getParcelable("toChain") as? BaseChain)?.let {
+                    toChain = it
+                }
             }
 
-            recipientAbleChains = allChains().filter { it.isDefault }.map { it.tag }.toMutableList()
-            recipientAbleChains?.add(0, "EVM-universal")
-            recipientAbleChains?.let { searchRecipientAbleChains.addAll(it) }
+            recipientAbleChains = allChains().filter { it.isDefault }.toMutableList()
+            recipientAbleChains?.add(0, null)
+            recipientAbleChains?.let { searchRecipientAbleChains?.addAll(it) }
             initRecyclerView()
         }
     }
@@ -147,14 +152,15 @@ class SetChainTypeBookFragment : BottomSheetDialogFragment() {
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    searchRecipientAbleChains.clear()
+                    searchRecipientAbleChains?.clear()
                     recipientAbleChains?.let {
                         if (StringUtils.isEmpty(newText)) {
-                            searchRecipientAbleChains.addAll(it)
+                            searchRecipientAbleChains?.addAll(it)
                         } else {
                             newText?.let { searchTxt ->
-                                searchRecipientAbleChains.addAll(it.filter { tag ->
-                                    tag.contains(searchTxt, ignoreCase = true)
+                                searchRecipientAbleChains?.addAll(it.filter { chain ->
+                                    chain?.getChainName()
+                                        ?.contains(searchTxt, ignoreCase = true) == true
                                 })
                             }
                         }

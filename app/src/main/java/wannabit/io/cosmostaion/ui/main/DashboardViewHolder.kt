@@ -49,7 +49,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
 
             simpleLayout.visibility = View.GONE
             proLayout.visibility = View.VISIBLE
@@ -188,7 +188,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
 
             simpleLayout.visibility = View.GONE
             proLayout.visibility = View.VISIBLE
@@ -320,7 +320,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             simpleChainImg.setChainLogo(chain)
-            simpleChainName.text = chain.name
+            simpleChainName.text = chain.getChainName()
             handler.removeCallbacks(starEvmAddressAnimation)
 
             simpleLayout.visibility = View.VISIBLE
@@ -403,7 +403,7 @@ class DashboardViewHolder(
         binding.apply {
             dashView.setBackgroundResource(R.drawable.item_bg)
             simpleChainImg.setChainLogo(chain)
-            simpleChainName.text = chain.name
+            simpleChainName.text = chain.getChainName()
             handler.removeCallbacks(starEvmAddressAnimation)
 
             simpleLayout.visibility = View.VISIBLE

@@ -163,7 +163,7 @@ class ChainFragment : BottomSheetDialogFragment() {
                         } else {
                             newText?.let { searchTxt ->
                                 searchRecipientAbleChains.addAll(it.filter { line ->
-                                    line.name.contains(searchTxt, ignoreCase = true)
+                                    line.getChainName()?.contains(searchTxt, ignoreCase = true) == true
                                 })
                             }
                         }

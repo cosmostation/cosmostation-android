@@ -45,7 +45,7 @@ class QrEvmDialog(
         binding.apply {
             selectedChain?.let { chain ->
                 ethAddressView.setBackgroundResource(R.drawable.cell_bg)
-                ethChainName.text = chain.name + " Evm Style Address"
+                ethChainName.text = chain.getChainName() + " Evm Style Address"
                 ethAddress.text = chain.evmAddress
                 ethChainImg.setChainLogo(chain)
 
@@ -56,7 +56,7 @@ class QrEvmDialog(
                 ethQrView.radius = context.resources.getDimension(R.dimen.space_12)
                 ethQrImg.clipToOutline = true
 
-                chainName.text = chain.name + " Cosmos Style Address"
+                chainName.text = chain.getChainName() + " Cosmos Style Address"
                 chainImg.setChainLogo(chain)
                 addressView.setBackgroundResource(R.drawable.cell_bg)
                 address.text = chain.address

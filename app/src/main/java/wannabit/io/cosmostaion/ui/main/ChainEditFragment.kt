@@ -69,7 +69,7 @@ class ChainEditFragment : BaseTxFragment() {
                         mainnetChains
                     } else {
                         mainnetChains.filter { chain ->
-                            chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                            chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                         }
                     })
 
@@ -78,7 +78,7 @@ class ChainEditFragment : BaseTxFragment() {
                         testnetChains
                     } else {
                         testnetChains.filter { chain ->
-                            chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                            chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                         }
                     })
 
@@ -239,7 +239,7 @@ class ChainEditFragment : BaseTxFragment() {
                             mainnetChains
                         } else {
                             mainnetChains.filter { chain ->
-                                chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                                chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                             }
                         })
 
@@ -248,7 +248,7 @@ class ChainEditFragment : BaseTxFragment() {
                             testnetChains
                         } else {
                             testnetChains.filter { chain ->
-                                chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                                chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                             }
                         })
                     }
@@ -290,15 +290,15 @@ class ChainEditFragment : BaseTxFragment() {
                         } else {
                             newText?.let { searchTxt ->
                                 searchMainnetChains.addAll(account.allChains.filter { chain ->
-                                    chain.name.contains(
+                                    chain.getChainName()?.contains(
                                         searchTxt, ignoreCase = true
-                                    ) && !chain.isTestnet
+                                    ) == true && !chain.isTestnet
                                 })
 
                                 searchTestnetChains.addAll(account.allChains.filter { chain ->
-                                    chain.name.contains(
+                                    chain.getChainName()?.contains(
                                         searchTxt, ignoreCase = true
-                                    ) && chain.isTestnet
+                                    ) == true && chain.isTestnet
                                 })
                             }
                         }

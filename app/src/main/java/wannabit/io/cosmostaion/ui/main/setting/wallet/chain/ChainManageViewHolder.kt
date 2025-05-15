@@ -26,7 +26,7 @@ class ChainManageViewHolder(
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 
-                    chainName.text = chain.name
+                    chainName.text = chain.getChainName()
                     restEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
                     restEndpointType.text = "API"
                 }
@@ -35,7 +35,7 @@ class ChainManageViewHolder(
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 
-                    chainName.text = chain.name
+                    chainName.text = chain.getChainName()
                     restEndpoint.text = chain.suiFetcher()?.suiRpc()?.replace("https://", "")
                     restEndpointType.text = "SUI RPC"
                 }
@@ -44,7 +44,7 @@ class ChainManageViewHolder(
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 
-                    chainName.text = chain.name
+                    chainName.text = chain.getChainName()
                     restEndpoint.text = chain.iotaFetcher()?.iotaRpc()?.replace("https://", "")
                     restEndpointType.text = "IOTA RPC"
                 }
@@ -55,7 +55,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.GONE
                             evmLayout.visibility = View.VISIBLE
 
-                            evmChainName.text = chain.name
+                            evmChainName.text = chain.getChainName()
                             rpcEndpoint.text = chain.cosmosFetcher()
                                 ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                                 ?.getGrpc()?.second
@@ -68,7 +68,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.VISIBLE
                             evmLayout.visibility = View.GONE
 
-                            chainName.text = chain.name
+                            chainName.text = chain.getChainName()
                             restEndpoint.text = chain.cosmosFetcher()
                                 ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                                 ?.getGrpc()?.second
@@ -82,7 +82,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.GONE
                             evmLayout.visibility = View.VISIBLE
 
-                            evmChainName.text = chain.name
+                            evmChainName.text = chain.getChainName()
                             rpcEndpoint.text =
                                 chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                             rpcEndpointType.text = "REST"
@@ -94,7 +94,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.VISIBLE
                             evmLayout.visibility = View.GONE
 
-                            chainName.text = chain.name
+                            chainName.text = chain.getChainName()
                             restEndpoint.text =
                                 chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                             restEndpointType.text = "REST"
@@ -104,7 +104,7 @@ class ChainManageViewHolder(
                         restLayout.visibility = View.VISIBLE
                         evmLayout.visibility = View.GONE
 
-                        chainName.text = chain.name
+                        chainName.text = chain.getChainName()
                         restEndpoint.text =
                             chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
                         restEndpointType.text = "EVM RPC"
@@ -124,7 +124,7 @@ class ChainManageViewHolder(
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 
-                    chainName.text = chain.name
+                    chainName.text = chain.getChainName()
                     restEndpoint.text = chain.btcFetcher()?.mempoolUrl()?.replace("https://", "")
                     restEndpointType.text = "API"
                 }
@@ -133,7 +133,7 @@ class ChainManageViewHolder(
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 
-                    chainName.text = chain.name
+                    chainName.text = chain.getChainName()
                     restEndpoint.text = chain.gnoRpcFetcher()?.gnoRpc()?.replace("https://", "")
                     restEndpointType.text = "RPC"
                 }
@@ -144,7 +144,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.GONE
                             evmLayout.visibility = View.VISIBLE
 
-                            evmChainName.text = chain.name
+                            evmChainName.text = chain.getChainName()
                             rpcEndpoint.text = chain.cosmosFetcher()
                                 ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                                 ?.getGrpc()?.second
@@ -157,7 +157,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.VISIBLE
                             evmLayout.visibility = View.GONE
 
-                            chainName.text = chain.name
+                            chainName.text = chain.getChainName()
                             restEndpoint.text = chain.cosmosFetcher()
                                 ?.getGrpc()?.first + " : " + chain.cosmosFetcher()
                                 ?.getGrpc()?.second
@@ -171,7 +171,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.GONE
                             evmLayout.visibility = View.VISIBLE
 
-                            evmChainName.text = chain.name
+                            evmChainName.text = chain.getChainName()
                             rpcEndpoint.text =
                                 chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                             rpcEndpointType.text = "REST"
@@ -183,7 +183,7 @@ class ChainManageViewHolder(
                             restLayout.visibility = View.VISIBLE
                             evmLayout.visibility = View.GONE
 
-                            chainName.text = chain.name
+                            chainName.text = chain.getChainName()
                             restEndpoint.text =
                                 chain.cosmosFetcher()?.getLcd()?.replace("https://", "")
                             restEndpointType.text = "REST"
@@ -193,7 +193,7 @@ class ChainManageViewHolder(
                         restLayout.visibility = View.VISIBLE
                         evmLayout.visibility = View.GONE
 
-                        chainName.text = chain.name
+                        chainName.text = chain.getChainName()
                         restEndpoint.text =
                             chain.evmRpcFetcher()?.getEvmRpc()?.replace("https://", "")
                         restEndpointType.text = "EVM RPC"

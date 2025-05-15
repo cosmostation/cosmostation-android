@@ -82,7 +82,7 @@ class MajorAboutFragment : Fragment() {
             }
             chainParam = selectedChain.getChainParam()
 
-            chainName.text = selectedChain.name
+            chainName.text = selectedChain.getChainName()
             chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")?.let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     chainDescription.text = it.getAsJsonObject("description")?.get("ko")?.asString
