@@ -367,6 +367,7 @@
     <string name="title_additional_fee" translatable="false">Additional Fee in $%1$s</string>
     <string name="title_time_lock_unstaking" translatable="false">Time Lock and Unstaking</string>
     <string name="title_enter_memo">Enter Memo</string>
+    <string name="title_universal_address" translatable="false">Universal Address</string>
 
 
     // msg
@@ -485,7 +486,8 @@
     <string name="str_cosmic_theme_msg" translatable="false">Like a scene from space - a new view every time</string>
     <string name="str_send_to_evm" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘0x...’&lt;/font&gt; address</string>
     <string name="str_send_to_cosmos" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘%1$s...’&lt;/font&gt; address or IBC Send</string>
-    <string name="str_meme_description">Depositing Cosmos ecosystem coins to a centralized exchange without a memo may result in asset loss.</string>
+    <string name="str_memo_description">Depositing Cosmos ecosystem coins to a centralized exchange without a memo may result in asset loss.</string>
+    <string name="str_memo_description_msg">A single address can connect multiple EVM networks, but not recommended for exchanges.</string>
 
 
     // header

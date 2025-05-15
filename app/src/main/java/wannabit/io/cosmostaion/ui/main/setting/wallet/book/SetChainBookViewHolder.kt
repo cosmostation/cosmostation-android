@@ -30,6 +30,7 @@ class SetChainBookViewHolder(
                         context, R.color.color_base08
                     )
                 )
+                checkImg.visibility = View.VISIBLE
 
             } else {
                 chainView.visibility = View.GONE
@@ -38,6 +39,7 @@ class SetChainBookViewHolder(
                         context, R.color.color_transparent
                     )
                 )
+                checkImg.visibility = View.GONE
             }
         }
     }

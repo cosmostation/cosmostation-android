@@ -25,7 +25,6 @@ import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -33,6 +32,7 @@ import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
+import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentSetAddressBinding
@@ -116,11 +116,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
             }
 
             recipientChainView.setBackgroundResource(R.drawable.cell_bg)
-            memoDescriptionView.setBackgroundResource(R.drawable.cell_bg)
+            memoDescriptionView.setBackgroundResource(R.drawable.cell_bg_no_border)
             memoImg.setColorFilter(
                 ContextCompat.getColor(requireContext(), R.color.color_sub_blue),
                 PorterDuff.Mode.SRC_IN
             )
+            btnConfirm.updateButtonView(false)
             initView()
         }
     }
@@ -211,11 +212,17 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     memoDescriptionView.visibility = View.GONE
                 }
 
+                memoTitle.text = getString(R.string.title_enter_memo)
+                memoDescription.text = getString(R.string.str_memo_description)
+
             } ?: run {
                 chainName.text = "EVM Networks (Universal)"
                 chainImg.setImageResource(R.drawable.evm_universal)
                 memoLayout.visibility = View.GONE
-                memoDescriptionView.visibility = View.GONE
+                memoDescriptionView.visibility = View.VISIBLE
+
+                memoTitle.text = getString(R.string.title_universal_address)
+                memoDescription.text = getString(R.string.str_memo_description_msg)
             }
             chainImg.alpha = 0.2f
         }
@@ -257,10 +264,37 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     s: CharSequence?, start: Int, before: Int, count: Int
                 ) {
                     updateMemoView()
+                    updateBtnConfirm()
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
             })
+
+            nameTxt.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?, start: Int, count: Int, after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    updateBtnConfirm()
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    private fun updateBtnConfirm() {
+        binding.apply {
+            val nameText = nameTxt.text?.trim().toString()
+            val addressText = addressTxt.text?.trim().toString()
+
+            if (nameText.isNotEmpty() && addressText.isNotEmpty()) {
+                btnConfirm.updateButtonView(true)
+            } else {
+                btnConfirm.updateButtonView(false)
+            }
         }
     }
 
@@ -271,7 +305,8 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     return@setOnClickListener
                 }
                 handleOneClickWithDelay(
-                    SetChainTypeBookFragment.newInstance(toChain,
+                    SetChainTypeBookFragment.newInstance(
+                        toChain,
                         object : ChainSelectAddressListener {
                             override fun select(chainTag: String) {
                                 toChain = allChains().firstOrNull { it.tag == chainTag }
