@@ -204,7 +204,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                         memoDescriptionView.visibility = View.VISIBLE
                     }
 
-                } else if (chain.supportCosmos() || chain is ChainBitCoin86) {
+                } else if (chain.supportCosmos()) {
                     memoLayout.visibility = View.VISIBLE
                     memoDescriptionView.visibility = View.VISIBLE
                 } else {

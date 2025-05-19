@@ -1,11 +1,17 @@
 package wannabit.io.cosmostaion.ui.tx.option.swap
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.base.v1beta1.CoinProto
@@ -16,7 +22,7 @@ import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
-import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.databinding.FragmentAssetSelectBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.TargetAsset
 import java.math.BigDecimal
 
@@ -26,10 +32,11 @@ interface AssetListener {
 
 class AssetSelectFragment : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentCommonBottomBinding? = null
+    private var _binding: FragmentAssetSelectBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var selectedChain: BaseChain
+    private lateinit var toAsset: TargetAsset
     private var swapAssets: MutableList<TargetAsset>? = mutableListOf()
     private var swapBalance: MutableList<CoinProto.Coin>? = mutableListOf()
     private lateinit var assetSelectType: AssetSelectType
@@ -42,6 +49,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
         @JvmStatic
         fun newInstance(
             selectedChain: BaseChain?,
+            toAsset: TargetAsset?,
             swapAssets: MutableList<TargetAsset>?,
             swapBalance: MutableList<CoinProto.Coin>?,
             assetSelectType: AssetSelectType,
@@ -49,6 +57,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
         ): AssetSelectFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
+                putParcelable("toAsset", toAsset)
                 putParcelableArrayList("swapAssets", swapAssets?.let { ArrayList(it) })
                 putSerializable("swapBalance", swapBalance?.toHashSet())
                 putSerializable("assetSelectType", assetSelectType)
@@ -65,7 +74,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCommonBottomBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAssetSelectBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -82,12 +91,18 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
             arguments?.getParcelable("selectedChain", BaseChain::class.java)?.let {
                 selectedChain = it
             }
+            arguments?.getParcelable("toAsset", TargetAsset::class.java)?.let {
+                toAsset = it
+            }
             arguments?.getSerializable(
                 "assetSelectType", AssetSelectType::class.java
             )?.let { assetSelectType = it }
         } else {
             (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                 selectedChain = it
+            }
+            (arguments?.getParcelable("toAsset") as? TargetAsset)?.let {
+                toAsset = it
             }
             (arguments?.getSerializable("assetSelectType") as? AssetSelectType)?.let {
                 assetSelectType = it
@@ -102,7 +117,9 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.apply {
-            searchBar.visibility = View.VISIBLE
+            loading.visibility = View.VISIBLE
+            recycler.visibility = View.GONE
+
             if (assetSelectType == AssetSelectType.SWAP_INPUT) {
                 selectTitle.text = getString(R.string.title_select_input_asset)
                 searchView.queryHint = getString(R.string.title_select_input_asset)
@@ -110,8 +127,50 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                 selectTitle.text = getString(R.string.title_select_output_asset)
                 searchView.queryHint = getString(R.string.title_select_output_asset)
             }
-            loading.visibility = View.VISIBLE
-            recycler.visibility = View.GONE
+
+            searchView.post {
+                val searchHint =
+                    searchView.findViewById<AutoCompleteTextView>(androidx.appcompat.R.id.search_src_text)
+                searchHint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                searchHint.setHintTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    )
+                )
+
+                val searchNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 20f, resources.displayMetrics
+                ).toInt()
+
+                val searchBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+                val searchLayoutParams = searchBtn.layoutParams
+                searchLayoutParams.width = searchNewSizeInPx
+                searchLayoutParams.height = searchNewSizeInPx
+                searchBtn.layoutParams = searchLayoutParams
+                searchBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                val closeNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 35f, resources.displayMetrics
+                ).toInt()
+
+                val closeBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+                val closeLayoutParams = closeBtn.layoutParams
+                closeLayoutParams.width = closeNewSizeInPx
+                closeLayoutParams.height = closeNewSizeInPx
+                closeBtn.layoutParams = closeLayoutParams
+                closeBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+            }
+
             lifecycleScope.launch(Dispatchers.Default) {
                 val assetValues = mutableMapOf<String, BigDecimal>()
                 val assetAmounts = mutableMapOf<String, BigDecimal>()
@@ -153,7 +212,7 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
         binding.loading.visibility = View.GONE
         binding.recycler.apply {
             visibility = View.VISIBLE
-            assetSelectAdapter = AssetSelectAdapter(selectedChain, swapBalance)
+            assetSelectAdapter = AssetSelectAdapter(selectedChain, toAsset, swapBalance)
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = assetSelectAdapter

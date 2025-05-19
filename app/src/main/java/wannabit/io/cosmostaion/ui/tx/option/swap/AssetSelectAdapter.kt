@@ -11,7 +11,9 @@ import wannabit.io.cosmostaion.databinding.ItemAssetSelectBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.TargetAsset
 
 class AssetSelectAdapter(
-    private val selectedChain: BaseChain?, private val balances: MutableList<CoinProto.Coin>?
+    private val selectedChain: BaseChain?,
+    private val toAsset: TargetAsset?,
+    private val balances: MutableList<CoinProto.Coin>?
 ) : ListAdapter<TargetAsset, AssetSelectViewHolder>(AssetDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
@@ -24,7 +26,7 @@ class AssetSelectAdapter(
 
     override fun onBindViewHolder(holder: AssetSelectViewHolder, position: Int) {
         val asset = currentList[position]
-        holder.bind(selectedChain, asset, balances)
+        holder.bind(selectedChain, asset, toAsset, balances)
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {

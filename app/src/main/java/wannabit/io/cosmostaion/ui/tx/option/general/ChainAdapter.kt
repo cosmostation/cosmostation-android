@@ -31,7 +31,7 @@ class ChainAdapter(
             else -> {
                 val binding =
                     ItemChainBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ChainViewHolder(binding)
+                ChainViewHolder(parent.context, binding)
             }
         }
     }
@@ -51,7 +51,7 @@ class ChainAdapter(
             }
 
             is ChainViewHolder -> {
-                holder.bind(chain)
+                holder.bind(chain, toChain)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {

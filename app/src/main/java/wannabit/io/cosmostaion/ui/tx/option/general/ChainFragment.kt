@@ -1,17 +1,23 @@
 package wannabit.io.cosmostaion.ui.tx.option.general
 
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
+import wannabit.io.cosmostaion.databinding.FragmentChainBinding
 
 
 interface ChainSelectListener {
@@ -20,7 +26,7 @@ interface ChainSelectListener {
 
 class ChainFragment : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentCommonBottomBinding? = null
+    private var _binding: FragmentChainBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var chainAdapter: ChainAdapter
@@ -59,7 +65,7 @@ class ChainFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCommonBottomBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentChainBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -71,6 +77,56 @@ class ChainFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        binding.apply {
+            searchView.post {
+                val searchHint =
+                    searchView.findViewById<AutoCompleteTextView>(androidx.appcompat.R.id.search_src_text)
+                searchHint.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                searchHint.setHintTextColor(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    )
+                )
+
+                val searchNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 20f, resources.displayMetrics
+                ).toInt()
+
+                val searchBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+                val searchLayoutParams = searchBtn.layoutParams
+                searchLayoutParams.width = searchNewSizeInPx
+                searchLayoutParams.height = searchNewSizeInPx
+                searchBtn.layoutParams = searchLayoutParams
+                searchBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+
+                val closeNewSizeInPx = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP, 35f, resources.displayMetrics
+                ).toInt()
+
+                val closeBtn =
+                    searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+                val closeLayoutParams = closeBtn.layoutParams
+                closeLayoutParams.width = closeNewSizeInPx
+                closeLayoutParams.height = closeNewSizeInPx
+                closeBtn.layoutParams = closeLayoutParams
+                closeBtn.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_base04
+                    ), PorterDuff.Mode.SRC_IN
+                )
+            }
+
+            initData()
+            initRecyclerView()
+        }
+    }
+
+    private fun initData() {
         binding.apply {
             arguments?.apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -96,7 +152,6 @@ class ChainFragment : BottomSheetDialogFragment() {
                 recipientAbleChains = getParcelableArrayList("recipientAbleChains")
             }
 
-            searchBar.visibility = View.VISIBLE
             when (chainListType) {
                 ChainListType.SELECT_INPUT_SWAP -> {
                     selectTitle.text = getString(R.string.title_select_input_chain)
@@ -127,7 +182,6 @@ class ChainFragment : BottomSheetDialogFragment() {
                 }
             }
             recipientAbleChains?.let { searchRecipientAbleChains.addAll(it) }
-            initRecyclerView()
         }
     }
 
@@ -163,7 +217,8 @@ class ChainFragment : BottomSheetDialogFragment() {
                         } else {
                             newText?.let { searchTxt ->
                                 searchRecipientAbleChains.addAll(it.filter { line ->
-                                    line.getChainName()?.contains(searchTxt, ignoreCase = true) == true
+                                    line.getChainName()
+                                        ?.contains(searchTxt, ignoreCase = true) == true
                                 })
                             }
                         }
