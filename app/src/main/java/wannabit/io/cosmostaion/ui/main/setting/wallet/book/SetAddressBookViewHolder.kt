@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.book
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
@@ -15,18 +16,24 @@ class SetAddressBookViewHolder(
         binding.apply {
             addressBookView.setBackgroundResource(R.drawable.item_bg)
 
+            addressName.text = addressBook.bookName
+            address.text = addressBook.address
+            if (addressBook.memo.isNotEmpty()) {
+                addressBookMemo.text = "Memo : " + addressBook.memo
+            } else {
+                addressBookMemo.visibility = View.GONE
+            }
+
             if (addressBook.chainName == "EVM-universal") {
                 chainImg.setImageResource(R.drawable.evm_universal)
+                chainImgName.text = "EVM Networks(Universal)"
 
             } else {
                 allChains().firstOrNull { it.tag == addressBook.chainName }?.let { chain ->
                     chainImg.setChainLogo(chain)
+                    chainImgName.text = chain.getChainName()
                 }
             }
-
-            addressName.text = addressBook.bookName
-            addressMemo.text = addressBook.memo
-            address.text = addressBook.address
         }
     }
 }

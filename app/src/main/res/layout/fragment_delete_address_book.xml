@@ -24,47 +24,142 @@
         android:layout_marginStart="@dimen/space_20"
         android:layout_marginTop="@dimen/space_16"
         android:text="@string/title_address_book_delete"
-        android:textColor="@color/color_base01"
+        android:textColor="@color/color_sub_red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_view" />
 
     <TextView
-        android:id="@+id/address_book_name"
-        style="@style/font_sb_12"
-        android:layout_width="wrap_content"
+        android:id="@+id/address_book_description"
+        style="@style/font_sm_12"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_16"
-        android:textColor="@color/color_base02"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_8"
+        android:layout_marginEnd="@dimen/space_60"
+        android:lineSpacingExtra="@dimen/space_4"
+        android:lineSpacingMultiplier="1.0"
+        android:text="@string/str_book_delete_msg2"
+        android:textColor="@color/color_base03"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base08"
+        app:layout_constraintTop_toBottomOf="@+id/address_book_description" />
+
     <TextView
-        android:id="@+id/address_book_address"
-        style="@style/font_sb_12"
-        android:layout_width="wrap_content"
+        android:id="@+id/address_book_name"
+        style="@style/font_sb_14"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_20"
-        android:layout_marginTop="@dimen/space_10"
+        android:layout_marginTop="@dimen/space_16"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_base01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <TextView
+        android:id="@+id/address_book_address"
+        style="@style/font_sb_11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_6"
+        android:ellipsize="middle"
+        android:maxLines="1"
         android:textColor="@color/color_base02"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address_book_name" />
 
-    <Button
-        android:id="@+id/btn_delete"
-        style="@style/font_sb_16"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_54"
-        android:layout_marginHorizontal="@dimen/space_16"
-        android:layout_marginTop="@dimen/space_36"
-        android:layout_marginBottom="@dimen/space_12"
-        android:background="@drawable/button_delete_bg"
-        android:text="@string/str_confirm"
-        android:textAllCaps="false"
-        android:textColor="@color/color_base01"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/address_book_memo"
+        style="@style/font_sb_12"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_10"
+        android:textColor="@color/color_base03"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address_book_address" />
+
+    <ImageView
+        android:id="@+id/chain_img"
+        android:layout_width="@dimen/space_20"
+        android:layout_height="@dimen/space_20"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_book_memo" />
+
+    <TextView
+        android:id="@+id/chain_name"
+        style="@style/font_sm_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_4"
+        android:textColor="@color/color_base03"
+        app:layout_constraintBottom_toBottomOf="@+id/chain_img"
+        app:layout_constraintStart_toEndOf="@+id/chain_img"
+        app:layout_constraintTop_toTopOf="@+id/chain_img" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
+        android:background="@color/color_base08"
+        app:layout_constraintTop_toBottomOf="@+id/chain_img" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_12"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginBottom="@dimen/space_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginEnd="@dimen/space_10"
+            android:layout_weight="1"
+            android:background="@drawable/button_enable_select_bg"
+            android:text="@string/str_cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_54"
+            android:layout_weight="1"
+            android:background="@drawable/button_delete_bg"
+            android:text="@string/str_delete"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base01" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

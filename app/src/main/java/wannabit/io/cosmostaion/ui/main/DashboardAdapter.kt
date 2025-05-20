@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemDashBinding
-import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.databinding.ItemDefaultBottomHeaderBinding
 import wannabit.io.cosmostaion.ui.qr.QrDialog
 import wannabit.io.cosmostaion.ui.qr.QrEvmDialog
 
@@ -30,7 +30,7 @@ class DashboardAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_MAINNET_HEADER, VIEW_TYPE_TESTNET_HEADER -> {
-                val binding = ItemHeaderBinding.inflate(
+                val binding = ItemDefaultBottomHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 DashboardHeaderViewHolder(binding)
@@ -157,7 +157,7 @@ class DashboardAdapter(
     }
 
     inner class DashboardHeaderViewHolder(
-        private val binding: ItemHeaderBinding
+        private val binding: ItemDefaultBottomHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {

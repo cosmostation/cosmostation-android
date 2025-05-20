@@ -258,7 +258,7 @@
     <string name="title_address_book_list">Address book list</string>
     <string name="title_request_connection">接続要請です</string>
     <string name="title_select_hd_path">HD path 選択</string>
-    <string name="title_address_book_delete">連絡先の削除</string>
+    <string name="title_address_book_delete">住所削除ですか？</string>
     <string name="title_earning_list">Earning list</string>
     <string name="title_add_amount">金額を追加</string>
     <string name="title_remove_amount">削除量</string>
@@ -376,6 +376,9 @@
     <string name="str_unstaking_msg">いつでもアンステーキングが可能で、アンステーキング後7日間の期間を経て出金できるようになります。</string>
     <string name="str_memo_description">メモを入力せずにCosmosエコシステムコインを中央化取引所に入金すると、資産損失が発生する可能性があります。</string>
     <string name="str_memo_description_msg">EVMベースのネットワークで1つのアドレスで複数のネットワークを同時に接続できますが、取引所の使用には推奨されません。</string>
+    <string name="str_book_edit_msg">保存されたアドレスを変更します。</string>
+    <string name="str_book_delete_msg">登録されたアドレスをリストから削除します。</string>
+    <string name="str_book_delete_msg2">このアドレスを削除しようとしています。削除すると、 最初から再登録する必要があります。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

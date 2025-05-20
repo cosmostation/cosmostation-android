@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
-import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
+import wannabit.io.cosmostaion.databinding.ItemDefaultBottomHeaderBinding
 import wannabit.io.cosmostaion.ui.main.DashboardAdapter
 
 class ChainManageAdapter(
@@ -25,7 +25,7 @@ class ChainManageAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             VIEW_TYPE_MAINNET_HEADER, VIEW_TYPE_TESTNET_HEADER -> {
-                val binding = ItemHeaderBinding.inflate(
+                val binding = ItemDefaultBottomHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 ManageHeaderViewHolder(binding)
@@ -91,7 +91,7 @@ class ChainManageAdapter(
     }
 
     inner class ManageHeaderViewHolder(
-        private val binding: ItemHeaderBinding
+        private val binding: ItemDefaultBottomHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewType: Int) {

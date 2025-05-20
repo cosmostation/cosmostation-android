@@ -331,7 +331,7 @@
     <string name="title_address_book_list">Address book list</string>
     <string name="title_request_connection">Request connection</string>
     <string name="title_select_hd_path">Select HD Path</string>
-    <string name="title_address_book_delete">Delete address book</string>
+    <string name="title_address_book_delete">Delete Address?</string>
     <string name="title_earning_list">Earning list</string>
     <string name="title_add_amount">To add amount</string>
     <string name="title_remove_amount">To remove amount</string>
@@ -488,6 +488,9 @@
     <string name="str_send_to_cosmos" translatable="false">Use this option for &lt;font color="#BED1F2"&gt;‘%1$s...’&lt;/font&gt; address or IBC Send</string>
     <string name="str_memo_description">Depositing Cosmos ecosystem coins to a centralized exchange without a memo may result in asset loss.</string>
     <string name="str_memo_description_msg">A single address can connect multiple EVM networks, but not recommended for exchanges.</string>
+    <string name="str_book_edit_msg">Make changes to the saved address.</string>
+    <string name="str_book_delete_msg">Discard the registered address from list.</string>
+    <string name="str_book_delete_msg2">You\'re about to delete this address. Once deleted,\nyou will need to register it again from the beginning.</string>
 
 
     // header

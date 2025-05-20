@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
@@ -34,8 +33,8 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_24"
+        android:layout_marginHorizontal="@dimen/space_16"
+        android:layout_marginTop="@dimen/space_16"
         android:background="@color/color_base07"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -52,55 +51,65 @@
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_14"
             android:layout_marginStart="@dimen/space_20"
             android:text="@string/str_edit"
             android:textColor="@color/color_base01"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/book_edit_description"
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_marginStart="@dimen/space_20"
+            android:text="@string/str_book_edit_msg"
+            android:textColor="@color/color_base03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/space_14"
+            app:layout_constraintTop_toBottomOf="@+id/book_edit" />
 
-    <View
-        android:id="@+id/view0"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:background="@color/color_base07"
-        app:layout_constraintTop_toBottomOf="@+id/edit_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/delete_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_40"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view0">
+        app:layout_constraintTop_toBottomOf="@+id/edit_layout">
 
         <TextView
             android:id="@+id/book_delete"
             style="@style/font_sb_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/space_25"
+            android:layout_marginTop="@dimen/space_14"
             android:layout_marginStart="@dimen/space_20"
             android:text="@string/str_delete"
             android:textColor="@color/color_base01"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/book_delete_description"
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:layout_marginStart="@dimen/space_20"
+            android:text="@string/str_book_delete_msg"
+            android:textColor="@color/color_base03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/space_14"
+            app:layout_constraintTop_toBottomOf="@+id/book_delete" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1"
-        android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginBottom="@dimen/space_14"
-        android:background="@color/color_base07"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

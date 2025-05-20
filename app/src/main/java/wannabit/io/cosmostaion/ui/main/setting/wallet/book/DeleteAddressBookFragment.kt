@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import wannabit.io.cosmostaion.R
+import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.common.setChainLogo
+import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 import wannabit.io.cosmostaion.database.model.AddressBook
 import wannabit.io.cosmostaion.databinding.FragmentDeleteAddressBookBinding
-import wannabit.io.cosmostaion.data.viewmodel.address.AddressBookViewModel
 
 class DeleteAddressBookFragment(
     private val addressBook: AddressBook
@@ -37,13 +40,35 @@ class DeleteAddressBookFragment(
         binding.apply {
             addressBookName.text = addressBook.bookName
             addressBookAddress.text = addressBook.address
+            if (addressBook.memo.isNotEmpty()) {
+                addressBookMemo.text = "Memo : " + addressBook.memo
+            } else {
+                addressBookMemo.visibility = View.GONE
+            }
+
+            if (addressBook.chainName == "EVM-universal") {
+                chainImg.setImageResource(R.drawable.evm_universal)
+                chainName.text = "EVM Networks(Universal)"
+
+            } else {
+                allChains().firstOrNull { it.tag == addressBook.chainName }?.let { chain ->
+                    chainImg.setChainLogo(chain)
+                    chainName.text = chain.getChainName()
+                }
+            }
         }
     }
 
     private fun setUpClickAction() {
-        binding.btnDelete.setOnClickListener {
-            addressBookViewModel.deleteAddressBook(addressBook)
-            dismiss()
+        binding.apply {
+            btnCancel.setOnClickListener {
+                dismiss()
+            }
+
+            btnDelete.setOnClickListener {
+                addressBookViewModel.deleteAddressBook(addressBook)
+                dismiss()
+            }
         }
     }
 }
