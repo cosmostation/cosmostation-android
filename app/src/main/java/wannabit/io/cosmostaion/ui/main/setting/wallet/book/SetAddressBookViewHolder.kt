@@ -19,8 +19,11 @@ class SetAddressBookViewHolder(
             addressName.text = addressBook.bookName
             address.text = addressBook.address
             if (addressBook.memo.isNotEmpty()) {
-                addressBookMemo.text = "Memo : " + addressBook.memo
+                memoTitle.visibility = View.VISIBLE
+                addressBookMemo.visibility = View.VISIBLE
+                addressBookMemo.text = addressBook.memo
             } else {
+                memoTitle.visibility = View.GONE
                 addressBookMemo.visibility = View.GONE
             }
 

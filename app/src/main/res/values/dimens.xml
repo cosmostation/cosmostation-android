@@ -54,6 +54,7 @@
     <dimen name="space_200">200dp</dimen>
     <dimen name="space_210">210dp</dimen>
     <dimen name="space_300">300dp</dimen>
+    <dimen name="space_400">400dp</dimen>
 
 
 

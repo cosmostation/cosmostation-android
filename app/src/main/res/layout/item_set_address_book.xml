@@ -45,15 +45,30 @@
                 app:layout_constraintTop_toBottomOf="@id/address_name" />
 
             <TextView
+                android:id="@+id/memo_title"
+                style="@style/font_sm_12"
+                android:textColor="@color/color_base03"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_16"
+                android:text="Memo :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address" />
+
+            <TextView
                 android:id="@+id/address_book_memo"
                 style="@style/font_sb_12"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/space_16"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginStart="@dimen/space_4"
                 android:layout_marginTop="@dimen/space_10"
                 android:ellipsize="middle"
                 android:maxLines="1"
                 android:textColor="@color/color_base03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/memo_title"
                 app:layout_constraintTop_toBottomOf="@id/address" />
 
             <ImageView

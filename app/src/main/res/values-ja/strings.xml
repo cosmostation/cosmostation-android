@@ -166,6 +166,7 @@
     <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
     <string name="title_address_book">連絡先の管理</string>
+    <string name="title_address_book_edit">アドレス帳編集</string>
     <string name="title_general">一般</string>
     <string name="title_language">言語</string>
     <string name="title_theme">テーマ</string>

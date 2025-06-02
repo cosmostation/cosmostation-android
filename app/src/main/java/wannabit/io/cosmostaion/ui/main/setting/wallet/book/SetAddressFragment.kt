@@ -130,10 +130,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
         binding.apply {
             when (addressBookType) {
                 AddressBookType.ManualNew -> {
+                    title.text = getString(R.string.title_address_book)
                     addressSetMsg.setText(R.string.str_set_address_msg)
                 }
 
                 AddressBookType.ManualEdit -> {
+                    title.text = getString(R.string.title_address_book_edit)
                     nameTxt.text = Editable.Factory.getInstance().newEditable(addressBook?.bookName)
                     addressTxt.text =
                         Editable.Factory.getInstance().newEditable(addressBook?.address)
@@ -149,9 +151,11 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                         )
                     )
                     addressSetMsg.setText(R.string.str_set_address_msg)
+                    btnConfirm.updateButtonView(true)
                 }
 
                 AddressBookType.AfterTxEdit -> {
+                    title.text = getString(R.string.title_address_book_edit)
                     nameTxt.text = Editable.Factory.getInstance().newEditable(addressBook?.bookName)
                     addressTxt.text =
                         Editable.Factory.getInstance().newEditable(addressBook?.address)
@@ -163,9 +167,11 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                         )
                     )
                     addressSetMsg.setText(R.string.str_addressbook_memo_changed_msg)
+                    btnConfirm.updateButtonView(true)
                 }
 
                 AddressBookType.AfterTxNew -> {
+                    title.text = getString(R.string.title_address_book)
                     addressTxt.text = Editable.Factory.getInstance().newEditable(recipientAddress)
                     memoTxt.text = Editable.Factory.getInstance().newEditable(memo)
                     addressTxt.isEnabled = false

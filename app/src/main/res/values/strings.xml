@@ -231,6 +231,7 @@
     <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
     <string name="title_address_book">Add Address Book</string>
+    <string name="title_address_book_edit">Edit Address Book</string>
     <string name="title_general">General</string>
     <string name="title_language">Language</string>
     <string name="title_theme">Theme</string>
@@ -491,6 +492,7 @@
     <string name="str_book_edit_msg">Make changes to the saved address.</string>
     <string name="str_book_delete_msg">Discard the registered address from list.</string>
     <string name="str_book_delete_msg2">You\'re about to delete this address. Once deleted,\nyou will need to register it again from the beginning.</string>
+    <string name="str_address_book_msg" translatable="false">You can add new addresses\nin the Settings screen</string>
 
 
     // header

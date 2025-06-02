@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -18,11 +21,15 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.ByteUtils
+import wannabit.io.cosmostaion.common.dpToPx
+import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.AddressBook
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.databinding.FragmentAddressBookBinding
+import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface AddressBookSelectListener {
@@ -39,8 +46,8 @@ class AddressBookFragment : BottomSheetDialogFragment() {
     private var senderAddress = ""
     private lateinit var sendAssetType: SendAssetType
 
+    private lateinit var myAccountAddressAdapter: MyAccountAddressAdapter
     private lateinit var addressBookAdapter: AddressBookAdapter
-    private lateinit var evmAddressBookAdapter: EvmAddressBookAdapter
 
     companion object {
         @JvmStatic
@@ -77,6 +84,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        initSegmentView()
     }
 
     private fun initData() {
@@ -106,6 +114,11 @@ class AddressBookFragment : BottomSheetDialogFragment() {
             getString("senderAddress")?.let { senderAddress = it }
         }
 
+        binding.apply {
+            chainImg.setChainLogo(toChain)
+            chainTitle.text = toChain.getChainName() + " Address"
+        }
+
         initView()
     }
 
@@ -113,9 +126,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         val refMajorAddresses: MutableList<RefAddress> = mutableListOf()
         val refAddresses: MutableList<RefAddress> = mutableListOf()
         val refEvmAddresses: MutableList<RefAddress> = mutableListOf()
-        val majorAddressBook: MutableList<AddressBook> = mutableListOf()
         val addressBooks: MutableList<AddressBook> = mutableListOf()
-        val evmAddressBooks: MutableList<AddressBook> = mutableListOf()
 
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
@@ -156,12 +167,12 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                                 addressBook.address
                                             ) || addressBook.chainName == "EVM-universal"
                                         ) {
-                                            evmAddressBooks.add(addressBook)
+                                            addressBooks.add(addressBook)
                                         }
 
                                     } else {
                                         if (addressBook.chainName == "EVM-universal" || addressBook.chainName == toChain.tag) {
-                                            evmAddressBooks.add(addressBook)
+                                            addressBooks.add(addressBook)
                                         }
                                     }
                                 }
@@ -219,7 +230,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         AppDatabase.getInstance().addressBookDao().selectAll()
                             .forEach { addressBook ->
                                 if (addressBook.chainName == toChain.tag && addressBook.address.lowercase() != senderAddress.lowercase()) {
-                                    majorAddressBook.add(addressBook)
+                                    addressBooks.add(addressBook)
                                 }
                             }
                     }
@@ -254,10 +265,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     val chain =
                                         allChains().firstOrNull { it.tag == addressBook.chainName }
                                     if (fromChain.isTestnet && chain?.isTestnet == true && chain is ChainBitcoin86Testnet) {
-                                        majorAddressBook.add(addressBook)
+                                        addressBooks.add(addressBook)
 
                                     } else if (!fromChain.isTestnet && chain?.isTestnet == false && chain is ChainBitCoin86) {
-                                        majorAddressBook.add(addressBook)
+                                        addressBooks.add(addressBook)
                                     }
                                 }
                             }
@@ -267,54 +278,100 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                 sortRefAddresses(refAddresses)
                 sortRefMajorAddresses(refMajorAddresses)
 
+                val myAccountMnemonic: MutableList<RefAddress> = mutableListOf()
+                val myAccountPrivate: MutableList<RefAddress> = mutableListOf()
+                if (refAddresses.isNotEmpty()) {
+                    refAddresses.forEach { refAddress ->
+                        AppDatabase.getInstance().baseAccountDao()
+                            .selectAccount(refAddress.accountId)?.let { account ->
+                                if (account.type == BaseAccountType.MNEMONIC) {
+                                    myAccountMnemonic.add(refAddress)
+                                } else if (account.type == BaseAccountType.PRIVATE_KEY) {
+                                    myAccountPrivate.add(refAddress)
+                                }
+                            }
+                    }
+                }
+
+                val myEvmAccountMnemonic: MutableList<RefAddress> = mutableListOf()
+                val myEvmAccountPrivate: MutableList<RefAddress> = mutableListOf()
+                if (refEvmAddresses.isNotEmpty()) {
+                    refEvmAddresses.forEach { refAddress ->
+                        AppDatabase.getInstance().baseAccountDao()
+                            .selectAccount(refAddress.accountId)?.let { account ->
+                                if (account.type == BaseAccountType.MNEMONIC) {
+                                    myEvmAccountMnemonic.add(refAddress)
+                                } else if (account.type == BaseAccountType.PRIVATE_KEY) {
+                                    myEvmAccountPrivate.add(refAddress)
+                                }
+                            }
+                    }
+                }
+
+                val myMajorAccountMnemonic: MutableList<RefAddress> = mutableListOf()
+                val myMajorAccountPrivate: MutableList<RefAddress> = mutableListOf()
+                if (refMajorAddresses.isNotEmpty()) {
+                    refMajorAddresses.forEach { refAddress ->
+                        AppDatabase.getInstance().baseAccountDao()
+                            .selectAccount(refAddress.accountId)?.let { account ->
+                                if (account.type == BaseAccountType.MNEMONIC) {
+                                    myMajorAccountMnemonic.add(refAddress)
+                                } else if (account.type == BaseAccountType.PRIVATE_KEY) {
+                                    myMajorAccountPrivate.add(refAddress)
+                                }
+                            }
+                    }
+                }
+
                 withContext(Dispatchers.Main) {
+                    initAddressBookRecyclerView(addressBooks)
+
                     when (sendAssetType) {
                         SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
-                            if (refEvmAddresses.isEmpty() && evmAddressBooks.isEmpty()) {
-                                evmRecycler.visibility = View.GONE
+                            if (refEvmAddresses.isEmpty()) {
+                                recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
+                                noAddress.text = "No My Account"
 
                             } else {
-                                evmRecycler.visibility = View.VISIBLE
+                                recycler.visibility = View.VISIBLE
                                 emptyLayout.visibility = View.GONE
-                                initEvmRecyclerView(
-                                    refEvmAddresses, evmAddressBooks
-                                )
+                                initMyAccountRecyclerView(myEvmAccountMnemonic, myEvmAccountPrivate)
                             }
-                            segmentView.visibility = View.GONE
-                            recycler.visibility = View.GONE
+
+                            initSegmentAction(refEvmAddresses, addressBooks)
                         }
 
                         SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
-                            if (refAddresses.isEmpty() && addressBooks.isEmpty()) {
+                            if (refAddresses.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
+                                noAddress.text = "No My Account"
 
                             } else {
                                 recycler.visibility = View.VISIBLE
                                 emptyLayout.visibility = View.GONE
-                                initCosmosRecyclerView(
-                                    refAddresses, addressBooks
-                                )
+                                initMyAccountRecyclerView(myAccountMnemonic, myAccountPrivate)
                             }
-                            segmentView.visibility = View.GONE
-                            evmRecycler.visibility = View.GONE
+
+                            initSegmentAction(refAddresses, addressBooks)
                         }
 
                         SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
-                            if (refMajorAddresses.isEmpty() && majorAddressBook.isEmpty()) {
+                            if (refMajorAddresses.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
+                                noAddress.text = "No My Account"
 
                             } else {
                                 recycler.visibility = View.VISIBLE
                                 emptyLayout.visibility = View.GONE
-                                initCosmosRecyclerView(
-                                    refMajorAddresses, majorAddressBook
+                                initMyAccountRecyclerView(
+                                    myMajorAccountMnemonic, myMajorAccountPrivate
                                 )
                             }
-                            segmentView.visibility = View.GONE
-                            evmRecycler.visibility = View.GONE
+
+                            initSegmentAction(refMajorAddresses, addressBooks)
                         }
                     }
                 }
@@ -322,16 +379,30 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun initCosmosRecyclerView(
-        refAddresses: MutableList<RefAddress>, addressBooks: MutableList<AddressBook>
+    private fun initMyAccountRecyclerView(
+        myAccountMnemonic: MutableList<RefAddress>,
+        myAccountPrivate: MutableList<RefAddress>,
     ) {
         binding.apply {
-            addressBookAdapter = AddressBookAdapter(
-                refAddresses, addressBooks
-            )
+            myAccountAddressAdapter =
+                MyAccountAddressAdapter(myAccountMnemonic, myAccountPrivate, sendAssetType)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
-            recycler.adapter = addressBookAdapter
+            recycler.adapter = myAccountAddressAdapter
+
+            myAccountAddressAdapter.setOnItemClickListener { address, memo ->
+                addressBookSelectListener?.select(address, memo)
+                dismiss()
+            }
+        }
+    }
+
+    private fun initAddressBookRecyclerView(addressBooks: MutableList<AddressBook>) {
+        binding.apply {
+            addressBookAdapter = AddressBookAdapter(addressBooks)
+            addressBookRecycler.setHasFixedSize(true)
+            addressBookRecycler.layoutManager = LinearLayoutManager(requireContext())
+            addressBookRecycler.adapter = addressBookAdapter
 
             addressBookAdapter.setOnItemClickListener { address, memo ->
                 addressBookSelectListener?.select(address, memo)
@@ -340,18 +411,77 @@ class AddressBookFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun initEvmRecyclerView(
-        refEvmAddresses: MutableList<RefAddress>, evmAddressBooks: MutableList<AddressBook>
+    private fun initSegmentView() {
+        binding.apply {
+            segmentView.setBackgroundResource(R.drawable.cell_search_bg)
+            styleSegment.apply {
+                setSelectedBackground(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+                setRipple(
+                    ContextCompat.getColor(
+                        requireContext(), R.color.color_accent_purple
+                    )
+                )
+            }
+
+            for (i in 0 until 2) {
+                val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                styleSegment.addView(
+                    segmentView.root,
+                    i,
+                    LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                )
+
+                when (i) {
+                    0 -> {
+                        segmentView.btnTitle.text = "My Account"
+                    }
+
+                    else -> {
+                        segmentView.btnTitle.text = "Address Book"
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initSegmentAction(
+        refAddresses: MutableList<RefAddress>, addressBooks: MutableList<AddressBook>
     ) {
         binding.apply {
-            evmAddressBookAdapter = EvmAddressBookAdapter(refEvmAddresses, evmAddressBooks)
-            evmRecycler.setHasFixedSize(true)
-            evmRecycler.layoutManager = LinearLayoutManager(requireContext())
-            evmRecycler.adapter = evmAddressBookAdapter
+            styleSegment.setOnPositionChangedListener { position ->
+                if (isAdded) {
+                    when (position) {
+                        0 -> {
+                            addressBookRecycler.visibility = View.GONE
+                            if (refAddresses.isEmpty()) {
+                                recycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+                                noAddress.text = "No My Account"
 
-            evmAddressBookAdapter.setOnItemClickListener { address, memo ->
-                addressBookSelectListener?.select(address, memo)
-                dismiss()
+                            } else {
+                                recycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                            }
+                        }
+
+                        else -> {
+                            recycler.visibility = View.GONE
+                            if (addressBooks.isEmpty()) {
+                                addressBookRecycler.visibility = View.GONE
+                                emptyLayout.visibility = View.VISIBLE
+                                noAddress.text = "No Address Book"
+
+                            } else {
+                                addressBookRecycler.visibility = View.VISIBLE
+                                emptyLayout.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -183,7 +183,7 @@ class AddressBookListActivity : BaseActivity() {
 
     private fun updateData() {
         addressBookViewModel.addressBookUpdateResult.observe(this@AddressBookListActivity) {
-            setAddressBookAdapter.notifyItemChanged(it)
+            setAddressBookAdapter.notifyItemChanged(it + 1)
         }
     }
 
