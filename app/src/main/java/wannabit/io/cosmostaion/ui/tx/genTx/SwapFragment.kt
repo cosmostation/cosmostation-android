@@ -970,6 +970,9 @@ class SwapFragment : BaseTxFragment() {
         result["phoenix-1"] = ChainInfo(
             listOf(Affiliate("terra1564j3fq8p8np4yhh4lytnftz33japc03wuejxm", fee))
         )
+        result["columbus-5"] = ChainInfo(
+            listOf(Affiliate("terra1dq8kly92022xla22xjq6qht624yltkz3l95fac", fee))
+        )
         result["pacific-1"] = ChainInfo(
             listOf(Affiliate("sei1hnkkqnzwmyw652muh6wfea7xlfgplnyj3edm09", fee))
         )

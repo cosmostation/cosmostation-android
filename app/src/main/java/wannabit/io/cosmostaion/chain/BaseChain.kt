@@ -111,6 +111,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerraClassic
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
@@ -783,6 +784,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
+    chains.add(ChainTerraClassic())
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUx())
