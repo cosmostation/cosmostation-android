@@ -53,7 +53,7 @@ class QrDialog(
             BaseData.baseAccount?.let { account ->
                 selectedChain?.let { chain ->
                     if (chain.supportCosmos()) {
-                        chainName.text = chain.name
+                        chainName.text = chain.getChainName()
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.address
                         accountPath.text = chain.getHDPath(account.lastHDPath)
@@ -88,7 +88,7 @@ class QrDialog(
                         )
 
                     } else if (selectedChain is ChainSui || selectedChain is ChainIota || selectedChain is ChainBitCoin86) {
-                        chainName.text = chain.name
+                        chainName.text = chain.getChainName()
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.mainAddress
                         accountPath.text = chain.getHDPath(account.lastHDPath)
@@ -160,7 +160,7 @@ class QrDialog(
 
                         // eth, l2
                     } else {
-                        chainName.text = chain.name
+                        chainName.text = chain.getChainName()
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.evmAddress
                         accountPath.text = chain.getHDPath(account.lastHDPath)

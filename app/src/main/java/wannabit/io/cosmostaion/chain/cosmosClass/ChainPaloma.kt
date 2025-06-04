@@ -26,5 +26,5 @@ class ChainPaloma : BaseChain(), Parcelable {
     override var stakeDenom: String = "ugrain"
     override var accountPrefix: String = "paloma"
     override var grpcHost: String = "paloma.grpc.kjnodes.com"
-    override var lcdUrl: String = "https://paloma.api.kjnodes.com/"
+    override var lcdUrl: String = "https://api-1.paloma.nodes.guru/"
 }

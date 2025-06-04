@@ -52,4 +52,8 @@
     <color name="color_mode_base01">#FBFCFF</color>
     <color name="color_mode_base04">#98AED8</color>
     <color name="color_mode_base05">#222222</color>
+
+
+    <color name="color_transparent_02">#0Affffff</color>
+    <color name="color_transparent_04">#14ffffff</color>
 </resources>

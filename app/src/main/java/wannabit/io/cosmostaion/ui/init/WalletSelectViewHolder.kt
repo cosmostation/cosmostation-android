@@ -55,7 +55,7 @@ class WalletSelectViewHolder(
     ) {
         binding.apply {
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
 
             if (chain.isEvmCosmos()) {
                 chainAddress.text = chain.address
@@ -269,7 +269,7 @@ class WalletSelectViewHolder(
     ) {
         binding.apply {
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
             chainTypeBadge.visibility = View.GONE
 
             if (chain.isEvmCosmos()) {

@@ -114,6 +114,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerraClassic
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
@@ -168,10 +169,12 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainSaharaAiEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSelfTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXrplEvmTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainZeroGravityEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainZkcloudTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -315,6 +318,14 @@ open class BaseChain : Parcelable {
                 ?: JsonObject()
         } catch (e: Exception) {
             JsonObject()
+        }
+    }
+
+    fun getChainName(): String? {
+        return if (getChainListParam()?.has("chain_name") == true) {
+            getChainListParam()?.get("chain_name")?.asString
+        } else {
+            name
         }
     }
 
@@ -704,7 +715,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
-    chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
     chains.add(ChainHippocrat())
@@ -787,6 +797,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainTerraClassic())
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
+    chains.add(ChainUnion())
     chains.add(ChainUx())
     chains.add(ChainXion())
     chains.add(ChainXplaEvm())
@@ -809,11 +820,13 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainSaharaAiEvmTestnet())
     chains.add(ChainSelfTestnet())
 //    chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
     chains.add(ChainXionTestnet())
     chains.add(ChainXrplEvmTestnet())
+    chains.add(ChainZeroGravityEvmTestnet())
     chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->

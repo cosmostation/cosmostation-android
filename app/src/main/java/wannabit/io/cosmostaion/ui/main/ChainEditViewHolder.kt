@@ -48,7 +48,7 @@ class ChainEditViewHolder(
         binding.apply {
             updateView(chain, displayChains)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
             skeletonChainValue.visibility = View.VISIBLE
             skeletonAssetCnt.visibility = View.VISIBLE
             respondLayout.visibility = View.GONE
@@ -118,7 +118,7 @@ class ChainEditViewHolder(
             } else {
                 chainAddress.text = if (chain.supportCosmos()) {
                     chain.address
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.mainAddress
@@ -174,7 +174,7 @@ class ChainEditViewHolder(
         binding.apply {
             updateView(chain, displayChains)
             chainImg.setChainLogo(chain)
-            chainName.text = chain.name
+            chainName.text = chain.getChainName()
 
             if (chain is ChainBitCoin86) {
                 chainLegacy.visibility = View.VISIBLE
@@ -238,7 +238,7 @@ class ChainEditViewHolder(
             } else {
                 chainAddress.text = if (chain is ChainBitCoin86) {
                     chain.mainAddress
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.address

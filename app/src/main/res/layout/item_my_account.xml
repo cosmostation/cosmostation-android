@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/account_name"
+        style="@style/font_sb_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_15"
+        android:ellipsize="end"
+        android:maxWidth="250dp"
+        android:maxLines="1"
+        android:textColor="@color/color_base01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/chain_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_4"
+            android:background="@drawable/round_box_deprecated"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:textAllCaps="true"
+            android:textColor="@color/color_base02"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/account_name"
+            app:layout_constraintTop_toTopOf="@+id/account_name"
+            app:layout_constraintBottom_toBottomOf="@+id/account_name"/>
+
+        <TextView
+            android:id="@+id/chain_type_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_2"
+            android:background="@drawable/round_box_deprecated"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:textColor="@color/color_base02"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/account_name"
+            app:layout_constraintTop_toTopOf="@+id/account_name"
+            app:layout_constraintBottom_toBottomOf="@+id/account_name" />
+
+        <TextView
+            android:id="@+id/chain_bit_side_badge"
+            style="@style/font_sm_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_4"
+            android:background="@drawable/round_box_bit"
+            android:paddingHorizontal="@dimen/space_6"
+            android:paddingVertical="@dimen/space_2"
+            android:text="Native Segwit"
+            android:textAllCaps="true"
+            android:textColor="@color/color_base01"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/account_name"
+            app:layout_constraintTop_toTopOf="@+id/account_name"
+            app:layout_constraintBottom_toBottomOf="@+id/account_name" />
+
+    <TextView
+        android:id="@+id/account_address"
+        style="@style/font_sb_11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_6"
+        android:layout_marginBottom="@dimen/space_15"
+        android:maxLines="2"
+        android:textColor="@color/color_base02"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_name" />
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1"
+        android:layout_marginTop="@dimen/space_15"
+        android:layout_marginBottom="@dimen/space_16"
+        android:background="@color/color_base08"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_address"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

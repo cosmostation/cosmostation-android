@@ -57,13 +57,13 @@ class ChainManageFragment : Fragment() {
         binding.recycler.apply {
             lifecycleScope.launch(Dispatchers.IO) {
                 allChains().filter { !it.isTestnet && it.isDefault }.forEach { chain ->
-                    if (!mainnetChains.any { it.name == chain.name }) {
+                    if (!mainnetChains.any { it.getChainName() == chain.getChainName() }) {
                         mainnetChains.add(chain)
                     }
                 }
 
                 allChains().filter { it.isTestnet && it.isDefault }.forEach { chain ->
-                    if (!testnetChains.any { it.name == chain.name }) {
+                    if (!testnetChains.any { it.getChainName() == chain.getChainName() }) {
                         testnetChains.add(chain)
                     }
                 }
@@ -138,13 +138,13 @@ class ChainManageFragment : Fragment() {
                     } else {
                         newText?.let { searchTxt ->
                             searchMainnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(
+                                chain.getChainName()?.contains(
                                     searchTxt, ignoreCase = true
-                                ) && !chain.isTestnet && chain.isDefault
+                                ) == true && !chain.isTestnet && chain.isDefault
                             })
 
                             searchTestnetChains.addAll(allChains().filter { chain ->
-                                chain.name.contains(searchTxt, ignoreCase = true) && chain.isTestnet
+                                chain.getChainName()?.contains(searchTxt, ignoreCase = true) == true && chain.isTestnet
                             })
                         }
                     }

@@ -26,7 +26,7 @@ class AllChainCompoundingViewHolder(
 
             compoundAbleReward.apply {
                 chainImg.setChainLogo(baseChain)
-                chainName.text = baseChain.name
+                chainName.text = baseChain.getChainName()
 
                 if (!baseChain.isDefault) {
                     chainBadge.visibility = View.VISIBLE

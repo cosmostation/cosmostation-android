@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -33,16 +34,47 @@
                 style="@style/font_sb_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/title_address_book_list"
                 android:textColor="@color/color_base01"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/title_address_book_list"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_32"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="@dimen/space_12"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:background="@drawable/default_search_bg"
+        android:theme="@style/AppTheme.NoActionBar"
+        app:layout_constraintBottom_toTopOf="@+id/recycler"
+        android:layout_marginBottom="@dimen/space_16"
+        android:translationZ="0.1dp"
+        app:elevation="0dp"
+        tools:layout_editor_absoluteX="12dp"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:includeFontPadding="false"
+            android:paddingLeft="-10dp"
+            app:closeIcon="@drawable/icon_clear"
+            app:iconifiedByDefault="false"
+            app:queryBackground="@null"
+            app:queryHint="Search Book"
+            app:searchIcon="@drawable/icon_search" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
@@ -50,7 +82,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/space_8"
         app:layout_constraintBottom_toTopOf="@+id/btn_add_address"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_layout"
@@ -75,8 +107,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_no_data"
             android:layout_marginBottom="@dimen/space_10"
+            android:src="@drawable/icon_no_data"
             app:layout_constraintBottom_toTopOf="@+id/no_proposal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -85,6 +117,7 @@
 
     <Button
         android:id="@+id/btn_add_address"
+        style="@style/font_sb_16"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_54"
         android:layout_marginHorizontal="@dimen/space_12"
@@ -92,7 +125,6 @@
         android:background="@drawable/button_common_bg"
         android:text="@string/str_add_address"
         android:textAllCaps="false"
-        style="@style/font_sb_16"
         android:textColor="@color/color_base01"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

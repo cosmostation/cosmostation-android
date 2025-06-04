@@ -159,6 +159,7 @@
     <string name="title_testnet_enabled">테스트넷 활성화</string>
     <string name="title_chain">체인 관리</string>
     <string name="title_address_book">주소록 추가</string>
+    <string name="title_address_book_edit">주소록 편집</string>
     <string name="title_general">일반</string>
     <string name="title_language">언어</string>
     <string name="title_theme">테마</string>
@@ -252,7 +253,7 @@
     <string name="title_address_book_list">주소록 확인</string>
     <string name="title_request_connection">연결 요청</string>
     <string name="title_select_hd_path">HD Path 선택</string>
-    <string name="title_address_book_delete">주소록 삭제</string>
+    <string name="title_address_book_delete">주소 삭제?</string>
     <string name="title_earning_list">어닝 목록</string>
     <string name="title_add_amount">추가 수량</string>
     <string name="title_remove_amount">출금 수량</string>
@@ -371,7 +372,11 @@
     <string name="str_additional_sbtc_fee_msg">sBTC 스테이킹에는 sBTC 코인 외에 tBABY 코인이 추가 수수료로 사용되며, 추가 수수료는 &lt;font color="#BED1F2"&gt;%1$s&lt;/font&gt; 주소에 보유한 tBABY 코인에서 차감됩니다.</string>
     <string name="str_time_lock_msg">%1$s 스테이킹 후 최대 &lt;font color="#BED1F2"&gt;%2$s주&lt;/font&gt; 동안 락업됩니다.\n이 기간이 지나면 언스테이킹 없이 자동으로 출금 가능해집니다.</string>
     <string name="str_unstaking_msg">언제든지 언스테이킹할 수 있으며, 언스테이킹 후 &lt;font color="#BED1F2"&gt;7일&lt;/font&gt;의 기간이 지나면 출금할 수 있습니다.</string>
-    <string name="str_meme_description">메모를 입력하지 않고 Cosmos 생태계 코인을 중앙화 거래소에 입금한다면 자산 손실이 발생할 수 있습니다.</string>
+    <string name="str_memo_description">메모를 입력하지 않고 Cosmos 생태계 코인을 중앙화 거래소에 입금한다면 자산 손실이 발생할 수 있습니다.</string>
+    <string name="str_memo_description_msg">EVM 기반 네트워크에서 하나의 주소로 여러 네트워크를 동시에 연결할 수 있지만, 거래소 사용에는 권장되지 않습니다.</string>
+    <string name="str_book_edit_msg">저장된 주소를 변경합니다.</string>
+    <string name="str_book_delete_msg">등록된 주소를 목록에서 삭제합니다.</string>
+    <string name="str_book_delete_msg2">이 주소를 삭제하려고 합니다. 삭제하면 처음부터 다시 등록해야 합니다.</string>
 
 
     // error

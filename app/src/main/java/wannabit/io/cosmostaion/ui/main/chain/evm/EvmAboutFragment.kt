@@ -73,7 +73,7 @@ class EvmAboutFragment : Fragment() {
             }
             chainParam = selectedEvmChain.getChainParam()
 
-            chainName.text = selectedEvmChain.name
+            chainName.text = selectedEvmChain.getChainName()
             chainParam?.getAsJsonObject("params")?.getAsJsonObject("chainlist_params")?.let {
                 if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
                     chainDescription.text = it.getAsJsonObject("description")?.get("ko")?.asString

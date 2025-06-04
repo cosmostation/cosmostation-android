@@ -129,7 +129,7 @@ class DashboardFragment : Fragment() {
                 mainnetChains
             } else {
                 mainnetChains.filter { chain ->
-                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                    chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                 }
             })
 
@@ -139,7 +139,7 @@ class DashboardFragment : Fragment() {
                 testnetChains
             } else {
                 testnetChains.filter { chain ->
-                    chain.name.contains(searchTxt.toString(), ignoreCase = true)
+                    chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
                 }
             })
         }
@@ -414,13 +414,13 @@ class DashboardFragment : Fragment() {
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.name.contains(searchTxt, ignoreCase = true)
+                                ) || chain.getChainName()?.contains(searchTxt, ignoreCase = true) == true
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.name.contains(searchTxt, ignoreCase = true)
+                                ) || chain.getChainName()?.contains(searchTxt, ignoreCase = true) == true
                             })
                         }
                     }

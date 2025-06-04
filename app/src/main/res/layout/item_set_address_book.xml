@@ -3,82 +3,95 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/space_8"
-    android:layout_marginHorizontal="@dimen/space_12">
+    android:layout_marginHorizontal="@dimen/space_12"
+    android:layout_marginTop="@dimen/space_8">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/address_book_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardPreventCornerOverlap="true"
         android:elevation="0dp"
+        app:cardPreventCornerOverlap="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingVertical="@dimen/space_12"
-            android:paddingHorizontal="@dimen/space_16">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/info_layout"
+            <TextView
+                android:id="@+id/address_name"
+                style="@style/font_sb_14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/chain_img"
-                    android:layout_width="@dimen/space_24"
-                    android:layout_height="@dimen/space_24"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:src="@drawable/chain_default"/>
-
-                <TextView
-                    android:id="@+id/address_name"
-                    style="@style/font_sb_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:layout_marginStart="@dimen/space_4"
-                    android:maxWidth="@dimen/space_150"
-                    android:maxLines="1"
-                    android:textColor="@color/color_base01"
-                    app:layout_constraintStart_toEndOf="@+id/chain_img"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/address_memo"
-                    style="@style/font_sm_12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:maxWidth="@dimen/space_150"
-                    android:maxLines="1"
-                    android:textColor="@color/color_base02"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_16"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/color_base01"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/address"
-                style="@style/font_sm_12"
+                style="@style/font_sb_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginHorizontal="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_6"
                 android:ellipsize="middle"
                 android:maxLines="1"
                 android:textColor="@color/color_base02"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_name" />
+
+            <TextView
+                android:id="@+id/memo_title"
+                style="@style/font_sm_12"
+                android:textColor="@color/color_base03"
+                android:layout_marginTop="@dimen/space_10"
+                android:layout_marginStart="@dimen/space_16"
+                android:text="Memo :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info_layout" />
+                app:layout_constraintTop_toBottomOf="@id/address" />
+
+            <TextView
+                android:id="@+id/address_book_memo"
+                style="@style/font_sb_12"
+                android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/space_16"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_4"
+                android:layout_marginTop="@dimen/space_10"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="@color/color_base03"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/memo_title"
+                app:layout_constraintTop_toBottomOf="@id/address" />
+
+            <ImageView
+                android:id="@+id/chain_img"
+                android:layout_width="@dimen/space_20"
+                android:layout_height="@dimen/space_20"
+                android:layout_marginStart="@dimen/space_16"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginBottom="@dimen/space_14"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address_book_memo" />
+
+            <TextView
+                android:id="@+id/chain_img_name"
+                style="@style/font_sm_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_4"
+                android:textColor="@color/color_base03"
+                app:layout_constraintBottom_toBottomOf="@+id/chain_img"
+                app:layout_constraintStart_toEndOf="@+id/chain_img"
+                app:layout_constraintTop_toTopOf="@+id/chain_img" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,38 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
         android:id="@+id/top_view"
         android:layout_width="@dimen/space_40"
         android:layout_height="@dimen/space_4"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/space_20"
-        android:background="@drawable/round_view"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/round_view" />
+
+    <ImageView
+        android:id="@+id/chain_img"
+        android:layout_width="@dimen/space_28"
+        android:layout_height="@dimen/space_28"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_12"
+        android:src="@drawable/chain_cosmos" />
+
+    <TextView
+        android:id="@+id/chain_title"
+        style="@style/font_sb_16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_view"
+        android:layout_marginStart="@dimen/space_4"
+        android:layout_marginTop="@dimen/space_16"
+        android:layout_toRightOf="@+id/chain_img"
+        android:text="@string/title_account"
+        android:textColor="@color/color_base01" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/segment_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top_view"
+        android:layout_below="@+id/chain_img"
         android:layout_marginHorizontal="@dimen/space_12"
-        android:layout_marginTop="@dimen/space_16"
-        android:visibility="gone">
+        android:layout_marginTop="@dimen/space_12">
 
         <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
             android:id="@+id/style_segment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_transparent"
             android:layout_margin="@dimen/space_4"
-            app:radius="@dimen/space_8"
-            app:selectedButtonRadius="@dimen/space_8"
+            android:background="@color/color_transparent"
             app:draggable="true"
+            app:radius="@dimen/space_8"
             app:ripple="true"
-            app:rippleColor="@color/color_transparent" />
+            app:rippleColor="@color/color_transparent"
+            app:selectedButtonRadius="@dimen/space_8" />
 
     </androidx.cardview.widget.CardView>
 
@@ -40,26 +60,26 @@
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/segment_view"
         android:layout_marginTop="@dimen/space_12"
         android:layout_marginBottom="@dimen/space_16"
         android:clipToPadding="false"
-        android:layout_below="@+id/segment_view"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/evm_recycler"
+        android:id="@+id/address_book_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_12"
+        android:layout_below="@+id/segment_view"
+        android:layout_marginTop="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_16"
         android:clipToPadding="false"
-        android:layout_below="@+id/segment_view"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/empty_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_300"
+        android:layout_height="@dimen/space_400"
         android:layout_below="@+id/segment_view"
         android:orientation="vertical"
         android:visibility="visible">
@@ -70,18 +90,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="NO ADDRESS"
             android:textColor="@color/color_base01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/no_description"
+            style="@style/font_sm_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_6"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/space_4"
+            android:lineSpacingMultiplier="1.0"
+            android:text="@string/str_address_book_msg"
+            android:textColor="@color/color_base04"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_address" />
+
         <ImageView
-            android:layout_width="@dimen/space_50"
-            android:layout_height="@dimen/space_50"
-            android:src="@drawable/icon_no_data"
+            android:layout_width="@dimen/space_60"
+            android:layout_height="@dimen/space_60"
             android:layout_marginBottom="@dimen/space_10"
+            android:src="@drawable/icon_no_data"
             app:layout_constraintBottom_toTopOf="@+id/no_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
