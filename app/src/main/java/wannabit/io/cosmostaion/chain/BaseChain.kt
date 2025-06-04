@@ -714,7 +714,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
-    chains.add(ChainGovgen())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
     chains.add(ChainHippocrat())
