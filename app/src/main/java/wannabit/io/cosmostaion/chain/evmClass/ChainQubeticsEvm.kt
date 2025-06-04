@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 open class ChainQubeticsEvm : BaseChain(), Parcelable {
 
     override var name: String = "Qubetics"
-    override var tag: String = "qubetics0"
+    override var tag: String = "qubetics60"
     override var apiName: String = "qubetics"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")

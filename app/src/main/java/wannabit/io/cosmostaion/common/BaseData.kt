@@ -69,8 +69,10 @@ object BaseData {
             chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else if (chain.isSupportCw20()) {
             chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+        } else if (chain is ChainGnoTestnet) {
+            chain.gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else {
-            (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+            null
         }
     }
 

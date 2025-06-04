@@ -131,12 +131,21 @@ class DashboardViewHolder(
                 }
 
             } ?: run {
-                val token = BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())
-                chainDenom.text = token?.symbol
-                chainPrice.text = formatAssetValue(BaseData.getPrice(token?.coinGeckoId))
-                BaseData.lastUpDown(token?.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())?.let { token ->
+                    chainDenom.text = token.symbol
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
+                    BaseData.lastUpDown(token.coinGeckoId).let { lastUpDown ->
+                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
+
+                } ?: run {
+                    chainDenom.text = "Unknown"
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(""))
+                    BaseData.lastUpDown("").let { lastUpDown ->
+                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
                 }
             }
 
@@ -263,12 +272,21 @@ class DashboardViewHolder(
                 }
 
             } ?: run {
-                val token = BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())
-                chainDenom.text = token?.symbol
-                chainPrice.text = formatAssetValue(BaseData.getPrice(token?.coinGeckoId))
-                BaseData.lastUpDown(token?.coinGeckoId).let { lastUpDown ->
-                    chainPriceStatus.priceChangeStatusColor(lastUpDown)
-                    chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                BaseData.getToken(chain, chain.apiName, chain.getMainAssetDenom())?.let { token ->
+                    chainDenom.text = token.symbol
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(token.coinGeckoId))
+                    BaseData.lastUpDown(token.coinGeckoId).let { lastUpDown ->
+                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
+
+                } ?: run {
+                    chainDenom.text = "Unknown"
+                    chainPrice.text = formatAssetValue(BaseData.getPrice(""))
+                    BaseData.lastUpDown("").let { lastUpDown ->
+                        chainPriceStatus.priceChangeStatusColor(lastUpDown)
+                        chainPriceStatus.text = priceChangeStatus(lastUpDown)
+                    }
                 }
             }
 
