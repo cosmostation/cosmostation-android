@@ -47,7 +47,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
@@ -67,7 +66,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLombard
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainLumera
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainManifest
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
@@ -82,7 +80,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
@@ -169,12 +166,15 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainQubeticsEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSaharaAiEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainSelfTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainWardenEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXrplEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainZeroGravityEvmTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainZigChainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainZkcloudTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -755,7 +755,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOkt996Keccak())
     chains.add(ChainOkt996Secp())
     chains.add(ChainOmniflix())
-    chains.add(ChainOnomy())
     chains.add(ChainOrai())
     chains.add(ChainOsmosis())
     chains.add(ChainOptimism())
@@ -820,13 +819,16 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainQubeticsEvmTestnet())
     chains.add(ChainSaharaAiEvmTestnet())
     chains.add(ChainSelfTestnet())
 //    chains.add(ChainStroyTestnet())
     chains.add(ChainTabichainTestnet())
+    chains.add(ChainWardenEvmTestnet())
     chains.add(ChainXionTestnet())
     chains.add(ChainXrplEvmTestnet())
     chains.add(ChainZeroGravityEvmTestnet())
+    chains.add(ChainZigChainTestnet())
     chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->
