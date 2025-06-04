@@ -80,7 +80,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNyx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOmniflix
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainOnomy
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
@@ -754,7 +753,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOkt996Keccak())
     chains.add(ChainOkt996Secp())
     chains.add(ChainOmniflix())
-    chains.add(ChainOnomy())
     chains.add(ChainOrai())
     chains.add(ChainOsmosis())
     chains.add(ChainOptimism())
