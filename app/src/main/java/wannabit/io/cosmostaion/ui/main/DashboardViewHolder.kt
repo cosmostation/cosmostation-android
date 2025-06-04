@@ -112,7 +112,7 @@ class DashboardViewHolder(
             } else {
                 chainAddress.text = if (chain.supportCosmos()) {
                     chain.address
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.mainAddress
@@ -244,7 +244,7 @@ class DashboardViewHolder(
             } else {
                 chainAddress.text = if (chain.supportCosmos()) {
                     chain.address
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.mainAddress

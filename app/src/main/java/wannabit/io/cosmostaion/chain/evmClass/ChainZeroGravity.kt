@@ -9,19 +9,19 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainEthereum : BaseChain(), Parcelable {
+open class ChainZeroGravity : BaseChain(), Parcelable {
 
-    override var name: String = "Ethereum"
-    override var tag: String = "ethereum60"
-    override var apiName: String = "ethereum"
+    override var name: String = "0G"
+    override var tag: String = "zero-gravity60"
+    override var apiName: String = "zero-gravity"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "ETH"
+    override var coinSymbol: String = "0G"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc-ethereum-evm.cosmostation.io/rpc"
+    override var evmRpcURL: String = ""
 }
