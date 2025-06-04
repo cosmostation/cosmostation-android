@@ -174,6 +174,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainWardenEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXrplEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainZeroGravityEvmTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainZigChainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainZkcloudTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
@@ -827,6 +828,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXionTestnet())
     chains.add(ChainXrplEvmTestnet())
     chains.add(ChainZeroGravityEvmTestnet())
+    chains.add(ChainZigChainTestnet())
     chains.add(ChainZkcloudTestnet())
 
     chains.forEach { chain ->
