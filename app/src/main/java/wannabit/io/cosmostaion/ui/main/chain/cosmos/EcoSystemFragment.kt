@@ -111,7 +111,7 @@ class EcoSystemFragment : Fragment() {
                 )
                 addProperty(
                     "thumbnail",
-                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/injection.png"
+                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet/resource/injection.png"
                 )
                 addProperty(
                     "link", "https://cosmostation.github.io/cosmostation-app-injection-example/"
@@ -127,7 +127,7 @@ class EcoSystemFragment : Fragment() {
                 )
                 addProperty(
                     "thumbnail",
-                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet_mobile/mobile_ecosystem/cosmos/resource/github.png"
+                    "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet/resource/github.png"
                 )
                 addProperty(
                     "link", "https://github.com/cosmostation/cosmostation-app-injection-example"
