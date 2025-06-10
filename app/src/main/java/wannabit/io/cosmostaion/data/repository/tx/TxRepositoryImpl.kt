@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.common.soft
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.model.req.BroadcastTxReq
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
@@ -2609,6 +2610,26 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             e.message.toString()
+        }
+    }
+
+    override suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String> {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val stub = com.atomone.photon.v1.QueryGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(8, TimeUnit.SECONDS)
+            val request =
+                com.atomone.photon.v1.QueryProto.QueryConversionRateRequest.newBuilder().build()
+            stub.conversionRate(request).conversionRate
+            safeApiCall(Dispatchers.IO) {
+                stub.conversionRate(request).conversionRate
+            }
+
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).conversionRate().let { response ->
+                    response["conversion_rate"].asString
+                }
+            }
         }
     }
 }

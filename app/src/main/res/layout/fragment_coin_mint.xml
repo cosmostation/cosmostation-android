@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_20"
+        android:layout_marginTop="@dimen/space_16"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/font_sb_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Burn &amp; Mint"
+            android:textColor="@color/color_base01" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="@dimen/space_5"
+        android:fitsSystemWindows="true"
+        android:focusable="true">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="@dimen/space_120"
+            android:layout_height="@dimen/space_120"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_speed="1.6" />
+    </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tx_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_16"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_layout">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/burn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/burn_coin_img"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/burn_coin_name"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="@+id/burn_coin_img"
+                    app:layout_constraintStart_toEndOf="@+id/burn_coin_img"
+                    app:layout_constraintTop_toTopOf="@+id/burn_coin_img" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:src="@drawable/icon_burn"
+                    app:layout_constraintBottom_toBottomOf="@+id/burn_coin_img"
+                    app:layout_constraintEnd_toStartOf="@+id/burn_msg_txt"
+                    app:layout_constraintTop_toTopOf="@+id/burn_coin_img" />
+
+                <TextView
+                    android:id="@+id/burn_msg_txt"
+                    style="@style/font_sm_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:text="This coin will be burned"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintBottom_toBottomOf="@+id/burn_coin_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/burn_coin_img" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/color_base07"
+                    app:layout_constraintTop_toBottomOf="@+id/burn_coin_img" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/burn_amount_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view">
+
+                    <EditText
+                        android:id="@+id/burn_amount_txt"
+                        style="@style/font_sb_18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_16"
+                        android:background="@color/color_transparent"
+                        android:hint="0"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:textColor="@color/color_base01"
+                        android:textColorHint="@color/color_base03"
+                        android:textCursorDrawable="@drawable/edittext_cursor_color"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_half"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_half"
+                        style="@style/font_sb_10"
+                        android:layout_width="@dimen/space_42"
+                        android:layout_height="@dimen/space_24"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:background="@drawable/button_swap_amount_bg"
+                        android:text="@string/str_half"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_max"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_max"
+                        style="@style/font_sb_10"
+                        android:layout_width="@dimen/space_42"
+                        android:layout_height="@dimen/space_24"
+                        android:background="@drawable/button_swap_amount_bg"
+                        android:text="@string/str_max"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/invalid_msg"
+                    style="@style/font_sb_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:text="@string/error_invalid_amount"
+                    android:textColor="@color/color_accent_red"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toBottomOf="@+id/burn_amount_layout" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginBottom="@dimen/space_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/invalid_msg">
+
+                    <TextView
+                        android:id="@+id/burn_amount_value"
+                        style="@style/font_sb_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/icon_wallet"
+                        android:layout_width="@dimen/space_12"
+                        android:layout_height="@dimen/space_12"
+                        android:layout_marginEnd="@dimen/space_4"
+                        android:src="@drawable/icon_wallet"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/burn_available"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/burn_available"
+                        style="@style/font_sb_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_2"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/burn_available_denom"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/burn_available_denom"
+                        style="@style/font_sm_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/burn_available"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageButton
+            android:layout_width="@dimen/space_40"
+            android:layout_height="@dimen/space_40"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-10dp"
+            android:background="@drawable/button_toggle_bg"
+            android:elevation="@dimen/space_10"
+            android:src="@drawable/icon_arrow_down"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/burn_layout"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginTop="@dimen/space_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/burn_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/mint_coin_img"
+                    android:layout_width="@dimen/space_20"
+                    android:layout_height="@dimen/space_20"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/mint_coin_name"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_6"
+                    android:gravity="center_vertical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="@+id/mint_coin_img"
+                    app:layout_constraintStart_toEndOf="@+id/mint_coin_img"
+                    app:layout_constraintTop_toTopOf="@+id/mint_coin_img" />
+
+                <ImageView
+                    android:id="@+id/mint_img"
+                    android:layout_width="@dimen/space_12"
+                    android:layout_height="@dimen/space_12"
+                    android:layout_marginEnd="@dimen/space_2"
+                    android:src="@drawable/icon_coin_mint"
+                    app:layout_constraintBottom_toBottomOf="@+id/mint_coin_img"
+                    app:layout_constraintEnd_toStartOf="@+id/mint_msg_txt"
+                    app:layout_constraintTop_toTopOf="@+id/mint_coin_img" />
+
+                <TextView
+                    android:id="@+id/mint_msg_txt"
+                    style="@style/font_sm_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:text="This coin will be minted"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintBottom_toBottomOf="@+id/mint_coin_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/mint_coin_img" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:background="@color/color_base07"
+                    app:layout_constraintTop_toBottomOf="@+id/mint_coin_img" />
+
+                <TextView
+                    android:id="@+id/mint_amount"
+                    style="@style/font_sb_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginBottom="@dimen/space_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mint_amount">
+
+                    <TextView
+                        android:id="@+id/mint_amount_value"
+                        style="@style/font_sb_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/icon_wallet2"
+                        android:layout_width="@dimen/space_12"
+                        android:layout_height="@dimen/space_12"
+                        android:layout_marginEnd="@dimen/space_4"
+                        android:src="@drawable/icon_wallet"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/mint_available"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/mint_available"
+                        style="@style/font_sb_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/space_2"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/mint_available_denom"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/mint_available_denom"
+                        style="@style/font_sm_10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_base02"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/mint_available"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            style="@style/font_sm_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_2"
+            android:text="Minting Rate : "
+            android:textColor="@color/color_base02"
+            app:layout_constraintEnd_toStartOf="@+id/minting_rate_txt"
+            app:layout_constraintTop_toBottomOf="@+id/mint_layout" />
+
+        <TextView
+            android:id="@+id/minting_rate_txt"
+            style="@style/font_sb_11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_20"
+            android:textColor="@color/color_base02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mint_layout" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/memo_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_8"
+            app:layout_constraintBottom_toTopOf="@id/fee_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/space_15">
+
+                <TextView
+                    android:id="@+id/memo_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:text="@string/title_memo"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tab_memo_msg"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="@string/str_tap_for_add_memo_msg"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/memo_title" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fee_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_20"
+            app:layout_constraintBottom_toTopOf="@+id/btn_mint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/space_16">
+
+                <TextView
+                    android:id="@+id/fee_title"
+                    style="@style/font_sm_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_14"
+                    android:text="@string/title_tx_fee"
+                    android:textColor="@color/color_base02"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/fee_msg"
+                    style="@style/font_sm_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_fee_tip_msg"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintBottom_toBottomOf="@id/fee_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/fee_title" />
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.6dp"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:background="@color/color_base05"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fee_title" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fee_token_layout"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16"
+                    android:background="@drawable/button_fee_bg"
+                    android:paddingHorizontal="@dimen/space_10"
+                    android:paddingVertical="@dimen/space_8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1">
+
+                    <ImageView
+                        android:id="@+id/fee_token_img"
+                        android:layout_width="@dimen/space_20"
+                        android:layout_height="@dimen/space_20"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/fee_token"
+                        style="@style/font_sb_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_6"
+                        android:gravity="center_vertical"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_base01"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fee_token_img"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/btn_fee"
+                        android:layout_width="@dimen/space_18"
+                        android:layout_height="@dimen/space_18"
+                        android:src="@drawable/icon_down"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/color_base02" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/fee_amount"
+                    style="@style/font_sb_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_15"
+                    android:textColor="@color/color_base01"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+                <TextView
+                    android:id="@+id/fee_value"
+                    style="@style/font_sb_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_base03"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_amount" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/segment_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/space_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fee_token_layout">
+
+                    <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                        android:id="@+id/fee_segment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space_4"
+                        android:background="@color/color_transparent"
+                        app:draggable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/fee_token_layout"
+                        app:radius="@dimen/space_8"
+                        app:ripple="true"
+                        app:rippleColor="@color/color_transparent"
+                        app:selectedButtonRadius="@dimen/space_8" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_mint"
+            style="@style/font_sb_16"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_54"
+            android:layout_marginHorizontal="@dimen/space_12"
+            android:layout_marginBottom="@dimen/space_12"
+            android:background="@drawable/button_disable_bg"
+            android:enabled="false"
+            android:text="Mint PHOTON"
+            android:textAllCaps="false"
+            android:textColor="@color/color_base03"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/backdropLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background_dialog"
+        android:clickable="true"
+        android:elevation="@dimen/space_5"
+        android:fitsSystemWindows="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationView"
+            android:layout_width="@dimen/space_120"
+            android:layout_height="@dimen/space_120"
+            android:layout_centerInParent="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

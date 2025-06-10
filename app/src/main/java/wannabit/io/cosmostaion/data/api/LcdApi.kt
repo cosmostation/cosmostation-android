@@ -204,4 +204,8 @@ interface LcdApi {
 
     @GET("cosmos/tx/v1beta1/txs/{hash}")
     suspend fun lcdEpochTxType(@Path("hash") hash: String?): JsonObject
+
+    //Atomone
+    @GET("atomone/photon/v1/conversion_rate")
+    suspend fun conversionRate(): JsonObject
 }

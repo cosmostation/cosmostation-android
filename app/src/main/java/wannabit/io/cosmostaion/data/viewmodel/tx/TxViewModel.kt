@@ -50,6 +50,7 @@ import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
+import java.util.concurrent.TimeUnit
 
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
@@ -1385,6 +1386,34 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 msgCall, fee, memo, selectedChain
             )
             errorMessage.postValue(errorResponse)
+        }
+    }
+
+    private var _conversionRateResult = MutableLiveData<String?>()
+    val conversionRateResult: LiveData<String?> get() = _conversionRateResult
+    fun mintPhotonRate(chain: BaseChain) = viewModelScope.launch(Dispatchers.IO) {
+        chain.cosmosFetcher?.getChannel()?.let { channel ->
+            try {
+                when (val response = txRepository.mintPhotonRate(channel, chain)) {
+                    is NetworkResult.Success -> {
+                        _conversionRateResult.postValue(response.data)
+                    }
+
+                    is NetworkResult.Error -> {
+                        _conversionRateResult.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                    }
+                }
+
+            } finally {
+                channel.shutdown()
+                try {
+                    if (!channel.awaitTermination(5, TimeUnit.SECONDS)) {
+                        channel.shutdownNow()
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 }

@@ -105,12 +105,12 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun migrateDatabaseIfNeed() = CoroutineScope(Dispatchers.IO).launch {
-        updateAddressBook()
-
         if (Prefs.version < BaseConstant.DB_VERSION) {
             LegacyMigrationHelper.migratePassword()
             LegacyMigrationHelper.migrateWallet()
         }
+
+        updateAddressBook()
     }
 
     @SuppressLint("WrongConstant")

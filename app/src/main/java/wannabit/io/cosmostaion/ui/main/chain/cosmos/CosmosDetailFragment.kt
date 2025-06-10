@@ -19,6 +19,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.web3j.crypto.Keys
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
@@ -51,6 +52,7 @@ import wannabit.io.cosmostaion.ui.main.NoticeType
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import wannabit.io.cosmostaion.ui.qr.QrCodeFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
+import wannabit.io.cosmostaion.ui.tx.genTx.CoinMintFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.CompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.neutron.ContractCompoundingFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.okt.OktDepositFragment
@@ -247,6 +249,24 @@ class CosmosDetailFragment : Fragment() {
                     fabWithdraw.visibility = View.VISIBLE
                     fabSelectValidator.visibility = View.VISIBLE
                 }
+
+                is ChainAtomone -> {
+                    if (selectedChain.getChainParam()?.getAsJsonObject("custom_params")
+                            ?.has("photon_params") == true
+                    ) {
+                        if (selectedChain.getChainParam()?.getAsJsonObject("custom_params")
+                                ?.getAsJsonObject("photon_params")?.getAsJsonObject("params")
+                                ?.get("mint_disabled")?.asBoolean == false
+                        ) {
+                            fabMint.visibility = View.VISIBLE
+                        } else {
+                            fabMint.visibility = View.GONE
+                        }
+
+                    } else {
+                        fabMint.visibility = View.GONE
+                    }
+                }
             }
 
             val supportToken =
@@ -314,7 +334,8 @@ class CosmosDetailFragment : Fragment() {
                         accountValue.textSize = 18f
                         btnHide.setImageResource(R.drawable.icon_hide)
                     } else {
-                        accountValue.text = formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
+                        accountValue.text =
+                            formatAssetValue(selectedChain.allValue(false) ?: BigDecimal.ZERO)
                         accountValue.textSize = 24f
                         btnHide.setImageResource(R.drawable.icon_not_hide)
                     }
@@ -839,6 +860,12 @@ class CosmosDetailFragment : Fragment() {
 
                 handleOneClickWithDelay(
                     null, OktSelectValidatorFragment.newInstance(selectedChain)
+                )
+            }
+
+            fabMint.setOnClickListener {
+                handleOneClickWithDelay(
+                    null, CoinMintFragment.newInstance(selectedChain)
                 )
             }
         }
