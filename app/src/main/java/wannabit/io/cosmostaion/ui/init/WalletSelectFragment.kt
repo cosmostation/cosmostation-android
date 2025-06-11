@@ -121,7 +121,12 @@ class WalletSelectFragment : Fragment() {
                 account.apply {
                     allChains = allChains()
                     mainnetChains = allChains.filter { !it.isTestnet }.toMutableList()
+                    mainnetChains.sortWith(compareBy(
+                        { if (it.tag == "cosmos118") 0 else 1 },
+                        { it.name.lowercase() }
+                    ))
                     testnetChains = allChains.filter { it.isTestnet }.toMutableList()
+                    testnetChains.sortedBy { it.name }
                 }
                 withContext(Dispatchers.Main) {
                     updateView()
@@ -138,7 +143,12 @@ class WalletSelectFragment : Fragment() {
                     mainnetChains =
                         allChains.filter { !it.isTestnet && it.isDefault || it.tag == "kava459" || it.apiName == "bitcoin" }
                             .toMutableList()
+                    mainnetChains.sortWith(compareBy(
+                        { if (it.tag == "cosmos118") 0 else 1 },
+                        { it.name.lowercase() }
+                    ))
                     testnetChains = allChains.filter { it.isTestnet }.toMutableList()
+                    testnetChains.sortedBy { it.name }
                     withContext(Dispatchers.Main) {
                         updateView()
                     }

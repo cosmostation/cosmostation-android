@@ -125,7 +125,14 @@ class PrivateCheckFragment : Fragment() {
 
                 mainnetChains =
                     allChains.filter { !it.isTestnet && it.tag != "okt996_Secp" }.toMutableList()
+                mainnetChains.sortWith(compareBy(
+                    { if (it.tag == "cosmos118") 0 else 1 },
+                    { it.name.lowercase() }
+                ))
+
                 testnetChains = allChains.filter { it.isTestnet }.toMutableList()
+                testnetChains.sortedBy { it.name }
+
                 searchMainnetChains.addAll(mainnetChains)
                 searchTestnetChains.addAll(testnetChains)
 
