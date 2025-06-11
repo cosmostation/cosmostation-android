@@ -1050,7 +1050,7 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/umee/resource/chain_umee.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">UMEE</span></td>
+    <td><span style="font-weight:bold">UX(UMEE)</span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
