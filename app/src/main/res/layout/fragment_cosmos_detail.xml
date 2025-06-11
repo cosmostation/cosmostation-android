@@ -341,7 +341,7 @@
             android:id="@+id/fab_mint"
             android:layout_width="@dimen/space_100"
             android:layout_height="@dimen/space_100"
-            android:src="@drawable/icon_coin_mint"
+            android:src="@drawable/icon_fab_mint"
             android:visibility="gone"
             app:fab_colorDisabled="@color/color_base08"
             app:fab_colorNormal="@color/color_base08"
