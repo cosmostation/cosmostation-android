@@ -12,6 +12,7 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentEcoSystemBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_DAPP_HEADER
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.EcoSystemAdapter.Companion.VIEW_TYPE_INJECT_HEADER
@@ -100,7 +101,12 @@ class EvmEcoSystemFragment : Fragment() {
         val infos = BaseData.originEcosystems?.filter { ecosystem ->
             ecosystem["chains"].asJsonArray?.mapNotNull { it.asString }
                 ?.contains(selectedEvmChain.apiName) == true
-        }?.sortedByDescending { it["is_default"]?.asBoolean == true }?.toMutableList()
+        }
+            ?.sortedWith(compareByDescending<JsonObject> {
+                Prefs.getPinnedDapps().contains(it["id"]?.asInt)
+            }.thenByDescending { it["is_default"]?.asBoolean == true }
+                .thenBy { it["name"]?.asString?.uppercase() ?: "" })
+            ?.toMutableList()
 
         if (selectedEvmChain is ChainEthereum) {
             val inject = JsonObject().apply {
