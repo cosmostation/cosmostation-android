@@ -65,6 +65,10 @@ interface WalletRepository {
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.Coin>>
 
+    suspend fun spendableBalance(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.Coin>>
+
     suspend fun delegation(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<StakingProto.DelegationResponse>>

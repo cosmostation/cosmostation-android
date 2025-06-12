@@ -226,6 +226,27 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun spendableBalance(
+        channel: ManagedChannel?,
+        chain: BaseChain
+    ): NetworkResult<MutableList<CoinProto.Coin>> {
+        return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
+            val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
+            val stub =
+                QueryGrpc.newBlockingStub(channel).withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request =
+                com.cosmos.bank.v1beta1.QueryProto.QuerySpendableBalancesRequest.newBuilder()
+                    .setPagination(pageRequest).setAddress(chain.address).build()
+            safeApiCall(Dispatchers.IO) {
+                stub.spendableBalances(request).balancesList
+            }
+        } else {
+            safeApiCall(Dispatchers.IO) {
+                lcdApi(chain).lcdSpendableBalanceInfo(chain.address, "2000").balance()
+            }
+        }
+    }
+
     override suspend fun delegation(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<DelegationResponse>> {

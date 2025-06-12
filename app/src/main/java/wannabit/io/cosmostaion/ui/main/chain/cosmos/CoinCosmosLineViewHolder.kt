@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
@@ -76,6 +77,16 @@ class CoinCosmosLineViewHolder(
                                     context.getString(R.string.str_reward) + if (chain.cosmosFetcher?.rewardOtherDenoms()!! > 0) " +${chain.cosmosFetcher?.rewardOtherDenoms()}" else ""
                             }
 
+                            var lockedAmount: BigDecimal = BigDecimal.ZERO
+                            if (chain is ChainCoreum) {
+                                lockedAmount = chain.coreumFetcher()?.lockedAmount(stakeDenom)
+                                    ?.movePointLeft(asset.decimals ?: 6)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                                lockedLayout.goneOrVisible(lockedAmount?.compareTo(BigDecimal.ZERO) == 0)
+                            } else {
+                                lockedLayout.visibility = View.GONE
+                            }
+
                             with(Prefs) {
                                 total.visibility = if (hideValue) View.GONE else View.VISIBLE
                                 totalValue.visibility = if (hideValue) View.GONE else View.VISIBLE
@@ -106,9 +117,10 @@ class CoinCosmosLineViewHolder(
                                         rewardAmount.toPlainString(), 6
                                     )
                                 )
+                                locked.hiddenStatus(formatAmount(lockedAmount.toPlainString(), 6))
 
                                 total.text = if (hideValue) "" else formatAmount(
-                                    (availableAmount + vestingAmount + stakedAmount + unStakingAmount + rewardAmount).toPlainString(),
+                                    (availableAmount + vestingAmount + stakedAmount + unStakingAmount + rewardAmount + lockedAmount).toPlainString(),
                                     6
                                 )
                                 totalValue.text = if (hideValue) {
