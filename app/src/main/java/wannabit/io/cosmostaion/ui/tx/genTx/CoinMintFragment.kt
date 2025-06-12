@@ -126,7 +126,6 @@ class CoinMintFragment : BaseTxFragment() {
                 burnAsset = asset
                 burnCoinImg.setTokenImg(asset)
                 burnCoinName.text = asset.symbol
-                burnAvailableDenom.text = asset.symbol
             }
 
             BaseData.getAsset(selectedChain.apiName, "uphoton")?.let { asset ->
@@ -137,7 +136,6 @@ class CoinMintFragment : BaseTxFragment() {
                     ?.movePointLeft(asset.decimals ?: 6)
                     ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                 mintAvailable.text = formatAmount(dpMintAmount.toString(), asset.decimals ?: 6)
-                mintAvailableDenom.text = asset.symbol
             }
 
             iconWallet.colorFilter = PorterDuffColorFilter(
