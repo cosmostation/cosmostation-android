@@ -101,7 +101,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
             .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
     }
 
-    fun valueCoinCnt(): Int {
+    open fun valueCoinCnt(): Int {
         return cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
     }
 
@@ -115,7 +115,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return displayTokenList?.count() ?: 0
     }
 
-    fun balanceAmount(denom: String): BigDecimal {
+    open fun balanceAmount(denom: String): BigDecimal {
         if (cosmosBalances?.isNotEmpty() == true) {
             return cosmosBalances?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
                 ?: BigDecimal.ZERO
@@ -136,7 +136,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
         return BigDecimal.ZERO
     }
 
-    fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
+    open fun balanceValueSum(isUsd: Boolean? = false): BigDecimal {
         var sum = BigDecimal.ZERO
         if (cosmosBalances?.isNotEmpty() == true) {
             cosmosBalances?.forEach { balance ->

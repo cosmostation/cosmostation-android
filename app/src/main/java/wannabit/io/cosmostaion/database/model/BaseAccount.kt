@@ -72,14 +72,10 @@ data class BaseAccount(
         val displayChains = Prefs.getDisplayChains(this)
         synchronized(allChains) {
             if (isValueFilter) {
-                allChains.sortWith { o1, o2 ->
-                    when {
-                        o1.tag == "cosmos118" -> -1
-                        o2.tag == "cosmos118" -> 1
-                        o1.name.compareTo(o2.name) != 0 -> o1.name.compareTo(o2.name)
-                        else -> 0
-                    }
-                }
+                allChains.sortWith(compareBy(
+                    { if (it.tag == "cosmos118") 0 else 1 },
+                    { it.name.lowercase() }
+                ))
 
                 allChains.sortWith { o1, o2 ->
                     when {

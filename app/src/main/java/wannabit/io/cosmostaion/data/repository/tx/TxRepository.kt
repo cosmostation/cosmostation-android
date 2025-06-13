@@ -367,4 +367,6 @@ interface TxRepository {
     suspend fun simulateCallRpcTx(
         msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ): String
+
+    suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String>
 }

@@ -337,6 +337,19 @@
             app:fab_size="mini"
             fab:fab_label="Select validator" />
 
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_mint"
+            android:layout_width="@dimen/space_100"
+            android:layout_height="@dimen/space_100"
+            android:src="@drawable/icon_fab_mint"
+            android:visibility="gone"
+            app:fab_colorDisabled="@color/color_base08"
+            app:fab_colorNormal="@color/color_base08"
+            app:fab_colorPressed="@color/color_base08"
+            app:fab_colorRipple="@color/color_base08"
+            app:fab_size="mini"
+            fab:fab_label="Burn &amp; Mint" />
+
     </com.github.clans.fab.FloatingActionMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,12 +61,17 @@ class ChainManageFragment : Fragment() {
                         mainnetChains.add(chain)
                     }
                 }
+                mainnetChains.sortWith(compareBy(
+                    { if (it.tag == "cosmos118") 0 else 1 },
+                    { it.name.lowercase() }
+                ))
 
                 allChains().filter { it.isTestnet && it.isDefault }.forEach { chain ->
                     if (!testnetChains.any { it.getChainName() == chain.getChainName() }) {
                         testnetChains.add(chain)
                     }
                 }
+                testnetChains.sortedBy { it.name }
 
                 searchMainnetChains.addAll(mainnetChains)
                 searchTestnetChains.addAll(testnetChains)

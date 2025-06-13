@@ -25,6 +25,11 @@ interface LcdApi {
         @Path("address") address: String?, @Query("pagination.limit") limit: String
     ): JsonObject
 
+    @GET("cosmos/bank/v1beta1/spendable_balances/{address}")
+    suspend fun lcdSpendableBalanceInfo(
+        @Path("address") address: String?, @Query("pagination.limit") limit: String
+    ): JsonObject
+
     @GET("cosmos/staking/v1beta1/delegations/{address}")
     suspend fun lcdDelegationInfo(@Path("address") address: String?): JsonObject
 
@@ -204,4 +209,8 @@ interface LcdApi {
 
     @GET("cosmos/tx/v1beta1/txs/{hash}")
     suspend fun lcdEpochTxType(@Path("hash") hash: String?): JsonObject
+
+    //Atomone
+    @GET("atomone/photon/v1/conversion_rate")
+    suspend fun conversionRate(): JsonObject
 }

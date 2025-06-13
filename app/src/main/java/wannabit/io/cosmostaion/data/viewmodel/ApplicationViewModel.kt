@@ -22,6 +22,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -562,6 +563,19 @@ class ApplicationViewModel(
                         }
                     }
 
+                    if (chain is ChainCoreum) {
+                        val loadSpendableBalanceDeferred =
+                            async { walletRepository.spendableBalance(channel, chain) }
+
+                        val spendableBalanceResult = loadSpendableBalanceDeferred.await()
+
+                        if (spendableBalanceResult is NetworkResult.Success && spendableBalanceResult.data is MutableList<*>) {
+                            chain.coreumFetcher()?.spendableBalances = spendableBalanceResult.data
+                        } else if (spendableBalanceResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${spendableBalanceResult.errorType}  error message : ${spendableBalanceResult.errorMessage}")
+                        }
+                    }
+
                     val loadDelegationDeferred =
                         async { walletRepository.delegation(channel, chain) }
                     val loadUnBondingDeferred = async { walletRepository.unBonding(channel, chain) }
@@ -650,11 +664,7 @@ class ApplicationViewModel(
                         cosmosFetcher?.allAssetValue(true).toString(),
                         cosmosFetcher?.allStakingDenomAmount().toString(),
                         "0",
-                        cosmosFetcher?.cosmosBalances?.count {
-                            BaseData.getAsset(
-                                apiName, it.denom
-                            ) != null
-                        }?.toLong()
+                        chain.cosmosFetcher()?.valueCoinCnt()?.toLong() ?: 0L
                     )
                     BaseData.updateRefAddressesMain(refAddress)
                     coinValue = cosmosFetcher?.allAssetValue()

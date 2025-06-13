@@ -38,10 +38,20 @@ class DappViewHolder(
             val inflater = LayoutInflater.from(context)
             chains.take(7).forEach { supportChain ->
                 val view = CustomImageBinding.inflate(inflater, chainContainer, false)
-                allChains().first { it.apiName == supportChain.asString }.let { chain ->
+                allChains().firstOrNull { it.apiName == supportChain.asString }?.let { chain ->
                     view.chainImg.setChainLogo(chain)
                     if (chains.size() == 1) {
                         addInfo.text = chain.name.uppercase()
+                    } else if (chains.size() > 7) {
+                        addInfo.text = "+" + (chains.size() - 7)
+                    } else {
+                        addInfo.text = ""
+                    }
+
+                } ?: run {
+                    view.chainImg.setImageResource(R.drawable.chain_default)
+                    if (chains.size() == 1) {
+                        addInfo.text = "Unknown"
                     } else if (chains.size() > 7) {
                         addInfo.text = "+" + (chains.size() - 7)
                     } else {
