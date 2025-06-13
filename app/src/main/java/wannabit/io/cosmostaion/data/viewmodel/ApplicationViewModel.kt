@@ -664,11 +664,7 @@ class ApplicationViewModel(
                         cosmosFetcher?.allAssetValue(true).toString(),
                         cosmosFetcher?.allStakingDenomAmount().toString(),
                         "0",
-                        cosmosFetcher?.cosmosBalances?.count {
-                            BaseData.getAsset(
-                                apiName, it.denom
-                            ) != null
-                        }?.toLong()
+                        chain.cosmosFetcher()?.valueCoinCnt()?.toLong() ?: 0L
                     )
                     BaseData.updateRefAddressesMain(refAddress)
                     coinValue = cosmosFetcher?.allAssetValue()

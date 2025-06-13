@@ -424,6 +424,18 @@ open class BaseChain : Parcelable {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
                 val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
+                val availableAmount = this.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
+                if ((availableAmount ?: BigDecimal.ZERO) > amount) {
+                    result.add(
+                        CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
+                            .build()
+                    )
+                }
+            }
+
+            if (result.isEmpty()) {
+                val feeData = feeDatas.first()
+                val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
                 result.add(
                     CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
                         .build()
