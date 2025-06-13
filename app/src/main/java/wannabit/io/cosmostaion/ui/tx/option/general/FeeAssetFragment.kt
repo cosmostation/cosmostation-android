@@ -12,7 +12,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.data.model.res.FeeData
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
-import java.math.BigDecimal
 
 class FeeAssetFragment : BottomSheetDialogFragment() {
 
@@ -83,23 +82,11 @@ class FeeAssetFragment : BottomSheetDialogFragment() {
                 feeDatas = getParcelableArrayList("feeDatas")
             }
 
-            val filteredFeeDatas = feeDatas?.filter { feeCoin ->
-                (fromChain.cosmosFetcher?.balanceAmount(
-                    feeCoin.denom ?: ""
-                ) ?: BigDecimal.ZERO) > BigDecimal.ZERO
-            }?.toMutableList()
-
-            if (filteredFeeDatas?.isEmpty() == true) {
-                feeDatas?.first()?.let { feeData ->
-                    filteredFeeDatas.add(feeData)
-                }
-            }
-
             feeAssetAdapter = FeeAssetAdapter(fromChain)
             recycler.setHasFixedSize(true)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = feeAssetAdapter
-            feeAssetAdapter.submitList(filteredFeeDatas)
+            feeAssetAdapter.submitList(feeDatas)
 
             feeAssetAdapter.setOnItemClickListener {
                 assetSelectListener?.select(it)

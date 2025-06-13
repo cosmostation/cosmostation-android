@@ -138,18 +138,6 @@ class CoinMintFragment : BaseTxFragment() {
                 mintAvailable.text = formatAmount(dpMintAmount.toString(), asset.decimals ?: 6)
             }
 
-            iconWallet.colorFilter = PorterDuffColorFilter(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_base02
-                ), PorterDuff.Mode.SRC_IN
-            )
-
-            iconWallet2.colorFilter = PorterDuffColorFilter(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_base02
-                ), PorterDuff.Mode.SRC_IN
-            )
-
             mintImg.colorFilter = PorterDuffColorFilter(
                 ContextCompat.getColor(
                     requireContext(), R.color.color_sub_yellow

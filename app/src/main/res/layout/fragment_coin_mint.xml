@@ -203,12 +203,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/icon_wallet"
-                        android:layout_width="@dimen/space_12"
-                        android:layout_height="@dimen/space_12"
-                        android:layout_marginEnd="@dimen/space_4"
-                        android:src="@drawable/icon_wallet"
+                    <TextView
+                        style="@style/font_sm_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Available : "
+                        android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/burn_available"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -340,12 +340,12 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/icon_wallet2"
-                        android:layout_width="@dimen/space_12"
-                        android:layout_height="@dimen/space_12"
-                        android:layout_marginEnd="@dimen/space_4"
-                        android:src="@drawable/icon_wallet"
+                    <TextView
+                        style="@style/font_sm_11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Available : "
+                        android:textColor="@color/color_base02"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/mint_available"
                         app:layout_constraintTop_toTopOf="parent" />
