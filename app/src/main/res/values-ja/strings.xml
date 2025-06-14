@@ -150,6 +150,7 @@
     <string name="str_sort_multi_description">サポートされているネットワーク数を並べ替えます</string>
     <string name="str_select_chain">チェーン選択</string>
     <string name="str_insufficient_balance">手数料として使用する%1$sコインが不足しています。</string>
+    <string name="str_mint_photon">PHOTON発行</string>
 
 
     //title

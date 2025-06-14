@@ -578,7 +578,7 @@
             android:layout_marginBottom="@dimen/space_12"
             android:background="@drawable/button_disable_bg"
             android:enabled="false"
-            android:text="Mint PHOTON"
+            android:text="@string/str_mint_photon"
             android:textAllCaps="false"
             android:textColor="@color/color_base03"
             app:layout_constraintBottom_toBottomOf="parent"

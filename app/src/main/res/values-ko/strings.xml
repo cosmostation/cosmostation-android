@@ -144,6 +144,7 @@
     <string name="str_sort_multi_description">지원되는 네트워크 수로 정렬</string>
     <string name="str_select_chain">체인 선택</string>
     <string name="str_insufficient_balance">수수료로 사용할 %1$s 코인이 부족합니다.</string>
+    <string name="str_mint_photon">PHOTON 발행</string>
 
 
     //title

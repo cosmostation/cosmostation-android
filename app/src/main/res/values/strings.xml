@@ -201,6 +201,7 @@
     <string name="str_sort_multi_description">Sort the list by the number of supported networks</string>
     <string name="str_select_chain">Select chain</string>
     <string name="str_insufficient_balance">Insufficient %1$s balance for fees.</string>
+    <string name="str_mint_photon">Mint PHOTON</string>
 
 
     //title
