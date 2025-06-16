@@ -24,6 +24,6 @@ open class ChainLumera : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ulume"
     override var accountPrefix: String = "lumera"
-    override var grpcHost: String = "grpc.lumera.io"
-    override var lcdUrl: String = "https://lcd.lumera.io/"
+    override var grpcHost: String = "grpc.lumera.mainnet.cosmostation.io"
+    override var lcdUrl: String = "https://lcd.lumera.mainnet.cosmostation.io/"
 }
