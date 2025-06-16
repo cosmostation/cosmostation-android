@@ -377,21 +377,17 @@ class StakingFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
                 }
 
-                val balanceAmount =
-                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
-                val vestingAmount =
-                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
-
+                val delegateAbleAmount = selectedChain.cosmosFetcher?.delegateAbleAmount()
                 txFee?.let {
                     availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
                         val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                        if (feeAmount > balanceAmount) {
+                        if (feeAmount > delegateAbleAmount) {
                             BigDecimal.ZERO
                         } else {
-                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
+                            delegateAbleAmount?.subtract(feeAmount)
                         }
                     } else {
-                        balanceAmount?.add(vestingAmount)
+                        delegateAbleAmount
                     }
                 }
             }
@@ -700,7 +696,9 @@ class StakingFragment : BaseTxFragment() {
                         .setValidatorAddress(toValidator?.operatorAddress).setAmount(toCoin).build()
 
                 if (selectedChain is ChainBabylon) {
-                    val wrappedMsgDelegate = com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder().setMsg(msgDelegate).build()
+                    val wrappedMsgDelegate =
+                        com.babylon.epoching.v1.TxProto.MsgWrappedDelegate.newBuilder()
+                            .setMsg(msgDelegate).build()
                     Signer.babylonDelegateMsg(wrappedMsgDelegate)
                 } else {
                     Signer.delegateMsg(msgDelegate)

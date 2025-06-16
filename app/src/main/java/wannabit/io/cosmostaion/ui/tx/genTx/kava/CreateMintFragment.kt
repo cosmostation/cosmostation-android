@@ -34,21 +34,21 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentCreateMintBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -139,25 +139,6 @@ class CreateMintFragment : BaseTxFragment() {
                 collateralAmountView, principalAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
-
-            collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
-            collateralAsset?.let { asset ->
-                tokenImg.setTokenImg(asset)
-                tokenName.text = asset.symbol?.uppercase()
-            }
-
-            principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
-            principalAsset?.let { asset ->
-                principalTokenImg.setTokenImg(asset)
-                principalTokenName.text = asset.symbol?.uppercase()
-            }
-
-            val balanceAmount = selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
-            if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
-                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
-            }
-            collateralAvailableAmount = balanceAmount
         }
     }
 
@@ -194,6 +175,30 @@ class CreateMintFragment : BaseTxFragment() {
         }
     }
 
+    private fun initData() {
+        binding.apply {
+            collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
+            collateralAsset?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenName.text = asset.symbol?.uppercase()
+            }
+
+            principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
+            principalAsset?.let { asset ->
+                principalTokenImg.setTokenImg(asset)
+                principalTokenName.text = asset.symbol?.uppercase()
+            }
+
+            val balanceAmount = selectedChain.cosmosFetcher?.availableAmount(collateralParam.denom)
+            collateralAvailableAmount = if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
+                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                balanceAmount?.subtract(feeAmount)
+            } else {
+                balanceAmount
+            }
+        }
+    }
+
     private fun initFee() {
         binding.apply {
             feeInfos = selectedChain.getFeeInfos(requireContext())
@@ -220,6 +225,8 @@ class CreateMintFragment : BaseTxFragment() {
             feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
+
+            initData()
         }
     }
 

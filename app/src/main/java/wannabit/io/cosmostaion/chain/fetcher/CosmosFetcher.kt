@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dateToLong
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -42,8 +43,8 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     var cosmosAccountNumber: Long? = null
     var cosmosSequence: Long? = null
+    var cosmosAvailable: MutableList<CoinProto.Coin>? = null
     var cosmosBalances: MutableList<CoinProto.Coin>? = null
-    var cosmosVestings = mutableListOf<CoinProto.Coin>()
     var cosmosDelegations = mutableListOf<DelegationResponse>()
     var cosmosUnbondings = mutableListOf<UnbondingDelegation>()
     var cosmosRewards = mutableListOf<DistributionProto.DelegationDelegatorReward>()
@@ -59,12 +60,11 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal? {
         return if (denom == chain.stakeDenom) {
-            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
-                .add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
+            balanceValue(denom, isUsd).add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
                 .add(unbondingValueSum(isUsd))
 
         } else {
-            balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
+            balanceValue(denom, isUsd)
         }
     }
 
@@ -97,12 +97,12 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     open fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
-        return balanceValueSum(isUsd).add(vestingValueSum(isUsd)).add(delegationValueSum(isUsd))
-            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd))
+        return balanceValueSum(isUsd).add(delegationValueSum(isUsd)).add(unbondingValueSum(isUsd))
+            .add(rewardValueSum(isUsd))
     }
 
     open fun valueCoinCnt(): Int {
-        return cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
+        return cosmosAvailable?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
     }
 
     fun displayTokenCnt(baseAccountId: Long): Int {
@@ -113,6 +113,31 @@ open class CosmosFetcher(private val chain: BaseChain) {
             chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
         }
         return displayTokenList?.count() ?: 0
+    }
+
+    open fun availableAmount(denom: String): BigDecimal {
+        if (cosmosAvailable == null) {
+            return balanceAmount(denom)
+        } else {
+            if (cosmosAvailable?.isNotEmpty() == true) {
+                return cosmosAvailable?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+                    ?: BigDecimal.ZERO
+            }
+        }
+        return BigDecimal.ZERO
+    }
+
+    fun availableValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = availableAmount(denom)
+            asset.decimals?.let { decimal ->
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+            } ?: run {
+                return BigDecimal.ZERO
+            }
+        }
+        return BigDecimal.ZERO
     }
 
     open fun balanceAmount(denom: String): BigDecimal {
@@ -147,30 +172,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun vestingAmount(denom: String): BigDecimal {
-        if (cosmosVestings.isNotEmpty()) {
-            return cosmosVestings.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
-                ?: BigDecimal.ZERO
-        }
-        return BigDecimal.ZERO
-    }
+        val available = cosmosAvailable?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+            ?: BigDecimal.ZERO
+        val balance = cosmosBalances?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+            ?: BigDecimal.ZERO
 
-    fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, denom)?.let { asset ->
-            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
-            val amount = vestingAmount(denom)
-            asset.decimals?.let { decimal ->
-                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
-            }
+        return if (balance > available) {
+            balance.subtract(available)
+        } else {
+            BigDecimal.ZERO
         }
-        return BigDecimal.ZERO
-    }
-
-    fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
-        var sum = BigDecimal.ZERO
-        cosmosVestings.forEach { vesting ->
-            sum = sum.add(vestingValue(vesting.denom, isUsd))
-        }
-        return sum
     }
 
     open fun delegationAmountSum(): BigDecimal {
@@ -347,9 +358,16 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     open fun allStakingDenomAmount(): BigDecimal? {
-        return balanceAmount(chain.stakeDenom).add(vestingAmount(chain.stakeDenom))
-            ?.add(delegationAmountSum())?.add(unbondingAmountSum())
+        return balanceAmount(chain.stakeDenom).add(delegationAmountSum())?.add(unbondingAmountSum())
             ?.add(rewardAmountSum(chain.stakeDenom))
+    }
+
+    fun delegateAbleAmount(): BigDecimal {
+        return if (chain is ChainCoreum) {
+            availableAmount(chain.stakeDenom)
+        } else {
+            balanceAmount(chain.stakeDenom)
+        }
     }
 
     fun getLcd(): String {
@@ -416,8 +434,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
         } else {
             RetrofitInstance.lcdApi(chain)
-                .lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort())
-                .revisionNumber()
+                .lcdIbcClientInfo(assetPath?.getChannel(), assetPath?.getPort()).revisionNumber()
         }
     }
 

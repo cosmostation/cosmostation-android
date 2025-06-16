@@ -49,7 +49,7 @@ class BabylonCoinViewHolder(
                         tokenPriceChange.text = priceChangeStatus(lastUpDown)
                     }
 
-                    val availableAmount = chain.cosmosFetcher?.balanceAmount(stakeDenom)
+                    val availableAmount = chain.cosmosFetcher?.availableAmount(stakeDenom)
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                         ?: BigDecimal.ZERO
 

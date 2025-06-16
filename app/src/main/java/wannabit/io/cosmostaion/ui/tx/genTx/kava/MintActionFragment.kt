@@ -38,21 +38,21 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentMintActionBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -158,7 +158,11 @@ class MintActionFragment : BaseTxFragment() {
                 mintAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+        }
+    }
 
+    private fun initData() {
+        binding.apply {
             collateralParam.let { collateralParam ->
                 collateralAsset = BaseData.getAsset(selectedChain.apiName, collateralParam.denom)
                 principalAsset = BaseData.getAsset(selectedChain.apiName, "usdx")
@@ -172,12 +176,14 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             val balanceAmount =
-                                selectedChain.cosmosFetcher?.balanceAmount(collateralParam.denom)
-                            if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
-                                val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
-                                collateralAvailableAmount = balanceAmount?.subtract(feeAmount)
-                            }
-                            collateralAvailableAmount = balanceAmount
+                                selectedChain.cosmosFetcher?.availableAmount(collateralParam.denom)
+                            collateralAvailableAmount =
+                                if (txFee?.getAmount(0)?.denom == collateralParam.denom) {
+                                    val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
+                                    balanceAmount?.subtract(feeAmount)
+                                } else {
+                                    balanceAmount
+                                }
                         }
                     }
 
@@ -221,7 +227,7 @@ class MintActionFragment : BaseTxFragment() {
                             tokenImg.setTokenImg(asset)
                             tokenName.text = asset.symbol
                             principalAvailableAmount =
-                                selectedChain.cosmosFetcher?.balanceAmount("usdx")
+                                selectedChain.cosmosFetcher?.availableAmount("usdx")
                         }
                     }
                 }
@@ -255,6 +261,8 @@ class MintActionFragment : BaseTxFragment() {
             feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
+
+            initData()
         }
     }
 

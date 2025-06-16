@@ -132,7 +132,7 @@ class CoinMintFragment : BaseTxFragment() {
                 mintAsset = asset
                 mintCoinImg.setTokenImg(asset)
                 mintCoinName.text = asset.symbol
-                val dpMintAmount = selectedChain.cosmosFetcher?.balanceAmount(asset.denom ?: "")
+                val dpMintAmount = selectedChain.cosmosFetcher?.availableAmount(asset.denom ?: "")
                     ?.movePointLeft(asset.decimals ?: 6)
                     ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                 mintAvailable.text = formatAmount(dpMintAmount.toString(), asset.decimals ?: 6)
@@ -309,7 +309,7 @@ class CoinMintFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
 
                     val balanceAmount =
-                        selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
+                        selectedChain.cosmosFetcher?.availableAmount(selectedChain.stakeDenom)
 
                     txFee?.let {
                         availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {

@@ -36,7 +36,7 @@ class NeutronCoinViewHolder(
                 }
 
                 chain.neutronFetcher()?.let { fetcher ->
-                    val availableAmount = chain.cosmosFetcher?.balanceAmount(chain.stakeDenom)
+                    val availableAmount = chain.cosmosFetcher?.availableAmount(chain.stakeDenom)
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
 
                     fetcher.neutronVestingAmount()?.let { neutronVestingAmount ->

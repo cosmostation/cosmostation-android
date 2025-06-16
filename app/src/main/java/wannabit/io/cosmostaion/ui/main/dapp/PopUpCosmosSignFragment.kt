@@ -160,13 +160,12 @@ class PopUpCosmosSignFragment(
                                 val loadInputAuthDeferred =
                                     async { loadAuth(channel, chain.address) }
                                 val loadInputBalanceDeferred =
-                                    async { loadBalance(channel, chain.address) }
+                                    async { loadSpendAbleBalance(channel, chain.address) }
 
                                 chain.cosmosFetcher?.cosmosAuth =
                                     loadInputAuthDeferred.await()?.account
-                                chain.cosmosFetcher?.cosmosBalances =
+                                chain.cosmosFetcher?.cosmosAvailable =
                                     loadInputBalanceDeferred.await().balancesList
-                                BaseUtils.onParseVesting(chain)
                             }
                         } catch (e: Exception) {
                             if (isAdded) {
@@ -585,15 +584,15 @@ class PopUpCosmosSignFragment(
         }
     }
 
-    private fun loadBalance(
+    private fun loadSpendAbleBalance(
         managedChannel: ManagedChannel, address: String?
-    ): com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesResponse {
+    ): com.cosmos.bank.v1beta1.QueryProto.QuerySpendableBalancesResponse {
         val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
         val stub = com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub(managedChannel)
             .withDeadlineAfter(8L, TimeUnit.SECONDS)
-        val request = com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest.newBuilder()
+        val request = com.cosmos.bank.v1beta1.QueryProto.QuerySpendableBalancesRequest.newBuilder()
             .setPagination(pageRequest).setAddress(address).build()
-        return stub.allBalances(request)
+        return stub.spendableBalances(request)
     }
 
     interface WcSignRawDataListener {

@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAndromeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArkeo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
@@ -66,6 +67,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLombard
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLum880
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainLumera
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainManifest
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
@@ -378,7 +380,7 @@ open class BaseChain : Parcelable {
                 break
 
             } else {
-                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.availableAmount(minFee.denom)) {
                     feeCoin = minFee
                     break
                 }
@@ -424,7 +426,7 @@ open class BaseChain : Parcelable {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
                 val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-                val availableAmount = this.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
+                val availableAmount = this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
                 if ((availableAmount ?: BigDecimal.ZERO) > amount) {
                     result.add(
                         CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
@@ -541,7 +543,7 @@ open class BaseChain : Parcelable {
                 }
 
             } else {
-                if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
+                if (fee.amount.toBigDecimal() <= cosmosFetcher?.availableAmount(fee.denom)) {
                     return true
                 }
             }
@@ -653,7 +655,7 @@ open class BaseChain : Parcelable {
     }
 
     fun providerImg(apiName: String, opAddress: String?): String {
-        return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/finality-provider/$opAddress.png"
+        return "$CHAIN_BASE_URL$apiName/finality-provider/$opAddress.png"
     }
 
     open fun assetImg(originSymbol: String): String {
@@ -683,6 +685,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAndromeda())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+    chains.add(ChainArkeo())
     chains.add(ChainAssetMantle())
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
@@ -751,7 +754,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLombard())
     chains.add(ChainLum880())
     chains.add(ChainLum118())
-//    chains.add(ChainLumera())
+    chains.add(ChainLumera())
     chains.add(ChainManifest())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
@@ -878,7 +881,8 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
     "kava60",
     "osmosis118",
     "dydx118",
-    "mantra118"
+    "atomone118",
+    "babylon118"
 )
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")

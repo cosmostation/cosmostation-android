@@ -260,9 +260,7 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 val balanceAmount =
-                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
-                val vestingAmount =
-                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.availableAmount(selectedChain.stakeDenom)
 
                 txFee?.let {
                     availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
@@ -270,10 +268,10 @@ class DepositEarningFragment : BaseTxFragment() {
                         if (feeAmount > balanceAmount) {
                             BigDecimal.ZERO
                         } else {
-                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
+                            balanceAmount?.subtract(feeAmount)
                         }
                     } else {
-                        balanceAmount?.add(vestingAmount)
+                        balanceAmount
                     }
                 }
             }

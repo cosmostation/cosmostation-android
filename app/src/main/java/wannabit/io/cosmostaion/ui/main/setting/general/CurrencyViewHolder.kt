@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.ui.main.setting.general
 
 import android.content.Context
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.setImg
-import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCurrencyBinding
 
@@ -17,7 +18,8 @@ class CurrencyViewHolder(
         binding.apply {
             currencyName.text = currency
 
-            val country = context.resources.getStringArray(R.array.currency_country_array)[adapterPosition]
+            val country =
+                context.resources.getStringArray(R.array.currency_country_array)[adapterPosition]
             currencyCountry.text = country
 
             val imageResources = listOf(
@@ -41,7 +43,25 @@ class CurrencyViewHolder(
                 R.drawable.icon_myr
             )
             currencyImg.setImg(imageResources[adapterPosition])
-            selectImg.visibleOrGone(Prefs.currency == adapterPosition)
+
+            if (Prefs.currency == adapterPosition) {
+                currencyView.visibility = View.VISIBLE
+                currencyViewLayout.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context, R.color.color_base08
+                    )
+                )
+                selectImg.visibility = View.VISIBLE
+
+            } else {
+                currencyView.visibility = View.GONE
+                currencyViewLayout.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context, R.color.color_transparent
+                    )
+                )
+                selectImg.visibility = View.GONE
+            }
         }
     }
 }

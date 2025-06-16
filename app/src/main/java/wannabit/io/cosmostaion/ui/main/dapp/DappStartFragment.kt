@@ -153,7 +153,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                     ecosystem["chains"].asJsonArray.map { it.asString }
                 }?.toSet() ?: emptySet()
                 val filteredChains =
-                    allChains().filter { it.apiName in dappChains }.map { it.apiName }
+                    allChains().filter { it.apiName in dappChains }.map { it.apiName }.toSet()
                 supportChains = filteredChains.toMutableList()
                 supportChains?.sortWith { o1, o2 ->
                     val o1IsTestnet = o1.contains("testnet", ignoreCase = true)
