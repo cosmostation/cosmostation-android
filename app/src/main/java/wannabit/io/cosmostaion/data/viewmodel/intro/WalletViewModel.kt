@@ -25,7 +25,6 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -1039,43 +1038,21 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 } else {
                     chain.cosmosFetcher()?.let { cosmosFetcher ->
                         val channel = cosmosFetcher.getChannel()
-                        if (chain is ChainCoreum) {
-                            when (val response = walletRepository.spendableBalance(channel, chain)) {
-                                is NetworkResult.Success -> {
-                                    chain.coreumFetcher()?.spendableBalances = response.data
-                                    chain.fetchState = FetchState.SUCCESS
-                                    chain.coinCnt = chain.coreumFetcher()?.valueCoinCnt() ?: 0
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
-                                }
-
-                                is NetworkResult.Error -> {
-                                    chain.cosmosFetcher?.cosmosBalances = null
-                                    chain.fetchState = FetchState.FAIL
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
+                        when (val response = walletRepository.balance(channel, chain)) {
+                            is NetworkResult.Success -> {
+                                chain.cosmosFetcher?.cosmosBalances = response.data
+                                chain.fetchState = FetchState.SUCCESS
+                                chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
 
-                        } else {
-                            when (val response = walletRepository.balance(channel, chain)) {
-                                is NetworkResult.Success -> {
-                                    chain.cosmosFetcher?.cosmosBalances = response.data
-                                    chain.fetchState = FetchState.SUCCESS
-                                    chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
-                                }
-
-                                is NetworkResult.Error -> {
-                                    chain.cosmosFetcher?.cosmosBalances = null
-                                    chain.fetchState = FetchState.FAIL
-                                    withContext(Dispatchers.Main) {
-                                        _balanceResult.value = chain.tag
-                                    }
+                            is NetworkResult.Error -> {
+                                chain.cosmosFetcher?.cosmosBalances = null
+                                chain.fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
                                 }
                             }
                         }

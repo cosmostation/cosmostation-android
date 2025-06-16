@@ -27,7 +27,7 @@ class AssetViewHolder(
                     val feeCoin = if (chain is ChainGnoTestnet) {
                         chain.gnoRpcFetcher?.gnoBalances?.firstOrNull { it.denom == denom }
                     } else {
-                        chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
+                        chain.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == denom }
                     }
 
                     feeCoin?.let {
@@ -53,7 +53,7 @@ class AssetViewHolder(
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
-                    chain.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == denom }
+                    chain.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == denom }
                         ?.let { feeCoin ->
                             val amount =
                                 feeCoin.amount.toBigDecimal().amountHandlerLeft(asset.decimals ?: 6)

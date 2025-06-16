@@ -164,7 +164,11 @@ class LendActionFragment : BaseTxFragment() {
                 lendAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+        }
+    }
 
+    private fun initData() {
+        binding.apply {
             lendMoneyMarket.let { market ->
                 BaseData.getAsset(selectedChain.apiName, market.denom)?.let { asset ->
                     msAsset = asset
@@ -177,7 +181,7 @@ class LendActionFragment : BaseTxFragment() {
                             lendAmountTitle.text = getString(R.string.title_vault_deposit_amount)
                             btnLend.text = getString(R.string.str_deposit)
                             val balanceAmount =
-                                selectedChain.cosmosFetcher?.balanceAmount(market.denom)
+                                selectedChain.cosmosFetcher?.availableAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 availableAmount = balanceAmount?.subtract(feeAmount)
@@ -212,7 +216,7 @@ class LendActionFragment : BaseTxFragment() {
                                 .setScale(0, RoundingMode.DOWN)
 
                             var balanceAmount =
-                                selectedChain.cosmosFetcher?.balanceAmount(market.denom)
+                                selectedChain.cosmosFetcher?.availableAmount(market.denom)
                             if (txFee?.getAmount(0)?.denom == market.denom) {
                                 val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                 balanceAmount = balanceAmount?.subtract(feeAmount)
@@ -258,6 +262,8 @@ class LendActionFragment : BaseTxFragment() {
             feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
+
+            initData()
         }
     }
 

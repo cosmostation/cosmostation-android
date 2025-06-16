@@ -378,7 +378,7 @@ open class BaseChain : Parcelable {
                 break
 
             } else {
-                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(minFee.denom)) {
+                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.availableAmount(minFee.denom)) {
                     feeCoin = minFee
                     break
                 }
@@ -424,7 +424,7 @@ open class BaseChain : Parcelable {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
                 val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-                val availableAmount = this.cosmosFetcher?.cosmosBalances?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
+                val availableAmount = this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
                 if ((availableAmount ?: BigDecimal.ZERO) > amount) {
                     result.add(
                         CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
@@ -541,7 +541,7 @@ open class BaseChain : Parcelable {
                 }
 
             } else {
-                if (fee.amount.toBigDecimal() <= cosmosFetcher?.balanceAmount(fee.denom)) {
+                if (fee.amount.toBigDecimal() <= cosmosFetcher?.availableAmount(fee.denom)) {
                     return true
                 }
             }
@@ -653,7 +653,7 @@ open class BaseChain : Parcelable {
     }
 
     fun providerImg(apiName: String, opAddress: String?): String {
-        return "${CosmostationConstants.CHAIN_BASE_URL}$apiName/finality-provider/$opAddress.png"
+        return "$CHAIN_BASE_URL$apiName/finality-provider/$opAddress.png"
     }
 
     open fun assetImg(originSymbol: String): String {

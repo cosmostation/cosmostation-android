@@ -185,10 +185,10 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                         }
 
                     } else {
-                        selectedChain.cosmosFetcher?.balanceValue(asset.denom)?.let { value ->
+                        selectedChain.cosmosFetcher?.availableValue(asset.denom)?.let { value ->
                             assetValues[asset.denom] = value
                         }
-                        selectedChain.cosmosFetcher?.balanceAmount(asset.denom)?.let { amount ->
+                        selectedChain.cosmosFetcher?.availableAmount(asset.denom)?.let { amount ->
                             assetAmounts[asset.denom] = amount
                         }
                     }
@@ -258,11 +258,11 @@ class AssetSelectFragment : BottomSheetDialogFragment() {
                                     }
 
                             } else {
-                                selectedChain.cosmosFetcher?.balanceValue(asset.denom)
+                                selectedChain.cosmosFetcher?.availableValue(asset.denom)
                                     ?.let { value ->
                                         assetValues[asset.denom] = value
                                     }
-                                selectedChain.cosmosFetcher?.balanceAmount(asset.denom)
+                                selectedChain.cosmosFetcher?.availableAmount(asset.denom)
                                     ?.let { amount ->
                                         assetAmounts[asset.denom] = amount
                                     }

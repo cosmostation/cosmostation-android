@@ -22,7 +22,7 @@ import androidx.lifecycle.lifecycleScope
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto
 import com.cosmos.bank.v1beta1.QueryGrpc.newBlockingStub
-import com.cosmos.bank.v1beta1.QueryProto.QueryAllBalancesRequest
+import com.cosmos.bank.v1beta1.QueryProto.QuerySpendableBalancesRequest
 import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
@@ -51,7 +51,6 @@ import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.BASE_GAS_AMOUNT
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.handlerRight
@@ -298,17 +297,11 @@ class SwapFragment : BaseTxFragment() {
             }
 
             targetChains.addAll(skipChains)
-            targetChains.sortWith { o1, o2 ->
-                when {
-                    o1.tag == "cosmos118" -> -1
-                    o2.tag == "cosmos118" -> 1
-                    o1.tag == "osmosis118" -> -1
-                    o2.tag == "osmosis118" -> 1
-                    o1.name < o2.name -> -1
-                    o1.name > o2.name -> 1
-                    else -> 0
-                }
-            }
+            targetChains.sortWith(compareBy(
+                { if (it.tag == "cosmos118") 0 else 1 },
+                { if (it.tag == "osmosis118") 0 else 1 },
+                { it.name.lowercase() }
+            ))
 
             val lastSwapSet = Prefs.lastSwapSet
             inputChain = targetChains.firstOrNull { it.tag == lastSwapSet[0] } ?: targetChains[0]
@@ -320,10 +313,9 @@ class SwapFragment : BaseTxFragment() {
                         try {
                             val channel = chain.cosmosFetcher()?.getChannel()
                             loadAuth(channel, chain)
-                            val loadInputBalanceDeferred = async { loadBalance(channel, chain) }
+                            val loadInputBalanceDeferred = async { loadSpendAbleBalance(channel, chain) }
 
-                            chain.cosmosFetcher?.cosmosBalances = loadInputBalanceDeferred.await()
-                            BaseUtils.onParseVesting(chain)
+                            chain.cosmosFetcher?.cosmosAvailable = loadInputBalanceDeferred.await()
 
                         } catch (e: Exception) {
                         }
@@ -334,10 +326,9 @@ class SwapFragment : BaseTxFragment() {
                         try {
                             val channel = chain.cosmosFetcher()?.getChannel()
                             loadAuth(channel, chain)
-                            val loadOutputBalanceDeferred = async { loadBalance(channel, chain) }
+                            val loadOutputBalanceDeferred = async { loadSpendAbleBalance(channel, chain) }
 
-                            chain.cosmosFetcher?.cosmosBalances = loadOutputBalanceDeferred.await()
-                            BaseUtils.onParseVesting(chain)
+                            chain.cosmosFetcher?.cosmosAvailable = loadOutputBalanceDeferred.await()
 
                         } catch (e: Exception) {
                         }
@@ -673,13 +664,12 @@ class SwapFragment : BaseTxFragment() {
                                                         val channel = fetcher.getChannel()
                                                         loadAuth(channel, chain)
                                                         val loadInputBalanceDeferred = async {
-                                                            loadBalance(
+                                                            loadSpendAbleBalance(
                                                                 channel, chain
                                                             )
                                                         }
-                                                        fetcher.cosmosBalances =
+                                                        fetcher.cosmosAvailable =
                                                             loadInputBalanceDeferred.await()
-                                                        BaseUtils.onParseVesting(chain)
                                                         loadInputAssets()
                                                         inputAsset = targetInputAssets[0]
                                                         loadInputAssetBalance()
@@ -725,7 +715,7 @@ class SwapFragment : BaseTxFragment() {
                     AssetSelectFragment.newInstance(inputChain,
                         inputAsset,
                         targetInputSwapAssets,
-                        inputChain?.cosmosFetcher?.cosmosBalances,
+                        inputChain?.cosmosFetcher?.cosmosAvailable,
                         AssetSelectType.SWAP_INPUT,
                         object : AssetListener {
                             override fun select(denom: String) {
@@ -779,13 +769,12 @@ class SwapFragment : BaseTxFragment() {
                                                     try {
                                                         val channel = fetcher.getChannel()
                                                         val loadOutputBalanceDeferred = async {
-                                                            loadBalance(
+                                                            loadSpendAbleBalance(
                                                                 channel, chain
                                                             )
                                                         }
-                                                        fetcher.cosmosBalances =
+                                                        fetcher.cosmosAvailable =
                                                             loadOutputBalanceDeferred.await()
-                                                        BaseUtils.onParseVesting(chain)
                                                         loadOutputAssets()
                                                         outputAsset = targetOutputAssets[0]
                                                         loadOutputAssetBalance()
@@ -821,7 +810,7 @@ class SwapFragment : BaseTxFragment() {
                     AssetSelectFragment.newInstance(outputChain,
                         outputAsset,
                         targetOutputAssets,
-                        outputChain?.cosmosFetcher?.cosmosBalances,
+                        outputChain?.cosmosFetcher?.cosmosAvailable,
                         AssetSelectType.SWAP_OUTPUT,
                         object : AssetListener {
                             override fun select(denom: String) {
@@ -1069,18 +1058,18 @@ class SwapFragment : BaseTxFragment() {
         }
     }
 
-    private suspend fun loadBalance(
+    private suspend fun loadSpendAbleBalance(
         channel: ManagedChannel?, chain: BaseChain
     ): MutableList<CoinProto.Coin> {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
             val stub = newBlockingStub(channel).withDeadlineAfter(8L, TimeUnit.SECONDS)
-            val request = QueryAllBalancesRequest.newBuilder().setPagination(pageRequest)
+            val request = QuerySpendableBalancesRequest.newBuilder().setPagination(pageRequest)
                 .setAddress(chain.address).build()
-            stub.allBalances(request).balancesList
+            stub.spendableBalances(request).balancesList
 
         } else {
-            RetrofitInstance.lcdApi(chain).lcdBalanceInfo(chain.address, "2000").balance()
+            RetrofitInstance.lcdApi(chain).lcdSpendableBalanceInfo(chain.address, "2000").balance()
         }
     }
 
@@ -1138,7 +1127,8 @@ class SwapFragment : BaseTxFragment() {
 
                     } else {
                         tempInputAssets[index].balance =
-                            inputChain?.cosmosFetcher()?.balanceAmount(tempInputAssets[index].denom)
+                            inputChain?.cosmosFetcher()
+                                ?.availableAmount(tempInputAssets[index].denom)
                                 ?: BigDecimal.ZERO
                     }
                     targetInputAssets.add(tempInputAssets[index])
@@ -1212,7 +1202,7 @@ class SwapFragment : BaseTxFragment() {
 
                     } else {
                         tempOutputAssets[index].balance = outputChain?.cosmosFetcher()
-                            ?.balanceAmount(tempOutputAssets[index].denom) ?: BigDecimal.ZERO
+                            ?.availableAmount(tempOutputAssets[index].denom) ?: BigDecimal.ZERO
                     }
                     targetOutputAssets.add(tempOutputAssets[index])
                 }
@@ -1246,7 +1236,8 @@ class SwapFragment : BaseTxFragment() {
                 inputAsset.balance = inputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
                 inputAsset.balance =
-                    inputChain?.cosmosFetcher()?.balanceAmount(inputAsset.denom) ?: BigDecimal.ZERO
+                    inputChain?.cosmosFetcher()?.availableAmount(inputAsset.denom)
+                        ?: BigDecimal.ZERO
             }
         }
     }
@@ -1263,8 +1254,9 @@ class SwapFragment : BaseTxFragment() {
             } else if (outputChain?.supportCosmos() == false && outputChain?.supportEvm == true) {
                 outputAsset.balance = outputChain?.evmRpcFetcher()?.evmBalance ?: BigDecimal.ZERO
             } else {
-                outputAsset.balance = outputChain?.cosmosFetcher()?.balanceAmount(outputAsset.denom)
-                    ?: BigDecimal.ZERO
+                outputAsset.balance =
+                    outputChain?.cosmosFetcher()?.availableAmount(outputAsset.denom)
+                        ?: BigDecimal.ZERO
             }
         }
     }

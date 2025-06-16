@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -237,74 +236,36 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                 } else {
-                    if (selectedChain is ChainCoreum) {
-                        (selectedChain as ChainCoreum).coreumFetcher()?.spendableBalances?.forEach { coin ->
-                            val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                            coinType?.let {
-                                when (it) {
-                                    "staking", "native" -> {
-                                        if (coin.denom == selectedChain.stakeDenom) {
-                                            stakeCoins.add(
-                                                Coin(
-                                                    coin.denom, coin.amount, CoinType.STAKE
-                                                )
-                                            )
-                                        } else {
-                                            nativeCoins.add(
-                                                Coin(
-                                                    coin.denom, coin.amount, CoinType.NATIVE
-                                                )
-                                            )
-                                        }
-                                    }
-
-                                    "bep", "bridge" -> {
-                                        bridgeCoins.add(
+                    selectedChain.cosmosFetcher?.cosmosBalances?.forEach { coin ->
+                        val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
+                        coinType?.let {
+                            when (it) {
+                                "staking", "native" -> {
+                                    if (coin.denom == selectedChain.stakeDenom) {
+                                        stakeCoins.add(
                                             Coin(
-                                                coin.denom, coin.amount, CoinType.BRIDGE
+                                                coin.denom, coin.amount, CoinType.STAKE
                                             )
                                         )
-                                    }
-
-                                    "ibc" -> {
-                                        ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
+                                    } else {
+                                        nativeCoins.add(
+                                            Coin(
+                                                coin.denom, coin.amount, CoinType.NATIVE
+                                            )
+                                        )
                                     }
                                 }
-                            }
-                        }
 
-                    } else {
-                        selectedChain.cosmosFetcher?.cosmosBalances?.forEach { coin ->
-                            val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
-                            coinType?.let {
-                                when (it) {
-                                    "staking", "native" -> {
-                                        if (coin.denom == selectedChain.stakeDenom) {
-                                            stakeCoins.add(
-                                                Coin(
-                                                    coin.denom, coin.amount, CoinType.STAKE
-                                                )
-                                            )
-                                        } else {
-                                            nativeCoins.add(
-                                                Coin(
-                                                    coin.denom, coin.amount, CoinType.NATIVE
-                                                )
-                                            )
-                                        }
-                                    }
-
-                                    "bep", "bridge" -> {
-                                        bridgeCoins.add(
-                                            Coin(
-                                                coin.denom, coin.amount, CoinType.BRIDGE
-                                            )
+                                "bep", "bridge" -> {
+                                    bridgeCoins.add(
+                                        Coin(
+                                            coin.denom, coin.amount, CoinType.BRIDGE
                                         )
-                                    }
+                                    )
+                                }
 
-                                    "ibc" -> {
-                                        ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
-                                    }
+                                "ibc" -> {
+                                    ibcCoins.add(Coin(coin.denom, coin.amount, CoinType.IBC))
                                 }
                             }
                         }
@@ -635,7 +596,12 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
                     if (position == 0) {
                         if (chain.isEvmCosmos() && chain !is ChainOktEvm) {
-                            handleOneClickWithDelay(SelectSendTypeFragment.newInstance(selectedChain, denom))
+                            handleOneClickWithDelay(
+                                SelectSendTypeFragment.newInstance(
+                                    selectedChain,
+                                    denom
+                                )
+                            )
 
                         } else {
                             val sendAssetType = if (chain is ChainOktEvm) {

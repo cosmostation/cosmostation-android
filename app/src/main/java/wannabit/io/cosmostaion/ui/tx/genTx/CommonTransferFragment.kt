@@ -238,7 +238,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     availableAmount = if (fromChain is ChainGnoTestnet) {
                         fromChain.gnoRpcFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
                     } else {
-                        fromChain.cosmosFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
+                        fromChain.cosmosFetcher?.availableAmount(toSendDenom) ?: BigDecimal.ZERO
                     }
 
                     if (cosmosTxFee?.amountList?.isNotEmpty() == true) {

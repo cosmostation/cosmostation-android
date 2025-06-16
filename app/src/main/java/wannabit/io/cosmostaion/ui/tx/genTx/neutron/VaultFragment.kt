@@ -261,7 +261,7 @@ class VaultFragment : BaseTxFragment() {
 
                     availableAmount = if (vaultType == VaultType.DEPOSIT) {
                         val balanceAmount =
-                            selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
+                            selectedChain.cosmosFetcher?.availableAmount(selectedChain.stakeDenom)
                         if (fee.denom == selectedChain.stakeDenom) {
                             if (amount > balanceAmount) {
                                 BigDecimal.ZERO

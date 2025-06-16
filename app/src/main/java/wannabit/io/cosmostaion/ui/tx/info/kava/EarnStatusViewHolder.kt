@@ -24,7 +24,7 @@ class EarnStatusViewHolder(
                 myTotalLiquidity.text = formatAmount(
                     sum.movePointLeft(6).setScale(6, RoundingMode.DOWN).toPlainString(), 6
                 )
-                val availableAmount = line.cosmosFetcher?.balanceAmount("ukava")
+                val availableAmount = line.cosmosFetcher?.availableAmount("ukava")
                 myAvailable.text = formatAmount(
                     availableAmount?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN).toString(), 6
                 )

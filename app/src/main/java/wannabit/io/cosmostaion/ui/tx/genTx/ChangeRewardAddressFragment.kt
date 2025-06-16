@@ -32,10 +32,10 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.common.visibleOrGone
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentChangeRewardAddressBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
 import wannabit.io.cosmostaion.ui.tx.option.address.AddressListener
@@ -47,7 +47,6 @@ import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ChangeRewardAddressFragment : BaseTxFragment() {
@@ -63,8 +62,6 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
 
     private var existedAddress = ""
     private var txMemo = ""
-
-    private var availableAmount = BigDecimal.ZERO
 
     private var isClickable = true
 
@@ -225,24 +222,6 @@ class ChangeRewardAddressFragment : BaseTxFragment() {
 
                     feeAmount.text = formatAmount(amount.toPlainString(), asset.decimals ?: 6)
                     feeValue.text = formatAssetValue(value)
-                }
-
-                val balanceAmount =
-                    selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
-                val vestingAmount =
-                    selectedChain.cosmosFetcher?.vestingAmount(selectedChain.stakeDenom)
-
-                txFee?.let {
-                    availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
-                        val feeAmount = it.getAmount(0).amount.toBigDecimal()
-                        if (feeAmount > balanceAmount) {
-                            BigDecimal.ZERO
-                        } else {
-                            balanceAmount?.add(vestingAmount)?.subtract(feeAmount)
-                        }
-                    } else {
-                        balanceAmount?.add(vestingAmount)
-                    }
                 }
             }
         }

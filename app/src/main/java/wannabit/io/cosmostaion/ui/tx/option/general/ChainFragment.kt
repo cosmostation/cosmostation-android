@@ -156,25 +156,19 @@ class ChainFragment : BottomSheetDialogFragment() {
                 ChainListType.SELECT_INPUT_SWAP -> {
                     selectTitle.text = getString(R.string.title_select_input_chain)
                     searchView.queryHint = getString(R.string.title_select_input_chain)
-                    recipientAbleChains?.sortWith { o1, o2 ->
-                        when {
-                            o1.tag == "cosmos118" -> -1
-                            o2.tag == "cosmos118" -> 1
-                            else -> o1.name.compareTo(o2.name)
-                        }
-                    }
+                    recipientAbleChains?.sortWith(compareBy(
+                        { if (it.tag == "cosmos118") 0 else 1 },
+                        { it.name.lowercase() }
+                    ))
                 }
 
                 ChainListType.SELECT_OUTPUT_SWAP -> {
                     selectTitle.text = getString(R.string.title_select_output_chain)
                     searchView.queryHint = getString(R.string.title_select_output_chain)
-                    recipientAbleChains?.sortWith { o1, o2 ->
-                        when {
-                            o1.tag == "cosmos118" -> -1
-                            o2.tag == "cosmos118" -> 1
-                            else -> o1.name.compareTo(o2.name)
-                        }
-                    }
+                    recipientAbleChains?.sortWith(compareBy(
+                        { if (it.tag == "cosmos118") 0 else 1 },
+                        { it.name.lowercase() }
+                    ))
                 }
 
                 else -> {

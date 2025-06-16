@@ -8,8 +8,6 @@ import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.fetcher.CoreumFetcher
-import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 
 @Parcelize
 class ChainCoreum : BaseChain(), Parcelable {
@@ -28,18 +26,4 @@ class ChainCoreum : BaseChain(), Parcelable {
     override var accountPrefix: String = "core"
     override var grpcHost: String = "grpc-coreum.cosmostation.io"
     override var lcdUrl: String = "https://lcd-coreum.cosmostation.io/"
-
-    override fun cosmosFetcher(): CosmosFetcher? {
-        if (cosmosFetcher == null) {
-            cosmosFetcher = CoreumFetcher(this)
-        }
-        return cosmosFetcher
-    }
-
-    fun coreumFetcher(): CoreumFetcher? {
-        if (cosmosFetcher == null) {
-            cosmosFetcher = CoreumFetcher(this)
-        }
-        return cosmosFetcher as? CoreumFetcher
-    }
 }

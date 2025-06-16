@@ -157,7 +157,11 @@ class PoolActionFragment : BaseTxFragment() {
                 poolView, shareAmountView, memoView, feeView
             ).forEach { it.setBackgroundResource(R.drawable.cell_bg) }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
+        }
+    }
 
+    private fun initData() {
+        binding.apply {
             if (poolActionType == PoolActionType.DEPOSIT) {
                 poolActionTitle.text = getString(R.string.title_pool_deposit)
                 poolView.visibility = View.VISIBLE
@@ -189,13 +193,13 @@ class PoolActionFragment : BaseTxFragment() {
                                 val poolCoin1Amount = swapPool.getCoins(0).amount
                                 val poolCoin2Amount = swapPool.getCoins(1).amount
                                 var availableCoin1Amount =
-                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(0).denom)
+                                    selectedChain.cosmosFetcher?.availableAmount(swapPool.getCoins(0).denom)
                                 if (txFee?.getAmount(0)?.denom == swapPool.getCoins(0).denom) {
                                     val feeAmount = txFee?.getAmount(0)?.amount?.toBigDecimal()
                                     availableCoin1Amount = availableCoin1Amount?.subtract(feeAmount)
                                 }
                                 val availableCoin2Amount =
-                                    selectedChain.cosmosFetcher?.balanceAmount(swapPool.getCoins(1).denom)
+                                    selectedChain.cosmosFetcher?.availableAmount(swapPool.getCoins(1).denom)
 
                                 swapRate = poolCoin1Amount.toBigDecimal().divide(
                                     poolCoin2Amount.toBigDecimal(), 24, RoundingMode.DOWN
@@ -256,6 +260,8 @@ class PoolActionFragment : BaseTxFragment() {
             feeSegment.setPosition(selectedChain.getFeeBasePosition(), false)
             selectedFeeInfo = selectedChain.getFeeBasePosition()
             txFee = selectedChain.getInitFee(requireContext())
+
+            initData()
         }
     }
 
