@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAndromeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArkeo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
@@ -684,6 +685,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAndromeda())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+    chains.add(ChainArkeo())
     chains.add(ChainAssetMantle())
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
