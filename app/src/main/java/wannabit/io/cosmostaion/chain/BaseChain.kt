@@ -878,7 +878,8 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
     "kava60",
     "osmosis118",
     "dydx118",
-    "mantra118"
+    "atomone118",
+    "babylon118"
 )
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
