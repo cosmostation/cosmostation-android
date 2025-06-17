@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
@@ -693,6 +694,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBabylon())
     chains.add(ChainBand())
     chains.add(ChainBase())
+    chains.add(ChainBeezee())
     chains.add(ChainBerachain())
     chains.add(ChainBitcanna())
     chains.add(ChainBitCoin44())

@@ -23,6 +23,8 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
+import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.DialogQrBinding
 
 class QrDialog(
@@ -56,6 +58,7 @@ class QrDialog(
                         chainName.text = chain.getChainName()
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.address
+                        accountPath.visibleOrGone(account.type == BaseAccountType.MNEMONIC)
                         accountPath.text = chain.getHDPath(account.lastHDPath)
 
                         if (!chain.isDefault) {
