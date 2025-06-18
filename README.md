@@ -133,6 +133,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/arkeo/resource/chain_arkeo.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">ARKEO</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
 
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/fetchai/resource/chain_fetchai.png?raw=true" width="42" height = "42"></td>
@@ -176,6 +185,15 @@ You can download each store.
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/band/resource/chain_band.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">BAND</span></td>
     <td>m/44'/494'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/beezee/resource/chain_beezee.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">BEEZEE</span></td>
+    <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td></td>
@@ -522,6 +540,15 @@ You can download each store.
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/ki-chain/resource/chain_ki-chain.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">KI CHAIN</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/kima/resource/chain_kima.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">KIMA</span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
