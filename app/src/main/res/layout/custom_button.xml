@@ -15,11 +15,11 @@
             android:layout_height="@dimen/space_16"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/space_2"
+            android:layout_marginTop="@dimen/space_3"
             app:layout_constraintEnd_toStartOf="@+id/type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/icon_popular" />
+            android:src="@drawable/icon_pin" />
 
         <TextView
             android:id="@+id/type"

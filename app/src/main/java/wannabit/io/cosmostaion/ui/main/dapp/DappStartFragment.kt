@@ -55,11 +55,10 @@ class DappStartFragment : BottomSheetDialogFragment() {
     private var ecosystems: MutableList<JsonObject> = mutableListOf()
     private var supportChains: MutableList<String>? = mutableListOf()
     private var selectedIndex: Int = 0
-    private var selectedType: String = "Popular"
+    private var selectedType: String = "Favorite"
     private var selectedChain: String = "All Network"
 
     private var searchTxt: String? = ""
-    private var isPinned = false
     private var isClickable = true
 
     override fun onCreateView(
@@ -144,7 +143,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
     private fun initButtonView() {
         binding.apply {
             lifecycleScope.launch(Dispatchers.IO) {
-                val manualEntries = listOf("Popular", "All")
+                val manualEntries = listOf("Favorite", "All")
                 val extractedTypes =
                     BaseData.ecosystems?.map { it["type"].asString }?.distinct() ?: emptyList()
                 val dappTypes = manualEntries + extractedTypes
@@ -174,6 +173,11 @@ class DappStartFragment : BottomSheetDialogFragment() {
                     dappTypes.forEachIndexed { index, type ->
                         val view = CustomButtonBinding.inflate(inflater, buttonContainer, false)
                         view.popularImg.visibleOrGone(index == 0)
+                        view.popularImg.colorFilter = PorterDuffColorFilter(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_base01
+                            ), PorterDuff.Mode.SRC_IN
+                        )
                         view.type.text = type
                         if (index == selectedIndex) {
                             view.root.setBackgroundResource(R.drawable.button_dapp_bg)
@@ -222,7 +226,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                             selectedType = type
                             centerButtonInScrollView(buttonScroll, view.root)
                             dappViewModel.sortByType(
-                                ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                                ecosystems, selectedType, selectedChain, searchTxt
                             )
                         }
                         buttonContainer.addView(view.root)
@@ -240,14 +244,18 @@ class DappStartFragment : BottomSheetDialogFragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = dappListAdapter
 
-            dappListAdapter.submitList(ecosystems.filter { ecosystem ->
-                val popular = if (ecosystem.has("is_default")) {
-                    ecosystem["is_default"].asBoolean
-                } else {
-                    false
-                }
-                popular
-            })
+            val favorite = ecosystems.filter { ecosystem ->
+                Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
+            }
+
+            if (favorite.isNotEmpty()) {
+                binding.emptyLayout.visibility = View.GONE
+                visibility = View.VISIBLE
+                dappListAdapter.submitList(favorite)
+            } else {
+                binding.emptyLayout.visibility = View.VISIBLE
+                visibility = View.GONE
+            }
 
             dappListAdapter.setOnItemClickListener { ecosystem ->
                 val savedTime = Prefs.getDappHideTime(ecosystem["id"].asInt)
@@ -264,7 +272,6 @@ class DappStartFragment : BottomSheetDialogFragment() {
                                         selectedType,
                                         selectedChain,
                                         searchTxt,
-                                        isPinned,
                                         id
                                     )
                                 }
@@ -293,7 +300,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
     private val selectPinAction = object : DappListAdapter.PinnedListener {
         override fun select(id: Int) {
             dappViewModel.pinnedByDetail(
-                ecosystems, selectedType, selectedChain, searchTxt, isPinned, id
+                ecosystems, selectedType, selectedChain, searchTxt, id
             )
         }
     }
@@ -305,7 +312,17 @@ class DappStartFragment : BottomSheetDialogFragment() {
         }
 
         dappViewModel.pinnedByDetail.observe(viewLifecycleOwner) { pinnedList ->
-            dappListAdapter.submitList(pinnedList)
+            binding.apply {
+                if (pinnedList.isNotEmpty()) {
+                    dappListAdapter.submitList(pinnedList)
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+
+                } else {
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
+                }
+            }
         }
 
         dappViewModel.sortedBy.observe(viewLifecycleOwner) { sortList ->
@@ -335,7 +352,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 ) { _, bundle ->
                     Prefs.dappFilter = bundle.getInt("sort")
                     dappViewModel.sortByType(
-                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                        ecosystems, selectedType, selectedChain, searchTxt
                     )
                 }
             }
@@ -359,23 +376,11 @@ class DappStartFragment : BottomSheetDialogFragment() {
                                     }
                                     selectedChain = chain
                                     dappViewModel.sortByType(
-                                        ecosystems, selectedType, selectedChain, searchTxt, isPinned
+                                        ecosystems, selectedType, selectedChain, searchTxt
                                     )
                                 }
                             }
                         })
-                )
-            }
-
-            btnPinned.setOnClickListener {
-                isPinned = !isPinned
-                if (isPinned) {
-                    checkStatusImg.setImageResource(R.drawable.icon_checkbox_on)
-                } else {
-                    checkStatusImg.setImageResource(R.drawable.icon_checkbox_off)
-                }
-                dappViewModel.sortByType(
-                    ecosystems, selectedType, selectedChain, searchTxt, isPinned
                 )
             }
         }
@@ -393,7 +398,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchTxt = newText
                     dappViewModel.sortByType(
-                        ecosystems, selectedType, selectedChain, newText, isPinned
+                        ecosystems, selectedType, selectedChain, newText
                     )
                     return true
                 }

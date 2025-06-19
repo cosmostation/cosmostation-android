@@ -116,35 +116,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/btn_pinned"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/space_16"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_chain_select"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btn_chain_select">
-
-        <ImageView
-            android:id="@+id/check_status_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_4"
-            android:src="@drawable/icon_checkbox_off" />
-
-        <TextView
-            android:id="@+id/pinned_dapp"
-            style="@style/font_sm_12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="Pinned Dapp"
-            android:textColor="@color/color_base03" />
-
-    </LinearLayout>
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
