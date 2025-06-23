@@ -31,5 +31,5 @@ class ChainCantoEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "CANTO"
-    override var evmRpcURL: String = "https://canto.slingshot.finance"
+    override var evmRpcURL: String = "https://canto-rpc.ansybl.io"
 }
