@@ -22,9 +22,9 @@ class ChainZigChainTestnet : ChainZigChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uzig"
     override var accountPrefix: String = "zig"
-    override var grpcHost: String = "grpc.zigchain.testnet.cosmostation.io"
-    override var lcdUrl: String = "https://lcd.zigchain.testnet.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://testnet-api.zigchain.com/"
 }
