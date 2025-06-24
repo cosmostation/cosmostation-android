@@ -143,6 +143,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
@@ -428,10 +429,12 @@ open class BaseChain : Parcelable {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
                 val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-                val availableAmount = this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
+                val availableAmount =
+                    this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
                 if ((availableAmount ?: BigDecimal.ZERO) > amount) {
                     result.add(
-                        CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
+                        CoinProto.Coin.newBuilder().setDenom(feeData.denom)
+                            .setAmount(amount.toString())
                             .build()
                     )
                 }
@@ -786,6 +789,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
     chains.add(ChainPundix())
+    chains.add(ChainQubeticsEvm())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
