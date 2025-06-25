@@ -139,6 +139,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -764,6 +765,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum118())
     chains.add(ChainLumera())
     chains.add(ChainManifest())
+//    chains.add(ChainMantraEvm())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -897,7 +899,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
+enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 
