@@ -12,7 +12,7 @@ object BitcoinJs {
     private var sandbox: JavaScriptSandbox? = null
     private var jsIsolate: JavaScriptIsolate? = null
     private var initializationDeferred: CompletableDeferred<Boolean>? = null
-    private var isInitialized: Boolean = false // 초기화 상태 추적
+    private var isInitialized: Boolean = false
 
     fun initialize(context: Context): CompletableDeferred<Boolean> {
         if (initializationDeferred == null) {

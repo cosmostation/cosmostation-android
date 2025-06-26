@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -71,6 +72,7 @@ import wannabit.io.cosmostaion.chain.fetcher.zenrockDelegations
 import wannabit.io.cosmostaion.chain.fetcher.zenrockUnDelegations
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
@@ -227,8 +229,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun spendableBalance(
-        channel: ManagedChannel?,
-        chain: BaseChain
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.Coin>> {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
@@ -1679,6 +1680,31 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun mempoolIsValidAddress(chain: ChainBitCoin86): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitIsValidAddress(chain.mainAddress)
+        }
+    }
+
+    override suspend fun solanaAccountInfo(
+        fetcher: SolanaFetcher, chain: ChainSolana
+    ): NetworkResult<JsonObject> {
+        return try {
+            val params = listOf(chain.mainAddress, mapOf("encoding" to "base58"))
+
+            val solanaAccountInfoRequest = JsonRpcRequest(
+                method = "getAccountInfo", params = params
+            )
+            val solanaAccountInfoResponse =
+                jsonRpcResponse(fetcher.solanaRpc(), solanaAccountInfoRequest)
+            val solanaAccountInfoJsonObject = Gson().fromJson(
+                solanaAccountInfoResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                solanaAccountInfoJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
         }
     }
 }

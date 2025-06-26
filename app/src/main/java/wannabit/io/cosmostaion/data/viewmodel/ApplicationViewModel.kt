@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.chain.fetcher.iotaCoinType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -229,6 +230,8 @@ class ApplicationViewModel(
                 loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
             } else if (this is ChainIota) {
                 loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
+            } else if (this is ChainSolana) {
+                loadSolData(baseAccountId, this, isEdit)
             } else {
                 if (this is ChainGnoTestnet) {
                     loadRpcData(this, baseAccountId, isEdit)
@@ -1649,6 +1652,64 @@ class ApplicationViewModel(
                     }
 
                     is NetworkResult.Error -> {
+                        fetchState = FetchState.FAIL
+                        withContext(Dispatchers.Main) {
+                            if (isEdit == true) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    private fun loadSolData(id: Long, chain: ChainSolana, isEdit: Boolean? = false) =
+        CoroutineScope(Dispatchers.IO).launch {
+            chain.apply {
+                solanaFetcher()?.let { fetcher ->
+                    fetcher.solanaAccountInfo = JsonObject()
+
+                    try {
+                        val loadAccountInfoDeferred =
+                            async { walletRepository.solanaAccountInfo(fetcher, chain) }
+
+                        val accountInfoResult = loadAccountInfoDeferred.await()
+
+                        if (accountInfoResult is NetworkResult.Success) {
+                            fetcher.solanaAccountInfo = accountInfoResult.data
+
+                        } else if (accountInfoResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${accountInfoResult.errorType}  error message : ${accountInfoResult.errorMessage}")
+                        }
+
+                        fetchState = FetchState.SUCCESS
+                        coinValue = fetcher.allAssetValue()
+                        coinUsdValue = fetcher.allAssetValue(true)
+                        coinCnt = 1
+
+                        val refAddress = RefAddress(
+                            id,
+                            tag,
+                            mainAddress,
+                            "",
+                            fetcher.allAssetValue(true).toString(),
+                            fetcher.solanaBalanceAmount().toString(),
+                            "0",
+                            coinCnt.toLong()
+                        )
+                        BaseData.updateRefAddressesMain(refAddress)
+
+                        withContext(Dispatchers.Main) {
+                            if (isEdit == true) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+
+                    } catch (e: Exception) {
                         fetchState = FetchState.FAIL
                         withContext(Dispatchers.Main) {
                             if (isEdit == true) {

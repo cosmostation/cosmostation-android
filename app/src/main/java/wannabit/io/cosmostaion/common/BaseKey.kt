@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.sign.BitcoinJs
+import wannabit.io.cosmostaion.sign.SolanaJs
 import java.security.SecureRandom
 
 object BaseKey {
@@ -63,9 +64,7 @@ object BaseKey {
     }
 
     private fun getEd25519PrivateKey(
-        chain: BaseChain,
-        seed: ByteArray?,
-        lastPath: String
+        chain: BaseChain, seed: ByteArray?, lastPath: String
     ): ByteArray {
         var pair = ByteUtils.shaking(seed, "ed25519 seed".toByteArray())
         val components = chain.getHDPath(lastPath).split("/")
@@ -94,7 +93,7 @@ object BaseKey {
         parentPaths: List<ChildNumber>,
         lastPath: String
     ): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519) {
+        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519 || pubKeyType == PubKeyType.SOLANA_ED25519) {
             getEd25519PrivateKey(chain, seed, lastPath)
         } else {
             val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
@@ -107,7 +106,7 @@ object BaseKey {
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
         return when (pubKeyType) {
-            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519 -> {
+            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519, PubKeyType.SOLANA_ED25519 -> {
                 val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
                 val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
                 val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
@@ -161,6 +160,25 @@ object BaseKey {
                     blake2b.update(pub)
                     val hex = Utils.bytesToHex(blake2b.digest())
                     result = "0x${hex.substring(0, 64)}"
+                }
+            }
+
+            PubKeyType.SOLANA_ED25519 -> {
+                if (!SolanaJs.isInitialized()) {
+                    SolanaJs.initialize(context).await()
+                }
+
+                result = try {
+                    val publicKey = pubKey?.toHex()
+                    val solanaAddressFunction = """function solanaAddressFunction() {
+                                    const address = getAddressFromPublicKey('${publicKey}');
+                                    return address;
+                                }""".trimMargin()
+                    SolanaJs.mergeFunction(solanaAddressFunction)
+                    SolanaJs.executeFunction("solanaAddressFunction()").toString()
+
+                } catch (e: Exception) {
+                    e.message.toString()
                 }
             }
 
