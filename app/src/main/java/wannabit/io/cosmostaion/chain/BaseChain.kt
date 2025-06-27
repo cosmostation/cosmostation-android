@@ -139,10 +139,12 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
+import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
@@ -150,6 +152,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainStory
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainXrplEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
@@ -166,6 +169,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInitiaTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainLumeraTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
@@ -428,10 +432,12 @@ open class BaseChain : Parcelable {
             val feeDatas = getFeeInfos(c)[getFeeBasePosition()].feeDatas
             feeDatas.forEach { feeData ->
                 val amount = feeData.gasRate?.multiply(gasAmount)?.setScale(0, RoundingMode.DOWN)
-                val availableAmount = this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
+                val availableAmount =
+                    this.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == feeData.denom }?.amount?.toBigDecimal()
                 if ((availableAmount ?: BigDecimal.ZERO) > amount) {
                     result.add(
-                        CoinProto.Coin.newBuilder().setDenom(feeData.denom).setAmount(amount.toString())
+                        CoinProto.Coin.newBuilder().setDenom(feeData.denom)
+                            .setAmount(amount.toString())
                             .build()
                     )
                 }
@@ -760,6 +766,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum118())
     chains.add(ChainLumera())
     chains.add(ChainManifest())
+//    chains.add(ChainMantraEvm())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -786,6 +793,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
     chains.add(ChainPundix())
+    chains.add(ChainQubeticsEvm())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
@@ -820,6 +828,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
+    chains.add(ChainXrplEvm())
     chains.add(ChainZenrock())
     chains.add(ChainZetaEvm())
 
@@ -834,6 +843,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainGnoTestnet())
     chains.add(ChainInitiaTestnet())
     chains.add(ChainLumeraTestnet())
+    chains.add(ChainMantraEvmTestnet())
     chains.add(ChainMantraTestnet())
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
@@ -891,7 +901,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
+enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

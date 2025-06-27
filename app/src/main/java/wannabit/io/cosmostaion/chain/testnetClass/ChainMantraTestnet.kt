@@ -16,6 +16,7 @@ class ChainMantraTestnet : BaseChain(), Parcelable {
     override var name: String = "Mantra Testnet"
     override var tag: String = "mantra_T"
     override var isTestnet: Boolean = true
+    override var isDefault: Boolean = false
     override var apiName: String = "mantra-testnet"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

@@ -138,7 +138,7 @@ object BaseKey {
                 result = Bech32.encode(Bech32.Encoding.BECH32, prefix, converted)
             }
 
-            PubKeyType.ETH_KECCAK256, PubKeyType.BERA_SECP256K1 -> {
+            PubKeyType.ETH_KECCAK256, PubKeyType.BERA_SECP256K1, PubKeyType.COSMOS_ETH_KECCAK256 -> {
                 val uncompressedPubKey = ECKey.CURVE.curve.decodePoint(pubKey).getEncoded(false)
                 val pub = ByteArray(64)
                 System.arraycopy(uncompressedPubKey, 1, pub, 0, 64)

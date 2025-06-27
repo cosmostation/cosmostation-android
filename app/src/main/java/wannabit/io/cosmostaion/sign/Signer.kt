@@ -770,6 +770,12 @@ object Signer {
             Any.newBuilder().setTypeUrl("/ethermint.crypto.v1.ethsecp256k1.PubKey")
                 .setValue(pubKey.toByteString()).build()
 
+        } else if (chain?.accountKeyType?.pubkeyType == PubKeyType.COSMOS_ETH_KECCAK256) {
+            val pubKey = com.cosmos.evm.crypto.v1.ethsecp256k1.KeysProto.PubKey.newBuilder()
+                .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
+            Any.newBuilder().setTypeUrl("/cosmos.evm.crypto.v1.ethsecp256k1.PubKey")
+                .setValue(pubKey.toByteString()).build()
+
         } else {
             val pubKey = PubKey.newBuilder().setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/cosmos.crypto.secp256k1.PubKey")
@@ -779,7 +785,7 @@ object Signer {
 
     private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
-        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256 || selectedChain?.accountKeyType?.pubkeyType == PubKeyType.COSMOS_ETH_KECCAK256) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
             System.arraycopy(sig.r, 0, sigData, 0, 32)
             System.arraycopy(sig.s, 0, sigData, 32, 32)
@@ -1202,7 +1208,7 @@ object Signer {
     }
 
     fun signature(selectedChain: BaseChain?, toSignByte: ByteArray?): String {
-        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256) {
+        if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256 || selectedChain?.accountKeyType?.pubkeyType == PubKeyType.COSMOS_ETH_KECCAK256) {
             return ethermintSignature(selectedChain, toSignByte)
         } else {
             val sha256Hash = Sha256Hash.hash(toSignByte)

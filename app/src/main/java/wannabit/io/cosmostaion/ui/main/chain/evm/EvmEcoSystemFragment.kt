@@ -69,6 +69,7 @@ class EvmEcoSystemFragment : Fragment() {
         binding.apply {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
+            emptyLayout.visibility = View.GONE
 
             evmEcoSystemAdapter = EvmEcoSystemAdapter(requireContext(), selectedEvmChain)
             evmEcoSystemAdapter.submitList(infos)
@@ -145,6 +146,12 @@ class EvmEcoSystemFragment : Fragment() {
         runCatching {
             if (infos?.isNotEmpty() == true) {
                 initRecyclerView(infos)
+            } else {
+                binding.apply {
+                    loading.visibility = View.GONE
+                    recycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
         }.onFailure {
             it.printStackTrace()

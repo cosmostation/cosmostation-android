@@ -49,7 +49,6 @@ class DappViewModel : ViewModel() {
         type: String,
         chain: String,
         searchTxt: String?,
-        isPinned: Boolean? = false,
         isPinnedId: Int? = 0
     ) {
         val updatedEcosystems = ecosystems.map { ecosystem ->
@@ -68,13 +67,8 @@ class DappViewModel : ViewModel() {
             var matches = true
 
             when (type) {
-                "Popular" -> {
-                    val popular = if (ecosystem.has("is_default")) {
-                        ecosystem["is_default"].asBoolean
-                    } else {
-                        false
-                    }
-                    matches = matches && popular
+                "Favorite" -> {
+                    matches = matches && Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
                 }
 
                 "All" -> {}
@@ -93,10 +87,6 @@ class DappViewModel : ViewModel() {
                     matches && ecosystem["name"].asString.contains(searchTxt, ignoreCase = true)
             }
 
-            if (isPinned == true) {
-                matches = matches && Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
-            }
-
             matches
         }
 
@@ -109,8 +99,7 @@ class DappViewModel : ViewModel() {
         ecosystems: MutableList<JsonObject>,
         type: String,
         chain: String,
-        searchTxt: String? = "",
-        isPinned: Boolean? = false
+        searchTxt: String? = ""
     ) {
         if (Prefs.dappFilter == 0) {
             ecosystems.sortWith(compareByDescending<JsonObject> {
@@ -133,13 +122,8 @@ class DappViewModel : ViewModel() {
             var matches = true
 
             when (type) {
-                "Popular" -> {
-                    val popular = if (ecosystem.has("is_default")) {
-                        ecosystem["is_default"].asBoolean
-                    } else {
-                        false
-                    }
-                    matches = matches && popular
+                "Favorite" -> {
+                    matches = matches && Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
                 }
 
                 "All" -> {}
@@ -156,10 +140,6 @@ class DappViewModel : ViewModel() {
             if (!searchTxt.isNullOrEmpty()) {
                 matches =
                     matches && ecosystem["name"].asString.contains(searchTxt, ignoreCase = true)
-            }
-
-            if (isPinned == true) {
-                matches = matches && Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
             }
 
             matches

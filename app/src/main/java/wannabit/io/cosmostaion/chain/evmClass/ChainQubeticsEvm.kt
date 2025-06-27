@@ -24,10 +24,10 @@ open class ChainQubeticsEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "tics"
     override var accountPrefix: String = "qubetics"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = ""
+    override var grpcHost: String = "grpc.qubetics.com"
+    override var lcdUrl: String = "https://swagger.qubetics.com/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "TICS"
-    override var evmRpcURL: String = ""
+    override var evmRpcURL: String = "https://rpc.qubetics.com"
 }

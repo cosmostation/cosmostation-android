@@ -237,7 +237,10 @@ class MainActivity : BaseActivity() {
 
             accountImg.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
+                    val chains = account.sortedDisplayChains()
+                    val busyCount = chains.count { it.fetchState == FetchState.BUSY }
+
+                    if (busyCount <= 10) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )
@@ -250,7 +253,10 @@ class MainActivity : BaseActivity() {
 
             accountName.setOnClickListener {
                 BaseData.baseAccount?.let { account ->
-                    if (account.sortedDisplayChains().none { it.fetchState == FetchState.BUSY }) {
+                    val chains = account.sortedDisplayChains()
+                    val busyCount = chains.count { it.fetchState == FetchState.BUSY }
+
+                    if (busyCount <= 10) {
                         handleOneClickWithDelay(
                             AccountSelectFragment()
                         )

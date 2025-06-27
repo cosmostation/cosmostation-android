@@ -69,6 +69,7 @@ class EcoSystemFragment : Fragment() {
         binding.apply {
             loading.visibility = View.GONE
             recycler.visibility = View.VISIBLE
+            emptyLayout.visibility = View.GONE
 
             ecoSystemAdapter = EcoSystemAdapter(requireContext(), selectedChain)
             ecoSystemAdapter.submitList(infos)
@@ -147,6 +148,12 @@ class EcoSystemFragment : Fragment() {
         runCatching {
             if (infos?.isNotEmpty() == true) {
                 initRecyclerView(infos)
+            } else {
+                binding.apply {
+                    loading.visibility = View.GONE
+                    recycler.visibility = View.GONE
+                    emptyLayout.visibility = View.VISIBLE
+                }
             }
         }.onFailure {
             it.printStackTrace()
