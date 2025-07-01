@@ -2626,7 +2626,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -2635,7 +2635,7 @@ public final class QueryProto {
     boolean hasValidator();
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -2644,7 +2644,7 @@ public final class QueryProto {
     com.initia.mstaking.v1.StakingProto.Validator getValidator();
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -2694,7 +2694,7 @@ public final class QueryProto {
     private com.initia.mstaking.v1.StakingProto.Validator validator_;
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -2706,7 +2706,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -2718,7 +2718,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3075,7 +3075,7 @@ public final class QueryProto {
           com.initia.mstaking.v1.StakingProto.Validator, com.initia.mstaking.v1.StakingProto.Validator.Builder, com.initia.mstaking.v1.StakingProto.ValidatorOrBuilder> validatorBuilder_;
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3086,7 +3086,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3101,7 +3101,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3121,7 +3121,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3139,7 +3139,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3162,7 +3162,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3179,7 +3179,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3191,7 +3191,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -3206,7 +3206,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -17038,7 +17038,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17047,7 +17047,7 @@ public final class QueryProto {
         getValidatorsList();
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17055,7 +17055,7 @@ public final class QueryProto {
     com.initia.mstaking.v1.StakingProto.Validator getValidators(int index);
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17063,7 +17063,7 @@ public final class QueryProto {
     int getValidatorsCount();
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17072,7 +17072,7 @@ public final class QueryProto {
         getValidatorsOrBuilderList();
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17153,7 +17153,7 @@ public final class QueryProto {
     private java.util.List<com.initia.mstaking.v1.StakingProto.Validator> validators_;
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17164,7 +17164,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17176,7 +17176,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17187,7 +17187,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17198,7 +17198,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validators defines the the validators' info of a delegator.
+     * validators defines the validators' info of a delegator.
      * </pre>
      *
      * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17676,7 +17676,7 @@ public final class QueryProto {
 
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17690,7 +17690,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17704,7 +17704,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17718,7 +17718,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17739,7 +17739,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17757,7 +17757,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17777,7 +17777,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17798,7 +17798,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17816,7 +17816,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17834,7 +17834,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17853,7 +17853,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17870,7 +17870,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17887,7 +17887,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17898,7 +17898,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17912,7 +17912,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17927,7 +17927,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17938,7 +17938,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -17950,7 +17950,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validators defines the the validators' info of a delegator.
+       * validators defines the validators' info of a delegator.
        * </pre>
        *
        * <code>repeated .initia.mstaking.v1.Validator validators = 1 [json_name = "validators", (.gogoproto.nullable) = false];</code>
@@ -18980,7 +18980,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -18989,7 +18989,7 @@ public final class QueryProto {
     boolean hasValidator();
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -18998,7 +18998,7 @@ public final class QueryProto {
     com.initia.mstaking.v1.StakingProto.Validator getValidator();
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19049,7 +19049,7 @@ public final class QueryProto {
     private com.initia.mstaking.v1.StakingProto.Validator validator_;
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19061,7 +19061,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19073,7 +19073,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * validator defines the the validator info.
+     * validator defines the validator info.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19431,7 +19431,7 @@ public final class QueryProto {
           com.initia.mstaking.v1.StakingProto.Validator, com.initia.mstaking.v1.StakingProto.Validator.Builder, com.initia.mstaking.v1.StakingProto.ValidatorOrBuilder> validatorBuilder_;
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19442,7 +19442,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19457,7 +19457,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19477,7 +19477,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19495,7 +19495,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19518,7 +19518,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19535,7 +19535,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19547,7 +19547,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>
@@ -19562,7 +19562,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * validator defines the the validator info.
+       * validator defines the validator info.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Validator validator = 1 [json_name = "validator", (.gogoproto.nullable) = false];</code>

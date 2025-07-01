@@ -4874,7 +4874,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * value defines the the transaction amount.
+     * value defines the transaction amount.
      * </pre>
      *
      * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -4883,7 +4883,7 @@ public final class TxProto {
     java.lang.String getValue();
     /**
      * <pre>
-     * value defines the the transaction amount.
+     * value defines the transaction amount.
      * </pre>
      *
      * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -5228,7 +5228,7 @@ public final class TxProto {
     private volatile java.lang.Object value_ = "";
     /**
      * <pre>
-     * value defines the the transaction amount.
+     * value defines the transaction amount.
      * </pre>
      *
      * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -5249,7 +5249,7 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * value defines the the transaction amount.
+     * value defines the transaction amount.
      * </pre>
      *
      * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -6468,7 +6468,7 @@ public final class TxProto {
       private java.lang.Object value_ = "";
       /**
        * <pre>
-       * value defines the the transaction amount.
+       * value defines the transaction amount.
        * </pre>
        *
        * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -6488,7 +6488,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * value defines the the transaction amount.
+       * value defines the transaction amount.
        * </pre>
        *
        * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -6509,7 +6509,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * value defines the the transaction amount.
+       * value defines the transaction amount.
        * </pre>
        *
        * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -6526,7 +6526,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * value defines the the transaction amount.
+       * value defines the transaction amount.
        * </pre>
        *
        * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -6540,7 +6540,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * value defines the the transaction amount.
+       * value defines the transaction amount.
        * </pre>
        *
        * <code>string value = 7 [json_name = "value", (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.customname) = "Amount", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
