@@ -4393,7 +4393,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * pool_id optionally fitlers deposits by pool id
+     * pool_id optionally filters deposits by pool id
      * </pre>
      *
      * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -4402,7 +4402,7 @@ public final class QueryProto {
     java.lang.String getPoolId();
     /**
      * <pre>
-     * pool_id optionally fitlers deposits by pool id
+     * pool_id optionally filters deposits by pool id
      * </pre>
      *
      * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -4531,7 +4531,7 @@ public final class QueryProto {
     private volatile java.lang.Object poolId_ = "";
     /**
      * <pre>
-     * pool_id optionally fitlers deposits by pool id
+     * pool_id optionally filters deposits by pool id
      * </pre>
      *
      * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -4552,7 +4552,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * pool_id optionally fitlers deposits by pool id
+     * pool_id optionally filters deposits by pool id
      * </pre>
      *
      * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -5096,7 +5096,7 @@ public final class QueryProto {
       private java.lang.Object poolId_ = "";
       /**
        * <pre>
-       * pool_id optionally fitlers deposits by pool id
+       * pool_id optionally filters deposits by pool id
        * </pre>
        *
        * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -5116,7 +5116,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * pool_id optionally fitlers deposits by pool id
+       * pool_id optionally filters deposits by pool id
        * </pre>
        *
        * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -5137,7 +5137,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * pool_id optionally fitlers deposits by pool id
+       * pool_id optionally filters deposits by pool id
        * </pre>
        *
        * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -5154,7 +5154,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * pool_id optionally fitlers deposits by pool id
+       * pool_id optionally filters deposits by pool id
        * </pre>
        *
        * <code>string pool_id = 2 [json_name = "poolId"];</code>
@@ -5168,7 +5168,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * pool_id optionally fitlers deposits by pool id
+       * pool_id optionally filters deposits by pool id
        * </pre>
        *
        * <code>string pool_id = 2 [json_name = "poolId"];</code>
