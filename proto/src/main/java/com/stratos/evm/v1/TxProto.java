@@ -4958,7 +4958,7 @@ public final class TxProto {
   }
   /**
    * <pre>
-   * DynamicFeeTx is the data of EIP-1559 dinamic fee transactions.
+   * DynamicFeeTx is the data of EIP-1559 dynamic fee transactions.
    * </pre>
    *
    * Protobuf type {@code stratos.evm.v1.DynamicFeeTx}

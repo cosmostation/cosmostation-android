@@ -178,7 +178,7 @@ public final class StakingProto {
 
   /**
    * <pre>
-   * Infraction indicates the infraction a validator commited.
+   * Infraction indicates the infraction a validator committed.
    * </pre>
    *
    * Protobuf enum {@code zrchain.validation.Infraction}
