@@ -12468,7 +12468,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * chain_id is the the eip155 chain id parsed from the requested block header
+     * chain_id is the eip155 chain id parsed from the requested block header
      * </pre>
      *
      * <code>int64 chain_id = 9 [json_name = "chainId"];</code>
@@ -12779,7 +12779,7 @@ public final class QueryProto {
     private long chainId_ = 0L;
     /**
      * <pre>
-     * chain_id is the the eip155 chain id parsed from the requested block header
+     * chain_id is the eip155 chain id parsed from the requested block header
      * </pre>
      *
      * <code>int64 chain_id = 9 [json_name = "chainId"];</code>
@@ -14349,7 +14349,7 @@ public final class QueryProto {
       private long chainId_ ;
       /**
        * <pre>
-       * chain_id is the the eip155 chain id parsed from the requested block header
+       * chain_id is the eip155 chain id parsed from the requested block header
        * </pre>
        *
        * <code>int64 chain_id = 9 [json_name = "chainId"];</code>
@@ -14361,7 +14361,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * chain_id is the the eip155 chain id parsed from the requested block header
+       * chain_id is the eip155 chain id parsed from the requested block header
        * </pre>
        *
        * <code>int64 chain_id = 9 [json_name = "chainId"];</code>
@@ -14377,7 +14377,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * chain_id is the the eip155 chain id parsed from the requested block header
+       * chain_id is the eip155 chain id parsed from the requested block header
        * </pre>
        *
        * <code>int64 chain_id = 9 [json_name = "chainId"];</code>

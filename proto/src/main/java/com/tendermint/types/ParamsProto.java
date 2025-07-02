@@ -2039,7 +2039,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2052,7 +2052,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2065,7 +2065,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2149,7 +2149,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2165,7 +2165,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2181,7 +2181,7 @@ public final class ParamsProto {
      *
      * It should correspond with an app's "unbonding period" or other similar
      * mechanism for handling [Nothing-At-Stake
-     * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+     * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
      * </pre>
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2660,7 +2660,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2675,7 +2675,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2694,7 +2694,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2718,7 +2718,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2740,7 +2740,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2767,7 +2767,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2788,7 +2788,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2804,7 +2804,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
@@ -2823,7 +2823,7 @@ public final class ParamsProto {
        *
        * It should correspond with an app's "unbonding period" or other similar
        * mechanism for handling [Nothing-At-Stake
-       * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
+       * attacks](https://vitalik.eth.limo/general/2017/12/31/pos_faq.html#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
        * </pre>
        *
        * <code>.google.protobuf.Duration max_age_duration = 2 [json_name = "maxAgeDuration", (.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
