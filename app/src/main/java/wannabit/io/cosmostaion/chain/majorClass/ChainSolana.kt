@@ -43,3 +43,5 @@ class ChainSolana : BaseChain(), Parcelable {
         return solanaFetcher
     }
 }
+
+const val SOLANA_PROGRAM_ID = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"

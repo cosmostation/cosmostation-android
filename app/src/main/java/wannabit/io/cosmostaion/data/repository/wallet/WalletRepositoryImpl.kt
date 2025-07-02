@@ -74,6 +74,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SOLANA_PROGRAM_ID
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
@@ -1699,6 +1700,35 @@ class WalletRepositoryImpl : WalletRepository {
             )
             safeApiCall(Dispatchers.IO) {
                 solanaAccountInfoJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun solanaTokenInfo(
+        fetcher: SolanaFetcher, chain: ChainSolana
+    ): NetworkResult<JsonObject> {
+        return try {
+            val params = listOf(
+                chain.mainAddress,
+                mapOf("programId" to SOLANA_PROGRAM_ID),
+                mapOf("encoding" to "jsonParsed")
+            )
+
+            val solanaTokenInfoRequest = JsonRpcRequest(
+                method = "getTokenAccountsByOwner", params = params
+            )
+            val solanaTokenInfoResponse =
+                jsonRpcResponse(fetcher.solanaRpc(), solanaTokenInfoRequest)
+            val solanaTokenInfoJsonObject = Gson().fromJson(
+                solanaTokenInfoResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                solanaTokenInfoJsonObject
             }
 
         } catch (e: Exception) {

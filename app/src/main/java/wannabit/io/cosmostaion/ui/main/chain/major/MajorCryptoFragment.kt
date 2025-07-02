@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -28,6 +29,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -49,6 +51,7 @@ class MajorCryptoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var majorCryptoAdapter: MajorCryptoAdapter
+    private lateinit var solanaCryptoAdapter: SolanaCryptoAdapter
 
     private lateinit var selectedChain: BaseChain
 
@@ -56,6 +59,11 @@ class MajorCryptoFragment : Fragment() {
     private var searchMoveBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var moveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var searchMoveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+
+    private var solanaBalances: MutableList<JsonObject> = mutableListOf()
+    private var searchSolanaBalances: MutableList<JsonObject> = mutableListOf()
+    private var solanaTokens: MutableList<JsonObject> = mutableListOf()
+    private var searchSolanaTokens: MutableList<JsonObject> = mutableListOf()
 
     private var isClickable = true
 
@@ -126,7 +134,22 @@ class MajorCryptoFragment : Fragment() {
             moveNativeBalances.clear()
             searchMoveNativeBalances.clear()
 
+            solanaBalances.clear()
+            searchSolanaBalances.clear()
+
             when (selectedChain) {
+                is ChainSolana -> {
+                    (selectedChain as ChainSolana).solanaFetcher?.let { fetcher ->
+                        solanaBalances.add(fetcher.solanaAccountInfo)
+                        searchSolanaBalances.addAll(solanaBalances)
+
+                        withContext(Dispatchers.Main) {
+                            initSolanaRecyclerView()
+                            binding.searchBar.visibility = View.GONE
+                        }
+                    }
+                }
+
                 is ChainSui -> {
                     (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
                         val tempSuiBalances: MutableList<Pair<String?, BigDecimal?>> =
@@ -205,6 +228,19 @@ class MajorCryptoFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private fun initSolanaRecyclerView() {
+        if (isAdded) {
+            solanaCryptoAdapter =
+                SolanaCryptoAdapter(requireContext(), selectedChain, searchSolanaBalances)
+            binding.recycler.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireActivity())
+                adapter = solanaCryptoAdapter
+                solanaCryptoAdapter.notifyDataSetChanged()
             }
         }
     }

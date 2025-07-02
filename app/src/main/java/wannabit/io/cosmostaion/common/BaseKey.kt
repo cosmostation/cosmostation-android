@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.common
 
 import android.content.Context
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.EdDSAPrivateKey
@@ -10,6 +9,7 @@ import net.i2p.crypto.eddsa.Utils
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
 import net.i2p.crypto.eddsa.spec.EdDSAPublicKeySpec
+import org.bitcoinj.core.Base58
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -26,7 +26,6 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.sign.BitcoinJs
-import wannabit.io.cosmostaion.sign.SolanaJs
 import java.security.SecureRandom
 
 object BaseKey {
@@ -164,26 +163,10 @@ object BaseKey {
             }
 
             PubKeyType.SOLANA_ED25519 -> {
-                if (!SolanaJs.isInitialized()) {
-                    SolanaJs.initialize(context).await()
-                }
-
-                result = try {
-                    val publicKey = pubKey?.toHex()
-                    val solanaAddressFunction = """function solanaAddressFunction() {
-                                    const address = getAddressFromPublicKey('${publicKey}');
-                                    return address;
-                                }""".trimMargin()
-                    SolanaJs.mergeFunction(solanaAddressFunction)
-                    SolanaJs.executeFunction("solanaAddressFunction()").toString()
-
-                } catch (e: Exception) {
-                    e.message.toString()
-                }
+                result = Base58.encode(pubKey)
             }
 
             else -> {
-                val deferredResult = CompletableDeferred<String>()
                 withContext(Dispatchers.IO) {
                     if (!BitcoinJs.isInitialized()) {
                         BitcoinJs.initialize(context).await()
@@ -193,19 +176,20 @@ object BaseKey {
                         val publicKey = pubKey?.toHex()
                         val unique = System.nanoTime()
                         val uniqueFunctionName = "addressFunction_${unique}"
-
                         val addressFunction = """function $uniqueFunctionName() {
-                                    const address = getAddress('${publicKey}', '${bitType(pubKeyType)}', '${network}');
-                                    return address;
-                                }""".trimMargin()
+                                        const address = getAddress('${publicKey}', '${
+                            bitType(
+                                pubKeyType
+                            )
+                        }', '${network}');
+                                        return address;
+                                    }""".trimMargin()
                         BitcoinJs.mergeFunction(addressFunction)
                         val address = BitcoinJs.executeFunction("$uniqueFunctionName()").toString()
-                        deferredResult.complete(address)
-
+                        result = address
                     } catch (e: Exception) {
-                        deferredResult.completeExceptionally(e)
+                        result = e.message.toString()
                     }
-                    result = deferredResult.await()
                 }
             }
         }

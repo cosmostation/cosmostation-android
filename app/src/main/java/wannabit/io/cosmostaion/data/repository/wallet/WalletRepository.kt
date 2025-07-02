@@ -310,4 +310,6 @@ interface WalletRepository {
 
     //Solana
     suspend fun solanaAccountInfo(fetcher: SolanaFetcher, chain: ChainSolana): NetworkResult<JsonObject>
+
+    suspend fun solanaTokenInfo(fetcher: SolanaFetcher, chain: ChainSolana): NetworkResult<JsonObject>
 }

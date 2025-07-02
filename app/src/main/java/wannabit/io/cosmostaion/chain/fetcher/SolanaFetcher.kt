@@ -10,6 +10,7 @@ import java.math.RoundingMode
 class SolanaFetcher(private val chain: BaseChain) {
 
     var solanaAccountInfo = JsonObject()
+    val solanaTokenInfo: MutableList<JsonObject> = mutableListOf()
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         return solanaBalanceValue(isUsd)

@@ -1670,12 +1670,16 @@ class ApplicationViewModel(
             chain.apply {
                 solanaFetcher()?.let { fetcher ->
                     fetcher.solanaAccountInfo = JsonObject()
+                    fetcher.solanaTokenInfo.clear()
 
                     try {
                         val loadAccountInfoDeferred =
                             async { walletRepository.solanaAccountInfo(fetcher, chain) }
+                        val loadTokenInfoDeferred =
+                            async { walletRepository.solanaTokenInfo(fetcher, chain) }
 
                         val accountInfoResult = loadAccountInfoDeferred.await()
+                        val tokenInfoResult = loadTokenInfoDeferred.await()
 
                         if (accountInfoResult is NetworkResult.Success) {
                             fetcher.solanaAccountInfo = accountInfoResult.data
@@ -1684,10 +1688,24 @@ class ApplicationViewModel(
                             _chainDataErrorMessage.postValue("error type : ${accountInfoResult.errorType}  error message : ${accountInfoResult.errorMessage}")
                         }
 
+                        if (tokenInfoResult is NetworkResult.Success) {
+                            val response = tokenInfoResult.data
+                            if (response.has("result")) {
+                                val values = response["result"].asJsonObject["value"].asJsonArray
+                                values.forEach { value ->
+                                    fetcher.solanaTokenInfo.add(value.asJsonObject)
+                                }
+                            }
+
+                        } else if (tokenInfoResult is NetworkResult.Error) {
+                            _chainDataErrorMessage.postValue("error type : ${tokenInfoResult.errorType}  error message : ${tokenInfoResult.errorMessage}")
+                        }
+
                         fetchState = FetchState.SUCCESS
                         coinValue = fetcher.allAssetValue()
                         coinUsdValue = fetcher.allAssetValue(true)
                         coinCnt = 1
+                        tokenCnt = fetcher.solanaTokenInfo.size
 
                         val refAddress = RefAddress(
                             id,
