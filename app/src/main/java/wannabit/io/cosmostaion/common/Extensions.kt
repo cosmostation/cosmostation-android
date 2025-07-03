@@ -711,9 +711,12 @@ fun ConstraintLayout.setView(isChecked: Boolean) {
 }
 
 fun Activity.historyToMintscan(selectedChain: BaseChain?, txHash: String?) {
-    selectedChain?.explorerTx(txHash)?.let {
-        startActivity(Intent(Intent.ACTION_VIEW, it))
-
+    selectedChain?.explorerTx(txHash)?.let { url ->
+        if (url.toString().isNotEmpty()) {
+            startActivity(Intent(Intent.ACTION_VIEW, url))
+        } else {
+            return
+        }
     } ?: run {
         return
     }

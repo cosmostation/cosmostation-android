@@ -16,17 +16,19 @@ android {
     }
 
     defaultConfig {
-        compileSdk 34
-        buildToolsVersion = "30.0.3"
+        compileSdk 35
+        buildToolsVersion = "35.0.0"
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode 341
         versionName "1.10.36"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         renderscriptTargetApi 31
         renderscriptSupportModeEnabled true
+
+
     }
 
     signingConfigs {
@@ -61,18 +63,19 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     lint {
         abortOnError false
         checkReleaseBuilds false
     }
-    namespace 'wannabit.io.cosmostaion'
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
+    namespace 'wannabit.io.cosmostaion'
 }
 
 dependencies {
@@ -145,8 +148,8 @@ dependencies {
 
     //qr
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'org.mozilla:rhino:1.7.15'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.0'
 
     //kotlin
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
@@ -156,7 +159,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:20.0.0'
 
     //database
-    def room_version = "2.5.1"
+    def room_version = "2.7.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"

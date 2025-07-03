@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.importQR
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +34,11 @@ class ImportBarcodeActivity : AppCompatActivity() {
                     setResult(RESULT_OK, this)
                     finish()
                     if (Build.VERSION.SDK_INT >= 34) {
-                        overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN, R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
+                        overrideActivityTransition(
+                            OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_fade_in,
+                            R.anim.anim_slide_out_bottom
+                        )
                     } else {
                         overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_slide_out_bottom)
                     }

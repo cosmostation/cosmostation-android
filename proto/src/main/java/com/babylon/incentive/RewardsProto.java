@@ -2351,7 +2351,7 @@ public final class RewardsProto {
 
     /**
      * <pre>
-     * StartPeriodCumulativeReward the starting period the the BTC delegator
+     * StartPeriodCumulativeReward the starting period the BTC delegator
      * made his last withdraw of rewards or modified his active staking amount
      * of satoshis.
      * </pre>
@@ -2420,7 +2420,7 @@ public final class RewardsProto {
     private long startPeriodCumulativeReward_ = 0L;
     /**
      * <pre>
-     * StartPeriodCumulativeReward the starting period the the BTC delegator
+     * StartPeriodCumulativeReward the starting period the BTC delegator
      * made his last withdraw of rewards or modified his active staking amount
      * of satoshis.
      * </pre>
@@ -2809,7 +2809,7 @@ public final class RewardsProto {
       private long startPeriodCumulativeReward_ ;
       /**
        * <pre>
-       * StartPeriodCumulativeReward the starting period the the BTC delegator
+       * StartPeriodCumulativeReward the starting period the BTC delegator
        * made his last withdraw of rewards or modified his active staking amount
        * of satoshis.
        * </pre>
@@ -2823,7 +2823,7 @@ public final class RewardsProto {
       }
       /**
        * <pre>
-       * StartPeriodCumulativeReward the starting period the the BTC delegator
+       * StartPeriodCumulativeReward the starting period the BTC delegator
        * made his last withdraw of rewards or modified his active staking amount
        * of satoshis.
        * </pre>
@@ -2841,7 +2841,7 @@ public final class RewardsProto {
       }
       /**
        * <pre>
-       * StartPeriodCumulativeReward the starting period the the BTC delegator
+       * StartPeriodCumulativeReward the starting period the BTC delegator
        * made his last withdraw of rewards or modified his active staking amount
        * of satoshis.
        * </pre>
