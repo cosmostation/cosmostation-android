@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.getAvailableUtxosFromRaw
 import wannabit.io.cosmostaion.data.model.res.printAvailableUtxosJson
@@ -137,6 +138,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadErc20Deferred = async { walletRepository.erc20() }
         val loadGrc20Deferred = async { walletRepository.grc20() }
         val loadCw721Deferred = async { walletRepository.cw721() }
+//        val loadSplDeferred = async { walletRepository.spl() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemInfo() }
 
         val responses = awaitAll(
@@ -178,6 +180,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is Cw721Response -> {
                             response.data.assets?.let { BaseData.cw721Tokens = it }
+                        }
+
+                        is SplResponse -> {
+                            response.data.assets?.let { BaseData.splTokens = it }
                         }
 
                         is MutableList<*> -> {

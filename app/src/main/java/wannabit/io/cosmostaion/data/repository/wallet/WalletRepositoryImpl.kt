@@ -107,6 +107,7 @@ import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -180,6 +181,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun cw721(): NetworkResult<Cw721Response> {
         return safeApiCall(Dispatchers.IO) {
             mintscanApi.cw721()
+        }
+    }
+
+    override suspend fun spl(): NetworkResult<SplResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.spl()
         }
     }
 

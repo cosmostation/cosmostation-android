@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -85,6 +86,31 @@ class HistoryAdapter(
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
                             it(chain, null, historySuiGroup.second["digest"].asString)
+                        }
+                    }
+                }
+            }
+
+            is ChainSolana -> {
+                val solanaHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historySolanaGroup = solanaHistoryList[position]
+
+                historySolanaGroup.second.let { header ->
+                    val headerDate =
+                        dpTimeToYear(header["blockTime"].asString.toLong() * 1000)
+                    val headerIndex = solanaHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = solanaHistoryList.filter { it.first == headerDate }.size
+                    holder.bindSolanaHistory(
+                        chain,
+                        historySolanaGroup,
+                        headerIndex,
+                        headerCnt,
+                        position
+                    )
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(chain, null, historySolanaGroup.second["signature"].asString)
                         }
                     }
                 }

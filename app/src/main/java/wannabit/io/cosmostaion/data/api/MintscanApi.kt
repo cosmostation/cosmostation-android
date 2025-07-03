@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
 import wannabit.io.cosmostaion.data.model.res.ResDaoVoteStatus
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.VoteStatus
 
 interface MintscanApi {
@@ -55,6 +56,9 @@ interface MintscanApi {
 
     @GET("v11/assets/cw721")
     suspend fun cw721(): Cw721Response
+
+    @GET("v11/assets/spl")
+    suspend fun spl(): SplResponse
 
     @GET("v10/{chain}/contracts/{contractAddress}/nft-url/{tokenId}")
     suspend fun cw721Detail(

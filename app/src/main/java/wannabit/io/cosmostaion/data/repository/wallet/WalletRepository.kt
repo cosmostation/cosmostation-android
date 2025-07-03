@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigDecimal
@@ -58,6 +59,8 @@ interface WalletRepository {
     suspend fun grc20(): NetworkResult<Grc20TokenResponse>
 
     suspend fun cw721(): NetworkResult<Cw721Response>
+
+    suspend fun spl(): NetworkResult<SplResponse>
 
     suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain

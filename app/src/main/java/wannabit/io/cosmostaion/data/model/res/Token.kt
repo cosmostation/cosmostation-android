@@ -16,6 +16,9 @@ data class Grc20TokenResponse(val assets: List<Token>?)
 @JsonClass(generateAdapter = true)
 data class Cw721Response(val assets: List<Cw721>?)
 
+@JsonClass(generateAdapter = true)
+data class SplResponse(val assets: List<Token>?)
+
 @Parcelize
 data class Token(
     val chainName: String,

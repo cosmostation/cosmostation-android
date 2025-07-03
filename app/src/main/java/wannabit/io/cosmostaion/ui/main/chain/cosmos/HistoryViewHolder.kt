@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.chain.fetcher.iotaCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -645,6 +646,42 @@ class HistoryViewHolder(
             )
             txDenom.text = chain.coinSymbol
             txDenom.setTextColor(Color.parseColor("#ffffff"))
+        }
+    }
+
+    fun bindSolanaHistory(
+        chain: ChainSolana,
+        historySolanaGroup: Pair<String, JsonObject>,
+        headerIndex: Int,
+        cnt: Int,
+        position: Int
+    ) {
+        binding.apply {
+            historyView.setBackgroundResource(R.drawable.item_bg)
+            headerLayout.visibleOrGone(headerIndex == position)
+            val headerDate =
+                dpTimeToYear(historySolanaGroup.second["blockTime"].asString.toLong() * 1000)
+            val currentDate = formatCurrentTimeToYear()
+            if (headerDate == currentDate) {
+                headerTitle.text = context.getString(R.string.str_today)
+            } else {
+                headerTitle.text = headerDate
+            }
+            headerCnt.text = "($cnt)"
+
+            txMessage.text = historySolanaGroup.second.asJsonObject["slot"].asString
+            txHash.text = historySolanaGroup.second.asJsonObject["signature"].asString
+            txTime.text =
+                dpTimeToMonth(historySolanaGroup.second["blockTime"].asString.toLong() * 1000)
+            txAmount.text = ""
+            txDenom.text = "-"
+            txDenom.setTextColor(Color.parseColor("#ffffff"))
+
+            if (historySolanaGroup.second["err"].isJsonNull) {
+                txSuccessImg.setImageResource(R.drawable.icon_history_success)
+            } else {
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+            }
         }
     }
 }

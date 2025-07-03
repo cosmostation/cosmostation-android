@@ -28,6 +28,7 @@ object BaseData {
     var erc20Tokens: List<Token>? = mutableListOf()
     var grc20Tokens: List<Token>? = mutableListOf()
     var cw721Tokens: List<Cw721>? = mutableListOf()
+    var splTokens: List<Token>? = mutableListOf()
     var originEcosystems: MutableList<JsonObject>? = mutableListOf()
     var ecosystems: MutableList<JsonObject>? = mutableListOf()
 

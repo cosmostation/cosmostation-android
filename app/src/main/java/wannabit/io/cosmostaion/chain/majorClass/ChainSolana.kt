@@ -29,7 +29,7 @@ class ChainSolana : BaseChain(), Parcelable {
 
     override var coinSymbol: String = "SOL"
 
-    override var mainUrl: String = "https://solana-rpc.publicnode.com"
+    override var mainUrl: String = "https://api.mainnet-beta.solana.com"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey

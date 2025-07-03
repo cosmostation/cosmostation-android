@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
@@ -66,7 +67,7 @@ class QrCodeViewHolder(
             }
 
             val address =
-                if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
+                if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86 || selectChain is ChainSolana) {
                     selectChain.mainAddress
                 } else {
                     selectChain.address
