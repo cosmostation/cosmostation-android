@@ -149,6 +149,7 @@ dependencies {
     //qr
     implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     implementation 'org.mozilla:rhino:1.7.15'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.0'
 
     //kotlin
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
