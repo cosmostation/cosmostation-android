@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
@@ -943,6 +944,33 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
 
+            is ChainSolana -> {
+                chain.solanaFetcher()?.let { fetcher ->
+                    chain.apply {
+                        fetcher.solanaAccountInfo = JsonObject()
+
+                        when (val response = walletRepository.solanaAccountInfo(fetcher, this)) {
+                            is NetworkResult.Success -> {
+                                fetcher.solanaAccountInfo = response.data
+
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = 1
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             is ChainOktEvm -> {
                 chain.oktFetcher()?.let {
                     when (val response = walletRepository.oktAccountInfo(chain)) {
@@ -1048,7 +1076,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             is NetworkResult.Success -> {
                                 chain.cosmosFetcher?.cosmosBalances = response.data
                                 chain.fetchState = FetchState.SUCCESS
-                                chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+                                chain.coinCnt = chain.cosmosFetcher?.cosmosBalances?.count {
+                                    BaseData.getAsset(
+                                        chain.apiName,
+                                        it.denom
+                                    ) != null
+                                } ?: 0
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }

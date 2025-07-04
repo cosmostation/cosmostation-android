@@ -11,6 +11,7 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -62,15 +63,25 @@ class EndpointAdapter(
 
             VIEW_TYPE_GRPC_ITEM, VIEW_TYPE_LCD_ITEM -> {
                 when (endpointType) {
-                    EndPointType.END_POINT_SUI -> {
+                    EndPointType.END_POINT_RPC -> {
                         if (holder is EndPointViewHolder) {
                             val endPoint = currentList[position - 1] as JsonObject
-                            if (fromChain is ChainGnoTestnet) {
-                                holder.rpcBind(fromChain, endPoint, listener)
-                            } else if (fromChain is ChainSui) {
-                                holder.suiBind(fromChain, endPoint, listener)
-                            } else {
-                                holder.iotaBind(fromChain, endPoint, listener)
+                            when (fromChain) {
+                                is ChainGnoTestnet -> {
+                                    holder.rpcBind(fromChain, endPoint, listener)
+                                }
+
+                                is ChainSui -> {
+                                    holder.suiBind(fromChain, endPoint, listener)
+                                }
+
+                                is ChainIota -> {
+                                    holder.iotaBind(fromChain, endPoint, listener)
+                                }
+
+                                is ChainSolana -> {
+                                    holder.solanaBind(fromChain, endPoint, listener)
+                                }
                             }
                         }
                     }
@@ -162,7 +173,7 @@ class EndpointAdapter(
                     headerView.visibility = View.GONE
                     headerTitle.text = if (endpointType == EndPointType.END_POINT_EVM) {
                         "EVM RPC"
-                    } else if (endpointType == EndPointType.END_POINT_SUI) {
+                    } else if (endpointType == EndPointType.END_POINT_RPC) {
                         when (fromChain) {
                             is ChainSui -> "SUI RPC"
                             is ChainIota -> "IOTA RPC"

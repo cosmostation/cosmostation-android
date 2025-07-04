@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -195,6 +196,19 @@ class WalletSelectViewHolder(
                     } else if (chain is ChainIota) {
                         val availableAmount = chain.iotaFetcher()?.let { fetcher ->
                             fetcher.iotaBalanceAmount(IOTA_MAIN_DENOM)?.movePointLeft(9)
+                                ?.setScale(9, RoundingMode.DOWN)
+                        }
+                        chainBalance.text = formatAmount(availableAmount.toString(), 9)
+                        chainDenom.text = chain.coinSymbol
+                        chainDenom.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+
+                    } else if (chain is ChainSolana) {
+                        val availableAmount = chain.solanaFetcher().let { fetcher ->
+                            fetcher?.solanaBalanceAmount()?.movePointLeft(9)
                                 ?.setScale(9, RoundingMode.DOWN)
                         }
                         chainBalance.text = formatAmount(availableAmount.toString(), 9)

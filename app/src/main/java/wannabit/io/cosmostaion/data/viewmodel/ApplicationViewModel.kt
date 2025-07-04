@@ -1673,57 +1673,88 @@ class ApplicationViewModel(
                     fetcher.solanaTokenInfo.clear()
 
                     try {
-                        val loadAccountInfoDeferred =
-                            async { walletRepository.solanaAccountInfo(fetcher, chain) }
-                        val loadTokenInfoDeferred =
-                            async { walletRepository.solanaTokenInfo(fetcher, chain) }
+                        when (val response = walletRepository.solanaAccountInfo(fetcher, chain)) {
+                            is NetworkResult.Success -> {
+                                if (response.data.has("error")) {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        if (isEdit == true) {
+                                            editFetchedResult.value = tag
+                                        } else {
+                                            fetchedResult.value = tag
+                                        }
+                                    }
 
-                        val accountInfoResult = loadAccountInfoDeferred.await()
-                        val tokenInfoResult = loadTokenInfoDeferred.await()
+                                } else {
+                                    if (response.data["result"].asJsonObject["value"].isJsonNull) {
+                                        fetcher.solanaAccountInfo = JsonObject()
+                                    } else {
+                                        fetcher.solanaAccountInfo = response.data
+                                    }
 
-                        if (accountInfoResult is NetworkResult.Success) {
-                            fetcher.solanaAccountInfo = accountInfoResult.data
+                                    when (val tokenResponse =
+                                        walletRepository.solanaTokenInfo(fetcher, chain)) {
+                                        is NetworkResult.Success -> {
+                                            val values =
+                                                tokenResponse.data["result"].asJsonObject["value"].asJsonArray
+                                            values.forEach { value ->
+                                                fetcher.solanaTokenInfo.add(value.asJsonObject)
+                                            }
 
-                        } else if (accountInfoResult is NetworkResult.Error) {
-                            _chainDataErrorMessage.postValue("error type : ${accountInfoResult.errorType}  error message : ${accountInfoResult.errorMessage}")
-                        }
+                                            fetchState = FetchState.SUCCESS
+                                            coinValue = fetcher.allAssetValue()
+                                            coinUsdValue = fetcher.allAssetValue(true)
+                                            coinCnt = if (fetcher.solanaAccountInfo == JsonObject()) {
+                                                0
+                                            } else {
+                                                1
+                                            }
+                                            tokenCnt = fetcher.solanaTokenInfo.size
 
-                        if (tokenInfoResult is NetworkResult.Success) {
-                            val response = tokenInfoResult.data
-                            if (response.has("result")) {
-                                val values = response["result"].asJsonObject["value"].asJsonArray
-                                values.forEach { value ->
-                                    fetcher.solanaTokenInfo.add(value.asJsonObject)
+                                            val refAddress = RefAddress(
+                                                id,
+                                                tag,
+                                                mainAddress,
+                                                "",
+                                                fetcher.allAssetValue(true).toString(),
+                                                fetcher.solanaBalanceAmount().toString(),
+                                                "0",
+                                                coinCnt.toLong()
+                                            )
+                                            BaseData.updateRefAddressesMain(refAddress)
+
+                                            withContext(Dispatchers.Main) {
+                                                if (isEdit == true) {
+                                                    editFetchedResult.value = tag
+                                                } else {
+                                                    fetchedResult.value = tag
+                                                }
+                                            }
+                                        }
+
+                                        is NetworkResult.Error -> {
+                                            fetchState = FetchState.FAIL
+                                            withContext(Dispatchers.Main) {
+                                                if (isEdit == true) {
+                                                    editFetchedResult.value = tag
+                                                } else {
+                                                    fetchedResult.value = tag
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
 
-                        } else if (tokenInfoResult is NetworkResult.Error) {
-                            _chainDataErrorMessage.postValue("error type : ${tokenInfoResult.errorType}  error message : ${tokenInfoResult.errorMessage}")
-                        }
-
-                        fetchState = FetchState.SUCCESS
-                        coinValue = fetcher.allAssetValue()
-                        coinUsdValue = fetcher.allAssetValue(true)
-                        coinCnt = 1
-                        tokenCnt = fetcher.solanaTokenInfo.size
-
-                        val refAddress = RefAddress(
-                            id,
-                            tag,
-                            mainAddress,
-                            "",
-                            fetcher.allAssetValue(true).toString(),
-                            fetcher.solanaBalanceAmount().toString(),
-                            "0",
-                            coinCnt.toLong()
-                        )
-                        BaseData.updateRefAddressesMain(refAddress)
-
-                        withContext(Dispatchers.Main) {
-                            if (isEdit == true) {
-                                editFetchedResult.value = tag
-                            } else {
-                                fetchedResult.value = tag
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit == true) {
+                                        editFetchedResult.value = tag
+                                    } else {
+                                        fetchedResult.value = tag
+                                    }
+                                }
                             }
                         }
 

@@ -454,8 +454,8 @@ class DashboardFragment : Fragment() {
                 override fun changeEndpoint(tag: String?) {
                     if (chain is ChainOktEvm || chain is ChainBitCoin86) return
 
-                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet) {
-                        EndPointType.END_POINT_SUI
+                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
+                        EndPointType.END_POINT_RPC
                     } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         EndPointType.END_POINT_COSMOS
                     } else {

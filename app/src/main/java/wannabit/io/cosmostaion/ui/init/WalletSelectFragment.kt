@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
@@ -207,7 +208,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainIota || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainIota || chain is ChainBitCoin86 || chain is ChainSolana || chain is ChainGnoTestnet) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -228,7 +229,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain is ChainGnoTestnet) {
+                            if (chain.supportCosmos() || chain is ChainSui || chain is ChainBitCoin86 || chain is ChainSolana || chain is ChainGnoTestnet) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
