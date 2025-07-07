@@ -89,6 +89,7 @@ import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainInjectiveEvmTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
 import wannabit.io.cosmostaion.common.BaseConstant.ETHERMINT_KEY_TYPE_PUBLIC
@@ -744,7 +745,7 @@ object Signer {
             Any.newBuilder().setTypeUrl("/tm.PubKeySecp256k1").setValue(pubKey.toByteString())
                 .build()
 
-        } else if (chain is ChainInjective) {
+        } else if (chain is ChainInjective || chain is ChainInjectiveEvmTestnet) {
             val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
                 .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")
