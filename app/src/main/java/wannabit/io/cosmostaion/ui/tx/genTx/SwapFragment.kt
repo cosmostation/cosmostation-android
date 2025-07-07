@@ -297,11 +297,12 @@ class SwapFragment : BaseTxFragment() {
             }
 
             targetChains.addAll(skipChains)
-            targetChains.sortWith(compareBy(
-                { if (it.tag == "cosmos118") 0 else 1 },
-                { if (it.tag == "osmosis118") 0 else 1 },
-                { it.name.lowercase() }
-            ))
+            targetChains.sortWith(
+                compareBy(
+                    { if (it.tag == "cosmos118") 0 else 1 },
+                    { if (it.tag == "osmosis118") 0 else 1 },
+                    { it.name.lowercase() }
+                ))
 
             val lastSwapSet = Prefs.lastSwapSet
             inputChain = targetChains.firstOrNull { it.tag == lastSwapSet[0] } ?: targetChains[0]
@@ -313,7 +314,8 @@ class SwapFragment : BaseTxFragment() {
                         try {
                             val channel = chain.cosmosFetcher()?.getChannel()
                             loadAuth(channel, chain)
-                            val loadInputBalanceDeferred = async { loadSpendAbleBalance(channel, chain) }
+                            val loadInputBalanceDeferred =
+                                async { loadSpendAbleBalance(channel, chain) }
 
                             chain.cosmosFetcher?.cosmosAvailable = loadInputBalanceDeferred.await()
 
@@ -326,7 +328,8 @@ class SwapFragment : BaseTxFragment() {
                         try {
                             val channel = chain.cosmosFetcher()?.getChannel()
                             loadAuth(channel, chain)
-                            val loadOutputBalanceDeferred = async { loadSpendAbleBalance(channel, chain) }
+                            val loadOutputBalanceDeferred =
+                                async { loadSpendAbleBalance(channel, chain) }
 
                             chain.cosmosFetcher?.cosmosAvailable = loadOutputBalanceDeferred.await()
 
@@ -507,6 +510,8 @@ class SwapFragment : BaseTxFragment() {
 
             if (inputText.isEmpty()) {
                 outputAmount.text = ""
+                inputAmountValue.text = ""
+                outputAmountValue.text = ""
                 feeView.visibility = View.GONE
                 btnToggle.updateToggleButtonView(true)
                 return
@@ -516,14 +521,13 @@ class SwapFragment : BaseTxFragment() {
             inputAsset.decimals?.let { decimal ->
                 val inputAmount = userInput.movePointRight(decimal)
                 if (inputAmount == BigDecimal.ZERO || availableAmount < inputAmount) {
-                    outputAmount.text = ""
                     invalidMsg.visibility = View.VISIBLE
                     feeView.visibility = View.GONE
-                    return
+                } else {
+                    invalidMsg.visibility = View.INVISIBLE
                 }
                 skipViewModel.skipRoute(bindSkipRouteReq(inputAmount.toPlainString()))
             }
-            invalidMsg.visibility = View.INVISIBLE
         }
     }
 
@@ -647,7 +651,8 @@ class SwapFragment : BaseTxFragment() {
 
             inputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(null, inputChain, targetChains,
+                    ChainFragment.newInstance(
+                        null, inputChain, targetChains,
                         ChainListType.SELECT_INPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainName: String) {
@@ -712,7 +717,8 @@ class SwapFragment : BaseTxFragment() {
                 }
 
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(inputChain,
+                    AssetSelectFragment.newInstance(
+                        inputChain,
                         inputAsset,
                         targetInputSwapAssets,
                         inputChain?.cosmosFetcher?.cosmosAvailable,
@@ -753,7 +759,8 @@ class SwapFragment : BaseTxFragment() {
 
             outputChainLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    ChainFragment.newInstance(null, outputChain, targetChains,
+                    ChainFragment.newInstance(
+                        null, outputChain, targetChains,
                         ChainListType.SELECT_OUTPUT_SWAP,
                         object : ChainSelectListener {
                             override fun select(chainName: String) {
@@ -807,7 +814,8 @@ class SwapFragment : BaseTxFragment() {
 
             outputTokenLayout.setOnClickListener {
                 handleOneClickWithDelay(
-                    AssetSelectFragment.newInstance(outputChain,
+                    AssetSelectFragment.newInstance(
+                        outputChain,
                         outputAsset,
                         targetOutputAssets,
                         outputChain?.cosmosFetcher?.cosmosAvailable,
