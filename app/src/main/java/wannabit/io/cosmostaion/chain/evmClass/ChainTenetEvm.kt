@@ -26,7 +26,7 @@ class ChainTenetEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "atenet"
     override var accountPrefix: String = "tenet"
     override var grpcHost: String = "tenet-grpc.publicnode.com"
-    override var lcdUrl: String = "https://app.rpc.tenet.org/"
+    override var lcdUrl: String = "https://tenet-rest.publicnode.com/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "TENET"
