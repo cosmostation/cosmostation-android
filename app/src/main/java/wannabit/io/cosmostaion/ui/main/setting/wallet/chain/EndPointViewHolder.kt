@@ -57,63 +57,12 @@ class EndPointViewHolder(
                     web3j.web3ClientVersion()?.sendAsync()?.get()?.web3ClientVersion
                     gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                     withContext(Dispatchers.Main) {
-                        gapTime?.let {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base01
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base02
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base01
-                                )
-                            )
-
-                            if (it <= 1.2) {
-                                apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                apiStatus.text = "Faster"
-
-                            } else if (it <= 3) {
-                                apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                apiStatus.text = "Normal"
-
-                            } else {
-                                apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                apiStatus.text = "Slower"
-                            }
-                        }
+                        gapTime?.let { configureSpeedText(it) }
                     }
 
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        provider.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
-                        providerUrl.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
-
-                        loading.visibility = View.GONE
-                        apiStatus.text = "Closed"
-                        apiStatus.visibility = View.VISIBLE
-                        apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                        apiStatus.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
+                        configureClosedNode()
                     }
                 }
             }
@@ -166,90 +115,20 @@ class EndPointViewHolder(
                     if (response.defaultNodeInfo.network == fromChain?.chainIdCosmos) {
                         gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                         withContext(Dispatchers.Main) {
-                            gapTime?.let {
-                                provider.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base01
-                                    )
-                                )
-                                providerUrl.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base02
-                                    )
-                                )
-
-                                loading.visibility = View.GONE
-                                apiStatus.visibility = View.VISIBLE
-                                apiStatus.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base01
-                                    )
-                                )
-
-                                if (it <= 1.2) {
-                                    apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                    apiStatus.text = "Faster"
-
-                                } else if (it <= 3) {
-                                    apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                    apiStatus.text = "Normal"
-
-                                } else {
-                                    apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                    apiStatus.text = "Slower"
-                                }
-                            }
+                            gapTime?.let { configureSpeedText(it) }
                         }
 
                     } else {
                         channel.shutdown()
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
 
                 } catch (e: Exception) {
                     channel.shutdown()
                     withContext(Dispatchers.Main) {
-                        provider.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
-                        providerUrl.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
-
-                        loading.visibility = View.GONE
-                        apiStatus.text = "Closed"
-                        apiStatus.visibility = View.VISIBLE
-                        apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                        apiStatus.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base04
-                            )
-                        )
+                        configureClosedNode()
                     }
                 }
             }
@@ -311,89 +190,19 @@ class EndPointViewHolder(
                             if (network == chain.chainIdCosmos) {
                                 gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                 withContext(Dispatchers.Main) {
-                                    gapTime?.let {
-                                        provider.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base01
-                                            )
-                                        )
-                                        providerUrl.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base02
-                                            )
-                                        )
-
-                                        loading.visibility = View.GONE
-                                        apiStatus.visibility = View.VISIBLE
-                                        apiStatus.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base01
-                                            )
-                                        )
-
-                                        if (it <= 1.2) {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                            apiStatus.text = "Faster"
-
-                                        } else if (it <= 3) {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                            apiStatus.text = "Normal"
-
-                                        } else {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                            apiStatus.text = "Slower"
-                                        }
-                                    }
+                                    gapTime?.let { configureSpeedText(it) }
                                 }
 
                             } else {
                                 withContext(Dispatchers.Main) {
-                                    provider.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
-                                    providerUrl.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
-
-                                    loading.visibility = View.GONE
-                                    apiStatus.text = "Closed"
-                                    apiStatus.visibility = View.VISIBLE
-                                    apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                                    apiStatus.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
+                                    configureClosedNode()
                                 }
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
                 }
@@ -442,88 +251,18 @@ class EndPointViewHolder(
                         if (suiChainIdResponse.isSuccessful) {
                             gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             withContext(Dispatchers.Main) {
-                                gapTime?.let {
-                                    provider.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-                                    providerUrl.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base02
-                                        )
-                                    )
-
-                                    loading.visibility = View.GONE
-                                    apiStatus.visibility = View.VISIBLE
-                                    apiStatus.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-
-                                    if (it <= 1.2) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                        apiStatus.text = "Faster"
-
-                                    } else if (it <= 3) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                        apiStatus.text = "Normal"
-
-                                    } else {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                        apiStatus.text = "Slower"
-                                    }
-                                }
+                                gapTime?.let { configureSpeedText(it) }
                             }
 
                         } else {
                             withContext(Dispatchers.Main) {
-                                provider.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-                                providerUrl.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-
-                                loading.visibility = View.GONE
-                                apiStatus.text = "Closed"
-                                apiStatus.visibility = View.VISIBLE
-                                apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                                apiStatus.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
+                                configureClosedNode()
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
                 }
@@ -572,88 +311,18 @@ class EndPointViewHolder(
                         if (suiChainIdResponse.isSuccessful) {
                             gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             withContext(Dispatchers.Main) {
-                                gapTime?.let {
-                                    provider.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-                                    providerUrl.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base02
-                                        )
-                                    )
-
-                                    loading.visibility = View.GONE
-                                    apiStatus.visibility = View.VISIBLE
-                                    apiStatus.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-
-                                    if (it <= 1.2) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                        apiStatus.text = "Faster"
-
-                                    } else if (it <= 3) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                        apiStatus.text = "Normal"
-
-                                    } else {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                        apiStatus.text = "Slower"
-                                    }
-                                }
+                                gapTime?.let { configureSpeedText(it) }
                             }
 
                         } else {
                             withContext(Dispatchers.Main) {
-                                provider.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-                                providerUrl.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-
-                                loading.visibility = View.GONE
-                                apiStatus.text = "Closed"
-                                apiStatus.visibility = View.VISIBLE
-                                apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                                apiStatus.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
+                                configureClosedNode()
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
                 }
@@ -700,89 +369,19 @@ class EndPointViewHolder(
                             if (response.isSuccessful) {
                                 gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                 withContext(Dispatchers.Main) {
-                                    gapTime?.let {
-                                        provider.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base01
-                                            )
-                                        )
-                                        providerUrl.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base02
-                                            )
-                                        )
-
-                                        loading.visibility = View.GONE
-                                        apiStatus.visibility = View.VISIBLE
-                                        apiStatus.setTextColor(
-                                            ContextCompat.getColorStateList(
-                                                context, R.color.color_base01
-                                            )
-                                        )
-
-                                        if (it <= 1.2) {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                            apiStatus.text = "Faster"
-
-                                        } else if (it <= 3) {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                            apiStatus.text = "Normal"
-
-                                        } else {
-                                            apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                            apiStatus.text = "Slower"
-                                        }
-                                    }
+                                    gapTime?.let { configureSpeedText(it) }
                                 }
 
                             } else {
                                 withContext(Dispatchers.Main) {
-                                    provider.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
-                                    providerUrl.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
-
-                                    loading.visibility = View.GONE
-                                    apiStatus.text = "Closed"
-                                    apiStatus.visibility = View.VISIBLE
-                                    apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                                    apiStatus.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base04
-                                        )
-                                    )
+                                    configureClosedNode()
                                 }
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
                 }
@@ -831,88 +430,18 @@ class EndPointViewHolder(
                         if (solanaHealthResponse.isSuccessful) {
                             gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             withContext(Dispatchers.Main) {
-                                gapTime?.let {
-                                    provider.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-                                    providerUrl.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base02
-                                        )
-                                    )
-
-                                    loading.visibility = View.GONE
-                                    apiStatus.visibility = View.VISIBLE
-                                    apiStatus.setTextColor(
-                                        ContextCompat.getColorStateList(
-                                            context, R.color.color_base01
-                                        )
-                                    )
-
-                                    if (it <= 1.2) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_faster)
-                                        apiStatus.text = "Faster"
-
-                                    } else if (it <= 3) {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_normal)
-                                        apiStatus.text = "Normal"
-
-                                    } else {
-                                        apiStatus.setBackgroundResource(R.drawable.round_box_slow)
-                                        apiStatus.text = "Slower"
-                                    }
-                                }
+                                gapTime?.let { configureSpeedText(it) }
                             }
 
                         } else {
                             withContext(Dispatchers.Main) {
-                                provider.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-                                providerUrl.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
-
-                                loading.visibility = View.GONE
-                                apiStatus.text = "Closed"
-                                apiStatus.visibility = View.VISIBLE
-                                apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                                apiStatus.setTextColor(
-                                    ContextCompat.getColorStateList(
-                                        context, R.color.color_base04
-                                    )
-                                )
+                                configureClosedNode()
                             }
                         }
 
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
-                            provider.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-                            providerUrl.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
-
-                            loading.visibility = View.GONE
-                            apiStatus.text = "Closed"
-                            apiStatus.visibility = View.VISIBLE
-                            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
-                            apiStatus.setTextColor(
-                                ContextCompat.getColorStateList(
-                                    context, R.color.color_base04
-                                )
-                            )
+                            configureClosedNode()
                         }
                     }
                 }
@@ -926,5 +455,66 @@ class EndPointViewHolder(
 
     fun getChannel(host: String, port: Int): ManagedChannel {
         return ManagedChannelBuilder.forAddress(host, port).useTransportSecurity().build()
+    }
+
+    private fun configureSpeedText(gapTime: Double) {
+        binding.apply {
+            provider.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base01
+                )
+            )
+            providerUrl.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base02
+                )
+            )
+
+            loading.visibility = View.GONE
+            apiStatus.visibility = View.VISIBLE
+            apiStatus.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base01
+                )
+            )
+
+            if (gapTime <= 1.2) {
+                apiStatus.setBackgroundResource(R.drawable.round_box_faster)
+                apiStatus.text = "Faster"
+
+            } else if (gapTime <= 3) {
+                apiStatus.setBackgroundResource(R.drawable.round_box_normal)
+                apiStatus.text = "Normal"
+
+            } else {
+                apiStatus.setBackgroundResource(R.drawable.round_box_slow)
+                apiStatus.text = "Slower"
+            }
+        }
+    }
+
+    private fun configureClosedNode() {
+        binding.apply {
+            provider.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base04
+                )
+            )
+            providerUrl.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base04
+                )
+            )
+
+            loading.visibility = View.GONE
+            apiStatus.text = "Closed"
+            apiStatus.visibility = View.VISIBLE
+            apiStatus.setBackgroundResource(R.drawable.round_box_closed)
+            apiStatus.setTextColor(
+                ContextCompat.getColorStateList(
+                    context, R.color.color_base04
+                )
+            )
+        }
     }
 }
