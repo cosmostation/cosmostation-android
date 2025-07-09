@@ -22,9 +22,9 @@ class ChainNibiru : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "unibi"
     override var accountPrefix: String = "nibi"
-    override var grpcHost: String = "grpc-nibiru.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-nibiru.cosmostation.io/"
+    override var grpcHost: String = "grpc.nibiru.fi"
+    override var lcdUrl: String = "https://nibiru-api.cogwheel.zone/"
 }
