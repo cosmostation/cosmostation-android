@@ -54,7 +54,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
     private var ecosystems: MutableList<JsonObject> = mutableListOf()
     private var supportChains: MutableList<String>? = mutableListOf()
-    private var selectedIndex: Int = 0
+    private var selectedIndex: Int = 1
     private var selectedType: String = "Favorite"
     private var selectedChain: String = "All Network"
 
@@ -175,7 +175,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
                         view.popularImg.visibleOrGone(index == 0)
                         view.popularImg.colorFilter = PorterDuffColorFilter(
                             ContextCompat.getColor(
-                                requireContext(), R.color.color_base01
+                                requireContext(), R.color.color_base04
                             ), PorterDuff.Mode.SRC_IN
                         )
                         view.type.text = type
@@ -244,14 +244,10 @@ class DappStartFragment : BottomSheetDialogFragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = dappListAdapter
 
-            val favorite = ecosystems.filter { ecosystem ->
-                Prefs.getPinnedDapps().contains(ecosystem["id"].asInt)
-            }
-
-            if (favorite.isNotEmpty()) {
+            if (ecosystems.isNotEmpty()) {
                 binding.emptyLayout.visibility = View.GONE
                 visibility = View.VISIBLE
-                dappListAdapter.submitList(favorite)
+                dappListAdapter.submitList(ecosystems)
             } else {
                 binding.emptyLayout.visibility = View.VISIBLE
                 visibility = View.GONE
@@ -359,7 +355,8 @@ class DappStartFragment : BottomSheetDialogFragment() {
 
             btnChainSelect.setOnClickListener {
                 handleOneClickWithDelay(
-                    DappChainFragment.newInstance(supportChains,
+                    DappChainFragment.newInstance(
+                        supportChains,
                         selectedChain,
                         object : DappChainSelectListener {
                             override fun select(chain: String) {

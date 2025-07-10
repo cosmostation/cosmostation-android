@@ -386,12 +386,20 @@ open class CosmosFetcher(private val chain: BaseChain) {
 
     fun getGrpc(): Pair<String, Int> {
         val endPoint = Prefs.getGrpcEndpoint(chain)
-        if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
+        return if (endPoint.isNotEmpty() && endPoint.split(":").count() == 2) {
             val host = endPoint.split(":")[0].trim()
             val port = endPoint.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
-            return Pair(host, port)
+            Pair(host, port)
+
+        } else {
+            if (chain.grpcHost.split(":").count() == 2) {
+                val host = chain.grpcHost.split(":")[0].trim()
+                val port = chain.grpcHost.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+                Pair(host, port)
+            } else {
+                Pair(chain.grpcHost, chain.grpcPort)
+            }
         }
-        return Pair(chain.grpcHost, chain.grpcPort)
     }
 
     fun getChannel(): ManagedChannel? {

@@ -22,9 +22,9 @@ class ChainQuicksilver : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uqck"
     override var accountPrefix: String = "quick"
-    override var grpcHost: String = "grpc-quicksilver.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-quicksilver.cosmostation.io/"
+    override var grpcHost: String = "quicksilver-grpc.stake-town.com"
+    override var lcdUrl: String = "https://m-quicksilver.api.utsa.tech/"
 }
