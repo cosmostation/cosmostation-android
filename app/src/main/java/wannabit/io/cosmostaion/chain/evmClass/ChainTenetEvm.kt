@@ -25,10 +25,10 @@ class ChainTenetEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "atenet"
     override var accountPrefix: String = "tenet"
-    override var grpcHost: String = "tenet-grpc.publicnode.com"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://tenet-rest.publicnode.com/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "TENET"
-    override var evmRpcURL: String = "https://eth-dataseed.aioz.network"
+    override var evmRpcURL: String = "https://tenet-evm.publicnode.com"
 }
