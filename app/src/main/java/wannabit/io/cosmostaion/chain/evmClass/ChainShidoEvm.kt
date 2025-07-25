@@ -30,5 +30,5 @@ class ChainShidoEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "SHIDO"
-    override var evmRpcURL: String = "https://evm.shidoscan.net"
+    override var evmRpcURL: String = "https://evm.shidoscan.net/"
 }
