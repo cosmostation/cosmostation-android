@@ -32,6 +32,10 @@ import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.FunctionReturnDecoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.Address
+import org.web3j.abi.datatypes.Bool
+import org.web3j.abi.datatypes.DynamicArray
+import org.web3j.abi.datatypes.DynamicBytes
+import org.web3j.abi.datatypes.DynamicStruct
 import org.web3j.abi.datatypes.Function
 import org.web3j.abi.datatypes.Type
 import org.web3j.abi.datatypes.generated.Uint256
@@ -39,6 +43,7 @@ import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
 import org.web3j.protocol.http.HttpService
+import org.web3j.utils.Numeric
 import retrofit2.Response
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -83,9 +88,11 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
 import wannabit.io.cosmostaion.data.model.req.Allocation
 import wannabit.io.cosmostaion.data.model.req.AllocationReq
+import wannabit.io.cosmostaion.data.model.req.Call
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.NftInfo
+import wannabit.io.cosmostaion.data.model.req.Result
 import wannabit.io.cosmostaion.data.model.req.Rewards
 import wannabit.io.cosmostaion.data.model.req.RewardsReq
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenIdReq
@@ -473,23 +480,93 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun erc20MultiBalance(chain: BaseChain) {
+        val tokens = chain.evmRpcFetcher?.evmTokens?.toMutableList() ?: mutableListOf()
+        val address = chain.multicallAddress()
+
+        try {
+            val calls = tokens.map { it.address }.map { tokenAddress ->
+                val function = Function(
+                    "balanceOf", listOf(Address(chain.evmAddress)),
+                    listOf<TypeReference<*>>(object : TypeReference<Uint256>() {})
+                )
+
+                val encodedCall = FunctionEncoder.encode(function)
+                Call(
+                    Address(tokenAddress),
+                    Bool(true),
+                    DynamicBytes(Numeric.hexStringToByteArray(encodedCall))
+                )
+            }
+
+            val aggregateFunction = Function(
+                "aggregate3",
+                listOf(DynamicArray(Call::class.java, calls)),
+                listOf(
+                    object : TypeReference<DynamicArray<Result>>() {}
+                )
+            )
+
+            val encodedFunction = FunctionEncoder.encode(aggregateFunction)
+            val response = chain.web3j?.ethCall(
+                Transaction.createEthCallTransaction(
+                    chain.evmAddress,
+                    address,
+                    encodedFunction
+                ),
+                DefaultBlockParameterName.LATEST
+            )?.sendAsync()?.get()
+
+            val decoded =
+                FunctionReturnDecoder.decode(response?.value, aggregateFunction.outputParameters)
+            val resultStructs = decoded[0].value as List<DynamicStruct>
+
+            val balances = resultStructs.map { result ->
+                val isSuccess = (result.value[0] as Bool).value
+                if (isSuccess) {
+                    val returnDataHex = Numeric.toHexString((result.value[1] as DynamicBytes).value)
+                    val innerDecoded = FunctionReturnDecoder.decode(
+                        returnDataHex,
+                        listOf(object : TypeReference<Uint256>() {} as TypeReference<Type<*>>)
+                    )
+                    if (innerDecoded.isNotEmpty()) {
+                        innerDecoded[0].value as BigInteger
+                    } else {
+                        BigInteger.ZERO
+                    }
+
+                } else {
+                    BigInteger.ZERO
+                }
+            }
+
+            tokens.zip(balances).forEach { (token, balance) ->
+                token.amount = balance.toString()
+                token.fetched = true
+            }
+
+        } catch (e: Exception) {
+            tokens.forEach { token ->
+                token.amount = "0"
+                token.fetched = true
+            }
+        }
+    }
+
     override suspend fun erc20Balance(chain: BaseChain, token: Token) {
         val params: MutableList<Type<*>> = ArrayList()
         params.add(Address(chain.evmAddress))
 
         try {
             val returnTypes = listOf<TypeReference<*>>(object : TypeReference<Uint256?>() {})
-            val function = if (token.symbol == "BGT") {
-                Function("unboostedBalanceOf", params, returnTypes)
-            } else {
-                Function("balanceOf", params, returnTypes)
-            }
+            val function = Function("balanceOf", params, returnTypes)
 
             val txData = FunctionEncoder.encode(function)
             val response = chain.web3j?.ethCall(
                 Transaction.createEthCallTransaction(chain.evmAddress, token.address, txData),
                 DefaultBlockParameterName.LATEST
             )?.sendAsync()?.get()
+
             val results = FunctionReturnDecoder.decode(response?.value, function.outputParameters)
             if (results.isNotEmpty()) {
                 val balance = results[0].value as BigInteger

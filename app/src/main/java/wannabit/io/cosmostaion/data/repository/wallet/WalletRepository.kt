@@ -105,6 +105,8 @@ interface WalletRepository {
         channel: ManagedChannel?, chain: BaseChain, token: Token
     )
 
+    suspend fun erc20MultiBalance(chain: BaseChain)
+
     suspend fun erc20Balance(
         chain: BaseChain, token: Token
     )

@@ -66,29 +66,44 @@ class TokenEditViewHolder(
                 } ?: run {
                 chain.evmRpcFetcher()?.evmTokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
                     ?.let { evmToken ->
-                        if (evmToken.fetched) {
-                            val dpAmount =
-                                evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
-                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
-
+                        if (chain.isSupportMultiCall() && chain.multicallAddress().isNotEmpty()) {
                             skeletonTokenAmount.visibility = View.GONE
                             skeletonTokenValue.visibility = View.GONE
                             tokenAmount.visibility = View.VISIBLE
                             tokenValue.visibility = View.VISIBLE
 
+                            val dpAmount =
+                                evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
+                                    ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+
                             tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
-                            chain.evmRpcFetcher?.let {
-                                tokenValue.text = formatAssetValue(it.tokenValue(evmToken.address))
-                            }
+                            tokenValue.text = formatAssetValue(chain.evmRpcFetcher?.tokenValue(evmToken.address) ?: BigDecimal.ZERO)
 
                         } else {
-                            skeletonTokenAmount.visibility = View.VISIBLE
-                            skeletonTokenValue.visibility = View.VISIBLE
-                            tokenAmount.visibility = View.GONE
-                            tokenValue.visibility = View.GONE
+                            if (evmToken.fetched) {
+                                val dpAmount =
+                                    evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
+                                        ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
-                            CoroutineScope(Dispatchers.IO).launch {
-                                walletViewModel.erc20Balance(chain, token)
+                                skeletonTokenAmount.visibility = View.GONE
+                                skeletonTokenValue.visibility = View.GONE
+                                tokenAmount.visibility = View.VISIBLE
+                                tokenValue.visibility = View.VISIBLE
+
+                                tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
+                                chain.evmRpcFetcher?.let {
+                                    tokenValue.text = formatAssetValue(it.tokenValue(evmToken.address))
+                                }
+
+                            } else {
+                                skeletonTokenAmount.visibility = View.VISIBLE
+                                skeletonTokenValue.visibility = View.VISIBLE
+                                tokenAmount.visibility = View.GONE
+                                tokenValue.visibility = View.GONE
+
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    walletViewModel.erc20Balance(chain, token)
+                                }
                             }
                         }
 

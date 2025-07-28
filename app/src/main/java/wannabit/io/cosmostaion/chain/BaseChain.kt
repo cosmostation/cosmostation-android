@@ -139,7 +139,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -148,7 +147,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainSomnia
 import wannabit.io.cosmostaion.chain.evmClass.ChainStory
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
@@ -614,6 +612,24 @@ open class BaseChain : Parcelable {
     fun isSupportStaking(): Boolean {
         return getChainListParam()?.getAsJsonObject("btc_staking")
             ?.get("is_support_staking")?.asBoolean ?: false
+    }
+
+    fun isSupportMultiCall(): Boolean {
+        return if (getChainListParam()?.has("evm_multicall_info") == true) {
+            getChainListParam()?.getAsJsonObject("evm_multicall_info")
+                ?.get("is_support_multicall")?.asBoolean ?: false
+        } else {
+            false
+        }
+    }
+
+    fun multicallAddress(): String {
+        return if (getChainListParam()?.has("evm_multicall_info") == true) {
+            getChainListParam()?.getAsJsonObject("evm_multicall_info")
+                ?.get("multicall_address")?.asString ?: ""
+        } else {
+            ""
+        }
     }
 
     fun btcStakingDapp(): String {
