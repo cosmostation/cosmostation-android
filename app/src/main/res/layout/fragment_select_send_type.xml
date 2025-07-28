@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_20"
             android:gravity="start"
-            android:text="Send to EVM Style Address"
+            android:text="Send to EVM Type Address"
             android:textColor="@color/color_base01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_20"
-            android:text="Send to COSMOS Style Address"
+            android:text="Send to COSMOS Type Address"
             android:textColor="@color/color_base01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

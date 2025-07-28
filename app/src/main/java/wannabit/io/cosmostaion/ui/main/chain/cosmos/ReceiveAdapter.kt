@@ -105,9 +105,9 @@ class ReceiveAdapter(
             binding.apply {
                 if (itemCount == 5) {
                     if (getItemViewType(position) == VIEW_TYPE_EVM_HEADER) {
-                        headerTitle.text = "My address (EVM Style)"
+                        headerTitle.text = "My address (EVM Type)"
                     } else {
-                        headerTitle.text = "My address (COSMOS Style)"
+                        headerTitle.text = "My address (COSMOS Type)"
                     }
 
                 } else {

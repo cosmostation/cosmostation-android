@@ -55,7 +55,7 @@ class DappStartFragment : BottomSheetDialogFragment() {
     private var ecosystems: MutableList<JsonObject> = mutableListOf()
     private var supportChains: MutableList<String>? = mutableListOf()
     private var selectedIndex: Int = 1
-    private var selectedType: String = "Favorite"
+    private var selectedType: String = "All"
     private var selectedChain: String = "All Network"
 
     private var searchTxt: String? = ""
@@ -302,8 +302,13 @@ class DappStartFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpObserve() {
-        dappViewModel.dappList.observe(viewLifecycleOwner) {
-            ecosystems.addAll(it)
+        dappViewModel.dappList.observe(viewLifecycleOwner) { list ->
+            val dpEcosystems = if (Prefs.displayTestnet) {
+                list
+            } else {
+                list.filter { it["chains"].asJsonArray.none { chain -> chain.asString.contains("-testnet", ignoreCase = true) } }
+            }
+            ecosystems.addAll(dpEcosystems)
             initRecyclerView()
         }
 

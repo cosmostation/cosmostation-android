@@ -49,57 +49,38 @@ class AssetAdapter(
             }
 
             is AssetViewHolder -> {
-                if (evmChains.isNotEmpty()) {
-                    if (evmTokens.isNotEmpty()) {
-                        if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                            val evmChain = evmChains[position - 1]
-                            holder.bind(evmChain)
+                if (evmTokens.isNotEmpty()) {
+                    if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
+                        val evmChain = evmChains[position - 1]
+                        holder.bind(evmChain)
 
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(evmChain, "")
-                                }
-                            }
-
-                        } else {
-                            val token = evmTokens[position - 3]
-                            holder.tokenBind(evmChain, token)
-
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(evmChain, token.address)
-                                }
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(evmChain, "")
                             }
                         }
 
                     } else {
-                        if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                            val evmChain = evmChains[position - 1]
-                            holder.bind(evmChain)
+                        val token = evmTokens[position - 3]
+                        holder.tokenBind(evmChain, token)
 
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(evmChain, "")
-                                }
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(evmChain, token.address)
                             }
                         }
                     }
 
                 } else {
-                    if (evmTokens.isNotEmpty()) {
-                        if (holder.itemViewType == VIEW_TYPE_TOKEN_ITEM) {
-                            val token = evmTokens[position - 1]
-                            holder.tokenBind(evmChain, token)
+                    if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
+                        val evmChain = evmChains[position - 1]
+                        holder.bind(evmChain)
 
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(evmChain, token.address)
-                                }
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                it(evmChain, "")
                             }
                         }
-
-                    } else {
-                        return
                     }
                 }
             }
@@ -107,45 +88,26 @@ class AssetAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (evmChains.isNotEmpty()) {
-            return if (evmTokens.isNotEmpty()) {
-                when (position) {
-                    0 -> VIEW_TYPE_COIN_HEADER
-                    1 -> VIEW_TYPE_COIN_ITEM
-                    2 -> VIEW_TYPE_TOKEN_HEADER
-                    else -> VIEW_TYPE_TOKEN_ITEM
-                }
-            } else {
-                when (position) {
-                    0 -> VIEW_TYPE_COIN_HEADER
-                    else -> VIEW_TYPE_COIN_ITEM
-                }
+        return if (evmTokens.isNotEmpty()) {
+            when (position) {
+                0 -> VIEW_TYPE_COIN_HEADER
+                1 -> VIEW_TYPE_COIN_ITEM
+                2 -> VIEW_TYPE_TOKEN_HEADER
+                else -> VIEW_TYPE_TOKEN_ITEM
             }
-
         } else {
-            return if (evmTokens.isNotEmpty()) {
-                if (position == 0) VIEW_TYPE_TOKEN_HEADER
-                else VIEW_TYPE_TOKEN_ITEM
-            } else {
-                -1
+            when (position) {
+                0 -> VIEW_TYPE_COIN_HEADER
+                else -> VIEW_TYPE_COIN_ITEM
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (evmChains.isNotEmpty()) {
-            if (evmTokens.isNotEmpty()) {
-                evmChains.size + evmTokens.size + 2
-            } else {
-                evmChains.size + 1
-            }
-
+        return if (evmTokens.isNotEmpty()) {
+            evmChains.size + evmTokens.size + 2
         } else {
-            if (evmTokens.isNotEmpty()) {
-                evmTokens.size + 1
-            } else {
-                0
-            }
+            evmChains.size + 1
         }
     }
 

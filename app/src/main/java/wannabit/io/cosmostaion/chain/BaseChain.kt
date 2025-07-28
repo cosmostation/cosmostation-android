@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBluzelle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
@@ -139,7 +141,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -615,6 +616,24 @@ open class BaseChain : Parcelable {
             ?.get("is_support_staking")?.asBoolean ?: false
     }
 
+    fun isSupportMultiCall(): Boolean {
+        return if (getChainListParam()?.has("evm_multicall_info") == true) {
+            getChainListParam()?.getAsJsonObject("evm_multicall_info")
+                ?.get("is_support_multicall")?.asBoolean ?: false
+        } else {
+            false
+        }
+    }
+
+    fun multicallAddress(): String {
+        return if (getChainListParam()?.has("evm_multicall_info") == true) {
+            getChainListParam()?.getAsJsonObject("evm_multicall_info")
+                ?.get("multicall_address")?.asString ?: ""
+        } else {
+            ""
+        }
+    }
+
     fun btcStakingDapp(): String {
         return getChainListParam()?.getAsJsonObject("btc_staking")?.get("url")?.asString ?: ""
     }
@@ -711,6 +730,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitCoin86())
     chains.add(ChainBitsong())
     chains.add(ChainBinanceSmart())
+    chains.add(ChainBluzelle())
     chains.add(ChainBostrom())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
@@ -740,6 +760,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
+    chains.add(ChainGitopia())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
     chains.add(ChainHippocrat())
@@ -811,6 +832,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
+//    chains.add(ChainSomnia())
     chains.add(ChainSource())
     chains.add(ChainStargaze())
     chains.add(ChainStory())
