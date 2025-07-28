@@ -222,23 +222,19 @@ class ApplicationViewModel(
                 BaseData.cw721Tokens?.filter { it.chain == chain.apiName }?.toMutableList()
                     ?: mutableListOf()
 
-            if (this is ChainBitCoin86) {
-                loadBtcData(baseAccountId, this, isEdit)
-            } else if (this is ChainOkt996Keccak) {
-                loadOktLcdData(this, baseAccountId, isEdit)
-            } else if (this is ChainSui) {
-                loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
-            } else if (this is ChainIota) {
-                loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
-            } else if (this is ChainSolana) {
-                loadSolData(baseAccountId, this, isEdit)
-            } else {
-                if (this is ChainGnoTestnet) {
-                    loadRpcData(this, baseAccountId, isEdit)
-                } else if (supportCosmos() && this !is ChainOktEvm) {
-                    loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
-                } else {
-                    loadEvmChainData(this, baseAccountId, isEdit)
+            when (this) {
+                is ChainBitCoin86 -> loadBtcData(baseAccountId, this, isEdit)
+                is ChainOkt996Keccak -> loadOktLcdData(this, baseAccountId, isEdit)
+                is ChainSui -> loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
+                is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
+                is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
+                is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
+                else -> {
+                    if (supportCosmos() && this !is ChainOktEvm) {
+                        loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
+                    } else {
+                        loadEvmChainData(this, baseAccountId, isEdit)
+                    }
                 }
             }
         }
@@ -303,20 +299,14 @@ class ApplicationViewModel(
 
                     if (spendableBalanceResult is NetworkResult.Success) {
                         cosmosFetcher?.cosmosAvailable = spendableBalanceResult.data
-                    } else if (spendableBalanceResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${spendableBalanceResult.errorType}  error message : ${spendableBalanceResult.errorMessage}")
                     }
 
                     if (balanceResult is NetworkResult.Success) {
                         cosmosFetcher?.cosmosBalances = balanceResult.data
-                    } else if (balanceResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${balanceResult.errorType}  error message : ${balanceResult.errorMessage}")
                     }
 
                     if (rewardAddressResult is NetworkResult.Success) {
                         cosmosFetcher?.rewardAddress = rewardAddressResult.data
-                    } else if (rewardAddressResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${rewardAddressResult.errorType}  error message : ${rewardAddressResult.errorMessage}")
                     }
 
                     if (feeMarketResult is NetworkResult.Success) {
@@ -330,22 +320,14 @@ class ApplicationViewModel(
                             }
                         }
                         cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                                -1
-                            } else {
-                                0
-                            }
+                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                            else 0
                         }
-                    } else if (feeMarketResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${feeMarketResult.errorType}  error message : ${feeMarketResult.errorMessage}")
                     }
 
                     delay(2000)
-                    fetchState = if (cosmosFetcher?.cosmosBalances == null) {
-                        FetchState.FAIL
-                    } else {
-                        FetchState.SUCCESS
-                    }
+                    fetchState = if (cosmosFetcher?.cosmosBalances == null) FetchState.FAIL
+                    else FetchState.SUCCESS
 
                     if (fetchState == FetchState.SUCCESS) {
                         val refAddress = RefAddress(
@@ -425,14 +407,10 @@ class ApplicationViewModel(
                                     }
                                 }
                         }
-                    } else if (delegationResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
                     }
 
                     if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
                         chain.initiaFetcher()?.initiaUnbondings = unBondingResult.data
-                    } else if (unBondingResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
                     }
 
                 } else if (chain is ChainZenrock) {
@@ -453,15 +431,10 @@ class ApplicationViewModel(
                                 )
                             }
                         }
-
-                    } else if (delegationResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
                     }
 
                     if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
                         chain.zenrockFetcher()?.zenrockUnbondings = unBondingResult.data
-                    } else if (unBondingResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
                     }
 
                 } else {
@@ -474,9 +447,7 @@ class ApplicationViewModel(
                             async { walletRepository.stakingRewards(channel, this@apply) }
 
                         val responses = awaitAll(
-                            loadVestingDeferred,
-                            loadVaultDepositDeferred,
-                            loadRewardsDeferred
+                            loadVestingDeferred, loadVaultDepositDeferred, loadRewardsDeferred
                         )
 
                         responses.forEach { response ->
@@ -527,8 +498,6 @@ class ApplicationViewModel(
 
                         if (btcStakedStatusResult is NetworkResult.Success) {
                             chain.babylonFetcher()?.btcStakedStatus = btcStakedStatusResult.data
-                        } else if (btcStakedStatusResult is NetworkResult.Error) {
-                            _chainDataErrorMessage.postValue("error type : ${btcStakedStatusResult.errorType}  error message : ${btcStakedStatusResult.errorMessage}")
                         }
                     }
 
@@ -548,14 +517,10 @@ class ApplicationViewModel(
                                 )
                             }
                         }
-                    } else if (delegationResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${delegationResult.errorType}  error message : ${delegationResult.errorMessage}")
                     }
 
                     if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
                         cosmosFetcher?.cosmosUnbondings = unBondingResult.data
-                    } else if (unBondingResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${unBondingResult.errorType}  error message : ${unBondingResult.errorMessage}")
                     }
                 }
 
@@ -567,26 +532,18 @@ class ApplicationViewModel(
 
                 if (spendableBalanceResult is NetworkResult.Success && spendableBalanceResult.data is MutableList<*>) {
                     cosmosFetcher?.cosmosAvailable = spendableBalanceResult.data
-                } else if (spendableBalanceResult is NetworkResult.Error) {
-                    _chainDataErrorMessage.postValue("error type : ${spendableBalanceResult.errorType}  error message : ${spendableBalanceResult.errorMessage}")
                 }
 
                 if (balanceResult is NetworkResult.Success && balanceResult.data is MutableList<*>) {
                     cosmosFetcher?.cosmosBalances = balanceResult.data
-                } else if (balanceResult is NetworkResult.Error) {
-                    _chainDataErrorMessage.postValue("error type : ${balanceResult.errorType}  error message : ${balanceResult.errorMessage}")
                 }
 
                 if (rewardResult is NetworkResult.Success && rewardResult.data is MutableList<*>) {
                     cosmosFetcher?.cosmosRewards = rewardResult.data
-                } else if (rewardResult is NetworkResult.Error) {
-                    _chainDataErrorMessage.postValue("error type : ${rewardResult.errorType}  error message : ${rewardResult.errorMessage}")
                 }
 
                 if (rewardAddressResult is NetworkResult.Success && rewardAddressResult.data is String) {
                     cosmosFetcher?.rewardAddress = rewardAddressResult.data
-                } else if (rewardAddressResult is NetworkResult.Error) {
-                    _chainDataErrorMessage.postValue("error type : ${rewardAddressResult.errorType}  error message : ${rewardAddressResult.errorMessage}")
                 }
 
                 if (feeMarketResult is NetworkResult.Success && feeMarketResult.data is MutableList<*>) {
@@ -600,14 +557,9 @@ class ApplicationViewModel(
                         }
                     }
                     cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) {
-                            -1
-                        } else {
-                            0
-                        }
+                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                        else 0
                     }
-                } else if (feeMarketResult is NetworkResult.Error) {
-                    _chainDataErrorMessage.postValue("error type : ${feeMarketResult.errorType}  error message : ${feeMarketResult.errorMessage}")
                 }
 
                 fetchState = when {
@@ -687,28 +639,42 @@ class ApplicationViewModel(
                         if (web3j != null) {
                             evmRpcFetcher()?.let { evmRpcFetcher ->
                                 val userDisplayToken = Prefs.getDisplayErc20s(id, tag)
-                                val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                    evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
-                                        .map { token ->
-                                            async {
-                                                walletRepository.erc20Balance(
-                                                    this@apply, token
-                                                )
-                                            }
+                                if (isSupportErc20()) {
+                                    if (isSupportMultiCall() && multicallAddress().isNotEmpty()) {
+                                        withContext(Dispatchers.Default) {
+                                            walletRepository.erc20MultiBalance(this@apply)
                                         }
 
-                                } else {
-                                    evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
-                                        .map { token ->
-                                            async {
-                                                walletRepository.erc20Balance(
-                                                    this@apply, token
-                                                )
+                                    } else {
+                                        val tokenBalanceDeferredList =
+                                            if (userDisplayToken == null) {
+                                                evmRpcFetcher.evmTokens.filter {
+                                                    it.wallet_preload ?: false
+                                                }.map { token ->
+                                                    async {
+                                                        walletRepository.erc20Balance(
+                                                            this@apply, token
+                                                        )
+                                                    }
+                                                }
+
+                                            } else {
+                                                evmRpcFetcher.evmTokens.filter {
+                                                    userDisplayToken.contains(
+                                                        it.address
+                                                    )
+                                                }.map { token ->
+                                                    async {
+                                                        walletRepository.erc20Balance(
+                                                            this@apply, token
+                                                        )
+                                                    }
+                                                }
                                             }
-                                        }
+                                        tokenBalanceDeferredList.awaitAll()
+                                    }
                                 }
 
-                                tokenBalanceDeferredList.awaitAll()
                                 val evmRefAddress = RefAddress(
                                     id,
                                     tag,
@@ -813,11 +779,8 @@ class ApplicationViewModel(
 
                     if (this is ChainOktEvm) {
                         fetchState =
-                            if (web3j == null || oktFetcher()?.oktAccountInfo?.isJsonNull == true) {
-                                FetchState.FAIL
-                            } else {
-                                FetchState.SUCCESS
-                            }
+                            if (web3j == null || oktFetcher()?.oktAccountInfo?.isJsonNull == true) FetchState.FAIL
+                            else FetchState.SUCCESS
 
                         if (fetchState == FetchState.SUCCESS) {
                             val refAddress = RefAddress(
@@ -846,28 +809,35 @@ class ApplicationViewModel(
                                 }
                             }
 
-                            val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
-                                    .map { token ->
-                                        async {
-                                            walletRepository.erc20Balance(
-                                                this@apply, token
-                                            )
-                                        }
-                                    }
+                            withContext(Dispatchers.Default) {
+                                walletRepository.erc20MultiBalance(this@apply)
 
-                            } else {
-                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
-                                    .map { token ->
-                                        async {
-                                            walletRepository.erc20Balance(
-                                                this@apply, token
-                                            )
-                                        }
+                                val evmRefAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    address,
+                                    evmAddress,
+                                    "0",
+                                    "0",
+                                    evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                        .toPlainString(),
+                                    0
+                                )
+                                BaseData.updateRefAddressesToken(evmRefAddress)
+                                tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
+                                tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
+
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit == true) {
+                                        editFetchedTokenResult.value = tag
+                                    } else {
+                                        fetchedTokenResult.value = tag
                                     }
+                                }
+                                fetchedTotalResult.postValue(tag)
                             }
 
-                            tokenBalanceDeferredList.awaitAll()
                             val evmRefAddress = RefAddress(
                                 baseAccountId,
                                 tag,
@@ -908,11 +878,8 @@ class ApplicationViewModel(
                         }
 
                     } else {
-                        fetchState = if (web3j != null) {
-                            FetchState.SUCCESS
-                        } else {
-                            FetchState.FAIL
-                        }
+                        fetchState = if (web3j != null) FetchState.SUCCESS
+                        else FetchState.FAIL
 
                         if (fetchState == FetchState.SUCCESS) {
                             val refAddress = RefAddress(
@@ -938,20 +905,41 @@ class ApplicationViewModel(
                                 }
                             }
 
-                            val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                evmRpcFetcher.evmTokens.filter { it.wallet_preload ?: false }
-                                    .map { token ->
-                                        async { walletRepository.erc20Balance(this@apply, token) }
+                            if (isSupportErc20()) {
+                                if (isSupportMultiCall() && multicallAddress().isNotEmpty()) {
+                                    withContext(Dispatchers.Default) {
+                                        walletRepository.erc20MultiBalance(this@apply)
                                     }
 
-                            } else {
-                                evmRpcFetcher.evmTokens.filter { userDisplayToken.contains(it.address) }
-                                    .map { token ->
-                                        async { walletRepository.erc20Balance(this@apply, token) }
+                                } else {
+                                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                        evmRpcFetcher.evmTokens.filter {
+                                            it.wallet_preload ?: false
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
+                                                )
+                                            }
+                                        }
+
+                                    } else {
+                                        evmRpcFetcher.evmTokens.filter {
+                                            userDisplayToken.contains(
+                                                it.address
+                                            )
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
+                                                )
+                                            }
+                                        }
                                     }
+                                    tokenBalanceDeferredList.awaitAll()
+                                }
                             }
 
-                            tokenBalanceDeferredList.awaitAll()
                             val evmRefAddress = RefAddress(
                                 baseAccountId,
                                 tag,
@@ -992,75 +980,70 @@ class ApplicationViewModel(
         }
 
     private fun loadOktLcdData(
-        chain: BaseChain, baseAccountId: Long, isEdit: Boolean? = false
+        chain: ChainOkt996Keccak, baseAccountId: Long, isEdit: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
         chain.apply {
-            if (this is ChainOkt996Keccak) {
-                val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
-                val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
-                val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
+            val loadAccountInfoDeferred = async { walletRepository.oktAccountInfo(this@apply) }
+            val loadDepositDeferred = async { walletRepository.oktDeposit(this@apply) }
+            val loadWithdrawDeferred = async { walletRepository.oktWithdraw(this@apply) }
 
-                val accountInfoResult = loadAccountInfoDeferred.await()
-                val depositResult = loadDepositDeferred.await()
-                val withdrawResult = loadWithdrawDeferred.await()
+            val accountInfoResult = loadAccountInfoDeferred.await()
+            val depositResult = loadDepositDeferred.await()
+            val withdrawResult = loadWithdrawDeferred.await()
 
-                if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
-                    oktFetcher()?.oktAccountInfo = accountInfoResult.data
-                } else {
-                    oktFetcher()?.oktAccountInfo = null
-                }
+            if (accountInfoResult is NetworkResult.Success && accountInfoResult.data is JsonObject) {
+                oktFetcher()?.oktAccountInfo = accountInfoResult.data
+            } else {
+                oktFetcher()?.oktAccountInfo = null
+            }
 
-                if (depositResult is NetworkResult.Success && depositResult.data is JsonObject) {
-                    oktFetcher()?.oktDeposits = depositResult.data
-                }
-                if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
-                    oktFetcher()?.oktWithdaws = withdrawResult.data
-                }
+            if (depositResult is NetworkResult.Success && depositResult.data is JsonObject) {
+                oktFetcher()?.oktDeposits = depositResult.data
+            }
+            if (withdrawResult is NetworkResult.Success && withdrawResult.data is JsonObject) {
+                oktFetcher()?.oktWithdaws = withdrawResult.data
+            }
 
-                fetchState = if (oktFetcher()?.oktAccountInfo?.isJsonNull == true) {
-                    FetchState.FAIL
-                } else {
-                    FetchState.SUCCESS
-                }
+            fetchState = if (oktFetcher()?.oktAccountInfo?.isJsonNull == true) FetchState.FAIL
+            else FetchState.SUCCESS
 
-                if (fetchState == FetchState.SUCCESS) {
-                    val refAddress = RefAddress(
-                        baseAccountId,
-                        tag,
-                        address,
-                        evmAddress,
-                        oktFetcher?.allAssetValue(true).toString(),
-                        oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
-                        "0",
-                        oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                            ?.toLong()
-                    )
-                    BaseData.updateRefAddressesMain(refAddress)
-                    coinValue = oktFetcher?.allAssetValue()
-                    coinUsdValue = oktFetcher?.allAssetValue(true)
-                    coinCnt =
-                        oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
-                            ?: 0
+            if (fetchState == FetchState.SUCCESS) {
+                val refAddress = RefAddress(
+                    baseAccountId,
+                    tag,
+                    address,
+                    evmAddress,
+                    oktFetcher?.allAssetValue(true).toString(),
+                    oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
+                    "0",
+                    oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        ?.toLong()
+                )
+                BaseData.updateRefAddressesMain(refAddress)
+                coinValue = oktFetcher?.allAssetValue()
+                coinUsdValue = oktFetcher?.allAssetValue(true)
+                coinCnt =
+                    oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
+                        ?: 0
 
-                    withContext(Dispatchers.Main) {
-                        if (isEdit == true) {
-                            editFetchedResult.value = tag
-                        } else {
-                            fetchedResult.value = tag
-                        }
+                withContext(Dispatchers.Main) {
+                    if (isEdit == true) {
+                        editFetchedResult.value = tag
+                    } else {
+                        fetchedResult.value = tag
                     }
+                }
 
-                } else {
-                    val refAddress = RefAddress(
-                        baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
-                    )
-                    BaseData.updateRefAddressesMain(refAddress)
-                    withContext(Dispatchers.Main) {
-                        if (isEdit == true) {
-                            editFetchedResult.value = tag
-                        } else {
-                            fetchedResult.value = tag
-                        }
+            } else {
+                val refAddress = RefAddress(
+                    baseAccountId, tag, address, evmAddress, "0", "0", "0", 0
+                )
+                BaseData.updateRefAddressesMain(refAddress)
+                withContext(Dispatchers.Main) {
+                    if (isEdit == true) {
+                        editFetchedResult.value = tag
+                    } else {
+                        fetchedResult.value = tag
                     }
                 }
             }
@@ -1112,9 +1095,6 @@ class ApplicationViewModel(
                                 ) ?: 0
                             }
                         }
-
-                    } else if (systemStateResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
                     }
 
                     if (apysResult is NetworkResult.Success) {
@@ -1122,9 +1102,6 @@ class ApplicationViewModel(
                         fetcher.suiApys.sortByDescending {
                             it["apy"]?.asDouble ?: Double.MIN_VALUE
                         }
-
-                    } else if (apysResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${apysResult.errorType}  error message : ${apysResult.errorMessage}")
                     }
 
                     fetcher.suiObjects.forEach { suiObject ->
@@ -1153,9 +1130,6 @@ class ApplicationViewModel(
                         stakesResult.data["result"].asJsonArray.forEach { stake ->
                             fetcher.suiStakedList.add(stake.asJsonObject)
                         }
-
-                    } else if (stakesResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
                     }
 
                     withContext(Dispatchers.Default) {
@@ -1183,9 +1157,6 @@ class ApplicationViewModel(
                                         fetcher.suiCoinMeta[type] = resultData
                                     }
                                 }
-
-                            } else if (coinMetadataResult is NetworkResult.Error) {
-                                _chainDataErrorMessage.postValue("Coin metadata fetch error: ${coinMetadataResult.errorMessage}")
                             }
                         }
                     }
@@ -1282,9 +1253,6 @@ class ApplicationViewModel(
                                 ) ?: 0
                             }
                         }
-
-                    } else if (systemStateResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${systemStateResult.errorType}  error message : ${systemStateResult.errorMessage}")
                     }
 
                     if (apysResult is NetworkResult.Success) {
@@ -1292,9 +1260,6 @@ class ApplicationViewModel(
                         fetcher.iotaApys.sortByDescending {
                             it["apy"]?.asDouble ?: Double.MIN_VALUE
                         }
-
-                    } else if (apysResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${apysResult.errorType}  error message : ${apysResult.errorMessage}")
                     }
 
                     fetcher.iotaObjects.forEach { suiObject ->
@@ -1324,9 +1289,6 @@ class ApplicationViewModel(
                         stakesResult.data["result"].asJsonArray.forEach { stake ->
                             fetcher.iotaStakedList.add(stake.asJsonObject)
                         }
-
-                    } else if (stakesResult is NetworkResult.Error) {
-                        _chainDataErrorMessage.postValue("error type : ${stakesResult.errorType}  error message : ${stakesResult.errorMessage}")
                     }
 
                     withContext(Dispatchers.Default) {
@@ -1354,9 +1316,6 @@ class ApplicationViewModel(
                                         fetcher.iotaCoinMeta[type] = resultData
                                     }
                                 }
-
-                            } else if (coinMetadataResult is NetworkResult.Error) {
-                                _chainDataErrorMessage.postValue("Coin metadata fetch error: ${coinMetadataResult.errorMessage}")
                             }
                         }
                     }

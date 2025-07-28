@@ -5,10 +5,10 @@
     <string name="str_today">오늘</string>
     <string name="str_next">다음</string>
     <string name="str_share_address">주소 공유</string>
-    <string name="str_share_evm_address">Evm형식 주소공유</string>
-    <string name="str_share_cosmos_address">Cosmos형식 주소공유</string>
-    <string name="str_share_evm_address2">Evm형식 주소공유</string>
-    <string name="str_share_cosmos_address2">Cosmos형식 주소공유</string>
+    <string name="str_share_evm_address">Evm타입 주소공유</string>
+    <string name="str_share_cosmos_address">Cosmos타입 주소공유</string>
+    <string name="str_share_evm_address2">Evm타입 주소공유</string>
+    <string name="str_share_cosmos_address2">Cosmos타입 주소공유</string>
     <string name="str_address">주소</string>
     <string name="str_ethereum_address">이더리움 주소</string>
     <string name="str_confirm">확인</string>
@@ -116,8 +116,8 @@
     <string name="str_chain_information">체인 정보</string>
     <string name="str_initial_time">최초 가동일</string>
     <string name="str_chain_id">체인 아이디</string>
-    <string name="str_chain_id_cosmos">체인 아이디 (cosmos 형식)</string>
-    <string name="str_chain_id_evm">체인 아이디 (evm 형식)</string>
+    <string name="str_chain_id_cosmos">체인 아이디 (cosmos 타입)</string>
+    <string name="str_chain_id_evm">체인 아이디 (evm 타입)</string>
     <string name="str_coin_for_gas">가스용 코인</string>
     <string name="str_network">네트워크</string>
     <string name="str_staking_information">스테이킹 정보</string>

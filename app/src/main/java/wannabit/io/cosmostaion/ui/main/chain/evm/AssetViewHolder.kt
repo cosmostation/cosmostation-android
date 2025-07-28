@@ -39,7 +39,7 @@ class AssetViewHolder(
             val dpAmount = evmChain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
                 ?.setScale(18, RoundingMode.DOWN)
             val value = evmChain.evmRpcFetcher?.allAssetValue(false) ?: BigDecimal.ZERO
-            val amount = dpAmount?.setScale(6, RoundingMode.DOWN)
+            val amount = dpAmount?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
             if (Prefs.hideValue) {
                 assetAmount.visibility = View.GONE
