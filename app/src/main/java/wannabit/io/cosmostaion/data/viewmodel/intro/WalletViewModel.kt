@@ -1042,7 +1042,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             is NetworkResult.Success -> {
                                 chain.cosmosFetcher?.cosmosBalances = response.data
                                 chain.fetchState = FetchState.SUCCESS
-                                chain.coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
+                                chain.coinCnt = chain.cosmosFetcher?.cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }

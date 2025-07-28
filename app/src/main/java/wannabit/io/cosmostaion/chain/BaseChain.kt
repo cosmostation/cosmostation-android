@@ -49,6 +49,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
@@ -757,6 +758,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
+    chains.add(ChainGitopia())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
     chains.add(ChainHippocrat())
