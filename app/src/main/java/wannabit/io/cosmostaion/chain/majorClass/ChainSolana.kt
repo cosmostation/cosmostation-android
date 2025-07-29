@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.chain.majorClass
 import android.content.Context
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
 import wannabit.io.cosmostaion.chain.AccountKeyType
@@ -14,9 +13,6 @@ import wannabit.io.cosmostaion.common.BaseKey
 
 @Parcelize
 class ChainSolana : BaseChain(), Parcelable {
-
-    @IgnoredOnParcel
-    var solanaFetcher: SolanaFetcher? = null
 
     override var name: String = "Solana"
     override var tag: String = "solana501"

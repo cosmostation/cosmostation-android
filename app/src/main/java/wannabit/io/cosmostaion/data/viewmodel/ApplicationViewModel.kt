@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -215,6 +216,12 @@ class ApplicationViewModel(
             chain.gnoRpcFetcher?.grc20Tokens =
                 BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
                     token.type = "grc20"
+                    token
+                }?.toMutableList() ?: mutableListOf()
+
+            chain.solanaFetcher?.splTokens =
+                BaseData.splTokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                    token.type = "spl"
                     token
                 }?.toMutableList() ?: mutableListOf()
 
@@ -503,7 +510,8 @@ class ApplicationViewModel(
 
                     val loadDelegationDeferred =
                         async { walletRepository.delegation(channel, chain) }
-                    val loadUnBondingDeferred = async { walletRepository.unBonding(channel, chain) }
+                    val loadUnBondingDeferred =
+                        async { walletRepository.unBonding(channel, chain) }
 
                     val delegationResult = loadDelegationDeferred.await()
                     val unBondingResult = loadUnBondingDeferred.await()
@@ -608,13 +616,25 @@ class ApplicationViewModel(
                         val tokenBalanceDeferredList = if (userDisplayToken == null) {
                             cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
                                 ?.map { token ->
-                                    async { walletRepository.cw20Balance(channel, chain, token) }
+                                    async {
+                                        walletRepository.cw20Balance(
+                                            channel,
+                                            chain,
+                                            token
+                                        )
+                                    }
                                 }
 
                         } else {
                             cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
                                 ?.map { token ->
-                                    async { walletRepository.cw20Balance(channel, chain, token) }
+                                    async {
+                                        walletRepository.cw20Balance(
+                                            channel,
+                                            chain,
+                                            token
+                                        )
+                                    }
                                 }
                         }
 
@@ -738,7 +758,8 @@ class ApplicationViewModel(
             chain.apply {
                 evmRpcFetcher()?.let { evmRpcFetcher ->
                     val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, tag)
-                    val loadEvmBalanceDeferred = async { walletRepository.evmBalance(this@apply) }
+                    val loadEvmBalanceDeferred =
+                        async { walletRepository.evmBalance(this@apply) }
 
                     val balanceResult = loadEvmBalanceDeferred.await()
 
@@ -845,7 +866,8 @@ class ApplicationViewModel(
                                 evmAddress,
                                 "0",
                                 "0",
-                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
+                                evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                    .toPlainString(),
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
@@ -947,7 +969,8 @@ class ApplicationViewModel(
                                 evmAddress,
                                 "0",
                                 "0",
-                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
+                                evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                    .toPlainString(),
                                 0
                             )
                             BaseData.updateRefAddressesToken(evmRefAddress)
@@ -1074,7 +1097,8 @@ class ApplicationViewModel(
                         async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
                     val loadStakesDeferred =
                         async { walletRepository.suiStakes(fetcher, this@apply) }
-                    val loadApysDeferred = async { walletRepository.suiApys(fetcher, this@apply) }
+                    val loadApysDeferred =
+                        async { walletRepository.suiApys(fetcher, this@apply) }
 
                     val systemStateResult = loadSystemStateDeferred.await()
                     loadOwnedObjectDeferred.await()
@@ -1105,7 +1129,8 @@ class ApplicationViewModel(
                     }
 
                     fetcher.suiObjects.forEach { suiObject ->
-                        val coinType = suiObject["data"].asJsonObject["type"].asString.suiCoinType()
+                        val coinType =
+                            suiObject["data"].asJsonObject["type"].asString.suiCoinType()
                         if (coinType != null) {
                             val fields =
                                 suiObject["data"].asJsonObject["content"].asJsonObject["fields"].asJsonObject
@@ -1231,7 +1256,8 @@ class ApplicationViewModel(
                         async { walletRepository.iotaOwnedObject(fetcher, this@apply, null) }
                     val loadStakesDeferred =
                         async { walletRepository.iotaStakes(fetcher, this@apply) }
-                    val loadApysDeferred = async { walletRepository.iotaApys(fetcher, this@apply) }
+                    val loadApysDeferred =
+                        async { walletRepository.iotaApys(fetcher, this@apply) }
 
                     val systemStateResult = loadSystemStateDeferred.await()
                     loadOwnedObjectDeferred.await()
@@ -1519,7 +1545,8 @@ class ApplicationViewModel(
                                     fetcher.gnoBalances = tempBalances
                                     fetcher.gnoAccountNumber =
                                         accountData["account_number"].asString.toLong()
-                                    fetcher.gnoSequence = accountData["sequence"].asString.toLong()
+                                    fetcher.gnoSequence =
+                                        accountData["sequence"].asString.toLong()
 
                                     fetchState = FetchState.SUCCESS
                                     val refAddress = RefAddress(
@@ -1549,26 +1576,33 @@ class ApplicationViewModel(
 
                                 if (isSupportGrc20()) {
                                     val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
-                                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                        fetcher.grc20Tokens.filter { it.wallet_preload ?: false }
-                                            .map { token ->
-                                                async {
-                                                    walletRepository.grc20Balance(
-                                                        chain, token
-                                                    )
-                                                }
+                                    val tokenBalanceDeferredList =
+                                        if (userDisplayToken == null) {
+                                            fetcher.grc20Tokens.filter {
+                                                it.wallet_preload ?: false
                                             }
+                                                .map { token ->
+                                                    async {
+                                                        walletRepository.grc20Balance(
+                                                            chain, token
+                                                        )
+                                                    }
+                                                }
 
-                                    } else {
-                                        fetcher.grc20Tokens.filter { userDisplayToken.contains(it.address) }
-                                            .map { token ->
-                                                async {
-                                                    walletRepository.grc20Balance(
-                                                        chain, token
-                                                    )
-                                                }
+                                        } else {
+                                            fetcher.grc20Tokens.filter {
+                                                userDisplayToken.contains(
+                                                    it.address
+                                                )
                                             }
-                                    }
+                                                .map { token ->
+                                                    async {
+                                                        walletRepository.grc20Balance(
+                                                            chain, token
+                                                        )
+                                                    }
+                                                }
+                                        }
 
                                     tokenBalanceDeferredList.awaitAll()
                                     val grcRefAddress = RefAddress(
@@ -1629,27 +1663,14 @@ class ApplicationViewModel(
             chain.apply {
                 solanaFetcher()?.let { fetcher ->
                     fetcher.solanaAccountInfo = JsonObject()
-                    fetcher.solanaTokenInfo.clear()
 
                     try {
-                        when (val response = walletRepository.solanaAccountInfo(fetcher, chain)) {
+                        when (val response =
+                            walletRepository.solanaAccountInfo(fetcher, chain)) {
                             is NetworkResult.Success -> {
-                                if (response.data.has("error")) {
-                                    fetchState = FetchState.FAIL
-                                    withContext(Dispatchers.Main) {
-                                        if (isEdit == true) {
-                                            editFetchedResult.value = tag
-                                        } else {
-                                            fetchedResult.value = tag
-                                        }
-                                    }
-
-                                } else {
-                                    if (response.data["result"].asJsonObject["value"].isJsonNull) {
-                                        fetcher.solanaAccountInfo = JsonObject()
-                                    } else {
-                                        fetcher.solanaAccountInfo = response.data
-                                    }
+                                if (response.data.has("result")) {
+                                    fetcher.solanaAccountInfo =
+                                        response.data["result"].asJsonObject
 
                                     when (val tokenResponse =
                                         walletRepository.solanaTokenInfo(fetcher, chain)) {
@@ -1657,18 +1678,35 @@ class ApplicationViewModel(
                                             val values =
                                                 tokenResponse.data["result"].asJsonObject["value"].asJsonArray
                                             values.forEach { value ->
-                                                fetcher.solanaTokenInfo.add(value.asJsonObject)
+                                                val info =
+                                                    value.asJsonObject["account"].asJsonObject["data"].asJsonObject["parsed"].asJsonObject["info"].asJsonObject
+                                                val pubkey = value.asJsonObject["pubkey"].asString
+                                                fetcher.solanaTokenInfo.add(Pair(pubkey, info))
+                                            }
+
+                                            Log.e("TEst12345 : ", fetcher.splTokens.toString())
+
+                                            fetcher.solanaTokenInfo.forEach { tokenInfo ->
+                                                val mint = tokenInfo.second["mint"].asString
+                                                val amount = tokenInfo.second["tokenAmount"].asJsonObject["amount"].asString
+
+                                                val splToken = fetcher.splTokens.firstOrNull { it.address == mint }
+
+                                                if (splToken != null) {
+                                                    splToken.amount = amount
+                                                }
                                             }
 
                                             fetchState = FetchState.SUCCESS
                                             coinValue = fetcher.allAssetValue()
                                             coinUsdValue = fetcher.allAssetValue(true)
-                                            coinCnt = if (fetcher.solanaAccountInfo == JsonObject()) {
-                                                0
-                                            } else {
-                                                1
-                                            }
-                                            tokenCnt = fetcher.solanaTokenInfo.size
+                                            coinCnt =
+                                                if (fetcher.solanaBalanceAmount() > BigDecimal.ZERO) {
+                                                    1
+                                                } else {
+                                                    0
+                                                }
+                                            tokenCnt = values.size()
 
                                             val refAddress = RefAddress(
                                                 id,
@@ -1700,6 +1738,16 @@ class ApplicationViewModel(
                                                     fetchedResult.value = tag
                                                 }
                                             }
+                                        }
+                                    }
+
+                                } else {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        if (isEdit == true) {
+                                            editFetchedResult.value = tag
+                                        } else {
+                                            fetchedResult.value = tag
                                         }
                                     }
                                 }

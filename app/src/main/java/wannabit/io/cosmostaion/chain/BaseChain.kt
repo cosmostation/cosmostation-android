@@ -158,6 +158,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -235,6 +236,7 @@ open class BaseChain : Parcelable {
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
     var gnoRpcFetcher: GnoFetcher? = null
+    var solanaFetcher: SolanaFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""

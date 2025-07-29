@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -143,6 +144,8 @@ class MajorCryptoFragment : Fragment() {
                     (selectedChain as ChainSolana).solanaFetcher?.let { fetcher ->
                         solanaBalances.add(fetcher.solanaAccountInfo)
                         searchSolanaBalances.addAll(solanaBalances)
+
+                        Log.e("Test12345 : ", fetcher.splTokens.toString())
 
                         withContext(Dispatchers.Main) {
                             initSolanaRecyclerView()

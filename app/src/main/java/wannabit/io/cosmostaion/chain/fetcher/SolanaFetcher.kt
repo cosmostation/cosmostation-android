@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.chain.fetcher
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.Prefs
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -10,15 +11,17 @@ import java.math.RoundingMode
 class SolanaFetcher(private val chain: BaseChain) {
 
     var solanaAccountInfo = JsonObject()
-    val solanaTokenInfo: MutableList<JsonObject> = mutableListOf()
+    val solanaTokenInfo: MutableList<Pair<String, JsonObject>> = mutableListOf()
+
+    var splTokens = mutableListOf<Token>()
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
         return solanaBalanceValue(isUsd)
     }
 
-    fun solanaBalanceAmount(): BigDecimal? {
-        if (solanaAccountInfo.has("result")) {
-            return solanaAccountInfo["result"].asJsonObject["value"].asJsonObject["lamports"].asLong.toBigDecimal()
+    fun solanaBalanceAmount(): BigDecimal {
+        if (!solanaAccountInfo["value"].isJsonNull) {
+            return solanaAccountInfo["value"].asJsonObject["lamports"].asLong.toBigDecimal()
         }
         return BigDecimal.ZERO
     }

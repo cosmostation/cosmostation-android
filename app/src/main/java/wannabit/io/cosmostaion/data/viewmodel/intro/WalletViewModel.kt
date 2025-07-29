@@ -139,7 +139,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadErc20Deferred = async { walletRepository.erc20() }
         val loadGrc20Deferred = async { walletRepository.grc20() }
         val loadCw721Deferred = async { walletRepository.cw721() }
-//        val loadSplDeferred = async { walletRepository.spl() }
+        val loadSplDeferred = async { walletRepository.spl() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemInfo() }
 
         val responses = awaitAll(
@@ -149,6 +149,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             loadErc20Deferred,
             loadGrc20Deferred,
             loadCw721Deferred,
+            loadSplDeferred,
             loadEcoSystemDeferred
         )
 
@@ -951,12 +952,24 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         when (val response = walletRepository.solanaAccountInfo(fetcher, this)) {
                             is NetworkResult.Success -> {
-                                fetcher.solanaAccountInfo = response.data
+                                if (response.data.has("result")) {
+                                    fetcher.solanaAccountInfo = response.data["result"].asJsonObject
 
-                                fetchState = FetchState.SUCCESS
-                                coinCnt = 1
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
+                                    fetchState = FetchState.SUCCESS
+                                    coinCnt = if (fetcher.solanaBalanceAmount() > BigDecimal.ZERO) {
+                                        1
+                                    } else {
+                                        0
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+
+                                } else {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
                                 }
                             }
 
