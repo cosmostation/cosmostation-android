@@ -3058,7 +3058,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -3069,7 +3069,7 @@ public final class TxProto {
     @java.lang.Deprecated boolean hasTip();
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -3080,7 +3080,7 @@ public final class TxProto {
     @java.lang.Deprecated com.cosmos.tx.v1beta1.TxProto.Tip getTip();
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -3270,7 +3270,7 @@ public final class TxProto {
     private com.cosmos.tx.v1beta1.TxProto.Tip tip_;
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -3284,7 +3284,7 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -3298,7 +3298,7 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * tips have been depreacted and should not be used
+     * tips have been deprecated and should not be used
      * </pre>
      *
      * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4181,7 +4181,7 @@ public final class TxProto {
           com.cosmos.tx.v1beta1.TxProto.Tip, com.cosmos.tx.v1beta1.TxProto.Tip.Builder, com.cosmos.tx.v1beta1.TxProto.TipOrBuilder> tipBuilder_;
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4194,7 +4194,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4211,7 +4211,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4231,7 +4231,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4249,7 +4249,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4272,7 +4272,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4289,7 +4289,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4301,7 +4301,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>
@@ -4316,7 +4316,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * tips have been depreacted and should not be used
+       * tips have been deprecated and should not be used
        * </pre>
        *
        * <code>.cosmos.tx.v1beta1.Tip tip = 6 [json_name = "tip", deprecated = true];</code>

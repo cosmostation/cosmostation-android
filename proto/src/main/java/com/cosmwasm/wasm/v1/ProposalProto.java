@@ -1516,7 +1516,7 @@ public final class ProposalProto {
 
     /**
      * <pre>
-     * Label is optional metadata to be stored with a constract instance.
+     * Label is optional metadata to be stored with a construct instance.
      * </pre>
      *
      * <code>string label = 6 [json_name = "label"];</code>
@@ -1525,7 +1525,7 @@ public final class ProposalProto {
     java.lang.String getLabel();
     /**
      * <pre>
-     * Label is optional metadata to be stored with a constract instance.
+     * Label is optional metadata to be stored with a construct instance.
      * </pre>
      *
      * <code>string label = 6 [json_name = "label"];</code>
@@ -1843,7 +1843,7 @@ public final class ProposalProto {
     private volatile java.lang.Object label_ = "";
     /**
      * <pre>
-     * Label is optional metadata to be stored with a constract instance.
+     * Label is optional metadata to be stored with a construct instance.
      * </pre>
      *
      * <code>string label = 6 [json_name = "label"];</code>
@@ -1864,7 +1864,7 @@ public final class ProposalProto {
     }
     /**
      * <pre>
-     * Label is optional metadata to be stored with a constract instance.
+     * Label is optional metadata to be stored with a construct instance.
      * </pre>
      *
      * <code>string label = 6 [json_name = "label"];</code>
@@ -2922,7 +2922,7 @@ public final class ProposalProto {
       private java.lang.Object label_ = "";
       /**
        * <pre>
-       * Label is optional metadata to be stored with a constract instance.
+       * Label is optional metadata to be stored with a construct instance.
        * </pre>
        *
        * <code>string label = 6 [json_name = "label"];</code>
@@ -2942,7 +2942,7 @@ public final class ProposalProto {
       }
       /**
        * <pre>
-       * Label is optional metadata to be stored with a constract instance.
+       * Label is optional metadata to be stored with a construct instance.
        * </pre>
        *
        * <code>string label = 6 [json_name = "label"];</code>
@@ -2963,7 +2963,7 @@ public final class ProposalProto {
       }
       /**
        * <pre>
-       * Label is optional metadata to be stored with a constract instance.
+       * Label is optional metadata to be stored with a construct instance.
        * </pre>
        *
        * <code>string label = 6 [json_name = "label"];</code>
@@ -2980,7 +2980,7 @@ public final class ProposalProto {
       }
       /**
        * <pre>
-       * Label is optional metadata to be stored with a constract instance.
+       * Label is optional metadata to be stored with a construct instance.
        * </pre>
        *
        * <code>string label = 6 [json_name = "label"];</code>
@@ -2994,7 +2994,7 @@ public final class ProposalProto {
       }
       /**
        * <pre>
-       * Label is optional metadata to be stored with a constract instance.
+       * Label is optional metadata to be stored with a construct instance.
        * </pre>
        *
        * <code>string label = 6 [json_name = "label"];</code>
