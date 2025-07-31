@@ -16,7 +16,7 @@ class SolanaFetcher(private val chain: BaseChain) {
     var splTokens = mutableListOf<Token>()
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
-        return solanaBalanceValue(isUsd)
+        return solanaBalanceValue(isUsd).add(allSplTokenValue(isUsd))
     }
 
     fun solanaBalanceAmount(): BigDecimal {
@@ -35,6 +35,31 @@ class SolanaFetcher(private val chain: BaseChain) {
                 .setScale(6, RoundingMode.DOWN)
         }
         return BigDecimal.ZERO
+    }
+
+    fun splTokenValue(address: String?, isUsd: Boolean? = false): BigDecimal {
+        splTokens.firstOrNull { it.address == address }?.let { splToken ->
+            val price = BaseData.getPrice(splToken.coinGeckoId, isUsd)
+            return price.multiply(splToken.amount?.toBigDecimal())
+                .movePointLeft(splToken.decimals).setScale(6, RoundingMode.DOWN)
+        } ?: run {
+            return BigDecimal.ZERO
+        }
+    }
+
+    fun allSplTokenValue(isUsd: Boolean? = false): BigDecimal {
+        var result = BigDecimal.ZERO
+
+        solanaTokenInfo.forEach { splToken ->
+            BaseData.getToken(chain, chain.apiName, splToken.second["mint"].asString)?.let { token ->
+                val price = BaseData.getPrice(token.coinGeckoId, isUsd)
+                val value =
+                    price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)
+                        .setScale(6, RoundingMode.DOWN)
+                result = result.add(value)
+            }
+        }
+        return result
     }
 
     fun solanaRpc(): String {

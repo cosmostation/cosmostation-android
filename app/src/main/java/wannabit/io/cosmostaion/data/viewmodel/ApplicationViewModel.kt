@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.data.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -219,11 +218,13 @@ class ApplicationViewModel(
                     token
                 }?.toMutableList() ?: mutableListOf()
 
-            chain.solanaFetcher?.splTokens =
-                BaseData.splTokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    token.type = "spl"
-                    token
-                }?.toMutableList() ?: mutableListOf()
+            if (chain is ChainSolana) {
+                chain.solanaFetcher()?.splTokens =
+                    BaseData.splTokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                        token.type = "spl"
+                        token
+                    }?.toMutableList() ?: mutableListOf()
+            }
 
             chain.cosmosFetcher?.cw721Tokens =
                 BaseData.cw721Tokens?.filter { it.chain == chain.apiName }?.toMutableList()
@@ -1663,6 +1664,7 @@ class ApplicationViewModel(
             chain.apply {
                 solanaFetcher()?.let { fetcher ->
                     fetcher.solanaAccountInfo = JsonObject()
+                    fetcher.solanaTokenInfo.clear()
 
                     try {
                         when (val response =
@@ -1684,13 +1686,13 @@ class ApplicationViewModel(
                                                 fetcher.solanaTokenInfo.add(Pair(pubkey, info))
                                             }
 
-                                            Log.e("TEst12345 : ", fetcher.splTokens.toString())
-
                                             fetcher.solanaTokenInfo.forEach { tokenInfo ->
                                                 val mint = tokenInfo.second["mint"].asString
-                                                val amount = tokenInfo.second["tokenAmount"].asJsonObject["amount"].asString
+                                                val amount =
+                                                    tokenInfo.second["tokenAmount"].asJsonObject["amount"].asString
 
-                                                val splToken = fetcher.splTokens.firstOrNull { it.address == mint }
+                                                val splToken =
+                                                    fetcher.splTokens.firstOrNull { it.address == mint }
 
                                                 if (splToken != null) {
                                                     splToken.amount = amount

@@ -64,8 +64,7 @@ class MajorCryptoFragment : Fragment() {
 
     private var solanaBalances: MutableList<JsonObject> = mutableListOf()
     private var searchSolanaBalances: MutableList<JsonObject> = mutableListOf()
-    private var solanaTokens: MutableList<Token> = mutableListOf()
-    private var searchSolanaTokens: MutableList<Token> = mutableListOf()
+    private var searchSolanaTokens: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     private var isClickable = true
 
@@ -144,8 +143,7 @@ class MajorCryptoFragment : Fragment() {
                     (selectedChain as ChainSolana).solanaFetcher?.let { fetcher ->
                         solanaBalances.add(fetcher.solanaAccountInfo)
                         searchSolanaBalances.addAll(solanaBalances)
-
-                        Log.e("Test12345 : ", fetcher.splTokens.toString())
+                        searchSolanaTokens.addAll(fetcher.solanaTokenInfo)
 
                         withContext(Dispatchers.Main) {
                             initSolanaRecyclerView()
@@ -239,7 +237,7 @@ class MajorCryptoFragment : Fragment() {
     private fun initSolanaRecyclerView() {
         if (isAdded) {
             solanaCryptoAdapter =
-                SolanaCryptoAdapter(requireContext(), selectedChain, searchSolanaBalances)
+                SolanaCryptoAdapter(requireContext(), selectedChain, searchSolanaBalances, searchSolanaTokens)
             binding.recycler.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireActivity())

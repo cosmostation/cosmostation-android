@@ -5,40 +5,37 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemEvmAssetBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.CoinViewHolder
-import wannabit.io.cosmostaion.ui.main.chain.evm.AssetAdapter
-import wannabit.io.cosmostaion.ui.main.chain.evm.AssetAdapter.Companion
 
 class SolanaCryptoAdapter(
-    val context: Context, val selectedChain: BaseChain, val coins: MutableList<JsonObject>
+    val context: Context,
+    val selectedChain: BaseChain,
+    val coins: MutableList<JsonObject>,
+    val tokens: MutableList<Pair<String, JsonObject>>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_MAIN_HEADER = 0
         const val VIEW_TYPE_MAIN_ITEM = 1
-        const val VIEW_TYPE_COIN_HEADER = 2
-        const val VIEW_TYPE_COIN_ITEM = 3
+        const val VIEW_TYPE_TOKEN_HEADER = 2
+        const val VIEW_TYPE_TOKEN_ITEM = 3
     }
 
     private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_MAIN_HEADER, VIEW_TYPE_COIN_HEADER -> {
+            VIEW_TYPE_MAIN_HEADER, VIEW_TYPE_TOKEN_HEADER -> {
                 val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 SolanaCryptoHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_MAIN_ITEM, VIEW_TYPE_COIN_ITEM -> {
+            VIEW_TYPE_MAIN_ITEM, VIEW_TYPE_TOKEN_ITEM -> {
                 val binding = ItemEvmAssetBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -65,19 +62,20 @@ class SolanaCryptoAdapter(
                     }
 
                 } else {
-
+                    val token = tokens[position - 3]
+                    holder.tokenBind(selectedChain as ChainSolana, token)
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (coins.isNotEmpty()) {
+        return if (tokens.isNotEmpty()) {
             when (position) {
                 0 -> VIEW_TYPE_MAIN_HEADER
                 1 -> VIEW_TYPE_MAIN_ITEM
-                2 -> VIEW_TYPE_COIN_HEADER
-                else -> VIEW_TYPE_COIN_ITEM
+                2 -> VIEW_TYPE_TOKEN_HEADER
+                else -> VIEW_TYPE_TOKEN_ITEM
             }
         } else {
             when (position) {
@@ -88,7 +86,11 @@ class SolanaCryptoAdapter(
     }
 
     override fun getItemCount(): Int {
-        return coins.size + 1
+        return if (tokens.isNotEmpty()) {
+            coins.size + tokens.size + 2
+        } else {
+            coins.size + 1
+        }
     }
 
     inner class SolanaCryptoHeaderViewHolder(
@@ -102,8 +104,8 @@ class SolanaCryptoAdapter(
                     headerCnt.text = "1"
 
                 } else {
-                    headerTitle.text = "Erc20 tokens"
-//                    headerCnt.text = evmTokens.size.toString()
+                    headerTitle.text = "Spl tokens"
+                    headerCnt.text = tokens.size.toString()
                 }
             }
         }

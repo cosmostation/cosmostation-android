@@ -34,8 +34,9 @@ class ChainSolana : BaseChain(), Parcelable {
     }
 
     fun solanaFetcher(): SolanaFetcher? {
-        if (solanaFetcher != null) return solanaFetcher
-        solanaFetcher = SolanaFetcher(this)
+        if (solanaFetcher == null) {
+            solanaFetcher = SolanaFetcher(this)
+        }
         return solanaFetcher
     }
 }
