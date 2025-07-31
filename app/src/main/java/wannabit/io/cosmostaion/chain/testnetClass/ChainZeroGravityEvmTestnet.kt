@@ -11,13 +11,13 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainZeroGravity
 @Parcelize
 class ChainZeroGravityEvmTestnet : ChainZeroGravity(), Parcelable {
 
-    override var name: String = "0G Testnet"
+    override var name: String = "ØG Testnet"
     override var tag: String = "zero-gravity60_T"
     override var isTestnet: Boolean = true
     override var apiName: String = "zero-gravity-testnet"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "0G"
+    override var coinSymbol: String = "ØG"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
