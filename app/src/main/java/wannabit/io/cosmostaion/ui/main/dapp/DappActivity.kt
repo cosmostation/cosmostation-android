@@ -59,7 +59,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
+import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -2363,7 +2363,7 @@ class DappActivity : BaseActivity() {
     }
 
     private fun pubKeyType(): String {
-        return if (selectedChain is ChainInjective || selectedChain is ChainInjectiveEvmTestnet) {
+        return if (selectedChain is ChainInjectiveEvm || selectedChain is ChainInjectiveEvmTestnet) {
             INJECTIVE_KEY_TYPE_PUBLIC
         } else if (selectedChain?.supportEvm == true) {
             ETHERMINT_KEY_TYPE_PUBLIC

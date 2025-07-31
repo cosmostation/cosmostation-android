@@ -1,17 +1,16 @@
-package wannabit.io.cosmostaion.chain.cosmosClass
+package wannabit.io.cosmostaion.chain.evmClass
 
 import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainInjective : BaseChain(), Parcelable {
+class ChainInjectiveEvm : BaseChain(), Parcelable {
 
     override var name: String = "Injective"
     override var tag: String = "injective60"
@@ -27,4 +26,8 @@ class ChainInjective : BaseChain(), Parcelable {
     override var accountPrefix: String = "inj"
     override var grpcHost: String = "grpc-injective.cosmostation.io"
     override var lcdUrl: String = "https://lcd-injective.cosmostation.io/"
+
+    override var supportEvm: Boolean = true
+    override var coinSymbol: String = "INJ"
+    override var evmRpcURL: String = "https://rpc.evm.injective.mainnet.cosmostation.io"
 }

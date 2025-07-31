@@ -54,7 +54,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInt3Face
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
@@ -139,6 +138,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainForma
 import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -766,7 +766,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainHippocrat())
     chains.add(ChainHumansEvm())
     chains.add(ChainInitia())
-    chains.add(ChainInjective())
+    chains.add(ChainInjectiveEvm())
     chains.add(ChainInt3Face())
     chains.add(ChainIota())
     chains.add(ChainIris())
