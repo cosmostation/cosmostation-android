@@ -76,11 +76,11 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainInjective
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.fetcher.delegatorRewardDenoms
@@ -745,7 +745,7 @@ object Signer {
             Any.newBuilder().setTypeUrl("/tm.PubKeySecp256k1").setValue(pubKey.toByteString())
                 .build()
 
-        } else if (chain is ChainInjective || chain is ChainInjectiveEvmTestnet) {
+        } else if (chain is ChainInjectiveEvm || chain is ChainInjectiveEvmTestnet) {
             val pubKey = com.injective.crypto.v1beta1.ethsecp256k1.KeysProto.PubKey.newBuilder()
                 .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/injective.crypto.v1beta1.ethsecp256k1.PubKey")

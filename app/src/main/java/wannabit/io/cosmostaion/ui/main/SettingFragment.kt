@@ -120,7 +120,8 @@ class SettingFragment : Fragment() {
             } else {
                 bioTxt.text = ""
             }
-            version.text = "v " + BuildConfig.VERSION_NAME
+            val versionName = BuildConfig.VERSION_NAME
+            version.text = "v " + versionName
 
             if (BaseData.pushRefreshIfNeed()) {
                 lifecycleScope.launch(Dispatchers.IO) {

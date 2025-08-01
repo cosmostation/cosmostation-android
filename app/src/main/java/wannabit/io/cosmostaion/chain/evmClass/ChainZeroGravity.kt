@@ -11,12 +11,12 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 @Parcelize
 open class ChainZeroGravity : BaseChain(), Parcelable {
 
-    override var name: String = "0G"
+    override var name: String = "ØG"
     override var tag: String = "zero-gravity60"
     override var apiName: String = "zero-gravity"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "0G"
+    override var coinSymbol: String = "ØG"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
