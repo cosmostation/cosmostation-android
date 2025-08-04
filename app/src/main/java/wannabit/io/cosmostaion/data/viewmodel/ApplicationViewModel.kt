@@ -1659,7 +1659,7 @@ class ApplicationViewModel(
             }
         }
 
-    private fun loadSolData(id: Long, chain: ChainSolana, isEdit: Boolean? = false) =
+    fun loadSolData(id: Long, chain: ChainSolana, isEdit: Boolean? = false) =
         CoroutineScope(Dispatchers.IO).launch {
             chain.apply {
                 solanaFetcher()?.let { fetcher ->
