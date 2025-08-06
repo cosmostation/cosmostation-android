@@ -201,8 +201,9 @@ class ApplicationViewModel(
             fetchState = FetchState.BUSY
             chain.cosmosFetcher()?.tokens =
                 BaseData.cw20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    token.type = "cw20"
-                    token
+                    val tokenCopied = token.clone()
+                    tokenCopied.type = "cw20"
+                    tokenCopied
                 }?.toMutableList() ?: mutableListOf()
 
             chain.evmRpcFetcher()?.evmTokens =
@@ -637,40 +638,38 @@ class ApplicationViewModel(
                         if (web3j != null) {
                             evmRpcFetcher()?.let { evmRpcFetcher ->
                                 val userDisplayToken = Prefs.getDisplayErc20s(id, tag)
-                                if (isSupportErc20()) {
-                                    if (isSupportMultiCall() && multicallAddress().isNotEmpty()) {
-                                        withContext(Dispatchers.Default) {
-                                            walletRepository.erc20MultiBalance(this@apply)
-                                        }
+                                if (isSupportMultiCall() && multicallAddress().isNotEmpty()) {
+                                    withContext(Dispatchers.Default) {
+                                        walletRepository.erc20MultiBalance(this@apply)
+                                    }
 
-                                    } else {
-                                        val tokenBalanceDeferredList =
-                                            if (userDisplayToken == null) {
-                                                evmRpcFetcher.evmTokens.filter {
-                                                    it.wallet_preload ?: false
-                                                }.map { token ->
-                                                    async {
-                                                        walletRepository.erc20Balance(
-                                                            this@apply, token
-                                                        )
-                                                    }
-                                                }
-
-                                            } else {
-                                                evmRpcFetcher.evmTokens.filter {
-                                                    userDisplayToken.contains(
-                                                        it.address
+                                } else {
+                                    val tokenBalanceDeferredList =
+                                        if (userDisplayToken == null) {
+                                            evmRpcFetcher.evmTokens.filter {
+                                                it.wallet_preload ?: false
+                                            }.map { token ->
+                                                async {
+                                                    walletRepository.erc20Balance(
+                                                        this@apply, token
                                                     )
-                                                }.map { token ->
-                                                    async {
-                                                        walletRepository.erc20Balance(
-                                                            this@apply, token
-                                                        )
-                                                    }
                                                 }
                                             }
-                                        tokenBalanceDeferredList.awaitAll()
-                                    }
+
+                                        } else {
+                                            evmRpcFetcher.evmTokens.filter {
+                                                userDisplayToken.contains(
+                                                    it.address
+                                                )
+                                            }.map { token ->
+                                                async {
+                                                    walletRepository.erc20Balance(
+                                                        this@apply, token
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    tokenBalanceDeferredList.awaitAll()
                                 }
 
                                 val evmRefAddress = RefAddress(
