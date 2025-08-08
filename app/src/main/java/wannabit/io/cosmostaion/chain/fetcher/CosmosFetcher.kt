@@ -108,7 +108,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     fun displayTokenCnt(baseAccountId: Long): Int {
         val userDisplayToken = Prefs.getDisplayCw20s(baseAccountId, chain.tag)
         val displayTokenList = if (userDisplayToken == null) {
-            chain.cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
+            chain.cosmosFetcher?.tokens?.filter { BigDecimal.ZERO < it.amount?.toBigDecimal() }
         } else {
             chain.cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
         }

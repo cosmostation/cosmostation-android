@@ -201,21 +201,17 @@ class ApplicationViewModel(
             fetchState = FetchState.BUSY
             chain.cosmosFetcher()?.tokens =
                 BaseData.cw20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    val tokenCopied = token.clone()
-                    tokenCopied.type = "cw20"
-                    tokenCopied
+                    token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
             chain.evmRpcFetcher()?.evmTokens =
                 BaseData.erc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    token.type = "erc20"
-                    token
+                    token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
             chain.gnoRpcFetcher?.grc20Tokens =
                 BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    token.type = "grc20"
-                    token
+                    token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
             chain.cosmosFetcher?.cw721Tokens =
@@ -240,12 +236,10 @@ class ApplicationViewModel(
     }
 
     var fetchedResult = SingleLiveEvent<String>()
-    var fetchedTokenResult = SingleLiveEvent<String>()
 
     var fetchedTotalResult = SingleLiveEvent<String>()
 
     var editFetchedResult = SingleLiveEvent<String>()
-    var editFetchedTokenResult = SingleLiveEvent<String>()
 
     var refreshStakingInfoFetchedResult = SingleLiveEvent<String>()
 
@@ -583,18 +577,6 @@ class ApplicationViewModel(
                     coinUsdValue = cosmosFetcher?.allAssetValue(true)
                     coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
 
-                    withContext(Dispatchers.Main) {
-                        if (isEdit == true) {
-                            editFetchedResult.value = tag
-                        } else if (isTx == true) {
-                            txFetchedResult.value = tag
-                        } else if (isRefresh == true) {
-                            refreshStakingInfoFetchedResult.value = tag
-                        } else {
-                            fetchedResult.value = tag
-                        }
-                    }
-
                     var cw20TokenValue = BigDecimal.ZERO
                     var cw20TokenUsdValue = BigDecimal.ZERO
                     var erc20TokenValue = BigDecimal.ZERO
@@ -605,10 +587,9 @@ class ApplicationViewModel(
                     if (isSupportCw20()) {
                         val userDisplayToken = Prefs.getDisplayCw20s(id, tag)
                         val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                            cosmosFetcher?.tokens?.filter { it.wallet_preload ?: false }
-                                ?.map { token ->
-                                    async { walletRepository.cw20Balance(channel, chain, token) }
-                                }
+                            cosmosFetcher?.tokens?.map { token ->
+                                async { walletRepository.cw20Balance(channel, chain, token) }
+                            }
 
                         } else {
                             cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
@@ -700,9 +681,13 @@ class ApplicationViewModel(
 
                     withContext(Dispatchers.Main) {
                         if (isEdit == true) {
-                            editFetchedTokenResult.value = tag
+                            editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
                         } else {
-                            fetchedTokenResult.value = tag
+                            fetchedResult.value = tag
                         }
                     }
                     fetchedTotalResult.postValue(tag)
@@ -798,14 +783,6 @@ class ApplicationViewModel(
                                 oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                                     ?: 0
 
-                            withContext(Dispatchers.Main) {
-                                if (isEdit == true) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
-                                }
-                            }
-
                             withContext(Dispatchers.Default) {
                                 walletRepository.erc20MultiBalance(this@apply)
 
@@ -827,37 +804,13 @@ class ApplicationViewModel(
 
                                 withContext(Dispatchers.Main) {
                                     if (isEdit == true) {
-                                        editFetchedTokenResult.value = tag
+                                        editFetchedResult.value = tag
                                     } else {
-                                        fetchedTokenResult.value = tag
+                                        fetchedResult.value = tag
                                     }
                                 }
                                 fetchedTotalResult.postValue(tag)
                             }
-
-                            val evmRefAddress = RefAddress(
-                                baseAccountId,
-                                tag,
-                                address,
-                                evmAddress,
-                                "0",
-                                "0",
-                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
-                                0
-                            )
-                            BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
-                            tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
-                            tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
-
-                            withContext(Dispatchers.Main) {
-                                if (isEdit == true) {
-                                    editFetchedTokenResult.value = tag
-                                } else {
-                                    fetchedTokenResult.value = tag
-                                }
-                            }
-                            fetchedTotalResult.postValue(tag)
 
                         } else {
                             val refAddress = RefAddress(
@@ -894,14 +847,6 @@ class ApplicationViewModel(
                             coinUsdValue = evmRpcFetcher.allAssetValue(true)
                             coinCnt = evmRpcFetcher.valueCoinCnt()
 
-                            withContext(Dispatchers.Main) {
-                                if (isEdit == true) {
-                                    editFetchedResult.value = tag
-                                } else {
-                                    fetchedResult.value = tag
-                                }
-                            }
-
                             if (isSupportErc20()) {
                                 if (isSupportMultiCall() && multicallAddress().isNotEmpty()) {
                                     withContext(Dispatchers.Default) {
@@ -935,28 +880,29 @@ class ApplicationViewModel(
                                     }
                                     tokenBalanceDeferredList.awaitAll()
                                 }
-                            }
 
-                            val evmRefAddress = RefAddress(
-                                baseAccountId,
-                                tag,
-                                "",
-                                evmAddress,
-                                "0",
-                                "0",
-                                evmRpcFetcher.allTokenValue(baseAccountId, true).toPlainString(),
-                                0
-                            )
-                            BaseData.updateRefAddressesToken(evmRefAddress)
-                            tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
-                            tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
-                            tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
+                                val evmRefAddress = RefAddress(
+                                    baseAccountId,
+                                    tag,
+                                    "",
+                                    evmAddress,
+                                    "0",
+                                    "0",
+                                    evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                        .toPlainString(),
+                                    0
+                                )
+                                BaseData.updateRefAddressesToken(evmRefAddress)
+                                tokenValue = evmRpcFetcher.allTokenValue(baseAccountId)
+                                tokenUsdValue = evmRpcFetcher.allTokenValue(baseAccountId, true)
+                                tokenCnt = evmRpcFetcher.displayTokenCnt(baseAccountId)
+                            }
 
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
-                                    editFetchedTokenResult.value = tag
+                                    editFetchedResult.value = tag
                                 } else {
-                                    fetchedTokenResult.value = tag
+                                    fetchedResult.value = tag
                                 }
                             }
                             fetchedTotalResult.postValue(tag)
@@ -964,9 +910,9 @@ class ApplicationViewModel(
                         } else {
                             withContext(Dispatchers.Main) {
                                 if (isEdit == true) {
-                                    editFetchedTokenResult.value = tag
+                                    editFetchedResult.value = tag
                                 } else {
-                                    fetchedTokenResult.value = tag
+                                    fetchedResult.value = tag
                                 }
                             }
                             fetchedTotalResult.postValue(tag)
@@ -1536,14 +1482,6 @@ class ApplicationViewModel(
                                         if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1
                                 }
 
-                                withContext(Dispatchers.Main) {
-                                    if (isEdit == true) {
-                                        editFetchedResult.value = tag
-                                    } else {
-                                        fetchedResult.value = tag
-                                    }
-                                }
-
                                 if (isSupportGrc20()) {
                                     val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
                                     val tokenBalanceDeferredList = if (userDisplayToken == null) {
@@ -1586,9 +1524,9 @@ class ApplicationViewModel(
 
                                     withContext(Dispatchers.Main) {
                                         if (isEdit == true) {
-                                            editFetchedTokenResult.value = tag
+                                            editFetchedResult.value = tag
                                         } else {
-                                            fetchedTokenResult.value = tag
+                                            fetchedResult.value = tag
                                         }
                                     }
                                     fetchedTotalResult.postValue(tag)

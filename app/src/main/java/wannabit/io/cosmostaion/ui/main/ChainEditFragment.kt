@@ -143,10 +143,6 @@ class ChainEditFragment : BaseTxFragment() {
         ApplicationViewModel.shared.editFetchedResult.observe(viewLifecycleOwner) { tag ->
             updateRowData(tag)
         }
-
-        ApplicationViewModel.shared.editFetchedTokenResult.observe(viewLifecycleOwner) { tag ->
-            updateRowData(tag)
-        }
     }
 
     private fun updateRowData(tag: String) {
