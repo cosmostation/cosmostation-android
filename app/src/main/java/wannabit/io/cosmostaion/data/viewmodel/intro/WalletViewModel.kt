@@ -169,15 +169,23 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         }
 
                         is Cw20TokenResponse -> {
-                            response.data.assets?.let { BaseData.cw20Tokens = it }
+                            response.data.assets?.let { assets ->
+                                assets.forEach { it.type = "cw20" }
+                                BaseData.cw20Tokens = assets
+                            }
                         }
 
                         is Erc20TokenResponse -> {
-                            response.data.assets?.let { BaseData.erc20Tokens = it }
+                            response.data.assets?.let { assets ->
+                                assets.forEach { it.type = "erc20" }
+                                BaseData.erc20Tokens = assets }
                         }
 
                         is Grc20TokenResponse -> {
-                            response.data.assets?.let { BaseData.grc20Tokens = it }
+                            response.data.assets?.let { assets ->
+                                assets.forEach { it.type = "grc20" }
+                                BaseData.grc20Tokens = assets
+                            }
                         }
 
                         is Cw721Response -> {
@@ -766,18 +774,6 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             walletRepository.erc20Balance(chain, token)
             withContext(Dispatchers.Main) {
                 _editErc20Balance.value = token.address
-            }
-        }
-    }
-
-    private val _editCw20Balance = MutableLiveData<String>()
-    val editCw20Balance: LiveData<String> get() = _editCw20Balance
-
-    fun cw20Balance(channel: ManagedChannel?, chain: BaseChain, token: Token) {
-        viewModelScope.launch(Dispatchers.IO) {
-            walletRepository.cw20Balance(channel, chain, token)
-            withContext(Dispatchers.Main) {
-                _editCw20Balance.value = token.address
             }
         }
     }

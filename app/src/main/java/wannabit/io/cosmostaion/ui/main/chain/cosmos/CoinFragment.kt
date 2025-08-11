@@ -459,8 +459,6 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 } ?: run {
                     cw20Tokens.sortWith { o1, o2 ->
                         when {
-                            o1.wallet_preload == true && o2.wallet_preload == false -> -1
-                            o1.wallet_preload == false && o2.wallet_preload == true -> 1
                             BigDecimal.ZERO < o1.amount?.toBigDecimal() && BigDecimal.ZERO >= o2.amount?.toBigDecimal() -> -1
                             BigDecimal.ZERO >= o1.amount?.toBigDecimal() && BigDecimal.ZERO < o2.amount?.toBigDecimal() -> 1
                             else -> {
@@ -474,7 +472,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
 
                     cw20Tokens.forEach { token ->
-                        if (!displayCw20TokenCoins.contains(token) && token.wallet_preload == true) {
+                        if (!displayCw20TokenCoins.contains(token) && BigDecimal.ZERO < token.amount?.toBigDecimal()) {
                             displayCw20TokenCoins.add(token)
                             cw20TokenCoins.add(
                                 Coin(
@@ -864,14 +862,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
             if (selectedChain.tag == tag) {
-                if (selectedChain.isSupportCw20() || selectedChain.isSupportErc20() || selectedChain.isSupportGrc20()) {
-                    ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) {
-                        initData()
-                        binding.loading.visibility = View.GONE
-                    }
-                } else {
-                    initData()
-                }
+                initData()
             }
         }
     }

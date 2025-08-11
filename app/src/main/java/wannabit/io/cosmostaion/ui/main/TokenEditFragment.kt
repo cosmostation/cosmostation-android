@@ -250,14 +250,6 @@ class TokenEditFragment : BottomSheetDialogFragment() {
     }
 
     private fun setUpTokenAmount() {
-        walletViewModel.editCw20Balance.observe(this) { contract ->
-            val index = searchTokens?.indexOfFirst { it.address == contract }
-            val token = searchTokens?.firstOrNull { it.address == contract }
-            if (index != null && index >= 0 && token?.fetched == true) {
-                tokenEditAdapter.notifyItemChanged(index)
-            }
-        }
-
         walletViewModel.editErc20Balance.observe(this) { contract ->
             val index = searchTokens?.indexOfFirst { it.address == contract }
             val token = searchTokens?.firstOrNull { it.address == contract }

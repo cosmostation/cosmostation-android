@@ -228,12 +228,6 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                 sortAssets()
             }
         }
-
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
-            if (selectedEvmChain.tag == tag) {
-                sortAssets()
-            }
-        }
     }
 
     private fun initSearchView() {
@@ -311,7 +305,6 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
     override fun onDestroyView() {
         _binding = null
         ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
-        ApplicationViewModel.shared.fetchedTokenResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

@@ -502,7 +502,6 @@ class MajorCryptoFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
-        ApplicationViewModel.shared.fetchedTokenResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

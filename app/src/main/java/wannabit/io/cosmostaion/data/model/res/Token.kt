@@ -31,7 +31,7 @@ data class Token(
     val image: String,
     val coinGeckoId: String?,
     val wallet_preload: Boolean? = false
-) : Parcelable {
+) : Parcelable, Cloneable {
 
     var amount: String? = "0"
         get() = field ?: "0"
@@ -40,6 +40,10 @@ data class Token(
 
     var type: String? = ""
         get() = field ?: ""
+
+    public override fun clone(): Token {
+        return super.clone() as Token
+    }
 }
 
 @Parcelize
