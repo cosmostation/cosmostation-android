@@ -17,7 +17,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
@@ -127,10 +129,19 @@ class DappDetailFragment : BottomSheetDialogFragment() {
 
             supportNetworkView.removeAllViews()
             val networkInflater = LayoutInflater.from(requireContext())
-            ecosystem["chains"].asJsonArray.forEach { supportChain ->
+            val filteredEcosystems = JsonArray().apply {
+                ecosystem["chains"].asJsonArray
+                    .map { it.asString }
+                    .filter { chainName ->
+                        allChains().any { it.apiName == chainName }
+                    }
+                    .forEach { add(JsonPrimitive(it)) }
+            }
+
+            filteredEcosystems.forEach { supportChain ->
                 val view =
                     CustomDappNetworkBinding.inflate(networkInflater, supportNetworkView, false)
-                allChains().first { it.apiName == supportChain.asString }.let { chain ->
+                allChains().firstOrNull { it.apiName == supportChain.asString }?.let { chain ->
                     view.chainImg.setChainLogo(chain)
                     view.chainName.text = chain.name.uppercase()
                 }
