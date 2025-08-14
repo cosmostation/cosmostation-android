@@ -6,7 +6,9 @@ import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import com.squareup.picasso.Picasso
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
@@ -32,7 +34,14 @@ class DappViewHolder(
             dappTypeBadge.text = ecosystem["type"].asString
             dappDescription.text = ecosystem["description"].asString
 
-            val chains = ecosystem["chains"].asJsonArray
+            val chains = JsonArray().apply {
+                ecosystem["chains"].asJsonArray
+                    .map { it.asString }
+                    .filter { chainName ->
+                        allChains().any { it.apiName == chainName }
+                    }
+                    .forEach { add(JsonPrimitive(it)) }
+            }
             chainContainer.removeAllViews()
 
             val inflater = LayoutInflater.from(context)
