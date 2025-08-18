@@ -1201,7 +1201,7 @@ object Signer {
     ): AbciProto.GasInfo {
         val channel = selectedChain.cosmosFetcher()?.getChannel()
         val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(8L, TimeUnit.SECONDS)
+            .withDeadlineAfter(20L, TimeUnit.SECONDS)
         val simulateTx = grpcSimulTx(txBody, authInfo)
         val simulateRequest =
             SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
