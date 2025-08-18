@@ -56,11 +56,6 @@ class TokenEditViewHolder(
                         skeletonTokenValue.visibility = View.VISIBLE
                         tokenAmount.visibility = View.GONE
                         tokenValue.visibility = View.GONE
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            val channel = chain.cosmosFetcher?.getChannel()
-                            walletViewModel.cw20Balance(channel, chain, cw20Token)
-                        }
                     }
 
                 } ?: run {
@@ -77,12 +72,15 @@ class TokenEditViewHolder(
                                     ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
                             tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
-                            tokenValue.text = formatAssetValue(chain.evmRpcFetcher?.tokenValue(evmToken.address) ?: BigDecimal.ZERO)
+                            tokenValue.text = formatAssetValue(
+                                chain.evmRpcFetcher?.tokenValue(evmToken.address) ?: BigDecimal.ZERO
+                            )
 
                         } else {
                             if (evmToken.fetched) {
                                 val dpAmount =
-                                    evmToken.amount?.toBigDecimal()?.movePointLeft(evmToken.decimals)
+                                    evmToken.amount?.toBigDecimal()
+                                        ?.movePointLeft(evmToken.decimals)
                                         ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
                                 skeletonTokenAmount.visibility = View.GONE
@@ -92,7 +90,8 @@ class TokenEditViewHolder(
 
                                 tokenAmount.text = formatAmount(dpAmount.toPlainString(), 6)
                                 chain.evmRpcFetcher?.let {
-                                    tokenValue.text = formatAssetValue(it.tokenValue(evmToken.address))
+                                    tokenValue.text =
+                                        formatAssetValue(it.tokenValue(evmToken.address))
                                 }
 
                             } else {

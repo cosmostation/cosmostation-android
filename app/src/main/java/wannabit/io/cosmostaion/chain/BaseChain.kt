@@ -129,6 +129,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainBase
 import wannabit.io.cosmostaion.chain.evmClass.ChainBerachain
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainCelo
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
@@ -136,6 +137,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
 import wannabit.io.cosmostaion.chain.evmClass.ChainForma
 import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainGravityAlpha
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
@@ -148,6 +150,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainSeiEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainStory
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
@@ -735,6 +738,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
+    chains.add(ChainCelo())
     chains.add(ChainC4E())
     chains.add(ChainCheqd())
     chains.add(ChainChihuahua())
@@ -761,6 +765,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
     chains.add(ChainGitopia())
+    chains.add(ChainGravityAlpha())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
     chains.add(ChainHippocrat())
@@ -825,6 +830,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())
     chains.add(ChainSeda())
+    chains.add(ChainSeiEvm())
     chains.add(ChainSei())
     chains.add(ChainSelf())
     chains.add(ChainSentinel())

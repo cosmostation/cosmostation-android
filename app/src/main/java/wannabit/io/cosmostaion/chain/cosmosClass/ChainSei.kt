@@ -15,6 +15,7 @@ class ChainSei : BaseChain(), Parcelable {
 
     override var name: String = "Sei"
     override var tag: String = "sei118"
+    override var isDefault: Boolean = false
     override var apiName: String = "sei"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

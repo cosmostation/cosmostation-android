@@ -125,7 +125,8 @@ class DashboardFragment : Fragment() {
             val searchTxt = binding?.searchView?.query
             mainnetChains =
                 account.sortedDisplayChains().filter { chain -> !chain.isTestnet }.toMutableList()
-            searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+            searchMainnetChains.addAll(
+                if (searchTxt.isNullOrEmpty()) {
                 mainnetChains
             } else {
                 mainnetChains.filter { chain ->
@@ -135,7 +136,8 @@ class DashboardFragment : Fragment() {
 
             testnetChains =
                 account.sortedDisplayChains().filter { chain -> chain.isTestnet }.toMutableList()
-            searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+            searchTestnetChains.addAll(
+                if (searchTxt.isNullOrEmpty()) {
                 testnetChains
             } else {
                 testnetChains.filter { chain ->
@@ -260,10 +262,6 @@ class DashboardFragment : Fragment() {
 
     private fun setupLoadedData() {
         ApplicationViewModel.shared.fetchedResult.observe(viewLifecycleOwner) { tag ->
-            updateRowData(tag)
-        }
-
-        ApplicationViewModel.shared.fetchedTokenResult.observe(viewLifecycleOwner) { tag ->
             updateRowData(tag)
         }
     }
@@ -414,13 +412,15 @@ class DashboardFragment : Fragment() {
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.getChainName()?.contains(searchTxt, ignoreCase = true) == true
+                                ) || chain.getChainName()
+                                    ?.contains(searchTxt, ignoreCase = true) == true
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.getChainName()?.contains(searchTxt, ignoreCase = true) == true
+                                ) || chain.getChainName()
+                                    ?.contains(searchTxt, ignoreCase = true) == true
                             })
                         }
                     }
@@ -440,7 +440,8 @@ class DashboardFragment : Fragment() {
     }
 
     private fun nodeDownPopup(chain: BaseChain) {
-        NoticeInfoFragment.newInstance(chain,
+        NoticeInfoFragment.newInstance(
+            chain,
             NoticeType.NODE_DOWN_GUIDE,
             object : NodeDownSelectListener {
                 override fun select(tag: String?) {
@@ -598,7 +599,6 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
-        ApplicationViewModel.shared.fetchedTokenResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
     }
 }

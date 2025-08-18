@@ -59,7 +59,7 @@ class EvmFetcher(var chain: BaseChain) {
     fun displayTokenCnt(baseAccountId: Long): Int {
         val userDisplayToken = Prefs.getDisplayErc20s(baseAccountId, chain.tag)
         val displayTokenList = if (userDisplayToken == null) {
-            chain.evmRpcFetcher?.evmTokens?.filter { it.wallet_preload ?: false }
+            chain.evmRpcFetcher?.evmTokens?.filter { it.wallet_preload ?: false && BigDecimal.ZERO < it.amount?.toBigDecimal() }
         } else {
             chain.evmRpcFetcher?.evmTokens?.filter { userDisplayToken.contains(it.address) }
         }

@@ -1175,11 +1175,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             BitcoinJs.mergeFunction(initBTCStakingFunction)
             BitcoinJs.executeFunction("initBTCStakingFunction()")
 
-            val version = selectedChain.btcFetcher?.btcNetworkInfo?.get("data")?.asJsonObject?.get(
-                "params"
-            )?.asJsonObject?.get("bbn")?.asJsonArray?.last()?.asJsonObject?.get("version")?.asInt
-                ?: 6
-
+            val version = staked?.first?.get("params_version") ?: 6
             val provider = staked?.second?.provider?.btcPk?.toByteArray()?.toHex()
             val toStakeAmount =
                 staked?.first?.get("delegation_staking")?.asJsonObject?.get("staking_amount")?.asString
