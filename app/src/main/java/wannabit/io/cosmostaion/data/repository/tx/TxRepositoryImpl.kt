@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -49,7 +50,9 @@ import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.SOLANA_DEFAULT_PRIORITY_FEE
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
@@ -80,6 +83,7 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -2613,7 +2617,9 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String> {
+    override suspend fun mintPhotonRate(
+        channel: ManagedChannel?, chain: BaseChain
+    ): NetworkResult<String> {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val stub = com.atomone.photon.v1.QueryGrpc.newBlockingStub(channel)
                 .withDeadlineAfter(8, TimeUnit.SECONDS)
@@ -2630,6 +2636,183 @@ class TxRepositoryImpl : TxRepository {
                     response["conversion_rate"].asString
                 }
             }
+        }
+    }
+
+    override suspend fun broadcastSolSendTx(
+        chain: ChainSolana,
+        hexValue: String
+    ): Pair<Boolean, String?> {
+        return try {
+            val sendParams = listOf(
+                hexValue, mapOf("encoding" to "base64")
+            )
+            val sendTransactionRequest =
+                JsonRpcRequest(method = "sendTransaction", params = sendParams)
+            val sendTransactionResponse = jsonRpcResponse(
+                chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, sendTransactionRequest
+            )
+
+            if (sendTransactionResponse.isSuccessful) {
+                val sendTransactionJsonObject = Gson().fromJson(
+                    sendTransactionResponse.body?.string(), JsonObject::class.java
+                )
+
+                if (sendTransactionJsonObject.has("error")) {
+                    Pair(false, sendTransactionJsonObject["error"].asJsonObject["message"].asString)
+                } else {
+                    Pair(true, sendTransactionJsonObject["result"].asString)
+                }
+
+            } else {
+                Pair(false, "error")
+            }
+        } catch (e: Exception) {
+            Pair(false, e.message.toString())
+        }
+    }
+
+    override suspend fun simulateSolSend(
+        chain: ChainSolana, solanaJS: SolanaJs?, from: String, to: String, toAmount: String
+    ): Pair<String?, String> {
+        return try {
+            val params = listOf(
+                mapOf("commitment" to "finalized")
+            )
+            val recentBlockHashRequest =
+                JsonRpcRequest(method = "getLatestBlockhash", params = params)
+            val recentBlockHashResponse = jsonRpcResponse(
+                chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, recentBlockHashRequest
+            )
+
+            if (recentBlockHashResponse.isSuccessful) {
+                val recentBlockHashJsonObject = Gson().fromJson(
+                    recentBlockHashResponse.body?.string(), JsonObject::class.java
+                )
+                if (recentBlockHashJsonObject.has("error") || recentBlockHashJsonObject["result"].asJsonObject.has(
+                        "error"
+                    )
+                ) {
+                    Pair("", "error")
+
+                } else {
+                    val recentBlockHash =
+                        recentBlockHashJsonObject["result"].asJsonObject["value"].asJsonObject["blockhash"].asString
+
+                    val createTransferTransactionFunction =
+                        """function createTransferTransactionFunction() {
+                    const txHex = createTransferTransactionWithSerialize('${from}', '${to}', '${toAmount}', '${recentBlockHash}');
+                         return txHex;
+                    }""".trimMargin()
+                    solanaJS?.mergeFunction(createTransferTransactionFunction)
+                    val serializedTxHex =
+                        solanaJS?.executeFunction("createTransferTransactionFunction()")
+                    val serializedTxHexJsonData = Gson().fromJson(
+                        serializedTxHex, JsonObject::class.java
+                    )
+
+                    val txBase64 = serializedTxHexJsonData["serialiezedTxWithBase64"].asString
+                    val txMessageWithBase64 =
+                        serializedTxHexJsonData["serialiezedTxMessageWithBase64"].asString
+
+                    val simulateParams = listOf(
+                        txBase64, mapOf(
+                            "commitment" to "confirmed",
+                            "encoding" to "base64",
+                            "replaceRecentBlockhash" to true
+                        )
+                    )
+
+                    //simulate data
+                    val simulationRequest =
+                        JsonRpcRequest(method = "simulateTransaction", params = simulateParams)
+                    val simulationResponse = jsonRpcResponse(
+                        chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, simulationRequest
+                    )
+                    val simulationJsonObject = Gson().fromJson(
+                        simulationResponse.body?.string(), JsonObject::class.java
+                    )
+                    val simulateValue =
+                        simulationJsonObject["result"].asJsonObject["value"].asJsonObject
+                    Log.e("TEst12345 : ", simulateValue.toString())
+                    val unitsConsumed = simulateValue["unitsConsumed"].asLong
+
+                    // fee data
+                    val feeParams = listOf(
+                        txMessageWithBase64, mapOf("commitment" to "processed")
+                    )
+                    val feeForMessageRequest =
+                        JsonRpcRequest(method = "getFeeForMessage", params = feeParams)
+                    val feeForMessageResponse = jsonRpcResponse(
+                        chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, feeForMessageRequest
+                    )
+                    val feeForMessageJsonObject = Gson().fromJson(
+                        feeForMessageResponse.body?.string(), JsonObject::class.java
+                    )
+                    val baseFee = feeForMessageJsonObject["result"].asJsonObject["value"].asLong
+
+                    val prioritizationParams = listOf(
+                        chain.mainAddress
+                    )
+                    val prioritizationFeeRequest = JsonRpcRequest(
+                        method = "getRecentPrioritizationFees",
+                        params = listOf(prioritizationParams)
+                    )
+                    val prioritizationFeeResponse = jsonRpcResponse(
+                        chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl,
+                        prioritizationFeeRequest
+                    )
+                    val prioritizationFeeJsonObject = Gson().fromJson(
+                        prioritizationFeeResponse.body?.string(), JsonObject::class.java
+                    )
+
+                    var sumFee: Long = 0
+                    val recentPrioritizationFees = prioritizationFeeJsonObject["result"].asJsonArray
+                    if (recentPrioritizationFees.size() > 0) {
+                        recentPrioritizationFees.forEach { fee ->
+                            sumFee += fee.asJsonObject["prioritizationFee"].asLong
+                        }
+                    }
+
+                    val tipFee = if (sumFee > 0) {
+                        (sumFee / recentPrioritizationFees.size() / 1000000) + SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                    } else {
+                        SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                    }
+
+                    val fee = baseFee + tipFee
+                    val computeUnitLimit = unitsConsumed + 500
+                    val computeUnitPrice = tipFee / computeUnitLimit
+
+                    val overwriteComputeBudgetProgramFunction =
+                        """function overwriteComputeBudgetProgramFunction() {
+                            const programTx = overwriteComputeBudgetProgram('${txBase64}', {
+                                units: $computeUnitLimit,
+                                microLamports: Math.ceil($computeUnitPrice * 1000000)
+                            });
+                            return programTx;
+                    }""".trimMargin()
+                    solanaJS?.mergeFunction(overwriteComputeBudgetProgramFunction)
+                    val programTxHex =
+                        solanaJS?.executeFunction("overwriteComputeBudgetProgramFunction()")
+
+                    val privateKey = chain.privateKey?.toHex()
+                    val signTransactionFunction = """function signTransactionFunction() {
+                    const txHex = signTransaction('${programTxHex}', '${privateKey}');
+                         return txHex;
+                    }""".trimMargin()
+                    solanaJS?.mergeFunction(signTransactionFunction)
+                    val txHex = solanaJS?.executeFunction("signTransactionFunction()")
+
+                    Pair(txHex, fee.toString())
+                }
+
+            } else {
+                Pair("", "error")
+            }
+
+        } catch (e: Exception) {
+            Pair("", "error")
         }
     }
 }

@@ -273,6 +273,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                 }
                             }
                     }
+
+                    SendAssetType.SOLANA_COIN -> {
+
+                    }
                 }
                 sortRefEvmAddresses(refEvmAddresses)
                 sortRefAddresses(refAddresses)
@@ -372,6 +376,10 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
 
                             initSegmentAction(refMajorAddresses, addressBooks)
+                        }
+
+                        SendAssetType.SOLANA_COIN -> {
+
                         }
                     }
                 }

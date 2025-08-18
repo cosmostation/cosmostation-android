@@ -57,7 +57,7 @@ class SolanaCryptoAdapter(
                     holder.bind(selectedChain as ChainSolana)
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it(selectedChain, "")
+                            it(selectedChain, selectedChain.coinSymbol)
                         }
                     }
 

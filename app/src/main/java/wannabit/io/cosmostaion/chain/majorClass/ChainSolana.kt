@@ -42,3 +42,6 @@ class ChainSolana : BaseChain(), Parcelable {
 }
 
 const val SOLANA_PROGRAM_ID = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+
+const val SOLANA_DEFAULT_FEE = "5000"
+const val SOLANA_DEFAULT_PRIORITY_FEE = "500"

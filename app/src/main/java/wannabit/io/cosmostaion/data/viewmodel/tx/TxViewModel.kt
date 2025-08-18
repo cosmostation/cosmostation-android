@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.isHexString
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -49,6 +50,7 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepository
 import wannabit.io.cosmostaion.data.viewmodel.event.SingleLiveEvent
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import java.util.concurrent.TimeUnit
 
@@ -319,6 +321,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val bitBroadcast = SingleLiveEvent<String?>()
 
     val btcStakeBroadcast = SingleLiveEvent<Pair<AbciProto.TxResponse?, String?>>()
+
+    val solSimulate = SingleLiveEvent<Pair<String?, String>>()
+
+    val solBroadcast = SingleLiveEvent<String?>()
 
     fun broadcast(
         managedChannel: ManagedChannel?,
@@ -1410,6 +1416,48 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                     e.printStackTrace()
                 }
             }
+        }
+    }
+
+    fun solSendBroadcast(
+        chain: ChainSolana, txHex: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastSolSendTx(
+                chain, txHex
+            )
+
+            if (response.first) {
+                solBroadcast.postValue(response.second)
+            } else {
+                errorMessage.postValue(response.second)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun solSendSimulate(
+        chain: ChainSolana,
+        solanaJS: SolanaJs?,
+        from: String,
+        to: String,
+        toAmount: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSolSend(
+                chain, solanaJS, from, to, toAmount
+            )
+
+            if (response.first?.isNotEmpty() == true && response.second != "error") {
+                solSimulate.postValue(response)
+            } else {
+                errorMessage.postValue("error")
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
         }
     }
 }

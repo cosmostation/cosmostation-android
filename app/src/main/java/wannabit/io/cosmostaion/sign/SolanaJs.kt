@@ -28,6 +28,7 @@ object SolanaJs {
 
                     val jsCode =
                         context.assets.open("solana.js").bufferedReader().use { it.readText() }
+
                     jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
 
                     isInitialized = true

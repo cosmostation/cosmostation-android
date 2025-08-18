@@ -256,6 +256,14 @@ class MajorCryptoFragment : Fragment() {
                 layoutManager = LinearLayoutManager(requireActivity())
                 adapter = solanaCryptoAdapter
                 solanaCryptoAdapter.notifyDataSetChanged()
+
+                solanaCryptoAdapter.setOnItemClickListener { chain, denom ->
+                    handleOneClickWithDelay(
+                        CommonTransferFragment.newInstance(
+                            chain, denom, SendAssetType.SOLANA_COIN
+                        )
+                    )
+                }
             }
             binding.refresher.isRefreshing = false
         }

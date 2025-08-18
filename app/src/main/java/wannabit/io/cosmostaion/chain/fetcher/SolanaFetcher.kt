@@ -20,8 +20,11 @@ class SolanaFetcher(private val chain: BaseChain) {
     }
 
     fun solanaBalanceAmount(): BigDecimal {
-        if (!solanaAccountInfo["value"].isJsonNull) {
-            return solanaAccountInfo["value"].asJsonObject["lamports"].asLong.toBigDecimal()
+        if (solanaAccountInfo.has("value")) {
+            if (!solanaAccountInfo["value"].isJsonNull) {
+                return solanaAccountInfo["value"].asJsonObject["lamports"].asLong.toBigDecimal()
+            }
+            return BigDecimal.ZERO
         }
         return BigDecimal.ZERO
     }
