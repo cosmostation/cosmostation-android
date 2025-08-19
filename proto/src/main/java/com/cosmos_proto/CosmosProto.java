@@ -35,7 +35,7 @@ public final class CosmosProto {
   public static final int ACCEPTS_INTERFACE_FIELD_NUMBER = 93001;
   /**
    * <pre>
-   * accepts_interface is used to annote fields that accept interfaces
+   * accepts_interface is used to annotate fields that accept interfaces
    * </pre>
    *
    * <code>extend .google.protobuf.FieldOptions { ... }</code>

@@ -1960,7 +1960,7 @@ public final class SwapProto {
 
     /**
      * <pre>
-     * total_shares is the total distrubuted shares of the pool
+     * total_shares is the total distributed shares of the pool
      * </pre>
      *
      * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -1969,7 +1969,7 @@ public final class SwapProto {
     java.lang.String getTotalShares();
     /**
      * <pre>
-     * total_shares is the total distrubuted shares of the pool
+     * total_shares is the total distributed shares of the pool
      * </pre>
      *
      * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -2148,7 +2148,7 @@ public final class SwapProto {
     private volatile java.lang.Object totalShares_ = "";
     /**
      * <pre>
-     * total_shares is the total distrubuted shares of the pool
+     * total_shares is the total distributed shares of the pool
      * </pre>
      *
      * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -2169,7 +2169,7 @@ public final class SwapProto {
     }
     /**
      * <pre>
-     * total_shares is the total distrubuted shares of the pool
+     * total_shares is the total distributed shares of the pool
      * </pre>
      *
      * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -3022,7 +3022,7 @@ public final class SwapProto {
       private java.lang.Object totalShares_ = "";
       /**
        * <pre>
-       * total_shares is the total distrubuted shares of the pool
+       * total_shares is the total distributed shares of the pool
        * </pre>
        *
        * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -3042,7 +3042,7 @@ public final class SwapProto {
       }
       /**
        * <pre>
-       * total_shares is the total distrubuted shares of the pool
+       * total_shares is the total distributed shares of the pool
        * </pre>
        *
        * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -3063,7 +3063,7 @@ public final class SwapProto {
       }
       /**
        * <pre>
-       * total_shares is the total distrubuted shares of the pool
+       * total_shares is the total distributed shares of the pool
        * </pre>
        *
        * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -3080,7 +3080,7 @@ public final class SwapProto {
       }
       /**
        * <pre>
-       * total_shares is the total distrubuted shares of the pool
+       * total_shares is the total distributed shares of the pool
        * </pre>
        *
        * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>
@@ -3094,7 +3094,7 @@ public final class SwapProto {
       }
       /**
        * <pre>
-       * total_shares is the total distrubuted shares of the pool
+       * total_shares is the total distributed shares of the pool
        * </pre>
        *
        * <code>string total_shares = 4 [json_name = "totalShares", (.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.cosmos_proto.scalar) = "cosmos.Int"];</code>

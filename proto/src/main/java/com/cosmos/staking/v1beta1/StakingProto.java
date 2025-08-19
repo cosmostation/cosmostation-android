@@ -5542,7 +5542,7 @@ public final class StakingProto {
 
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -5551,7 +5551,7 @@ public final class StakingProto {
     java.util.List<java.lang.Long> getUnbondingIdsList();
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -5560,7 +5560,7 @@ public final class StakingProto {
     int getUnbondingIdsCount();
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -6041,7 +6041,7 @@ public final class StakingProto {
     private com.google.protobuf.Internal.LongList unbondingIds_;
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -6054,7 +6054,7 @@ public final class StakingProto {
     }
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -6065,7 +6065,7 @@ public final class StakingProto {
     }
     /**
      * <pre>
-     * list of unbonding ids, each uniquely identifing an unbonding of this validator
+     * list of unbonding ids, each uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8000,7 +8000,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8013,7 +8013,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8024,7 +8024,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8036,7 +8036,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8054,7 +8054,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8070,7 +8070,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
@@ -8087,7 +8087,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * list of unbonding ids, each uniquely identifing an unbonding of this validator
+       * list of unbonding ids, each uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>repeated uint64 unbonding_ids = 13 [json_name = "unbondingIds"];</code>
