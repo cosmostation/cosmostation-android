@@ -498,7 +498,7 @@ You can download each store.
   </tr>
 	 	
   <tr>
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/injective/resource/chain_injective.png?raw=true" width="42" height = "42"></td>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/injective/resource/chain_injective_evm.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">INJECTIVE</span></td>
     <td>m/44'/60'/0'/0/X</td>
     <td>keccak256</td>
@@ -941,7 +941,7 @@ You can download each store.
   </tr>
     
   <tr>
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/sei/resource/chain_sei.png?raw=true" width="42" height = "42"></td>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/sei/resource/chain_sei_evm.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">SEI</span></td>
     <td><span>m/44'/60'/0'/0/X</span><br/>
         <span>m/44'/118'/0'/0/X</span></td>
