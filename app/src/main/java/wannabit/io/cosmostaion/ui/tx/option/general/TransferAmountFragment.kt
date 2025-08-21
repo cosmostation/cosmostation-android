@@ -166,7 +166,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20, SendAssetType.ONLY_COSMOS_GRC20 -> {
+                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20, SendAssetType.ONLY_COSMOS_GRC20, SendAssetType.SOLANA_TOKEN -> {
                     toSendToken?.let { token ->
                         assetDecimal = token.decimals
                         availableAmount.toBigDecimal().movePointLeft(assetDecimal)

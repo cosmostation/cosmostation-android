@@ -219,7 +219,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
 
-                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN -> {
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (refAddress.chainTag == toChain.tag && refAddress.dpAddress?.lowercase() != fromChain.mainAddress.lowercase()) {
@@ -357,7 +357,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             initSegmentAction(refAddresses, addressBooks)
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
                             if (refMajorAddresses.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE

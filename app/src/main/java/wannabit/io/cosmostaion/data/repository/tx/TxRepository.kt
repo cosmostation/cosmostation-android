@@ -372,7 +372,7 @@ interface TxRepository {
 
     suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String>
 
-    suspend fun minimumRentBalance(chain: ChainSolana): NetworkResult<String>
+    suspend fun minimumRentBalance(chain: ChainSolana, dataSize: Int): NetworkResult<String>
 
     suspend fun broadcastSolSendTx(
         chain: ChainSolana, hexValue: String
@@ -383,6 +383,15 @@ interface TxRepository {
         solanaJS: SolanaJs?,
         from: String,
         to: String,
+        toAmount: String
+    ): Pair<String?, Any>
+
+    suspend fun simulateSplSend(
+        chain: ChainSolana,
+        solanaJS: SolanaJs?,
+        from: String,
+        to: String,
+        mint: String,
         toAmount: String
     ): Pair<String?, Any>
 }

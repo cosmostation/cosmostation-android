@@ -57,11 +57,11 @@ class SolanaAssetViewHolder(
         }
     }
 
-    fun tokenBind(chain: ChainSolana, token: Pair<String, JsonObject>) {
+    fun tokenBind(chain: ChainSolana, token: JsonObject) {
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
 
-            BaseData.getToken(chain, chain.apiName, token.second["mint"].asString)
+            BaseData.getToken(chain, chain.apiName, token["mint"].asString)
                 ?.let { splToken ->
                     assetImg.setTokenImg(splToken.image)
                     assetImg.clipToOutline = true
@@ -76,7 +76,7 @@ class SolanaAssetViewHolder(
                     val value =
                         chain.solanaFetcher?.splTokenValue(splToken.address) ?: BigDecimal.ZERO
                     val amount =
-                        token.second["tokenAmount"].asJsonObject["uiAmountString"].asString.toBigDecimal()
+                        token["tokenAmount"].asJsonObject["uiAmountString"].asString.toBigDecimal()
                             .setScale(6, RoundingMode.DOWN)
 
                     if (Prefs.hideValue) {
@@ -106,7 +106,7 @@ class SolanaAssetViewHolder(
                 val value =
                     chain.solanaFetcher?.splTokenValue("") ?: BigDecimal.ZERO
                 val amount =
-                    token.second["tokenAmount"].asJsonObject["uiAmountString"].asString.toBigDecimal()
+                    token["tokenAmount"].asJsonObject["uiAmountString"].asString.toBigDecimal()
                         .setScale(6, RoundingMode.DOWN)
 
                 if (Prefs.hideValue) {

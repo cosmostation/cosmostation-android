@@ -11,7 +11,7 @@ import java.math.RoundingMode
 class SolanaFetcher(private val chain: BaseChain) {
 
     var solanaAccountInfo = JsonObject()
-    val solanaTokenInfo: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    val solanaTokenInfo: MutableList<JsonObject> = mutableListOf()
 
     var splTokens = mutableListOf<Token>()
 
@@ -54,7 +54,7 @@ class SolanaFetcher(private val chain: BaseChain) {
         var result = BigDecimal.ZERO
 
         solanaTokenInfo.forEach { splToken ->
-            BaseData.getToken(chain, chain.apiName, splToken.second["mint"].asString)?.let { token ->
+            BaseData.getToken(chain, chain.apiName, splToken["mint"].asString)?.let { token ->
                 val price = BaseData.getPrice(token.coinGeckoId, isUsd)
                 val value =
                     price.multiply(token.amount?.toBigDecimal()).movePointLeft(token.decimals)

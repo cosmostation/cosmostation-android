@@ -25,7 +25,6 @@ import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModel
 import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.databinding.FragmentAddressBinding
-import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.qr.QrCodeActivity
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
@@ -263,18 +262,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             }
                         }
 
-                        SendAssetType.SOLANA_COIN -> {
-                            val isValidSolanaAddressStrictFunction =
-                                """function isValidSolanaAddressStrictFunction() {
-                                    const isValid = isValidSolanaAddressStrict('${address}');
-                                    return isValid;
-                                }""".trimMargin()
-
-                            SolanaJs.mergeFunction(isValidSolanaAddressStrictFunction)
-                            val isValidAddress =
-                                SolanaJs.executeFunction("isValidSolanaAddressStrictFunction()")
-
-                            if (isValidAddress == "true") {
+                        SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
+                            if (BaseKey.isValidSolanaAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener

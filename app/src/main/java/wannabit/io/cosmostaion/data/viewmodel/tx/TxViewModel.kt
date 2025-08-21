@@ -1425,8 +1425,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     // solana
     private var _solanaMinimumRentResult = MutableLiveData<String>()
     val solanaMinimumRentResult: LiveData<String> get() = _solanaMinimumRentResult
-    fun solanaMinimumRentBalance(chain: ChainSolana) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = txRepository.minimumRentBalance(chain)) {
+    fun solanaMinimumRentBalance(chain: ChainSolana, dataSize: Int) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = txRepository.minimumRentBalance(chain, dataSize)) {
             is NetworkResult.Success -> {
                 _solanaMinimumRentResult.postValue(response.data)
             }
@@ -1466,6 +1466,30 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         try {
             val response = txRepository.simulateSolSend(
                 chain, solanaJS, from, to, toAmount
+            )
+
+            if (response.second == "error" || response.second is JsonObject) {
+                solErrorMessage.postValue(response.second)
+            } else {
+                solSimulate.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            solErrorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun splSendSimulate(
+        chain: ChainSolana,
+        solanaJS: SolanaJs?,
+        from: String,
+        to: String,
+        mint: String,
+        toAmount: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.simulateSplSend(
+                chain, solanaJS, from, to, mint, toAmount
             )
 
             if (response.second == "error" || response.second is JsonObject) {

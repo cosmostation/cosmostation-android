@@ -62,7 +62,7 @@ class MajorCryptoFragment : Fragment() {
 
     private var solanaBalances: MutableList<JsonObject> = mutableListOf()
     private var searchSolanaBalances: MutableList<JsonObject> = mutableListOf()
-    private var searchSolanaTokens: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private var searchSolanaTokens: MutableList<JsonObject> = mutableListOf()
 
     private var isClickable = true
 
@@ -106,7 +106,10 @@ class MajorCryptoFragment : Fragment() {
         binding.apply {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
-            babylonStaking.visibleOrGone(selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT))
+            babylonStaking.visibleOrGone(
+                selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT ||
+                        selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT)
+            )
 
             babylonStaking.setOnClickListener {
                 if (selectedChain.btcStakingDapp().isNotEmpty()) {
@@ -143,8 +146,8 @@ class MajorCryptoFragment : Fragment() {
                         solanaBalances.add(fetcher.solanaAccountInfo)
                         searchSolanaBalances.addAll(solanaBalances)
                         fetcher.solanaTokenInfo.sortWith { o1, o2 ->
-                            val value0 = fetcher.splTokenValue(o1.second["mint"].asString)
-                            val value1 = fetcher.splTokenValue(o2.second["mint"].asString)
+                            val value0 = fetcher.splTokenValue(o1["mint"].asString)
+                            val value1 = fetcher.splTokenValue(o2["mint"].asString)
                             when {
                                 value0 > value1 -> -1
                                 else -> 1
@@ -258,9 +261,14 @@ class MajorCryptoFragment : Fragment() {
                 solanaCryptoAdapter.notifyDataSetChanged()
 
                 solanaCryptoAdapter.setOnItemClickListener { chain, denom ->
+                    val sendAssetType = if (denom == selectedChain.coinSymbol) {
+                        SendAssetType.SOLANA_COIN
+                    } else {
+                        SendAssetType.SOLANA_TOKEN
+                    }
                     handleOneClickWithDelay(
                         CommonTransferFragment.newInstance(
-                            chain, denom, SendAssetType.SOLANA_COIN
+                            chain, denom, sendAssetType
                         )
                     )
                 }

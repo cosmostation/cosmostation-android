@@ -1772,7 +1772,10 @@ class WalletRepositoryImpl : WalletRepository {
         fetcher: SolanaFetcher, chain: ChainSolana
     ): NetworkResult<JsonObject> {
         return try {
-            val params = listOf(chain.mainAddress, mapOf("encoding" to "base58"))
+            val params = listOf(
+                chain.mainAddress,
+                mapOf("commitment" to "finalized", "encoding" to "base58"),
+            )
 
             val solanaAccountInfoRequest = JsonRpcRequest(
                 method = "getAccountInfo", params = params
@@ -1800,7 +1803,7 @@ class WalletRepositoryImpl : WalletRepository {
             val params = listOf(
                 chain.mainAddress,
                 mapOf("programId" to SOLANA_PROGRAM_ID),
-                mapOf("encoding" to "jsonParsed")
+                mapOf("encoding" to "jsonParsed", "commitment" to "finalized")
             )
 
             val solanaTokenInfoRequest = JsonRpcRequest(

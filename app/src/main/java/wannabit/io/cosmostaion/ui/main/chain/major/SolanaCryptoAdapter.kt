@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ class SolanaCryptoAdapter(
     val context: Context,
     val selectedChain: BaseChain,
     val coins: MutableList<JsonObject>,
-    val tokens: MutableList<Pair<String, JsonObject>>
+    val tokens: MutableList<JsonObject>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -64,6 +65,12 @@ class SolanaCryptoAdapter(
                 } else {
                     val token = tokens[position - 3]
                     holder.tokenBind(selectedChain as ChainSolana, token)
+
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(selectedChain, token["mint"].asString)
+                        }
+                    }
                 }
             }
         }
