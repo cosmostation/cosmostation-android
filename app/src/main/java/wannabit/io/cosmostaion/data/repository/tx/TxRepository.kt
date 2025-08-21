@@ -372,6 +372,8 @@ interface TxRepository {
 
     suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String>
 
+    suspend fun minimumRentBalance(chain: ChainSolana): NetworkResult<String>
+
     suspend fun broadcastSolSendTx(
         chain: ChainSolana, hexValue: String
     ): Pair<Boolean, String?>
@@ -382,5 +384,5 @@ interface TxRepository {
         from: String,
         to: String,
         toAmount: String
-    ): Pair<String?, String>
+    ): Pair<String?, Any>
 }

@@ -322,9 +322,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val btcStakeBroadcast = SingleLiveEvent<Pair<AbciProto.TxResponse?, String?>>()
 
-    val solSimulate = SingleLiveEvent<Pair<String?, String>>()
+    val solSimulate = SingleLiveEvent<Pair<String?, kotlin.Any>>()
 
     val solBroadcast = SingleLiveEvent<String?>()
+
+    val solErrorMessage = SingleLiveEvent<kotlin.Any>()
 
     fun broadcast(
         managedChannel: ManagedChannel?,
@@ -1419,6 +1421,22 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
     }
 
+
+    // solana
+    private var _solanaMinimumRentResult = MutableLiveData<String>()
+    val solanaMinimumRentResult: LiveData<String> get() = _solanaMinimumRentResult
+    fun solanaMinimumRentBalance(chain: ChainSolana) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = txRepository.minimumRentBalance(chain)) {
+            is NetworkResult.Success -> {
+                _solanaMinimumRentResult.postValue(response.data)
+            }
+
+            is NetworkResult.Error -> {
+                errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
     fun solSendBroadcast(
         chain: ChainSolana, txHex: String
     ) = viewModelScope.launch(Dispatchers.IO) {
@@ -1450,14 +1468,14 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 chain, solanaJS, from, to, toAmount
             )
 
-            if (response.first?.isNotEmpty() == true && response.second != "error") {
-                solSimulate.postValue(response)
+            if (response.second == "error" || response.second is JsonObject) {
+                solErrorMessage.postValue(response.second)
             } else {
-                errorMessage.postValue("error")
+                solSimulate.postValue(response)
             }
 
         } catch (e: Exception) {
-            errorMessage.postValue(e.message.toString())
+            solErrorMessage.postValue(e.message.toString())
         }
     }
 }

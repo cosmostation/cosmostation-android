@@ -2639,6 +2639,40 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun minimumRentBalance(chain: ChainSolana): NetworkResult<String> {
+        return try {
+            val rentParams = listOf(
+                0, mapOf("commitment" to "finalized")
+            )
+            val minimumRentRequest = JsonRpcRequest(method = "getMinimumBalanceForRentExemption", params = rentParams)
+            val minimumRentResponse = jsonRpcResponse(
+                chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, minimumRentRequest
+            )
+
+            safeApiCall(Dispatchers.IO) {
+                if (minimumRentResponse.isSuccessful) {
+                    val minimumRentJsonObject = Gson().fromJson(
+                        minimumRentResponse.body?.string(), JsonObject::class.java
+                    )
+
+                    if (minimumRentJsonObject.has("error")) {
+                        "error"
+                    } else {
+                        minimumRentJsonObject["result"].asLong.toString()
+                    }
+
+                } else {
+                    "error"
+                }
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                "error"
+            }
+        }
+    }
+
     override suspend fun broadcastSolSendTx(
         chain: ChainSolana,
         hexValue: String
@@ -2674,7 +2708,7 @@ class TxRepositoryImpl : TxRepository {
 
     override suspend fun simulateSolSend(
         chain: ChainSolana, solanaJS: SolanaJs?, from: String, to: String, toAmount: String
-    ): Pair<String?, String> {
+    ): Pair<String?, Any> {
         return try {
             val params = listOf(
                 mapOf("commitment" to "finalized")
@@ -2711,9 +2745,9 @@ class TxRepositoryImpl : TxRepository {
                         serializedTxHex, JsonObject::class.java
                     )
 
-                    val txBase64 = serializedTxHexJsonData["serialiezedTxWithBase64"].asString
+                    val txBase64 = serializedTxHexJsonData["serializedTxWithBase64"].asString
                     val txMessageWithBase64 =
-                        serializedTxHexJsonData["serialiezedTxMessageWithBase64"].asString
+                        serializedTxHexJsonData["serializedTxMessageWithBase64"].asString
 
                     val simulateParams = listOf(
                         txBase64, mapOf(
@@ -2734,77 +2768,82 @@ class TxRepositoryImpl : TxRepository {
                     )
                     val simulateValue =
                         simulationJsonObject["result"].asJsonObject["value"].asJsonObject
-                    Log.e("TEst12345 : ", simulateValue.toString())
-                    val unitsConsumed = simulateValue["unitsConsumed"].asLong
 
-                    // fee data
-                    val feeParams = listOf(
-                        txMessageWithBase64, mapOf("commitment" to "processed")
-                    )
-                    val feeForMessageRequest =
-                        JsonRpcRequest(method = "getFeeForMessage", params = feeParams)
-                    val feeForMessageResponse = jsonRpcResponse(
-                        chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, feeForMessageRequest
-                    )
-                    val feeForMessageJsonObject = Gson().fromJson(
-                        feeForMessageResponse.body?.string(), JsonObject::class.java
-                    )
-                    val baseFee = feeForMessageJsonObject["result"].asJsonObject["value"].asLong
+                    if (!simulateValue["err"].isJsonNull) {
+                        Pair("", simulateValue["err"].asJsonObject)
 
-                    val prioritizationParams = listOf(
-                        chain.mainAddress
-                    )
-                    val prioritizationFeeRequest = JsonRpcRequest(
-                        method = "getRecentPrioritizationFees",
-                        params = listOf(prioritizationParams)
-                    )
-                    val prioritizationFeeResponse = jsonRpcResponse(
-                        chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl,
-                        prioritizationFeeRequest
-                    )
-                    val prioritizationFeeJsonObject = Gson().fromJson(
-                        prioritizationFeeResponse.body?.string(), JsonObject::class.java
-                    )
-
-                    var sumFee: Long = 0
-                    val recentPrioritizationFees = prioritizationFeeJsonObject["result"].asJsonArray
-                    if (recentPrioritizationFees.size() > 0) {
-                        recentPrioritizationFees.forEach { fee ->
-                            sumFee += fee.asJsonObject["prioritizationFee"].asLong
-                        }
-                    }
-
-                    val tipFee = if (sumFee > 0) {
-                        (sumFee / recentPrioritizationFees.size() / 1000000) + SOLANA_DEFAULT_PRIORITY_FEE.toLong()
                     } else {
-                        SOLANA_DEFAULT_PRIORITY_FEE.toLong()
-                    }
+                        val unitsConsumed = simulateValue["unitsConsumed"].asLong
 
-                    val fee = baseFee + tipFee
-                    val computeUnitLimit = unitsConsumed + 500
-                    val computeUnitPrice = tipFee / computeUnitLimit
+                        // fee data
+                        val feeParams = listOf(
+                            txMessageWithBase64, mapOf("commitment" to "processed")
+                        )
+                        val feeForMessageRequest =
+                            JsonRpcRequest(method = "getFeeForMessage", params = feeParams)
+                        val feeForMessageResponse = jsonRpcResponse(
+                            chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl, feeForMessageRequest
+                        )
+                        val feeForMessageJsonObject = Gson().fromJson(
+                            feeForMessageResponse.body?.string(), JsonObject::class.java
+                        )
+                        val baseFee = feeForMessageJsonObject["result"].asJsonObject["value"].asLong
 
-                    val overwriteComputeBudgetProgramFunction =
-                        """function overwriteComputeBudgetProgramFunction() {
+                        val prioritizationParams = listOf(
+                            chain.mainAddress
+                        )
+                        val prioritizationFeeRequest = JsonRpcRequest(
+                            method = "getRecentPrioritizationFees",
+                            params = listOf(prioritizationParams)
+                        )
+                        val prioritizationFeeResponse = jsonRpcResponse(
+                            chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl,
+                            prioritizationFeeRequest
+                        )
+                        val prioritizationFeeJsonObject = Gson().fromJson(
+                            prioritizationFeeResponse.body?.string(), JsonObject::class.java
+                        )
+
+                        var sumFee: Long = 0
+                        val recentPrioritizationFees = prioritizationFeeJsonObject["result"].asJsonArray
+                        if (recentPrioritizationFees.size() > 0) {
+                            recentPrioritizationFees.forEach { fee ->
+                                sumFee += fee.asJsonObject["prioritizationFee"].asLong
+                            }
+                        }
+
+                        val tipFee = if (sumFee > 0) {
+                            (sumFee / recentPrioritizationFees.size() / 1000000) + SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                        } else {
+                            SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                        }
+
+                        val fee = baseFee + tipFee
+                        val computeUnitLimit = unitsConsumed + 500
+                        val computeUnitPrice = tipFee / computeUnitLimit
+
+                        val overwriteComputeBudgetProgramFunction =
+                            """function overwriteComputeBudgetProgramFunction() {
                             const programTx = overwriteComputeBudgetProgram('${txBase64}', {
                                 units: $computeUnitLimit,
                                 microLamports: Math.ceil($computeUnitPrice * 1000000)
                             });
                             return programTx;
                     }""".trimMargin()
-                    solanaJS?.mergeFunction(overwriteComputeBudgetProgramFunction)
-                    val programTxHex =
-                        solanaJS?.executeFunction("overwriteComputeBudgetProgramFunction()")
+                        solanaJS?.mergeFunction(overwriteComputeBudgetProgramFunction)
+                        val programTxHex =
+                            solanaJS?.executeFunction("overwriteComputeBudgetProgramFunction()")
 
-                    val privateKey = chain.privateKey?.toHex()
-                    val signTransactionFunction = """function signTransactionFunction() {
+                        val privateKey = chain.privateKey?.toHex()
+                        val signTransactionFunction = """function signTransactionFunction() {
                     const txHex = signTransaction('${programTxHex}', '${privateKey}');
                          return txHex;
                     }""".trimMargin()
-                    solanaJS?.mergeFunction(signTransactionFunction)
-                    val txHex = solanaJS?.executeFunction("signTransactionFunction()")
+                        solanaJS?.mergeFunction(signTransactionFunction)
+                        val txHex = solanaJS?.executeFunction("signTransactionFunction()")
 
-                    Pair(txHex, fee.toString())
+                        Pair(txHex, fee.toString())
+                    }
                 }
 
             } else {

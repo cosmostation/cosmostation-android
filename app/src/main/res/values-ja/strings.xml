@@ -433,6 +433,7 @@
     <string name="error_js">データの形式が正しくないため、読み取ることができません。</string>
     <string name="error_at_least_btc_balance">ステーキングするには最低 %1$s が必要です。</string>
     <string name="error_max_btc_balance">ステーキング金額は最大で %1$s までです。</string>
+    <string name="error_minimum_rent">レントのために最低でも ^1 SOL を送金してください。</string>
 
 
     <string name="tx_unknown">不明</string>

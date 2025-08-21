@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -431,6 +432,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
 
         } else if (toChain is ChainSui || toChain is ChainIota) {
             return BaseUtils.isValidSuiAddress(address)
+
+        } else if (toChain is ChainSolana) {
+            return BaseKey.isValidSolanaAddress(address)
 
         } else if (toChain?.isEvmCosmos() == true) {
             return if (address?.startsWith("0x") == true && BaseKey.isValidEthAddress(address)) {

@@ -219,7 +219,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
                     }
 
-                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
+                    SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (refAddress.chainTag == toChain.tag && refAddress.dpAddress?.lowercase() != fromChain.mainAddress.lowercase()) {
@@ -272,10 +272,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                     }
                                 }
                             }
-                    }
-
-                    SendAssetType.SOLANA_COIN -> {
-
                     }
                 }
                 sortRefEvmAddresses(refEvmAddresses)
@@ -361,7 +357,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             initSegmentAction(refAddresses, addressBooks)
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT, SendAssetType.BIT_COIN, SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT, SendAssetType.SOLANA_COIN -> {
                             if (refMajorAddresses.isEmpty()) {
                                 recycler.visibility = View.GONE
                                 emptyLayout.visibility = View.VISIBLE
@@ -376,10 +372,6 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                             }
 
                             initSegmentAction(refMajorAddresses, addressBooks)
-                        }
-
-                        SendAssetType.SOLANA_COIN -> {
-
                         }
                     }
                 }

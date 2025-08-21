@@ -225,4 +225,12 @@ object BaseKey {
     fun isValidEthAddress(address: String?): Boolean {
         return WalletUtils.isValidAddress(address)
     }
+
+    fun isValidSolanaAddress(address: String?): Boolean =
+        try {
+            val bytes = Base58.decode(address)
+            bytes.size == 32
+        } catch (_: Exception) {
+            false
+        }
 }

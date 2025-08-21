@@ -9,11 +9,12 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
-import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -138,6 +139,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
     //solana
     private var solanaFeeAmount = BigDecimal.ZERO
+    private var solanaMinimumRentAmount = BigDecimal.ZERO
     private var solanaTxHex = ""
 
     private var availableAmount = BigDecimal.ZERO
@@ -173,6 +175,7 @@ class CommonTransferFragment : BaseTxFragment() {
         initView()
         initData()
         setUpUtxo()
+        setUpMinimumRent()
         setUpClickAction()
         setUpSimulate()
         setUpBroadcast()
@@ -349,20 +352,18 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 SendAssetType.SOLANA_COIN -> {
+                    backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainSolana).apply {
                         lifecycleScope.launch(Dispatchers.IO) {
                             if (!SolanaJs.isInitialized()) {
                                 SolanaJs.initialize(requireContext()).await()
                             }
-                            toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                             withContext(Dispatchers.Main) {
+                                txViewModel.solanaMinimumRentBalance(this@apply)
+                                toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                                 transferImg.setTokenImg(toSendAsset?.image ?: "")
                                 sendTitle.text = getString(
                                     R.string.title_asset_send, toSendAsset?.symbol
-                                )
-
-                                availableAmount = solanaFetcher?.solanaBalanceAmount()?.subtract(
-                                    solanaFeeAmount
                                 )
                             }
                         }
@@ -605,7 +606,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.SOLANA_COIN -> {
                     transferStyle = TransferStyle.SOLANA_COIN_STYLE
-                    memoView.visibility = View.VISIBLE
+                    memoView.visibility = View.GONE
                 }
 
                 else -> {
@@ -737,6 +738,19 @@ class CommonTransferFragment : BaseTxFragment() {
                             val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
                             val value = price.multiply(dpAmount)
                             sendAmount.text = formatAmount(dpAmount.toPlainString(), 8)
+                            sendDenom.text = fromChain.coinSymbol
+                            sendValue.text = formatAssetValue(value)
+                        }
+                    }
+
+                    SendAssetType.SOLANA_COIN -> {
+                        (fromChain as ChainSolana).apply {
+                            val price = BaseData.getPrice(toSendAsset?.coinGeckoId)
+                            val dpAmount = toAmount.toBigDecimal()
+                                .amountHandlerLeft(toSendAsset?.decimals ?: 9)
+                            val value = price.multiply(dpAmount)
+                            sendAmount.text =
+                                formatAmount(dpAmount.toPlainString(), toSendAsset?.decimals ?: 9)
                             sendDenom.text = fromChain.coinSymbol
                             sendValue.text = formatAssetValue(value)
                         }
@@ -1066,12 +1080,12 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun txSimulate() {
         binding.apply {
-//            if (toSendAmount.isEmpty() || toAddress.isEmpty()) {
-//                return
-//            }
-//            if (toSendAmount.toBigDecimal() <= BigDecimal.ZERO) {
-//                return
-//            }
+            if (toSendAmount.isEmpty() || toAddress.isEmpty()) {
+                return
+            }
+            if (toSendAmount.toBigDecimal() <= BigDecimal.ZERO) {
+                return
+            }
             assetPath = assetPath(fromChain, toChain, toSendDenom)
 
             when (transferStyle) {
@@ -1152,8 +1166,8 @@ class CommonTransferFragment : BaseTxFragment() {
                             this,
                             SolanaJs,
                             fromChain.mainAddress,
-                            "8xo3cHG94iBk4KsjxQ3uXSsrT6LjY8f8WKiB2iV3y6yL",
-                            "890870"
+                            toAddress,
+                            toSendAmount
                         )
                     }
                 }
@@ -1469,6 +1483,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                         txMemo,
                                         this
                                     )
+
                                 } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
                                     val msgCall =
                                         com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
@@ -1554,6 +1569,24 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
+    private fun setUpMinimumRent() {
+        txViewModel.solanaMinimumRentResult.observe(viewLifecycleOwner) { rent ->
+            (fromChain as ChainSolana).apply {
+                if (rent != "error") {
+                    solanaMinimumRentAmount = rent.toBigDecimal()
+                    availableAmount =
+                        solanaFetcher?.solanaBalanceAmount()?.subtract(solanaMinimumRentAmount)
+                            ?.subtract(BigDecimal(20000L))
+                } else {
+                    binding.backdropLayout.visibility = View.GONE
+                    requireActivity().makeToast(R.string.error_evm_simul)
+                }
+            }
+            binding.backdropLayout.visibility = View.GONE
+            updateFeeView()
+        }
+    }
+
     private fun setUpSimulate() {
         txViewModel.simulate.observe(viewLifecycleOwner) { gasUsed ->
             updateFeeViewWithSimulate(gasUsed)
@@ -1572,7 +1605,16 @@ class CommonTransferFragment : BaseTxFragment() {
         txViewModel.solSimulate.observe(viewLifecycleOwner) { response ->
             response.first?.let { hexValue ->
                 solanaTxHex = hexValue
-                updateFeeViewWithSimulate(response.second)
+                updateFeeViewWithSimulate(response.second as String)
+
+                binding.btnSend.apply {
+                    setText(
+                        TextUtils.expandTemplate(
+                            getText(R.string.str_send)
+                        ), TextView.BufferType.SPANNABLE
+                    )
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                }
             }
         }
 
@@ -1585,6 +1627,37 @@ class CommonTransferFragment : BaseTxFragment() {
         txViewModel.erc20ErrorMessage.observe(viewLifecycleOwner) {
             isBroadCastTx(false)
             requireContext().makeToast(R.string.error_evm_simul)
+            return@observe
+        }
+
+        txViewModel.solErrorMessage.observe(viewLifecycleOwner) { response ->
+            if (response is JsonObject) {
+                if (response.has("InsufficientFundsForRent")) {
+                    BaseData.getAsset(fromChain.apiName, fromChain.coinSymbol)?.let { asset ->
+                        val dpMinimumRentAmount =
+                            solanaMinimumRentAmount.movePointLeft(asset.decimals ?: 9)
+                                .setScale(asset.decimals ?: 9, RoundingMode.UP)
+                        val amount: CharSequence =
+                            formatAmount(dpMinimumRentAmount.toPlainString(), asset.decimals ?: 9)
+                        binding.btnSend.apply {
+                            setText(
+                                TextUtils.expandTemplate(
+                                    getText(R.string.error_minimum_rent),
+                                    amount
+                                ), TextView.BufferType.SPANNABLE
+                            )
+                            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                        }
+                    }
+
+                } else {
+                    requireActivity().makeToast(response.toString())
+                }
+
+            } else {
+                requireActivity().makeToast(response as String)
+            }
+            isBroadCastTx(false)
             return@observe
         }
     }
@@ -1650,7 +1723,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
         txViewModel.solBroadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                if (isHexString(response.toString())) {
+                if (response?.isNotEmpty() == true) {
                     putExtra("isSuccess", true)
                     putExtra("txHash", response)
                 } else {

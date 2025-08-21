@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
@@ -203,6 +204,18 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                         val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                             ?.setScale(assetDecimal, RoundingMode.DOWN)
                         available.text = formatAmount(amount.toString(), assetDecimal)
+                    }
+                }
+
+                SendAssetType.SOLANA_COIN -> {
+                    toSendAsset?.let { asset ->
+                        assetDecimal = asset.decimals ?: 9
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = asset.symbol
+                                availableDenom.setTextColor(asset.assetColor())
+                            }
                     }
                 }
 

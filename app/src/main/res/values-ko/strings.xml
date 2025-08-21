@@ -431,6 +431,7 @@
     <string name="error_js">올바른 포맷이 아니기 때문에 해당 데이터를 읽을 수 없습니다</string>
     <string name="error_at_least_btc_balance">스테이킹 수량은 최소 %1$s 이상이어야 합니다.</string>
     <string name="error_max_btc_balance">스테이킹 수량은 최대 %1$s 이하여야 합니다.</string>
+    <string name="error_minimum_rent">렌트 비용을 위해 최소 ^1 SOL 보내야 합니다.</string>
 
 
     //header
