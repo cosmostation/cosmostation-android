@@ -26,5 +26,5 @@ class ChainQuicksilver : BaseChain(), Parcelable {
     override var stakeDenom: String = "uqck"
     override var accountPrefix: String = "quick"
     override var grpcHost: String = "quicksilver-grpc.stake-town.com"
-    override var lcdUrl: String = "https://m-quicksilver.api.utsa.tech/"
+    override var lcdUrl: String = "https://lcd.quicksilver.zone/"
 }
