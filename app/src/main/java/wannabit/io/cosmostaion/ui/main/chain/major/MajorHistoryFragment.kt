@@ -14,7 +14,6 @@ import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -39,7 +38,6 @@ class MajorHistoryFragment : Fragment() {
     private val suiHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
     private val iotaHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
     private val bitHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
-    private val solanaHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -94,10 +92,6 @@ class MajorHistoryFragment : Fragment() {
                 historyViewModel.suiHistory(selectedChain as ChainSui)
             }
 
-            is ChainSolana -> {
-                historyViewModel.solanaHistory(selectedChain as ChainSolana)
-            }
-
             else -> {
                 historyViewModel.iotaHistory(selectedChain as ChainIota)
             }
@@ -115,10 +109,6 @@ class MajorHistoryFragment : Fragment() {
                 is ChainSui -> {
                     suiHistoryGroup.clear()
                     historyViewModel.suiHistory(selectedChain as ChainSui)
-                }
-
-                is ChainSolana -> {
-                    historyViewModel.solanaHistory(selectedChain as ChainSolana)
                 }
 
                 else -> {
@@ -220,22 +210,6 @@ class MajorHistoryFragment : Fragment() {
                     hasMore = true
                     afterTxId =
                         historyGroup[historyGroup.size - 1].second.asJsonObject["txid"].asString
-                }
-
-                binding.loading.visibility = View.GONE
-                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
-                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
-                historyAdapter.notifyDataSetChanged()
-            }
-        }
-
-        historyViewModel.solanaHistoryResult.observe(viewLifecycleOwner) { response ->
-            solanaHistoryGroup.clear()
-            binding.refresher.isRefreshing = false
-            response?.let { historyGroup ->
-                solanaHistoryGroup.addAll(historyGroup)
-                if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(solanaHistoryGroup as List<Any>?)
                 }
 
                 binding.loading.visibility = View.GONE

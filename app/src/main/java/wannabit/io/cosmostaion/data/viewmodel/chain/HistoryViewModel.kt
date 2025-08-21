@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
@@ -236,28 +235,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
 
                 } catch (_: Exception) {
 
-                }
-            }
-        }
-
-    private var _solanaHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
-    val solanaHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _solanaHistoryResult
-
-    fun solanaHistory(chain: ChainSolana) =
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val response = historyRepository.solanaHistory(chain)) {
-                is NetworkResult.Success -> {
-                    val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
-                    response.data?.forEach { history ->
-                        val headerDate = dpTimeToYear(history["blockTime"].asString.toLong() * 1000)
-                        result.add(Pair(headerDate, history))
-                    }
-
-                    _solanaHistoryResult.postValue(result)
-                }
-
-                is NetworkResult.Error -> {
-                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                 }
             }
         }

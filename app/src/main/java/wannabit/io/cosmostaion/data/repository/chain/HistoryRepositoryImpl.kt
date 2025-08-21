@@ -8,7 +8,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance
@@ -187,36 +186,6 @@ class HistoryRepositoryImpl : HistoryRepository {
     override suspend fun bitBlockHeight(chain: ChainBitCoin86): NetworkResult<Long?> {
         return safeApiCall(Dispatchers.IO) {
             RetrofitInstance.bitApi(chain).bitBlockHeight()
-        }
-    }
-
-    override suspend fun solanaHistory(
-        chain: ChainSolana
-    ): NetworkResult<MutableList<JsonObject>?> {
-        return try {
-            val params = listOf(chain.mainAddress, mapOf("limit" to 1000L))
-
-            val solanaHistoryRequest = JsonRpcRequest(
-                method = "getSignaturesForAddress", params = params
-            )
-            val solanaHistoryResponse =
-                jsonRpcResponse(chain.solanaFetcher?.solanaRpc() ?: "", solanaHistoryRequest)
-            val solanaHistoryJsonObject = Gson().fromJson(
-                solanaHistoryResponse.body?.string(), JsonObject::class.java
-            )
-
-            val result: MutableList<JsonObject> = mutableListOf()
-            solanaHistoryJsonObject["result"].asJsonArray.forEach { data ->
-                result.add(data.asJsonObject)
-            }
-            safeApiCall(Dispatchers.IO) {
-                result
-            }
-
-        } catch (e: Exception) {
-            safeApiCall(Dispatchers.IO) {
-                mutableListOf()
-            }
         }
     }
 }

@@ -157,7 +157,8 @@ class MajorDetailFragment : Fragment() {
             if (selectedChain is ChainSui || selectedChain is ChainIota) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
-            tableTitles.add("History")
+
+            if (selectedChain !is ChainSolana) tableTitles.add("History")
 
             if (selectedChain.isSupportMobileDapp()) tableTitles.add("Ecosystem")
 
