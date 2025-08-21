@@ -213,7 +213,7 @@ class IotaStakingFragment : BaseTxFragment() {
                     )
                 )
                 delegateDenom.visibility = View.VISIBLE
-                delegateDenom.text = (selectedChain as ChainIota).coinSymbol
+                delegateDenom.text = (selectedChain as ChainIota).getMainAssetSymbol()
                 delegateValue.text = formatAssetValue(value)
                 txSimulate()
 

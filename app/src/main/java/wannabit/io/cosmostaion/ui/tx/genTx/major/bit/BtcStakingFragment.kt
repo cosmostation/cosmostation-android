@@ -141,7 +141,7 @@ class BtcStakingFragment : BaseTxFragment() {
                 }
             }
 
-            BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.coinSymbol)
+            BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.getMainAssetSymbol())
                 ?.let { asset ->
                     titleStakeImg.setTokenImg(asset)
                     titleStake.text = getString(R.string.title_staking, asset.symbol)
@@ -288,7 +288,7 @@ class BtcStakingFragment : BaseTxFragment() {
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.coinSymbol)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetSymbol())?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
             }
@@ -325,7 +325,7 @@ class BtcStakingFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainBitCoin86).apply {
-                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, coinSymbol)?.coinGeckoId
+                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpFeeAmount = btcFeeAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val value = price.multiply(dpFeeAmount)
@@ -341,7 +341,7 @@ class BtcStakingFragment : BaseTxFragment() {
             toStakeAmount = toAmount
 
             (selectedChain as ChainBitCoin86).apply {
-                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, coinSymbol)?.coinGeckoId
+                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpAmount =
                     toStakeAmount.toBigDecimal().movePointLeft(8).setScale(8, RoundingMode.DOWN)
@@ -355,7 +355,7 @@ class BtcStakingFragment : BaseTxFragment() {
                     )
                 )
                 delegateDenom.visibility = View.VISIBLE
-                delegateDenom.text = coinSymbol
+                delegateDenom.text = getMainAssetSymbol()
                 delegateValue.text = formatAssetValue(value)
                 txSimulate()
             }
@@ -387,7 +387,7 @@ class BtcStakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAssetWithSymbol(
-                            selectedChain.apiName, selectedChain.coinSymbol
+                            selectedChain.apiName, selectedChain.getMainAssetSymbol()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

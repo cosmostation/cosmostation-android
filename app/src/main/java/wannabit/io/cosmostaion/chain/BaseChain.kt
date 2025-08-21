@@ -364,9 +364,9 @@ open class BaseChain : Parcelable {
 
     fun getMainAssetSymbol(): String {
         return if (getChainListParam()?.has("main_asset_symbol") == true) {
-            getChainListParam()?.get("main_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: coinSymbol
         } else {
-            getChainListParam()?.get("staking_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: coinSymbol
         }
     }
 

@@ -211,7 +211,7 @@ class CommonTransferFragment : BaseTxFragment() {
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
                     toSendAsset = if (toSendDenom.isEmpty()) {
-                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.coinSymbol)
+                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.getMainAssetSymbol())
                     } else {
                         BaseData.getAsset(fromChain.apiName, toSendDenom)
                     }
@@ -317,10 +317,10 @@ class CommonTransferFragment : BaseTxFragment() {
                     backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainBitCoin86).apply {
                         txViewModel.bitTxData(fromChain as ChainBitCoin86)
-                        toSendAsset = BaseData.getAsset(fromChain.apiName, fromChain.coinSymbol)
+                        toSendAsset = BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetSymbol())
                         transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
-                            R.string.title_asset_send, fromChain.coinSymbol
+                            R.string.title_asset_send, fromChain.getMainAssetSymbol()
                         )
                     }
                 }
@@ -682,7 +682,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             val dpAmount = toAmount.toBigDecimal().amountHandlerLeft(8)
                             val value = price.multiply(dpAmount)
                             sendAmount.text = formatAmount(dpAmount.toPlainString(), 8)
-                            sendDenom.text = fromChain.coinSymbol
+                            sendDenom.text = fromChain.getMainAssetSymbol()
                             sendValue.text = formatAssetValue(value)
                         }
                     }
@@ -720,7 +720,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
                         }
 
-                        BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
+                        BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 
@@ -771,7 +771,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin86).apply {
-                        BaseData.getAssetWithSymbol(apiName, coinSymbol)?.let { asset ->
+                        BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 

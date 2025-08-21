@@ -212,7 +212,7 @@ class SuiStakingFragment : BaseTxFragment() {
                     )
                 )
                 delegateDenom.visibility = View.VISIBLE
-                delegateDenom.text = (selectedChain as ChainSui).coinSymbol
+                delegateDenom.text = (selectedChain as ChainSui).getMainAssetSymbol()
                 delegateValue.text = formatAssetValue(value)
                 txSimulate()
 

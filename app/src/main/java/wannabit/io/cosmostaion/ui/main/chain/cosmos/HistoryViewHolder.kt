@@ -527,7 +527,7 @@ class HistoryViewHolder(
                         txAmount.text = formatAmount(
                             historyGroup.second["amount"].asString, 18
                         )
-                        txDenom.text = chain.coinSymbol.uppercase()
+                        txDenom.text = chain.getMainAssetSymbol().uppercase()
                         txDenom.setTextColor(Color.parseColor("#ffffff"))
 
                     } else {
@@ -643,7 +643,7 @@ class HistoryViewHolder(
             txAmount.text = formatAmount(
                 displayAmount.toString(), 8
             )
-            txDenom.text = chain.coinSymbol
+            txDenom.text = chain.getMainAssetSymbol()
             txDenom.setTextColor(Color.parseColor("#ffffff"))
         }
     }

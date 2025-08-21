@@ -45,7 +45,7 @@ class MajorCryptoViewHolder(
                 withdrawableLayout.visibility = View.VISIBLE
             }
 
-            BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+            BaseData.getAssetWithSymbol(chain.apiName, chain.getMainAssetSymbol())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
                 tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))

@@ -1148,8 +1148,8 @@ class SwapFragment : BaseTxFragment() {
             when {
                 o1.denom == inputChain?.stakeDenom -> -1
                 o2.denom == inputChain?.stakeDenom -> 1
-                o1.symbol == inputChain?.coinSymbol -> -1
-                o2.symbol == inputChain?.coinSymbol -> 1
+                o1.symbol == inputChain?.getMainAssetSymbol() -> -1
+                o2.symbol == inputChain?.getMainAssetSymbol() -> 1
                 o1.type.ordinal < o2.type.ordinal -> -1
                 o1.type.ordinal > o2.type.ordinal -> 1
                 else -> o1.symbol!!.compareTo(o2.symbol!!)
@@ -1221,8 +1221,8 @@ class SwapFragment : BaseTxFragment() {
             when {
                 o1.denom == outputChain?.stakeDenom -> -1
                 o2.denom == outputChain?.stakeDenom -> 1
-                o1.symbol == outputChain?.coinSymbol -> -1
-                o2.symbol == outputChain?.coinSymbol -> 1
+                o1.symbol == outputChain?.getMainAssetSymbol() -> -1
+                o2.symbol == outputChain?.getMainAssetSymbol() -> 1
                 o1.type.ordinal < o2.type.ordinal -> -1
                 o1.type.ordinal > o2.type.ordinal -> 1
                 else -> o1.symbol!!.compareTo(o2.symbol!!)

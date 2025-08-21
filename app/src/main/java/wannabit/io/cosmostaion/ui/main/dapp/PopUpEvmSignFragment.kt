@@ -538,7 +538,7 @@ class PopUpEvmSignFragment(
             }
             feeSegment.setPosition(addedFeePosition, false)
             selectFeePosition = addedFeePosition
-            feeDenom.text = selectedEvmChain?.coinSymbol
+            feeDenom.text = selectedEvmChain?.getMainAssetSymbol()
             updateFeeView()
         }
     }
@@ -547,7 +547,7 @@ class PopUpEvmSignFragment(
         binding.apply {
             val coinGeckoId = BaseData.getAssetWithSymbol(
                 selectedEvmChain?.apiName ?: "",
-                selectedEvmChain?.coinSymbol ?: ""
+                selectedEvmChain?.getMainAssetSymbol() ?: ""
             )?.coinGeckoId
             val feePrice = BaseData.getPrice(coinGeckoId)
             val totalGasPrice =

@@ -171,7 +171,7 @@ class WalletSelectViewHolder(
                                 .setScale(8, RoundingMode.DOWN)
                             val totalAmount = availableAmount.add(pendingInputAmount)
                             chainBalance.text = formatAmount(totalAmount.toString(), 8)
-                            chainDenom.text = chain.coinSymbol
+                            chainDenom.text = chain.getMainAssetSymbol()
                             chainDenom.setTextColor(
                                 ContextCompat.getColorStateList(
                                     context, R.color.color_base01
@@ -185,7 +185,7 @@ class WalletSelectViewHolder(
                                 ?.setScale(9, RoundingMode.DOWN)
                         }
                         chainBalance.text = formatAmount(availableAmount.toString(), 9)
-                        chainDenom.text = chain.coinSymbol
+                        chainDenom.text = chain.getMainAssetSymbol()
                         chainDenom.setTextColor(
                             ContextCompat.getColorStateList(
                                 context, R.color.color_base01
@@ -198,7 +198,7 @@ class WalletSelectViewHolder(
                                 ?.setScale(9, RoundingMode.DOWN)
                         }
                         chainBalance.text = formatAmount(availableAmount.toString(), 9)
-                        chainDenom.text = chain.coinSymbol
+                        chainDenom.text = chain.getMainAssetSymbol()
                         chainDenom.setTextColor(
                             ContextCompat.getColorStateList(
                                 context, R.color.color_base01
@@ -236,7 +236,7 @@ class WalletSelectViewHolder(
                         val availableAmount = chain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
                             ?.setScale(18, RoundingMode.DOWN)
                         chainBalance.text = formatAmount(availableAmount.toString(), 18)
-                        chainDenom.text = chain.coinSymbol
+                        chainDenom.text = chain.getMainAssetSymbol()
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             chainDenom.setTextColor(asset.assetColor())
                         }
@@ -361,7 +361,7 @@ class WalletSelectViewHolder(
                                 .setScale(8, RoundingMode.DOWN)
                             val totalAmount = availableAmount.add(pendingInputAmount)
                             chainBalance.text = formatAmount(totalAmount.toString(), 8)
-                            chainDenom.text = chain.coinSymbol
+                            chainDenom.text = chain.getMainAssetSymbol()
                         }
 
                     } else if (chain is ChainGnoTestnet) {
@@ -390,7 +390,7 @@ class WalletSelectViewHolder(
                         val availableAmount = chain.evmRpcFetcher?.evmBalance?.movePointLeft(18)
                             ?.setScale(18, RoundingMode.DOWN)
                         chainBalance.text = formatAmount(availableAmount.toString(), 18)
-                        chainDenom.text = chain.coinSymbol
+                        chainDenom.text = chain.getMainAssetSymbol()
                         BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
                             chainDenom.setTextColor(asset.assetColor())
                         }

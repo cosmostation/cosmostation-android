@@ -141,7 +141,7 @@ class ValidatorViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+            BaseData.getAssetWithSymbol(chain.apiName, chain.getMainAssetSymbol())?.let { asset ->
                 val amount =
                     withdraw.first["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal()
                         .movePointLeft(asset.decimals ?: 8)
