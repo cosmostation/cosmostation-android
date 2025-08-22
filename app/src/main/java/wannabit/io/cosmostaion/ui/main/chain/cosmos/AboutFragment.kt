@@ -135,7 +135,7 @@ class AboutFragment : Fragment() {
                 stakingDenom.text = if (!selectedChain.isStakeEnabled()) {
                     "-"
                 } else {
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.symbol
                 }
                 val unBondingTime = unBondingTime()
                 unbondingTime.text = if (unBondingTime.isNotEmpty()) {

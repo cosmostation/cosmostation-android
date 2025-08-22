@@ -114,11 +114,11 @@ class OktDepositFragment : BaseTxFragment() {
 
     private fun initData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            BaseData.getAsset(chain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 
-                val available = oktFetcher?.oktBalanceAmount(selectedChain.stakeDenom)
+                val available = oktFetcher?.oktBalanceAmount(selectedChain.getMainAssetDenom())
                 availableAmount = if (gasFee < available) {
                     available?.subtract(gasFee)
                 } else {
@@ -140,8 +140,8 @@ class OktDepositFragment : BaseTxFragment() {
 
     private fun initFeeData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            feeTokenImg.setTokenImg(chain.assetImg(chain.stakeDenom))
-            feeToken.text = chain.stakeDenom.uppercase()
+            feeTokenImg.setTokenImg(chain.assetImg(chain.getMainAssetDenom()))
+            feeToken.text = chain.getMainAssetDenom().uppercase()
 
             if (oktFetcher?.oktDeposits?.get("validator_address")?.isJsonNull != true) {
                 oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
@@ -156,11 +156,11 @@ class OktDepositFragment : BaseTxFragment() {
                     }
             }
 
-            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.stakeDenom)?.coinGeckoId
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.coinGeckoId
             val price = BaseData.getPrice(coinGeckoId)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
             feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
-            feeDenom.text = chain.stakeDenom.uppercase()
+            feeDenom.text = chain.getMainAssetDenom().uppercase()
             feeValue.text = formatAssetValue(value)
         }
     }
@@ -175,7 +175,7 @@ class OktDepositFragment : BaseTxFragment() {
             depositAmount.text = formatAmount(dpAmount.toPlainString(), 18)
 
             val coinGeckoId =
-                BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.coinGeckoId
+                BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.coinGeckoId
             val price = BaseData.getPrice(coinGeckoId)
             val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
             depositValue.text = formatAssetValue(toSendValue)
@@ -273,8 +273,8 @@ class OktDepositFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                val depositCoin = LCoin(selectedChain.stakeDenom, toDepositAmount)
-                val gasCoin = LCoin(selectedChain.stakeDenom, gasFee.toString())
+                val depositCoin = LCoin(selectedChain.getMainAssetDenom(), toDepositAmount)
+                val gasCoin = LCoin(selectedChain.getMainAssetDenom(), gasFee.toString())
                 val fee = LFee(gasAmount.toString(), mutableListOf(gasCoin))
 
                 val oktDepositMsg = Signer.oktDepositMsg(selectedChain.address, depositCoin)

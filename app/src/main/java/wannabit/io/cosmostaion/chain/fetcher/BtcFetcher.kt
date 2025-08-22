@@ -36,7 +36,7 @@ class BtcFetcher(private val chain: BaseChain) {
     var btcUtxo: String? = ""
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+        BaseData.getAssetWithSymbol(chain.apiName, chain.getMainAssetSymbol())?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             return (btcBalances.add(btcPendingInput).add(btcStakingAmount())
                 .add(btcUnStakingAmount()).add(btcWithdrawAbleAmount())).multiply(price)

@@ -1110,7 +1110,7 @@ data class CosmosHistory(
                         val denom = if (chain.tag == "kava60") {
                             "akava"
                         } else {
-                            chain.stakeDenom
+                            chain.getMainAssetDenom()
                         }
                         val value =
                             CoinProto.Coin.newBuilder().setDenom(denom).setAmount(amount).build()
@@ -1240,7 +1240,7 @@ data class CosmosHistory(
         }
 
         sorted.sortWith { coin1, coin2 ->
-            if (coin1.denom == chain.stakeDenom && coin2.denom != chain.stakeDenom) {
+            if (coin1.denom == chain.getMainAssetDenom() && coin2.denom != chain.getMainAssetDenom()) {
                 -1
             } else {
                 0

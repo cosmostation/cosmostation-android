@@ -150,7 +150,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                         .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                             available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                            availableDenom.text = fromChain.coinSymbol
+                            availableDenom.text = fromChain.getMainAssetSymbol()
                         }
                 }
 
@@ -200,7 +200,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                 SendAssetType.BIT_COIN -> {
                     (fromChain as ChainBitCoin86).apply {
                         assetDecimal = 8
-                        availableDenom.text = fromChain.coinSymbol
+                        availableDenom.text = fromChain.getMainAssetSymbol()
                         val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                             ?.setScale(assetDecimal, RoundingMode.DOWN)
                         available.text = formatAmount(amount.toString(), assetDecimal)

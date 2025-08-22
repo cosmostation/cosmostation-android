@@ -33,7 +33,6 @@ import wannabit.io.cosmostaion.common.getdAmount
 import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.common.updateButtonView
-import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.data.model.req.Bond
 import wannabit.io.cosmostaion.data.model.req.BondReq
 import wannabit.io.cosmostaion.data.model.req.Unbond
@@ -41,9 +40,11 @@ import wannabit.io.cosmostaion.data.model.req.UnbondReq
 import wannabit.io.cosmostaion.data.model.res.FeeInfo
 import wannabit.io.cosmostaion.databinding.FragmentVaultBinding
 import wannabit.io.cosmostaion.databinding.ItemSegmentedFeeBinding
+import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.TxType
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.tx.TxResultActivity
+import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AmountSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.AssetSelectListener
@@ -52,7 +53,6 @@ import wannabit.io.cosmostaion.ui.tx.option.general.BaseFeeAssetSelectListener
 import wannabit.io.cosmostaion.ui.tx.option.general.InsertAmountFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoFragment
 import wannabit.io.cosmostaion.ui.tx.option.general.MemoListener
-import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -198,27 +198,28 @@ class VaultFragment : BaseTxFragment() {
 
     private fun updateAmountView(toAmount: String) {
         binding.apply {
-            val stakeDenom = selectedChain.stakeDenom
-            toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(stakeDenom).build()
+            toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount)
+                .setDenom(selectedChain.getMainAssetDenom()).build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                val price = BaseData.getPrice(asset.coinGeckoId)
-                val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
-                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                val value = price.multiply(dpAmount)
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+                ?.let { asset ->
+                    val price = BaseData.getPrice(asset.coinGeckoId)
+                    val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
+                        .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
+                    val value = price.multiply(dpAmount)
 
-                vaultAmountMsg.visibility = View.GONE
-                vaultAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
-                vaultAmount.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(), R.color.color_base01
+                    vaultAmountMsg.visibility = View.GONE
+                    vaultAmount.text = formatAmount(dpAmount.toPlainString(), asset.decimals ?: 6)
+                    vaultAmount.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(), R.color.color_base01
+                        )
                     )
-                )
-                vaultDenom.visibility = View.VISIBLE
-                vaultDenom.text = asset.symbol
-                vaultDenom.setTextColor(asset.assetColor())
-                vaultValue.text = formatAssetValue(value)
-            }
+                    vaultDenom.visibility = View.VISIBLE
+                    vaultDenom.text = asset.symbol
+                    vaultDenom.setTextColor(asset.assetColor())
+                    vaultValue.text = formatAssetValue(value)
+                }
             txSimulate()
         }
     }
@@ -261,8 +262,8 @@ class VaultFragment : BaseTxFragment() {
 
                     availableAmount = if (vaultType == VaultType.DEPOSIT) {
                         val balanceAmount =
-                            selectedChain.cosmosFetcher?.availableAmount(selectedChain.stakeDenom)
-                        if (fee.denom == selectedChain.stakeDenom) {
+                            selectedChain.cosmosFetcher?.availableAmount(selectedChain.getMainAssetDenom())
+                        if (fee.denom == selectedChain.getMainAssetDenom()) {
                             if (amount > balanceAmount) {
                                 BigDecimal.ZERO
                             } else {
@@ -284,11 +285,12 @@ class VaultFragment : BaseTxFragment() {
         binding.apply {
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(selectedChain, insertTxType(),
+                    InsertAmountFragment.newInstance(
+                        selectedChain, insertTxType(),
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
@@ -312,7 +314,8 @@ class VaultFragment : BaseTxFragment() {
                 txFee?.let { fee ->
                     if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
-                            BaseFeeAssetFragment(selectedChain,
+                            BaseFeeAssetFragment(
+                                selectedChain,
                                 selectedChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
@@ -338,7 +341,8 @@ class VaultFragment : BaseTxFragment() {
 
                     } else {
                         handleOneClickWithDelay(
-                            AssetFragment.newInstance(selectedChain,
+                            AssetFragment.newInstance(
+                                selectedChain,
                                 feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                                 object : AssetSelectListener {
                                     override fun select(denom: String) {

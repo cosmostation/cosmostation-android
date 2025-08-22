@@ -153,7 +153,7 @@ class IotaNftTransferFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(fromChain.apiName, fromChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetDenom())?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
                 iotaFeeBudget =
@@ -180,7 +180,7 @@ class IotaNftTransferFragment(
     private fun updateFeeView() {
         binding.apply {
             (fromChain as ChainIota).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, stakeDenom)?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = iotaFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)

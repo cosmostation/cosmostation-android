@@ -37,7 +37,7 @@ class ChainSeiEvm : BaseChain(), Parcelable {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         address = BaseKey.getAddressFromPubKey(
-            context, publicKey, accountKeyType.pubkeyType, accountPrefix
+            context, publicKey, accountKeyType.pubkeyType, accountPrefix()
         )
         evmAddress = BaseKey.getAddressFromPubKey(context, publicKey, PubKeyType.ETH_KECCAK256)
     }

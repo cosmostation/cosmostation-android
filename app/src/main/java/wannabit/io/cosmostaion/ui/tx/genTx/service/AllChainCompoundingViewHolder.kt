@@ -43,7 +43,7 @@ class AllChainCompoundingViewHolder(
                 }
 
                 var mainRewardAmount = BigDecimal.ZERO
-                val mainRewardDenom = baseChain.stakeDenom
+                val mainRewardDenom = baseChain.getMainAssetDenom()
                 rewards.forEach { reward ->
                     reward?.rewardList?.firstOrNull { it.denom == mainRewardDenom }
                         ?.let { rewardCoin ->

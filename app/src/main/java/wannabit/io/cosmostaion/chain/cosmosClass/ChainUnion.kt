@@ -22,7 +22,7 @@ class ChainUnion : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "upoa"
+    override var stakeDenom: String = "au"
     override var accountPrefix: String = "union"
     override var grpcHost: String = "grpc.rpc-node.union-1.union.build"
     override var lcdUrl: String = "https://api.rpc-node.union-1.union.build/"

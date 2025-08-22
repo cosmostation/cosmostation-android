@@ -66,7 +66,7 @@ class SelectSendTypeFragment : BottomSheetDialogFragment() {
         binding.dialogMsg0.text =
             Html.fromHtml(getString(R.string.str_send_to_evm), Html.FROM_HTML_MODE_LEGACY)
         binding.dialogMsg1.text = Html.fromHtml(
-            getString(R.string.str_send_to_cosmos, selectedChain.accountPrefix + 1),
+            getString(R.string.str_send_to_cosmos, selectedChain.accountPrefix() + 1),
             Html.FROM_HTML_MODE_LEGACY
         )
     }

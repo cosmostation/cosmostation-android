@@ -169,7 +169,7 @@ class EvmVoteFragment : BaseTxFragment() {
             feeSegment.setPosition(1, false)
             selectedFeePosition = 1
 //            feeTokenImg.setImageResource(selectedChain.coinLogo)
-            feeToken.text = selectedChain.coinSymbol
+            feeToken.text = selectedChain.getMainAssetSymbol()
 
 //            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
 //            val totalGasPrice = evmGasPrices[selectedFeePosition]

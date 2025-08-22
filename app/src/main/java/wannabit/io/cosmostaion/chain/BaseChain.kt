@@ -285,15 +285,15 @@ open class BaseChain : Parcelable {
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address = BaseKey.getAddressFromPubKey(
-                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix()
             )
 
         } else {
             evmAddress = BaseKey.getAddressFromPubKey(
-                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix()
             )
             if (supportCosmos()) {
-                address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
+                address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix())
             }
         }
     }
@@ -359,17 +359,25 @@ open class BaseChain : Parcelable {
 
     fun getMainAssetDenom(): String {
         return if (getChainListParam()?.has("main_asset_denom") == true) {
-            getChainListParam()?.get("main_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
         } else {
-            getChainListParam()?.get("staking_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
         }
     }
 
     fun getMainAssetSymbol(): String {
         return if (getChainListParam()?.has("main_asset_symbol") == true) {
-            getChainListParam()?.get("main_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: coinSymbol
         } else {
-            getChainListParam()?.get("staking_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: coinSymbol
+        }
+    }
+
+    fun accountPrefix(): String {
+        return if (getChainListParam()?.has("bech_account_prefix") == true) {
+            getChainListParam()?.get("bech_account_prefix")?.asString ?: ""
+        } else {
+            ""
         }
     }
 

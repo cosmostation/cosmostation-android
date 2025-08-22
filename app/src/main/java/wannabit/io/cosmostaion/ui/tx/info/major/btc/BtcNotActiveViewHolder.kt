@@ -51,7 +51,7 @@ class BtcNotActiveViewHolder(
                     jailedImg.visibility = View.GONE
                 }
 
-                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+                BaseData.getAssetWithSymbol(chain.apiName, chain.getMainAssetSymbol())?.let { asset ->
                     val amount =
                         staked?.first?.get("delegation_staking")?.asJsonObject?.get("staking_amount")?.asLong?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 8)

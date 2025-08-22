@@ -37,8 +37,8 @@ open class ChainOkt996Keccak : ChainOktEvm(), Parcelable {
         this.privateKey = privateKey
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         evmAddress =
-            BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix)
-        address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
+            BaseKey.getAddressFromPubKey(context, publicKey, accountKeyType.pubkeyType, accountPrefix())
+        address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix())
     }
 }
 

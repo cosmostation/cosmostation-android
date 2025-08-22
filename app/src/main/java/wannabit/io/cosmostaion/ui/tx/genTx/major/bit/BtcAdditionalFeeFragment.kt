@@ -97,12 +97,12 @@ class BtcAdditionalFeeFragment : BottomSheetDialogFragment() {
             insufficientAvailable.text = getString(R.string.str_insufficient_balance, denom)
 
             val babylonBalance =
-                babylonChain.cosmosFetcher()?.availableAmount(babylonChain.stakeDenom)
+                babylonChain.cosmosFetcher()?.availableAmount(babylonChain.getMainAssetDenom())
                     ?: BigDecimal.ZERO
 
             insufficientAvailable.visibleOrGone(babylonBalance < babylonFeeAmount)
 
-            BaseData.getAsset(babylonChain.apiName, babylonChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(babylonChain.apiName, babylonChain.getMainAssetDenom())?.let { asset ->
                 val dpBabylonBalance = babylonBalance.movePointLeft(asset.decimals ?: 8)
                     ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                 myAvailable.text = formatAmount(dpBabylonBalance.toString(), asset.decimals ?: 8)

@@ -28,7 +28,7 @@ class InitiaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         var sum = BigDecimal.ZERO
         val delegationListCopy = initiaDelegations.toList()
         for (delegation in delegationListCopy) {
-            delegation.balanceList.filter { it.denom == chain.stakeDenom }.forEach { balance ->
+            delegation.balanceList.filter { it.denom == chain.getMainAssetDenom() }.forEach { balance ->
                 balance?.let {
                     sum = sum.add(balance.amount.toBigDecimal())
                 } ?: run {
@@ -43,7 +43,7 @@ class InitiaFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
         var sum = BigDecimal.ZERO
         initiaUnbondings.forEach { unbonding ->
             unbonding.entriesList.forEach { entry ->
-                entry.balanceList.filter { it.denom == chain.stakeDenom }.forEach { balance ->
+                entry.balanceList.filter { it.denom == chain.getMainAssetDenom() }.forEach { balance ->
                     sum = sum.add(balance.amount.toBigDecimal())
                 }
             }

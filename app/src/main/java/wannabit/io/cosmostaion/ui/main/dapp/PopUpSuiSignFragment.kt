@@ -181,7 +181,7 @@ class PopUpSuiSignFragment(
                                 binding.btnConfirm.isEnabled = true
                                 signData.text = format
                                 val coinGeckoId = BaseData.getAsset(
-                                    apiName, (selectedChain as ChainSui).stakeDenom
+                                    apiName, (selectedChain as ChainSui).getMainAssetDenom()
                                 )?.coinGeckoId
                                 val price = BaseData.getPrice(coinGeckoId)
                                 val dpBudget =

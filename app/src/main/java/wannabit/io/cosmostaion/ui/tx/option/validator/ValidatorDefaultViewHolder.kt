@@ -50,7 +50,7 @@ class ValidatorDefaultViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 val vpAmount = validator.tokens?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
                 votingPower.text = formatAmount(vpAmount.toString(), 0)
 
@@ -78,9 +78,9 @@ class ValidatorDefaultViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 val vpAmount =
-                    validator.tokensList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                    validator.tokensList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toBigDecimal()
                         ?.movePointLeft(asset.decimals ?: 6)
                 votingPower.text = formatAmount(vpAmount.toString(), 0)
 
@@ -106,7 +106,7 @@ class ValidatorDefaultViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 val vpAmount =
                     validator.tokensNative?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
                 votingPower.text = formatAmount(vpAmount.toString(), 0)

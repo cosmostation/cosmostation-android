@@ -1465,7 +1465,7 @@ class WalletRepositoryImpl : WalletRepository {
 
                     } else {
                         btcRewards.add(
-                            CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom).setAmount("0")
+                            CoinProto.Coin.newBuilder().setDenom(chain.getMainAssetDenom()).setAmount("0")
                                 .build()
                         )
                     }
@@ -1477,7 +1477,7 @@ class WalletRepositoryImpl : WalletRepository {
 
             } else {
                 safeApiCall(Dispatchers.IO) {
-                    lcdApi(chain).lcdBtcReward(chain.address).btcReward(chain.stakeDenom)
+                    lcdApi(chain).lcdBtcReward(chain.address).btcReward(chain.getMainAssetDenom())
                 }
             }
 

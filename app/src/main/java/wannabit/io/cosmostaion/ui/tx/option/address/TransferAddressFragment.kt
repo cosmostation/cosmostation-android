@@ -217,7 +217,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             }
 
                             txViewModel.icnsAddress(
-                                toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
+                                toChain, addressTxt.text.toString().trim(), toChain.accountPrefix()
                             )
                         }
 

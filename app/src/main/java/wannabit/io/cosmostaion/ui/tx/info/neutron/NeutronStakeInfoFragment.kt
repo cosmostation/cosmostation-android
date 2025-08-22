@@ -85,7 +85,7 @@ class NeutronStakeInfoFragment : Fragment() {
                 }
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 titleManageStake.text = getString(R.string.title_manage_stake, asset.symbol)
 
                 val assetLoader = AssetStreamLoader(requireContext(), "ntrn.png")

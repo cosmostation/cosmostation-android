@@ -59,7 +59,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     var cw721Models = mutableListOf<Cw721Model>()
 
     open fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal? {
-        return if (denom == chain.stakeDenom) {
+        return if (denom == chain.getMainAssetDenom()) {
             balanceValue(denom, isUsd).add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
                 .add(unbondingValueSum(isUsd))
 
@@ -198,7 +198,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun delegationValueSum(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+        BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = delegationAmountSum()
             asset.decimals?.let { decimal ->
@@ -219,7 +219,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun unbondingValueSum(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+        BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = unbondingAmountSum()
             asset.decimals?.let { decimal ->
@@ -283,7 +283,7 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     fun rewardOtherDenoms(): Int {
-        return rewardAllCoins().map { it.denom }.distinct().count { it != chain.stakeDenom }
+        return rewardAllCoins().map { it.denom }.distinct().count { it != chain.getMainAssetDenom() }
     }
 
     fun claimableRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
@@ -341,10 +341,10 @@ open class CosmosFetcher(private val chain: BaseChain) {
     fun compoundAbleRewards(): MutableList<DistributionProto.DelegationDelegatorReward?> {
         val result: MutableList<DistributionProto.DelegationDelegatorReward?> = mutableListOf()
         cosmosRewards.forEach { reward ->
-            reward.rewardList.firstOrNull { it.denom == chain.stakeDenom }?.amount?.let { amount ->
+            reward.rewardList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.let { amount ->
                 val rewardAmount =
                     amount.toBigDecimal().movePointLeft(18).setScale(0, RoundingMode.DOWN)
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                     val price = BaseData.getPrice(asset.coinGeckoId, true)
                     val value = price.multiply(rewardAmount).movePointLeft(asset.decimals ?: 6)
                         .setScale(6, RoundingMode.DOWN)
@@ -358,15 +358,15 @@ open class CosmosFetcher(private val chain: BaseChain) {
     }
 
     open fun allStakingDenomAmount(): BigDecimal? {
-        return balanceAmount(chain.stakeDenom).add(delegationAmountSum())?.add(unbondingAmountSum())
-            ?.add(rewardAmountSum(chain.stakeDenom))
+        return balanceAmount(chain.getMainAssetDenom()).add(delegationAmountSum())?.add(unbondingAmountSum())
+            ?.add(rewardAmountSum(chain.getMainAssetDenom()))
     }
 
     fun delegateAbleAmount(): BigDecimal {
         return if (chain is ChainCoreum) {
-            availableAmount(chain.stakeDenom)
+            availableAmount(chain.getMainAssetDenom())
         } else {
-            balanceAmount(chain.stakeDenom)
+            balanceAmount(chain.getMainAssetDenom())
         }
     }
 
