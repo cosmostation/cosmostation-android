@@ -181,7 +181,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
 
                     SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
                         AppDatabase.getInstance().refAddressDao().selectAll()
-                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
+                            .filter { it.dpAddress?.startsWith(toChain.accountPrefix() + 1) == true && it.dpAddress?.lowercase() != senderAddress.lowercase() }
                             .forEach { refAddress ->
                                 if (refAddresses.none { it.dpAddress?.lowercase() == refAddress.dpAddress?.lowercase() && it.accountId == refAddress.accountId }) {
                                     if (Prefs.displayLegacy) {
@@ -210,7 +210,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                             allChains().firstOrNull { it.tag == addressBook.chainName }
                                         if (chain?.isTestnet == false) {
                                             val prefix = addressBook.address.substringBefore('1')
-                                            if (toChain.accountPrefix == prefix) {
+                                            if (toChain.accountPrefix() == prefix) {
                                                 addressBooks.add(addressBook)
                                             }
                                         }

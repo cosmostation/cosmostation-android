@@ -246,7 +246,7 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                     memoDescriptionView.visibility = View.GONE
 
                 } else {
-                    allChains().firstOrNull { addressInput.startsWith(it.accountPrefix + "1") }
+                    allChains().firstOrNull { addressInput.startsWith(it.accountPrefix() + "1") }
                         ?.let { chain ->
                             if (BaseUtils.isValidBechAddress(chain, addressInput)) {
                                 memoLayout.visibility = View.VISIBLE
@@ -437,12 +437,12 @@ class SetAddressFragment : BottomSheetDialogFragment() {
                 true
             } else {
                 val prefix = address?.substringBefore('1')
-                toChain?.accountPrefix == prefix
+                toChain?.accountPrefix() == prefix
             }
 
         } else if (toChain?.supportCosmos() == true) {
             val prefix = address?.substringBefore('1')
-            return toChain?.accountPrefix == prefix
+            return toChain?.accountPrefix() == prefix
 
         } else {
             return address?.startsWith("0x") == true && BaseKey.isValidEthAddress(address)
