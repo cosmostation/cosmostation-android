@@ -130,7 +130,7 @@ class EvmStakingFragment : BaseTxFragment() {
                     toValidator = selectedChain.cosmosFetcher?.cosmosValidators?.get(0)
                 }
             }
-            availableAmount = selectedChain.cosmosFetcher?.balanceAmount(selectedChain.stakeDenom)
+            availableAmount = selectedChain.cosmosFetcher?.balanceAmount(selectedChain.getMainAssetDenom())
             updateValidatorView()
         }
     }
@@ -202,10 +202,10 @@ class EvmStakingFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
                         .setScale(decimal, RoundingMode.DOWN)
@@ -262,7 +262,7 @@ class EvmStakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

@@ -600,8 +600,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             o2.description.moniker == "Cosmostation" -> 1
                             o1.jailed && !o2.jailed -> 1
                             !o1.jailed && o2.jailed -> -1
-                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() > o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> -1
-                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() < o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> 1
+                            o1.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() > o2.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() -> -1
+                            o1.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() < o2.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() -> 1
                             else -> 0
                         }
                     }
@@ -973,7 +973,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val decodeData = formatJsonString(String(Base64.decode(data)))
                                     if (decodeData == "null") {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                                            CoinProto.Coin.newBuilder().setDenom(chain.getMainAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                         fetcher.gnoBalances = tempBalances
@@ -998,7 +998,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         } else {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
-                                                    .setDenom(chain.stakeDenom).setAmount("0")
+                                                    .setDenom(chain.getMainAssetDenom()).setAmount("0")
                                                     .build()
                                             )
                                         }

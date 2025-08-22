@@ -46,7 +46,7 @@ class BabylonUnStakingViewHolder(
             jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
             jailedImg.setImageResource(statusImage)
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 val unBondingAmount =
                     entry.entry?.balance?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
                 unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)

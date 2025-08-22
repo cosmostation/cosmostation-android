@@ -47,7 +47,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return oktBalanceValue(chain.stakeDenom, isUsd).add(oktDepositValue(isUsd))
+        return oktBalanceValue(chain.getMainAssetDenom(), isUsd).add(oktDepositValue(isUsd))
             .add(oktWithdrawValue(isUsd))
     }
 
@@ -60,7 +60,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     private fun oktBalanceValue(denom: String, isUsd: Boolean?): BigDecimal {
-        if (denom == chain.stakeDenom) {
+        if (denom == chain.getMainAssetDenom()) {
             BaseData.getAsset(chain.apiName, denom)?.let { asset ->
                 val amount = oktBalanceAmount(denom)
                 val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
@@ -76,7 +76,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     private fun oktDepositValue(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+        BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = oktDepositAmount()
             return price.multiply(amount).setScale(6, RoundingMode.DOWN)
@@ -89,7 +89,7 @@ class OktFetcher(val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     private fun oktWithdrawValue(isUsd: Boolean? = false): BigDecimal {
-        BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+        BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
             val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
             val amount = oktWithdrawAmount()
             return price.multiply(amount).setScale(6, RoundingMode.DOWN)

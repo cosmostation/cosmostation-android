@@ -121,7 +121,7 @@ class MajorAboutFragment : Fragment() {
                 stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin86)
 
                 stakingDenom.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.symbol
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.symbol
                 } else {
                     "-"
                 }

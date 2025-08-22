@@ -146,7 +146,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockFromValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 titleRedelegateImg.setTokenImg(asset)
                 titleRedelegate.text = getString(R.string.title_switch_validator, asset.symbol)
             }
@@ -280,7 +280,7 @@ class ReDelegateFragment : BaseTxFragment() {
 
     private fun updateFromValidatorView() {
         binding.apply {
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 fromValidator?.let { fromValidator ->
                     fromMonikerImg.setMonikerImg(selectedChain, fromValidator.operatorAddress)
                     fromMonikerName.text = fromValidator.description?.moniker?.trim()
@@ -311,7 +311,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     fromJailedImg.setImageResource(statusImage)
 
                     val staked =
-                        (selectedChain as ChainInitia?)?.initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                        (selectedChain as ChainInitia?)?.initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount
                     staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
@@ -403,10 +403,10 @@ class ReDelegateFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
                     .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -469,7 +469,7 @@ class ReDelegateFragment : BaseTxFragment() {
                     is ChainInitia -> {
                         (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaFromValidator?.operatorAddress }
                             ?.let {
-                                it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
+                                it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.getMainAssetDenom() }?.amount?.toBigDecimal()
                             }
                     }
 
@@ -577,7 +577,7 @@ class ReDelegateFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

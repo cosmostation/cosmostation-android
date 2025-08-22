@@ -194,7 +194,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
                 jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
                 jailedImg.setImageResource(statusImage)
             }
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val staked =
                         selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator?.operatorAddress }?.balance?.amount
@@ -210,10 +210,10 @@ class EvmUnStakingFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
                         .setScale(decimal, RoundingMode.DOWN)
@@ -273,7 +273,7 @@ class EvmUnStakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

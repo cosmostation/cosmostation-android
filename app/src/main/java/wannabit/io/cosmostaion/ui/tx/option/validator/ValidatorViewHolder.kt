@@ -39,7 +39,7 @@ class ValidatorViewHolder(
                     jailedImg.visibility = View.GONE
                 }
 
-                BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+                BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                     asset.decimals?.let { decimal ->
                         chain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }
                             ?.let { delegation ->
@@ -71,11 +71,11 @@ class ValidatorViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 chain.initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }
                     ?.let { delegation ->
                         val stakingAmount =
-                            delegation.balanceList?.firstOrNull { it.denom == chain.stakeDenom }?.amount?.toBigDecimal()
+                            delegation.balanceList?.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toBigDecimal()
                                 ?.movePointLeft(asset.decimals ?: 6)
                                 ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                         stakedAmount.text =
@@ -101,7 +101,7 @@ class ValidatorViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 chain.zenrockFetcher()?.zenrockDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }
                     ?.let { delegation ->
                         val stakingAmount = delegation.balance.amount.toBigDecimal()

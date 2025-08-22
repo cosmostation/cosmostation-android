@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
@@ -23,7 +22,7 @@ class BabylonCoinViewHolder(
     private val binding: ItemBabylonCoinBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(context: Context, chain: BaseChain, listener: CoinAdapter.ClickListener) {
+    fun bind(context: Context, chain: ChainBabylon, listener: CoinAdapter.ClickListener) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             btcStakedStatusLayout.setOnClickListener {
@@ -38,8 +37,8 @@ class BabylonCoinViewHolder(
                 btcImg.setImageResource(R.drawable.token_btc)
             }
 
-            chain.stakeDenom.let { stakeDenom ->
-                BaseData.getAsset(chain.apiName, stakeDenom)?.let { asset ->
+            chain.babylonFetcher()?.let { fetcher ->
+                BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
@@ -49,13 +48,15 @@ class BabylonCoinViewHolder(
                         tokenPriceChange.text = priceChangeStatus(lastUpDown)
                     }
 
-                    val availableAmount = chain.cosmosFetcher?.availableAmount(stakeDenom)
-                        ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
-                        ?: BigDecimal.ZERO
+                    val availableAmount =
+                        chain.cosmosFetcher?.availableAmount(chain.getMainAssetDenom())
+                            ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                            ?: BigDecimal.ZERO
 
-                    val vestingAmount = chain.cosmosFetcher?.vestingAmount(stakeDenom)
-                        ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
-                        ?: BigDecimal.ZERO
+                    val vestingAmount =
+                        chain.cosmosFetcher?.vestingAmount(chain.getMainAssetDenom())
+                            ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                            ?: BigDecimal.ZERO
 
                     val stakedAmount = chain.cosmosFetcher?.delegationAmountSum()
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
@@ -65,15 +66,15 @@ class BabylonCoinViewHolder(
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                         ?: BigDecimal.ZERO
 
-                    val rewardAmount = chain.cosmosFetcher?.rewardAmountSum(stakeDenom)
-                        ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
-                        ?: BigDecimal.ZERO
+                    val rewardAmount =
+                        chain.cosmosFetcher?.rewardAmountSum(chain.getMainAssetDenom())
+                            ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                            ?: BigDecimal.ZERO
 
                     val btcRewardAmount =
-                        (chain as ChainBabylon).babylonFetcher?.btcRewardAmountSum(stakeDenom)
-                            ?.movePointLeft(
-                                asset.decimals ?: 6
-                            )?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                        fetcher.btcRewardAmountSum(chain.getMainAssetDenom()).movePointLeft(
+                            asset.decimals ?: 6
+                        )?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
                     vestingLayout.goneOrVisible(vestingAmount?.compareTo(BigDecimal.ZERO) == 0)
 
@@ -86,11 +87,9 @@ class BabylonCoinViewHolder(
                         R.string.str_btc_reward, denom
                     )
 
-                    if (chain.babylonFetcher?.btcRewards?.isNotEmpty() == true) {
+                    if (fetcher.btcRewards.isNotEmpty()) {
                         btcRewardTitle.text =
-                            btcRewardTitle.text.toString() + if ((chain.babylonFetcher?.btcRewardOtherDenoms()
-                                    ?: 0) > 0
-                            ) " +${chain.babylonFetcher?.btcRewardOtherDenoms()}" else ""
+                            btcRewardTitle.text.toString() + if (fetcher.btcRewardOtherDenoms() > 0) " +${fetcher.btcRewardOtherDenoms()}" else ""
                     }
 
                     with(Prefs) {
@@ -137,7 +136,8 @@ class BabylonCoinViewHolder(
                             ""
                         } else {
                             formatAssetValue(
-                                chain.cosmosFetcher?.denomValue(stakeDenom) ?: BigDecimal.ZERO
+                                chain.cosmosFetcher?.denomValue(chain.getMainAssetDenom())
+                                    ?: BigDecimal.ZERO
                             )
                         }
                     }

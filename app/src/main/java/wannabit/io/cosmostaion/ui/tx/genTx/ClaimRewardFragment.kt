@@ -137,11 +137,11 @@ class ClaimRewardFragment : BaseTxFragment() {
                     rewardView.visibility = View.GONE
                     babylonRewardView.visibility = View.VISIBLE
 
-                    BaseData.getAsset(apiName, stakeDenom)?.let { asset ->
+                    BaseData.getAsset(apiName, getMainAssetDenom())?.let { asset ->
                         var rewardAmount = BigDecimal.ZERO
                         claimableRewards.forEach { reward ->
                             val rawAmount = BigDecimal(
-                                reward?.rewardList?.firstOrNull { it.denom == stakeDenom }?.amount
+                                reward?.rewardList?.firstOrNull { it.denom == getMainAssetDenom() }?.amount
                                     ?: "0"
                             )
                             rewardAmount = rewardAmount.add(
@@ -155,7 +155,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                         val anotherRewardDenoms = mutableListOf<String>()
                         claimableRewards.forEach { reward ->
-                            reward?.rewardList?.filter { it.denom != stakeDenom }
+                            reward?.rewardList?.filter { it.denom != getMainAssetDenom() }
                                 ?.forEach { anotherRewards ->
                                     val anotherAmount =
                                         anotherRewards.amount.toBigDecimal().movePointLeft(18)
@@ -181,7 +181,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                         var btcRewardAmount = BigDecimal.ZERO
                         babylonFetcher?.btcRewards?.forEach { reward ->
-                            if (reward.denom == stakeDenom) {
+                            if (reward.denom == getMainAssetDenom()) {
                                 val rawAmount =
                                     reward.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                                         .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -238,7 +238,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                         validatorCnt.visibility = View.GONE
                     }
 
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
                         ?.let { asset ->
                             val rewardAmount =
                                 (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
@@ -297,13 +297,13 @@ class ClaimRewardFragment : BaseTxFragment() {
                         validatorCnt.visibility = View.GONE
                     }
 
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
                         ?.let { asset ->
                             var rewardAmount = BigDecimal.ZERO
 
                             claimableRewards.forEach { reward ->
                                 val rawAmount = BigDecimal(
-                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount
                                         ?: "0"
                                 )
                                 rewardAmount = rewardAmount.add(
@@ -319,7 +319,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                             val anotherRewardDenoms = mutableListOf<String>()
                             claimableRewards.forEach { reward ->
-                                reward?.rewardList?.filter { it.denom != selectedChain.stakeDenom }
+                                reward?.rewardList?.filter { it.denom != selectedChain.getMainAssetDenom() }
                                     ?.forEach { anotherRewards ->
                                         val anotherAmount =
                                             anotherRewards.amount.toBigDecimal().movePointLeft(18)

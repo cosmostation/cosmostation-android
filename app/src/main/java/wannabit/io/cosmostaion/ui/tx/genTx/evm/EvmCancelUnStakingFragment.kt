@@ -118,7 +118,7 @@ class EvmCancelUnStakingFragment : BaseTxFragment() {
                     validatorName.text = validator.description.moniker?.trim()
                 }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 val unBondingAmount = unBondingEntry.entry?.balance?.toBigDecimal()
                     ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                 cancelAmount.text =

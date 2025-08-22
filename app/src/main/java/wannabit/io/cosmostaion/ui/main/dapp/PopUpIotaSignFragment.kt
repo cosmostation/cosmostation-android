@@ -180,7 +180,7 @@ class PopUpIotaSignFragment(
                                 binding.btnConfirm.isEnabled = true
                                 signData.text = format
                                 val coinGeckoId = BaseData.getAsset(
-                                    apiName, (selectedChain as ChainIota).stakeDenom
+                                    apiName, (selectedChain as ChainIota).getMainAssetDenom()
                                 )?.coinGeckoId
                                 val price = BaseData.getPrice(coinGeckoId)
                                 val dpBudget =

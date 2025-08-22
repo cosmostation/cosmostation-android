@@ -198,10 +198,10 @@ class DepositEarningFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
                     .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -260,10 +260,10 @@ class DepositEarningFragment : BaseTxFragment() {
                 }
 
                 val balanceAmount =
-                    selectedChain.cosmosFetcher?.availableAmount(selectedChain.stakeDenom)
+                    selectedChain.cosmosFetcher?.availableAmount(selectedChain.getMainAssetDenom())
 
                 txFee?.let {
-                    availableAmount = if (it.getAmount(0).denom == selectedChain.stakeDenom) {
+                    availableAmount = if (it.getAmount(0).denom == selectedChain.getMainAssetDenom()) {
                         val feeAmount = it.getAmount(0).amount.toBigDecimal()
                         if (feeAmount > balanceAmount) {
                             BigDecimal.ZERO
@@ -300,7 +300,7 @@ class DepositEarningFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.stakeDenom
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

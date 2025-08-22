@@ -313,7 +313,7 @@ class ApplicationViewModel(
                             }
                         }
                         cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                            if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
                             else 0
                         }
                     }
@@ -393,7 +393,7 @@ class ApplicationViewModel(
                     if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
                         chain.initiaFetcher()?.initiaDelegations?.clear()
                         delegationResult.data.forEach { delegation ->
-                            delegation.balanceList.filter { it.denom == chain.stakeDenom }
+                            delegation.balanceList.filter { it.denom == chain.getMainAssetDenom() }
                                 .forEach { balance ->
                                     if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
                                         chain.initiaFetcher()?.initiaDelegations?.add(delegation)
@@ -550,7 +550,7 @@ class ApplicationViewModel(
                         }
                     }
                     cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                        if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
                         else 0
                     }
                 }
@@ -957,7 +957,7 @@ class ApplicationViewModel(
                     address,
                     evmAddress,
                     oktFetcher?.allAssetValue(true).toString(),
-                    oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
+                    oktFetcher?.oktBalanceAmount(getMainAssetDenom()).toString(),
                     "0",
                     oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                         ?.toLong()
@@ -1422,7 +1422,7 @@ class ApplicationViewModel(
 
                                 if (decodeData == "null") {
                                     tempBalances.add(
-                                        CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                        CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
                                             .setAmount("0").build()
                                     )
                                     fetcher.gnoBalances = tempBalances
@@ -1454,7 +1454,7 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                            CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                     }

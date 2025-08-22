@@ -83,8 +83,8 @@ class RewardDialog(
     private fun sortRewardCoins(rewardCoins: MutableList<Coin>): MutableList<Coin> {
         rewardCoins.sortWith { o1, o2 ->
             when {
-                o1.denom == selectedChain.stakeDenom -> -1
-                o2.denom == selectedChain.stakeDenom -> 1
+                o1.denom == selectedChain.getMainAssetDenom() -> -1
+                o2.denom == selectedChain.getMainAssetDenom() -> 1
                 o1.denom == DYDX_USDC_DENOM -> -1
                 o2.denom == DYDX_USDC_DENOM -> 1
 

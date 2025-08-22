@@ -149,14 +149,14 @@ class CancelUnBondingFragment : BaseTxFragment() {
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
             var unBondingAmount: BigDecimal?
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 unBondingAmount = when (selectedChain) {
                     is ChainInitia -> {
                         (selectedChain as ChainInitia).initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == initiaUnBondingEntry.validatorAddress }
                             ?.let { validator ->
                                 validatorName.text = validator.description.moniker?.trim()
                             }
-                        initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount?.toBigDecimal()
+                        initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount?.toBigDecimal()
                             ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                     }
 
@@ -507,8 +507,8 @@ class CancelUnBondingFragment : BaseTxFragment() {
     private fun onBindCancelUnBondingMsg(): MutableList<Any> {
         return when (selectedChain) {
             is ChainInitia -> {
-                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
-                    .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount)
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.getMainAssetDenom())
+                    .setAmount(initiaUnBondingEntry.entry?.balanceList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount)
                     .build()
                 val msgCancelUnbondingDelegation =
                     com.initia.mstaking.v1.TxProto.MsgCancelUnbondingDelegation.newBuilder()
@@ -520,7 +520,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
             }
 
             is ChainZenrock -> {
-                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.getMainAssetDenom())
                     .setAmount(zenrockUnBondingEntry.entry?.balance).build()
                 val msgCancelUnbondingDelegation =
                     com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation.newBuilder()
@@ -532,7 +532,7 @@ class CancelUnBondingFragment : BaseTxFragment() {
             }
 
             else -> {
-                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom)
+                val toCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.getMainAssetDenom())
                     .setAmount(unBondingEntry.entry?.balance).build()
                 val msgCancelUnbondingDelegation = MsgCancelUnbondingDelegation.newBuilder()
                     .setDelegatorAddress(selectedChain.address)

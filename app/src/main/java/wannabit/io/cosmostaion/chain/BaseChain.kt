@@ -356,9 +356,9 @@ open class BaseChain : Parcelable {
 
     fun getMainAssetDenom(): String {
         return if (getChainListParam()?.has("main_asset_denom") == true) {
-            getChainListParam()?.get("main_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
         } else {
-            getChainListParam()?.get("staking_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
         }
     }
 

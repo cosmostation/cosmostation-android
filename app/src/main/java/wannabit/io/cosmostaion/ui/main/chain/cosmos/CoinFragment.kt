@@ -171,7 +171,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 (selectedChain as ChainOktEvm).oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get(
                     "coins"
                 )?.asJsonArray?.forEach { balance ->
-                    if (balance.asJsonObject["denom"].asString == selectedChain.stakeDenom) {
+                    if (balance.asJsonObject["denom"].asString == selectedChain.getMainAssetDenom()) {
                         stakeCoins.add(
                             Coin(
                                 balance.asJsonObject["denom"].asString,
@@ -189,8 +189,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         )
                     }
                 }
-                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
-                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
+                if (stakeCoins.none { it.denom == selectedChain.getMainAssetDenom() }) {
+                    stakeCoins.add(Coin(selectedChain.getMainAssetDenom(), "0", CoinType.STAKE))
                 }
                 searchStakeCoins.addAll(stakeCoins)
 
@@ -205,7 +205,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         coinType?.let {
                             when (it) {
                                 "staking", "native" -> {
-                                    if (coin.denom == selectedChain.stakeDenom) {
+                                    if (coin.denom == selectedChain.getMainAssetDenom()) {
                                         stakeCoins.add(
                                             Coin(
                                                 coin.denom, coin.amount, CoinType.STAKE
@@ -241,7 +241,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                         coinType?.let {
                             when (it) {
                                 "staking", "native" -> {
-                                    if (coin.denom == selectedChain.stakeDenom) {
+                                    if (coin.denom == selectedChain.getMainAssetDenom()) {
                                         stakeCoins.add(
                                             Coin(
                                                 coin.denom, coin.amount, CoinType.STAKE
@@ -272,8 +272,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                     }
                 }
 
-                if (stakeCoins.none { it.denom == selectedChain.stakeDenom }) {
-                    stakeCoins.add(Coin(selectedChain.stakeDenom, "0", CoinType.STAKE))
+                if (stakeCoins.none { it.denom == selectedChain.getMainAssetDenom() }) {
+                    stakeCoins.add(Coin(selectedChain.getMainAssetDenom(), "0", CoinType.STAKE))
                 }
                 searchStakeCoins.addAll(stakeCoins)
 
