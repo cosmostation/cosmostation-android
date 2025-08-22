@@ -2,33 +2,28 @@ package wannabit.io.cosmostaion.sign
 
 import android.content.Context
 import androidx.javascriptengine.JavaScriptIsolate
-import androidx.javascriptengine.JavaScriptSandbox
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 object BitcoinJs {
-    private var sandbox: JavaScriptSandbox? = null
     private var jsIsolate: JavaScriptIsolate? = null
     private var initializationDeferred: CompletableDeferred<Boolean>? = null
     private var isInitialized: Boolean = false
 
     fun initialize(context: Context): CompletableDeferred<Boolean> {
-        if (initializationDeferred == null) {
-            initializationDeferred = CompletableDeferred()
+        if (initializationDeferred != null) return initializationDeferred!!
+        initializationDeferred = CompletableDeferred()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val sandbox = JsSandboxManager.getSandbox(context)
+                jsIsolate = sandbox.createIsolate()
 
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    sandbox =
-                        JavaScriptSandbox.createConnectedInstanceAsync(context.applicationContext)
-                            .get()
-                    jsIsolate = sandbox?.createIsolate()
+                val jsCode = context.assets.open("bitcoin.js")
+                    .bufferedReader().use { it.readText() }
 
-                    val jsCode =
-                        context.assets.open("bitcoin.js").bufferedReader().use { it.readText() }
-
-                    val polyfillCode = """
+                val polyfillCode = """
                         class TextEncoder {
                             encode(input) {
                                 const encoder = new Uint8Array(
@@ -48,9 +43,9 @@ object BitcoinJs {
                         globalThis.btoa = TextEncoder;
                         globalThis.TextDecoder = TextDecoder;
                     """.trimIndent()
-                    jsIsolate?.evaluateJavaScriptAsync(polyfillCode)?.get()
+                jsIsolate?.evaluateJavaScriptAsync(polyfillCode)?.get()
 
-                    val cryptoPolyfill = """
+                val cryptoPolyfill = """
                         var globalScope = typeof globalThis !== "undefined" ? globalThis : this;
 
                         if (!globalScope.crypto) {
@@ -108,16 +103,13 @@ object BitcoinJs {
                             });
                         }
                     """.trimIndent()
-                    jsIsolate?.evaluateJavaScriptAsync(cryptoPolyfill)?.get()
+                jsIsolate?.evaluateJavaScriptAsync(cryptoPolyfill)?.get()
 
-                    jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
+                jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
 
-                    isInitialized = true
-                    initializationDeferred?.complete(true)
-                } catch (e: Exception) {
-                    isInitialized = false
-                    initializationDeferred?.complete(false)
-                }
+                initializationDeferred?.complete(true)
+            } catch (e: Exception) {
+                initializationDeferred?.complete(false)
             }
         }
         return initializationDeferred!!
@@ -134,8 +126,6 @@ object BitcoinJs {
     fun terminate() {
         jsIsolate?.close()
         jsIsolate = null
-        sandbox?.close()
-        sandbox = null
         initializationDeferred = null
     }
 

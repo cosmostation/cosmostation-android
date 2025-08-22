@@ -222,7 +222,10 @@ class CommonTransferFragment : BaseTxFragment() {
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
                     toSendAsset = if (toSendDenom.isEmpty()) {
-                        BaseData.getAssetWithSymbol(fromChain.apiName, fromChain.getMainAssetSymbol())
+                        BaseData.getAssetWithSymbol(
+                            fromChain.apiName,
+                            fromChain.getMainAssetSymbol()
+                        )
                     } else {
                         BaseData.getAsset(fromChain.apiName, toSendDenom)
                     }
@@ -328,7 +331,8 @@ class CommonTransferFragment : BaseTxFragment() {
                     backdropLayout.visibility = View.VISIBLE
                     (fromChain as ChainBitCoin86).apply {
                         txViewModel.bitTxData(fromChain as ChainBitCoin86)
-                        toSendAsset = BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetSymbol())
+                        toSendAsset =
+                            BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetSymbol())
                         transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
                             R.string.title_asset_send, fromChain.getMainAssetSymbol()

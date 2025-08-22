@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.sign
 
 import android.content.Context
 import androidx.javascriptengine.JavaScriptIsolate
-import androidx.javascriptengine.JavaScriptSandbox
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,33 +9,28 @@ import kotlinx.coroutines.launch
 
 
 object SolanaJs {
-    private var sandbox: JavaScriptSandbox? = null
     private var jsIsolate: JavaScriptIsolate? = null
     private var initializationDeferred: CompletableDeferred<Boolean>? = null
     private var isInitialized: Boolean = false
 
     fun initialize(context: Context): CompletableDeferred<Boolean> {
-        if (initializationDeferred == null) {
-            initializationDeferred = CompletableDeferred()
+        if (initializationDeferred != null) return initializationDeferred!!
+        initializationDeferred = CompletableDeferred()
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val sandbox = JsSandboxManager.getSandbox(context)
+                jsIsolate = sandbox.createIsolate()
 
-            CoroutineScope(Dispatchers.IO).launch {
-                try {
-                    sandbox =
-                        JavaScriptSandbox.createConnectedInstanceAsync(context.applicationContext)
-                            .get()
-                    jsIsolate = sandbox?.createIsolate()
+                val jsCode = context.assets.open("solana.js")
+                    .bufferedReader().use { it.readText() }
+                jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
 
-                    val jsCode =
-                        context.assets.open("solana.js").bufferedReader().use { it.readText() }
+                isInitialized = true
+                initializationDeferred?.complete(true)
 
-                    jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
-
-                    isInitialized = true
-                    initializationDeferred?.complete(true)
-                } catch (e: Exception) {
-                    isInitialized = false
-                    initializationDeferred?.complete(false)
-                }
+            } catch (e: Exception) {
+                isInitialized = false
+                initializationDeferred?.complete(false)
             }
         }
         return initializationDeferred!!
@@ -53,8 +47,6 @@ object SolanaJs {
     fun terminate() {
         jsIsolate?.close()
         jsIsolate = null
-        sandbox?.close()
-        sandbox = null
         initializationDeferred = null
     }
 
