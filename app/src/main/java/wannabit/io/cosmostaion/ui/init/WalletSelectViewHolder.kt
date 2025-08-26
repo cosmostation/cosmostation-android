@@ -70,7 +70,7 @@ class WalletSelectViewHolder(
             } else {
                 chainAddress.text = if (chain.supportCosmos()) {
                     chain.address
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.mainAddress
@@ -298,7 +298,7 @@ class WalletSelectViewHolder(
             } else {
                 chainAddress.text = if (chain is ChainBitCoin86) {
                     chain.mainAddress
-                } else if (chain.isSupportErc20()) {
+                } else if (chain.supportEvm) {
                     chain.evmAddress
                 } else {
                     chain.address
