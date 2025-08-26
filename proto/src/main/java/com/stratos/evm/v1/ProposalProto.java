@@ -90,7 +90,7 @@ public final class ProposalProto {
   }
   /**
    * <pre>
-   * UpdateImplmentationProposal used to update implemntation for genesis proxies
+   * UpdateImplmentationProposal used to update implementation for genesis proxies
    * </pre>
    *
    * Protobuf type {@code stratos.evm.v1.UpdateImplmentationProposal}
@@ -476,7 +476,7 @@ public final class ProposalProto {
     }
     /**
      * <pre>
-     * UpdateImplmentationProposal used to update implemntation for genesis proxies
+     * UpdateImplmentationProposal used to update implementation for genesis proxies
      * </pre>
      *
      * Protobuf type {@code stratos.evm.v1.UpdateImplmentationProposal}

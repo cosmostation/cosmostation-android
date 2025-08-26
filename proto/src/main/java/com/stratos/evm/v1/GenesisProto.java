@@ -1276,7 +1276,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * address defines an ethereum hex formated address of an account
+     * address defines an ethereum hex formatted address of an account
      * </pre>
      *
      * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -1285,7 +1285,7 @@ public final class GenesisProto {
     java.lang.String getAddress();
     /**
      * <pre>
-     * address defines an ethereum hex formated address of an account
+     * address defines an ethereum hex formatted address of an account
      * </pre>
      *
      * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -1407,7 +1407,7 @@ public final class GenesisProto {
     private volatile java.lang.Object address_ = "";
     /**
      * <pre>
-     * address defines an ethereum hex formated address of an account
+     * address defines an ethereum hex formatted address of an account
      * </pre>
      *
      * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -1428,7 +1428,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * address defines an ethereum hex formated address of an account
+     * address defines an ethereum hex formatted address of an account
      * </pre>
      *
      * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -1988,7 +1988,7 @@ public final class GenesisProto {
       private java.lang.Object address_ = "";
       /**
        * <pre>
-       * address defines an ethereum hex formated address of an account
+       * address defines an ethereum hex formatted address of an account
        * </pre>
        *
        * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -2008,7 +2008,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * address defines an ethereum hex formated address of an account
+       * address defines an ethereum hex formatted address of an account
        * </pre>
        *
        * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -2029,7 +2029,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * address defines an ethereum hex formated address of an account
+       * address defines an ethereum hex formatted address of an account
        * </pre>
        *
        * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -2046,7 +2046,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * address defines an ethereum hex formated address of an account
+       * address defines an ethereum hex formatted address of an account
        * </pre>
        *
        * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
@@ -2060,7 +2060,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * address defines an ethereum hex formated address of an account
+       * address defines an ethereum hex formatted address of an account
        * </pre>
        *
        * <code>string address = 1 [json_name = "address", (.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
