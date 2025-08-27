@@ -374,8 +374,8 @@ interface TxRepository {
 
     suspend fun minimumRentBalance(chain: ChainSolana, dataSize: Int): NetworkResult<String>
 
-    suspend fun broadcastSolSendTx(
-        chain: ChainSolana, hexValue: String
+    suspend fun broadcastSolanaSendTx(
+        chain: ChainSolana, solanaJS: SolanaJs?, programTxHex: String
     ): Pair<Boolean, String?>
 
     suspend fun simulateSolSend(
@@ -393,5 +393,5 @@ interface TxRepository {
         to: String,
         mint: String,
         toAmount: String
-    ): Pair<String?, Any>
+    ): Triple<Boolean?, String?, Any>
 }

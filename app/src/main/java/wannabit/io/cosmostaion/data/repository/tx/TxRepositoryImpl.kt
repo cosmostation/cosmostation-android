@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
-import android.util.Log
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -52,7 +51,6 @@ import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.SOLANA_DEFAULT_PRIORITY_FEE
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
@@ -2677,13 +2675,22 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun broadcastSolSendTx(
+    override suspend fun broadcastSolanaSendTx(
         chain: ChainSolana,
-        hexValue: String
+        solanaJS: SolanaJs?,
+        programTxHex: String
     ): Pair<Boolean, String?> {
         return try {
+            val privateKey = chain.privateKey?.toHex()
+            val signTransactionFunction = """function signTransactionFunction() {
+                        const txHex = signTransaction('${programTxHex}', '${privateKey}');
+                         return txHex;
+                        }""".trimMargin()
+            solanaJS?.mergeFunction(signTransactionFunction)
+            val txHex = solanaJS?.executeFunction("signTransactionFunction()")
+
             val sendParams = listOf(
-                hexValue, mapOf("encoding" to "base64")
+                txHex, mapOf("encoding" to "base64")
             )
             val sendTransactionRequest =
                 JsonRpcRequest(method = "sendTransaction", params = sendParams)
@@ -2819,14 +2826,13 @@ class TxRepositoryImpl : TxRepository {
                         }
 
                         val tipFee = if (sumFee > 0) {
-                            (sumFee / recentPrioritizationFees.size() / 1000000) + SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                            (sumFee / recentPrioritizationFees.size() / 1000000) + baseFee / 10
                         } else {
-                            SOLANA_DEFAULT_PRIORITY_FEE.toLong()
+                            baseFee / 10
                         }
 
-                        val fee = baseFee + tipFee
-                        val computeUnitLimit = unitsConsumed + 500
-                        val computeUnitPrice = tipFee / computeUnitLimit
+                        val computeUnitLimit = unitsConsumed + baseFee / 10
+                        val computeUnitPrice = tipFee.toDouble() / computeUnitLimit.toDouble()
 
                         val overwriteComputeBudgetProgramFunction =
                             """function overwriteComputeBudgetProgramFunction() {
@@ -2835,20 +2841,14 @@ class TxRepositoryImpl : TxRepository {
                                 microLamports: Math.ceil($computeUnitPrice * 1000000)
                             });
                             return programTx;
-                    }""".trimMargin()
+                        }""".trimMargin()
                         solanaJS?.mergeFunction(overwriteComputeBudgetProgramFunction)
                         val programTxHex =
                             solanaJS?.executeFunction("overwriteComputeBudgetProgramFunction()")
+                        val fee = (baseFee + computeUnitLimit * computeUnitPrice).toBigDecimal()
+                            .setScale(0, RoundingMode.UP)
 
-                        val privateKey = chain.privateKey?.toHex()
-                        val signTransactionFunction = """function signTransactionFunction() {
-                    const txHex = signTransaction('${programTxHex}', '${privateKey}');
-                         return txHex;
-                    }""".trimMargin()
-                        solanaJS?.mergeFunction(signTransactionFunction)
-                        val txHex = solanaJS?.executeFunction("signTransactionFunction()")
-
-                        Pair(txHex, fee.toString())
+                        Pair(programTxHex, fee.toString())
                     }
                 }
 
@@ -2868,7 +2868,7 @@ class TxRepositoryImpl : TxRepository {
         to: String,
         mint: String,
         toAmount: String
-    ): Pair<String?, Any> {
+    ): Triple<Boolean?, String?, Any> {
         return try {
             val getAssociatedTokenAddressFunction =
                 """function getAssociatedTokenAddressFunction() {
@@ -2884,8 +2884,6 @@ class TxRepositoryImpl : TxRepository {
                 mapOf("commitment" to "finalized", "encoding" to "base64"),
             )
 
-            Log.e("test12345 : ", receiverATA.toString())
-
             val accountInfoRequest = JsonRpcRequest(
                 method = "getAccountInfo", params = accountInfoParams
             )
@@ -2899,9 +2897,8 @@ class TxRepositoryImpl : TxRepository {
             )
 
             if (accountInfoResponse.isSuccessful) {
-                Log.e("Test12345 : ", accountInfoJsonObject.toString())
                 val isCreateAssociatedTokenAccount =
-                    !accountInfoJsonObject["result"].asJsonObject["value"].isJsonNull
+                    accountInfoJsonObject["result"].asJsonObject["value"].isJsonNull
 
                 val params = listOf(
                     mapOf("commitment" to "finalized")
@@ -2919,7 +2916,7 @@ class TxRepositoryImpl : TxRepository {
                         "error"
                     )
                 ) {
-                    Pair("", "error")
+                    Triple(null, "", "error")
 
                 } else {
                     val recentBlockHash =
@@ -2961,10 +2958,8 @@ class TxRepositoryImpl : TxRepository {
                     val simulateValue =
                         simulationJsonObject["result"].asJsonObject["value"].asJsonObject
 
-                    Log.e("TEst12345 : ", simulateValue.toString())
-
                     if (!simulateValue["err"].isJsonNull) {
-                        Pair("", simulateValue["err"].asJsonObject)
+                        Triple(null, "", simulateValue["err"].asJsonObject)
 
                     } else {
                         val unitsConsumed = simulateValue["unitsConsumed"].asLong
@@ -2983,18 +2978,64 @@ class TxRepositoryImpl : TxRepository {
                             feeForMessageResponse.body?.string(), JsonObject::class.java
                         )
                         val baseFee = feeForMessageJsonObject["result"].asJsonObject["value"].asLong
+
+                        val prioritizationParams = listOf(
+                            chain.mainAddress
+                        )
+                        val prioritizationFeeRequest = JsonRpcRequest(
+                            method = "getRecentPrioritizationFees",
+                            params = listOf(prioritizationParams)
+                        )
+                        val prioritizationFeeResponse = jsonRpcResponse(
+                            chain.solanaFetcher()?.solanaRpc() ?: chain.mainUrl,
+                            prioritizationFeeRequest
+                        )
+                        val prioritizationFeeJsonObject = Gson().fromJson(
+                            prioritizationFeeResponse.body?.string(), JsonObject::class.java
+                        )
+
+                        var sumFee: Long = 0
+                        val recentPrioritizationFees =
+                            prioritizationFeeJsonObject["result"].asJsonArray
+                        if (recentPrioritizationFees.size() > 0) {
+                            recentPrioritizationFees.forEach { fee ->
+                                sumFee += fee.asJsonObject["prioritizationFee"].asLong
+                            }
+                        }
+
+                        val tipFee = if (sumFee > 0) {
+                            (sumFee / recentPrioritizationFees.size() / 1000000) + baseFee / 10
+                        } else {
+                            baseFee / 10
+                        }
+
+                        val computeUnitLimit = unitsConsumed + baseFee / 10
+                        val computeUnitPrice = tipFee.toDouble() / computeUnitLimit.toDouble()
+
+                        val overwriteComputeBudgetProgramFunction =
+                            """function overwriteComputeBudgetProgramFunction() {
+                            const programTx = overwriteComputeBudgetProgram('${txBase64}', {
+                                units: $computeUnitLimit,
+                                microLamports: Math.ceil($computeUnitPrice * 1000000)
+                            });
+                            return programTx;
+                        }""".trimMargin()
+                        solanaJS?.mergeFunction(overwriteComputeBudgetProgramFunction)
+                        val programTxHex =
+                            solanaJS?.executeFunction("overwriteComputeBudgetProgramFunction()")
+                        val fee = (baseFee + computeUnitLimit * computeUnitPrice).toBigDecimal()
+                            .setScale(0, RoundingMode.UP)
+
+                        Triple(isCreateAssociatedTokenAccount, programTxHex, fee.toString())
                     }
                 }
 
-                Pair("", "error")
-
             } else {
-                Pair("", "error")
+                Triple(null, "", "error")
             }
 
         } catch (e: Exception) {
-            Log.e("TEst123456 : ", e.message.toString())
-            Pair("", "error")
+            Triple(null, "", "error")
         }
     }
 }

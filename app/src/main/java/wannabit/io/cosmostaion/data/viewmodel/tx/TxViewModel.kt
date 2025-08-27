@@ -322,9 +322,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val btcStakeBroadcast = SingleLiveEvent<Pair<AbciProto.TxResponse?, String?>>()
 
+    val solBroadcast = SingleLiveEvent<String?>()
+
     val solSimulate = SingleLiveEvent<Pair<String?, kotlin.Any>>()
 
-    val solBroadcast = SingleLiveEvent<String?>()
+    val splSimulate = SingleLiveEvent<Triple<Boolean?, String?, kotlin.Any>>()
 
     val solErrorMessage = SingleLiveEvent<kotlin.Any>()
 
@@ -1438,11 +1440,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun solSendBroadcast(
-        chain: ChainSolana, txHex: String
+        chain: ChainSolana, solanaJS: SolanaJs?, txHex: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val response = txRepository.broadcastSolSendTx(
-                chain, txHex
+            val response = txRepository.broadcastSolanaSendTx(
+                chain, solanaJS, txHex
             )
 
             if (response.first) {
@@ -1492,10 +1494,10 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 chain, solanaJS, from, to, mint, toAmount
             )
 
-            if (response.second == "error" || response.second is JsonObject) {
-                solErrorMessage.postValue(response.second)
+            if (response.third == "error" || response.third is JsonObject) {
+                solErrorMessage.postValue(response.third)
             } else {
-                solSimulate.postValue(response)
+                splSimulate.postValue(response)
             }
 
         } catch (e: Exception) {

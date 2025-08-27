@@ -1315,7 +1315,7 @@ class CommonTransferFragment : BaseTxFragment() {
         } else if (transferStyle == TransferStyle.BIT_COIN_STYLE) {
             if (gasUsed?.isNotEmpty() == true) bitTxHex = gasUsed
 
-        } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE) {
+        } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE || transferStyle == TransferStyle.SOLANA_TOKEN_STYLE) {
             if (gasUsed?.isNotEmpty() == true) solanaFeeAmount = gasUsed.toBigDecimal()
 
         } else if (transferStyle == TransferStyle.COSMOS_STYLE) {
@@ -1522,9 +1522,9 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
-                    TransferStyle.SOLANA_COIN_STYLE -> {
+                    TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         (fromChain as ChainSolana).apply {
-                            txViewModel.solSendBroadcast(this, solanaTxHex)
+                            txViewModel.solSendBroadcast(this, SolanaJs, solanaTxHex)
                         }
                     }
 
@@ -1676,6 +1676,19 @@ class CommonTransferFragment : BaseTxFragment() {
                     )
                     setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
                 }
+            }
+        }
+
+        txViewModel.splSimulate.observe(viewLifecycleOwner) { response ->
+            response.second?.let { hexValue ->
+                solanaTxHex = hexValue
+                val fee = if (response.first == true) {
+                    (response.third as String).toBigDecimal().add(solanaMinimumRentAmount)
+                        .toString()
+                } else {
+                    response.third as String
+                }
+                updateFeeViewWithSimulate(fee)
             }
         }
 

@@ -151,7 +151,7 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
-            } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE) {
+            } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE || transferStyle == TransferStyle.SOLANA_TOKEN_STYLE) {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {
                         loadSolanaTx()
@@ -228,7 +228,7 @@ class TransferTxResultActivity : BaseActivity() {
                     }
 
                     TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
-                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE -> {
+                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -245,7 +245,7 @@ class TransferTxResultActivity : BaseActivity() {
                     }
 
                     TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
-                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE -> {
+                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
