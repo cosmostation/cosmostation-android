@@ -1638,6 +1638,10 @@ class CommonTransferFragment : BaseTxFragment() {
                         toSendToken?.amount?.toBigDecimal()
                     }
 
+                    if (availableAmount <= BigDecimal.ZERO) {
+                        availableAmount = BigDecimal.ZERO
+                    }
+
                 } else {
                     binding.backdropLayout.visibility = View.GONE
                     requireActivity().makeToast(R.string.error_evm_simul)

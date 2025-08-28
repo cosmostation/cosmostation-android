@@ -446,6 +446,9 @@ class MajorCryptoFragment : Fragment() {
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
             if (::majorCryptoAdapter.isInitialized) {
                 majorCryptoAdapter.notifyDataSetChanged()
+
+            } else if (::solanaCryptoAdapter.isInitialized) {
+                solanaCryptoAdapter.notifyDataSetChanged()
             }
         }
 
