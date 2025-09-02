@@ -224,7 +224,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     toSendAsset = if (toSendDenom.isEmpty()) {
                         BaseData.getAssetWithSymbol(
                             fromChain.apiName,
-                            fromChain.getMainAssetSymbol()
+                            fromChain.getGasAssetSymbol()
                         )
                     } else {
                         BaseData.getAsset(fromChain.apiName, toSendDenom)
@@ -832,7 +832,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
                         }
 
-                        BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.let { asset ->
+                        BaseData.getAssetWithSymbol(apiName, getGasAssetSymbol())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 

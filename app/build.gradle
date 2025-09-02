@@ -101,7 +101,7 @@ dependencies {
     }
 
     //legacy database
-    implementation 'net.zetetic:android-database-sqlcipher:4.5.0'
+    implementation 'net.zetetic:sqlcipher-android:4.6.1'
 
     //guava
     implementation 'com.google.guava:guava:24.1-jre'
@@ -124,12 +124,12 @@ dependencies {
     implementation "com.github.cosmostation:wallet-connect-kotlin:1.6.5"
 
     //wallet connect v2
-    implementation("com.reown:sign:1.0.0") {
+    implementation("com.reown:sign:1.1.0") {
         exclude group: "org.jboss.spec.javax.annotation"
         exclude group: "com.github.stephenc.jcip"
         exclude group: "org.bouncycastle"
     }
-    implementation('com.reown:android-core:1.0.0') {
+    implementation('com.reown:android-core:1.1.0') {
         exclude group: "org.jboss.spec.javax.annotation"
         exclude group: "com.github.stephenc.jcip"
         exclude group: "org.bouncycastle"

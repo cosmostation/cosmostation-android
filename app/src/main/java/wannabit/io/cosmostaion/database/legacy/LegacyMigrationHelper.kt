@@ -1,6 +1,6 @@
 package wannabit.io.cosmostaion.database.legacy
 
-import net.sqlcipher.database.SQLiteDatabase
+import net.zetetic.database.sqlcipher.SQLiteDatabase
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -14,7 +14,8 @@ import wannabit.io.cosmostaion.database.model.Password
 
 object LegacyMigrationHelper {
     private fun getDatabase(): SQLiteDatabase {
-        return LegacyDatabase.instance.getWritableDatabase(CosmostationConstants.LEGACY_DATABASE_KEY)
+        val key = CosmostationConstants.LEGACY_DATABASE_KEY
+        return LegacyDatabase.getInstance(key).writableDatabase
     }
 
     suspend fun migratePassword() {
