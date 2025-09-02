@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 class ChainBluzelle : BaseChain(), Parcelable {
 
     override var name: String = "Bluzelle"
-    override var tag: String = "bluzellee118"
+    override var tag: String = "bluzelle118"
     override var apiName: String = "bluzelle"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/483'/0'/0/X")
