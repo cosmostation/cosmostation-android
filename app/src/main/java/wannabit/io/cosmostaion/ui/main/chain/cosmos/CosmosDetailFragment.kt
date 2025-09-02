@@ -230,7 +230,7 @@ class CosmosDetailFragment : Fragment() {
             fabCompounding.visibleOrGone(selectedChain.isStakeEnabled())
             fabVote.goneOrVisible(!selectedChain.isStakeEnabled() || selectedChain is ChainNeutron)
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 fabStake.labelText = getString(R.string.title_stake, asset.symbol)
             }
 
@@ -604,12 +604,12 @@ class CosmosDetailFragment : Fragment() {
 
                                 if (selectedChain is ChainBabylon) {
                                     val babyReward =
-                                        selectedChain.cosmosFetcher?.rewardAmountSum(selectedChain.stakeDenom)
+                                        selectedChain.cosmosFetcher?.rewardAmountSum(selectedChain.getMainAssetDenom())
                                             ?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN)
                                             ?: BigDecimal.ZERO
                                     val btcReward =
                                         (selectedChain as ChainBabylon).babylonFetcher?.btcRewardAmountSum(
-                                            selectedChain.stakeDenom
+                                            selectedChain.getMainAssetDenom()
                                         )?.movePointLeft(6)?.setScale(6, RoundingMode.DOWN)
                                             ?: BigDecimal.ZERO
 

@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.database.Prefs
@@ -99,8 +100,8 @@ class ChainManageFragment : Fragment() {
                 isClickable = true
                 return
             }
-            val endPointType = if (chain is ChainSui || chain is ChainIota || chain is ChainGnoTestnet) {
-                EndPointType.END_POINT_SUI
+            val endPointType = if (chain is ChainSui || chain is ChainIota || chain is ChainGnoTestnet || chain is ChainSolana) {
+                EndPointType.END_POINT_RPC
             } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                 EndPointType.END_POINT_COSMOS
             } else {

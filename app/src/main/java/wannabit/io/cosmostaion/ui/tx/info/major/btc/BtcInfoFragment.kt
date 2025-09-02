@@ -66,7 +66,7 @@ class BtcInfoFragment : BottomSheetDialogFragment() {
         binding.dialogMsg0.text = Html.fromHtml(
             getString(
                 R.string.str_time_lock_msg,
-                selectedChain.coinSymbol,
+                selectedChain.getMainAssetSymbol(),
                 btcStakingTimeLockWeeks.toString()
             ), Html.FROM_HTML_MODE_LEGACY
         )

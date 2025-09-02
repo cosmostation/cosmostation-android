@@ -118,7 +118,7 @@ class CompoundingFragment : BaseTxFragment() {
             }
             isCompounding = arguments?.getBoolean("isCompounding") ?: false
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 titleCompoundingImg.setTokenImg(asset)
                 titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
             }
@@ -185,11 +185,11 @@ class CompoundingFragment : BaseTxFragment() {
                 babylonValidatorCnt.visibility = View.GONE
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
                 var rewardAmount = BigDecimal.ZERO
                 claimableRewards.forEach { reward ->
                     val rawAmount = BigDecimal(
-                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }?.amount
+                        reward?.rewardList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount
                             ?: "0"
                     )
                     rewardAmount = rewardAmount.add(

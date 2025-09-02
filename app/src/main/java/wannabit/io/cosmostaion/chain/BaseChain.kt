@@ -163,11 +163,13 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -239,6 +241,7 @@ open class BaseChain : Parcelable {
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
     var gnoRpcFetcher: GnoFetcher? = null
+    var solanaFetcher: SolanaFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
@@ -282,15 +285,15 @@ open class BaseChain : Parcelable {
         publicKey = BaseKey.getPubKeyFromPKey(privateKey, accountKeyType.pubkeyType)
         if (accountKeyType.pubkeyType == PubKeyType.COSMOS_SECP256K1) {
             address = BaseKey.getAddressFromPubKey(
-                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix()
             )
 
         } else {
             evmAddress = BaseKey.getAddressFromPubKey(
-                context, publicKey, accountKeyType.pubkeyType, accountPrefix
+                context, publicKey, accountKeyType.pubkeyType, accountPrefix()
             )
             if (supportCosmos()) {
-                address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix)
+                address = ByteUtils.convertEvmToBech32(evmAddress, accountPrefix())
             }
         }
     }
@@ -356,17 +359,41 @@ open class BaseChain : Parcelable {
 
     fun getMainAssetDenom(): String {
         return if (getChainListParam()?.has("main_asset_denom") == true) {
-            getChainListParam()?.get("main_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
         } else {
-            getChainListParam()?.get("staking_asset_denom")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
         }
     }
 
     fun getMainAssetSymbol(): String {
         return if (getChainListParam()?.has("main_asset_symbol") == true) {
-            getChainListParam()?.get("main_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: coinSymbol
         } else {
-            getChainListParam()?.get("staking_asset_symbol")?.asString ?: ""
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: coinSymbol
+        }
+    }
+
+    fun getGasAssetDenom(): String {
+        return if (getChainListParam()?.has("gas_asset_denom") == true) {
+            getChainListParam()?.get("gas_asset_denom")?.asString ?: stakeDenom
+        } else {
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
+        }
+    }
+
+    fun getGasAssetSymbol(): String {
+        return if (getChainListParam()?.has("gas_asset_symbol") == true) {
+            getChainListParam()?.get("gas_asset_symbol")?.asString ?: stakeDenom
+        } else {
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: stakeDenom
+        }
+    }
+
+    fun accountPrefix(): String {
+        return if (getChainListParam()?.has("bech_account_prefix") == true) {
+            getChainListParam()?.get("bech_account_prefix")?.asString ?: ""
+        } else {
+            ""
         }
     }
 
@@ -841,6 +868,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
+    chains.add(ChainSolana())
 //    chains.add(ChainSomnia())
     chains.add(ChainSonic())
     chains.add(ChainSource())
@@ -935,7 +963,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, NONE }
+enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, SOLANA_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

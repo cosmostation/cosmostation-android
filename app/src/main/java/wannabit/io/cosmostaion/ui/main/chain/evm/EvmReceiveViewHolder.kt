@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
@@ -34,10 +35,12 @@ class EvmReceiveViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName())
-                setQrAddress(context, selectChain.mainAddress)
+            if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86 || selectChain is ChainSolana) {
+                if (selectChain.mainAddress.isNotEmpty()) {
+                    receiveTitle.text =
+                        context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName())
+                    setQrAddress(context, selectChain.mainAddress)
+                }
 
             } else {
                 receiveTitle.text =
@@ -103,7 +106,7 @@ class EvmReceiveViewHolder(
 
             receiveView.setOnClickListener {
                 val address =
-                    if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86) {
+                    if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86 || selectChain is ChainSolana) {
                         selectChain.mainAddress
                     } else {
                         selectChain.evmAddress

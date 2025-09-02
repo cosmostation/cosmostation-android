@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -140,7 +141,7 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            if (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT) {
+            if (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT || selectedChain is ChainSolana) {
                 fabMenu.visibility = View.GONE
             } else {
                 fabMenu.visibility = View.VISIBLE
@@ -156,7 +157,8 @@ class MajorDetailFragment : Fragment() {
             if (selectedChain is ChainSui || selectedChain is ChainIota) tableTitles.add("NFTs")
 
             tableTitles.add("Receive")
-            tableTitles.add("History")
+
+            if (selectedChain !is ChainSolana) tableTitles.add("History")
 
             if (selectedChain.isSupportMobileDapp()) tableTitles.add("Ecosystem")
 

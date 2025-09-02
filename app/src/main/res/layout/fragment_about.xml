@@ -146,10 +146,15 @@
                         <TextView
                             android:id="@+id/chain_id_cosmos_info"
                             style="@style/font_sb_12"
-                            android:layout_width="wrap_content"
+                            android:gravity="end"
+                            android:layout_width="0dp"
+                            android:layout_marginStart="@dimen/space_40"
                             android:layout_height="wrap_content"
                             android:textColor="@color/color_base01"
+                            android:ellipsize="middle"
+                            android:maxLines="1"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/chain_id_cosmos_title"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

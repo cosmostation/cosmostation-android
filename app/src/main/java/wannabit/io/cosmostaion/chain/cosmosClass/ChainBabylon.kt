@@ -4,12 +4,12 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
+import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 
 @Parcelize
 open class ChainBabylon : BaseChain(), Parcelable {
@@ -31,10 +31,17 @@ open class ChainBabylon : BaseChain(), Parcelable {
     override var grpcHost: String = "grpc.mainnet.babylon.cosmostation.io"
     override var lcdUrl: String = "https://lcd.mainnet.babylon.cosmostation.io"
 
+    override fun cosmosFetcher(): CosmosFetcher? {
+        if (cosmosFetcher == null) {
+            cosmosFetcher = BabylonFetcher(this)
+        }
+        return cosmosFetcher
+    }
+
     fun babylonFetcher(): BabylonFetcher? {
         if (babylonFetcher == null) {
             babylonFetcher = BabylonFetcher(this)
         }
-        return babylonFetcher
+        return cosmosFetcher as? BabylonFetcher
     }
 }

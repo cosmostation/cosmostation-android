@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.cosmosClass.NEUTRON_VESTING_CONTRACT_ADDRESS
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -76,7 +77,9 @@ import wannabit.io.cosmostaion.chain.fetcher.zenrockDelegations
 import wannabit.io.cosmostaion.chain.fetcher.zenrockUnDelegations
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SOLANA_PROGRAM_ID
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
@@ -111,6 +114,7 @@ import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.AppDatabase
 import wannabit.io.cosmostaion.database.model.Password
@@ -187,6 +191,12 @@ class WalletRepositoryImpl : WalletRepository {
         }
     }
 
+    override suspend fun spl(): NetworkResult<SplResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            mintscanApi.spl()
+        }
+    }
+
     override suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<Unit> {
@@ -234,8 +244,7 @@ class WalletRepositoryImpl : WalletRepository {
     }
 
     override suspend fun spendableBalance(
-        channel: ManagedChannel?,
-        chain: BaseChain
+        channel: ManagedChannel?, chain: BaseChain
     ): NetworkResult<MutableList<CoinProto.Coin>> {
         return if (chain.cosmosFetcher?.endPointType(chain) == CosmosEndPointType.USE_GRPC) {
             val pageRequest = PaginationProto.PageRequest.newBuilder().setLimit(2000).build()
@@ -1456,7 +1465,7 @@ class WalletRepositoryImpl : WalletRepository {
 
                     } else {
                         btcRewards.add(
-                            CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom).setAmount("0")
+                            CoinProto.Coin.newBuilder().setDenom(chain.getMainAssetDenom()).setAmount("0")
                                 .build()
                         )
                     }
@@ -1468,7 +1477,7 @@ class WalletRepositoryImpl : WalletRepository {
 
             } else {
                 safeApiCall(Dispatchers.IO) {
-                    lcdApi(chain).lcdBtcReward(chain.address).btcReward(chain.stakeDenom)
+                    lcdApi(chain).lcdBtcReward(chain.address).btcReward(chain.getMainAssetDenom())
                 }
             }
 
@@ -1756,6 +1765,63 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun mempoolIsValidAddress(chain: ChainBitCoin86): NetworkResult<JsonObject> {
         return safeApiCall(Dispatchers.IO) {
             bitApi(chain).bitIsValidAddress(chain.mainAddress)
+        }
+    }
+
+    override suspend fun solanaAccountInfo(
+        fetcher: SolanaFetcher, chain: ChainSolana
+    ): NetworkResult<JsonObject> {
+        return try {
+            val params = listOf(
+                chain.mainAddress,
+                mapOf("commitment" to "finalized", "encoding" to "base58"),
+            )
+
+            val solanaAccountInfoRequest = JsonRpcRequest(
+                method = "getAccountInfo", params = params
+            )
+            val solanaAccountInfoResponse =
+                jsonRpcResponse(fetcher.solanaRpc(), solanaAccountInfoRequest)
+            val solanaAccountInfoJsonObject = Gson().fromJson(
+                solanaAccountInfoResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                solanaAccountInfoJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
+        }
+    }
+
+    override suspend fun solanaTokenInfo(
+        fetcher: SolanaFetcher, chain: ChainSolana
+    ): NetworkResult<JsonObject> {
+        return try {
+            val params = listOf(
+                chain.mainAddress,
+                mapOf("programId" to SOLANA_PROGRAM_ID),
+                mapOf("encoding" to "jsonParsed", "commitment" to "finalized")
+            )
+
+            val solanaTokenInfoRequest = JsonRpcRequest(
+                method = "getTokenAccountsByOwner", params = params
+            )
+            val solanaTokenInfoResponse =
+                jsonRpcResponse(fetcher.solanaRpc(), solanaTokenInfoRequest)
+            val solanaTokenInfoJsonObject = Gson().fromJson(
+                solanaTokenInfoResponse.body?.string(), JsonObject::class.java
+            )
+            safeApiCall(Dispatchers.IO) {
+                solanaTokenInfoJsonObject
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                JsonObject()
+            }
         }
     }
 }

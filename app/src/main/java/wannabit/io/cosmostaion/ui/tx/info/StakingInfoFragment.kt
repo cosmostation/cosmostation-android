@@ -91,7 +91,7 @@ class StakingInfoFragment : Fragment() {
                             when {
                                 o1.delegation.validatorAddress == cosmostationValAddress -> -1
                                 o2.delegation.validatorAddress == cosmostationValAddress -> 1
-                                o1.balanceList.first { it.denom == selectedChain.stakeDenom }.amount.toDouble() > o2.balanceList.first { it.denom == selectedChain.stakeDenom }.amount.toDouble() -> -1
+                                o1.balanceList.first { it.denom == selectedChain.getMainAssetDenom() }.amount.toDouble() > o2.balanceList.first { it.denom == selectedChain.getMainAssetDenom() }.amount.toDouble() -> -1
                                 else -> 1
                             }
                         }

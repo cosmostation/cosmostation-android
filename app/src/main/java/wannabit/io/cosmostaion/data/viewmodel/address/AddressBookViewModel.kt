@@ -60,7 +60,7 @@ class AddressBookViewModel(private val addressRepository: AddressRepository) : V
                     } else {
                         val prefix = addressBook.address.substringBefore('1')
                         val chainTag =
-                            allChains().firstOrNull { it.isDefault && it.accountPrefix == prefix }?.tag
+                            allChains().firstOrNull { it.isDefault && it.accountPrefix() == prefix }?.tag
                                 ?: ""
                         addressBook.chainName = chainTag
                     }

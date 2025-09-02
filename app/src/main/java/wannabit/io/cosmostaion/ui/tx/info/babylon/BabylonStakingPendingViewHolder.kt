@@ -58,7 +58,7 @@ class BabylonStakingPendingViewHolder(
             epochMsg1.text = context.getString(R.string.str_epoch_type_msg1, epochType)
             epochMsg2.text = context.getString(R.string.str_epoch_type_msg2, "#${epoch?.plus(1)}")
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 val commissionRate =
                     validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
                         ?.setScale(2, RoundingMode.DOWN)

@@ -386,7 +386,7 @@ object Signer {
             msgAnys.add(anyMsg)
 
             val rewardCoin =
-                reward?.rewardList?.firstOrNull { it.denom == selectedChain.stakeDenom }
+                reward?.rewardList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }
             val delegateCoin = CoinProto.Coin.newBuilder().setDenom(rewardCoin?.denom).setAmount(
                 rewardCoin?.amount?.toBigDecimal()?.movePointLeft(18)
                     ?.setScale(0, RoundingMode.DOWN)?.toPlainString()
@@ -456,7 +456,7 @@ object Signer {
             )
         }
 
-        val delegateCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.stakeDenom).setAmount(
+        val delegateCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.getMainAssetDenom()).setAmount(
             (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards.toString()
         ).build()
 

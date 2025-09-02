@@ -24,7 +24,7 @@ class AssetViewHolder(
         binding.apply {
             assetView.setBackgroundResource(R.drawable.item_bg)
 
-            BaseData.getAssetWithSymbol(evmChain.apiName, evmChain.coinSymbol)?.let { asset ->
+            BaseData.getAssetWithSymbol(evmChain.apiName, evmChain.getGasAssetSymbol())?.let { asset ->
                 assetImg.setTokenImg(asset)
                 assetImg.clipToOutline = true
                 assetName.text = asset.symbol

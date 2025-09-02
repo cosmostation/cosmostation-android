@@ -235,7 +235,7 @@ class CoinAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                     }
                 }
 
@@ -262,7 +262,7 @@ class CoinAdapter(
 
                     } else {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                         }
                         true
                     }
@@ -271,18 +271,18 @@ class CoinAdapter(
 
             is BabylonCoinViewHolder -> {
                 val coin = item.coin ?: return
-                holder.bind(context, selectedChain, listener)
+                holder.bind(context, selectedChain as ChainBabylon, listener)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                     }
                 }
 
                 holder.itemView.setOnLongClickListener { view ->
-                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && (selectedChain as ChainBabylon).babylonFetcher?.btcRewards?.isEmpty() == true) {
+                    if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && selectedChain.babylonFetcher?.btcRewards?.isEmpty() == true) {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                         }
                         true
 
@@ -293,7 +293,7 @@ class CoinAdapter(
                             context,
                             selectedChain,
                             selectedChain.cosmosFetcher?.cosmosRewards,
-                            (selectedChain as ChainBabylon).babylonFetcher?.btcRewards
+                            selectedChain.babylonFetcher?.btcRewards
                         )
 
                         if (scaleX == 1.0f && scaleY == 1.0f) {
@@ -318,7 +318,7 @@ class CoinAdapter(
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                     }
                 }
 
@@ -345,7 +345,7 @@ class CoinAdapter(
 
                     } else {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.stakeDenom, position, coin.type)
+                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
                         }
                         true
                     }
@@ -463,7 +463,8 @@ class CoinAdapter(
 }
 
 enum class ItemType {
-    STAKE_ITEM, NATIVE_HEADER, NATIVE_ITEM, IBC_HEADER, IBC_ITEM, BRIDGE_HEADER, BRIDGE_ITEM, ETC_HEADER, ETC_ITEM, CW20TOKEN_HEADER, CW20TOKEN_ITEM, ERC20TOKEN_HEADER, ERC20TOKEN_ITEM, GRC20TOKEN_HEADER, GRC20TOKEN_ITEM
+    STAKE_ITEM, NATIVE_HEADER, NATIVE_ITEM, IBC_HEADER, IBC_ITEM, BRIDGE_HEADER, BRIDGE_ITEM,
+    ETC_HEADER, ETC_ITEM, CW20TOKEN_HEADER, CW20TOKEN_ITEM, ERC20TOKEN_HEADER, ERC20TOKEN_ITEM, GRC20TOKEN_HEADER, GRC20TOKEN_ITEM
 }
 
 data class ListItem(val type: ItemType, val coin: Coin? = null)

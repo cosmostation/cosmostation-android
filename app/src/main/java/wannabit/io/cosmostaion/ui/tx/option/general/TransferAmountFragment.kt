@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.handlerRight
@@ -149,7 +150,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                         .setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
                             available.text = formatAmount(amount.toPlainString(), assetDecimal)
-                            availableDenom.text = fromChain.coinSymbol
+                            availableDenom.text = fromChain.getMainAssetSymbol()
                         }
                 }
 
@@ -165,7 +166,7 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                 }
 
-                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20, SendAssetType.ONLY_COSMOS_GRC20 -> {
+                SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_EVM_ERC20, SendAssetType.ONLY_COSMOS_GRC20, SendAssetType.SOLANA_TOKEN -> {
                     toSendToken?.let { token ->
                         assetDecimal = token.decimals
                         availableAmount.toBigDecimal().movePointLeft(assetDecimal)
@@ -199,10 +200,22 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                 SendAssetType.BIT_COIN -> {
                     (fromChain as ChainBitCoin86).apply {
                         assetDecimal = 8
-                        availableDenom.text = fromChain.coinSymbol
+                        availableDenom.text = fromChain.getMainAssetSymbol()
                         val amount = availableAmount.toBigDecimal().movePointLeft(assetDecimal)
                             ?.setScale(assetDecimal, RoundingMode.DOWN)
                         available.text = formatAmount(amount.toString(), assetDecimal)
+                    }
+                }
+
+                SendAssetType.SOLANA_COIN -> {
+                    toSendAsset?.let { asset ->
+                        assetDecimal = asset.decimals ?: 9
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = asset.symbol
+                                availableDenom.setTextColor(asset.assetColor())
+                            }
                     }
                 }
 

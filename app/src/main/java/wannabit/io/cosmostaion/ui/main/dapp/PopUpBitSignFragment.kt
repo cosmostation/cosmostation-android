@@ -79,7 +79,7 @@ class PopUpBitSignFragment(
                     )
                 )
                 dappFeeTokenImg.setImg(R.drawable.token_btc)
-                dappFeeToken.text = selectedChain?.coinSymbol
+                dappFeeToken.text = selectedChain?.getMainAssetSymbol()
             }
             parsingRequest()
             setUpObserve()
@@ -137,7 +137,7 @@ class PopUpBitSignFragment(
                             withContext(Dispatchers.Main) {
                                 binding.apply {
                                     val coinGeckoId = BaseData.getAssetWithSymbol(
-                                        apiName, coinSymbol
+                                        apiName, getMainAssetSymbol()
                                     )?.coinGeckoId
                                     val price = BaseData.getPrice(coinGeckoId)
                                     val amount =
@@ -252,7 +252,7 @@ class PopUpBitSignFragment(
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
                                         val coinGeckoId = BaseData.getAssetWithSymbol(
-                                            apiName, coinSymbol
+                                            apiName, getMainAssetSymbol()
                                         )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =
@@ -278,7 +278,7 @@ class PopUpBitSignFragment(
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
                                         val coinGeckoId = BaseData.getAssetWithSymbol(
-                                            apiName, coinSymbol
+                                            apiName, getMainAssetSymbol()
                                         )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =

@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
@@ -53,6 +54,7 @@ import wannabit.io.cosmostaion.data.model.res.Erc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.Grc20TokenResponse
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.model.res.getAvailableUtxosFromRaw
 import wannabit.io.cosmostaion.data.model.res.printAvailableUtxosJson
@@ -137,6 +139,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadErc20Deferred = async { walletRepository.erc20() }
         val loadGrc20Deferred = async { walletRepository.grc20() }
         val loadCw721Deferred = async { walletRepository.cw721() }
+        val loadSplDeferred = async { walletRepository.spl() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemInfo() }
 
         val responses = awaitAll(
@@ -146,6 +149,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             loadErc20Deferred,
             loadGrc20Deferred,
             loadCw721Deferred,
+            loadSplDeferred,
             loadEcoSystemDeferred
         )
 
@@ -186,6 +190,10 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is Cw721Response -> {
                             response.data.assets?.let { BaseData.cw721Tokens = it }
+                        }
+
+                        is SplResponse -> {
+                            response.data.assets?.let { BaseData.splTokens = it }
                         }
 
                         is MutableList<*> -> {
@@ -600,8 +608,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             o2.description.moniker == "Cosmostation" -> 1
                             o1.jailed && !o2.jailed -> 1
                             !o1.jailed && o2.jailed -> -1
-                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() > o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> -1
-                            o1.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() < o2.tokensList.first { it.denom == chain.stakeDenom }.amount.toDouble() -> 1
+                            o1.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() > o2.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() -> -1
+                            o1.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() < o2.tokensList.first { it.denom == chain.getMainAssetDenom() }.amount.toDouble() -> 1
                             else -> 0
                         }
                     }
@@ -933,6 +941,45 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
 
+            is ChainSolana -> {
+                chain.solanaFetcher()?.let { fetcher ->
+                    chain.apply {
+                        fetcher.solanaAccountInfo = JsonObject()
+
+                        when (val response = walletRepository.solanaAccountInfo(fetcher, this)) {
+                            is NetworkResult.Success -> {
+                                if (response.data.has("result")) {
+                                    fetcher.solanaAccountInfo = response.data["result"].asJsonObject
+
+                                    fetchState = FetchState.SUCCESS
+                                    coinCnt = if (fetcher.solanaBalanceAmount() > BigDecimal.ZERO) {
+                                        1
+                                    } else {
+                                        0
+                                    }
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+
+                                } else {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             is ChainOktEvm -> {
                 chain.oktFetcher()?.let {
                     when (val response = walletRepository.oktAccountInfo(chain)) {
@@ -973,7 +1020,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val decodeData = formatJsonString(String(Base64.decode(data)))
                                     if (decodeData == "null") {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(chain.stakeDenom)
+                                            CoinProto.Coin.newBuilder().setDenom(chain.getMainAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                         fetcher.gnoBalances = tempBalances
@@ -998,7 +1045,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         } else {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
-                                                    .setDenom(chain.stakeDenom).setAmount("0")
+                                                    .setDenom(chain.getMainAssetDenom()).setAmount("0")
                                                     .build()
                                             )
                                         }
@@ -1038,7 +1085,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             is NetworkResult.Success -> {
                                 chain.cosmosFetcher?.cosmosBalances = response.data
                                 chain.fetchState = FetchState.SUCCESS
-                                chain.coinCnt = chain.cosmosFetcher?.cosmosBalances?.count { BaseData.getAsset(chain.apiName, it.denom) != null } ?: 0
+                                chain.coinCnt = chain.cosmosFetcher?.cosmosBalances?.count {
+                                    BaseData.getAsset(
+                                        chain.apiName,
+                                        it.denom
+                                    ) != null
+                                } ?: 0
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag
                                 }

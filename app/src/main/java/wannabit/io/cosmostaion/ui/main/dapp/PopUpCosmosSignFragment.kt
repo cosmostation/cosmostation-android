@@ -477,7 +477,7 @@ class PopUpCosmosSignFragment(
                     .firstOrNull { it.chainIdCosmos.lowercase() == chainId.lowercase() }
                     ?.let { chain ->
                         chain.getFeeInfos(requireContext())
-                            .first().feeDatas.firstOrNull { it.denom == chain.stakeDenom }
+                            .first().feeDatas.firstOrNull { it.denom == chain.getMainAssetDenom() }
                             ?.let { gasRate ->
                                 val gasLimit =
                                     (gas.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
@@ -489,12 +489,12 @@ class PopUpCosmosSignFragment(
                                     jsonObject.addProperty(
                                         "amount", feeCoinAmount.toString()
                                     )
-                                    jsonObject.addProperty("denom", chain.stakeDenom)
+                                    jsonObject.addProperty("denom", chain.getMainAssetDenom())
                                     amounts.add(jsonObject)
 
                                 } else {
                                     val mainDenomFee =
-                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.stakeDenom }
+                                        amounts.firstOrNull { it.asJsonObject["denom"].asString == chain.getMainAssetDenom() }
                                     mainDenomFee?.asJsonObject?.addProperty(
                                         "amount", feeCoinAmount.toString()
                                     )

@@ -251,7 +251,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
                     } else {
                         newText?.let { searchTxt ->
                             searchEthCoins.addAll(ethCoins.filter { coin ->
-                                coin.coinSymbol.contains(searchTxt, true)
+                                coin.getMainAssetSymbol().contains(searchTxt, true)
                             })
 
                             searchDisplayErc20Tokens.addAll(displayErc20Tokens.filter { token ->

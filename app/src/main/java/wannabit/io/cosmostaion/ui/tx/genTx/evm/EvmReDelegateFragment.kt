@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
-import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatString
 import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.makeToast
@@ -173,7 +172,7 @@ class EvmReDelegateFragment : BaseTxFragment() {
             feeSegment.setPosition(1, false)
             selectedFeePosition = 1
 //            feeTokenImg.setImageResource(selectedChain.coinLogo)
-            feeToken.text = selectedChain.coinSymbol
+            feeToken.text = selectedChain.getMainAssetSymbol()
 
 //            val feePrice = BaseData.getPrice(selectedChain.coinGeckoId)
 //            val totalGasPrice = evmGasPrices[selectedFeePosition]
@@ -199,16 +198,17 @@ class EvmReDelegateFragment : BaseTxFragment() {
                 fromJailedImg.setImageResource(statusImage)
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val staked =
-                        selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
-                    availableAmount = staked?.toBigDecimal()
-                    staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
-                        stakedAmount.text = formatAmount(it.toPlainString(), decimal)
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+                ?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        val staked =
+                            selectedChain.cosmosFetcher?.cosmosDelegations?.firstOrNull { it.delegation.validatorAddress == fromValidator?.operatorAddress }?.balance?.amount
+                        availableAmount = staked?.toBigDecimal()
+                        staked?.toBigDecimal()?.movePointLeft(decimal)?.let {
+                            stakedAmount.text = formatAmount(it.toPlainString(), decimal)
+                        }
                     }
                 }
-            }
         }
         txSimulate()
     }
@@ -239,25 +239,27 @@ class EvmReDelegateFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.stakeDenom)
+                CoinProto.Coin.newBuilder().setAmount(toAmount)
+                    .setDenom(selectedChain.getMainAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.stakeDenom)?.let { asset ->
-                asset.decimals?.let { decimal ->
-                    val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
-                        .setScale(decimal, RoundingMode.DOWN)
-                    redelegateAmountMsg.visibility = View.GONE
-                    redelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
-                    redelegateAmount.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(), R.color.color_base01
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+                ?.let { asset ->
+                    asset.decimals?.let { decimal ->
+                        val dpAmount = BigDecimal(toAmount).movePointLeft(decimal)
+                            .setScale(decimal, RoundingMode.DOWN)
+                        redelegateAmountMsg.visibility = View.GONE
+                        redelegateAmount.text = formatAmount(dpAmount.toPlainString(), decimal)
+                        redelegateAmount.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(), R.color.color_base01
+                            )
                         )
-                    )
-                    redelegateDenom.visibility = View.VISIBLE
-                    redelegateDenom.text = asset.symbol
-                    redelegateDenom.setTextColor(asset.assetColor())
+                        redelegateDenom.visibility = View.VISIBLE
+                        redelegateDenom.text = asset.symbol
+                        redelegateDenom.setTextColor(asset.assetColor())
+                    }
                 }
-            }
             txSimulate()
         }
     }
@@ -318,14 +320,13 @@ class EvmReDelegateFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(selectedChain, TxType.RE_DELEGATE,
+                    InsertAmountFragment.newInstance(
+                        selectedChain, TxType.RE_DELEGATE,
                         availableAmount.toString(),
                         toCoin?.amount,
-                        selectedChain.stakeDenom?.let {
-                            BaseData.getAsset(
-                                selectedChain.apiName, it
-                            )
-                        },
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                        ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {
                                 updateAmountView(toAmount)

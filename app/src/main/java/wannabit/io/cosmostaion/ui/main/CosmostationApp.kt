@@ -14,7 +14,6 @@ import com.reown.android.CoreClient
 import com.reown.android.relay.ConnectionType
 import com.reown.sign.client.Sign
 import com.reown.sign.client.SignClient
-import net.sqlcipher.database.SQLiteDatabase
 import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.data.repository.wallet.WalletRepositoryImpl
@@ -52,7 +51,7 @@ class CosmostationApp : Application(), ViewModelStoreOwner {
 
         initialize()
         FirebaseApp.initializeApp(this)
-        SQLiteDatabase.loadLibs(this)
+        System.loadLibrary("sqlcipher")
         setRandomBackgroundImage()
 
         if (BuildConfig.DEBUG) {

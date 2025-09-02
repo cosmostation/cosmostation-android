@@ -150,7 +150,8 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                     fromChain.address
                 }
                 handleOneClickWithDelay(
-                    AddressBookFragment.newInstance(fromChain,
+                    AddressBookFragment.newInstance(
+                        fromChain,
                         toChain,
                         address,
                         sendAssetType,
@@ -178,82 +179,106 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         return@setOnClickListener
                     }
 
-                    if (sendAssetType == SendAssetType.ONLY_EVM_COIN || sendAssetType == SendAssetType.ONLY_EVM_ERC20) {
-                        if (BaseKey.isValidEthAddress(address)) {
-                            if (fromChain.evmAddress.equals(address, true)) {
-                                requireContext().makeToast(R.string.error_self_sending)
+                    when (sendAssetType) {
+                        SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
+                            if (BaseKey.isValidEthAddress(address)) {
+                                if (fromChain.evmAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
+
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
                                 return@setOnClickListener
                             }
-
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
-                            )
-                            dismiss()
-                            return@setOnClickListener
-
-                        } else {
-                            requireContext().makeToast(R.string.error_invalid_address)
-                            return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.ONLY_COSMOS_COIN || sendAssetType == SendAssetType.ONLY_COSMOS_CW20 || sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
-                        if (BaseUtils.isValidBechAddress(
-                                toChain, address
-                            )
-                        ) {
-                            if (fromChain.address.equals(address, true)) {
-                                requireContext().makeToast(R.string.error_self_sending)
+                        SendAssetType.ONLY_COSMOS_COIN, SendAssetType.ONLY_COSMOS_CW20, SendAssetType.ONLY_COSMOS_GRC20 -> {
+                            if (BaseUtils.isValidBechAddress(
+                                    toChain, address
+                                )
+                            ) {
+                                if (fromChain.address.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
+
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
                                 return@setOnClickListener
                             }
 
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
+                            txViewModel.icnsAddress(
+                                toChain, addressTxt.text.toString().trim(), toChain.accountPrefix()
                             )
-                            dismiss()
-                            return@setOnClickListener
                         }
 
-                        txViewModel.icnsAddress(
-                            toChain, addressTxt.text.toString().trim(), toChain.accountPrefix
-                        )
+                        SendAssetType.BIT_COIN -> {
+                            if (BaseUtils.isValidBitAddress(
+                                    toChain as ChainBitCoin86, address
+                                )
+                            ) {
+                                if (fromChain.mainAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
 
-                    } else if (sendAssetType == SendAssetType.BIT_COIN) {
-                        if (BaseUtils.isValidBitAddress(
-                                toChain as ChainBitCoin86, address
-                            )
-                        ) {
-                            if (fromChain.mainAddress.equals(address, true)) {
-                                requireContext().makeToast(R.string.error_self_sending)
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
                                 return@setOnClickListener
                             }
-
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
-                            )
-                            dismiss()
-                            return@setOnClickListener
-
-                        } else {
-                            requireContext().makeToast(R.string.error_invalid_address)
-                            return@setOnClickListener
                         }
 
-                    } else if (sendAssetType == SendAssetType.SUI_COIN || sendAssetType == SendAssetType.IOTA_COIN) {
-                        if (BaseUtils.isValidSuiAddress(address)) {
-                            if (fromChain.mainAddress.equals(address, true)) {
-                                requireContext().makeToast(R.string.error_self_sending)
+                        SendAssetType.SUI_COIN, SendAssetType.IOTA_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_NFT -> {
+                            if (BaseUtils.isValidSuiAddress(address)) {
+                                if (fromChain.mainAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
+
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
                                 return@setOnClickListener
                             }
+                        }
 
-                            addressListener?.selectAddress(
-                                address, addressBookMemo
-                            )
-                            dismiss()
-                            return@setOnClickListener
+                        SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
+                            if (BaseKey.isValidSolanaAddress(address)) {
+                                if (fromChain.mainAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
 
-                        } else {
-                            requireContext().makeToast(R.string.error_invalid_address)
-                            return@setOnClickListener
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
+                                return@setOnClickListener
+                            }
                         }
                     }
                 }
@@ -280,8 +305,7 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                 } else {
                     handleOneClickWithDelay(
                         NameServiceFragment.newInstance(
-                            response,
-                            object : NameServiceSelectListener {
+                            response, object : NameServiceSelectListener {
                                 override fun select(address: String) {
                                     addressTxt.text =
                                         Editable.Factory.getInstance().newEditable(address)

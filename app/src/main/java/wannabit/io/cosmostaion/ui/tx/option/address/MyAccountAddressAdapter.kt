@@ -75,7 +75,12 @@ class MyAccountAddressAdapter(
                     }
 
                 } else {
-                    val privateKey = myPrivate[position - 2 - myMnemonic.size]
+                    val headerCount = if (myMnemonic.isNotEmpty()) {
+                        position - 2 - myMnemonic.size
+                    } else {
+                        position - 1
+                    }
+                    val privateKey = myPrivate[headerCount]
                     holder.myAccountBind(privateKey, sendAssetType)
 
                     val address =

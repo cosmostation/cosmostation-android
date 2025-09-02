@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
@@ -130,7 +131,9 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE ||
+                transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE
+            ) {
                 if (txHash.isNotEmpty()) {
                     updateView()
                 } else {
@@ -141,6 +144,17 @@ class TransferTxResultActivity : BaseActivity() {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {
                         loadBitTx()
+                    } else {
+                        showError()
+                    }
+                } else {
+                    showError()
+                }
+
+            } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE || transferStyle == TransferStyle.SOLANA_TOKEN_STYLE) {
+                if (isSuccess) {
+                    if (txHash.isNotEmpty()) {
+                        loadSolanaTx()
                     } else {
                         showError()
                     }
@@ -178,7 +192,9 @@ class TransferTxResultActivity : BaseActivity() {
                     viewFailMintscan.visibility = View.GONE
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
+            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE ||
+                transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE
+            ) {
                 if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
@@ -211,7 +227,8 @@ class TransferTxResultActivity : BaseActivity() {
                         historyToMintscan(fromChain, txHash)
                     }
 
-                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE, TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE -> {
+                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
+                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -227,7 +244,8 @@ class TransferTxResultActivity : BaseActivity() {
                         historyToMintscan(fromChain, txHash)
                     }
 
-                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE, TransferStyle.IOTA_ETC_STYLE -> {
+                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
+                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         historyToMintscan(fromChain, txHash)
                     }
 
@@ -471,6 +489,65 @@ class TransferTxResultActivity : BaseActivity() {
         }
     }
 
+    private fun loadSolanaTx() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            (fromChain as ChainSolana).apply {
+                val statusParams = listOf(listOf(txHash), mapOf("searchTransactionHistory" to true))
+                val statusRequest = JsonRpcRequest(
+                    method = "getSignatureStatuses", params = statusParams
+                )
+                val statusResponse =
+                    jsonRpcResponse(solanaFetcher?.solanaRpc() ?: mainUrl, statusRequest)
+
+                if (statusResponse.isSuccessful) {
+                    val statusJsonObject = Gson().fromJson(
+                        statusResponse.body?.string(), JsonObject::class.java
+                    )
+                    val statusValues = statusJsonObject["result"].asJsonObject["value"].asJsonArray
+
+                    if (statusValues.size() > 0) {
+                        if (statusValues.first().isJsonNull) {
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                loadSolanaTx()
+                            }, 1000)
+
+                        } else {
+                            val statusValue = statusValues.first().asJsonObject
+                            if (statusValue["err"].isJsonNull) {
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    binding.apply {
+                                        loading.visibility = View.GONE
+                                        successLayout.visibility = View.VISIBLE
+                                        successHash.text = txHash
+                                        showAddressBook()
+                                    }
+                                }, 0)
+
+                            } else {
+                                runOnUiThread {
+                                    showError()
+                                }
+                            }
+                        }
+                    }
+
+                } else {
+                    fetchCnt -= 1
+                    if (isSuccess && fetchCnt > 0) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadSolanaTx()
+                        }, 6000)
+
+                    } else {
+                        runOnUiThread {
+                            showMoreWait()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private fun initQuotes() {
         val num = Random.nextInt(resources.getStringArray(R.array.quotes).size)
         val quote = resources.getStringArray(R.array.quotes)[num].split("—")
@@ -535,7 +612,9 @@ class TransferTxResultActivity : BaseActivity() {
             loading.visibility = View.GONE
             failLayout.visibility = View.VISIBLE
 
-            if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE || transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE) {
+            if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE ||
+                transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE
+            ) {
                 val errorMsg =
                     suiResult?.get("result")?.asJsonObject?.get("effects")?.asJsonObject?.get("status")?.asJsonObject?.get(
                         "error"

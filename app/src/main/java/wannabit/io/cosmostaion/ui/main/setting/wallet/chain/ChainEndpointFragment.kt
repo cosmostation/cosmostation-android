@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
@@ -86,7 +87,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
                 selectTitle.text = getString(R.string.title_select_end_point, fromChain?.getChainName())
 
                 when (endPointType) {
-                    EndPointType.END_POINT_SUI -> {
+                    EndPointType.END_POINT_RPC -> {
                         val rpcEndpoints: MutableList<Any> = ArrayList()
                         if (fromChain is ChainGnoTestnet) {
                             fromChain?.getChainListParam()?.getAsJsonArray("cosmos_rpc_endpoint")
@@ -99,7 +100,21 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
                                 fromChain,
                                 rpcEndpoints,
                                 mutableListOf(),
-                                EndPointType.END_POINT_SUI,
+                                EndPointType.END_POINT_RPC,
+                                endpointClickAction
+                            )
+
+                        } else if (fromChain is ChainSolana) {
+                            fromChain?.getChainListParam()?.getAsJsonArray("solana_rpc_endpoint")?.let {
+                                for (jsonElement in it) {
+                                    rpcEndpoints.add(jsonElement.asJsonObject)
+                                }
+                            }
+                            endpointAdapter = EndpointAdapter(
+                                fromChain,
+                                rpcEndpoints,
+                                mutableListOf(),
+                                EndPointType.END_POINT_RPC,
                                 endpointClickAction
                             )
 
@@ -113,7 +128,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
                                 fromChain,
                                 rpcEndpoints,
                                 mutableListOf(),
-                                EndPointType.END_POINT_SUI,
+                                EndPointType.END_POINT_RPC,
                                 endpointClickAction
                             )
                         }
@@ -349,4 +364,4 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
     }
 }
 
-enum class EndPointType { END_POINT_EVM, END_POINT_COSMOS, END_POINT_SUI }
+enum class EndPointType { END_POINT_EVM, END_POINT_COSMOS, END_POINT_RPC }

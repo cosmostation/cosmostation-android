@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.chain.fetcher.iotaCoinType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -214,6 +215,14 @@ class ApplicationViewModel(
                     token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
+            if (chain is ChainSolana) {
+                chain.solanaFetcher()?.splTokens =
+                    BaseData.splTokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                        token.type = "spl"
+                        token
+                    }?.toMutableList() ?: mutableListOf()
+            }
+
             chain.cosmosFetcher?.cw721Tokens =
                 BaseData.cw721Tokens?.filter { it.chain == chain.apiName }?.toMutableList()
                     ?: mutableListOf()
@@ -224,6 +233,7 @@ class ApplicationViewModel(
                 is ChainSui -> loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
+                is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
                 else -> {
                     if (supportCosmos() && this !is ChainOktEvm) {
                         loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
@@ -313,7 +323,7 @@ class ApplicationViewModel(
                             }
                         }
                         cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                            if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                            if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
                             else 0
                         }
                     }
@@ -393,7 +403,7 @@ class ApplicationViewModel(
                     if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
                         chain.initiaFetcher()?.initiaDelegations?.clear()
                         delegationResult.data.forEach { delegation ->
-                            delegation.balanceList.filter { it.denom == chain.stakeDenom }
+                            delegation.balanceList.filter { it.denom == chain.getMainAssetDenom() }
                                 .forEach { balance ->
                                     if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
                                         chain.initiaFetcher()?.initiaDelegations?.add(delegation)
@@ -550,7 +560,7 @@ class ApplicationViewModel(
                         }
                     }
                     cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                        if (o1.denom == chain.stakeDenom && o2.denom != chain.stakeDenom) -1
+                        if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
                         else 0
                     }
                 }
@@ -594,7 +604,11 @@ class ApplicationViewModel(
                         } else {
                             cosmosFetcher?.tokens?.filter { userDisplayToken.contains(it.address) }
                                 ?.map { token ->
-                                    async { walletRepository.cw20Balance(channel, chain, token) }
+                                    async {
+                                        walletRepository.cw20Balance(
+                                            channel, chain, token
+                                        )
+                                    }
                                 }
                         }
 
@@ -625,31 +639,30 @@ class ApplicationViewModel(
                                     }
 
                                 } else {
-                                    val tokenBalanceDeferredList =
-                                        if (userDisplayToken == null) {
-                                            evmRpcFetcher.evmTokens.filter {
-                                                it.wallet_preload ?: false
-                                            }.map { token ->
-                                                async {
-                                                    walletRepository.erc20Balance(
-                                                        this@apply, token
-                                                    )
-                                                }
-                                            }
-
-                                        } else {
-                                            evmRpcFetcher.evmTokens.filter {
-                                                userDisplayToken.contains(
-                                                    it.address
+                                    val tokenBalanceDeferredList = if (userDisplayToken == null) {
+                                        evmRpcFetcher.evmTokens.filter {
+                                            it.wallet_preload ?: false
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
                                                 )
-                                            }.map { token ->
-                                                async {
-                                                    walletRepository.erc20Balance(
-                                                        this@apply, token
-                                                    )
-                                                }
                                             }
                                         }
+
+                                    } else {
+                                        evmRpcFetcher.evmTokens.filter {
+                                            userDisplayToken.contains(
+                                                it.address
+                                            )
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.erc20Balance(
+                                                    this@apply, token
+                                                )
+                                            }
+                                        }
+                                    }
                                     tokenBalanceDeferredList.awaitAll()
                                 }
 
@@ -957,7 +970,7 @@ class ApplicationViewModel(
                     address,
                     evmAddress,
                     oktFetcher?.allAssetValue(true).toString(),
-                    oktFetcher?.oktBalanceAmount(stakeDenom).toString(),
+                    oktFetcher?.oktBalanceAmount(getMainAssetDenom()).toString(),
                     "0",
                     oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                         ?.toLong()
@@ -1422,7 +1435,7 @@ class ApplicationViewModel(
 
                                 if (decodeData == "null") {
                                     tempBalances.add(
-                                        CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                        CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
                                             .setAmount("0").build()
                                     )
                                     fetcher.gnoBalances = tempBalances
@@ -1454,7 +1467,7 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(stakeDenom)
+                                            CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                     }
@@ -1485,24 +1498,28 @@ class ApplicationViewModel(
                                 if (isSupportGrc20()) {
                                     val userDisplayToken = Prefs.getDisplayGrc20s(id, tag)
                                     val tokenBalanceDeferredList = if (userDisplayToken == null) {
-                                        fetcher.grc20Tokens.filter { it.wallet_preload ?: false }
-                                            .map { token ->
-                                                async {
-                                                    walletRepository.grc20Balance(
-                                                        chain, token
-                                                    )
-                                                }
+                                        fetcher.grc20Tokens.filter {
+                                            it.wallet_preload ?: false
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.grc20Balance(
+                                                    chain, token
+                                                )
                                             }
+                                        }
 
                                     } else {
-                                        fetcher.grc20Tokens.filter { userDisplayToken.contains(it.address) }
-                                            .map { token ->
-                                                async {
-                                                    walletRepository.grc20Balance(
-                                                        chain, token
-                                                    )
-                                                }
+                                        fetcher.grc20Tokens.filter {
+                                            userDisplayToken.contains(
+                                                it.address
+                                            )
+                                        }.map { token ->
+                                            async {
+                                                walletRepository.grc20Balance(
+                                                    chain, token
+                                                )
                                             }
+                                        }
                                     }
 
                                     tokenBalanceDeferredList.awaitAll()
@@ -1546,6 +1563,125 @@ class ApplicationViewModel(
                     }
 
                     is NetworkResult.Error -> {
+                        fetchState = FetchState.FAIL
+                        withContext(Dispatchers.Main) {
+                            if (isEdit == true) {
+                                editFetchedResult.value = tag
+                            } else {
+                                fetchedResult.value = tag
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    fun loadSolData(id: Long, chain: ChainSolana, isEdit: Boolean? = false) =
+        CoroutineScope(Dispatchers.IO).launch {
+            chain.apply {
+                solanaFetcher()?.let { fetcher ->
+                    fetcher.solanaAccountInfo = JsonObject()
+                    fetcher.solanaTokenInfo.clear()
+
+                    try {
+                        when (val response = walletRepository.solanaAccountInfo(fetcher, chain)) {
+                            is NetworkResult.Success -> {
+                                if (response.data.has("result")) {
+                                    fetcher.solanaAccountInfo = response.data["result"].asJsonObject
+
+                                    when (val tokenResponse =
+                                        walletRepository.solanaTokenInfo(fetcher, chain)) {
+                                        is NetworkResult.Success -> {
+                                            val values =
+                                                tokenResponse.data["result"].asJsonObject["value"].asJsonArray
+                                            values.forEach { value ->
+                                                val info =
+                                                    value.asJsonObject["account"].asJsonObject["data"].asJsonObject["parsed"].asJsonObject["info"].asJsonObject
+                                                fetcher.solanaTokenInfo.add(info)
+                                            }
+
+                                            fetcher.solanaTokenInfo.forEach { tokenInfo ->
+                                                val mint = tokenInfo["mint"].asString
+                                                val amount =
+                                                    tokenInfo["tokenAmount"].asJsonObject["amount"].asString
+
+                                                val splToken =
+                                                    fetcher.splTokens.firstOrNull { it.address == mint }
+
+                                                if (splToken != null) {
+                                                    splToken.amount = amount
+                                                }
+                                            }
+
+                                            fetchState = FetchState.SUCCESS
+                                            coinValue = fetcher.allAssetValue()
+                                            coinUsdValue = fetcher.allAssetValue(true)
+                                            coinCnt =
+                                                if (fetcher.solanaBalanceAmount() > BigDecimal.ZERO) {
+                                                    1
+                                                } else {
+                                                    0
+                                                }
+                                            tokenCnt = values.size()
+
+                                            val refAddress = RefAddress(
+                                                id,
+                                                tag,
+                                                mainAddress,
+                                                "",
+                                                fetcher.allAssetValue(true).toString(),
+                                                fetcher.solanaBalanceAmount().toString(),
+                                                "0",
+                                                coinCnt.toLong()
+                                            )
+                                            BaseData.updateRefAddressesMain(refAddress)
+
+                                            withContext(Dispatchers.Main) {
+                                                if (isEdit == true) {
+                                                    editFetchedResult.value = tag
+                                                } else {
+                                                    fetchedResult.value = tag
+                                                }
+                                            }
+                                        }
+
+                                        is NetworkResult.Error -> {
+                                            fetchState = FetchState.FAIL
+                                            withContext(Dispatchers.Main) {
+                                                if (isEdit == true) {
+                                                    editFetchedResult.value = tag
+                                                } else {
+                                                    fetchedResult.value = tag
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                } else {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        if (isEdit == true) {
+                                            editFetchedResult.value = tag
+                                        } else {
+                                            fetchedResult.value = tag
+                                        }
+                                    }
+                                }
+                            }
+
+                            is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    if (isEdit == true) {
+                                        editFetchedResult.value = tag
+                                    } else {
+                                        fetchedResult.value = tag
+                                    }
+                                }
+                            }
+                        }
+
+                    } catch (e: Exception) {
                         fetchState = FetchState.FAIL
                         withContext(Dispatchers.Main) {
                             if (isEdit == true) {

@@ -12,12 +12,14 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.res.LegacyRes
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.sign.BitcoinJs
+import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
@@ -369,4 +371,27 @@ interface TxRepository {
     ): String
 
     suspend fun mintPhotonRate(channel: ManagedChannel?, chain: BaseChain): NetworkResult<String>
+
+    suspend fun minimumRentBalance(chain: ChainSolana, dataSize: Int): NetworkResult<String>
+
+    suspend fun broadcastSolanaSendTx(
+        chain: ChainSolana, solanaJS: SolanaJs?, programTxHex: String
+    ): Pair<Boolean, String?>
+
+    suspend fun simulateSolSend(
+        chain: ChainSolana,
+        solanaJS: SolanaJs?,
+        from: String,
+        to: String,
+        toAmount: String
+    ): Pair<String?, Any>
+
+    suspend fun simulateSplSend(
+        chain: ChainSolana,
+        solanaJS: SolanaJs?,
+        from: String,
+        to: String,
+        mint: String,
+        toAmount: String
+    ): Triple<Boolean?, String?, Any>
 }

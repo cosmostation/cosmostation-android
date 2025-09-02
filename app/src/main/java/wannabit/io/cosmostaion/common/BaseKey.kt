@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.common
 
 import android.content.Context
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.EdDSAPrivateKey
@@ -10,6 +9,7 @@ import net.i2p.crypto.eddsa.Utils
 import net.i2p.crypto.eddsa.spec.EdDSANamedCurveTable
 import net.i2p.crypto.eddsa.spec.EdDSAPrivateKeySpec
 import net.i2p.crypto.eddsa.spec.EdDSAPublicKeySpec
+import org.bitcoinj.core.Base58
 import org.bitcoinj.core.Bech32
 import org.bitcoinj.core.ECKey
 import org.bitcoinj.core.Sha256Hash
@@ -63,9 +63,7 @@ object BaseKey {
     }
 
     private fun getEd25519PrivateKey(
-        chain: BaseChain,
-        seed: ByteArray?,
-        lastPath: String
+        chain: BaseChain, seed: ByteArray?, lastPath: String
     ): ByteArray {
         var pair = ByteUtils.shaking(seed, "ed25519 seed".toByteArray())
         val components = chain.getHDPath(lastPath).split("/")
@@ -94,7 +92,7 @@ object BaseKey {
         parentPaths: List<ChildNumber>,
         lastPath: String
     ): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519) {
+        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519 || pubKeyType == PubKeyType.SOLANA_ED25519) {
             getEd25519PrivateKey(chain, seed, lastPath)
         } else {
             val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
@@ -107,7 +105,7 @@ object BaseKey {
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
         return when (pubKeyType) {
-            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519 -> {
+            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519, PubKeyType.SOLANA_ED25519 -> {
                 val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
                 val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
                 val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
@@ -164,8 +162,11 @@ object BaseKey {
                 }
             }
 
+            PubKeyType.SOLANA_ED25519 -> {
+                result = Base58.encode(pubKey)
+            }
+
             else -> {
-                val deferredResult = CompletableDeferred<String>()
                 withContext(Dispatchers.IO) {
                     if (!BitcoinJs.isInitialized()) {
                         BitcoinJs.initialize(context).await()
@@ -175,19 +176,20 @@ object BaseKey {
                         val publicKey = pubKey?.toHex()
                         val unique = System.nanoTime()
                         val uniqueFunctionName = "addressFunction_${unique}"
-
                         val addressFunction = """function $uniqueFunctionName() {
-                                    const address = getAddress('${publicKey}', '${bitType(pubKeyType)}', '${network}');
-                                    return address;
-                                }""".trimMargin()
+                                        const address = getAddress('${publicKey}', '${
+                            bitType(
+                                pubKeyType
+                            )
+                        }', '${network}');
+                                        return address;
+                                    }""".trimMargin()
                         BitcoinJs.mergeFunction(addressFunction)
                         val address = BitcoinJs.executeFunction("$uniqueFunctionName()").toString()
-                        deferredResult.complete(address)
-
+                        result = address
                     } catch (e: Exception) {
-                        deferredResult.completeExceptionally(e)
+                        result = e.message.toString()
                     }
-                    result = deferredResult.await()
                 }
             }
         }
@@ -223,4 +225,12 @@ object BaseKey {
     fun isValidEthAddress(address: String?): Boolean {
         return WalletUtils.isValidAddress(address)
     }
+
+    fun isValidSolanaAddress(address: String?): Boolean =
+        try {
+            val bytes = Base58.decode(address)
+            bytes.size == 32
+        } catch (_: Exception) {
+            false
+        }
 }

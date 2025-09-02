@@ -63,7 +63,7 @@ class BtcActiveViewHolder(
                         ?.setScale(2, RoundingMode.DOWN)
                 commission.text = formatString("$commissionRate%", 3)
 
-                BaseData.getAssetWithSymbol(chain.apiName, chain.coinSymbol)?.let { asset ->
+                BaseData.getAssetWithSymbol(chain.apiName, chain.getMainAssetSymbol())?.let { asset ->
                     val amount =
                         staked.first["delegation_staking"].asJsonObject["staking_amount"].asLong.toBigDecimal()
                             .movePointLeft(asset.decimals ?: 8)

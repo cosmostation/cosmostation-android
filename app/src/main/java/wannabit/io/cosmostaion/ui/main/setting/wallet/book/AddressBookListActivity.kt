@@ -76,7 +76,7 @@ class AddressBookListActivity : BaseActivity() {
                 addressBooks.addAll(response)
                 addressBooks.let { searchAddressBooks.addAll(it) }
 
-                searchView.visibleOrGone(searchAddressBooks.size > 15)
+                searchBar.visibleOrGone(searchAddressBooks.size > 15)
 
                 searchView.post {
                     val searchHint =

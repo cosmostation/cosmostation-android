@@ -1,22 +1,37 @@
 package wannabit.io.cosmostaion.database.legacy
 
 import android.content.Context
-import net.sqlcipher.database.SQLiteDatabase
-import net.sqlcipher.database.SQLiteDatabaseHook
-import net.sqlcipher.database.SQLiteOpenHelper
+import net.zetetic.database.DatabaseErrorHandler
+import net.zetetic.database.sqlcipher.SQLiteConnection
+import net.zetetic.database.sqlcipher.SQLiteDatabase
+import net.zetetic.database.sqlcipher.SQLiteDatabaseHook
+import net.zetetic.database.sqlcipher.SQLiteOpenHelper
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 
-class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.CursorFactory?, version: Int) :
-    SQLiteOpenHelper(context, name, factory, version, object : SQLiteDatabaseHook {
-        override fun preKey(database: SQLiteDatabase) {}
-        override fun postKey(database: SQLiteDatabase) {
-            //'net.zetetic:android-database-sqlcipher:4.5.0' migrate from v3
-            database.rawQuery("PRAGMA cipher_migrate;", null).close()
+class LegacyDatabase(
+    context: Context,
+    name: String?,
+    factory: SQLiteDatabase.CursorFactory?,
+    version: Int,
+    passphrase: String
+) : SQLiteOpenHelper(
+    context.applicationContext, name, passphrase, factory, version, 0, DatabaseErrorHandler { }, object : SQLiteDatabaseHook {
+        override fun preKey(connection: SQLiteConnection) = Unit
+        override fun postKey(connection: SQLiteConnection) {
+            connection.executeForLong("PRAGMA cipher_migrate;", null, null)
         }
-    }) {
+    }, true
+) {
     companion object {
-        val instance = LegacyDatabase(CosmostationApp.instance, BaseConstant.DB_NAME, null, BaseConstant.DB_VERSION)
+        private var INSTANCE: LegacyDatabase? = null
+
+        fun getInstance(passphrase: String): LegacyDatabase =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: LegacyDatabase(
+                    CosmostationApp.instance, BaseConstant.DB_NAME, null, BaseConstant.DB_VERSION, passphrase
+                ).also { INSTANCE = it }
+            }
     }
 
     override fun onCreate(sqLiteDatabase: SQLiteDatabase) {
@@ -49,6 +64,7 @@ class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.C
                     db.endTransaction()
                 }
             }
+
             2 -> {
                 try {
                     db.beginTransaction()
@@ -66,6 +82,7 @@ class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.C
                     db.endTransaction()
                 }
             }
+
             3 -> {
                 try {
                     db.beginTransaction()
@@ -81,6 +98,7 @@ class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.C
                     db.endTransaction()
                 }
             }
+
             4 -> {
                 try {
                     db.beginTransaction()
@@ -95,6 +113,7 @@ class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.C
                     db.endTransaction()
                 }
             }
+
             5 -> {
                 try {
                     db.beginTransaction()
@@ -108,6 +127,7 @@ class LegacyDatabase(context: Context?, name: String?, factory: SQLiteDatabase.C
                     db.endTransaction()
                 }
             }
+
             6 -> {
                 try {
                     db.beginTransaction()

@@ -25,7 +25,7 @@ class NeutronCoinViewHolder(
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
 
-            BaseData.getAsset(chain.apiName, chain.stakeDenom)?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 
@@ -36,7 +36,7 @@ class NeutronCoinViewHolder(
                 }
 
                 chain.neutronFetcher()?.let { fetcher ->
-                    val availableAmount = chain.cosmosFetcher?.availableAmount(chain.stakeDenom)
+                    val availableAmount = chain.cosmosFetcher?.availableAmount(chain.getMainAssetDenom())
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
 
                     fetcher.neutronVestingAmount()?.let { neutronVestingAmount ->
@@ -61,7 +61,7 @@ class NeutronCoinViewHolder(
 
                         val totalAmount = availableAmount?.add(vestingAmount)?.add(stakedAmount)
                             ?.add(unStakingAmount)?.add(rewardAmount)?.add(depositedAmount)
-                        val value = fetcher.denomValue(chain.stakeDenom)
+                        val value = fetcher.denomValue(chain.getMainAssetDenom())
 
                         with(Prefs) {
                             total.visibility = if (hideValue) View.GONE else View.VISIBLE

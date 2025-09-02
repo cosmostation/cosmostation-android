@@ -60,7 +60,7 @@ class AllChainClaimViewHolder(
                 val mainRewardDenom = if (baseChain is ChainDydx) {
                     DYDX_USDC_DENOM
                 } else {
-                    baseChain.stakeDenom
+                    baseChain.getMainAssetDenom()
                 }
 
                 rewards.forEach { reward ->

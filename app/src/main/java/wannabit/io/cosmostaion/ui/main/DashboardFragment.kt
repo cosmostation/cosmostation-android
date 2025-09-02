@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
@@ -176,7 +177,7 @@ class DashboardFragment : Fragment() {
         override fun nodeDown(chain: BaseChain) {
             if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) return
             if (chain.fetchState == FetchState.SUCCESS) {
-                if (chain is ChainSui || chain is ChainIota || chain is ChainBitCoin86) {
+                if (chain is ChainSui || chain is ChainIota || chain is ChainBitCoin86 || chain is ChainSolana) {
                     Intent(requireContext(), MajorActivity::class.java).apply {
                         putExtra("selectedChain", chain as Parcelable)
                         startActivity(this)
@@ -454,8 +455,8 @@ class DashboardFragment : Fragment() {
                 override fun changeEndpoint(tag: String?) {
                     if (chain is ChainOktEvm || chain is ChainBitCoin86) return
 
-                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet) {
-                        EndPointType.END_POINT_SUI
+                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
+                        EndPointType.END_POINT_RPC
                     } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                         EndPointType.END_POINT_COSMOS
                     } else {

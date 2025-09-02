@@ -567,6 +567,7 @@
     <string name="error_js">The data cannot be read because it is not in the correct format</string>
     <string name="error_at_least_btc_balance">Staking amount must be at least %1$s</string>
     <string name="error_max_btc_balance">Staking amount must be no more than %1$s</string>
+    <string name="error_minimum_rent">Send amount at least ^1 SOL for the rent</string>
 
 
     // tx

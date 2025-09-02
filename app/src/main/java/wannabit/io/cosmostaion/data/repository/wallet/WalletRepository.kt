@@ -14,9 +14,11 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.BabylonFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.res.AppVersion
@@ -30,6 +32,7 @@ import wannabit.io.cosmostaion.data.model.res.MoonPay
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.model.res.NoticeResponse
 import wannabit.io.cosmostaion.data.model.res.Price
+import wannabit.io.cosmostaion.data.model.res.SplResponse
 import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.database.model.Password
 import java.math.BigDecimal
@@ -56,6 +59,8 @@ interface WalletRepository {
     suspend fun grc20(): NetworkResult<Grc20TokenResponse>
 
     suspend fun cw721(): NetworkResult<Cw721Response>
+
+    suspend fun spl(): NetworkResult<SplResponse>
 
     suspend fun auth(
         channel: ManagedChannel?, chain: BaseChain
@@ -307,4 +312,9 @@ interface WalletRepository {
     suspend fun mempoolIsValidAddress(
         chain: ChainBitCoin86
     ): NetworkResult<JsonObject>
+
+    //Solana
+    suspend fun solanaAccountInfo(fetcher: SolanaFetcher, chain: ChainSolana): NetworkResult<JsonObject>
+
+    suspend fun solanaTokenInfo(fetcher: SolanaFetcher, chain: ChainSolana): NetworkResult<JsonObject>
 }

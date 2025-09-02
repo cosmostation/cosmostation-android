@@ -69,6 +69,7 @@
                     android:maxWidth="@dimen/space_200"
                     android:maxLines="1"
                     android:textColor="@color/color_base01"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

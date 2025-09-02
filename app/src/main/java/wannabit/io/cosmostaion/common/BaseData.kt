@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.common
 import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Cw721
@@ -28,6 +29,7 @@ object BaseData {
     var erc20Tokens: List<Token>? = mutableListOf()
     var grc20Tokens: List<Token>? = mutableListOf()
     var cw721Tokens: List<Cw721>? = mutableListOf()
+    var splTokens: List<Token>? = mutableListOf()
     var originEcosystems: MutableList<JsonObject>? = mutableListOf()
     var ecosystems: MutableList<JsonObject>? = mutableListOf()
 
@@ -71,6 +73,8 @@ object BaseData {
             chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else if (chain is ChainGnoTestnet) {
             chain.gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
+        } else if (chain is ChainSolana) {
+            chain.solanaFetcher()?.splTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else {
             null
         }
