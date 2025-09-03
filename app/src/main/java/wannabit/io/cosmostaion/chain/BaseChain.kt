@@ -143,6 +143,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -157,6 +158,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainSonic
 import wannabit.io.cosmostaion.chain.evmClass.ChainStory
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainTenetEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainWemix
+import wannabit.io.cosmostaion.chain.evmClass.ChainWorldCoin
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXrplEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
@@ -373,19 +376,11 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun getGasAssetDenom(): String {
-        return if (getChainListParam()?.has("gas_asset_denom") == true) {
-            getChainListParam()?.get("gas_asset_denom")?.asString ?: stakeDenom
-        } else {
-            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
-        }
-    }
-
     fun getGasAssetSymbol(): String {
         return if (getChainListParam()?.has("gas_asset_symbol") == true) {
-            getChainListParam()?.get("gas_asset_symbol")?.asString ?: stakeDenom
+            getChainListParam()?.get("gas_asset_symbol")?.asString ?: coinSymbol
         } else {
-            getChainListParam()?.get("main_asset_symbol")?.asString ?: stakeDenom
+            coinSymbol
         }
     }
 
@@ -823,6 +818,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLumera())
     chains.add(ChainManifest())
 //    chains.add(ChainMantraEvm())
+    chains.add(ChainMantle())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -886,6 +882,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainUnification())
     chains.add(ChainUnion())
     chains.add(ChainUx())
+    chains.add(ChainWemix())
+    chains.add(ChainWorldCoin())
     chains.add(ChainXion())
     chains.add(ChainXplaEvm())
     chains.add(ChainXpla())
