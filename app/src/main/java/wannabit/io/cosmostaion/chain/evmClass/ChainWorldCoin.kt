@@ -23,5 +23,5 @@ class ChainWorldCoin : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://worldchain.drpc.org"
+    override var evmRpcURL: String = "https://worldchain-mainnet.g.alchemy.com/public"
 }
