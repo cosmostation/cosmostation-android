@@ -222,10 +222,7 @@ class CommonTransferFragment : BaseTxFragment() {
             when (sendAssetType) {
                 SendAssetType.ONLY_EVM_COIN -> {
                     toSendAsset = if (toSendDenom.isEmpty()) {
-                        BaseData.getAssetWithSymbol(
-                            fromChain.apiName,
-                            fromChain.getGasAssetSymbol()
-                        )
+                        BaseData.getAsset(fromChain.apiName, fromChain.getGasAssetDenom())
                     } else {
                         BaseData.getAsset(fromChain.apiName, toSendDenom)
                     }
@@ -332,7 +329,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     (fromChain as ChainBitCoin86).apply {
                         txViewModel.bitTxData(fromChain as ChainBitCoin86)
                         toSendAsset =
-                            BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetSymbol())
+                            BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetDenom())
                         transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
                             R.string.title_asset_send, fromChain.getMainAssetSymbol()
@@ -832,7 +829,7 @@ class CommonTransferFragment : BaseTxFragment() {
                             evmFeeAmount = evmGasPrices[selectedFeePosition].multiply(evmGasLimit)
                         }
 
-                        BaseData.getAssetWithSymbol(apiName, getGasAssetSymbol())?.let { asset ->
+                        BaseData.getAsset(apiName, getGasAssetDenom())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 
@@ -883,7 +880,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.BIT_COIN_STYLE -> {
                     (fromChain as ChainBitCoin86).apply {
-                        BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.let { asset ->
+                        BaseData.getAsset(apiName, getMainAssetDenom())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 

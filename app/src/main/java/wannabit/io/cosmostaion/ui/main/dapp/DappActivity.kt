@@ -108,6 +108,7 @@ class DappActivity : BaseActivity() {
     private var selectSuiChain: BaseChain? = null
     private var selectIotaChain: BaseChain? = null
     private var selectBitcoin: BaseChain? = null
+    private var selectSolana: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -1150,6 +1151,8 @@ class DappActivity : BaseActivity() {
             val messageJson = requestJson.getJSONObject("message")
             val method = messageJson.getString("method")
 
+            Log.e("Test12345 : ", method)
+
             when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -2080,6 +2083,16 @@ class DappActivity : BaseActivity() {
                                 }
                             })
                     }
+                }
+
+                //Solana
+                "solana_connect" -> {
+                    if (selectSolana == null) {
+                        selectSolana = allChains?.find { it.apiName == "solana" }
+                    }
+                    val publicKey = "0x" + selectSolana?.publicKey?.bytesToHex()
+                    Log.e("Test12345 : ", publicKey)
+                    appToWebResult(messageJson, publicKey, messageId)
                 }
 
                 else -> {
