@@ -141,7 +141,7 @@ class BtcStakingFragment : BaseTxFragment() {
                 }
             }
 
-            BaseData.getAssetWithSymbol(selectedChain.apiName, selectedChain.getMainAssetSymbol())
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
                 ?.let { asset ->
                     titleStakeImg.setTokenImg(asset)
                     titleStake.text = getString(R.string.title_staking, asset.symbol)
@@ -325,7 +325,7 @@ class BtcStakingFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainBitCoin86).apply {
-                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpFeeAmount = btcFeeAmount.movePointLeft(8).setScale(8, RoundingMode.DOWN)
                 val value = price.multiply(dpFeeAmount)
@@ -341,7 +341,7 @@ class BtcStakingFragment : BaseTxFragment() {
             toStakeAmount = toAmount
 
             (selectedChain as ChainBitCoin86).apply {
-                val coinGeckoId = BaseData.getAssetWithSymbol(apiName, getMainAssetSymbol())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpAmount =
                     toStakeAmount.toBigDecimal().movePointLeft(8).setScale(8, RoundingMode.DOWN)
@@ -386,8 +386,8 @@ class BtcStakingFragment : BaseTxFragment() {
                     InsertAmountFragment.newInstance(selectedChain, TxType.BTC_DELEGATE,
                         availableAmount.toString(),
                         toStakeAmount,
-                        BaseData.getAssetWithSymbol(
-                            selectedChain.apiName, selectedChain.getMainAssetSymbol()
+                        BaseData.getAsset(
+                            selectedChain.apiName, selectedChain.getMainAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

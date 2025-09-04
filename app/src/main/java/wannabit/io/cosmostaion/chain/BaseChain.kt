@@ -376,6 +376,14 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getGasAssetDenom(): String {
+        return if (getChainListParam()?.has("gas_asset_denom") == true) {
+            getChainListParam()?.get("gas_asset_denom")?.asString ?: coinSymbol
+        } else {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: coinSymbol
+        }
+    }
+
     fun getGasAssetSymbol(): String {
         return if (getChainListParam()?.has("gas_asset_symbol") == true) {
             getChainListParam()?.get("gas_asset_symbol")?.asString ?: coinSymbol

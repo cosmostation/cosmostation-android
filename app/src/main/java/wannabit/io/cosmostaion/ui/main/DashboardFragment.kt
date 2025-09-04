@@ -128,23 +128,25 @@ class DashboardFragment : Fragment() {
                 account.sortedDisplayChains().filter { chain -> !chain.isTestnet }.toMutableList()
             searchMainnetChains.addAll(
                 if (searchTxt.isNullOrEmpty()) {
-                mainnetChains
-            } else {
-                mainnetChains.filter { chain ->
-                    chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
-                }
-            })
+                    mainnetChains
+                } else {
+                    mainnetChains.filter { chain ->
+                        chain.getChainName()
+                            ?.contains(searchTxt.toString(), ignoreCase = true) == true
+                    }
+                })
 
             testnetChains =
                 account.sortedDisplayChains().filter { chain -> chain.isTestnet }.toMutableList()
             searchTestnetChains.addAll(
                 if (searchTxt.isNullOrEmpty()) {
-                testnetChains
-            } else {
-                testnetChains.filter { chain ->
-                    chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
-                }
-            })
+                    testnetChains
+                } else {
+                    testnetChains.filter { chain ->
+                        chain.getChainName()
+                            ?.contains(searchTxt.toString(), ignoreCase = true) == true
+                    }
+                })
         }
     }
 
@@ -413,14 +415,16 @@ class DashboardFragment : Fragment() {
                             searchMainnetChains.addAll(mainnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.getChainName()
+                                ) || chain.getGasAssetSymbol()
+                                    .contains(searchTxt, ignoreCase = true) || chain.getChainName()
                                     ?.contains(searchTxt, ignoreCase = true) == true
                             })
 
                             searchTestnetChains.addAll(testnetChains.filter { chain ->
                                 chain.getMainAssetSymbol().contains(
                                     searchTxt, ignoreCase = true
-                                ) || chain.getChainName()
+                                ) || chain.getGasAssetSymbol()
+                                    .contains(searchTxt, ignoreCase = true) || chain.getChainName()
                                     ?.contains(searchTxt, ignoreCase = true) == true
                             })
                         }
@@ -455,13 +459,14 @@ class DashboardFragment : Fragment() {
                 override fun changeEndpoint(tag: String?) {
                     if (chain is ChainOktEvm || chain is ChainBitCoin86) return
 
-                    val endPointType = if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
-                        EndPointType.END_POINT_RPC
-                    } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
-                        EndPointType.END_POINT_COSMOS
-                    } else {
-                        EndPointType.END_POINT_EVM
-                    }
+                    val endPointType =
+                        if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
+                            EndPointType.END_POINT_RPC
+                        } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
+                            EndPointType.END_POINT_COSMOS
+                        } else {
+                            EndPointType.END_POINT_EVM
+                        }
 
                     ChainEndpointFragment.newInstance(chain, endPointType).show(
                         parentFragmentManager, ChainEndpointFragment::class.java.name

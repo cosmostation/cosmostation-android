@@ -62,10 +62,6 @@ object BaseData {
         return assets?.firstOrNull { asset -> asset.chain == chainName && asset.denom?.lowercase() == denom.lowercase() }
     }
 
-    fun getAssetWithSymbol(chainName: String, symbol: String): Asset? {
-        return assets?.firstOrNull { asset -> asset.chain == chainName && asset.symbol?.lowercase() == symbol.lowercase() }
-    }
-
     fun getToken(chain: BaseChain, chainName: String, address: String): Token? {
         return if (chain.isSupportErc20()) {
             chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }

@@ -136,8 +136,8 @@ class PopUpBitSignFragment(
 
                             withContext(Dispatchers.Main) {
                                 binding.apply {
-                                    val coinGeckoId = BaseData.getAssetWithSymbol(
-                                        apiName, getMainAssetSymbol()
+                                    val coinGeckoId = BaseData.getAsset(
+                                        apiName, getMainAssetDenom()
                                     )?.coinGeckoId
                                     val price = BaseData.getPrice(coinGeckoId)
                                     val amount =
@@ -251,8 +251,8 @@ class PopUpBitSignFragment(
 
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
-                                        val coinGeckoId = BaseData.getAssetWithSymbol(
-                                            apiName, getMainAssetSymbol()
+                                        val coinGeckoId = BaseData.getAsset(
+                                            apiName, getMainAssetDenom()
                                         )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =
@@ -277,8 +277,8 @@ class PopUpBitSignFragment(
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
                                     binding.apply {
-                                        val coinGeckoId = BaseData.getAssetWithSymbol(
-                                            apiName, getMainAssetSymbol()
+                                        val coinGeckoId = BaseData.getAsset(
+                                            apiName, getMainAssetDenom()
                                         )?.coinGeckoId
                                         val price = BaseData.getPrice(coinGeckoId)
                                         val amount =
