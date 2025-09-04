@@ -16,12 +16,12 @@ class ChainSomnia : BaseChain(), Parcelable {
     override var apiName: String = "somnia"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "STT"
+    override var coinSymbol: String = "SOMI"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://dream-rpc.somnia.network/"
+    override var evmRpcURL: String = "https://rpc.evm.somnia.mainnet.cosmostation.io"
 }

@@ -154,6 +154,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainSeiEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShardeum
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainSomnia
 import wannabit.io.cosmostaion.chain.evmClass.ChainSonic
 import wannabit.io.cosmostaion.chain.evmClass.ChainStory
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
@@ -872,8 +873,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
-    chains.add(ChainSolana())
-//    chains.add(ChainSomnia())
+//    chains.add(ChainSolana())
+    chains.add(ChainSomnia())
     chains.add(ChainSonic())
     chains.add(ChainSource())
     chains.add(ChainStargaze())
