@@ -154,6 +154,7 @@ class WalletSelectViewHolder(
                     chainAssetCnt.visibility = View.VISIBLE
 
                     selectView.setOnClickListener {
+                        if (chain.tag == "cosmos118") return@setOnClickListener
                         if (selectedTags.contains(chain.tag)) {
                             selectedTags.removeIf { it == chain.tag }
                         } else {
