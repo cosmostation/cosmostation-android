@@ -21,7 +21,7 @@ Non-custodial tendermint-based mobile wallet application designed for managing a
 
 1. Fully open-source
 2. We respect your privacy and ensure that no user data is collected, except for push notifications to keep you informed.
-3. Supports all staking-related features (Delegate, Undelegate, Redelegate, CanceUnbonding)
+3. Supports all staking-related features (Delegate, Undelegate, Redelegate, CancelUnbonding)
 4. Supports not only standard transactions but also IBC (Inter-Blockchain Communication) transfers through secure channels.
 5. Supports realtime [governance data](https://www.mintscan.io/cosmos/proposals/) and provides the ability to vote on proposals.
 6. By supporting the injection method(like [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963)), it allows for faster and more convenient connections with DApps.
@@ -1088,7 +1088,7 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/terra-classic/resource/chain_terra-classic.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">TERRA CALSSIC</span></td>
+    <td><span style="font-weight:bold">TERRA CLASSIC</span></td>
     <td>m/44'/330'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
@@ -1538,7 +1538,7 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/tabichain-testnet/resource/chain_tabichain-testnet.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">TABI CAHIN TESTNET</span></td>
+    <td><span style="font-weight:bold">TABI CHAIN TESTNET</span></td>
     <td>m/44'/60'/0'/0/X</td>
     <td>keccak256</td>
     <td>gRPC or Rest, evmRPC</td>
