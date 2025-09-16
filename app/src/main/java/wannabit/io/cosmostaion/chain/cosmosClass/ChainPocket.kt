@@ -4,18 +4,17 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainSge : BaseChain(), Parcelable {
+class ChainPocket : BaseChain(), Parcelable {
 
-    override var name: String = "Sge"
-    override var tag: String = "sge118"
-    override var apiName: String = "sge"
+    override var name: String = "Pocket"
+    override var tag: String = "pocket118"
+    override var apiName: String = "pocket"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -23,8 +22,8 @@ class ChainSge : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "usge"
-    override var accountPrefix: String = "sge"
-    override var grpcHost: String = "sge-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://sge-api.polkachu.com/"
+    override var stakeDenom: String = "upokt"
+    override var accountPrefix: String = "pokt"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://shannon-grove-api.mainnet.poktroll.com/"
 }

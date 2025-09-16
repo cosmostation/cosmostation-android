@@ -91,6 +91,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPocket
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
@@ -848,6 +849,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
     chains.add(ChainPlanqEvm())
+    chains.add(ChainPocket())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
