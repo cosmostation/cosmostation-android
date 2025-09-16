@@ -104,7 +104,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSelf
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
@@ -173,7 +172,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -868,7 +866,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSei())
     chains.add(ChainSelf())
     chains.add(ChainSentinel())
-    chains.add(ChainSge())
     chains.add(ChainShardeum())
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())
