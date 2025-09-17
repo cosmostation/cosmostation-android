@@ -180,4 +180,18 @@
         android:elevation="@dimen/space_1"
         android:visibility="gone" />
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/space_12"
+        android:layout_marginBottom="@dimen/space_24"
+        android:elevation="@dimen/space_2"
+        app:menu_backgroundColor="@color/color_transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu_colorRipple="@color/color_transparent"
+        app:menu_colorNormal="@color/color_transparent"
+        app:menu_colorPressed="@color/color_transparent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
