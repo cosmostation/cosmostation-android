@@ -946,10 +946,10 @@ fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: Chain
             chain.initiaFetcher()?.initiaOriginValidators?.filter { it.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED }
                 ?.sortedWith { o1, o2 ->
                     val token1 =
-                        o1.tokensList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toDouble()
+                        o1.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                             ?: 0.0
                     val token2 =
-                        o2.tokensList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toDouble()
+                        o2.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                             ?: 0.0
                     token2.compareTo(token1)
                 }

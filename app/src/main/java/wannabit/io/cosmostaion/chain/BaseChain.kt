@@ -110,6 +110,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
@@ -376,17 +377,41 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getStakeAssetDenom(): String {
+        return if (getChainListParam()?.has("staking_asset_denom") == true) {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
+        } else {
+            stakeDenom
+        }
+    }
+
+    fun getStakeAssetSymbol(): String {
+        return if (getChainListParam()?.has("staking_asset_symbol") == true) {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: stakeDenom
+        } else {
+            stakeDenom
+        }
+    }
+
     fun getGasAssetDenom(): String {
         return if (getChainListParam()?.has("gas_asset_denom") == true) {
             getChainListParam()?.get("gas_asset_denom")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("staking_asset_denom") == true) {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
+        } else if (getChainListParam()?.has("main_asset_denom") == true) {
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
         } else {
-            getChainListParam()?.get("staking_asset_denom")?.asString ?: coinSymbol
+            stakeDenom
         }
     }
 
     fun getGasAssetSymbol(): String {
         return if (getChainListParam()?.has("gas_asset_symbol") == true) {
             getChainListParam()?.get("gas_asset_symbol")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("staking_asset_symbol") == true) {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("main_asset_symbol") == true) {
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: coinSymbol
         } else {
             coinSymbol
         }
@@ -881,6 +906,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStratosEvm())
     chains.add(ChainStride())
     chains.add(ChainSui())
+//    chains.add(ChainSunrise())
     chains.add(ChainSynternet())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())

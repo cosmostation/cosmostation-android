@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.common.hiddenStatus
 import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setTokenImg
+import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemNeturonCoinBinding
 import java.math.BigDecimal
@@ -21,11 +22,11 @@ class NeutronCoinViewHolder(
     private val binding: ItemNeturonCoinBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(chain: ChainNeutron) {
+    fun bind(chain: ChainNeutron, coin: Coin) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 
@@ -36,7 +37,7 @@ class NeutronCoinViewHolder(
                 }
 
                 chain.neutronFetcher()?.let { fetcher ->
-                    val availableAmount = chain.cosmosFetcher?.availableAmount(chain.getMainAssetDenom())
+                    val availableAmount = chain.cosmosFetcher?.availableAmount(chain.getStakeAssetDenom())
                         ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
 
                     fetcher.neutronVestingAmount()?.let { neutronVestingAmount ->
@@ -61,7 +62,7 @@ class NeutronCoinViewHolder(
 
                         val totalAmount = availableAmount?.add(vestingAmount)?.add(stakedAmount)
                             ?.add(unStakingAmount)?.add(rewardAmount)?.add(depositedAmount)
-                        val value = fetcher.denomValue(chain.getMainAssetDenom())
+                        val value = fetcher.denomValue(chain.getStakeAssetDenom())
 
                         with(Prefs) {
                             total.visibility = if (hideValue) View.GONE else View.VISIBLE

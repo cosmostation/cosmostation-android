@@ -148,8 +148,8 @@ class OktSelectValidatorFragment : BaseTxFragment() {
 
     private fun initFeeData(chain: BaseChain, oktFetcher: OktFetcher?) {
         binding.apply {
-            feeTokenImg.setTokenImg(chain.assetImg(chain.getMainAssetDenom()))
-            feeToken.text = chain.getMainAssetDenom().uppercase()
+            feeTokenImg.setTokenImg(chain.assetImg(chain.getGasAssetDenom()))
+            feeToken.text = chain.getGasAssetDenom().uppercase()
 
             if (oktFetcher?.oktDeposits?.get("validator_address")?.isJsonNull != true) {
                 oktFetcher?.oktDeposits?.get("validator_address")?.asJsonArray?.size()
@@ -167,11 +167,11 @@ class OktSelectValidatorFragment : BaseTxFragment() {
                     }
             }
 
-            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.coinGeckoId
+            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.getGasAssetDenom())?.coinGeckoId
             val price = BaseData.getPrice(coinGeckoId)
             val value = price.multiply(gasFee).setScale(6, RoundingMode.DOWN)
             feeAmount.text = formatAmount(gasFee.toPlainString(), 18)
-            feeDenom.text = chain.getMainAssetDenom().uppercase()
+            feeDenom.text = chain.getGasAssetDenom().uppercase()
             feeValue.text = formatAssetValue(value)
         }
     }
@@ -281,7 +281,7 @@ class OktSelectValidatorFragment : BaseTxFragment() {
             if (result.resultCode == Activity.RESULT_OK && isAdded) {
                 binding.backdropLayout.visibility = View.VISIBLE
 
-                val gasCoin = LCoin(selectedChain.getMainAssetDenom(), gasFee.toString())
+                val gasCoin = LCoin(selectedChain.getStakeAssetDenom(), gasFee.toString())
                 val fee = LFee(gasAmount.toString(), mutableListOf(gasCoin))
 
                 val myValidators =

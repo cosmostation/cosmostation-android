@@ -122,7 +122,7 @@ class CoinMintFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 burnAsset = asset
                 burnCoinImg.setTokenImg(asset)
                 burnCoinName.text = asset.symbol
@@ -309,10 +309,10 @@ class CoinMintFragment : BaseTxFragment() {
                     feeValue.text = formatAssetValue(value)
 
                     val balanceAmount =
-                        selectedChain.cosmosFetcher?.availableAmount(selectedChain.getMainAssetDenom())
+                        selectedChain.cosmosFetcher?.availableAmount(selectedChain.getStakeAssetDenom())
 
                     txFee?.let {
-                        availableAmount = if (it.getAmount(0).denom == selectedChain.getMainAssetDenom()) {
+                        availableAmount = if (it.getAmount(0).denom == selectedChain.getStakeAssetDenom()) {
                             val feeAmount = it.getAmount(0).amount.toBigDecimal()
                             if (feeAmount > balanceAmount) {
                                 BigDecimal.ZERO
@@ -612,7 +612,7 @@ class CoinMintFragment : BaseTxFragment() {
 
     private fun onBindMintPhotonMsg(): MutableList<Any> {
         val burnCoin =
-            CoinProto.Coin.newBuilder().setAmount(toBurnAmount).setDenom(selectedChain.getMainAssetDenom())
+            CoinProto.Coin.newBuilder().setAmount(toBurnAmount).setDenom(selectedChain.getStakeAssetDenom())
                 .build()
         val msgMint = com.atomone.photon.v1.TxProto.MsgMintPhoton.newBuilder()
             .setToAddress(selectedChain.address).setAmount(burnCoin).build()

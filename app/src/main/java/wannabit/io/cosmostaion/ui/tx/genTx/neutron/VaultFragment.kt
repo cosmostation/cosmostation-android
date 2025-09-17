@@ -199,9 +199,9 @@ class VaultFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin = CoinProto.Coin.newBuilder().setAmount(toAmount)
-                .setDenom(selectedChain.getMainAssetDenom()).build()
+                .setDenom(selectedChain.getStakeAssetDenom()).build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
                 ?.let { asset ->
                     val price = BaseData.getPrice(asset.coinGeckoId)
                     val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
@@ -262,8 +262,8 @@ class VaultFragment : BaseTxFragment() {
 
                     availableAmount = if (vaultType == VaultType.DEPOSIT) {
                         val balanceAmount =
-                            selectedChain.cosmosFetcher?.availableAmount(selectedChain.getMainAssetDenom())
-                        if (fee.denom == selectedChain.getMainAssetDenom()) {
+                            selectedChain.cosmosFetcher?.availableAmount(selectedChain.getStakeAssetDenom())
+                        if (fee.denom == selectedChain.getGasAssetDenom()) {
                             if (amount > balanceAmount) {
                                 BigDecimal.ZERO
                             } else {
@@ -290,7 +290,7 @@ class VaultFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                            selectedChain.apiName, selectedChain.getStakeAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

@@ -137,11 +137,18 @@ class ClaimRewardFragment : BaseTxFragment() {
                     rewardView.visibility = View.GONE
                     babylonRewardView.visibility = View.VISIBLE
 
-                    BaseData.getAsset(apiName, getMainAssetDenom())?.let { asset ->
+                    val rewardDenom = if (selectedChain.isTestnet) {
+                        "sBTC"
+                    } else {
+                        "BTC"
+                    }
+                    btcRewardsTitle.text = getString(R.string.title_btc_staking_reward, rewardDenom)
+
+                    BaseData.getAsset(apiName, getStakeAssetDenom())?.let { asset ->
                         var rewardAmount = BigDecimal.ZERO
                         claimableRewards.forEach { reward ->
                             val rawAmount = BigDecimal(
-                                reward?.rewardList?.firstOrNull { it.denom == getMainAssetDenom() }?.amount
+                                reward?.rewardList?.firstOrNull { it.denom == getStakeAssetDenom() }?.amount
                                     ?: "0"
                             )
                             rewardAmount = rewardAmount.add(
@@ -155,7 +162,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                         val anotherRewardDenoms = mutableListOf<String>()
                         claimableRewards.forEach { reward ->
-                            reward?.rewardList?.filter { it.denom != getMainAssetDenom() }
+                            reward?.rewardList?.filter { it.denom != getStakeAssetDenom() }
                                 ?.forEach { anotherRewards ->
                                     val anotherAmount =
                                         anotherRewards.amount.toBigDecimal().movePointLeft(18)
@@ -181,7 +188,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                         var btcRewardAmount = BigDecimal.ZERO
                         babylonFetcher?.btcRewards?.forEach { reward ->
-                            if (reward.denom == getMainAssetDenom()) {
+                            if (reward.denom == getStakeAssetDenom()) {
                                 val rawAmount =
                                     reward.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
                                         .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -238,7 +245,7 @@ class ClaimRewardFragment : BaseTxFragment() {
                         validatorCnt.visibility = View.GONE
                     }
 
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
                         ?.let { asset ->
                             val rewardAmount =
                                 (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
@@ -297,13 +304,13 @@ class ClaimRewardFragment : BaseTxFragment() {
                         validatorCnt.visibility = View.GONE
                     }
 
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())
+                    BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
                         ?.let { asset ->
                             var rewardAmount = BigDecimal.ZERO
 
                             claimableRewards.forEach { reward ->
                                 val rawAmount = BigDecimal(
-                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount
+                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.getStakeAssetDenom() }?.amount
                                         ?: "0"
                                 )
                                 rewardAmount = rewardAmount.add(
@@ -319,7 +326,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                             val anotherRewardDenoms = mutableListOf<String>()
                             claimableRewards.forEach { reward ->
-                                reward?.rewardList?.filter { it.denom != selectedChain.getMainAssetDenom() }
+                                reward?.rewardList?.filter { it.denom != selectedChain.getStakeAssetDenom() }
                                     ?.forEach { anotherRewards ->
                                         val anotherAmount =
                                             anotherRewards.amount.toBigDecimal().movePointLeft(18)
@@ -467,7 +474,8 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                     if (selectedChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                         handleOneClickWithDelay(
-                            BaseFeeAssetFragment(selectedChain,
+                            BaseFeeAssetFragment(
+                                selectedChain,
                                 selectedChain.cosmosFetcher?.cosmosBaseFees,
                                 object : BaseFeeAssetSelectListener {
                                     override fun select(denom: String) {
@@ -493,7 +501,8 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                     } else {
                         handleOneClickWithDelay(
-                            AssetFragment.newInstance(selectedChain,
+                            AssetFragment.newInstance(
+                                selectedChain,
                                 feeInfos[selectedFeeInfo].feeDatas.toMutableList(),
                                 object : AssetSelectListener {
                                     override fun select(denom: String) {

@@ -124,7 +124,7 @@ class MajorCryptoViewHolder(
             stakedLayout.visibility = View.VISIBLE
             earnedLayout.visibility = View.VISIBLE
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 
@@ -202,7 +202,7 @@ class MajorCryptoViewHolder(
             stakedLayout.visibility = View.VISIBLE
             earnedLayout.visibility = View.VISIBLE
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 tokenImg.setTokenImg(asset)
                 tokenName.text = asset.symbol
 
