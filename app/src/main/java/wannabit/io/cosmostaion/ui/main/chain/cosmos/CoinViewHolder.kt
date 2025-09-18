@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -73,21 +74,46 @@ class CoinViewHolder(
         binding.apply {
             coinView.setBackgroundResource(R.drawable.item_bg)
 
+            Glide.with(tokenImg).clear(tokenImg)
+            tokenImg.setImageResource(R.drawable.token_default)
+            tokenImg.clipToOutline = true
+            tokenName.text = ""
+            coinAmount.text = ""
+
+            if (Prefs.hideValue) {
+                coinAmount.visibility = View.GONE
+                coinAmountValue.visibility = View.GONE
+                hideValue.visibility = View.VISIBLE
+            } else {
+                coinAmount.visibility = View.VISIBLE
+                coinAmountValue.visibility = View.VISIBLE
+                hideValue.visibility = View.GONE
+            }
+
             (chain as ChainSui).suiFetcher()?.let { fetcher ->
                 balance.first?.let { denom ->
                     val asset = BaseData.getAsset(chain.apiName, denom)
                     val metaData = fetcher.suiCoinMeta[denom]
 
+                    coinAmountValue.text = formatAssetValue(fetcher.suiBalanceValue(denom))
+                    tokenPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
+                    BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
+                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                    }
+
                     if (asset != null) {
-                        tokenImg.setTokenImg(asset)
+                        tokenImg.setImageFromSvg(asset.image, R.drawable.token_default)
                         tokenImg.clipToOutline = true
                         tokenName.text = asset.symbol
 
                         val amount = balance.second?.movePointLeft(asset.decimals ?: 6)
                             ?.setScale(6, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(amount.toString(), 6)
+                        return
+                    }
 
-                    } else if (metaData != null) {
+                    if (metaData != null) {
                         if (metaData.assetImg().contains("base64")) {
                             val base64String = metaData.assetImg().substringAfter("base64,")
                             val decodedString = Base64.decode(base64String)
@@ -102,31 +128,14 @@ class CoinViewHolder(
                         val dpAmount = balance.second?.movePointLeft(metaData["decimals"].asInt)
                             ?.setScale(18, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(dpAmount.toString(), 6)
-
-                    } else {
-                        tokenName.text = balance.first.suiCoinSymbol()
-                        val dpAmount =
-                            balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
-                        coinAmount.text = formatAmount(dpAmount.toString(), 6)
+                        return
                     }
 
-                    coinAmountValue.text = formatAssetValue(fetcher.suiBalanceValue(denom))
-                    tokenPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
-                    BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
-                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                    }
+                    tokenName.text = balance.first.suiCoinSymbol()
+                    val dpAmount =
+                        balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
+                    coinAmount.text = formatAmount(dpAmount.toString(), 6)
                 }
-            }
-
-            if (Prefs.hideValue) {
-                coinAmount.visibility = View.GONE
-                coinAmountValue.visibility = View.GONE
-                hideValue.visibility = View.VISIBLE
-            } else {
-                coinAmount.visibility = View.VISIBLE
-                coinAmountValue.visibility = View.VISIBLE
-                hideValue.visibility = View.GONE
             }
         }
     }
@@ -135,21 +144,46 @@ class CoinViewHolder(
         binding.apply {
             coinView.setBackgroundResource(R.drawable.item_bg)
 
+            Glide.with(tokenImg).clear(tokenImg)
+            tokenImg.setImageResource(R.drawable.token_default)
+            tokenImg.clipToOutline = true
+            tokenName.text = ""
+            coinAmount.text = ""
+
+            if (Prefs.hideValue) {
+                coinAmount.visibility = View.GONE
+                coinAmountValue.visibility = View.GONE
+                hideValue.visibility = View.VISIBLE
+            } else {
+                coinAmount.visibility = View.VISIBLE
+                coinAmountValue.visibility = View.VISIBLE
+                hideValue.visibility = View.GONE
+            }
+
             (chain as ChainIota).iotaFetcher?.let { fetcher ->
                 balance.first?.let { denom ->
                     val asset = BaseData.getAsset(chain.apiName, denom)
                     val metaData = fetcher.iotaCoinMeta[denom]
 
+                    coinAmountValue.text = formatAssetValue(fetcher.iotaBalanceValue(denom))
+                    tokenPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
+                    BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
+                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                    }
+
                     if (asset != null) {
-                        tokenImg.setTokenImg(asset)
+                        tokenImg.setImageFromSvg(asset.image, R.drawable.token_default)
                         tokenImg.clipToOutline = true
                         tokenName.text = asset.symbol
 
                         val amount = balance.second?.movePointLeft(asset.decimals ?: 6)
                             ?.setScale(6, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(amount.toString(), 6)
+                        return
+                    }
 
-                    } else if (metaData != null) {
+                    if (metaData != null) {
                         if (metaData.assetImg().contains("base64")) {
                             val base64String = metaData.assetImg().substringAfter("base64,")
                             val decodedString = Base64.decode(base64String)
@@ -164,31 +198,14 @@ class CoinViewHolder(
                         val dpAmount = balance.second?.movePointLeft(metaData["decimals"].asInt)
                             ?.setScale(18, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(dpAmount.toString(), 6)
-
-                    } else {
-                        tokenName.text = balance.first.iotaCoinSymbol()
-                        val dpAmount =
-                            balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
-                        coinAmount.text = formatAmount(dpAmount.toString(), 6)
+                        return
                     }
 
-                    coinAmountValue.text = formatAssetValue(fetcher.iotaBalanceValue(denom))
-                    tokenPrice.text = formatAssetValue(BaseData.getPrice(asset?.coinGeckoId))
-                    BaseData.lastUpDown(asset?.coinGeckoId).let { lastUpDown ->
-                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                    }
+                    tokenName.text = balance.first.iotaCoinSymbol()
+                    val dpAmount =
+                        balance.second?.movePointLeft(9)?.setScale(18, RoundingMode.DOWN)
+                    coinAmount.text = formatAmount(dpAmount.toString(), 6)
                 }
-            }
-
-            if (Prefs.hideValue) {
-                coinAmount.visibility = View.GONE
-                coinAmountValue.visibility = View.GONE
-                hideValue.visibility = View.VISIBLE
-            } else {
-                coinAmount.visibility = View.VISIBLE
-                coinAmountValue.visibility = View.VISIBLE
-                hideValue.visibility = View.GONE
             }
         }
     }
