@@ -153,7 +153,7 @@ class SuiNftTransferFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(fromChain.apiName, fromChain.getGasAssetDenom())?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
                 suiFeeBudget =
@@ -180,7 +180,7 @@ class SuiNftTransferFragment(
     private fun updateFeeView() {
         binding.apply {
             (fromChain as ChainSui).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getGasAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)

@@ -159,9 +159,9 @@ class WithdrawEarningFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom()).build()
+                Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getStakeAssetDenom()).build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
                     .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -232,7 +232,7 @@ class WithdrawEarningFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                            selectedChain.apiName, selectedChain.getStakeAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

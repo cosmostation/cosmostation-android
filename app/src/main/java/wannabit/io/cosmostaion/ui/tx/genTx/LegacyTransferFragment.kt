@@ -128,7 +128,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                 tokenName.text = asset.symbol
 
                 val available = oktFetcher?.oktBalanceAmount(toSendDenom)
-                availableAmount = if (toSendDenom == chain.getMainAssetDenom()) {
+                availableAmount = if (toSendDenom == chain.getStakeAssetDenom()) {
                     if (BigDecimal(OKT_BASE_FEE) < available) {
                         available?.subtract(BigDecimal(OKT_BASE_FEE))
                     } else {
@@ -143,11 +143,11 @@ class LegacyTransferFragment : BaseTxFragment() {
 
     private fun initFee() {
         binding.apply {
-            feeTokenImg.setTokenImg(fromChain.assetImg(fromChain.getMainAssetDenom()))
-            feeToken.text = fromChain.getMainAssetDenom().uppercase()
+            feeTokenImg.setTokenImg(fromChain.assetImg(fromChain.getStakeAssetDenom()))
+            feeToken.text = fromChain.getStakeAssetDenom().uppercase()
 
             val coinGeckoId =
-                BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetDenom())?.coinGeckoId
+                BaseData.getAsset(fromChain.apiName, fromChain.getStakeAssetDenom())?.coinGeckoId
             val price = BaseData.getPrice(coinGeckoId)
             val amount = BigDecimal(OKT_BASE_FEE)
             val value = price.multiply(amount).setScale(6, RoundingMode.DOWN)
@@ -166,11 +166,11 @@ class LegacyTransferFragment : BaseTxFragment() {
             val dpAmount = BigDecimal(toAmount).setScale(18, RoundingMode.DOWN)
             sendAmount.text = formatAmount(dpAmount.toPlainString(), 18)
 
-            if (toSendDenom == fromChain.getMainAssetDenom()) {
+            if (toSendDenom == fromChain.getStakeAssetDenom()) {
                 sendValue.visibility = View.VISIBLE
 
                 val coinGeckoId =
-                    BaseData.getAsset(fromChain.apiName, fromChain.getMainAssetDenom())?.coinGeckoId
+                    BaseData.getAsset(fromChain.apiName, fromChain.getStakeAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val toSendValue = price.multiply(dpAmount).setScale(6, RoundingMode.DOWN)
                 sendValue.text = formatAssetValue(toSendValue)
@@ -363,7 +363,7 @@ class LegacyTransferFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
 
                 val fee =
-                    LFee(BASE_GAS_AMOUNT, mutableListOf(LCoin(fromChain.getMainAssetDenom(), OKT_BASE_FEE)))
+                    LFee(BASE_GAS_AMOUNT, mutableListOf(LCoin(fromChain.getStakeAssetDenom(), OKT_BASE_FEE)))
                 val sendCoin = LCoin(toSendDenom, toSendAmount)
                 val recipientAddress =
                     binding.recipientAddress.text.toString().trim().replace("(", "")

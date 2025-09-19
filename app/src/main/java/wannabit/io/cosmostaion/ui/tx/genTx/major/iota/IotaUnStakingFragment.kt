@@ -64,7 +64,7 @@ class IotaUnStakingFragment(
 
     private fun initView() {
         binding.apply {
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleUnstakeImg.setTokenImg(asset)
                 titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
             }
@@ -148,7 +148,7 @@ class IotaUnStakingFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
                 iotaFeeBudget =
@@ -161,7 +161,7 @@ class IotaUnStakingFragment(
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainIota).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getGasAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = iotaFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)

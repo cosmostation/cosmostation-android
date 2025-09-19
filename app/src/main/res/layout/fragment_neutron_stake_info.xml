@@ -55,8 +55,8 @@
 
         <ImageView
             android:id="@+id/stake_coin_img"
-            android:layout_width="@dimen/space_54"
-            android:layout_height="@dimen/space_54"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_48"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

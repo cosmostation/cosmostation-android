@@ -10,6 +10,7 @@ import kotlinx.parcelize.Parcelize
 import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -149,6 +150,11 @@ data class BaseAccount(
                 is ChainGnoTestnet -> {
                     chain.coinValue = chain.gnoRpcFetcher()?.allAssetValue()
                     chain.tokenValue = chain.gnoRpcFetcher()?.allGrc20TokenValue(id)
+                }
+
+                is ChainBabylon -> {
+                    chain.coinValue = chain.babylonFetcher()?.allAssetValue()
+                    chain.tokenValue = chain.cosmosFetcher()?.allTokenValue(id)
                 }
 
                 else -> {

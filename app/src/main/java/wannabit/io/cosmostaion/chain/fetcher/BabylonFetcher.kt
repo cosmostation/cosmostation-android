@@ -27,18 +27,16 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     )
 
     override fun denomValue(denom: String, isUsd: Boolean?): BigDecimal? {
-        return if (denom == chain.getMainAssetDenom()) {
-            balanceValue(denom, isUsd).add(rewardValue(denom, isUsd)).add(delegationValueSum(isUsd))
-                .add(unbondingValueSum(isUsd)).add(btcRewardValue(denom, isUsd))
-
+        return if (denom == chain.getStakeAssetDenom()) {
+            chain.cosmosFetcher?.denomValue(denom, isUsd)?.add(btcRewardValue(denom, isUsd))
         } else {
             balanceValue(denom, isUsd)
         }
     }
 
     override fun allAssetValue(isUsd: Boolean?): BigDecimal {
-        return balanceValueSum(isUsd).add(delegationValueSum(isUsd))
-            .add(unbondingValueSum(isUsd)).add(rewardValueSum(isUsd)).add(btcRewardValueSum(isUsd))
+        return chain.cosmosFetcher?.allAssetValue(isUsd)?.add(btcRewardValueSum(isUsd))
+            ?: BigDecimal.ZERO
     }
 
     fun btcRewardAmountSum(denom: String): BigDecimal {
@@ -77,14 +75,14 @@ class BabylonFetcher(private val chain: BaseChain) : CosmosFetcher(chain) {
     }
 
     fun btcRewardOtherDenoms(): Int {
-        return btcRewards.map { it.denom }.distinct().count { it != chain.getMainAssetDenom() }
+        return btcRewards.map { it.denom }.distinct().count { it != chain.getStakeAssetDenom() }
     }
 
     override fun allStakingDenomAmount(): BigDecimal? {
-        return balanceAmount(chain.getMainAssetDenom()).add(delegationAmountSum())
+        return balanceAmount(chain.getStakeAssetDenom()).add(delegationAmountSum())
             ?.add(unbondingAmountSum())
-            ?.add(rewardAmountSum(chain.getMainAssetDenom()))
-            ?.add(btcRewardAmountSum(chain.getMainAssetDenom()))
+            ?.add(rewardAmountSum(chain.getStakeAssetDenom()))
+            ?.add(btcRewardAmountSum(chain.getStakeAssetDenom()))
     }
 }
 

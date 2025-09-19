@@ -78,7 +78,7 @@ class BabylonStakingViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
                         ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
@@ -89,7 +89,7 @@ class BabylonStakingViewHolder(
                     staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                     chain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
-                        rewards.firstOrNull { it.denom == chain.getMainAssetDenom() }
+                        rewards.firstOrNull { it.denom == chain.getStakeAssetDenom() }
                             ?.let { mainDenomReward ->
                                 val mainDenomRewardAmount =
                                     mainDenomReward.amount.toBigDecimal().movePointLeft(18)
@@ -108,7 +108,7 @@ class BabylonStakingViewHolder(
                         }
 
                         var anotherCnt = 0
-                        rewards.filter { it.denom != chain.getMainAssetDenom() }.forEach { anotherRewards ->
+                        rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
                             val anotherAmount =
                                 anotherRewards.amount.toBigDecimal().movePointLeft(18)
                                     .setScale(0, RoundingMode.DOWN)

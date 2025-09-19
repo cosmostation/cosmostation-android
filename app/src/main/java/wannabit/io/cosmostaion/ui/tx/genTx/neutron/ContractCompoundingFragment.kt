@@ -117,7 +117,7 @@ class ContractCompoundingFragment : BaseTxFragment() {
             }
             segmentView.setBackgroundResource(R.drawable.segment_fee_bg)
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleCompoundingImg.setTokenImg(asset)
                 titleCompounding.text = getString(R.string.title_compounding, asset.symbol)
 

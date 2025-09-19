@@ -48,7 +48,7 @@ class UnstakingViewHolder(
             jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
             jailedImg.setImageResource(statusImage)
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val unBondingAmount =
                         entry.entry?.balance?.toBigDecimal()?.movePointLeft(decimal)
@@ -85,10 +85,10 @@ class UnstakingViewHolder(
             jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
             jailedImg.setImageResource(statusImage)
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val unBondingAmount =
-                        entry.entry?.balanceList?.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toBigDecimal()
+                        entry.entry?.balanceList?.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toBigDecimal()
                             ?.movePointLeft(decimal)
                     unstaked.text = formatAmount(unBondingAmount.toString(), decimal)
 
@@ -123,7 +123,7 @@ class UnstakingViewHolder(
             jailedImg.visibility = if (statusImage != 0) View.VISIBLE else View.GONE
             jailedImg.setImageResource(statusImage)
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 val unBondingAmount =
                     entry.entry?.balance?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
                 unstaked.text = formatAmount(unBondingAmount.toString(), asset.decimals ?: 6)

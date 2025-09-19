@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.github.penfeizhou.animation.apng.APNGDrawable
-import com.github.penfeizhou.animation.loader.AssetStreamLoader
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +23,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.makeToast
+import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.common.showToast
 import wannabit.io.cosmostaion.databinding.FragmentNeutronStakeInfoBinding
 import wannabit.io.cosmostaion.ui.tx.genTx.ClaimRewardFragment
@@ -85,31 +84,29 @@ class NeutronStakeInfoFragment : Fragment() {
                 }
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
-                titleManageStake.text = getString(R.string.title_manage_stake, asset.symbol)
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
+                ?.let { asset ->
+                    titleManageStake.text = getString(R.string.title_manage_stake, asset.symbol)
+                    stakeCoinImg.setTokenImg(asset)
 
-                val assetLoader = AssetStreamLoader(requireContext(), "ntrn.png")
-                val apngDrawable = APNGDrawable(assetLoader)
-                stakeCoinImg.setImageDrawable(apngDrawable)
+                    rewardAmount.text = formatAmount(
+                        (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
+                            asset.decimals ?: 6
+                        )?.setScale(6, RoundingMode.DOWN).toString(), asset.decimals ?: 6
+                    )
+                    rewardDenom.text = asset.symbol
+                    txView.setBackgroundResource(R.drawable.item_bg)
 
-                rewardAmount.text = formatAmount(
-                    (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards?.movePointLeft(
-                        asset.decimals ?: 6
-                    )?.setScale(6, RoundingMode.DOWN).toString(), asset.decimals ?: 6
-                )
-                rewardDenom.text = asset.symbol
-                txView.setBackgroundResource(R.drawable.item_bg)
+                    claimImg.setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.color_base02),
+                        PorterDuff.Mode.SRC_IN
+                    )
 
-                claimImg.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.color_base02),
-                    PorterDuff.Mode.SRC_IN
-                )
-
-                compoundImg.setColorFilter(
-                    ContextCompat.getColor(requireContext(), R.color.color_base02),
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
+                    compoundImg.setColorFilter(
+                        ContextCompat.getColor(requireContext(), R.color.color_base02),
+                        PorterDuff.Mode.SRC_IN
+                    )
+                }
 
             neutronStakingPagerAdapter = NeutronStakingPagerAdapter(
                 this@NeutronStakeInfoFragment, selectedChain

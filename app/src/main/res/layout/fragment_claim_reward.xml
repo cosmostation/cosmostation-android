@@ -268,7 +268,6 @@
                 style="@style/font_sm_11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sBTC Staking Reward"
                 android:layout_marginTop="@dimen/space_8"
                 android:textColor="@color/color_base02"
                 android:layout_marginStart="@dimen/space_6"

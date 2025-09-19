@@ -70,7 +70,7 @@ class StakeInfoFragment : Fragment() {
                 }
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleManageStake.text = getString(R.string.title_manage_stake, asset.symbol)
             }
 

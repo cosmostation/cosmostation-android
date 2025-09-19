@@ -141,7 +141,7 @@ class StakingFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockToValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleStakeImg.setTokenImg(asset)
                 titleStake.text = getString(R.string.title_staking, asset.symbol)
             }
@@ -315,10 +315,10 @@ class StakingFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom())
+                CoinProto.Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getStakeAssetDenom())
                     .build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
                     .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -379,7 +379,7 @@ class StakingFragment : BaseTxFragment() {
 
                 val delegateAbleAmount = selectedChain.cosmosFetcher?.delegateAbleAmount()
                 txFee?.let {
-                    availableAmount = if (it.getAmount(0).denom == selectedChain.getMainAssetDenom()) {
+                    availableAmount = if (it.getAmount(0).denom == selectedChain.getStakeAssetDenom()) {
                         val feeAmount = it.getAmount(0).amount.toBigDecimal()
                         if (feeAmount > delegateAbleAmount) {
                             BigDecimal.ZERO
@@ -424,7 +424,7 @@ class StakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                            selectedChain.apiName, selectedChain.getStakeAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

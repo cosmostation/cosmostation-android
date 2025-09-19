@@ -60,7 +60,7 @@ open class BaseTxFragment : BottomSheetDialogFragment() {
     }
 
     open fun bottomSheetDialogDefaultHeight(windowHeight: Int): Int {
-        return windowHeight * 19 / 20
+        return windowHeight * 12 / 13
     }
 
     private fun windowHeight(): Int {

@@ -553,7 +553,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signDirect" -> {
                         val signBundle = signBundle(id, params, "sign_direct")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignDirectV2Request(id, data, sessionRequest)
@@ -567,7 +568,8 @@ class DappActivity : BaseActivity() {
 
                     "cosmos_signAmino" -> {
                         val signBundle = signBundle(id, params, "sign_amino")
-                        showSignDialog(signBundle,
+                        showSignDialog(
+                            signBundle,
                             object : PopUpCosmosSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     approveSignAminoV2Request(id, data, sessionRequest)
@@ -603,7 +605,8 @@ class DappActivity : BaseActivity() {
                         val signBundle = signBundle(
                             id, requestJson.toString(), "personal_sign"
                         )
-                        showEvmSignDialog(signBundle,
+                        showEvmSignDialog(
+                            signBundle,
                             object : PopUpEvmSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, data: String) {
                                     val response = Sign.Params.Response(
@@ -1151,8 +1154,6 @@ class DappActivity : BaseActivity() {
             val messageJson = requestJson.getJSONObject("message")
             val method = messageJson.getString("method")
 
-            Log.e("Test12345 : ", method)
-
             when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -1562,7 +1563,8 @@ class DappActivity : BaseActivity() {
                 "personal_sign" -> {
                     val params = messageJson.getJSONArray("params")
                     val signBundle = signBundle(0, params.toString(), "personal_sign")
-                    showEvmSignDialog(signBundle,
+                    showEvmSignDialog(
+                        signBundle,
                         object : PopUpEvmSignFragment.WcSignRawDataListener {
                             override fun sign(id: Long, data: String) {
                                 appToWebResult(
@@ -2005,7 +2007,8 @@ class DappActivity : BaseActivity() {
                         }
 
                         val signBundle = signBundle(0, params.toString(), "bit_sendBitcoin")
-                        showBitSignDialog(signBundle,
+                        showBitSignDialog(
+                            signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     lifecycleScope.launch(Dispatchers.IO) {
@@ -2047,7 +2050,8 @@ class DappActivity : BaseActivity() {
                     withContext(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
                         val signBundle = signBundle(0, params.toString(), "bit_signMessage")
-                        showBitSignDialog(signBundle,
+                        showBitSignDialog(
+                            signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     appToWebResult(
@@ -2068,7 +2072,8 @@ class DappActivity : BaseActivity() {
                     withContext(Dispatchers.IO) {
                         val params = messageJson.getString("params")
                         val signBundle = signBundle(0, params, "bit_signPsbt")
-                        showBitSignDialog(signBundle,
+                        showBitSignDialog(
+                            signBundle,
                             object : PopUpBitSignFragment.WcSignRawDataListener {
                                 override fun sign(id: Long, txHex: String) {
                                     appToWebResult(
@@ -2091,7 +2096,6 @@ class DappActivity : BaseActivity() {
                         selectSolana = allChains?.find { it.apiName == "solana" }
                     }
                     val publicKey = "0x" + selectSolana?.publicKey?.bytesToHex()
-                    Log.e("Test12345 : ", publicKey)
                     appToWebResult(messageJson, publicKey, messageId)
                 }
 

@@ -103,7 +103,7 @@ class SuiStakingFragment : BaseTxFragment() {
                 }
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleStakeImg.setTokenImg(asset)
                 titleStake.text = getString(R.string.title_staking, asset.symbol)
             }
@@ -157,7 +157,7 @@ class SuiStakingFragment : BaseTxFragment() {
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())?.let { asset ->
                 feeTokenImg.setTokenImg(asset)
                 feeToken.text = asset.symbol
                 suiFeeBudget =
@@ -182,7 +182,7 @@ class SuiStakingFragment : BaseTxFragment() {
     private fun updateFeeView() {
         binding.apply {
             (selectedChain as ChainSui).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getGasAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpBudget = suiFeeBudget.movePointLeft(9).setScale(9, RoundingMode.DOWN)
                 val value = price.multiply(dpBudget)
@@ -198,7 +198,7 @@ class SuiStakingFragment : BaseTxFragment() {
             toStakeAmount = toAmount
 
             (selectedChain as ChainSui).apply {
-                val coinGeckoId = BaseData.getAsset(apiName, getMainAssetDenom())?.coinGeckoId
+                val coinGeckoId = BaseData.getAsset(apiName, getStakeAssetDenom())?.coinGeckoId
                 val price = BaseData.getPrice(coinGeckoId)
                 val dpAmount =
                     toStakeAmount.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
@@ -247,7 +247,7 @@ class SuiStakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                            selectedChain.apiName, selectedChain.getStakeAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

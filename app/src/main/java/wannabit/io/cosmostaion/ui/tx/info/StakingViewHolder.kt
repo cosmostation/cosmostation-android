@@ -84,7 +84,7 @@ class StakingViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
                         ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
@@ -95,7 +95,7 @@ class StakingViewHolder(
                     staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                     chain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
-                        rewards.firstOrNull { it.denom == chain.getMainAssetDenom() }
+                        rewards.firstOrNull { it.denom == chain.getStakeAssetDenom() }
                             ?.let { mainDenomReward ->
                                 val mainDenomRewardAmount =
                                     mainDenomReward.amount.toBigDecimal().movePointLeft(18)
@@ -114,7 +114,7 @@ class StakingViewHolder(
                         }
 
                         var anotherCnt = 0
-                        rewards.filter { it.denom != chain.getMainAssetDenom() }.forEach { anotherRewards ->
+                        rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
                             val anotherAmount =
                                 anotherRewards.amount.toBigDecimal().movePointLeft(18)
                                     .setScale(0, RoundingMode.DOWN)
@@ -206,19 +206,19 @@ class StakingViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 asset.decimals?.let { decimal ->
                     val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
                         ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                     commission.text = formatString("$commissionRate%", 3)
 
                     val stakedAmount =
-                        delegation.balanceList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toBigDecimal()
+                        delegation.balanceList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toBigDecimal()
                             ?.movePointLeft(decimal) ?: BigDecimal.ZERO
                     staked.text = formatAmount(stakedAmount.toPlainString(), decimal)
 
                     chain.cosmosFetcher?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
-                        rewards.firstOrNull { it.denom == chain.getMainAssetDenom() }
+                        rewards.firstOrNull { it.denom == chain.getStakeAssetDenom() }
                             ?.let { mainDenomReward ->
                                 val mainDenomRewardAmount =
                                     mainDenomReward.amount.toBigDecimal().movePointLeft(18)
@@ -237,7 +237,7 @@ class StakingViewHolder(
                         }
 
                         var anotherCnt = 0
-                        rewards.filter { it.denom != chain.getMainAssetDenom() }.forEach { anotherRewards ->
+                        rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
                             val anotherAmount =
                                 anotherRewards.amount.toBigDecimal().movePointLeft(18)
                                     .setScale(0, RoundingMode.DOWN)
@@ -261,7 +261,7 @@ class StakingViewHolder(
                     val apr = chain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
                         ?: "0"
                     val staked =
-                        delegation.balanceList.firstOrNull { it.denom == chain.getMainAssetDenom() }?.amount?.toBigDecimal()
+                        delegation.balanceList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toBigDecimal()
                             ?: BigDecimal.ZERO
                     val comm = BigDecimal.ONE.subtract(
                         validator.commission?.commissionRates?.rate?.toBigDecimal()
@@ -331,7 +331,7 @@ class StakingViewHolder(
                 jailedImg.visibility = View.GONE
             }
 
-            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
                     ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
                 commission.text = formatString("$commissionRate%", 3)
@@ -341,7 +341,7 @@ class StakingViewHolder(
                 staked.text = formatAmount(stakedAmount.toPlainString(), asset.decimals ?: 6)
 
                 chain.zenrockFetcher()?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
-                    rewards.firstOrNull { it.denom == chain.getMainAssetDenom() }
+                    rewards.firstOrNull { it.denom == chain.getStakeAssetDenom() }
                         ?.let { mainDenomReward ->
                             val mainDenomRewardAmount =
                                 mainDenomReward.amount.toBigDecimal().movePointLeft(18)
@@ -366,7 +366,7 @@ class StakingViewHolder(
                     }
 
                     var anotherCnt = 0
-                    rewards.filter { it.denom != chain.getMainAssetDenom() }.forEach { anotherRewards ->
+                    rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
                         val anotherAmount =
                             anotherRewards.amount.toBigDecimal().movePointLeft(18)
                                 .setScale(0, RoundingMode.DOWN)

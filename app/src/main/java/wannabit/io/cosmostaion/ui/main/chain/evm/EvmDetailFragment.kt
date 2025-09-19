@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.chain.evm
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +11,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -18,11 +21,14 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAssetValue
+import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.databinding.DialogEthereumInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentEvmDetailBinding
 import wannabit.io.cosmostaion.ui.init.IntroActivity
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import wannabit.io.cosmostaion.ui.main.dapp.DappActivity
 import wannabit.io.cosmostaion.ui.qr.QrCodeEvmFragment
 import java.math.BigDecimal
 
@@ -84,6 +90,10 @@ class EvmDetailFragment : Fragment() {
                     selectedEvmChain = it
                 }
             }
+
+            fabMenu.menuIconView.setImageResource(R.drawable.icon_ethereum_fab)
+            fabMenu.visibleOrGone(selectedEvmChain.isSupportEthStaking())
+            fabMenu.isIconAnimated = false
 
             BaseData.baseAccount?.let { account ->
                 accountName.text = account.name
@@ -246,6 +256,64 @@ class EvmDetailFragment : Fragment() {
                     btnHide.setImageResource(R.drawable.icon_not_hide)
                 }
                 ApplicationViewModel.shared.hideValue()
+            }
+
+            fabMenu.setOnMenuButtonClickListener {
+                if (selectedEvmChain.ethStakingDapp().isNotEmpty()) {
+                    val savedTime = Prefs.getDappInfoHideTime(3)
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime >= savedTime) {
+                        showEthStakingInfo()
+                    } else {
+                        Intent(requireActivity(), DappActivity::class.java).apply {
+                            putExtra("dapp", selectedEvmChain.ethStakingDapp())
+                            startActivity(this)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showEthStakingInfo() {
+        val inflater =
+            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val binding = DialogEthereumInfoBinding.inflate(inflater)
+        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+            .setView(binding.root)
+
+        val dialog = alertDialog.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        binding.apply {
+            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+            btnDapp.setBackgroundResource(R.drawable.button_ethereum_bg)
+
+            var isEthereumPinned = false
+            btnCheck.setOnClickListener {
+                isEthereumPinned = !isEthereumPinned
+                if (isEthereumPinned) {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                } else {
+                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                }
+            }
+
+            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+            btnClose.setOnClickListener {
+                if (isEthereumPinned) {
+                    Prefs.setDappInfoHideTime(3)
+                }
+                dialog.dismiss()
+            }
+
+            btnDapp.setOnClickListener {
+                dialog.dismiss()
+                Intent(requireActivity(), DappActivity::class.java).apply {
+                    putExtra("dapp", selectedEvmChain.ethStakingDapp())
+                    startActivity(this)
+                }
             }
         }
     }

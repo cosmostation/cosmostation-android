@@ -140,7 +140,7 @@ class UnStakingFragment : BaseTxFragment() {
                     arguments?.getSerializable("zenrockValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV?
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 titleUnstakeImg.setTokenImg(asset)
                 titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
             }
@@ -244,7 +244,7 @@ class UnStakingFragment : BaseTxFragment() {
 
     private fun updateValidatorView() {
         binding.apply {
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 validator?.let { validator ->
                     monikerImg.setMonikerImg(selectedChain, validator.operatorAddress)
                     monikerName.text = validator.description?.moniker?.trim()
@@ -277,7 +277,7 @@ class UnStakingFragment : BaseTxFragment() {
                     jailedImg.setImageResource(statusImage)
 
                     val staked =
-                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.getMainAssetDenom() }?.amount
+                        (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }?.balanceList?.firstOrNull { it.denom == selectedChain.getStakeAssetDenom() }?.amount
                     staked?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)?.let {
                         stakedAmount.text = formatAmount(it.toPlainString(), asset.decimals ?: 6)
                     }
@@ -309,9 +309,9 @@ class UnStakingFragment : BaseTxFragment() {
     private fun updateAmountView(toAmount: String) {
         binding.apply {
             toCoin =
-                Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getMainAssetDenom()).build()
+                Coin.newBuilder().setAmount(toAmount).setDenom(selectedChain.getStakeAssetDenom()).build()
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getMainAssetDenom())?.let { asset ->
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
                 val price = BaseData.getPrice(asset.coinGeckoId)
                 val dpAmount = BigDecimal(toAmount).movePointLeft(asset.decimals ?: 6)
                     .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
@@ -374,7 +374,7 @@ class UnStakingFragment : BaseTxFragment() {
                     is ChainInitia -> {
                         (selectedChain as ChainInitia).initiaFetcher()?.initiaDelegations?.firstOrNull { it.delegation.validatorAddress == initiaValidator?.operatorAddress }
                             ?.let {
-                                it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.getMainAssetDenom() }?.amount?.toBigDecimal()
+                                it.balanceList.firstOrNull { balance -> balance.denom == selectedChain.getStakeAssetDenom() }?.amount?.toBigDecimal()
                             }
                     }
 
@@ -432,7 +432,7 @@ class UnStakingFragment : BaseTxFragment() {
                         availableAmount.toString(),
                         toCoin?.amount,
                         BaseData.getAsset(
-                            selectedChain.apiName, selectedChain.getMainAssetDenom()
+                            selectedChain.apiName, selectedChain.getStakeAssetDenom()
                         ),
                         object : AmountSelectListener {
                             override fun select(toAmount: String) {

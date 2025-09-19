@@ -15,6 +15,7 @@ class ChainMantra : BaseChain(), Parcelable {
 
     override var name: String = "Mantra"
     override var tag: String = "mantra118"
+    override var isDefault: Boolean = false
     override var apiName: String = "mantra"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")

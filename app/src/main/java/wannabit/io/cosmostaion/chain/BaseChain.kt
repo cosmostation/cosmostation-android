@@ -91,6 +91,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPocket
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPryzm
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
@@ -104,7 +105,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSelf
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
@@ -144,6 +144,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -173,7 +174,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -377,17 +377,41 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun getStakeAssetDenom(): String {
+        return if (getChainListParam()?.has("staking_asset_denom") == true) {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
+        } else {
+            stakeDenom
+        }
+    }
+
+    fun getStakeAssetSymbol(): String {
+        return if (getChainListParam()?.has("staking_asset_symbol") == true) {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: stakeDenom
+        } else {
+            stakeDenom
+        }
+    }
+
     fun getGasAssetDenom(): String {
         return if (getChainListParam()?.has("gas_asset_denom") == true) {
             getChainListParam()?.get("gas_asset_denom")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("staking_asset_denom") == true) {
+            getChainListParam()?.get("staking_asset_denom")?.asString ?: stakeDenom
+        } else if (getChainListParam()?.has("main_asset_denom") == true) {
+            getChainListParam()?.get("main_asset_denom")?.asString ?: stakeDenom
         } else {
-            getChainListParam()?.get("staking_asset_denom")?.asString ?: coinSymbol
+            stakeDenom
         }
     }
 
     fun getGasAssetSymbol(): String {
         return if (getChainListParam()?.has("gas_asset_symbol") == true) {
             getChainListParam()?.get("gas_asset_symbol")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("staking_asset_symbol") == true) {
+            getChainListParam()?.get("staking_asset_symbol")?.asString ?: coinSymbol
+        } else if (getChainListParam()?.has("main_asset_symbol") == true) {
+            getChainListParam()?.get("main_asset_symbol")?.asString ?: coinSymbol
         } else {
             coinSymbol
         }
@@ -674,6 +698,15 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.getAsJsonObject("btc_staking")?.get("url")?.asString ?: ""
     }
 
+    fun isSupportEthStaking(): Boolean {
+        return getChainListParam()?.getAsJsonObject("eth_staking")
+            ?.get("is_support_staking")?.asBoolean ?: false
+    }
+
+    fun ethStakingDapp(): String {
+        return getChainListParam()?.getAsJsonObject("eth_staking")?.get("url")?.asString ?: ""
+    }
+
     fun explorerAccount(address: String): Uri? {
         getChainListParam()?.getAsJsonObject("explorer")
             ?.get("account")?.asString?.let { urlString ->
@@ -826,8 +859,8 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum118())
     chains.add(ChainLumera())
     chains.add(ChainManifest())
-//    chains.add(ChainMantraEvm())
     chains.add(ChainMantle())
+    chains.add(ChainMantraEvm())
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
@@ -850,6 +883,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
     chains.add(ChainPlanqEvm())
+    chains.add(ChainPocket())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
     chains.add(ChainPryzm())
@@ -868,7 +902,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSei())
     chains.add(ChainSelf())
     chains.add(ChainSentinel())
-    chains.add(ChainSge())
     chains.add(ChainShardeum())
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())

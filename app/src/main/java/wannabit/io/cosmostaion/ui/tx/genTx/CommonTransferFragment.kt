@@ -296,7 +296,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         )
 
                         availableAmount = suiFetcher()?.suiBalanceAmount(toSendDenom)
-                        if (fromChain.getMainAssetDenom() == toSendDenom) {
+                        if (fromChain.getStakeAssetDenom() == toSendDenom) {
                             availableAmount = availableAmount.subtract(suiFeeBudget)
                         }
                         if (availableAmount <= BigDecimal.ZERO) {
@@ -315,7 +315,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         )
 
                         availableAmount = iotaFetcher()?.iotaBalanceAmount(toSendDenom)
-                        if (fromChain.getMainAssetDenom() == toSendDenom) {
+                        if (fromChain.getStakeAssetDenom() == toSendDenom) {
                             availableAmount = availableAmount.subtract(iotaFeeBudget)
                         }
                         if (availableAmount <= BigDecimal.ZERO) {
@@ -846,7 +846,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.SUI_STYLE -> {
                     (fromChain as ChainSui).apply {
-                        BaseData.getAsset(apiName, getMainAssetDenom())?.let { asset ->
+                        BaseData.getAsset(apiName, getStakeAssetDenom())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 
@@ -863,7 +863,7 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 TransferStyle.IOTA_STYLE -> {
                     (fromChain as ChainIota).apply {
-                        BaseData.getAsset(apiName, getMainAssetDenom())?.let { asset ->
+                        BaseData.getAsset(apiName, getStakeAssetDenom())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
 

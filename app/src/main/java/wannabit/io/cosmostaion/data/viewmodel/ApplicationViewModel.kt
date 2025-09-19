@@ -323,7 +323,7 @@ class ApplicationViewModel(
                             }
                         }
                         cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                            if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
+                            if (o1.denom == chain.getStakeAssetDenom() && o2.denom != chain.getStakeAssetDenom()) -1
                             else 0
                         }
                     }
@@ -403,7 +403,7 @@ class ApplicationViewModel(
                     if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
                         chain.initiaFetcher()?.initiaDelegations?.clear()
                         delegationResult.data.forEach { delegation ->
-                            delegation.balanceList.filter { it.denom == chain.getMainAssetDenom() }
+                            delegation.balanceList.filter { it.denom == chain.getStakeAssetDenom() }
                                 .forEach { balance ->
                                     if (balance.amount.toBigDecimal() > BigDecimal.ZERO) {
                                         chain.initiaFetcher()?.initiaDelegations?.add(delegation)
@@ -560,7 +560,7 @@ class ApplicationViewModel(
                         }
                     }
                     cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
-                        if (o1.denom == chain.getMainAssetDenom() && o2.denom != chain.getMainAssetDenom()) -1
+                        if (o1.denom == chain.getStakeAssetDenom() && o2.denom != chain.getStakeAssetDenom()) -1
                         else 0
                     }
                 }
@@ -571,20 +571,31 @@ class ApplicationViewModel(
                     else -> FetchState.SUCCESS
                 }
 
+                val allAssetValue = if (chain is ChainBabylon) {
+                    chain.babylonFetcher?.allAssetValue()
+                } else {
+                    chain.cosmosFetcher?.allAssetValue()
+                }
+                val allAssetUsdValue = if (chain is ChainBabylon) {
+                    chain.babylonFetcher?.allAssetValue(true)
+                } else {
+                    chain.cosmosFetcher?.allAssetValue(true)
+                }
+
                 if (fetchState == FetchState.SUCCESS) {
                     val refAddress = RefAddress(
                         id,
                         tag,
                         address,
                         evmAddress,
-                        cosmosFetcher?.allAssetValue(true).toString(),
+                        allAssetUsdValue.toString(),
                         cosmosFetcher?.allStakingDenomAmount().toString(),
                         "0",
                         chain.cosmosFetcher()?.valueCoinCnt()?.toLong() ?: 0L
                     )
                     BaseData.updateRefAddressesMain(refAddress)
-                    coinValue = cosmosFetcher?.allAssetValue()
-                    coinUsdValue = cosmosFetcher?.allAssetValue(true)
+                    coinValue = allAssetValue
+                    coinUsdValue = allAssetUsdValue
                     coinCnt = chain.cosmosFetcher()?.valueCoinCnt() ?: 0
 
                     var cw20TokenValue = BigDecimal.ZERO
@@ -970,7 +981,7 @@ class ApplicationViewModel(
                     address,
                     evmAddress,
                     oktFetcher?.allAssetValue(true).toString(),
-                    oktFetcher?.oktBalanceAmount(getMainAssetDenom()).toString(),
+                    oktFetcher?.oktBalanceAmount(getStakeAssetDenom()).toString(),
                     "0",
                     oktFetcher?.oktAccountInfo?.get("value")?.asJsonObject?.get("coins")?.asJsonArray?.size()
                         ?.toLong()
@@ -1435,7 +1446,7 @@ class ApplicationViewModel(
 
                                 if (decodeData == "null") {
                                     tempBalances.add(
-                                        CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
+                                        CoinProto.Coin.newBuilder().setDenom(getStakeAssetDenom())
                                             .setAmount("0").build()
                                     )
                                     fetcher.gnoBalances = tempBalances
@@ -1467,7 +1478,7 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(getMainAssetDenom())
+                                            CoinProto.Coin.newBuilder().setDenom(getStakeAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                     }

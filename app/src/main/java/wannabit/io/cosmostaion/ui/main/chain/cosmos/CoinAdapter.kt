@@ -231,11 +231,11 @@ class CoinAdapter(
 
             is CoinCosmosLineViewHolder -> {
                 val coin = item.coin ?: return
-                holder.bind(context, selectedChain)
+                holder.bind(context, selectedChain, coin)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                        it(selectedChain, coin.denom, position, coin.type)
                     }
                 }
 
@@ -262,7 +262,7 @@ class CoinAdapter(
 
                     } else {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                            it(selectedChain, coin.denom, position, coin.type)
                         }
                         true
                     }
@@ -271,18 +271,18 @@ class CoinAdapter(
 
             is BabylonCoinViewHolder -> {
                 val coin = item.coin ?: return
-                holder.bind(context, selectedChain as ChainBabylon, listener)
+                holder.bind(context, selectedChain as ChainBabylon, coin, listener)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                        it(selectedChain, coin.denom, position, coin.type)
                     }
                 }
 
                 holder.itemView.setOnLongClickListener { view ->
                     if (selectedChain.cosmosFetcher?.cosmosRewards?.isEmpty() == true && selectedChain.babylonFetcher?.btcRewards?.isEmpty() == true) {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                            it(selectedChain, coin.denom, position, coin.type)
                         }
                         true
 
@@ -314,11 +314,11 @@ class CoinAdapter(
 
             is NeutronCoinViewHolder -> {
                 val coin = item.coin ?: return
-                holder.bind(selectedChain as ChainNeutron)
+                holder.bind(selectedChain as ChainNeutron, coin)
 
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
-                        it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                        it(selectedChain, coin.denom, position, coin.type)
                     }
                 }
 
@@ -345,7 +345,7 @@ class CoinAdapter(
 
                     } else {
                         onItemClickListener?.let {
-                            it(selectedChain, selectedChain.getMainAssetDenom(), position, coin.type)
+                            it(selectedChain, coin.denom, position, coin.type)
                         }
                         true
                     }

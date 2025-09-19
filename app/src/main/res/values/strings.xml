@@ -370,6 +370,7 @@
     <string name="title_time_lock_unstaking" translatable="false">Time Lock and Unstaking</string>
     <string name="title_enter_memo">Enter Memo</string>
     <string name="title_universal_address" translatable="false">Universal Address</string>
+    <string name="title_btc_staking_reward" translatable="false">%1$s Staking Reward</string>
 
 
     // msg
