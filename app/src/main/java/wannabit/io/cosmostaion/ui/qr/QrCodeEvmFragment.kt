@@ -125,7 +125,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
                 intent.putExtra(
-                    Intent.EXTRA_TEXT, ByteUtils.convertBech32ToEvm(selectedChain.address)
+                    Intent.EXTRA_TEXT, selectedChain.evmAddress
                 )
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))

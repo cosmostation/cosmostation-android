@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -135,9 +134,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                         AppDatabase.getInstance().refAddressDao().selectAll()
                             .forEach { refAddress ->
                                 if (fromChain.supportCosmos()) {
-                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
-                                            senderAddress
-                                        )
+                                    if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != fromChain.evmAddress
                                     ) {
                                         refEvmAddresses.add(refAddress)
                                     }
@@ -149,9 +146,7 @@ class AddressBookFragment : BottomSheetDialogFragment() {
                                         }
 
                                     } else {
-                                        if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != ByteUtils.convertBech32ToEvm(
-                                                senderAddress
-                                            )
+                                        if (refAddress.chainTag == toChain.tag && refAddress.evmAddress != fromChain.evmAddress
                                         ) {
                                             refEvmAddresses.add(refAddress)
                                         }
