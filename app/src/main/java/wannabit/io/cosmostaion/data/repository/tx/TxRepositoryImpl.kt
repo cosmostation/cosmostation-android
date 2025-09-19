@@ -304,7 +304,7 @@ class TxRepositoryImpl : TxRepository {
                     mutableListOf()
                 }
 
-                if (suggestGasValues.isNotEmpty()) {
+                if (suggestGasValues.isNotEmpty() && selectedChain.isEvmSupportEip1559()) {
                     val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
                         suggestGasValues.percentile(it)
                     }
@@ -329,34 +329,9 @@ class TxRepositoryImpl : TxRepository {
                     }
                     val suggestTipValue = soft(rearrangedArray)
 
-                    val tip: BigInteger
-                    val baseFee: BigInteger?
-                    val evmGas: Long
-
-                    if (selectedChain.isEvmSupportEip1559()) {
-                        tip = suggestTipValue[selectedFeeInfo]
-                        baseFee = suggestBaseFee[selectedFeeInfo]
-                        evmGas = baseFee!!.toLong() + tip.toLong()
-
-                    } else {
-                        tip =
-                            if (suggestTipValue[selectedFeeInfo] < BigInteger.valueOf(1000000000L)) {
-                                BigInteger.valueOf(1000000000L)
-                            } else {
-                                suggestTipValue[selectedFeeInfo]
-                            }
-                        baseFee =
-                            if (suggestBaseFee[selectedFeeInfo] == null || suggestBaseFee[selectedFeeInfo]!! < BigInteger.valueOf(
-                                    500000000L
-                                )
-                            ) {
-                                BigInteger.valueOf(500000000L)
-
-                            } else {
-                                suggestBaseFee[selectedFeeInfo]
-                            }
-                        evmGas = baseFee!!.toLong() + tip.toLong()
-                    }
+                    val tip = suggestTipValue[selectedFeeInfo]
+                    val baseFee = suggestBaseFee[selectedFeeInfo] ?: 0L
+                    val evmGas = baseFee.toLong() + tip.toLong()
 
                     var rawTransaction: RawTransaction? = null
 

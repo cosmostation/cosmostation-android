@@ -426,7 +426,7 @@ class PopUpEvmSignFragment(
                 mutableListOf()
             }
 
-            if (suggestGasValues.isNotEmpty()) {
+            if (suggestGasValues.isNotEmpty() && selectedEvmChain.isEvmSupportEip1559()) {
                 val suggestBaseFee = listOf(25.0, 50.0, 75.0).map {
                     suggestGasValues.percentile(it)
                 }
@@ -449,27 +449,12 @@ class PopUpEvmSignFragment(
                         }
                     }
                 }
-
                 val suggestTipValue = soft(rearrangedArray)
-                if (selectedEvmChain.isEvmSupportEip1559()) {
-                    for (i in 0 until 3) {
-                        val baseFee = suggestBaseFee[i]
-                        val tip = suggestTipValue[i]
-                        evmGas[i] = Triple(baseFee, tip, checkedGas)
-                    }
 
-                } else {
-                    for (i in 0 until 3) {
-                        val baseFee =
-                            if (suggestBaseFee[i]!! > BigInteger.valueOf(500000000L)) suggestBaseFee[i] else BigInteger.valueOf(
-                                500000000L
-                            )
-                        val tip =
-                            if (suggestTipValue[i] > BigInteger.valueOf(1000000000L)) suggestTipValue[i] else BigInteger.valueOf(
-                                1000000000L
-                            )
-                        evmGas[i] = Triple(baseFee, tip, checkedGas)
-                    }
+                for (i in 0 until 3) {
+                    val baseFee = suggestBaseFee[i]
+                    val tip = suggestTipValue[i]
+                    evmGas[i] = Triple(baseFee, tip, checkedGas)
                 }
 
                 if (paramMaxFeePerGas != null && paramMaxPriorityFeePerGas != null) {
@@ -503,7 +488,9 @@ class PopUpEvmSignFragment(
                 }
 
                 if (paramGas != null) {
-                    evmGas.add(Triple(BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
+                    evmGas.add(
+                        Triple(
+                        BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
                         BigInteger.ZERO,
                         paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
                     evmGasTitle.add(getString(R.string.str_origin))
@@ -600,7 +587,8 @@ class PopUpEvmSignFragment(
                                 val evmGas = evmGas[selectFeePosition]
                                 if (evmTxType == TransactionType.EIP1559) {
                                     val rawTransaction = try {
-                                        RawTransaction.createTransaction(chainId!!,
+                                        RawTransaction.createTransaction(
+                                            chainId!!,
                                             nonce,
                                             evmGas.third,
                                             paramTo,
@@ -610,7 +598,8 @@ class PopUpEvmSignFragment(
                                             evmGas.second?.let { tip -> evmGas.first?.add(tip) })
 
                                     } catch (e: Exception) {
-                                        RawTransaction.createTransaction(chainId!!,
+                                        RawTransaction.createTransaction(
+                                            chainId!!,
                                             nonce,
                                             evmGas.third,
                                             paramTo,
