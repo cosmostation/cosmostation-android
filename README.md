@@ -982,11 +982,11 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/sge/resource/chain_sge.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">SGE</span></td>
+    <td><span style="font-weight:bold"><del>SGE<del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
-    <td></td>
+    <td>sunset Sep 2025</td>
   </tr>
     
   <tr>
