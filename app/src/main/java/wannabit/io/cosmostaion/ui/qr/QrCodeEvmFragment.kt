@@ -19,7 +19,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.databinding.FragmentQrCodeBinding
 
 class QrCodeEvmFragment : BottomSheetDialogFragment() {
@@ -81,12 +80,7 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
     private fun initView() {
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                if (selectedChain is ChainSui || selectedChain is ChainIota) {
-                    btnEthShare.visibility = View.GONE
-                    btnCosmosShare.visibility = View.GONE
-                    btnShare.visibility = View.VISIBLE
-
-                } else if (selectedChain.supportCosmos()) {
+                if (selectedChain.supportCosmos()) {
                     btnEthShare.visibility = View.VISIBLE
                     btnCosmosShare.visibility = View.VISIBLE
                     btnShare.visibility = View.GONE

@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainTerraClassic : BaseChain(), Parcelable {
+open class ChainTerraClassic : BaseChain(), Parcelable {
 
     override var name: String = "TerraClassic"
     override var tag: String = "terraclassic330"
