@@ -164,6 +164,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainWemix
 import wannabit.io.cosmostaion.chain.evmClass.ChainWorldCoin
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXrplEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainZeroGravity
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
@@ -932,6 +933,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainXpla())
     chains.add(ChainXrplEvm())
     chains.add(ChainZenrock())
+    chains.add(ChainZeroGravity())
     chains.add(ChainZetaEvm())
 
 //    chains.add(ChainCosmosTestnet())
