@@ -22,9 +22,9 @@ open class ChainTerraClassic : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(330, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
-    override var grpcHost: String = "terra-classic-grpc.publicnode.com"
+    override var grpcHost: String = "grpc.terra-classic.hexxagon.io"
     override var lcdUrl: String = "https://terra-classic-lcd.publicnode.com/"
 }
