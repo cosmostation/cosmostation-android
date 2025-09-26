@@ -20,7 +20,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -29,7 +29,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -38,7 +38,7 @@ public final class GenesisProto {
     com.kava.cdp.v1beta1.GenesisProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -220,7 +220,7 @@ public final class GenesisProto {
     private com.kava.cdp.v1beta1.GenesisProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -232,7 +232,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -244,7 +244,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1202,7 +1202,7 @@ public final class GenesisProto {
           com.kava.cdp.v1beta1.GenesisProto.Params, com.kava.cdp.v1beta1.GenesisProto.Params.Builder, com.kava.cdp.v1beta1.GenesisProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1213,7 +1213,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1228,7 +1228,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1248,7 +1248,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1266,7 +1266,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1289,7 +1289,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1306,7 +1306,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1318,7 +1318,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -1333,7 +1333,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.cdp.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>

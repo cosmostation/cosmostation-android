@@ -163,7 +163,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -175,7 +175,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -187,7 +187,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -197,7 +197,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -209,7 +209,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -221,7 +221,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -231,7 +231,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -243,7 +243,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -255,7 +255,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -264,7 +264,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -275,7 +275,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -286,7 +286,7 @@ public final class GenesisProto {
     com.cosmos.gov.v1.GovProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -540,7 +540,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -555,7 +555,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -570,7 +570,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * deposit_params defines all the paramaters of related to deposit.
+     * deposit_params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -585,7 +585,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -600,7 +600,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -615,7 +615,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * voting_params defines all the paramaters of related to voting.
+     * voting_params defines all the parameters of related to voting.
      * </pre>
      *
      * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -630,7 +630,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -645,7 +645,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -660,7 +660,7 @@ public final class GenesisProto {
     /**
      * <pre>
      * Deprecated: Prefer to use `params` instead.
-     * tally_params defines all the paramaters of related to tally.
+     * tally_params defines all the parameters of related to tally.
      * </pre>
      *
      * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -674,7 +674,7 @@ public final class GenesisProto {
     private com.cosmos.gov.v1.GovProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -688,7 +688,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -702,7 +702,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -2382,7 +2382,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2396,7 +2396,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2414,7 +2414,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2435,7 +2435,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2454,7 +2454,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2478,7 +2478,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2496,7 +2496,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2509,7 +2509,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2525,7 +2525,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * deposit_params defines all the paramaters of related to deposit.
+       * deposit_params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.cosmos.gov.v1.DepositParams deposit_params = 5 [json_name = "depositParams", deprecated = true];</code>
@@ -2550,7 +2550,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2564,7 +2564,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2582,7 +2582,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2603,7 +2603,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2622,7 +2622,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2646,7 +2646,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2664,7 +2664,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2677,7 +2677,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2693,7 +2693,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * voting_params defines all the paramaters of related to voting.
+       * voting_params defines all the parameters of related to voting.
        * </pre>
        *
        * <code>.cosmos.gov.v1.VotingParams voting_params = 6 [json_name = "votingParams", deprecated = true];</code>
@@ -2718,7 +2718,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2732,7 +2732,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2750,7 +2750,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2771,7 +2771,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2790,7 +2790,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2814,7 +2814,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2832,7 +2832,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2845,7 +2845,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2861,7 +2861,7 @@ public final class GenesisProto {
       /**
        * <pre>
        * Deprecated: Prefer to use `params` instead.
-       * tally_params defines all the paramaters of related to tally.
+       * tally_params defines all the parameters of related to tally.
        * </pre>
        *
        * <code>.cosmos.gov.v1.TallyParams tally_params = 7 [json_name = "tallyParams", deprecated = true];</code>
@@ -2885,7 +2885,7 @@ public final class GenesisProto {
           com.cosmos.gov.v1.GovProto.Params, com.cosmos.gov.v1.GovProto.Params.Builder, com.cosmos.gov.v1.GovProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -2898,7 +2898,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -2915,7 +2915,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -2937,7 +2937,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -2957,7 +2957,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -2982,7 +2982,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -3001,7 +3001,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -3015,7 +3015,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -3032,7 +3032,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>

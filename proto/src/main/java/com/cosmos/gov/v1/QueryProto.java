@@ -7513,7 +7513,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -7524,7 +7524,7 @@ public final class QueryProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -7535,7 +7535,7 @@ public final class QueryProto {
     com.cosmos.gov.v1.GovProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -7722,7 +7722,7 @@ public final class QueryProto {
     private com.cosmos.gov.v1.GovProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -7736,7 +7736,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -7750,7 +7750,7 @@ public final class QueryProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -8721,7 +8721,7 @@ public final class QueryProto {
           com.cosmos.gov.v1.GovProto.Params, com.cosmos.gov.v1.GovProto.Params.Builder, com.cosmos.gov.v1.GovProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8734,7 +8734,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8751,7 +8751,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8773,7 +8773,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8793,7 +8793,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8818,7 +8818,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8837,7 +8837,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8851,7 +8851,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -8868,7 +8868,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        *
        * Since: cosmos-sdk 0.47
        * </pre>

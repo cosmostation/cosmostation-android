@@ -162,7 +162,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -171,7 +171,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -180,7 +180,7 @@ public final class GenesisProto {
     com.initia.gov.v1.GovProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -462,7 +462,7 @@ public final class GenesisProto {
     private com.initia.gov.v1.GovProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -474,7 +474,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -486,7 +486,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of x/gov module.
+     * params defines all the parameters of x/gov module.
      * </pre>
      *
      * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2136,7 +2136,7 @@ public final class GenesisProto {
           com.initia.gov.v1.GovProto.Params, com.initia.gov.v1.GovProto.Params.Builder, com.initia.gov.v1.GovProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2147,7 +2147,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2162,7 +2162,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2182,7 +2182,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2200,7 +2200,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2223,7 +2223,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2240,7 +2240,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2252,7 +2252,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
@@ -2267,7 +2267,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of x/gov module.
+       * params defines all the parameters of x/gov module.
        * </pre>
        *
        * <code>.initia.gov.v1.Params params = 5 [json_name = "params"];</code>
