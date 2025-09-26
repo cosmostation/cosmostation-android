@@ -20,7 +20,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -29,7 +29,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -38,7 +38,7 @@ public final class GenesisProto {
     com.initia.reward.v1.TypesProto.Params getParams();
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -118,7 +118,7 @@ public final class GenesisProto {
     private com.initia.reward.v1.TypesProto.Params params_;
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -130,7 +130,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -142,7 +142,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * Params defines all the paramaters of the module.
+     * Params defines all the parameters of the module.
      * </pre>
      *
      * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -623,7 +623,7 @@ public final class GenesisProto {
           com.initia.reward.v1.TypesProto.Params, com.initia.reward.v1.TypesProto.Params.Builder, com.initia.reward.v1.TypesProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -634,7 +634,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -649,7 +649,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -669,7 +669,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -687,7 +687,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -710,7 +710,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -727,7 +727,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -739,7 +739,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -754,7 +754,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * Params defines all the paramaters of the module.
+       * Params defines all the parameters of the module.
        * </pre>
        *
        * <code>.initia.reward.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>

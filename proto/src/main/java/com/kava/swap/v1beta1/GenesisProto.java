@@ -20,7 +20,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -29,7 +29,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -38,7 +38,7 @@ public final class GenesisProto {
     com.kava.swap.v1beta1.SwapProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -178,7 +178,7 @@ public final class GenesisProto {
     private com.kava.swap.v1beta1.SwapProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -190,7 +190,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -202,7 +202,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters related to swap
+     * params defines all the parameters related to swap
      * </pre>
      *
      * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -821,7 +821,7 @@ public final class GenesisProto {
           com.kava.swap.v1beta1.SwapProto.Params, com.kava.swap.v1beta1.SwapProto.Params.Builder, com.kava.swap.v1beta1.SwapProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -832,7 +832,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -847,7 +847,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -867,7 +867,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -885,7 +885,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -908,7 +908,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -925,7 +925,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -937,7 +937,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -952,7 +952,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters related to swap
+       * params defines all the parameters related to swap
        * </pre>
        *
        * <code>.kava.swap.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>

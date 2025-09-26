@@ -20,7 +20,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -29,7 +29,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -38,7 +38,7 @@ public final class GenesisProto {
     com.kava.pricefeed.v1beta1.StoreProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -113,7 +113,7 @@ public final class GenesisProto {
     private com.kava.pricefeed.v1beta1.StoreProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -125,7 +125,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -137,7 +137,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of the module.
+     * params defines all the parameters of the module.
      * </pre>
      *
      * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -607,7 +607,7 @@ public final class GenesisProto {
           com.kava.pricefeed.v1beta1.StoreProto.Params, com.kava.pricefeed.v1beta1.StoreProto.Params.Builder, com.kava.pricefeed.v1beta1.StoreProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -618,7 +618,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -633,7 +633,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -653,7 +653,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -671,7 +671,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -694,7 +694,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -711,7 +711,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -723,7 +723,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>
@@ -738,7 +738,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of the module.
+       * params defines all the parameters of the module.
        * </pre>
        *
        * <code>.kava.pricefeed.v1beta1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false];</code>

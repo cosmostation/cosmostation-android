@@ -20,7 +20,7 @@ public final class GenesisProto {
 
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -29,7 +29,7 @@ public final class GenesisProto {
     boolean hasParams();
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -38,7 +38,7 @@ public final class GenesisProto {
     com.initia.mstaking.v1.StakingProto.Params getParams();
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -334,7 +334,7 @@ public final class GenesisProto {
     private com.initia.mstaking.v1.StakingProto.Params params_;
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -346,7 +346,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -358,7 +358,7 @@ public final class GenesisProto {
     }
     /**
      * <pre>
-     * params defines all the paramaters of related to deposit.
+     * params defines all the parameters of related to deposit.
      * </pre>
      *
      * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1443,7 +1443,7 @@ public final class GenesisProto {
           com.initia.mstaking.v1.StakingProto.Params, com.initia.mstaking.v1.StakingProto.Params.Builder, com.initia.mstaking.v1.StakingProto.ParamsOrBuilder> paramsBuilder_;
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1454,7 +1454,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1469,7 +1469,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1489,7 +1489,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1507,7 +1507,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1530,7 +1530,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1547,7 +1547,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1559,7 +1559,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
@@ -1574,7 +1574,7 @@ public final class GenesisProto {
       }
       /**
        * <pre>
-       * params defines all the paramaters of related to deposit.
+       * params defines all the parameters of related to deposit.
        * </pre>
        *
        * <code>.initia.mstaking.v1.Params params = 1 [json_name = "params", (.gogoproto.nullable) = false, (.amino.dont_omitempty) = true];</code>
