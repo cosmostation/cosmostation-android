@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -304,13 +305,19 @@ class ClaimRewardFragment : BaseTxFragment() {
                         validatorCnt.visibility = View.GONE
                     }
 
-                    BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
+                    val rewardDenom = if (selectedChain is ChainSunrise) {
+                        selectedChain.getMainAssetDenom()
+                    } else {
+                        selectedChain.getStakeAssetDenom()
+                    }
+
+                    BaseData.getAsset(selectedChain.apiName, rewardDenom)
                         ?.let { asset ->
                             var rewardAmount = BigDecimal.ZERO
 
                             claimableRewards.forEach { reward ->
                                 val rawAmount = BigDecimal(
-                                    reward?.rewardList?.firstOrNull { it.denom == selectedChain.getStakeAssetDenom() }?.amount
+                                    reward?.rewardList?.firstOrNull { it.denom == rewardDenom }?.amount
                                         ?: "0"
                                 )
                                 rewardAmount = rewardAmount.add(
@@ -326,7 +333,7 @@ class ClaimRewardFragment : BaseTxFragment() {
 
                             val anotherRewardDenoms = mutableListOf<String>()
                             claimableRewards.forEach { reward ->
-                                reward?.rewardList?.filter { it.denom != selectedChain.getStakeAssetDenom() }
+                                reward?.rewardList?.filter { it.denom != rewardDenom }
                                     ?.forEach { anotherRewards ->
                                         val anotherAmount =
                                             anotherRewards.amount.toBigDecimal().movePointLeft(18)

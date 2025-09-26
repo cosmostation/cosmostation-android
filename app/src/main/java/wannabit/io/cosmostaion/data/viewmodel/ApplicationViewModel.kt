@@ -337,7 +337,7 @@ class ApplicationViewModel(
                             baseAccountId,
                             tag,
                             address,
-                            ByteUtils.convertBech32ToEvm(address),
+                            evmAddress,
                             "0",
                             "0",
                             "0",

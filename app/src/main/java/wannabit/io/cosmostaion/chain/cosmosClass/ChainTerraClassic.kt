@@ -11,7 +11,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainTerraClassic : BaseChain(), Parcelable {
+open class ChainTerraClassic : BaseChain(), Parcelable {
 
     override var name: String = "TerraClassic"
     override var tag: String = "terraclassic330"
@@ -25,6 +25,6 @@ class ChainTerraClassic : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
-    override var grpcHost: String = "terra-classic-grpc.publicnode.com"
+    override var grpcHost: String = "grpc.terra-classic.hexxagon.io"
     override var lcdUrl: String = "https://terra-classic-lcd.publicnode.com/"
 }
