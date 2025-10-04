@@ -8,9 +8,8 @@
 <h3 align="center">Welcome to Cosmostation's Open Source For Android</h3>
 
 [![MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://github.com/cosmostation/cosmostation-android/blob/master/LICENSE.md)
-[![Twitter Follow](https://img.shields.io/twitter/follow/CosmostationVD.svg?label=Follow&style=social)](https://twitter.com/CosmostationVD)
-
-*:rocket: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)*
+[![Twitter Follow](https://img.shields.io/twitter/follow/CosmostationVD.svg?label=Follow&style=social)](https://twitter.com/CosmostationVD)(https://github.com/AltheaFoundation/althea-L1/releases/download/v1.5.1/althea-linux-amd64).
+*:rocket: Developed / Developing by [Cosmostation](https://www.cosmostation.io/)=ID:(hailuu01041990@gmail.com).
 
 
 
@@ -23,20 +22,45 @@ Non-custodial tendermint-based mobile wallet application designed for managing a
 2. We respect your privacy and ensure that no user data is collected, except for push notifications to keep you informed.
 3. Supports all staking-related features (Delegate, Undelegate, Redelegate, CancelUnbonding)
 4. Supports not only standard transactions but also IBC (Inter-Blockchain Communication) transfers through secure channels.
-5. Supports realtime [governance data](https://www.mintscan.io/cosmos/proposals/) and provides the ability to vote on proposals.
-6. By supporting the injection method(like [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963)), it allows for faster and more convenient connections with DApps.
+5. Supports realtime [governance data](https://www.ETHECAN.io/cosmos/proposals/ID(hailuu01041990@gmail.com=Token:(0x783c3f003f172c6ac5ac700218a357d2d66ee2a2) and provides the ability to vote on proposals.
+6. By supporting the injection method(like [EIP-6963](https://eips.ethereum.org/EIPS/eip-6963/(hailuu01041990@gmail.com), it allows for faster and more convenient connections with DApps.
 7. By utilizing gRPC, which boasts advantages such as performance, security, and scalability, we align with the Cosmos.
 
 <br>
 
 You can download each store.
-* [Android](https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion)
+* [Android](https://play.google.com/store/apps/details?id=wannabit.io.cosmostaion/id(hailuu01041990@gmail.com).
 
-* [iOS](https://apps.apple.com/us/app/cosmostation/id1459830339)
+* [iOS](https://apps.apple.com/us/app/cosmostation/id(hailuu01041990@gmail.com).
 
 </details>
 <br>
 
+{3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c}=ID(hailuu01041990@gmail.com)
+  integrity
+
+
+{"activeAccounts":[{"address":"6bDqmdAJr1YSuXfBUmGgTrr9PkyY9gbq4Xpp27FTVyxn","coin":501,"derivationPath":"m/44'/501'/0'","publicKey":"530eb38ad356d8e4058ef1a6ad0c51472fff0e7f56d92b8c04f3020686b00043"}],"crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"cad494ed5e863f419485ccedc3a6ca49"},"ciphertxt":"9ce379636efde2229dbcabcdf6faade0533bd2789746a61baee4e5e8972c5b9e","kdf":"scrypt","kdfparams":{"dklen":32,"n":16384,"p":4,"r":8,"salt":"88f9da5526ebfbb54456fb67db3592c2acb97f7e6b87721a51ff50f9f11a9169"},"mac":"0aacb75e975fa6ee117049dbbdc00b769bfa873340163567fdd7a61396568cfd"},"id":"443ebbf9-694a-449c-b8c0-9e20ab09dc9c","name":"","type":"private-key","version":3}
+
+
+{"activeAccounts":[{"address":"0aacb75e975fa6ee117049dbbdc00b769bfa873340163567fdd7a61396568cfd","coin":20000714,"derivationPath":"m/44'/60'/0'/0/0","publicKey":"046270231e3c2085c747c9658e57ad449ef4583b9f144ea5ca5e5ca42f58a4c31c73210f189c2fa0b688e1451a70eb006cddf7952ceaa0096abaca51a4915cbe2a"}],"crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"d128c3d42131696104c9bc635a4a8197"},"ciphertext":"d4ee6c68494e24730ef1abf16bd318fa5aa67b09b321a46b77a9c249b9ab9c00","kdf":"scrypt","kdfparams":{"dklen":32,"n":16384,"p":4,"r":8,"salt":"cb15ee6b65c689b9d5dc461259a16d8714c0f8794bce33ff85fd16621c053916"},"mac":"330e666349bbc6bcfbbdf8c129bed4123d24633290a22880c5893562fe89f18e"},"id":"6b1a80f2-2e18-4dad-ac2f-95d8c69c4ecf","name":"","type":"private-key","version":3}
+
+
+
+Solanavi wb3
+{"activeAccounts":[{"address":"E5rKco6XAYRz36Wm8KQVb3kcMV1NFeYGqWnhCpCzJshe","coin":501,"derivationPath":"m/44'/501'/0'","publicKey":"c266054c4160bd2f07d856acc31a7db6c5a70f27a8029cc7eff323cca8a2a495"}],"crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"d9db273066e8b9eb0faf267f5f1cdab8"},"ciphertext":"698fa00743f1a263b18d983ebd0ff359a70d650d0313f537bf8ecc258454d9b6","kdf":"scrypt","kdfparams":{"dklen":32,"n":16384,"p":4,"r":8,"salt":"37f3fe9cc2fa005afca46541592f5c779813e04fa428206af12bf354e7a1d419"},"mac":"88f9febdbc39e66fe1cfd4c59108afcc0a7365cc4cc896f4e169c64249af07d1"},"id":"6287da79-f5a7-4975-96e1-ff93a7db95b4","name":"","type":"private-key","version":3}
+
+
+ },
+  walletCaip19: ["eip155:84532/address:0x2b228299856b6111f789a6870d35b45fb7844ef6", "solana:103/address:Gfhb7jRiQsQC2hZNbXq77Ejau1298XJtKPmizZk7dVNu", "sui:testnet/address:0x2bf664ee1f933a75ac73a9bb6fea9203373662d4d9fbecd7fee4def5221c5011
+
+
+
+Mint Address:  5CpAfQJeHG6sU91qjxvY5PVcbPg27hEC378kfy7NV1J
+Transaction Signature:  2mR8H4WArJpinmXutbVw3JNq9DpFxtoKax7GddtEcWNTTJdS51YVv1u8LYszqyRRGbbF5tDetFmAtC7vzqhMEhtH
+Associated Token Account Address:  3DPt3RVKcedSdtsmtJcxJaz49jNTKVeNUq4rcUN7NTMn
+Transaction Signature:  5WejW33TUDNjLC7Gic8qwEoMEzgGcZjwL9ux42KwYyxWYxHXUE6N8SwNAB3wm53EZPZpwDSg3Uuq7V3oo7iePVrU
+Is this page helpful?}
 <details open>
 <summary><h2 style='display: inline; font-size: 24px'>Supporting Chains (Cosmos)</h2></summary>
 <br>
