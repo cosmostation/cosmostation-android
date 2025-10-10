@@ -26,9 +26,9 @@ class ChainRealioEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "ario"
     override var accountPrefix: String = "realio"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://realio-api.genznodes.dev/"
+    override var lcdUrl: String = "https://api-realio-network.nodeist.net/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "RIO"
-    override var evmRpcURL: String = "https://realio-rpc-evm.genznodes.dev"
+    override var evmRpcURL: String = "https://json-rpc.realio.network"
 }
