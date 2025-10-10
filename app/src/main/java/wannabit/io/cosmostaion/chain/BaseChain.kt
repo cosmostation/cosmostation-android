@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBluzelle
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -47,7 +46,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainElys
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
@@ -808,7 +806,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBinanceSmart())
     chains.add(ChainBlast())
     chains.add(ChainBluzelle())
-    chains.add(ChainBostrom())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
@@ -833,7 +830,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi())
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
-    chains.add(ChainFinschia())
     chains.add(ChainFirma())
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
