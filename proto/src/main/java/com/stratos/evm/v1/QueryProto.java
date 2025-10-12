@@ -2117,7 +2117,7 @@ public final class QueryProto {
 
     /**
      * <pre>
-     * account_number is the account numbert
+     * account_number is the account number
      * </pre>
      *
      * <code>uint64 account_number = 3 [json_name = "accountNumber"];</code>
@@ -2232,7 +2232,7 @@ public final class QueryProto {
     private long accountNumber_ = 0L;
     /**
      * <pre>
-     * account_number is the account numbert
+     * account_number is the account number
      * </pre>
      *
      * <code>uint64 account_number = 3 [json_name = "accountNumber"];</code>
@@ -2761,7 +2761,7 @@ public final class QueryProto {
       private long accountNumber_ ;
       /**
        * <pre>
-       * account_number is the account numbert
+       * account_number is the account number
        * </pre>
        *
        * <code>uint64 account_number = 3 [json_name = "accountNumber"];</code>
@@ -2773,7 +2773,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * account_number is the account numbert
+       * account_number is the account number
        * </pre>
        *
        * <code>uint64 account_number = 3 [json_name = "accountNumber"];</code>
@@ -2789,7 +2789,7 @@ public final class QueryProto {
       }
       /**
        * <pre>
-       * account_number is the account numbert
+       * account_number is the account number
        * </pre>
        *
        * <code>uint64 account_number = 3 [json_name = "accountNumber"];</code>
