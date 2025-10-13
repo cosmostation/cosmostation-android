@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBluzelle
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBostrom
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -47,7 +46,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainElys
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainFinschia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
@@ -55,6 +53,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInt3Face
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainIntento
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIris
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainIxo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
@@ -122,6 +121,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainZigChain
 import wannabit.io.cosmostaion.chain.evmClass.ChainAiozEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainAltheaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainArbitrum
@@ -806,7 +806,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBinanceSmart())
     chains.add(ChainBlast())
     chains.add(ChainBluzelle())
-    chains.add(ChainBostrom())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
@@ -831,7 +830,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi())
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
-    chains.add(ChainFinschia())
     chains.add(ChainFirma())
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
@@ -845,6 +843,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainInitia())
     chains.add(ChainInjectiveEvm())
     chains.add(ChainInt3Face())
+    chains.add(ChainIntento())
     chains.add(ChainIota())
     chains.add(ChainIris())
     chains.add(ChainIxo())
@@ -941,6 +940,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainZenrock())
     chains.add(ChainZeroGravity())
     chains.add(ChainZetaEvm())
+    chains.add(ChainZigChain())
 
 //    chains.add(ChainCosmosTestnet())
 //    chains.add(ChainArtelaTestnet())
