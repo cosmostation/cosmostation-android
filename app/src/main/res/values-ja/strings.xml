@@ -435,6 +435,7 @@
     <string name="error_max_btc_balance">ステーキング金額は最大で %1$s までです。</string>
     <string name="error_minimum_rent">レントのために最低でも ^1 SOL を送金してください。</string>
     <string name="error_tranfer_disabled_vrise">vRISE コインはステーキング専用の資産です。\n送信できません。</string>
+    <string name="error_not_swap_of_route">ルートの安定性に問題があるため、現在スワップはサポートされていません。</string>
 
 
     <string name="tx_unknown">不明</string>

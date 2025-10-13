@@ -43,7 +43,7 @@ class AccountSelectFragment : BottomSheetDialogFragment() {
                 val selectAllAccounts = appDatabase.baseAccountDao().selectAll()
 
                 withContext(Dispatchers.Main) {
-                    accountSelectAdapter = AccountSelectAdapter(requireContext())
+                    accountSelectAdapter = AccountSelectAdapter()
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(requireContext())
                     adapter = accountSelectAdapter

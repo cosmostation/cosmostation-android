@@ -433,6 +433,7 @@
     <string name="error_max_btc_balance">스테이킹 수량은 최대 %1$s 이하여야 합니다.</string>
     <string name="error_minimum_rent">렌트 비용을 위해 최소 ^1 SOL 보내야 합니다.</string>
     <string name="error_tranfer_disabled_vrise">vRISE는 스테이킹 전용 자산입니다.\n전송이 불가능합니다.</string>
+    <string name="error_not_swap_of_route">현재 라우트의 안정성 문제로 스왑이 지원 되지 않습니다.</string>
 
 
     //header

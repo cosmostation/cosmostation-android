@@ -570,6 +570,7 @@
     <string name="error_max_btc_balance">Staking amount must be no more than %1$s</string>
     <string name="error_minimum_rent">Send amount at least ^1 SOL for the rent</string>
     <string name="error_tranfer_disabled_vrise">vRISE is a staking-only asset.\nTransmission is not possible.</string>
+    <string name="error_not_swap_of_route">Swap is not currently supported due to stability issues in the route</string>
 
 
     // tx

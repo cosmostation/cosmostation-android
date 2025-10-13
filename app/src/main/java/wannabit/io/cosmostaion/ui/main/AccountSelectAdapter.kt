@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,14 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemAccountSelectBinding
 
-class AccountSelectAdapter(
-    val context: Context
-) : ListAdapter<BaseAccount, AccountSelectViewHolder>(ChainEditDiffCallback()) {
+class AccountSelectAdapter :
+    ListAdapter<BaseAccount, AccountSelectViewHolder>(ChainEditDiffCallback()) {
 
     private var onItemClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountSelectViewHolder {
-        val binding = ItemAccountSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemAccountSelectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AccountSelectViewHolder(parent.context, binding)
     }
 

@@ -120,7 +120,9 @@ data class BaseAccount(
     }
 
     fun updateAllValue() {
-        allChains.forEach { chain ->
+        val chains = allChains.toList()
+
+        chains.forEach { chain ->
             when (chain) {
                 is ChainBitCoin86 -> {
                     chain.coinValue = chain.btcFetcher()?.allAssetValue()

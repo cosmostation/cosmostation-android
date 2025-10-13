@@ -375,6 +375,15 @@ class SwapFragment : BaseTxFragment() {
         skipViewModel.skipMsgResult.observe(viewLifecycleOwner) { response ->
             binding.apply {
                 if (response.msgs.size == 1) {
+                    if (route?.swap_venue?.name?.contains("elys-native") == true) {
+                        feeView.visibility = View.GONE
+                        errorView.visibility = View.VISIBLE
+                        errorMsg.text = getString(R.string.error_not_swap_of_route)
+                        btnSwap.updateButtonView(false)
+                        btnToggle.updateToggleButtonView(false)
+                        return@observe
+                    }
+
                     val dpSlippage = BigDecimal("100").subtract(skipSlippage.toBigDecimal())
                     val dpOutputAmount =
                         route?.amount_out?.toBigDecimal()?.multiply(dpSlippage)?.movePointLeft(2)
