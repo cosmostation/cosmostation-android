@@ -25,10 +25,10 @@ class ChainWardenEvmTestnet : ChainWardenEvm(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "award"
     override var accountPrefix: String = "warden"
-    override var grpcHost: String = "grpc.chiado.wardenprotocol.org"
-    override var lcdUrl: String = "https://api.chiado.wardenprotocol.org/"
+    override var grpcHost: String = "grpc.barra.wardenprotocol.org"
+    override var lcdUrl: String = "https://api.barra.wardenprotocol.org/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "WARD"
-    override var evmRpcURL: String = "https://evm.chiado.wardenprotocol.org"
+    override var evmRpcURL: String = "https://evm.barra.wardenprotocol.org"
 }
