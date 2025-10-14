@@ -38,7 +38,6 @@ import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.ByteUtils
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
 import wannabit.io.cosmostaion.common.toHex
@@ -1608,7 +1607,11 @@ class ApplicationViewModel(
                                             values.forEach { value ->
                                                 val info =
                                                     value.asJsonObject["account"].asJsonObject["data"].asJsonObject["parsed"].asJsonObject["info"].asJsonObject
-                                                fetcher.solanaTokenInfo.add(info)
+                                                val mint = info["mint"].asString
+
+                                                BaseData.getToken(this, apiName, mint)?.let {
+                                                    fetcher.solanaTokenInfo.add(info)
+                                                }
                                             }
 
                                             fetcher.solanaTokenInfo.forEach { tokenInfo ->

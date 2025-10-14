@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInjectiveEvmTestnet
@@ -92,6 +93,7 @@ import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.SolanaJs
 import java.io.BufferedReader
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
@@ -985,6 +987,18 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun showSolanaSignDialog(
+        bundle: Bundle, signListener: PopUpSolanaSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpSolanaSignFragment(
+                selectSolana, bundle.getLong("id"), data, bundle.getString("method"), signListener
+            ).show(
+                supportFragmentManager, PopUpSolanaSignFragment::class.java.name
+            )
+        }
+    }
+
     private val dappWebViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -1153,6 +1167,7 @@ class DappActivity : BaseActivity() {
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
             val method = messageJson.getString("method")
+            Log.e("test12345 : ", method)
 
             when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
@@ -2095,8 +2110,105 @@ class DappActivity : BaseActivity() {
                     if (selectSolana == null) {
                         selectSolana = allChains?.find { it.apiName == "solana" }
                     }
-                    val publicKey = "0x" + selectSolana?.publicKey?.bytesToHex()
-                    appToWebResult(messageJson, publicKey, messageId)
+                    val publicKey = selectSolana?.publicKey?.bytesToHex()
+                    val accountJson = JSONObject()
+                    accountJson.put("publicKey", publicKey)
+                    appToWebResult(
+                        messageJson, accountJson, messageId
+                    )
+                }
+
+                "solana_signMessage" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle = signBundle(0, params.toString(), "solana_signMessage")
+                    showSolanaSignDialog(
+                        signBundle,
+                        object : PopUpSolanaSignFragment.WcSignRawDataListener {
+                            override fun sign(
+                                id: Long,
+                                data: String,
+                                signature: String,
+                                allData: MutableList<String>?
+                            ) {
+                                val signed = JSONObject()
+                                signed.put("signature", signature)
+                                signed.put("publicKey", data)
+                                appToWebResult(
+                                    messageJson, signed, messageId
+                                )
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(messageJson, messageId, "Permit rejected.")
+                            }
+                        })
+                }
+
+                "solana_signTransaction" -> {
+                    val params = messageJson.getJSONArray("params")
+                    if (params.length() > 0) {
+                        val signBundle = signBundle(
+                            0,
+                            params.toString(),
+                            "solana_signTransaction"
+                        )
+                        showSolanaSignDialog(
+                            signBundle,
+                            object : PopUpSolanaSignFragment.WcSignRawDataListener {
+                                override fun sign(
+                                    id: Long,
+                                    data: String,
+                                    signature: String,
+                                    allData: MutableList<String>?
+                                ) {
+                                    appToWebResult(
+                                        messageJson, JSONArray(allData), messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(messageJson, messageId, "Sign rejected.")
+                                }
+                            })
+
+                    } else {
+                        appToWebError(
+                            messageJson, messageId, "User rejected the request."
+                        )
+                    }
+                }
+
+                "solana_signAndSendTransaction" -> {
+                    val params = messageJson.getJSONArray("params")
+                    if (params.length() > 0) {
+                        val signBundle = signBundle(
+                            0,
+                            params.getJSONObject(0).toString(),
+                            "solana_signAndSendTransaction"
+                        )
+
+                        showSolanaSignDialog(
+                            signBundle,
+                            object : PopUpSolanaSignFragment.WcSignRawDataListener {
+                                override fun sign(
+                                    id: Long,
+                                    data: String,
+                                    signature: String,
+                                    allData: MutableList<String>?
+                                ) {
+                                    approveSolanaSignExecuteRequest(messageJson, messageId)
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(messageJson, messageId, "Sign rejected.")
+                                }
+                            })
+
+                    } else {
+                        appToWebError(
+                            messageJson, messageId, "User rejected the request."
+                        )
+                    }
                 }
 
                 else -> {
@@ -2266,6 +2378,45 @@ class DappActivity : BaseActivity() {
                     iotaExecuteJsonObject.getJSONObject("result"),
                     messageId
                 )
+            }
+        }
+    }
+
+    private fun approveSolanaSignExecuteRequest(
+        messageJson: JSONObject, messageId: String
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            (selectSolana as ChainSolana).solanaFetcher()?.let { fetcher ->
+                val params =
+                    JsonParser.parseString(messageJson.toString()).asJsonObject["params"].asJsonArray
+                val param = params[0].asJsonObject
+
+                val sendTransactionResponse = fetcher.sendTransaction(SolanaJs, param)
+
+                val sendTransactionJsonObject = Gson().fromJson(
+                    sendTransactionResponse.body?.string(), JsonObject::class.java
+                )
+
+                if (sendTransactionResponse.isSuccessful) {
+                    if (sendTransactionJsonObject.has("error")) {
+                        appToWebError(
+                            messageJson, messageId, "User rejected the request."
+                        )
+
+                    } else {
+                        val signed = JSONObject()
+                        signed.put("publicKey", selectSolana?.mainAddress)
+                        signed.put("signature", sendTransactionJsonObject["result"].asString)
+                        appToWebResult(
+                            messageJson, signed, messageId
+                        )
+                    }
+
+                } else {
+                    appToWebError(
+                        messageJson, messageId, "User rejected the request."
+                    )
+                }
             }
         }
     }
