@@ -523,6 +523,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/intento/resource/chain_intento.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">INTENTO</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>Rest</td>
+    <td></td>
+  </tr>
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/iris/resource/chain_iris.png?raw=true" width="42" height = "42"></td>
