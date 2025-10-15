@@ -241,7 +241,7 @@ You can download each store.
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
-    <td></td>
+    <td>sunset Sep 2025</td>
   </tr>
 	 	
   <tr>
@@ -403,7 +403,7 @@ You can download each store.
     <td>m/44'/438'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
-    <td></td>
+    <td>sunset Sep 2025</td>
   </tr>
 	 	
   <tr>
@@ -1360,7 +1360,7 @@ You can download each store.
   </tr>
   
   <tr> 
-    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/kaia/resource/chain_linea.png?raw=true" width="42" height = "42"></td>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/linea/resource/chain_linea.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">LINEA</span></td>
     <td>m/44'/60'/0'/0/X</td>
     <td>keccak256</td>
