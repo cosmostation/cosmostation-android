@@ -25,5 +25,5 @@ class ChainKi : BaseChain(), Parcelable {
     override var stakeDenom: String = "uxki"
     override var accountPrefix: String = "ki"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api-mainnet.blockchain.ki/"
+    override var lcdUrl: String = "https://kichain.api.m.stavr.tech/"
 }
