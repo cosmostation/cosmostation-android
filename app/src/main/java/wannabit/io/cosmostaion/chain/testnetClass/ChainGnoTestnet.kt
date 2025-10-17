@@ -27,7 +27,7 @@ class ChainGnoTestnet : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_RPC
     override var stakeDenom: String = "ugnot"
     override var accountPrefix: String = "g"
-    override var mainUrl: String = "https://rpc.gno.land"
+    override var mainUrl: String = "https://rpc.test9.testnets.gno.land"
 
     fun gnoRpcFetcher(): GnoFetcher? {
         if (gnoRpcFetcher == null) {

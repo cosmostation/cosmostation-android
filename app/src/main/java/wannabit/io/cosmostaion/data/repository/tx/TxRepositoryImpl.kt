@@ -2494,7 +2494,7 @@ class TxRepositoryImpl : TxRepository {
         msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
     ): String {
         return try {
-            val simulateTx = Signer.signRpcSendSimulateTx(msgSend, fee, memo, selectedChain)
+            val simulateTx = Signer.signRpcSendSimulateTx(msgSend, fee, memo)
             val txByte = Base64.toBase64String(simulateTx.toByteArray())
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
@@ -2557,7 +2557,7 @@ class TxRepositoryImpl : TxRepository {
         msgCall: VmProto.MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ): String {
         return try {
-            val simulateTx = Signer.signRpcCallSimulateTx(msgCall, fee, memo, selectedChain)
+            val simulateTx = Signer.signRpcCallSimulateTx(msgCall, fee, memo)
             val txByte = Base64.toBase64String(simulateTx.toByteArray())
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
