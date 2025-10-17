@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.ui.main.dapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -167,9 +166,12 @@ class PopUpSolanaSignFragment(
                             }
                         }
 
-                        "solana_signTransaction" -> {
+                        "solana_signTransaction", "solana_signAllTransactions" -> {
                             val parsingResult = mutableListOf<String>()
                             val dataResult = mutableListOf<String>()
+                            var viewData = ""
+                            var totalExpectedSolAmount = 0.0
+                            var totalFee: Long = 0
 
                             val txJsonArray = JsonParser.parseString(data).asJsonArray
                             txJsonArray.forEach { json ->
@@ -178,7 +180,7 @@ class PopUpSolanaSignFragment(
                                     fetcher.parseInstructionsFromTx(SolanaJs, serializedTx)
                                 parsingResult += parseInstruction.toString()
 
-                                val viewData = if (parsingResult.size > 1) {
+                                viewData = if (parsingResult.size > 1) {
                                     buildString {
                                         parsingResult.forEachIndexed { idx, raw ->
                                             if (idx > 0) appendLine("\n")
@@ -194,6 +196,7 @@ class PopUpSolanaSignFragment(
                                 val serializedTxMessage =
                                     fetcher.serializedTxMessageFromTx(SolanaJs, serializedTx)
                                 val baseFee = fetcher.baseFee(serializedTxMessage)
+                                totalFee += baseFee
 
                                 dataResult += fetcher.signTransaction(SolanaJs, serializedTx)
                                     ?: ""
@@ -222,38 +225,38 @@ class PopUpSolanaSignFragment(
                                         )
                                         val solChangeAmount =
                                             JsonParser.parseString(changesData).asJsonArray[0].asJsonObject["amount"].asDouble
-
-                                        withContext(Dispatchers.Main) {
-                                            binding.apply {
-                                                btnConfirm.isEnabled = true
-                                                loading.visibility = View.GONE
-                                                signView.visibility = View.GONE
-                                                feeView.visibility = View.GONE
-                                                swapSignView.visibility = View.VISIBLE
-                                                changeView.visibility = View.VISIBLE
-
-                                                swapSignData.text = viewData
-                                                initChangedSolView(solChangeAmount.toString())
-                                                initFeeView(baseFee, true)
-                                            }
-                                        }
-
-                                    } else {
-                                        withContext(Dispatchers.Main) {
-                                            binding.apply {
-                                                btnConfirm.isEnabled = true
-                                                loading.visibility = View.GONE
-                                                signView.visibility = View.VISIBLE
-                                                feeView.visibility = View.VISIBLE
-                                                swapSignView.visibility = View.GONE
-                                                changeView.visibility = View.GONE
-
-                                                signData.text = viewData
-                                                initFeeView(baseFee, false)
-                                            }
-                                        }
+                                        totalExpectedSolAmount += solChangeAmount
                                     }
                                 }
+                            }
+
+                            withContext(Dispatchers.Main) {
+                                binding.apply {
+                                    if (totalExpectedSolAmount == 0.0) {
+                                        btnConfirm.isEnabled = true
+                                        loading.visibility = View.GONE
+                                        signView.visibility = View.VISIBLE
+                                        feeView.visibility = View.VISIBLE
+                                        swapSignView.visibility = View.GONE
+                                        changeView.visibility = View.GONE
+
+                                        signData.text = viewData
+                                        initFeeView(totalFee, false)
+
+                                    } else {
+                                        btnConfirm.isEnabled = true
+                                        loading.visibility = View.GONE
+                                        signView.visibility = View.GONE
+                                        feeView.visibility = View.GONE
+                                        swapSignView.visibility = View.VISIBLE
+                                        changeView.visibility = View.VISIBLE
+
+                                        swapSignData.text = viewData
+                                        initChangedSolView(totalExpectedSolAmount.toString())
+                                        initFeeView(totalFee, true)
+                                    }
+                                }
+
                             }
                         }
 
@@ -302,7 +305,8 @@ class PopUpSolanaSignFragment(
                                             swapSignView.visibility = View.VISIBLE
                                             changeView.visibility = View.VISIBLE
 
-                                            swapSignData.text = formatJsonString(parseInstruction.toString())
+                                            swapSignData.text =
+                                                formatJsonString(parseInstruction.toString())
                                             initChangedSolView(solChangeAmount.toString())
                                             initFeeView(baseFee, true)
                                         }
@@ -318,7 +322,8 @@ class PopUpSolanaSignFragment(
                                             swapSignView.visibility = View.GONE
                                             changeView.visibility = View.GONE
 
-                                            signData.text = formatJsonString(parseInstruction.toString())
+                                            signData.text =
+                                                formatJsonString(parseInstruction.toString())
                                             initFeeView(baseFee, false)
                                         }
                                     }

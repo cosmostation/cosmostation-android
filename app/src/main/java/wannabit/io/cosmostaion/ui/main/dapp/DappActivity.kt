@@ -2144,7 +2144,7 @@ class DappActivity : BaseActivity() {
                         })
                 }
 
-                "solana_signTransaction" -> {
+                "solana_signTransaction", "solana_signAllTransactions" -> {
                     val params = messageJson.getJSONArray("params")
                     if (params.length() > 0) {
                         val signBundle = signBundle(
