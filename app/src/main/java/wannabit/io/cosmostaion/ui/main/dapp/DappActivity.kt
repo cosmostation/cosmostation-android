@@ -1167,7 +1167,6 @@ class DappActivity : BaseActivity() {
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
             val method = messageJson.getString("method")
-            Log.e("test12345 : ", method)
 
             when (method) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {

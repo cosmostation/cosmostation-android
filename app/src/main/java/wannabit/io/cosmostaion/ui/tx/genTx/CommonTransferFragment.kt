@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -141,6 +142,11 @@ class CommonTransferFragment : BaseTxFragment() {
     private var solanaFeeAmount = BigDecimal.ZERO
     private var solanaMinimumRentAmount = BigDecimal.ZERO
     private var solanaTxHex = ""
+
+    //gno
+    private val gnoGasRate: List<Double> = listOf(
+        1.0, 1.1, 1.2
+    )
 
     private var availableAmount = BigDecimal.ZERO
 
@@ -1243,7 +1249,8 @@ class CommonTransferFragment : BaseTxFragment() {
 
                             } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
                                 val msgCall = com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-                                    .setCaller(fromChain.address).setPkgPath(toSendToken?.address)
+                                    .setCaller(fromChain.address).setMaxDeposit("")
+                                    .setPkgPath(toSendToken?.address)
                                     .setFunc("Transfer").addAllArgs(listOf(toAddress, toSendAmount))
                                     .build()
                                 txViewModel.rpcCallSimulate(
@@ -1322,9 +1329,12 @@ class CommonTransferFragment : BaseTxFragment() {
                         val gasLimit = if (gas == 0L) {
                             (fromChain.getInitGasLimit()
                                 .toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
+                        } else if (fromChain is ChainGnoTestnet) {
+                            gas.toDouble().toLong().toBigDecimal()
                         } else {
                             (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         }
+
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                 it.denom == fee.getAmount(
@@ -1351,9 +1361,8 @@ class CommonTransferFragment : BaseTxFragment() {
                                 }
                             val gasRate = selectedFeeData?.gasRate
                             val feeCoinAmount = if (fromChain is ChainGnoTestnet) {
-                                gasRate?.multiply(gasLimit)
-                                    ?.multiply(simulatedGasAdjustment().toBigDecimal())
-                                    ?.setScale(0, RoundingMode.UP)
+                                gasLimit.multiply(gnoGasRate[selectedFeePosition].toBigDecimal())
+                                    .movePointLeft(3).setScale(0, RoundingMode.UP)
                             } else {
                                 gasRate?.multiply(gasLimit)?.setScale(0, RoundingMode.UP)
                             }

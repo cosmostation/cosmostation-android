@@ -209,10 +209,12 @@ class ApplicationViewModel(
                     token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
-            chain.gnoRpcFetcher?.grc20Tokens =
-                BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
-                    token.clone()
-                }?.toMutableList() ?: mutableListOf()
+            if (chain is ChainGnoTestnet) {
+                chain.gnoRpcFetcher()?.grc20Tokens =
+                    BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
+                        token.clone()
+                    }?.toMutableList() ?: mutableListOf()
+            }
 
             if (chain is ChainSolana) {
                 chain.solanaFetcher()?.splTokens =
@@ -1477,7 +1479,8 @@ class ApplicationViewModel(
                                         )
                                     } else {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(getStakeAssetDenom())
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(getStakeAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                     }
