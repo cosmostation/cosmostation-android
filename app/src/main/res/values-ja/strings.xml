@@ -381,6 +381,7 @@
     <string name="str_book_edit_msg">保存されたアドレスを変更します。</string>
     <string name="str_book_delete_msg">登録されたアドレスをリストから削除します。</string>
     <string name="str_book_delete_msg2">このアドレスを削除しようとしています。削除すると、 最初から再登録する必要があります。</string>
+    <string name="str_solana_expected_msg">残高の変動は推定値です。\n関連する金額および資産は保証されません。</string>
 
 
     <string name="error_network_error">Network connection problem.</string>

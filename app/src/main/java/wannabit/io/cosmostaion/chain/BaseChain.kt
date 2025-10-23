@@ -573,13 +573,6 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun simulatedGasAdjustment(): Double {
-        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
-            ?.get("simulated_gas_adjustment")?.asDouble ?: run {
-            1.6
-        }
-    }
-
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -913,7 +906,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainShentu())
     chains.add(ChainShidoEvm())
     chains.add(ChainSommelier())
-    chains.add(ChainSolana())
+//    chains.add(ChainSolana())
     chains.add(ChainSomnia())
     chains.add(ChainSonic())
     chains.add(ChainSource())

@@ -495,6 +495,7 @@
     <string name="str_book_delete_msg">Discard the registered address from list.</string>
     <string name="str_book_delete_msg2">You\'re about to delete this address. Once deleted,\nyou will need to register it again from the beginning.</string>
     <string name="str_address_book_msg" translatable="false">You can add new addresses\nin the Settings screen</string>
+    <string name="str_solana_expected_msg">Balance changes are estimates.\nThe associated amounts and assets are not guaranteed.</string>
 
 
     // header

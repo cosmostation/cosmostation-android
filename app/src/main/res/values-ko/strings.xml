@@ -378,6 +378,7 @@
     <string name="str_book_edit_msg">저장된 주소를 변경합니다.</string>
     <string name="str_book_delete_msg">등록된 주소를 목록에서 삭제합니다.</string>
     <string name="str_book_delete_msg2">이 주소를 삭제하려고 합니다. 삭제하면 처음부터 다시 등록해야 합니다.</string>
+    <string name="str_solana_expected_msg">잔액 변동은 추정치입니다.\n관련 금액과 자산은 보장되지 않습니다.</string>
 
 
     // error

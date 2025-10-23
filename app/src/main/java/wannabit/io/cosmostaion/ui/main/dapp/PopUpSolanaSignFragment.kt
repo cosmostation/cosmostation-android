@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.common.setTokenImg
 import wannabit.io.cosmostaion.databinding.FragmentSolanaSignBinding
 import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 class PopUpSolanaSignFragment(
@@ -200,7 +201,6 @@ class PopUpSolanaSignFragment(
 
                                 dataResult += fetcher.signTransaction(SolanaJs, serializedTx)
                                     ?: ""
-                                allData = dataResult
 
                                 if (!accounts.isNullOrEmpty()) {
                                     val typeToken = object : TypeToken<List<String>>() {}.type
@@ -229,21 +229,11 @@ class PopUpSolanaSignFragment(
                                     }
                                 }
                             }
+                            allData = dataResult
 
                             withContext(Dispatchers.Main) {
                                 binding.apply {
-                                    if (totalExpectedSolAmount == 0.0) {
-                                        btnConfirm.isEnabled = true
-                                        loading.visibility = View.GONE
-                                        signView.visibility = View.VISIBLE
-                                        feeView.visibility = View.VISIBLE
-                                        swapSignView.visibility = View.GONE
-                                        changeView.visibility = View.GONE
-
-                                        signData.text = viewData
-                                        initFeeView(totalFee, false)
-
-                                    } else {
+                                    if (totalExpectedSolAmount.toBigDecimal().abs() > BigDecimal.ZERO) {
                                         btnConfirm.isEnabled = true
                                         loading.visibility = View.GONE
                                         signView.visibility = View.GONE
@@ -254,9 +244,19 @@ class PopUpSolanaSignFragment(
                                         swapSignData.text = viewData
                                         initChangedSolView(totalExpectedSolAmount.toString())
                                         initFeeView(totalFee, true)
+
+                                    } else {
+                                        btnConfirm.isEnabled = true
+                                        loading.visibility = View.GONE
+                                        signView.visibility = View.VISIBLE
+                                        feeView.visibility = View.VISIBLE
+                                        swapSignView.visibility = View.GONE
+                                        changeView.visibility = View.GONE
+
+                                        signData.text = viewData
+                                        initFeeView(totalFee, false)
                                     }
                                 }
-
                             }
                         }
 

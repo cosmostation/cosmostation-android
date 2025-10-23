@@ -874,7 +874,7 @@ object Signer {
     fun signRpcSendSimulateTx(
         msgSend: BankProto.MsgSend, fee: Fee?, memo: String
     ): Tx {
-        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
+        val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
         val builder = Tx.newBuilder()
         gnoSendMsg(msgSend).forEach { msgAny ->
