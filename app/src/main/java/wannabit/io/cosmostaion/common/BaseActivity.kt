@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ open class BaseActivity : AppCompatActivity() {
         val win = window ?: return
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             try {
-                win.setDecorFitsSystemWindows(false)
+                WindowCompat.setDecorFitsSystemWindows(win, false)
                 win.insetsController?.let { controller ->
                     controller.systemBarsBehavior =
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE

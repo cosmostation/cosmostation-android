@@ -154,7 +154,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
-import wannabit.io.cosmostaion.chain.evmClass.ChainRouterchainEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainSeiEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShardeum
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
@@ -178,6 +177,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
@@ -572,13 +572,6 @@ open class BaseChain : Parcelable {
         }
     }
 
-    fun simulatedGasAdjustment(): Double {
-        return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
-            ?.get("simulated_gas_adjustment")?.asDouble ?: run {
-            1.6
-        }
-    }
-
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -899,7 +892,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
     chains.add(ChainRizon())
-    chains.add(ChainRouterchainEvm())
     chains.add(ChainSaga())
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())

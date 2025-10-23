@@ -60,10 +60,30 @@ public final class VmProto {
 
     /**
      * <pre>
+     * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    java.lang.String getMaxDeposit();
+    /**
+     * <pre>
+     * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    com.google.protobuf.ByteString
+        getMaxDepositBytes();
+
+    /**
+     * <pre>
      * the gno package path
      * </pre>
      *
-     * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+     * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
      * @return The pkgPath.
      */
     java.lang.String getPkgPath();
@@ -72,7 +92,7 @@ public final class VmProto {
      * the gno package path
      * </pre>
      *
-     * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+     * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
      * @return The bytes for pkgPath.
      */
     com.google.protobuf.ByteString
@@ -83,7 +103,7 @@ public final class VmProto {
      * the function name being invoked
      * </pre>
      *
-     * <code>string func = 4 [json_name = "func"];</code>
+     * <code>string func = 5 [json_name = "func"];</code>
      * @return The func.
      */
     java.lang.String getFunc();
@@ -92,7 +112,7 @@ public final class VmProto {
      * the function name being invoked
      * </pre>
      *
-     * <code>string func = 4 [json_name = "func"];</code>
+     * <code>string func = 5 [json_name = "func"];</code>
      * @return The bytes for func.
      */
     com.google.protobuf.ByteString
@@ -103,7 +123,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @return A list containing the args.
      */
     java.util.List<java.lang.String>
@@ -113,7 +133,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @return The count of args.
      */
     int getArgsCount();
@@ -122,7 +142,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @param index The index of the element to return.
      * @return The args at the given index.
      */
@@ -132,7 +152,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @param index The index of the value to return.
      * @return The bytes of the args at the given index.
      */
@@ -159,6 +179,7 @@ public final class VmProto {
     private MsgCall() {
       caller_ = "";
       send_ = "";
+      maxDeposit_ = "";
       pkgPath_ = "";
       func_ = "";
       args_ =
@@ -279,7 +300,54 @@ public final class VmProto {
       }
     }
 
-    public static final int PKG_PATH_FIELD_NUMBER = 3;
+    public static final int MAX_DEPOSIT_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object maxDeposit_ = "";
+    /**
+     * <pre>
+     * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    @java.lang.Override
+    public java.lang.String getMaxDeposit() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        maxDeposit_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMaxDepositBytes() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        maxDeposit_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PKG_PATH_FIELD_NUMBER = 4;
     @SuppressWarnings("serial")
     private volatile java.lang.Object pkgPath_ = "";
     /**
@@ -287,7 +355,7 @@ public final class VmProto {
      * the gno package path
      * </pre>
      *
-     * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+     * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
      * @return The pkgPath.
      */
     @java.lang.Override
@@ -308,7 +376,7 @@ public final class VmProto {
      * the gno package path
      * </pre>
      *
-     * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+     * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
      * @return The bytes for pkgPath.
      */
     @java.lang.Override
@@ -326,7 +394,7 @@ public final class VmProto {
       }
     }
 
-    public static final int FUNC_FIELD_NUMBER = 4;
+    public static final int FUNC_FIELD_NUMBER = 5;
     @SuppressWarnings("serial")
     private volatile java.lang.Object func_ = "";
     /**
@@ -334,7 +402,7 @@ public final class VmProto {
      * the function name being invoked
      * </pre>
      *
-     * <code>string func = 4 [json_name = "func"];</code>
+     * <code>string func = 5 [json_name = "func"];</code>
      * @return The func.
      */
     @java.lang.Override
@@ -355,7 +423,7 @@ public final class VmProto {
      * the function name being invoked
      * </pre>
      *
-     * <code>string func = 4 [json_name = "func"];</code>
+     * <code>string func = 5 [json_name = "func"];</code>
      * @return The bytes for func.
      */
     @java.lang.Override
@@ -373,7 +441,7 @@ public final class VmProto {
       }
     }
 
-    public static final int ARGS_FIELD_NUMBER = 5;
+    public static final int ARGS_FIELD_NUMBER = 6;
     @SuppressWarnings("serial")
     private com.google.protobuf.LazyStringArrayList args_ =
         com.google.protobuf.LazyStringArrayList.emptyList();
@@ -382,7 +450,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @return A list containing the args.
      */
     public com.google.protobuf.ProtocolStringList
@@ -394,7 +462,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @return The count of args.
      */
     public int getArgsCount() {
@@ -405,7 +473,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @param index The index of the element to return.
      * @return The args at the given index.
      */
@@ -417,7 +485,7 @@ public final class VmProto {
      * the function arguments
      * </pre>
      *
-     * <code>repeated string args = 5 [json_name = "args"];</code>
+     * <code>repeated string args = 6 [json_name = "args"];</code>
      * @param index The index of the value to return.
      * @return The bytes of the args at the given index.
      */
@@ -446,14 +514,17 @@ public final class VmProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, send_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, maxDeposit_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pkgPath_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, pkgPath_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, pkgPath_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(func_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, func_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, func_);
       }
       for (int i = 0; i < args_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, args_.getRaw(i));
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, args_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -470,11 +541,14 @@ public final class VmProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, send_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, maxDeposit_);
+      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(pkgPath_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, pkgPath_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, pkgPath_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(func_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, func_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, func_);
       }
       {
         int dataSize = 0;
@@ -503,6 +577,8 @@ public final class VmProto {
           .equals(other.getCaller())) return false;
       if (!getSend()
           .equals(other.getSend())) return false;
+      if (!getMaxDeposit()
+          .equals(other.getMaxDeposit())) return false;
       if (!getPkgPath()
           .equals(other.getPkgPath())) return false;
       if (!getFunc()
@@ -524,6 +600,8 @@ public final class VmProto {
       hash = (53 * hash) + getCaller().hashCode();
       hash = (37 * hash) + SEND_FIELD_NUMBER;
       hash = (53 * hash) + getSend().hashCode();
+      hash = (37 * hash) + MAX_DEPOSIT_FIELD_NUMBER;
+      hash = (53 * hash) + getMaxDeposit().hashCode();
       hash = (37 * hash) + PKG_PATH_FIELD_NUMBER;
       hash = (53 * hash) + getPkgPath().hashCode();
       hash = (37 * hash) + FUNC_FIELD_NUMBER;
@@ -670,6 +748,7 @@ public final class VmProto {
         bitField0_ = 0;
         caller_ = "";
         send_ = "";
+        maxDeposit_ = "";
         pkgPath_ = "";
         func_ = "";
         args_ =
@@ -714,12 +793,15 @@ public final class VmProto {
           result.send_ = send_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.pkgPath_ = pkgPath_;
+          result.maxDeposit_ = maxDeposit_;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.func_ = func_;
+          result.pkgPath_ = pkgPath_;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.func_ = func_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           args_.makeImmutable();
           result.args_ = args_;
         }
@@ -779,20 +861,25 @@ public final class VmProto {
           bitField0_ |= 0x00000002;
           onChanged();
         }
+        if (!other.getMaxDeposit().isEmpty()) {
+          maxDeposit_ = other.maxDeposit_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
         if (!other.getPkgPath().isEmpty()) {
           pkgPath_ = other.pkgPath_;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         if (!other.getFunc().isEmpty()) {
           func_ = other.func_;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           onChanged();
         }
         if (!other.args_.isEmpty()) {
           if (args_.isEmpty()) {
             args_ = other.args_;
-            bitField0_ |= 0x00000010;
+            bitField0_ |= 0x00000020;
           } else {
             ensureArgsIsMutable();
             args_.addAll(other.args_);
@@ -836,21 +923,26 @@ public final class VmProto {
                 break;
               } // case 18
               case 26: {
-                pkgPath_ = input.readStringRequireUtf8();
+                maxDeposit_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
               case 34: {
-                func_ = input.readStringRequireUtf8();
+                pkgPath_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
               case 42: {
+                func_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+              case 50: {
                 java.lang.String s = input.readStringRequireUtf8();
                 ensureArgsIsMutable();
                 args_.add(s);
                 break;
-              } // case 42
+              } // case 50
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1052,13 +1144,105 @@ public final class VmProto {
         return this;
       }
 
+      private java.lang.Object maxDeposit_ = "";
+      /**
+       * <pre>
+       * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return The maxDeposit.
+       */
+      public java.lang.String getMaxDeposit() {
+        java.lang.Object ref = maxDeposit_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          maxDeposit_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return The bytes for maxDeposit.
+       */
+      public com.google.protobuf.ByteString
+          getMaxDepositBytes() {
+        java.lang.Object ref = maxDeposit_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          maxDeposit_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @param value The maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDeposit(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxDeposit() {
+        maxDeposit_ = getDefaultInstance().getMaxDeposit();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to lock for the storage, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @param value The bytes for maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDepositBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object pkgPath_ = "";
       /**
        * <pre>
        * the gno package path
        * </pre>
        *
-       * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+       * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
        * @return The pkgPath.
        */
       public java.lang.String getPkgPath() {
@@ -1078,7 +1262,7 @@ public final class VmProto {
        * the gno package path
        * </pre>
        *
-       * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+       * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
        * @return The bytes for pkgPath.
        */
       public com.google.protobuf.ByteString
@@ -1099,7 +1283,7 @@ public final class VmProto {
        * the gno package path
        * </pre>
        *
-       * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+       * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
        * @param value The pkgPath to set.
        * @return This builder for chaining.
        */
@@ -1107,7 +1291,7 @@ public final class VmProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         pkgPath_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -1116,12 +1300,12 @@ public final class VmProto {
        * the gno package path
        * </pre>
        *
-       * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+       * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
        * @return This builder for chaining.
        */
       public Builder clearPkgPath() {
         pkgPath_ = getDefaultInstance().getPkgPath();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
@@ -1130,7 +1314,7 @@ public final class VmProto {
        * the gno package path
        * </pre>
        *
-       * <code>string pkg_path = 3 [json_name = "pkgPath"];</code>
+       * <code>string pkg_path = 4 [json_name = "pkgPath"];</code>
        * @param value The bytes for pkgPath to set.
        * @return This builder for chaining.
        */
@@ -1139,7 +1323,7 @@ public final class VmProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         pkgPath_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -1150,7 +1334,7 @@ public final class VmProto {
        * the function name being invoked
        * </pre>
        *
-       * <code>string func = 4 [json_name = "func"];</code>
+       * <code>string func = 5 [json_name = "func"];</code>
        * @return The func.
        */
       public java.lang.String getFunc() {
@@ -1170,7 +1354,7 @@ public final class VmProto {
        * the function name being invoked
        * </pre>
        *
-       * <code>string func = 4 [json_name = "func"];</code>
+       * <code>string func = 5 [json_name = "func"];</code>
        * @return The bytes for func.
        */
       public com.google.protobuf.ByteString
@@ -1191,7 +1375,7 @@ public final class VmProto {
        * the function name being invoked
        * </pre>
        *
-       * <code>string func = 4 [json_name = "func"];</code>
+       * <code>string func = 5 [json_name = "func"];</code>
        * @param value The func to set.
        * @return This builder for chaining.
        */
@@ -1199,7 +1383,7 @@ public final class VmProto {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         func_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1208,12 +1392,12 @@ public final class VmProto {
        * the function name being invoked
        * </pre>
        *
-       * <code>string func = 4 [json_name = "func"];</code>
+       * <code>string func = 5 [json_name = "func"];</code>
        * @return This builder for chaining.
        */
       public Builder clearFunc() {
         func_ = getDefaultInstance().getFunc();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
@@ -1222,7 +1406,7 @@ public final class VmProto {
        * the function name being invoked
        * </pre>
        *
-       * <code>string func = 4 [json_name = "func"];</code>
+       * <code>string func = 5 [json_name = "func"];</code>
        * @param value The bytes for func to set.
        * @return This builder for chaining.
        */
@@ -1231,7 +1415,7 @@ public final class VmProto {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         func_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -1242,14 +1426,14 @@ public final class VmProto {
         if (!args_.isModifiable()) {
           args_ = new com.google.protobuf.LazyStringArrayList(args_);
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
       }
       /**
        * <pre>
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @return A list containing the args.
        */
       public com.google.protobuf.ProtocolStringList
@@ -1262,7 +1446,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @return The count of args.
        */
       public int getArgsCount() {
@@ -1273,7 +1457,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param index The index of the element to return.
        * @return The args at the given index.
        */
@@ -1285,7 +1469,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param index The index of the value to return.
        * @return The bytes of the args at the given index.
        */
@@ -1298,7 +1482,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param index The index to set the value at.
        * @param value The args to set.
        * @return This builder for chaining.
@@ -1308,7 +1492,7 @@ public final class VmProto {
         if (value == null) { throw new NullPointerException(); }
         ensureArgsIsMutable();
         args_.set(index, value);
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1317,7 +1501,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param value The args to add.
        * @return This builder for chaining.
        */
@@ -1326,7 +1510,7 @@ public final class VmProto {
         if (value == null) { throw new NullPointerException(); }
         ensureArgsIsMutable();
         args_.add(value);
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1335,7 +1519,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param values The args to add.
        * @return This builder for chaining.
        */
@@ -1344,7 +1528,7 @@ public final class VmProto {
         ensureArgsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
             values, args_);
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1353,13 +1537,13 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @return This builder for chaining.
        */
       public Builder clearArgs() {
         args_ =
           com.google.protobuf.LazyStringArrayList.emptyList();
-        bitField0_ = (bitField0_ & ~0x00000010);;
+        bitField0_ = (bitField0_ & ~0x00000020);;
         onChanged();
         return this;
       }
@@ -1368,7 +1552,7 @@ public final class VmProto {
        * the function arguments
        * </pre>
        *
-       * <code>repeated string args = 5 [json_name = "args"];</code>
+       * <code>repeated string args = 6 [json_name = "args"];</code>
        * @param value The bytes of the args to add.
        * @return This builder for chaining.
        */
@@ -1378,7 +1562,7 @@ public final class VmProto {
         checkByteStringIsUtf8(value);
         ensureArgsIsMutable();
         args_.add(value);
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -1502,20 +1686,40 @@ public final class VmProto {
      * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
      * </pre>
      *
-     * <code>string deposit = 3 [json_name = "deposit"];</code>
-     * @return The deposit.
+     * <code>string send = 3 [json_name = "send"];</code>
+     * @return The send.
      */
-    java.lang.String getDeposit();
+    java.lang.String getSend();
     /**
      * <pre>
      * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
      * </pre>
      *
-     * <code>string deposit = 3 [json_name = "deposit"];</code>
-     * @return The bytes for deposit.
+     * <code>string send = 3 [json_name = "send"];</code>
+     * @return The bytes for send.
      */
     com.google.protobuf.ByteString
-        getDepositBytes();
+        getSendBytes();
+
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    java.lang.String getMaxDeposit();
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    com.google.protobuf.ByteString
+        getMaxDepositBytes();
   }
   /**
    * <pre>
@@ -1536,7 +1740,8 @@ public final class VmProto {
     }
     private MsgAddPackage() {
       creator_ = "";
-      deposit_ = "";
+      send_ = "";
+      maxDeposit_ = "";
     }
 
     @java.lang.Override
@@ -1644,27 +1849,27 @@ public final class VmProto {
       return package_ == null ? com.gno.vm.VmProto.MemPackage.getDefaultInstance() : package_;
     }
 
-    public static final int DEPOSIT_FIELD_NUMBER = 3;
+    public static final int SEND_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object deposit_ = "";
+    private volatile java.lang.Object send_ = "";
     /**
      * <pre>
      * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
      * </pre>
      *
-     * <code>string deposit = 3 [json_name = "deposit"];</code>
-     * @return The deposit.
+     * <code>string send = 3 [json_name = "send"];</code>
+     * @return The send.
      */
     @java.lang.Override
-    public java.lang.String getDeposit() {
-      java.lang.Object ref = deposit_;
+    public java.lang.String getSend() {
+      java.lang.Object ref = send_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        deposit_ = s;
+        send_ = s;
         return s;
       }
     }
@@ -1673,18 +1878,65 @@ public final class VmProto {
      * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
      * </pre>
      *
-     * <code>string deposit = 3 [json_name = "deposit"];</code>
-     * @return The bytes for deposit.
+     * <code>string send = 3 [json_name = "send"];</code>
+     * @return The bytes for send.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getDepositBytes() {
-      java.lang.Object ref = deposit_;
+        getSendBytes() {
+      java.lang.Object ref = send_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        deposit_ = b;
+        send_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MAX_DEPOSIT_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object maxDeposit_ = "";
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    @java.lang.Override
+    public java.lang.String getMaxDeposit() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        maxDeposit_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMaxDepositBytes() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        maxDeposit_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1711,8 +1963,11 @@ public final class VmProto {
       if (package_ != null) {
         output.writeMessage(2, getPackage());
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deposit_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, deposit_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, send_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, maxDeposit_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1730,8 +1985,11 @@ public final class VmProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getPackage());
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(deposit_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, deposit_);
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, send_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, maxDeposit_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1755,8 +2013,10 @@ public final class VmProto {
         if (!getPackage()
             .equals(other.getPackage())) return false;
       }
-      if (!getDeposit()
-          .equals(other.getDeposit())) return false;
+      if (!getSend()
+          .equals(other.getSend())) return false;
+      if (!getMaxDeposit()
+          .equals(other.getMaxDeposit())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1774,8 +2034,10 @@ public final class VmProto {
         hash = (37 * hash) + PACKAGE_FIELD_NUMBER;
         hash = (53 * hash) + getPackage().hashCode();
       }
-      hash = (37 * hash) + DEPOSIT_FIELD_NUMBER;
-      hash = (53 * hash) + getDeposit().hashCode();
+      hash = (37 * hash) + SEND_FIELD_NUMBER;
+      hash = (53 * hash) + getSend().hashCode();
+      hash = (37 * hash) + MAX_DEPOSIT_FIELD_NUMBER;
+      hash = (53 * hash) + getMaxDeposit().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1918,7 +2180,8 @@ public final class VmProto {
           packageBuilder_.dispose();
           packageBuilder_ = null;
         }
-        deposit_ = "";
+        send_ = "";
+        maxDeposit_ = "";
         return this;
       }
 
@@ -1961,7 +2224,10 @@ public final class VmProto {
               : packageBuilder_.build();
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
-          result.deposit_ = deposit_;
+          result.send_ = send_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.maxDeposit_ = maxDeposit_;
         }
       }
 
@@ -2017,9 +2283,14 @@ public final class VmProto {
         if (other.hasPackage()) {
           mergePackage(other.getPackage());
         }
-        if (!other.getDeposit().isEmpty()) {
-          deposit_ = other.deposit_;
+        if (!other.getSend().isEmpty()) {
+          send_ = other.send_;
           bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getMaxDeposit().isEmpty()) {
+          maxDeposit_ = other.maxDeposit_;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2061,10 +2332,15 @@ public final class VmProto {
                 break;
               } // case 18
               case 26: {
-                deposit_ = input.readStringRequireUtf8();
+                send_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                maxDeposit_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2329,22 +2605,22 @@ public final class VmProto {
         return packageBuilder_;
       }
 
-      private java.lang.Object deposit_ = "";
+      private java.lang.Object send_ = "";
       /**
        * <pre>
        * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
        * </pre>
        *
-       * <code>string deposit = 3 [json_name = "deposit"];</code>
-       * @return The deposit.
+       * <code>string send = 3 [json_name = "send"];</code>
+       * @return The send.
        */
-      public java.lang.String getDeposit() {
-        java.lang.Object ref = deposit_;
+      public java.lang.String getSend() {
+        java.lang.Object ref = send_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          deposit_ = s;
+          send_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2355,17 +2631,17 @@ public final class VmProto {
        * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
        * </pre>
        *
-       * <code>string deposit = 3 [json_name = "deposit"];</code>
-       * @return The bytes for deposit.
+       * <code>string send = 3 [json_name = "send"];</code>
+       * @return The bytes for send.
        */
       public com.google.protobuf.ByteString
-          getDepositBytes() {
-        java.lang.Object ref = deposit_;
+          getSendBytes() {
+        java.lang.Object ref = send_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          deposit_ = b;
+          send_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -2376,14 +2652,14 @@ public final class VmProto {
        * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
        * </pre>
        *
-       * <code>string deposit = 3 [json_name = "deposit"];</code>
-       * @param value The deposit to set.
+       * <code>string send = 3 [json_name = "send"];</code>
+       * @param value The send to set.
        * @return This builder for chaining.
        */
-      public Builder setDeposit(
+      public Builder setSend(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        deposit_ = value;
+        send_ = value;
         bitField0_ |= 0x00000004;
         onChanged();
         return this;
@@ -2393,11 +2669,11 @@ public final class VmProto {
        * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
        * </pre>
        *
-       * <code>string deposit = 3 [json_name = "deposit"];</code>
+       * <code>string send = 3 [json_name = "send"];</code>
        * @return This builder for chaining.
        */
-      public Builder clearDeposit() {
-        deposit_ = getDefaultInstance().getDeposit();
+      public Builder clearSend() {
+        send_ = getDefaultInstance().getSend();
         bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
@@ -2407,16 +2683,108 @@ public final class VmProto {
        * the amount of funds to be deposited at deployment, if any ("&lt;amount&gt;&lt;denomination&gt;")
        * </pre>
        *
-       * <code>string deposit = 3 [json_name = "deposit"];</code>
-       * @param value The bytes for deposit to set.
+       * <code>string send = 3 [json_name = "send"];</code>
+       * @param value The bytes for send to set.
        * @return This builder for chaining.
        */
-      public Builder setDepositBytes(
+      public Builder setSendBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        deposit_ = value;
+        send_ = value;
         bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object maxDeposit_ = "";
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+       * @return The maxDeposit.
+       */
+      public java.lang.String getMaxDeposit() {
+        java.lang.Object ref = maxDeposit_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          maxDeposit_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+       * @return The bytes for maxDeposit.
+       */
+      public com.google.protobuf.ByteString
+          getMaxDepositBytes() {
+        java.lang.Object ref = maxDeposit_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          maxDeposit_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+       * @param value The maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDeposit(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxDeposit() {
+        maxDeposit_ = getDefaultInstance().getMaxDeposit();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 4 [json_name = "maxDeposit"];</code>
+       * @param value The bytes for maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDepositBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -2530,10 +2898,30 @@ public final class VmProto {
 
     /**
      * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    java.lang.String getMaxDeposit();
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    com.google.protobuf.ByteString
+        getMaxDepositBytes();
+
+    /**
+     * <pre>
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      * @return Whether the package field is set.
      */
     boolean hasPackage();
@@ -2542,7 +2930,7 @@ public final class VmProto {
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      * @return The package.
      */
     com.gno.vm.VmProto.MemPackage getPackage();
@@ -2551,7 +2939,7 @@ public final class VmProto {
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      */
     com.gno.vm.VmProto.MemPackageOrBuilder getPackageOrBuilder();
   }
@@ -2575,6 +2963,7 @@ public final class VmProto {
     private MsgRun() {
       caller_ = "";
       send_ = "";
+      maxDeposit_ = "";
     }
 
     @java.lang.Override
@@ -2691,14 +3080,61 @@ public final class VmProto {
       }
     }
 
-    public static final int PACKAGE_FIELD_NUMBER = 3;
+    public static final int MAX_DEPOSIT_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object maxDeposit_ = "";
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The maxDeposit.
+     */
+    @java.lang.Override
+    public java.lang.String getMaxDeposit() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        maxDeposit_ = s;
+        return s;
+      }
+    }
+    /**
+     * <pre>
+     * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+     * </pre>
+     *
+     * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+     * @return The bytes for maxDeposit.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getMaxDepositBytes() {
+      java.lang.Object ref = maxDeposit_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        maxDeposit_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PACKAGE_FIELD_NUMBER = 4;
     private com.gno.vm.VmProto.MemPackage package_;
     /**
      * <pre>
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      * @return Whether the package field is set.
      */
     @java.lang.Override
@@ -2710,7 +3146,7 @@ public final class VmProto {
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      * @return The package.
      */
     @java.lang.Override
@@ -2722,7 +3158,7 @@ public final class VmProto {
      * the package being executed
      * </pre>
      *
-     * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+     * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
      */
     @java.lang.Override
     public com.gno.vm.VmProto.MemPackageOrBuilder getPackageOrBuilder() {
@@ -2749,8 +3185,11 @@ public final class VmProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, send_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, maxDeposit_);
+      }
       if (package_ != null) {
-        output.writeMessage(3, getPackage());
+        output.writeMessage(4, getPackage());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2767,9 +3206,12 @@ public final class VmProto {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(send_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, send_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(maxDeposit_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, maxDeposit_);
+      }
       if (package_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, getPackage());
+          .computeMessageSize(4, getPackage());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -2790,6 +3232,8 @@ public final class VmProto {
           .equals(other.getCaller())) return false;
       if (!getSend()
           .equals(other.getSend())) return false;
+      if (!getMaxDeposit()
+          .equals(other.getMaxDeposit())) return false;
       if (hasPackage() != other.hasPackage()) return false;
       if (hasPackage()) {
         if (!getPackage()
@@ -2810,6 +3254,8 @@ public final class VmProto {
       hash = (53 * hash) + getCaller().hashCode();
       hash = (37 * hash) + SEND_FIELD_NUMBER;
       hash = (53 * hash) + getSend().hashCode();
+      hash = (37 * hash) + MAX_DEPOSIT_FIELD_NUMBER;
+      hash = (53 * hash) + getMaxDeposit().hashCode();
       if (hasPackage()) {
         hash = (37 * hash) + PACKAGE_FIELD_NUMBER;
         hash = (53 * hash) + getPackage().hashCode();
@@ -2952,6 +3398,7 @@ public final class VmProto {
         bitField0_ = 0;
         caller_ = "";
         send_ = "";
+        maxDeposit_ = "";
         package_ = null;
         if (packageBuilder_ != null) {
           packageBuilder_.dispose();
@@ -2997,6 +3444,9 @@ public final class VmProto {
           result.send_ = send_;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.maxDeposit_ = maxDeposit_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.package_ = packageBuilder_ == null
               ? package_
               : packageBuilder_.build();
@@ -3057,6 +3507,11 @@ public final class VmProto {
           bitField0_ |= 0x00000002;
           onChanged();
         }
+        if (!other.getMaxDeposit().isEmpty()) {
+          maxDeposit_ = other.maxDeposit_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
         if (other.hasPackage()) {
           mergePackage(other.getPackage());
         }
@@ -3097,12 +3552,17 @@ public final class VmProto {
                 break;
               } // case 18
               case 26: {
-                input.readMessage(
-                    getPackageFieldBuilder().getBuilder(),
-                    extensionRegistry);
+                maxDeposit_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    getPackageFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3304,6 +3764,98 @@ public final class VmProto {
         return this;
       }
 
+      private java.lang.Object maxDeposit_ = "";
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return The maxDeposit.
+       */
+      public java.lang.String getMaxDeposit() {
+        java.lang.Object ref = maxDeposit_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          maxDeposit_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return The bytes for maxDeposit.
+       */
+      public com.google.protobuf.ByteString
+          getMaxDepositBytes() {
+        java.lang.Object ref = maxDeposit_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          maxDeposit_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @param value The maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDeposit(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearMaxDeposit() {
+        maxDeposit_ = getDefaultInstance().getMaxDeposit();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the amount of funds to put down for the storage fee, if any ("&lt;amount&gt;&lt;denomination&gt;")
+       * </pre>
+       *
+       * <code>string max_deposit = 3 [json_name = "maxDeposit"];</code>
+       * @param value The bytes for maxDeposit to set.
+       * @return This builder for chaining.
+       */
+      public Builder setMaxDepositBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        maxDeposit_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
       private com.gno.vm.VmProto.MemPackage package_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.gno.vm.VmProto.MemPackage, com.gno.vm.VmProto.MemPackage.Builder, com.gno.vm.VmProto.MemPackageOrBuilder> packageBuilder_;
@@ -3312,18 +3864,18 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        * @return Whether the package field is set.
        */
       public boolean hasPackage() {
-        return ((bitField0_ & 0x00000004) != 0);
+        return ((bitField0_ & 0x00000008) != 0);
       }
       /**
        * <pre>
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        * @return The package.
        */
       public com.gno.vm.VmProto.MemPackage getPackage() {
@@ -3338,7 +3890,7 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public Builder setPackage(com.gno.vm.VmProto.MemPackage value) {
         if (packageBuilder_ == null) {
@@ -3349,7 +3901,7 @@ public final class VmProto {
         } else {
           packageBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -3358,7 +3910,7 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public Builder setPackage(
           com.gno.vm.VmProto.MemPackage.Builder builderForValue) {
@@ -3367,7 +3919,7 @@ public final class VmProto {
         } else {
           packageBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -3376,11 +3928,11 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public Builder mergePackage(com.gno.vm.VmProto.MemPackage value) {
         if (packageBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0) &&
+          if (((bitField0_ & 0x00000008) != 0) &&
             package_ != null &&
             package_ != com.gno.vm.VmProto.MemPackage.getDefaultInstance()) {
             getPackageBuilder().mergeFrom(value);
@@ -3390,7 +3942,7 @@ public final class VmProto {
         } else {
           packageBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -3399,10 +3951,10 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public Builder clearPackage() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         package_ = null;
         if (packageBuilder_ != null) {
           packageBuilder_.dispose();
@@ -3416,10 +3968,10 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public com.gno.vm.VmProto.MemPackage.Builder getPackageBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getPackageFieldBuilder().getBuilder();
       }
@@ -3428,7 +3980,7 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       public com.gno.vm.VmProto.MemPackageOrBuilder getPackageOrBuilder() {
         if (packageBuilder_ != null) {
@@ -3443,7 +3995,7 @@ public final class VmProto {
        * the package being executed
        * </pre>
        *
-       * <code>.gno.vm.MemPackage package = 3 [json_name = "package"];</code>
+       * <code>.gno.vm.MemPackage package = 4 [json_name = "package"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.gno.vm.VmProto.MemPackage, com.gno.vm.VmProto.MemPackage.Builder, com.gno.vm.VmProto.MemPackageOrBuilder> 
@@ -3609,6 +4161,60 @@ public final class VmProto {
      */
     com.gno.vm.VmProto.MemFileOrBuilder getFilesOrBuilder(
         int index);
+
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     * @return Whether the type field is set.
+     */
+    boolean hasType();
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     * @return The type.
+     */
+    com.google.protobuf.Any getType();
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     */
+    com.google.protobuf.AnyOrBuilder getTypeOrBuilder();
+
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     * @return Whether the info field is set.
+     */
+    boolean hasInfo();
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     * @return The info.
+     */
+    com.google.protobuf.Any getInfo();
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     */
+    com.google.protobuf.AnyOrBuilder getInfoOrBuilder();
   }
   /**
    * <pre>
@@ -3808,6 +4414,82 @@ public final class VmProto {
       return files_.get(index);
     }
 
+    public static final int TYPE_FIELD_NUMBER = 4;
+    private com.google.protobuf.Any type_;
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     * @return Whether the type field is set.
+     */
+    @java.lang.Override
+    public boolean hasType() {
+      return type_ != null;
+    }
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     * @return The type.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getType() {
+      return type_ == null ? com.google.protobuf.Any.getDefaultInstance() : type_;
+    }
+    /**
+     * <pre>
+     * the (user defined) package type
+     * </pre>
+     *
+     * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getTypeOrBuilder() {
+      return type_ == null ? com.google.protobuf.Any.getDefaultInstance() : type_;
+    }
+
+    public static final int INFO_FIELD_NUMBER = 5;
+    private com.google.protobuf.Any info_;
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     * @return Whether the info field is set.
+     */
+    @java.lang.Override
+    public boolean hasInfo() {
+      return info_ != null;
+    }
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     * @return The info.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Any getInfo() {
+      return info_ == null ? com.google.protobuf.Any.getDefaultInstance() : info_;
+    }
+    /**
+     * <pre>
+     * the (user defined) extra information
+     * </pre>
+     *
+     * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.AnyOrBuilder getInfoOrBuilder() {
+      return info_ == null ? com.google.protobuf.Any.getDefaultInstance() : info_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -3831,6 +4513,12 @@ public final class VmProto {
       for (int i = 0; i < files_.size(); i++) {
         output.writeMessage(3, files_.get(i));
       }
+      if (type_ != null) {
+        output.writeMessage(4, getType());
+      }
+      if (info_ != null) {
+        output.writeMessage(5, getInfo());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3849,6 +4537,14 @@ public final class VmProto {
       for (int i = 0; i < files_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, files_.get(i));
+      }
+      if (type_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, getType());
+      }
+      if (info_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getInfo());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -3871,6 +4567,16 @@ public final class VmProto {
           .equals(other.getPath())) return false;
       if (!getFilesList()
           .equals(other.getFilesList())) return false;
+      if (hasType() != other.hasType()) return false;
+      if (hasType()) {
+        if (!getType()
+            .equals(other.getType())) return false;
+      }
+      if (hasInfo() != other.hasInfo()) return false;
+      if (hasInfo()) {
+        if (!getInfo()
+            .equals(other.getInfo())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -3889,6 +4595,14 @@ public final class VmProto {
       if (getFilesCount() > 0) {
         hash = (37 * hash) + FILES_FIELD_NUMBER;
         hash = (53 * hash) + getFilesList().hashCode();
+      }
+      if (hasType()) {
+        hash = (37 * hash) + TYPE_FIELD_NUMBER;
+        hash = (53 * hash) + getType().hashCode();
+      }
+      if (hasInfo()) {
+        hash = (37 * hash) + INFO_FIELD_NUMBER;
+        hash = (53 * hash) + getInfo().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -4035,6 +4749,16 @@ public final class VmProto {
           filesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000004);
+        type_ = null;
+        if (typeBuilder_ != null) {
+          typeBuilder_.dispose();
+          typeBuilder_ = null;
+        }
+        info_ = null;
+        if (infoBuilder_ != null) {
+          infoBuilder_.dispose();
+          infoBuilder_ = null;
+        }
         return this;
       }
 
@@ -4086,6 +4810,16 @@ public final class VmProto {
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
           result.path_ = path_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.type_ = typeBuilder_ == null
+              ? type_
+              : typeBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.info_ = infoBuilder_ == null
+              ? info_
+              : infoBuilder_.build();
         }
       }
 
@@ -4169,6 +4903,12 @@ public final class VmProto {
             }
           }
         }
+        if (other.hasType()) {
+          mergeType(other.getType());
+        }
+        if (other.hasInfo()) {
+          mergeInfo(other.getInfo());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -4218,6 +4958,20 @@ public final class VmProto {
                 }
                 break;
               } // case 26
+              case 34: {
+                input.readMessage(
+                    getTypeFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 42: {
+                input.readMessage(
+                    getInfoFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -4729,6 +5483,316 @@ public final class VmProto {
           files_ = null;
         }
         return filesBuilder_;
+      }
+
+      private com.google.protobuf.Any type_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> typeBuilder_;
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       * @return Whether the type field is set.
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       * @return The type.
+       */
+      public com.google.protobuf.Any getType() {
+        if (typeBuilder_ == null) {
+          return type_ == null ? com.google.protobuf.Any.getDefaultInstance() : type_;
+        } else {
+          return typeBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public Builder setType(com.google.protobuf.Any value) {
+        if (typeBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          type_ = value;
+        } else {
+          typeBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public Builder setType(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (typeBuilder_ == null) {
+          type_ = builderForValue.build();
+        } else {
+          typeBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public Builder mergeType(com.google.protobuf.Any value) {
+        if (typeBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0) &&
+            type_ != null &&
+            type_ != com.google.protobuf.Any.getDefaultInstance()) {
+            getTypeBuilder().mergeFrom(value);
+          } else {
+            type_ = value;
+          }
+        } else {
+          typeBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        type_ = null;
+        if (typeBuilder_ != null) {
+          typeBuilder_.dispose();
+          typeBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public com.google.protobuf.Any.Builder getTypeBuilder() {
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return getTypeFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getTypeOrBuilder() {
+        if (typeBuilder_ != null) {
+          return typeBuilder_.getMessageOrBuilder();
+        } else {
+          return type_ == null ?
+              com.google.protobuf.Any.getDefaultInstance() : type_;
+        }
+      }
+      /**
+       * <pre>
+       * the (user defined) package type
+       * </pre>
+       *
+       * <code>.google.protobuf.Any type = 4 [json_name = "type"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getTypeFieldBuilder() {
+        if (typeBuilder_ == null) {
+          typeBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  getType(),
+                  getParentForChildren(),
+                  isClean());
+          type_ = null;
+        }
+        return typeBuilder_;
+      }
+
+      private com.google.protobuf.Any info_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> infoBuilder_;
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       * @return Whether the info field is set.
+       */
+      public boolean hasInfo() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       * @return The info.
+       */
+      public com.google.protobuf.Any getInfo() {
+        if (infoBuilder_ == null) {
+          return info_ == null ? com.google.protobuf.Any.getDefaultInstance() : info_;
+        } else {
+          return infoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public Builder setInfo(com.google.protobuf.Any value) {
+        if (infoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          info_ = value;
+        } else {
+          infoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public Builder setInfo(
+          com.google.protobuf.Any.Builder builderForValue) {
+        if (infoBuilder_ == null) {
+          info_ = builderForValue.build();
+        } else {
+          infoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public Builder mergeInfo(com.google.protobuf.Any value) {
+        if (infoBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            info_ != null &&
+            info_ != com.google.protobuf.Any.getDefaultInstance()) {
+            getInfoBuilder().mergeFrom(value);
+          } else {
+            info_ = value;
+          }
+        } else {
+          infoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public Builder clearInfo() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        info_ = null;
+        if (infoBuilder_ != null) {
+          infoBuilder_.dispose();
+          infoBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public com.google.protobuf.Any.Builder getInfoBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      public com.google.protobuf.AnyOrBuilder getInfoOrBuilder() {
+        if (infoBuilder_ != null) {
+          return infoBuilder_.getMessageOrBuilder();
+        } else {
+          return info_ == null ?
+              com.google.protobuf.Any.getDefaultInstance() : info_;
+        }
+      }
+      /**
+       * <pre>
+       * the (user defined) extra information
+       * </pre>
+       *
+       * <code>.google.protobuf.Any info = 5 [json_name = "info"];</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          getInfoFieldBuilder() {
+        if (infoBuilder_ == null) {
+          infoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+                  getInfo(),
+                  getParentForChildren(),
+                  isClean());
+          info_ = null;
+        }
+        return infoBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5610,56 +6674,63 @@ public final class VmProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014gno/vm.proto\022\006gno.vm\"x\n\007MsgCall\022\026\n\006cal" +
-      "ler\030\001 \001(\tR\006caller\022\022\n\004send\030\002 \001(\tR\004send\022\031\n" +
-      "\010pkg_path\030\003 \001(\tR\007pkgPath\022\022\n\004func\030\004 \001(\tR\004" +
-      "func\022\022\n\004args\030\005 \003(\tR\004args\"q\n\rMsgAddPackag" +
-      "e\022\030\n\007creator\030\001 \001(\tR\007creator\022,\n\007package\030\002" +
-      " \001(\0132\022.gno.vm.MemPackageR\007package\022\030\n\007dep" +
-      "osit\030\003 \001(\tR\007deposit\"b\n\006MsgRun\022\026\n\006caller\030" +
-      "\001 \001(\tR\006caller\022\022\n\004send\030\002 \001(\tR\004send\022,\n\007pac" +
-      "kage\030\003 \001(\0132\022.gno.vm.MemPackageR\007package\"" +
-      "[\n\nMemPackage\022\022\n\004name\030\001 \001(\tR\004name\022\022\n\004pat" +
-      "h\030\002 \001(\tR\004path\022%\n\005files\030\003 \003(\0132\017.gno.vm.Me" +
-      "mFileR\005files\"1\n\007MemFile\022\022\n\004name\030\001 \001(\tR\004n" +
-      "ame\022\022\n\004body\030\002 \001(\tR\004bodyBL\n\ncom.gno.vmB\007V" +
-      "mProto\242\002\003GVX\252\002\006Gno.Vm\312\002\006Gno\\Vm\342\002\022Gno\\Vm\\" +
-      "GPBMetadata\352\002\007Gno::Vmb\006proto3"
+      "\n\014gno/vm.proto\022\006gno.vm\032\031google/protobuf/" +
+      "any.proto\"\231\001\n\007MsgCall\022\026\n\006caller\030\001 \001(\tR\006c" +
+      "aller\022\022\n\004send\030\002 \001(\tR\004send\022\037\n\013max_deposit" +
+      "\030\003 \001(\tR\nmaxDeposit\022\031\n\010pkg_path\030\004 \001(\tR\007pk" +
+      "gPath\022\022\n\004func\030\005 \001(\tR\004func\022\022\n\004args\030\006 \003(\tR" +
+      "\004args\"\214\001\n\rMsgAddPackage\022\030\n\007creator\030\001 \001(\t" +
+      "R\007creator\022,\n\007package\030\002 \001(\0132\022.gno.vm.MemP" +
+      "ackageR\007package\022\022\n\004send\030\003 \001(\tR\004send\022\037\n\013m" +
+      "ax_deposit\030\004 \001(\tR\nmaxDeposit\"\203\001\n\006MsgRun\022" +
+      "\026\n\006caller\030\001 \001(\tR\006caller\022\022\n\004send\030\002 \001(\tR\004s" +
+      "end\022\037\n\013max_deposit\030\003 \001(\tR\nmaxDeposit\022,\n\007" +
+      "package\030\004 \001(\0132\022.gno.vm.MemPackageR\007packa" +
+      "ge\"\257\001\n\nMemPackage\022\022\n\004name\030\001 \001(\tR\004name\022\022\n" +
+      "\004path\030\002 \001(\tR\004path\022%\n\005files\030\003 \003(\0132\017.gno.v" +
+      "m.MemFileR\005files\022(\n\004type\030\004 \001(\0132\024.google." +
+      "protobuf.AnyR\004type\022(\n\004info\030\005 \001(\0132\024.googl" +
+      "e.protobuf.AnyR\004info\"1\n\007MemFile\022\022\n\004name\030" +
+      "\001 \001(\tR\004name\022\022\n\004body\030\002 \001(\tR\004bodyBL\n\ncom.g" +
+      "no.vmB\007VmProto\242\002\003GVX\252\002\006Gno.Vm\312\002\006Gno\\Vm\342\002" +
+      "\022Gno\\Vm\\GPBMetadata\352\002\007Gno::Vmb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.AnyProto.getDescriptor(),
         });
     internal_static_gno_vm_MsgCall_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_gno_vm_MsgCall_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gno_vm_MsgCall_descriptor,
-        new java.lang.String[] { "Caller", "Send", "PkgPath", "Func", "Args", });
+        new java.lang.String[] { "Caller", "Send", "MaxDeposit", "PkgPath", "Func", "Args", });
     internal_static_gno_vm_MsgAddPackage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gno_vm_MsgAddPackage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gno_vm_MsgAddPackage_descriptor,
-        new java.lang.String[] { "Creator", "Package", "Deposit", });
+        new java.lang.String[] { "Creator", "Package", "Send", "MaxDeposit", });
     internal_static_gno_vm_MsgRun_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_gno_vm_MsgRun_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gno_vm_MsgRun_descriptor,
-        new java.lang.String[] { "Caller", "Send", "Package", });
+        new java.lang.String[] { "Caller", "Send", "MaxDeposit", "Package", });
     internal_static_gno_vm_MemPackage_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_gno_vm_MemPackage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gno_vm_MemPackage_descriptor,
-        new java.lang.String[] { "Name", "Path", "Files", });
+        new java.lang.String[] { "Name", "Path", "Files", "Type", "Info", });
     internal_static_gno_vm_MemFile_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_gno_vm_MemFile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gno_vm_MemFile_descriptor,
         new java.lang.String[] { "Name", "Body", });
+    com.google.protobuf.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

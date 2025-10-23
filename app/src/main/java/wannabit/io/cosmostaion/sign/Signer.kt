@@ -456,9 +456,10 @@ object Signer {
             )
         }
 
-        val delegateCoin = CoinProto.Coin.newBuilder().setDenom(selectedChain.getStakeAssetDenom()).setAmount(
-            (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards.toString()
-        ).build()
+        val delegateCoin =
+            CoinProto.Coin.newBuilder().setDenom(selectedChain.getStakeAssetDenom()).setAmount(
+                (selectedChain as ChainNeutron).neutronFetcher()?.neutronRewards.toString()
+            ).build()
 
         val msgDelegate = MsgDelegate.newBuilder().setDelegatorAddress(selectedChain.address)
             .setValidatorAddress(toValidator?.operatorAddress).setAmount(delegateCoin).build()
@@ -871,17 +872,9 @@ object Signer {
     }
 
     fun signRpcSendSimulateTx(
-        msgSend: BankProto.MsgSend, fee: Fee?, memo: String, chain: BaseChain
+        msgSend: BankProto.MsgSend, fee: Fee?, memo: String
     ): Tx {
-        val msgs: MutableList<Msgs> = mutableListOf()
-        val msg = Msgs(
-            "/bank.MsgSend",
-            from_address = chain.address,
-            to_address = msgSend.toAddress,
-            amount = msgSend.amount
-        )
-        msgs.add(msg)
-        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
+        val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
         val builder = Tx.newBuilder()
         gnoSendMsg(msgSend).forEach { msgAny ->
@@ -901,7 +894,7 @@ object Signer {
             send = "",
             caller = chain.address,
             pkg_path = msgCall?.pkgPath,
-            func = "Transfer",
+            func = msgCall?.func,
             args = listOf(msgCall?.getArgs(0).toString(), msgCall?.getArgs(1).toString())
         )
         msgs.add(msg)
@@ -937,19 +930,9 @@ object Signer {
     }
 
     fun signRpcCallSimulateTx(
-        msgCall: MsgCall?, fee: Fee?, memo: String, chain: BaseChain
+        msgCall: MsgCall?, fee: Fee?, memo: String
     ): Tx {
-        val msgs: MutableList<Msgs> = mutableListOf()
-        val msg = Msgs(
-            "/vm.m_call",
-            send = "",
-            caller = chain.address,
-            pkg_path = msgCall?.pkgPath,
-            func = "Transfer",
-            args = listOf(msgCall?.getArgs(0).toString(), msgCall?.getArgs(1).toString())
-        )
-        msgs.add(msg)
-        val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
+        val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
         val builder = Tx.newBuilder()
         msgCallMsg(msgCall).forEach { msgAny ->
