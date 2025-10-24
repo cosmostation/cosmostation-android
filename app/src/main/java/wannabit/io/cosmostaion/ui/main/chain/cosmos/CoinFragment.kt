@@ -136,6 +136,8 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
     }
 
     private fun setUpInitData() {
+        binding.loading.visibility = View.GONE
+
         stakeCoins.clear()
         searchStakeCoins.clear()
         nativeCoins.clear()
