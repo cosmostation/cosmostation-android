@@ -49,7 +49,7 @@ class AssetAdapter(
             }
 
             is AssetViewHolder -> {
-                if (evmTokens.isNotEmpty()) {
+                if (evmChains.isNotEmpty()) {
                     if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
                         val evmChain = evmChains[position - 1]
                         holder.bind(evmChain)
@@ -72,14 +72,12 @@ class AssetAdapter(
                     }
 
                 } else {
-                    if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                        val evmChain = evmChains[position - 1]
-                        holder.bind(evmChain)
+                    val token = evmTokens[position - 1]
+                    holder.tokenBind(evmChain, token)
 
-                        holder.itemView.setOnClickListener {
-                            onItemClickListener?.let {
-                                it(evmChain, "")
-                            }
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            it(evmChain, token.address)
                         }
                     }
                 }
@@ -88,26 +86,36 @@ class AssetAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (evmTokens.isNotEmpty()) {
+        return if (evmChains.isNotEmpty()) {
             when (position) {
                 0 -> VIEW_TYPE_COIN_HEADER
                 1 -> VIEW_TYPE_COIN_ITEM
                 2 -> VIEW_TYPE_TOKEN_HEADER
                 else -> VIEW_TYPE_TOKEN_ITEM
             }
+
         } else {
             when (position) {
-                0 -> VIEW_TYPE_COIN_HEADER
-                else -> VIEW_TYPE_COIN_ITEM
+                0 -> VIEW_TYPE_TOKEN_HEADER
+                else -> VIEW_TYPE_TOKEN_ITEM
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (evmTokens.isNotEmpty()) {
-            evmChains.size + evmTokens.size + 2
+        return if (evmChains.isNotEmpty()) {
+            if (evmTokens.isNotEmpty()) {
+                evmChains.size + evmTokens.size + 2
+            } else {
+                evmChains.size + 1
+            }
+
         } else {
-            evmChains.size + 1
+            if (evmTokens.isNotEmpty()) {
+                evmTokens.size + 1
+            } else {
+                0
+            }
         }
     }
 

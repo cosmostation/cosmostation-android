@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -158,7 +159,7 @@ class MajorCryptoFragment : Fragment() {
 
                         withContext(Dispatchers.Main) {
                             initSvmRecyclerView()
-                            binding.searchBar.visibility = View.GONE
+                            initSvmSearchView(fetcher)
                         }
                     }
                 }
@@ -342,6 +343,57 @@ class MajorCryptoFragment : Fragment() {
                 }
                 refresher.isRefreshing = false
             }
+        }
+    }
+
+    private fun initSvmSearchView(fetcher: SolanaFetcher) {
+        binding.apply {
+            searchBar.visibleOrGone(searchSolanaTokens.size > 3)
+            searchView.setQuery("", false)
+            searchView.clearFocus()
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    searchSolanaBalances.clear()
+                    searchSolanaTokens.clear()
+
+                    if (StringUtils.isEmpty(newText)) {
+                        searchSolanaBalances.addAll(solanaBalances)
+                        searchSolanaTokens.addAll(fetcher.solanaTokenInfo)
+
+                    } else {
+                        newText?.let { searchTxt ->
+                            if (selectedChain.coinSymbol.contains(searchTxt, true)) {
+                                searchSolanaBalances.addAll(solanaBalances)
+                            } else {
+                                searchSolanaBalances.clear()
+                            }
+
+                            searchSolanaTokens.addAll(fetcher.solanaTokenInfo.filter { info ->
+                                BaseData.getToken(
+                                    selectedChain,
+                                    selectedChain.apiName,
+                                    info["mint"].asString
+                                )?.symbol?.contains(searchTxt, ignoreCase = true)
+                                    ?: false
+                            })
+                        }
+                    }
+
+                    if (searchSolanaBalances.isEmpty() && searchSolanaTokens.isEmpty()) {
+                        emptyLayout.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                    } else {
+                        emptyLayout.visibility = View.GONE
+                        recycler.visibility = View.VISIBLE
+                        svmCryptoAdapter.notifyDataSetChanged()
+                    }
+                    return true
+                }
+            })
         }
     }
 

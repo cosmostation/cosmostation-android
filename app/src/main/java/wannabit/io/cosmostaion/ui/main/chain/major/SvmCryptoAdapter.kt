@@ -67,7 +67,13 @@ class SvmCryptoAdapter(
             }
 
             is SvmTokenViewHolderr -> {
-                val token = tokens[position - 2]
+                val tokenPosition = if (coins.isNotEmpty()) {
+                    position - 2
+                } else {
+                    position - 1
+                }
+
+                val token = tokens[tokenPosition]
                 holder.bind(selectedChain as ChainSolana, token)
 
                 holder.itemView.setOnClickListener {
@@ -80,22 +86,35 @@ class SvmCryptoAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (tokens.isNotEmpty()) {
+        return if (coins.isNotEmpty()) {
             when (position) {
                 0 -> VIEW_TYPE_MAIN_ITEM
                 1 -> VIEW_TYPE_TOKEN_HEADER
                 else -> VIEW_TYPE_TOKEN_ITEM
             }
+
         } else {
-            VIEW_TYPE_MAIN_ITEM
+            when (position) {
+                0 -> VIEW_TYPE_TOKEN_HEADER
+                else -> VIEW_TYPE_TOKEN_ITEM
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (tokens.isNotEmpty()) {
-            coins.size + tokens.size + 1
+        return if (coins.isNotEmpty()) {
+            if (tokens.isNotEmpty()) {
+                coins.size + tokens.size + 1
+            } else {
+                coins.size
+            }
+
         } else {
-            coins.size
+            if (tokens.isNotEmpty()) {
+                tokens.size + 1
+            } else {
+                0
+            }
         }
     }
 
