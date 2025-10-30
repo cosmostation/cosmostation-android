@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -50,8 +51,9 @@ class MajorCryptoFragment : Fragment() {
     private var _binding: FragmentCoinBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var majorCryptoAdapter: MajorCryptoAdapter
-    private lateinit var solanaCryptoAdapter: SolanaCryptoAdapter
+    private lateinit var bitCryptoAdapter: BitCryptoAdapter
+    private lateinit var svmCryptoAdapter: SvmCryptoAdapter
+    private lateinit var moveCryptoAdapter: MoveCryptoAdapter
 
     private lateinit var selectedChain: BaseChain
 
@@ -107,8 +109,7 @@ class MajorCryptoFragment : Fragment() {
             dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
             babylonStaking.visibleOrGone(
-                selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT ||
-                        selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT)
+                selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT)
             )
 
             babylonStaking.setOnClickListener {
@@ -153,11 +154,10 @@ class MajorCryptoFragment : Fragment() {
                                 else -> 1
                             }
                         }
-
                         searchSolanaTokens.addAll(fetcher.solanaTokenInfo)
 
                         withContext(Dispatchers.Main) {
-                            initSolanaRecyclerView()
+                            initSvmRecyclerView()
                             binding.searchBar.visibility = View.GONE
                         }
                     }
@@ -192,7 +192,7 @@ class MajorCryptoFragment : Fragment() {
                         searchMoveNativeBalances.addAll(moveNativeBalances)
 
                         withContext(Dispatchers.Main) {
-                            initRecyclerView()
+                            initMoveRecyclerView()
                             initSearchView(fetcher.suiBalances, moveBalances)
                         }
                     }
@@ -227,76 +227,34 @@ class MajorCryptoFragment : Fragment() {
                         searchMoveNativeBalances.addAll(moveNativeBalances)
 
                         withContext(Dispatchers.Main) {
-                            initRecyclerView()
+                            initMoveRecyclerView()
                             initSearchView(fetcher.iotaBalances, moveBalances)
                         }
                     }
                 }
 
                 else -> {
-                    (selectedChain as ChainBitCoin86).btcFetcher()?.let {
-                        withContext(Dispatchers.Main) {
-                            initRecyclerView()
-                            binding.searchBar.visibility = View.GONE
-                        }
+                    withContext(Dispatchers.Main) {
+                        initBitRecyclerView()
+                        binding.searchBar.visibility = View.GONE
                     }
                 }
             }
         }
     }
 
-    private fun initSolanaRecyclerView() {
+    private fun initBitRecyclerView() {
         if (isAdded) {
-            solanaCryptoAdapter =
-                SolanaCryptoAdapter(
-                    requireContext(),
-                    selectedChain,
-                    searchSolanaBalances,
-                    searchSolanaTokens
-                )
-            binding.recycler.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireActivity())
-                adapter = solanaCryptoAdapter
-                solanaCryptoAdapter.notifyDataSetChanged()
+            binding.apply {
+                bitCryptoAdapter = BitCryptoAdapter(selectedChain)
+                recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireActivity())
+                    adapter = bitCryptoAdapter
+                    bitCryptoAdapter.notifyDataSetChanged()
 
-                solanaCryptoAdapter.setOnItemClickListener { chain, denom ->
-                    val sendAssetType = if (denom == selectedChain.coinSymbol) {
-                        SendAssetType.SOLANA_COIN
-                    } else {
-                        SendAssetType.SOLANA_TOKEN
-                    }
-                    handleOneClickWithDelay(
-                        CommonTransferFragment.newInstance(
-                            chain, denom, sendAssetType
-                        )
-                    )
-                }
-            }
-            binding.refresher.isRefreshing = false
-        }
-    }
-
-    private fun initRecyclerView() {
-        if (isAdded) {
-            majorCryptoAdapter = MajorCryptoAdapter(
-                requireContext(), selectedChain, searchMoveBalances, searchMoveNativeBalances
-            )
-            binding.recycler.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(requireActivity())
-                adapter = majorCryptoAdapter
-                majorCryptoAdapter.notifyDataSetChanged()
-
-                majorCryptoAdapter.setOnItemClickListener { chain, denom ->
-                    val sendAssetType = when (chain) {
-                        is ChainSui -> SendAssetType.SUI_COIN
-                        is ChainIota -> SendAssetType.IOTA_COIN
-                        else -> SendAssetType.BIT_COIN
-                    }
-
-                    if (chain is ChainBitCoin86) {
-                        chain.btcFetcher()?.let { fetcher ->
+                    bitCryptoAdapter.setOnItemClickListener { chain, denom ->
+                        (chain as ChainBitCoin86).btcFetcher()?.let { fetcher ->
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val btcFee = fetcher.initFee()
                                 withContext(Dispatchers.Main) {
@@ -304,7 +262,7 @@ class MajorCryptoFragment : Fragment() {
                                     if (fetcher.btcBalances > btcFee) {
                                         handleOneClickWithDelay(
                                             CommonTransferFragment.newInstance(
-                                                chain, denom, sendAssetType
+                                                chain, denom, SendAssetType.BIT_COIN
                                             )
                                         )
 
@@ -319,8 +277,31 @@ class MajorCryptoFragment : Fragment() {
                                 }
                             }
                         }
+                    }
+                }
+                refresher.isRefreshing = false
+            }
+        }
+    }
 
-                    } else {
+    private fun initSvmRecyclerView() {
+        if (isAdded) {
+            svmCryptoAdapter = SvmCryptoAdapter(
+                selectedChain, searchSolanaBalances, searchSolanaTokens
+            )
+            binding.apply {
+                recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireActivity())
+                    adapter = svmCryptoAdapter
+                    svmCryptoAdapter.notifyDataSetChanged()
+
+                    svmCryptoAdapter.setOnItemClickListener { chain, denom ->
+                        val sendAssetType = if (denom == selectedChain.coinSymbol) {
+                            SendAssetType.SOLANA_COIN
+                        } else {
+                            SendAssetType.SOLANA_TOKEN
+                        }
                         handleOneClickWithDelay(
                             CommonTransferFragment.newInstance(
                                 chain, denom, sendAssetType
@@ -328,8 +309,39 @@ class MajorCryptoFragment : Fragment() {
                         )
                     }
                 }
+                refresher.isRefreshing = false
             }
-            binding.refresher.isRefreshing = false
+        }
+    }
+
+    private fun initMoveRecyclerView() {
+        if (isAdded) {
+            moveCryptoAdapter = MoveCryptoAdapter(
+                requireContext(), selectedChain, searchMoveBalances, searchMoveNativeBalances
+            )
+            binding.apply {
+                recycler.apply {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(requireActivity())
+                    adapter = moveCryptoAdapter
+                    moveCryptoAdapter.notifyDataSetChanged()
+
+                    moveCryptoAdapter.setOnItemClickListener { chain, denom ->
+                        val sendAssetType = when (chain) {
+                            is ChainSui -> SendAssetType.SUI_COIN
+                            is ChainIota -> SendAssetType.IOTA_COIN
+                            else -> SendAssetType.APTOS_COIN
+                        }
+
+                        handleOneClickWithDelay(
+                            CommonTransferFragment.newInstance(
+                                chain, denom, sendAssetType
+                            )
+                        )
+                    }
+                }
+                refresher.isRefreshing = false
+            }
         }
     }
 
@@ -396,7 +408,7 @@ class MajorCryptoFragment : Fragment() {
                     } else {
                         emptyLayout.visibility = View.GONE
                         recycler.visibility = View.VISIBLE
-                        majorCryptoAdapter.notifyDataSetChanged()
+                        moveCryptoAdapter.notifyDataSetChanged()
                     }
                     return true
                 }
@@ -414,8 +426,7 @@ class MajorCryptoFragment : Fragment() {
                     when (selectedChain) {
                         is ChainSolana -> {
                             ApplicationViewModel.shared.loadSolData(
-                                account.id,
-                                selectedChain as ChainSolana
+                                account.id, selectedChain as ChainSolana
                             )
                         }
 
@@ -428,6 +439,12 @@ class MajorCryptoFragment : Fragment() {
                         is ChainIota -> {
                             ApplicationViewModel.shared.loadIotaData(
                                 account.id, selectedChain
+                            )
+                        }
+
+                        is ChainAptos -> {
+                            ApplicationViewModel.shared.loadAptosData(
+                                account.id, selectedChain as ChainAptos
                             )
                         }
 
@@ -444,11 +461,14 @@ class MajorCryptoFragment : Fragment() {
 
     private fun observeViewModels() {
         ApplicationViewModel.shared.hideValueResult.observe(viewLifecycleOwner) {
-            if (::majorCryptoAdapter.isInitialized) {
-                majorCryptoAdapter.notifyDataSetChanged()
+            if (::moveCryptoAdapter.isInitialized) {
+                moveCryptoAdapter.notifyDataSetChanged()
 
-            } else if (::solanaCryptoAdapter.isInitialized) {
-                solanaCryptoAdapter.notifyDataSetChanged()
+            } else if (::svmCryptoAdapter.isInitialized) {
+                svmCryptoAdapter.notifyDataSetChanged()
+
+            } else if (::bitCryptoAdapter.isInitialized) {
+                bitCryptoAdapter.notifyDataSetChanged()
             }
         }
 

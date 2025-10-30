@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.ui.main.chain.evm
+package wannabit.io.cosmostaion.ui.main.chain.major
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,8 @@ import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.databinding.ItemByFooterBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemReceiveBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.ReceiveAdapter.ByFooterViewHolder
 
-class EvmReceiveAdapter(
+class MajorReceiveAdapter(
     private val account: BaseAccount, private val selectedChain: BaseChain
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -32,7 +31,7 @@ class EvmReceiveAdapter(
             VIEW_TYPE_EVM_ITEM -> {
                 val binding =
                     ItemReceiveBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                EvmReceiveViewHolder(parent.context, binding)
+                MajorReceiveViewHolder(parent.context, binding)
             }
 
             VIEW_TYPE_FOOTER -> {
@@ -51,7 +50,7 @@ class EvmReceiveAdapter(
                 holder.bind()
             }
 
-            is EvmReceiveViewHolder -> {
+            is MajorReceiveViewHolder -> {
                 holder.evmBind(account, selectedChain)
             }
 
@@ -85,7 +84,7 @@ class EvmReceiveAdapter(
     }
 
     inner class ByFooterViewHolder(
-        private val binding: ItemByFooterBinding
+        binding: ItemByFooterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {}
     }

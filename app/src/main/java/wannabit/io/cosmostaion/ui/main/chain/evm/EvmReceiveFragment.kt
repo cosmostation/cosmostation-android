@@ -57,7 +57,7 @@ class EvmReceiveFragment : Fragment() {
 
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                evmReceiveAdapter = EvmReceiveAdapter(requireContext(), account, selectedChain)
+                evmReceiveAdapter = EvmReceiveAdapter(account, selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = evmReceiveAdapter
