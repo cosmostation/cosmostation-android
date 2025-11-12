@@ -10,6 +10,7 @@ import java.math.RoundingMode
 
 class GnoFetcher(private val chain: BaseChain) {
 
+    var gnoPublicKey: String? = null
     var gnoAccountNumber: Long? = null
     var gnoSequence: Long? = null
     var gnoBalances: MutableList<CoinProto.Coin>? = null

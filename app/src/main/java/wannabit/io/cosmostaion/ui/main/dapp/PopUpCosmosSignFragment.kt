@@ -16,6 +16,8 @@ import com.cosmos.base.query.v1beta1.PaginationProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.tx.v1beta1.TxProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -31,7 +33,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
-import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -403,7 +404,8 @@ class PopUpCosmosSignFragment(
                     if (selectFeePosition < 0) return@setOnClickListener
                     if (feeInfos.isNotEmpty()) {
                         handleOneClickWithDelay(
-                            AssetFragment.newInstance(chain,
+                            AssetFragment.newInstance(
+                                chain,
                                 feeInfos[selectFeePosition].feeDatas.toMutableList(),
                                 object : AssetSelectListener {
                                     override fun select(denom: String) {
@@ -480,7 +482,8 @@ class PopUpCosmosSignFragment(
                             .first().feeDatas.firstOrNull { it.denom == chain.getGasAssetDenom() }
                             ?.let { gasRate ->
                                 val gasLimit =
-                                    (gas.toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
+                                    (gas.toDouble() * chain.simulatedGasMultiply()).toLong()
+                                        .toBigDecimal()
                                 val feeCoinAmount = gasRate.gasRate?.multiply(gasLimit)
                                     ?.setScale(0, RoundingMode.UP)
 
@@ -598,6 +601,24 @@ class PopUpCosmosSignFragment(
     interface WcSignRawDataListener {
         fun sign(id: Long, data: String)
         fun cancel(id: Long)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+        bottomSheet?.let { sheet ->
+            val behavior = BottomSheetBehavior.from(sheet)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+            behavior.skipCollapsed = true
+            behavior.isHideable = false
+        }
+
+        bottomSheetDialog.setCanceledOnTouchOutside(false)
     }
 
     override fun onDestroyView() {

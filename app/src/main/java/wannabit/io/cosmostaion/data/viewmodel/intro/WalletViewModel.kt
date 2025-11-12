@@ -12,7 +12,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import io.grpc.ManagedChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -178,7 +177,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         is Erc20TokenResponse -> {
                             response.data.assets?.let { assets ->
                                 assets.forEach { it.type = "erc20" }
-                                BaseData.erc20Tokens = assets }
+                                BaseData.erc20Tokens = assets
+                            }
                         }
 
                         is Grc20TokenResponse -> {
@@ -1015,12 +1015,14 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     val jsonResponse = Gson().fromJson(
                                         response.data.body?.string(), JsonObject::class.java
                                     )
+
                                     val data =
                                         jsonResponse["result"].asJsonObject["response"].asJsonObject["ResponseBase"].asJsonObject["Data"].asString
                                     val decodeData = formatJsonString(String(Base64.decode(data)))
                                     if (decodeData == "null") {
                                         tempBalances.add(
-                                            CoinProto.Coin.newBuilder().setDenom(chain.getStakeAssetDenom())
+                                            CoinProto.Coin.newBuilder()
+                                                .setDenom(chain.getStakeAssetDenom())
                                                 .setAmount("0").build()
                                         )
                                         fetcher.gnoBalances = tempBalances
@@ -1045,12 +1047,22 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         } else {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
-                                                    .setDenom(chain.getStakeAssetDenom()).setAmount("0")
+                                                    .setDenom(chain.getStakeAssetDenom())
+                                                    .setAmount("0")
                                                     .build()
                                             )
                                         }
 
+                                        if (!accountData["public_key"].isJsonNull) {
+                                            fetcher.gnoPublicKey =
+                                                accountData["public_key"].asJsonObject["value"].asString
+                                        }
                                         fetcher.gnoBalances = tempBalances
+                                        fetcher.gnoAccountNumber =
+                                            accountData["account_number"].asString.toLong()
+                                        fetcher.gnoSequence =
+                                            accountData["sequence"].asString.toLong()
+
                                         chain.fetchState = FetchState.SUCCESS
                                         chain.coinCnt =
                                             if (fetcher.gnoBalances?.get(0)?.amount?.toBigDecimal() == BigDecimal.ZERO) 0 else 1

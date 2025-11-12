@@ -1326,10 +1326,8 @@ class CommonTransferFragment : BaseTxFragment() {
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
                         val gasLimit = if (gas == 0L) {
-                            (fromChain.getInitGasLimit()
-                                .toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
-                        } else if (fromChain is ChainGnoTestnet) {
-                            gas.toDouble().toLong().toBigDecimal()
+                            (getInitGasLimit().toDouble() * simulatedGasMultiply()).toLong()
+                                .toBigDecimal()
                         } else {
                             (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
                         }
@@ -1548,7 +1546,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 } else if (sendAssetType == SendAssetType.ONLY_COSMOS_GRC20) {
                                     val msgCall =
                                         com.gno.vm.VmProto.MsgCall.newBuilder().setSend("")
-                                            .setCaller(fromChain.address)
+                                            .setCaller(fromChain.address).setMaxDeposit("")
                                             .setPkgPath(toSendToken?.address).setFunc("Transfer")
                                             .addAllArgs(listOf(toAddress, toSendAmount)).build()
                                     txViewModel.rpcCallBroadcast(

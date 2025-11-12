@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -330,8 +329,8 @@ class MajorCryptoFragment : Fragment() {
                     moveCryptoAdapter.setOnItemClickListener { chain, denom ->
                         val sendAssetType = when (chain) {
                             is ChainSui -> SendAssetType.SUI_COIN
-                            is ChainIota -> SendAssetType.IOTA_COIN
-                            else -> SendAssetType.APTOS_COIN
+                            else -> SendAssetType.IOTA_COIN
+//                            else -> SendAssetType.APTOS_COIN
                         }
 
                         handleOneClickWithDelay(
@@ -494,11 +493,11 @@ class MajorCryptoFragment : Fragment() {
                             )
                         }
 
-                        is ChainAptos -> {
-                            ApplicationViewModel.shared.loadAptosData(
-                                account.id, selectedChain as ChainAptos
-                            )
-                        }
+//                        is ChainAptos -> {
+//                            ApplicationViewModel.shared.loadAptosData(
+//                                account.id, selectedChain as ChainAptos
+//                            )
+//                        }
 
                         else -> {
                             ApplicationViewModel.shared.loadBtcData(

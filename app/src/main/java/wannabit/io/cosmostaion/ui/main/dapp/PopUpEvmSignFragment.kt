@@ -8,6 +8,8 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
@@ -490,9 +492,9 @@ class PopUpEvmSignFragment(
                 if (paramGas != null) {
                     evmGas.add(
                         Triple(
-                        BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
-                        BigInteger.ZERO,
-                        paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
+                            BigInteger(paramGasPrice!!.removePrefix("0x"), 16),
+                            BigInteger.ZERO,
+                            paramGas?.removePrefix("0x")?.let { BigInteger(it, 16) } ?: checkedGas))
                     evmGasTitle.add(getString(R.string.str_origin))
                     addedFeePosition = 3
                 }
@@ -659,6 +661,24 @@ class PopUpEvmSignFragment(
     interface WcSignRawDataListener {
         fun sign(id: Long, data: String)
         fun cancel(id: Long)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+        bottomSheet?.let { sheet ->
+            val behavior = BottomSheetBehavior.from(sheet)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+            behavior.skipCollapsed = true
+            behavior.isHideable = false
+        }
+
+        bottomSheetDialog.setCanceledOnTouchOutside(false)
     }
 
     override fun onDestroyView() {

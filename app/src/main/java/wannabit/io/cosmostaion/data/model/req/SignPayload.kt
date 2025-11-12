@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.data.model.req
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 
@@ -44,6 +45,9 @@ data class Msgs(
     val caller: String? = null,
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
+    val max_deposit: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     val pkg_path: String? = null,
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -51,4 +55,44 @@ data class Msgs(
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     val args: List<String>? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val creator: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonProperty("package")
+    val `package`: MemPackage? = null,
+)
+
+data class MemPackage(
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val name: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val path: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val files: List<File>? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val type: AnyValue? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val info: AnyValue? = null
+)
+
+data class File(
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val name: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val body: String? = null
+)
+
+data class AnyValue(
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val type_url: String? = null,
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    val value: String? = null
 )

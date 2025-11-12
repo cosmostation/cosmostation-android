@@ -2479,12 +2479,14 @@ class TxRepositoryImpl : TxRepository {
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
+
             val result = broadcastJsonObject["result"].asJsonObject
             return if (result["error"].isJsonNull) {
                 TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
             } else {
                 TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
             }
+
         } catch (e: Exception) {
             null
         }
@@ -2542,12 +2544,14 @@ class TxRepositoryImpl : TxRepository {
             val broadcastJsonObject = Gson().fromJson(
                 broadcastResponse.body?.string(), JsonObject::class.java
             )
+
             val result = broadcastJsonObject["result"].asJsonObject
             return if (result["error"].isJsonNull) {
                 TxResponse.newBuilder().setCode(0).setTxhash(result["hash"].asString).build()
             } else {
                 TxResponse.newBuilder().setCode(-1).setTxhash(result["hash"].asString).build()
             }
+
         } catch (e: Exception) {
             null
         }

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.ui.main.dapp
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.JsonParser
 import com.reown.util.bytesToHex
 import kotlinx.coroutines.Dispatchers
@@ -325,18 +326,27 @@ class PopUpBitSignFragment(
         }
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        binding.apply {
-            if (!loading.isVisible) {
-                listener.cancel(id)
-            }
-        }
-    }
-
     interface WcSignRawDataListener {
         fun sign(id: Long, txHex: String)
         fun cancel(id: Long)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val bottomSheetDialog = dialog as BottomSheetDialog
+        val bottomSheet =
+            bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+
+        bottomSheet?.let { sheet ->
+            val behavior = BottomSheetBehavior.from(sheet)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+            behavior.skipCollapsed = true
+            behavior.isHideable = false
+        }
+
+        bottomSheetDialog.setCanceledOnTouchOutside(false)
     }
 
     override fun onDestroyView() {
