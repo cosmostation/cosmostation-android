@@ -347,7 +347,7 @@ class MajorCryptoFragment : Fragment() {
 
     private fun initSvmSearchView(fetcher: SolanaFetcher) {
         binding.apply {
-            searchBar.visibleOrGone(searchSolanaTokens.size > 3)
+            searchBar.visibleOrGone(searchSolanaTokens.size > 15)
             searchView.setQuery("", false)
             searchView.clearFocus()
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
