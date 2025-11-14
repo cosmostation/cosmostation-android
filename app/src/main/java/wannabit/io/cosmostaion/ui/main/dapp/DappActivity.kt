@@ -2797,7 +2797,7 @@ class DappActivity : BaseActivity() {
                     val dataJson = JSONObject()
                     dataJson.put("accountNumber", fetcher.gnoAccountNumber)
                     dataJson.put("address", selectedChain?.address)
-                    dataJson.put("chainId", selectedChain?.chainIdCosmos)
+                    dataJson.put("chainId", currentChainId)
                     dataJson.put(
                         "coins",
                         fetcher.balanceAmount(selectedChain?.getStakeAssetDenom() ?: "")

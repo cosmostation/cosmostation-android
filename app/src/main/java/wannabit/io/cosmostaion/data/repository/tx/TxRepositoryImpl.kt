@@ -2496,7 +2496,7 @@ class TxRepositoryImpl : TxRepository {
         msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
     ): String {
         return try {
-            val simulateTx = Signer.signRpcSendSimulateTx(msgSend, fee, memo)
+            val simulateTx = Signer.signRpcSendSimulateTx(msgSend, fee, memo, selectedChain)
             val txByte = Base64.toBase64String(simulateTx.toByteArray())
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
@@ -2509,15 +2509,15 @@ class TxRepositoryImpl : TxRepository {
             )
 
             if (simulateResponse.isSuccessful) {
-                if (!simulateJsonObject.has("error")) {
-                    val value =
-                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                    val responseBase =
-                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
-                    responseBase.gasUsed.toString()
+                val value =
+                    simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                val responseBase =
+                    com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
 
+                if (responseBase.responseBase.hasError()) {
+                    responseBase.responseBase.error.typeUrl
                 } else {
-                    simulateJsonObject["error"].asJsonObject["message"].asString
+                    responseBase.gasUsed.toString()
                 }
 
             } else {
@@ -2561,7 +2561,7 @@ class TxRepositoryImpl : TxRepository {
         msgCall: VmProto.MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ): String {
         return try {
-            val simulateTx = Signer.signRpcCallSimulateTx(msgCall, fee, memo)
+            val simulateTx = Signer.signRpcCallSimulateTx(msgCall, fee, memo, selectedChain)
             val txByte = Base64.toBase64String(simulateTx.toByteArray())
             val simulateRequest = JsonRpcRequest(
                 method = "abci_query", params = listOf(".app/simulate", txByte, "0", false)
@@ -2574,15 +2574,15 @@ class TxRepositoryImpl : TxRepository {
             )
 
             if (simulateResponse.isSuccessful) {
-                if (!simulateJsonObject.has("error")) {
-                    val value =
-                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                    val responseBase =
-                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
-                    responseBase.gasUsed.toString()
+                val value =
+                    simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                val responseBase =
+                    com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
 
+                if (responseBase.responseBase.hasError()) {
+                    responseBase.responseBase.error.typeUrl
                 } else {
-                    simulateJsonObject["error"].asJsonObject["message"].asString
+                    responseBase.gasUsed.toString()
                 }
 
             } else {

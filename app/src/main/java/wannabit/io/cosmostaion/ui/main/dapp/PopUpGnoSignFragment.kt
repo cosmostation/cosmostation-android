@@ -18,6 +18,7 @@ import com.tm2.tx.TxProto.TxSignature
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.bitcoinj.core.ECKey
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -32,6 +33,7 @@ import wannabit.io.cosmostaion.common.updateButtonView
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.FragmentSuiSignBinding
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.Signer.generateGrpcPubKeyFromPriv
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -95,13 +97,18 @@ class PopUpGnoSignFragment(
                     val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
                         .setGasFee(defaultFee?.getAmount(0)?.amount + defaultFee?.getAmount(0)?.denom)
                         .build()
+                    val pubKey =
+                        generateGrpcPubKeyFromPriv(
+                            chain,
+                            ECKey.fromPrivate(chain.privateKey).privateKeyAsHex
+                        )
                     val builder = Tx.newBuilder()
                     signMsgs.forEach { msgAny ->
                         builder.addMessages(msgAny)
                     }
 
                     val simulateTx = builder.setFee(txFee).setMemo(memo)
-                        .addSignatures(TxSignature.newBuilder().build())
+                        .addSignatures(TxSignature.newBuilder().setPubKey(pubKey).build())
                         .build()
                     val txByte = Base64.toBase64String(simulateTx.toByteArray())
                     val simulateRequest = JsonRpcRequest(
@@ -115,21 +122,17 @@ class PopUpGnoSignFragment(
                     )
 
                     val simulateUsedData = if (simulateResponse.isSuccessful) {
-                        if (!simulateJsonObject.has("error")) {
-                            val value =
-                                simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                            val responseBase =
-                                com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(
-                                    Base64.decode(
-                                        value.toByteArray()
-                                    )
-                                )
+                        val value =
+                            simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                        val responseBase =
+                            com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+
+                        if (responseBase.responseBase.hasError()) {
+                            isErrorTx = true
+                            responseBase.responseBase.error.typeUrl
+                        } else {
                             isErrorTx = false
                             responseBase.gasUsed.toString()
-
-                        } else {
-                            isErrorTx = true
-                            simulateJsonObject["error"].asJsonObject["message"].asString
                         }
 
                     } else {
@@ -169,13 +172,9 @@ class PopUpGnoSignFragment(
                         dappFeeTokenImg.setTokenImg(asset)
                         dappFeeToken.text = asset.symbol
 
-                        val gasLimit = if (simulateData.toLong() == 0L) {
-                            (chain.getInitGasLimit()
-                                .toDouble() * chain.simulatedGasMultiply()).toLong().toBigDecimal()
-                        } else {
+                        val gasLimit =
                             (simulateData.toDouble() * chain.simulatedGasMultiply()).toLong()
                                 .toBigDecimal()
-                        }
 
                         val feeCoinAmount = gasLimit.multiply(BigDecimal("1.1")).movePointLeft(3)
                             .movePointLeft(asset.decimals ?: 8)

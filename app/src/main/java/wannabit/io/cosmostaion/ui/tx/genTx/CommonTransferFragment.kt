@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.EVM_BASE_FEE
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
@@ -46,7 +47,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SOLANA_DEFAULT_FEE
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils.convertBits
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -251,7 +251,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         R.string.title_asset_send, toSendAsset?.symbol
                     )
 
-                    availableAmount = if (fromChain is ChainGnoTestnet) {
+                    availableAmount = if (fromChain is ChainGno) {
                         fromChain.gnoRpcFetcher?.balanceAmount(toSendDenom) ?: BigDecimal.ZERO
                     } else {
                         fromChain.cosmosFetcher?.availableAmount(toSendDenom) ?: BigDecimal.ZERO
@@ -1257,7 +1257,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                 )
 
                             } else {
-                                if (fromChain is ChainGnoTestnet) {
+                                if (fromChain is ChainGno) {
                                     val msgSend = com.gno.bank.BankProto.MsgSend.newBuilder()
                                         .setFromAddress(fromChain.address).setToAddress(toAddress)
                                         .setAmount(toSendAmount + toSendDenom).build()
@@ -1325,12 +1325,8 @@ class CommonTransferFragment : BaseTxFragment() {
             cosmosTxFee?.let { fee ->
                 fromChain.apply {
                     gasUsed?.toLong()?.let { gas ->
-                        val gasLimit = if (gas == 0L) {
-                            (getInitGasLimit().toDouble() * simulatedGasMultiply()).toLong()
-                                .toBigDecimal()
-                        } else {
+                        val gasLimit =
                             (gas.toDouble() * simulatedGasMultiply()).toLong().toBigDecimal()
-                        }
 
                         if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
                             fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
@@ -1357,7 +1353,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                     ).denom
                                 }
                             val gasRate = selectedFeeData?.gasRate
-                            val feeCoinAmount = if (fromChain is ChainGnoTestnet) {
+                            val feeCoinAmount = if (fromChain is ChainGno) {
                                 gasLimit.multiply(gnoGasRate[selectedFeePosition].toBigDecimal())
                                     .movePointLeft(3).setScale(0, RoundingMode.UP)
                             } else {
@@ -1554,7 +1550,7 @@ class CommonTransferFragment : BaseTxFragment() {
                                     )
 
                                 } else {
-                                    if (fromChain is ChainGnoTestnet) {
+                                    if (fromChain is ChainGno) {
                                         val msgSend = com.gno.bank.BankProto.MsgSend.newBuilder()
                                             .setFromAddress(fromChain.address)
                                             .setToAddress(toAddress)
