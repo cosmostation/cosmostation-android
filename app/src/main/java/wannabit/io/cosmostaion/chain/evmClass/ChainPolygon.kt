@@ -17,7 +17,7 @@ class ChainPolygon : BaseChain(), Parcelable {
     override var apiName: String = "polygon"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "MATIC"
+    override var coinSymbol: String = "POL"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
