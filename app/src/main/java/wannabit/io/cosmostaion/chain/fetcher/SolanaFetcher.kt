@@ -22,10 +22,6 @@ class SolanaFetcher(private val chain: BaseChain) {
 
     var splTokens = mutableListOf<Token>()
 
-    fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
-        return solanaBalanceValue(isUsd).add(allSplTokenValue(isUsd))
-    }
-
     fun solanaBalanceAmount(): BigDecimal {
         if (solanaAccountInfo.has("value")) {
             if (!solanaAccountInfo["value"].isJsonNull) {

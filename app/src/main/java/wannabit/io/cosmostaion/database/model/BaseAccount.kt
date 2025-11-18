@@ -137,7 +137,8 @@ data class BaseAccount(
                 }
 
                 is ChainSolana -> {
-                    chain.coinValue = chain.solanaFetcher()?.allAssetValue()
+                    chain.coinValue = chain.solanaFetcher()?.solanaBalanceValue()
+                    chain.tokenValue = chain.solanaFetcher()?.allSplTokenValue()
                 }
 
                 is ChainOkt996Keccak -> {

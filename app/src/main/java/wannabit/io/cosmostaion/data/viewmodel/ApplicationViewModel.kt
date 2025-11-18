@@ -1636,27 +1636,30 @@ class ApplicationViewModel(
                                             }
 
                                             fetchState = FetchState.SUCCESS
-                                            coinValue = fetcher.allAssetValue()
-                                            coinUsdValue = fetcher.allAssetValue(true)
+                                            coinValue = fetcher.solanaBalanceValue()
+                                            coinUsdValue = fetcher.solanaBalanceValue(true)
                                             coinCnt =
                                                 if (fetcher.solanaBalanceAmount() > BigDecimal.ZERO) {
                                                     1
                                                 } else {
                                                     0
                                                 }
-                                            tokenCnt = values.size()
+                                            tokenValue = fetcher.allSplTokenValue()
+                                            tokenUsdValue = fetcher.allSplTokenValue(true)
+                                            tokenCnt = fetcher.solanaTokenInfo.size
 
                                             val refAddress = RefAddress(
                                                 id,
                                                 tag,
                                                 mainAddress,
                                                 "",
-                                                fetcher.allAssetValue(true).toString(),
+                                                fetcher.solanaBalanceValue(true).toString(),
                                                 fetcher.solanaBalanceAmount().toString(),
-                                                "0",
+                                                fetcher.allSplTokenValue(true).toString(),
                                                 coinCnt.toLong()
                                             )
                                             BaseData.updateRefAddressesMain(refAddress)
+                                            BaseData.updateRefAddressesToken(refAddress)
 
                                             withContext(Dispatchers.Main) {
                                                 if (isEdit == true) {

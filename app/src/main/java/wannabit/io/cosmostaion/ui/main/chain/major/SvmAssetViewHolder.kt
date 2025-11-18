@@ -38,7 +38,6 @@ class SvmAssetViewHolder(
                     chain.solanaFetcher?.solanaBalanceAmount()?.movePointLeft(asset.decimals ?: 6)
                         ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                 val value = chain.solanaFetcher?.solanaBalanceValue() ?: BigDecimal.ZERO
-                val amount = dpAmount?.setScale(6, RoundingMode.DOWN)
 
                 if (Prefs.hideValue) {
                     assetAmount.visibility = View.GONE
@@ -49,7 +48,7 @@ class SvmAssetViewHolder(
                     assetAmountValue.visibility = View.VISIBLE
                     hideValue.visibility = View.GONE
 
-                    assetAmount.text = formatAmount(amount.toString(), 6)
+                    assetAmount.text = formatAmount(dpAmount.toString(), 6)
                     assetAmountValue.text = formatAssetValue(value)
                 }
             }
