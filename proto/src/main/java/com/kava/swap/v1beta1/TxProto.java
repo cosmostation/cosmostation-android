@@ -3600,7 +3600,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -3609,7 +3609,7 @@ public final class TxProto {
     java.lang.String getRequester();
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -3748,7 +3748,7 @@ public final class TxProto {
     private volatile java.lang.Object requester_ = "";
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -3769,7 +3769,7 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -4381,7 +4381,7 @@ public final class TxProto {
       private java.lang.Object requester_ = "";
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -4401,7 +4401,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -4422,7 +4422,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -4439,7 +4439,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -4453,7 +4453,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -5392,7 +5392,7 @@ public final class TxProto {
 
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -5401,7 +5401,7 @@ public final class TxProto {
     java.lang.String getRequester();
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -5541,7 +5541,7 @@ public final class TxProto {
     private volatile java.lang.Object requester_ = "";
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -5562,7 +5562,7 @@ public final class TxProto {
     }
     /**
      * <pre>
-     * represents the address swaping the tokens
+     * represents the address swapping the tokens
      * </pre>
      *
      * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -6175,7 +6175,7 @@ public final class TxProto {
       private java.lang.Object requester_ = "";
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -6195,7 +6195,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -6216,7 +6216,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -6233,7 +6233,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>
@@ -6247,7 +6247,7 @@ public final class TxProto {
       }
       /**
        * <pre>
-       * represents the address swaping the tokens
+       * represents the address swapping the tokens
        * </pre>
        *
        * <code>string requester = 1 [json_name = "requester", (.cosmos_proto.scalar) = "cosmos.AddressString"];</code>

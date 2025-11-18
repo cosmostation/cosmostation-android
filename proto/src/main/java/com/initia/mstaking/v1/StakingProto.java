@@ -3878,7 +3878,7 @@ public final class StakingProto {
 
     /**
      * <pre>
-     * unbonding id, uniquely identifing an unbonding of this validator
+     * unbonding id, uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>uint64 unbonding_id = 14 [json_name = "unbondingId"];</code>
@@ -4442,7 +4442,7 @@ public final class StakingProto {
     private long unbondingId_ = 0L;
     /**
      * <pre>
-     * unbonding id, uniquely identifing an unbonding of this validator
+     * unbonding id, uniquely identifying an unbonding of this validator
      * </pre>
      *
      * <code>uint64 unbonding_id = 14 [json_name = "unbondingId"];</code>
@@ -7232,7 +7232,7 @@ public final class StakingProto {
       private long unbondingId_ ;
       /**
        * <pre>
-       * unbonding id, uniquely identifing an unbonding of this validator
+       * unbonding id, uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>uint64 unbonding_id = 14 [json_name = "unbondingId"];</code>
@@ -7244,7 +7244,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * unbonding id, uniquely identifing an unbonding of this validator
+       * unbonding id, uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>uint64 unbonding_id = 14 [json_name = "unbondingId"];</code>
@@ -7260,7 +7260,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * unbonding id, uniquely identifing an unbonding of this validator
+       * unbonding id, uniquely identifying an unbonding of this validator
        * </pre>
        *
        * <code>uint64 unbonding_id = 14 [json_name = "unbondingId"];</code>
