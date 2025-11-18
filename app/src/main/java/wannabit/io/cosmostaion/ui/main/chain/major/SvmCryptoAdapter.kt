@@ -1,46 +1,50 @@
 package wannabit.io.cosmostaion.ui.main.chain.major
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
+import wannabit.io.cosmostaion.databinding.ItemDefaultAssetViewBinding
 import wannabit.io.cosmostaion.databinding.ItemEvmAssetBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 
-class SolanaCryptoAdapter(
-    val context: Context,
+class SvmCryptoAdapter(
     val selectedChain: BaseChain,
     val coins: MutableList<JsonObject>,
     val tokens: MutableList<JsonObject>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        const val VIEW_TYPE_MAIN_HEADER = 0
-        const val VIEW_TYPE_MAIN_ITEM = 1
-        const val VIEW_TYPE_TOKEN_HEADER = 2
-        const val VIEW_TYPE_TOKEN_ITEM = 3
+        const val VIEW_TYPE_MAIN_ITEM = 0
+        const val VIEW_TYPE_TOKEN_HEADER = 1
+        const val VIEW_TYPE_TOKEN_ITEM = 2
     }
 
     private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            VIEW_TYPE_MAIN_HEADER, VIEW_TYPE_TOKEN_HEADER -> {
+            VIEW_TYPE_TOKEN_HEADER -> {
                 val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 SolanaCryptoHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_MAIN_ITEM, VIEW_TYPE_TOKEN_ITEM -> {
+            VIEW_TYPE_MAIN_ITEM -> {
+                val binding = ItemDefaultAssetViewBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                SvmAssetViewHolder(binding)
+            }
+
+            VIEW_TYPE_TOKEN_ITEM -> {
                 val binding = ItemEvmAssetBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                SolanaAssetViewHolder(binding)
+                SvmTokenViewHolderr(binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -50,26 +54,31 @@ class SolanaCryptoAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is SolanaCryptoHeaderViewHolder -> {
-                holder.bind(position)
+                holder.bind()
             }
 
-            is SolanaAssetViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_MAIN_ITEM) {
-                    holder.bind(selectedChain as ChainSolana)
-                    holder.itemView.setOnClickListener {
-                        onItemClickListener?.let {
-                            it(selectedChain, selectedChain.coinSymbol)
-                        }
+            is SvmAssetViewHolder -> {
+                holder.bind(selectedChain as ChainSolana)
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, selectedChain.coinSymbol)
                     }
+                }
+            }
 
+            is SvmTokenViewHolderr -> {
+                val tokenPosition = if (coins.isNotEmpty()) {
+                    position - 2
                 } else {
-                    val token = tokens[position - 3]
-                    holder.tokenBind(selectedChain as ChainSolana, token)
+                    position - 1
+                }
 
-                    holder.itemView.setOnClickListener {
-                        onItemClickListener?.let {
-                            it(selectedChain, token["mint"].asString)
-                        }
+                val token = tokens[tokenPosition]
+                holder.bind(selectedChain as ChainSolana, token)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, token["mint"].asString)
                     }
                 }
             }
@@ -77,26 +86,35 @@ class SolanaCryptoAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (tokens.isNotEmpty()) {
+        return if (coins.isNotEmpty()) {
             when (position) {
-                0 -> VIEW_TYPE_MAIN_HEADER
-                1 -> VIEW_TYPE_MAIN_ITEM
-                2 -> VIEW_TYPE_TOKEN_HEADER
+                0 -> VIEW_TYPE_MAIN_ITEM
+                1 -> VIEW_TYPE_TOKEN_HEADER
                 else -> VIEW_TYPE_TOKEN_ITEM
             }
+
         } else {
             when (position) {
-                0 -> VIEW_TYPE_MAIN_HEADER
-                else -> VIEW_TYPE_MAIN_ITEM
+                0 -> VIEW_TYPE_TOKEN_HEADER
+                else -> VIEW_TYPE_TOKEN_ITEM
             }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (tokens.isNotEmpty()) {
-            coins.size + tokens.size + 2
+        return if (coins.isNotEmpty()) {
+            if (tokens.isNotEmpty()) {
+                coins.size + tokens.size + 1
+            } else {
+                coins.size
+            }
+
         } else {
-            coins.size + 1
+            if (tokens.isNotEmpty()) {
+                tokens.size + 1
+            } else {
+                0
+            }
         }
     }
 
@@ -104,16 +122,10 @@ class SolanaCryptoAdapter(
         private val binding: ItemHeaderBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(position: Int) {
+        fun bind() {
             binding.apply {
-                if (getItemViewType(position) == VIEW_TYPE_MAIN_HEADER) {
-                    headerTitle.text = "Coin"
-                    headerCnt.text = "1"
-
-                } else {
-                    headerTitle.text = "Spl tokens"
-                    headerCnt.text = tokens.size.toString()
-                }
+                headerTitle.text = "Spl tokens"
+                headerCnt.text = tokens.size.toString()
             }
         }
     }

@@ -1331,7 +1331,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            txRepository.auth(null, selectedChain)
             val response = txRepository.broadcastSendRpcTx(msgSend, fee, memo, selectedChain)
             broadcast.postValue(response)
         } catch (e: Exception) {
@@ -1346,7 +1345,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgSend: MsgSend, fee: Fee?, memo: String, selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            txRepository.auth(null, selectedChain)
             val response = txRepository.simulateSendRpcTx(msgSend, fee, memo, selectedChain)
             if (response.toDoubleOrNull() != null) {
                 simulate.postValue(response)
@@ -1365,7 +1363,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            txRepository.auth(null, selectedChain)
             val response = txRepository.broadcastCallRpcTx(msgCall, fee, memo, selectedChain)
             broadcast.postValue(response)
         } catch (e: Exception) {
@@ -1380,7 +1377,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         msgCall: MsgCall, fee: Fee?, memo: String, selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            txRepository.auth(null, selectedChain)
             val response = txRepository.simulateCallRpcTx(msgCall, fee, memo, selectedChain)
             if (response.toDoubleOrNull() != null) {
                 simulate.postValue(response)
@@ -1427,17 +1423,18 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     // solana
     private var _solanaMinimumRentResult = MutableLiveData<String>()
     val solanaMinimumRentResult: LiveData<String> get() = _solanaMinimumRentResult
-    fun solanaMinimumRentBalance(chain: ChainSolana, dataSize: Int) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = txRepository.minimumRentBalance(chain, dataSize)) {
-            is NetworkResult.Success -> {
-                _solanaMinimumRentResult.postValue(response.data)
-            }
+    fun solanaMinimumRentBalance(chain: ChainSolana, dataSize: Int) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = txRepository.minimumRentBalance(chain, dataSize)) {
+                is NetworkResult.Success -> {
+                    _solanaMinimumRentResult.postValue(response.data)
+                }
 
-            is NetworkResult.Error -> {
-                errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                is NetworkResult.Error -> {
+                    errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+                }
             }
         }
-    }
 
     fun solSendBroadcast(
         chain: ChainSolana, solanaJS: SolanaJs?, txHex: String

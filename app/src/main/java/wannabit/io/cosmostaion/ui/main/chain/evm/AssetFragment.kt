@@ -76,7 +76,6 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
         sortAssets()
         refreshData()
         observeViewModels()
-        initSearchView()
     }
 
     private fun initData() {
@@ -176,6 +175,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
             withContext(Dispatchers.Main) {
                 allErc20Tokens.addAll(evmTokens)
                 initRecyclerView()
+                initSearchView()
             }
         }
     }
@@ -232,7 +232,7 @@ class AssetFragment : Fragment(), AssetFragmentInteraction {
 
     private fun initSearchView() {
         binding.apply {
-            searchBar.visibleOrGone(searchEthCoins.size + searchDisplayErc20Tokens.size > 15)
+            searchBar.visibleOrGone(searchDisplayErc20Tokens.size > 15)
             searchView.setQuery("", false)
             searchView.clearFocus()
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

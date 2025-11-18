@@ -33,8 +33,13 @@ import com.ethermint.crypto.v1.ethsecp256k1.KeysProto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.gno.bank.BankProto
+import com.gno.vm.VmProto.MemFile
+import com.gno.vm.VmProto.MemPackage
+import com.gno.vm.VmProto.MsgAddPackage
 import com.gno.vm.VmProto.MsgCall
+import com.gno.vm.VmProto.MsgRun
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
@@ -74,6 +79,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
@@ -88,7 +94,6 @@ import wannabit.io.cosmostaion.chain.fetcher.earnRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hardRewardDenoms
 import wannabit.io.cosmostaion.chain.fetcher.hasUsdxMinting
 import wannabit.io.cosmostaion.chain.fetcher.swapRewardDenoms
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainInjectiveEvmTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_AUTH_TYPE_STDTX
 import wannabit.io.cosmostaion.common.BaseConstant.COSMOS_KEY_TYPE_PUBLIC
@@ -738,9 +743,9 @@ object Signer {
         return result
     }
 
-    private fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
+    fun generateGrpcPubKeyFromPriv(chain: BaseChain?, privateKey: String): Any {
         val ecKey = ECKey.fromPrivate(BigInteger(privateKey, 16))
-        return if (chain is ChainGnoTestnet) {
+        return if (chain is ChainGno) {
             val pubKey = com.tm2.tx.TxProto.PubKeySecp256k1.newBuilder()
                 .setKey(ByteString.copyFrom(ecKey.pubKey)).build()
             Any.newBuilder().setTypeUrl("/tm.PubKeySecp256k1").setValue(pubKey.toByteString())
@@ -785,7 +790,7 @@ object Signer {
         }
     }
 
-    private fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
+    fun grpcByteSignature(selectedChain: BaseChain?, toSignByte: ByteArray?): ByteArray {
         val sigData = ByteArray(64)
         if (selectedChain?.accountKeyType?.pubkeyType == PubKeyType.ETH_KECCAK256 || selectedChain?.accountKeyType?.pubkeyType == PubKeyType.COSMOS_ETH_KECCAK256) {
             val sig = Sign.signMessage(toSignByte, ECKeyPair.create(selectedChain.privateKey))
@@ -840,6 +845,7 @@ object Signer {
             amount = msgSend.amount
         )
         msgs.add(msg)
+
         val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 100000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
         val pubKey =
@@ -847,10 +853,11 @@ object Signer {
 
         val signPayload = SignPayload(
             chain.chainIdCosmos,
-            (chain as ChainGnoTestnet).gnoRpcFetcher()?.gnoAccountNumber.toString(),
+            (chain as ChainGno).gnoRpcFetcher()?.gnoAccountNumber.toString(),
             chain.gnoRpcFetcher()?.gnoSequence.toString(),
             wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
-            msgs
+            msgs,
+            memo
         )
 
         val mapper = ObjectMapper()
@@ -872,16 +879,20 @@ object Signer {
     }
 
     fun signRpcSendSimulateTx(
-        msgSend: BankProto.MsgSend, fee: Fee?, memo: String
+        msgSend: BankProto.MsgSend, fee: Fee?, memo: String, chain: BaseChain
     ): Tx {
         val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val pubKey =
+            generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain.privateKey).privateKeyAsHex)
+
         val builder = Tx.newBuilder()
         gnoSendMsg(msgSend).forEach { msgAny ->
             builder.addMessages(msgAny)
         }
 
-        return builder.setFee(txFee).setMemo(memo).addSignatures(TxSignature.newBuilder().build())
+        return builder.setFee(txFee).setMemo(memo)
+            .addSignatures(TxSignature.newBuilder().setPubKey(pubKey).build())
             .build()
     }
 
@@ -893,10 +904,12 @@ object Signer {
             "/vm.m_call",
             send = "",
             caller = chain.address,
+            max_deposit = "",
             pkg_path = msgCall?.pkgPath,
             func = msgCall?.func,
             args = listOf(msgCall?.getArgs(0).toString(), msgCall?.getArgs(1).toString())
         )
+
         msgs.add(msg)
         val txFee = TxFee.newBuilder().setGasWanted(fee?.gasLimit ?: 10000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
@@ -905,10 +918,11 @@ object Signer {
 
         val signPayload = SignPayload(
             chain.chainIdCosmos,
-            (chain as ChainGnoTestnet).gnoRpcFetcher()?.gnoAccountNumber.toString(),
+            (chain as ChainGno).gnoRpcFetcher()?.gnoAccountNumber.toString(),
             chain.gnoRpcFetcher()?.gnoSequence.toString(),
             wannabit.io.cosmostaion.data.model.req.Fee(txFee.gasWanted.toString(), txFee.gasFee),
-            msgs
+            msgs,
+            memo
         )
 
         val mapper = ObjectMapper()
@@ -930,16 +944,20 @@ object Signer {
     }
 
     fun signRpcCallSimulateTx(
-        msgCall: MsgCall?, fee: Fee?, memo: String
+        msgCall: MsgCall?, fee: Fee?, memo: String, chain: BaseChain
     ): Tx {
         val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
             .setGasFee(fee?.getAmount(0)?.amount + fee?.getAmount(0)?.denom).build()
+        val pubKey =
+            generateGrpcPubKeyFromPriv(chain, ECKey.fromPrivate(chain.privateKey).privateKeyAsHex)
+
         val builder = Tx.newBuilder()
         msgCallMsg(msgCall).forEach { msgAny ->
             builder.addMessages(msgAny)
         }
 
-        return builder.setFee(txFee).setMemo(memo).addSignatures(TxSignature.newBuilder().build())
+        return builder.setFee(txFee).setMemo(memo)
+            .addSignatures(TxSignature.newBuilder().setPubKey(pubKey).build())
             .build()
     }
 
@@ -1226,5 +1244,103 @@ object Signer {
         signature.initSign(EdDSAPrivateKey(privateKeySpec))
         signature.update(blake2b.digest())
         return mutableListOf(toBase64String((byteArrayOf(0x00) + signature.sign() + selectedChain.publicKey!!)))
+    }
+
+    fun gnoDappSignedMsg(param: JsonObject): MutableList<Any> {
+        val msgAnys: MutableList<Any> = mutableListOf()
+        val messages = param["messages"].asJsonArray[0].asJsonObject
+        val type = messages["type"].asString
+
+        if (type.contains("MsgSend")) {
+            val msgSend = BankProto.MsgSend.newBuilder()
+                .setFromAddress(messages["value"].asJsonObject["from_address"].asString)
+                .setToAddress(messages["value"].asJsonObject["to_address"].asString)
+                .setAmount(messages["value"].asJsonObject["amount"].asString).build()
+
+            msgAnys.add(
+                Any.newBuilder().setTypeUrl("/bank.MsgSend").setValue(msgSend?.toByteString())
+                    .build()
+            )
+
+        } else if (type.contains("call")) {
+            val args = messages["value"].asJsonObject["args"].asJsonArray
+            val addArgs = args.map { it.asString }
+
+            val msgCall =
+                MsgCall.newBuilder().setSend(messages["value"].asJsonObject["send"].asString)
+                    .setCaller(messages["value"].asJsonObject["caller"].asString)
+                    .setMaxDeposit(messages["value"].asJsonObject["max_deposit"].asString)
+                    .setPkgPath(messages["value"].asJsonObject["pkg_path"].asString)
+                    .setFunc(messages["value"].asJsonObject["func"].asString).addAllArgs(addArgs)
+                    .build()
+
+            msgAnys.add(
+                Any.newBuilder().setTypeUrl("/vm.m_call").setValue(msgCall?.toByteString())
+                    .build()
+            )
+
+        } else {
+            val messageValue = messages["value"].asJsonObject
+            val messagePackage = messageValue["package"].asJsonObject
+            val files = messagePackage["files"].asJsonArray
+
+            val memFiles = MemFile.newBuilder()
+            files.forEach { file ->
+                memFiles.setName(file.asJsonObject["name"].asString)
+                    .setBody(file.asJsonObject["body"].asString)
+            }
+            memFiles.build()
+
+            val anyType = if (messagePackage.has("type")) {
+                val packageType = messagePackage["type"].asJsonObject
+                Any.newBuilder().setTypeUrl(packageType["type_url"].asString)
+                    .setValue(ByteString.copyFrom(Base64.decode(packageType["value"].asString)))
+                    .build()
+            } else {
+                Any.newBuilder().build()
+            }
+
+            val anyInfo = if (messagePackage.has("info")) {
+                val packageInfo = messagePackage["info"].asJsonObject
+                Any.newBuilder().setTypeUrl(packageInfo["type_url"].asString)
+                    .setValue(ByteString.copyFrom(Base64.decode(packageInfo["value"].asString)))
+                    .build()
+            } else {
+                Any.newBuilder().build()
+            }
+
+            val memPackage = MemPackage.newBuilder()
+                .setName(messagePackage["name"].asString)
+                .setPath(messagePackage["path"].asString)
+                .addFiles(memFiles)
+                .setType(anyType).setInfo(anyInfo).build()
+
+            if (type.contains("addpkg")) {
+                val msgAddPackage = MsgAddPackage.newBuilder()
+                    .setCreator(messageValue["creator"].asString)
+                    .setPackage(memPackage)
+                    .setSend(messageValue["send"].asString)
+                    .setMaxDeposit(messageValue["max_deposit"].asString).build()
+
+                msgAnys.add(
+                    Any.newBuilder().setTypeUrl("/vm.m_addpkg")
+                        .setValue(msgAddPackage?.toByteString())
+                        .build()
+                )
+
+            } else {
+                val msgRun = MsgRun.newBuilder().setCaller(messageValue["caller"].asString)
+                    .setSend(messageValue["send"].asString)
+                    .setMaxDeposit(messageValue["max_deposit"].asString)
+                    .setPackage(memPackage).build()
+
+                msgAnys.add(
+                    Any.newBuilder().setTypeUrl("/vm.m_run").setValue(msgRun?.toByteString())
+                        .build()
+                )
+            }
+        }
+
+        return msgAnys
     }
 }

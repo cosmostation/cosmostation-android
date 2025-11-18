@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.databinding.FragmentReceiveBinding
-import wannabit.io.cosmostaion.ui.main.chain.evm.EvmReceiveAdapter
 
 class MajorReceiveFragment : Fragment() {
 
@@ -19,7 +18,7 @@ class MajorReceiveFragment : Fragment() {
 
     private lateinit var selectedChain: BaseChain
 
-    private lateinit var receiveAdapter: EvmReceiveAdapter
+    private lateinit var receiveAdapter: MajorReceiveAdapter
 
     companion object {
         @JvmStatic
@@ -58,7 +57,7 @@ class MajorReceiveFragment : Fragment() {
 
         binding.apply {
             BaseData.baseAccount?.let { account ->
-                receiveAdapter = EvmReceiveAdapter(requireContext(), account, selectedChain)
+                receiveAdapter = MajorReceiveAdapter(account, selectedChain)
                 recycler.setHasFixedSize(true)
                 recycler.layoutManager = LinearLayoutManager(requireContext())
                 recycler.adapter = receiveAdapter

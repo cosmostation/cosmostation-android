@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -17,7 +16,7 @@ import wannabit.io.cosmostaion.databinding.ItemMajorCryptoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CoinViewHolder
 import java.math.BigDecimal
 
-class MajorCryptoAdapter(
+class MoveCryptoAdapter(
     val context: Context,
     val selectedChain: BaseChain,
     private val moveBalances: MutableList<Pair<String?, BigDecimal?>>,
@@ -26,8 +25,9 @@ class MajorCryptoAdapter(
 
     companion object {
         const val VIEW_TYPE_MAIN_ITEM = 0
-        const val VIEW_TYPE_COIN_HEADER = 1
-        const val VIEW_TYPE_COIN_ITEM = 2
+        const val VIEW_TYPE_APTOS_MAIN_ITEM = 1
+        const val VIEW_TYPE_COIN_HEADER = 2
+        const val VIEW_TYPE_COIN_ITEM = 3
     }
 
     private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
@@ -38,7 +38,7 @@ class MajorCryptoAdapter(
                 val binding = ItemMajorCryptoBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
-                MajorCryptoViewHolder(binding)
+                MoveAssetViewHolder(binding)
             }
 
             VIEW_TYPE_COIN_HEADER -> {
@@ -61,7 +61,7 @@ class MajorCryptoAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MajorCryptoViewHolder -> {
+            is MoveAssetViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_MAIN_ITEM) {
                     when (selectedChain) {
                         is ChainSui -> {
@@ -83,12 +83,7 @@ class MajorCryptoAdapter(
                         }
 
                         else -> {
-                            holder.bitcoinBind(selectedChain as ChainBitCoin86)
-                            holder.itemView.setOnClickListener {
-                                onItemClickListener?.let {
-                                    it(selectedChain, "")
-                                }
-                            }
+
                         }
                     }
                 }

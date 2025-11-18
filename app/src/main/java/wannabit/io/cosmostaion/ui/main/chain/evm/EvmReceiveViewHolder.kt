@@ -4,18 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -35,87 +29,23 @@ class EvmReceiveViewHolder(
                 accountPathLayout.visibility = View.GONE
             }
 
-            if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86 || selectChain is ChainSolana) {
-                if (selectChain.mainAddress.isNotEmpty()) {
-                    receiveTitle.text =
-                        context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName())
-                    setQrAddress(context, selectChain.mainAddress)
-                }
-
-            } else {
-                receiveTitle.text =
-                    context.getString(R.string.str_deposit_caution_msg, selectChain.getChainName() + " EVM")
-                setQrAddress(context, selectChain.evmAddress)
-            }
+            receiveTitle.text =
+                context.getString(
+                    R.string.str_deposit_caution_msg,
+                    selectChain.getChainName() + " EVM"
+                )
+            setQrAddress(context, selectChain.evmAddress)
 
             chainImg.setChainLogo(selectChain)
             accountPath.text = selectChain.getHDPath(account.lastHDPath)
-            if (selectChain is ChainBitCoin86) {
-                when (selectChain.accountKeyType.pubkeyType) {
-                    PubKeyType.BTC_LEGACY -> {
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainBadge.visibility = View.GONE
-                        chainTypeBadge.text = context.getString(R.string.str_legacy)
-                        chainBadge.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base02
-                            )
-                        )
-                    }
-
-                    PubKeyType.BTC_NESTED_SEGWIT -> {
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainBadge.visibility = View.GONE
-                        chainTypeBadge.text = context.getString(R.string.str_nested_segwit)
-                        chainBadge.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base02
-                            )
-                        )
-                    }
-
-                    PubKeyType.BTC_NATIVE_SEGWIT -> {
-                        chainBadge.visibility = View.GONE
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainTypeBadge.text = context.getString(R.string.str_native_segwit)
-                        chainTypeBadge.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base01
-                            )
-                        )
-                        chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit)
-                    }
-
-                    else -> {
-                        chainBadge.visibility = View.GONE
-                        chainTypeBadge.visibility = View.VISIBLE
-                        chainTypeBadge.text = context.getString(R.string.str_taproot)
-                        chainTypeBadge.setTextColor(
-                            ContextCompat.getColorStateList(
-                                context, R.color.color_base01
-                            )
-                        )
-                        chainTypeBadge.setBackgroundResource(R.drawable.round_box_bit_taproot)
-                    }
-                }
-
-            } else {
-                chainBadge.visibility = View.GONE
-                chainTypeBadge.visibility = View.GONE
-            }
+            chainBadge.visibility = View.GONE
+            chainTypeBadge.visibility = View.GONE
 
             receiveView.setOnClickListener {
-                val address =
-                    if (selectChain is ChainSui || selectChain is ChainIota || selectChain is ChainBitCoin86 || selectChain is ChainSolana) {
-                        selectChain.mainAddress
-                    } else {
-                        selectChain.evmAddress
-                    }
-
                 val clipboard =
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText(
-                    "address", address
+                    "address", selectChain.evmAddress
                 )
                 clipboard.setPrimaryClip(clip)
                 context.makeToast(R.string.str_msg_address_copied)

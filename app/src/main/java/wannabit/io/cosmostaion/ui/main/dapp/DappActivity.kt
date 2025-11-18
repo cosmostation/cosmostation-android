@@ -24,6 +24,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.ServiceGrpc
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.TxProto
@@ -42,12 +43,16 @@ import com.reown.sign.client.Sign.Model.Namespace
 import com.reown.sign.client.SignClient
 import com.reown.sign.client.SignInterface
 import com.reown.util.bytesToHex
+import com.tm2.tx.TxProto.Tx
+import com.tm2.tx.TxProto.TxFee
+import com.tm2.tx.TxProto.TxSignature
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.i2p.crypto.eddsa.Utils
+import org.bitcoinj.core.ECKey
 import org.bouncycastle.util.Strings
 import org.json.JSONArray
 import org.json.JSONObject
@@ -81,7 +86,9 @@ import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.EstimateGasParamsWithValue
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
+import wannabit.io.cosmostaion.data.model.req.Msgs
 import wannabit.io.cosmostaion.data.model.req.PubKey
+import wannabit.io.cosmostaion.data.model.req.SignPayload
 import wannabit.io.cosmostaion.data.model.req.Signature
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.data.repository.tx.TxRepositoryImpl
@@ -93,6 +100,8 @@ import wannabit.io.cosmostaion.data.viewmodel.tx.TxViewModelProviderFactory
 import wannabit.io.cosmostaion.database.model.BaseAccountType
 import wannabit.io.cosmostaion.databinding.ActivityDappBinding
 import wannabit.io.cosmostaion.sign.Signer
+import wannabit.io.cosmostaion.sign.Signer.generateGrpcPubKeyFromPriv
+import wannabit.io.cosmostaion.sign.Signer.grpcByteSignature
 import wannabit.io.cosmostaion.sign.SolanaJs
 import java.io.BufferedReader
 import java.net.URLDecoder
@@ -130,6 +139,8 @@ class DappActivity : BaseActivity() {
     private var currentMessageId: String = ""
     private var bitToAddress: String = ""
     private var bitSatAmount: String = ""
+
+    private var currentChainId: String? = null
 
     private lateinit var walletViewModel: WalletViewModel
     private lateinit var txViewModel: TxViewModel
@@ -999,6 +1010,18 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun showGnoSignDialog(
+        bundle: Bundle, signListener: PopUpGnoSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpGnoSignFragment(
+                selectedChain, bundle.getLong("id"), data, signListener
+            ).show(
+                supportFragmentManager, PopUpGnoSignFragment::class.java.name
+            )
+        }
+    }
+
     private val dappWebViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -1166,9 +1189,8 @@ class DappActivity : BaseActivity() {
             isCosmostation = true
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
-            val method = messageJson.getString("method")
 
-            when (method) {
+            when (val method = messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
                         val params = messageJson.getJSONObject("params")
@@ -2210,6 +2232,94 @@ class DappActivity : BaseActivity() {
                     }
                 }
 
+                //Gno
+                "gno_connect" -> {
+                    val connectJson = JSONObject()
+                    connectJson.put("code", 0)
+                    connectJson.put("status", "success")
+                    connectJson.put("message", "")
+                    connectJson.put("data", null)
+                    appToWebResult(messageJson, connectJson, messageId)
+                }
+
+                "gno_getAccount" -> {
+                    if (selectedChain == null) {
+                        selectedChain =
+                            allChains?.firstOrNull { it.name.contains("Gno") }
+                    }
+
+                    currentMessageJson = messageJson
+                    currentMessageId = messageId
+
+                    selectedChain?.let { chain ->
+                        walletViewModel.balance(chain)
+                    } ?: run {
+                        appToWebError(
+                            messageJson, messageId, getString(R.string.error_not_support)
+                        )
+                    }
+                }
+
+                "gno_getNetwork" -> {
+                    if (selectedChain == null) {
+                        selectedChain =
+                            allChains?.firstOrNull { it.name.contains("Gno") }
+                    }
+
+                    selectedChain?.gnoRpcFetcher?.let { fetcher ->
+                        val networkDataJson = JSONObject()
+                        networkDataJson.put("chainId", selectedChain?.chainIdCosmos)
+                        networkDataJson.put("addressPrefix", selectedChain?.accountPrefix)
+                        networkDataJson.put("indexerUrl", "")
+                        networkDataJson.put("networkName", selectedChain?.name)
+                        networkDataJson.put("rpcUrl", fetcher.gnoRpc())
+
+                        val networkJson = JSONObject()
+                        networkJson.put("code", 0)
+                        networkJson.put("status", "success")
+                        networkJson.put("message", "")
+                        networkJson.put("data", networkDataJson)
+                        appToWebResult(messageJson, networkJson, messageId)
+                    }
+                }
+
+                "gno_switchNetwork" -> {
+                    val params = messageJson.getJSONArray("params")
+                    val chainId = params.getString(0)
+                    currentChainId = chainId
+
+                    val chainIdJson = JSONObject()
+                    chainIdJson.put("chainId", currentChainId)
+
+                    val switchJson = JSONObject()
+                    switchJson.put("code", 0)
+                    switchJson.put("status", "success")
+                    switchJson.put("message", "")
+                    switchJson.put("data", chainIdJson)
+                    appToWebResult(messageJson, switchJson, messageId)
+                }
+
+                "gno_signTransaction", "gno_signAndSendTransaction" -> {
+                    val params = messageJson.getJSONObject("params")
+                    val signBundle =
+                        signBundle(0, params.toString(), "gno_signTransaction")
+                    showGnoSignDialog(
+                        signBundle,
+                        object : PopUpGnoSignFragment.WcSignRawDataListener {
+                            override fun sign(id: Long, data: String) {
+                                approveGnoSignExecuteRequest(method, messageJson, messageId, data)
+                            }
+
+                            override fun cancel(id: Long) {
+                                appToWebError(
+                                    messageJson,
+                                    messageId,
+                                    "User rejected the request."
+                                )
+                            }
+                        })
+                }
+
                 else -> {
                     appToWebError(messageJson, messageId, "Not implemented")
                 }
@@ -2420,6 +2530,120 @@ class DappActivity : BaseActivity() {
         }
     }
 
+    private fun approveGnoSignExecuteRequest(
+        method: String,
+        messageJson: JSONObject,
+        messageId: String,
+        transactionData: String
+    ) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val signDocJson =
+                Gson().fromJson(transactionData, JsonObject::class.java)
+
+            val gasFee = signDocJson["gasFee"].asLong.toString()
+            val gasWanted = signDocJson["gasWanted"].asLong
+            val memo = if (signDocJson.has("memo")) signDocJson["memo"].asString else ""
+            val message = signDocJson["messages"].asJsonArray[0].asJsonObject
+            val value = message["value"].asJsonObject
+            val type = message["type"].asString
+
+            selectedChain?.let { chain ->
+                chain.gnoRpcFetcher?.let { fetcher ->
+                    val msgs: MutableList<Msgs> = mutableListOf()
+                    val msg = Gson().fromJson(value, Msgs::class.java)
+                    val typeMsg = msg.copy(type = type)
+
+                    msgs.add(typeMsg)
+                    val txFee = TxFee.newBuilder().setGasWanted(gasWanted)
+                        .setGasFee(gasFee + chain.getStakeAssetDenom()).build()
+
+                    val pubKey = generateGrpcPubKeyFromPriv(
+                        chain,
+                        ECKey.fromPrivate(chain.privateKey).privateKeyAsHex
+                    )
+
+                    val signPayload = SignPayload(
+                        chain.chainIdCosmos,
+                        fetcher.gnoAccountNumber.toString(),
+                        fetcher.gnoSequence.toString(),
+                        wannabit.io.cosmostaion.data.model.req.Fee(
+                            txFee.gasWanted.toString(),
+                            txFee.gasFee
+                        ),
+                        msgs,
+                        memo
+                    )
+
+                    val mapper = ObjectMapper()
+                    mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
+                    val signPayloadDoc = mapper.writeValueAsString(
+                        mapper.readValue(signPayload.toJson(), TreeMap::class.java)
+                    )
+
+                    val sigByte = grpcByteSignature(
+                        chain,
+                        signPayloadDoc.toByteArray(StandardCharsets.UTF_8)
+                    )
+                    val signatures =
+                        TxSignature.newBuilder().setPubKey(pubKey)
+                            .setSignature(ByteString.copyFrom(sigByte))
+                            .build()
+
+                    val signMsgs = Signer.gnoDappSignedMsg(signDocJson)
+                    val builder = Tx.newBuilder()
+                    signMsgs.forEach { msgAny ->
+                        builder.addMessages(msgAny)
+                    }
+
+                    val tx = builder.setFee(txFee).addSignatures(signatures).setMemo(memo).build()
+                    val txByte =
+                        org.bouncycastle.util.encoders.Base64.toBase64String(tx.toByteArray())
+
+                    val signJson = JSONObject()
+                    signJson.put("code", 0)
+                    signJson.put("status", "success")
+                    signJson.put("message", "")
+
+                    if (method == "gno_signTransaction") {
+                        val dataJson = JSONObject()
+                        dataJson.put("encodedTransaction", txByte)
+
+                        signJson.put("data", dataJson)
+
+                    } else {
+                        val broadcastRequest = JsonRpcRequest(
+                            method = "broadcast_tx_async", params = listOf(txByte)
+                        )
+                        val broadcastResponse = jsonRpcResponse(
+                            fetcher.gnoRpc(), broadcastRequest
+                        )
+                        val broadcastJsonObject = Gson().fromJson(
+                            broadcastResponse.body?.string(), JsonObject::class.java
+                        )
+
+                        val result = broadcastJsonObject["result"].asJsonObject
+                        val hashResponse = if (result["error"].isJsonNull) {
+                            AbciProto.TxResponse.newBuilder().setCode(0)
+                                .setTxhash(result["hash"].asString)
+                                .build()
+                        } else {
+                            AbciProto.TxResponse.newBuilder().setCode(-1)
+                                .setTxhash(result["hash"].asString)
+                                .build()
+                        }
+
+                        val hashJson = JSONObject()
+                        hashJson.put("hash", hashResponse.txhash)
+
+                        signJson.put("data", hashJson)
+                    }
+
+                    appToWebResult(messageJson, signJson, messageId)
+                }
+            }
+        }
+    }
+
     // chain changed
     private fun emitToWeb(chainId: String) {
         val responseJson = JSONObject().apply {
@@ -2463,6 +2687,7 @@ class DappActivity : BaseActivity() {
             put("messageId", messageId)
             put("isCosmostation", true)
         }
+
         runOnUiThread {
             binding.dappWebView.evaluateJavascript(
                 String.format("window.postMessage(%s);", postMessageJson.toString()), null
@@ -2551,11 +2776,45 @@ class DappActivity : BaseActivity() {
 
     private fun setUpObserve() {
         walletViewModel.balanceResult.observe(this) {
-            appToWebResult(
-                currentMessageJson,
-                (selectBitcoin as ChainBitCoin86).btcFetcher()?.btcBalances,
-                currentMessageId
-            )
+            if (selectBitcoin != null) {
+                appToWebResult(
+                    currentMessageJson,
+                    (selectBitcoin as ChainBitCoin86).btcFetcher()?.btcBalances,
+                    currentMessageId
+                )
+
+            } else {
+                if (currentChainId == null) {
+                    currentChainId = selectedChain?.chainIdCosmos
+                }
+
+                // update Gno Mainnet
+                selectedChain?.gnoRpcFetcher?.let { fetcher ->
+                    val publicKeyJson = JSONObject()
+                    publicKeyJson.put("@type", "/tm.PubKeySecp256k1")
+                    publicKeyJson.put("value", fetcher.gnoPublicKey)
+
+                    val dataJson = JSONObject()
+                    dataJson.put("accountNumber", fetcher.gnoAccountNumber)
+                    dataJson.put("address", selectedChain?.address)
+                    dataJson.put("chainId", currentChainId)
+                    dataJson.put(
+                        "coins",
+                        fetcher.balanceAmount(selectedChain?.getStakeAssetDenom() ?: "")
+                            .toString() + selectedChain?.getStakeAssetDenom()
+                    )
+                    dataJson.put("publicKey", publicKeyJson)
+                    dataJson.put("sequence", fetcher.gnoSequence.toString())
+                    dataJson.put("status", "ACTIVE")
+
+                    val accountJson = JSONObject()
+                    accountJson.put("code", 0)
+                    accountJson.put("status", "success")
+                    accountJson.put("message", "")
+                    accountJson.put("data", dataJson)
+                    appToWebResult(currentMessageJson, accountJson, currentMessageId)
+                }
+            }
         }
     }
 
