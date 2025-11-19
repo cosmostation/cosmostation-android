@@ -421,9 +421,14 @@ open class BaseChain : Parcelable {
 
     fun accountPrefix(): String {
         return if (getChainListParam()?.has("bech_account_prefix") == true) {
-            getChainListParam()?.get("bech_account_prefix")?.asString ?: ""
+            if (getChainListParam()?.get("bech_account_prefix")?.asString?.isNotEmpty() == true) {
+                getChainListParam()?.get("bech_account_prefix")?.asString ?: accountPrefix
+            } else {
+                accountPrefix
+            }
+
         } else {
-            ""
+            accountPrefix
         }
     }
 
@@ -990,6 +995,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
     "cosmos118",
     "bitcoin86",
     "ethereum60",
+    "solana501",
     "suiMainnet",
     "neutron118",
     "kava60",

@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.isHexString
+import wannabit.io.cosmostaion.common.toBigDecimalOrNull
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.LFee
 import wannabit.io.cosmostaion.data.model.req.Msg
@@ -1467,10 +1468,23 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 chain, solanaJS, from, to, toAmount
             )
 
-            if (response.second == "error" || response.second is JsonObject) {
-                solErrorMessage.postValue(response.second)
-            } else {
-                solSimulate.postValue(response)
+            when (val second = response.second) {
+                is String -> {
+                    if (second == "error") {
+                        solErrorMessage.postValue(second)
+                    } else {
+                        val amount = second.toBigDecimalOrNull()
+                        if (amount != null) {
+                            solSimulate.postValue(response)
+                        } else {
+                            solErrorMessage.postValue(second)
+                        }
+                    }
+                }
+
+                is JsonObject -> {
+                    solErrorMessage.postValue(second)
+                }
             }
 
         } catch (e: Exception) {
@@ -1491,10 +1505,23 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
                 chain, solanaJS, from, to, mint, toAmount
             )
 
-            if (response.third == "error" || response.third is JsonObject) {
-                solErrorMessage.postValue(response.third)
-            } else {
-                splSimulate.postValue(response)
+            when (val third = response.third) {
+                is String -> {
+                    if (third == "error") {
+                        solErrorMessage.postValue(third)
+                    } else {
+                        val amount = third.toBigDecimalOrNull()
+                        if (amount != null) {
+                            splSimulate.postValue(response)
+                        } else {
+                            solErrorMessage.postValue(third)
+                        }
+                    }
+                }
+
+                is JsonObject -> {
+                    solErrorMessage.postValue(third)
+                }
             }
 
         } catch (e: Exception) {

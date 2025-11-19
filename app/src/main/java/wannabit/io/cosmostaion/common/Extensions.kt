@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemToastBinding
+import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -1025,5 +1026,13 @@ fun bitType(pubKeyType: PubKeyType): String {
 fun JSONObject.toObjectNode(): ObjectNode {
     val objectMapper = ObjectMapper()
     return objectMapper.readTree(this.toString()) as ObjectNode
+}
+
+fun String.toBigDecimalOrNull(): BigDecimal? {
+    return try {
+        this.toBigDecimal()
+    } catch (_: NumberFormatException) {
+        null
+    }
 }
 

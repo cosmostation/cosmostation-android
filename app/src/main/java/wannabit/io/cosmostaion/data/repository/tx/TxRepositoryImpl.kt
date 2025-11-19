@@ -2760,7 +2760,11 @@ class TxRepositoryImpl : TxRepository {
                         simulationJsonObject["result"].asJsonObject["value"].asJsonObject
 
                     if (!simulateValue["err"].isJsonNull) {
-                        Pair("", simulateValue["err"].asJsonObject)
+                        if (simulateValue["err"] is JsonObject) {
+                            Pair("", simulateValue["err"].asJsonObject)
+                        } else {
+                            Pair("", simulateValue["err"].asString)
+                        }
 
                     } else {
                         val unitsConsumed = simulateValue["unitsConsumed"].asLong
@@ -2836,7 +2840,7 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            Pair("", "error")
+            Pair("", e.message.toString())
         }
     }
 
@@ -2938,7 +2942,11 @@ class TxRepositoryImpl : TxRepository {
                         simulationJsonObject["result"].asJsonObject["value"].asJsonObject
 
                     if (!simulateValue["err"].isJsonNull) {
-                        Triple(null, "", simulateValue["err"].asJsonObject)
+                        if (simulateValue["err"] is JsonObject) {
+                            Triple(null, "", simulateValue["err"].asJsonObject)
+                        } else {
+                            Triple(null, "", simulateValue["err"].asString)
+                        }
 
                     } else {
                         val unitsConsumed = simulateValue["unitsConsumed"].asLong
@@ -3014,7 +3022,7 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            Triple(null, "", "error")
+            Triple(null, "", e.message.toString())
         }
     }
 }
