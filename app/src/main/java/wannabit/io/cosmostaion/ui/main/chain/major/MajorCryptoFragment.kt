@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
+import android.os.SystemClock
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -467,15 +469,27 @@ class MajorCryptoFragment : Fragment() {
         }
     }
 
+    private var lastSolanaRefreshTime = 0L
+
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
             if (selectedChain.fetchState == FetchState.BUSY) {
                 binding.refresher.isRefreshing = false
+                return@setOnRefreshListener
+
             } else {
                 BaseData.baseAccount?.let { account ->
                     selectedChain.fetchState = FetchState.IDLE
                     when (selectedChain) {
                         is ChainSolana -> {
+                            val now = SystemClock.elapsedRealtime()
+                            if (now - lastSolanaRefreshTime < 5000) {
+                                binding.refresher.isRefreshing = false
+                                return@setOnRefreshListener
+                            }
+
+                            lastSolanaRefreshTime = now
+
                             ApplicationViewModel.shared.loadSolData(
                                 account.id, selectedChain as ChainSolana
                             )
