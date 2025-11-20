@@ -89,19 +89,26 @@ class PopUpGnoSignFragment(
             (selectedChain as ChainGno).let { chain ->
                 chain.gnoRpcFetcher()?.let { fetcher ->
                     val txJsonObject = JsonParser.parseString(data).asJsonObject
-                    val memo = if (txJsonObject.has("memo")) txJsonObject["memo"].asString else ""
-
-                    val signMsgs = Signer.gnoDappSignedMsg(txJsonObject)
                     val defaultFee = chain.getInitFee(requireContext())
 
-                    val txFee = TxFee.newBuilder().setGasWanted(3000000000L)
-                        .setGasFee(defaultFee?.getAmount(0)?.amount + defaultFee?.getAmount(0)?.denom)
+                    val memo = if (txJsonObject.has("memo")) txJsonObject["memo"].asString else ""
+                    val gasFee =
+                        if (txJsonObject.has("gasFee")) txJsonObject["gasFee"].asLong.toString() else defaultFee?.getAmount(
+                            0
+                        )?.amount
+                    val gasWanted =
+                        if (txJsonObject.has("gasWanted")) txJsonObject["gasWanted"].asLong else 3000000000L
+
+                    val txFee = TxFee.newBuilder().setGasWanted(gasWanted)
+                        .setGasFee(gasFee + defaultFee?.getAmount(0)?.denom)
                         .build()
                     val pubKey =
                         generateGrpcPubKeyFromPriv(
                             chain,
                             ECKey.fromPrivate(chain.privateKey).privateKeyAsHex
                         )
+
+                    val signMsgs = Signer.gnoDappSignedMsg(txJsonObject)
                     val builder = Tx.newBuilder()
                     signMsgs.forEach { msgAny ->
                         builder.addMessages(msgAny)
@@ -122,17 +129,27 @@ class PopUpGnoSignFragment(
                     )
 
                     val simulateUsedData = if (simulateResponse.isSuccessful) {
-                        val value =
-                            simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                        val responseBase =
-                            com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
-
-                        if (responseBase.responseBase.hasError()) {
+                        if (simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].isJsonNull) {
                             isErrorTx = true
-                            responseBase.responseBase.error.typeUrl
+                            "Simulate Error"
+
                         } else {
-                            isErrorTx = false
-                            responseBase.gasUsed.toString()
+                            val value =
+                                simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                            val responseBase =
+                                com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(
+                                    Base64.decode(
+                                        value.toByteArray()
+                                    )
+                                )
+
+                            if (responseBase.responseBase.hasError()) {
+                                isErrorTx = true
+                                responseBase.responseBase.error.typeUrl
+                            } else {
+                                isErrorTx = false
+                                responseBase.gasUsed.toString()
+                            }
                         }
 
                     } else {

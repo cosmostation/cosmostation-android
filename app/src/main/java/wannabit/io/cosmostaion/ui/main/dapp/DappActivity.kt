@@ -2537,23 +2537,33 @@ class DappActivity : BaseActivity() {
         transactionData: String
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val signDocJson =
-                Gson().fromJson(transactionData, JsonObject::class.java)
-
-            val gasFee = signDocJson["gasFee"].asLong.toString()
-            val gasWanted = signDocJson["gasWanted"].asLong
-            val memo = if (signDocJson.has("memo")) signDocJson["memo"].asString else ""
-            val message = signDocJson["messages"].asJsonArray[0].asJsonObject
-            val value = message["value"].asJsonObject
-            val type = message["type"].asString
-
             selectedChain?.let { chain ->
                 chain.gnoRpcFetcher?.let { fetcher ->
-                    val msgs: MutableList<Msgs> = mutableListOf()
-                    val msg = Gson().fromJson(value, Msgs::class.java)
-                    val typeMsg = msg.copy(type = type)
+                    val signDocJson =
+                        Gson().fromJson(transactionData, JsonObject::class.java)
 
-                    msgs.add(typeMsg)
+                    val gasFee = signDocJson["gasFee"].asLong.toString()
+                    val gasWanted = signDocJson["gasWanted"].asLong
+                    val memo = if (signDocJson.has("memo")) signDocJson["memo"].asString else ""
+
+                    val msgs: MutableList<Msgs> = mutableListOf()
+                    val messages = signDocJson["messages"].asJsonArray
+
+                    messages.forEach { message ->
+                        val value = message.asJsonObject["value"].asJsonObject
+                        val type = message.asJsonObject["type"].asString
+                        val maxDeposit =
+                            if (message.asJsonObject["value"].asJsonObject.has("max_deposit")) message.asJsonObject["value"].asJsonObject["max_deposit"].asString else ""
+
+                        val msg = Gson().fromJson(value, Msgs::class.java)
+                        val typeMsg = if (type.contains("MsgSend")) {
+                            msg.copy(type = type)
+                        } else {
+                            msg.copy(type = type, max_deposit = maxDeposit)
+                        }
+                        msgs.add(typeMsg)
+                    }
+
                     val txFee = TxFee.newBuilder().setGasWanted(gasWanted)
                         .setGasFee(gasFee + chain.getStakeAssetDenom()).build()
 
@@ -2584,6 +2594,7 @@ class DappActivity : BaseActivity() {
                         chain,
                         signPayloadDoc.toByteArray(StandardCharsets.UTF_8)
                     )
+
                     val signatures =
                         TxSignature.newBuilder().setPubKey(pubKey)
                             .setSignature(ByteString.copyFrom(sigByte))

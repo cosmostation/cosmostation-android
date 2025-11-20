@@ -1248,96 +1248,111 @@ object Signer {
 
     fun gnoDappSignedMsg(param: JsonObject): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
-        val messages = param["messages"].asJsonArray[0].asJsonObject
-        val type = messages["type"].asString
+        val messages = param["messages"].asJsonArray
 
-        if (type.contains("MsgSend")) {
-            val msgSend = BankProto.MsgSend.newBuilder()
-                .setFromAddress(messages["value"].asJsonObject["from_address"].asString)
-                .setToAddress(messages["value"].asJsonObject["to_address"].asString)
-                .setAmount(messages["value"].asJsonObject["amount"].asString).build()
+        messages.forEach { message ->
+            val type = message.asJsonObject["type"].asString
 
-            msgAnys.add(
-                Any.newBuilder().setTypeUrl("/bank.MsgSend").setValue(msgSend?.toByteString())
+            if (type.contains("MsgSend")) {
+                val msgSend = BankProto.MsgSend.newBuilder()
+                    .setFromAddress(message.asJsonObject["value"].asJsonObject["from_address"].asString)
+                    .setToAddress(message.asJsonObject["value"].asJsonObject["to_address"].asString)
+                    .setAmount(message.asJsonObject["value"].asJsonObject["amount"].asString)
                     .build()
-            )
-
-        } else if (type.contains("call")) {
-            val args = messages["value"].asJsonObject["args"].asJsonArray
-            val addArgs = args.map { it.asString }
-
-            val msgCall =
-                MsgCall.newBuilder().setSend(messages["value"].asJsonObject["send"].asString)
-                    .setCaller(messages["value"].asJsonObject["caller"].asString)
-                    .setMaxDeposit(messages["value"].asJsonObject["max_deposit"].asString)
-                    .setPkgPath(messages["value"].asJsonObject["pkg_path"].asString)
-                    .setFunc(messages["value"].asJsonObject["func"].asString).addAllArgs(addArgs)
-                    .build()
-
-            msgAnys.add(
-                Any.newBuilder().setTypeUrl("/vm.m_call").setValue(msgCall?.toByteString())
-                    .build()
-            )
-
-        } else {
-            val messageValue = messages["value"].asJsonObject
-            val messagePackage = messageValue["package"].asJsonObject
-            val files = messagePackage["files"].asJsonArray
-
-            val memFiles = MemFile.newBuilder()
-            files.forEach { file ->
-                memFiles.setName(file.asJsonObject["name"].asString)
-                    .setBody(file.asJsonObject["body"].asString)
-            }
-            memFiles.build()
-
-            val anyType = if (messagePackage.has("type")) {
-                val packageType = messagePackage["type"].asJsonObject
-                Any.newBuilder().setTypeUrl(packageType["type_url"].asString)
-                    .setValue(ByteString.copyFrom(Base64.decode(packageType["value"].asString)))
-                    .build()
-            } else {
-                Any.newBuilder().build()
-            }
-
-            val anyInfo = if (messagePackage.has("info")) {
-                val packageInfo = messagePackage["info"].asJsonObject
-                Any.newBuilder().setTypeUrl(packageInfo["type_url"].asString)
-                    .setValue(ByteString.copyFrom(Base64.decode(packageInfo["value"].asString)))
-                    .build()
-            } else {
-                Any.newBuilder().build()
-            }
-
-            val memPackage = MemPackage.newBuilder()
-                .setName(messagePackage["name"].asString)
-                .setPath(messagePackage["path"].asString)
-                .addFiles(memFiles)
-                .setType(anyType).setInfo(anyInfo).build()
-
-            if (type.contains("addpkg")) {
-                val msgAddPackage = MsgAddPackage.newBuilder()
-                    .setCreator(messageValue["creator"].asString)
-                    .setPackage(memPackage)
-                    .setSend(messageValue["send"].asString)
-                    .setMaxDeposit(messageValue["max_deposit"].asString).build()
 
                 msgAnys.add(
-                    Any.newBuilder().setTypeUrl("/vm.m_addpkg")
-                        .setValue(msgAddPackage?.toByteString())
+                    Any.newBuilder().setTypeUrl("/bank.MsgSend").setValue(msgSend?.toByteString())
+                        .build()
+                )
+
+            } else if (type.contains("call")) {
+                val args = message.asJsonObject["value"].asJsonObject["args"].asJsonArray
+                val addArgs = args.map { it.asString }
+
+                val msgCall =
+                    MsgCall.newBuilder()
+                        .setSend(message.asJsonObject["value"].asJsonObject["send"].asString)
+                        .setCaller(message.asJsonObject["value"].asJsonObject["caller"].asString)
+                        .setMaxDeposit(
+                            message.asJsonObject["value"].asJsonObject.get("max_deposit")
+                                ?.takeIf { !it.isJsonNull }?.asString ?: ""
+                        )
+                        .setPkgPath(message.asJsonObject["value"].asJsonObject["pkg_path"].asString)
+                        .setFunc(message.asJsonObject["value"].asJsonObject["func"].asString)
+                        .addAllArgs(addArgs)
+                        .build()
+
+                msgAnys.add(
+                    Any.newBuilder().setTypeUrl("/vm.m_call").setValue(msgCall?.toByteString())
                         .build()
                 )
 
             } else {
-                val msgRun = MsgRun.newBuilder().setCaller(messageValue["caller"].asString)
-                    .setSend(messageValue["send"].asString)
-                    .setMaxDeposit(messageValue["max_deposit"].asString)
-                    .setPackage(memPackage).build()
+                val messageValue = message.asJsonObject["value"].asJsonObject
+                val messagePackage = messageValue["package"].asJsonObject
+                val files = messagePackage["files"].asJsonArray
 
-                msgAnys.add(
-                    Any.newBuilder().setTypeUrl("/vm.m_run").setValue(msgRun?.toByteString())
+                val memFiles = MemFile.newBuilder()
+                files.forEach { file ->
+                    memFiles.setName(file.asJsonObject["name"].asString)
+                        .setBody(file.asJsonObject["body"].asString)
+                }
+                memFiles.build()
+
+                val anyType = if (messagePackage.has("type")) {
+                    val packageType = messagePackage["type"].asJsonObject
+                    Any.newBuilder().setTypeUrl(packageType["type_url"].asString)
+                        .setValue(ByteString.copyFrom(Base64.decode(packageType["value"].asString)))
                         .build()
-                )
+                } else {
+                    Any.newBuilder().build()
+                }
+
+                val anyInfo = if (messagePackage.has("info")) {
+                    val packageInfo = messagePackage["info"].asJsonObject
+                    Any.newBuilder().setTypeUrl(packageInfo["type_url"].asString)
+                        .setValue(ByteString.copyFrom(Base64.decode(packageInfo["value"].asString)))
+                        .build()
+                } else {
+                    Any.newBuilder().build()
+                }
+
+                val memPackage = MemPackage.newBuilder()
+                    .setName(messagePackage["name"].asString)
+                    .setPath(messagePackage["path"].asString)
+                    .addFiles(memFiles)
+                    .setType(anyType).setInfo(anyInfo).build()
+
+                if (type.contains("addpkg")) {
+                    val msgAddPackage = MsgAddPackage.newBuilder()
+                        .setCreator(messageValue["creator"].asString)
+                        .setPackage(memPackage)
+                        .setSend(messageValue["send"].asString)
+                        .setMaxDeposit(
+                            messageValue.get("max_deposit")?.takeIf { !it.isJsonNull }?.asString
+                                ?: ""
+                        ).build()
+
+                    msgAnys.add(
+                        Any.newBuilder().setTypeUrl("/vm.m_addpkg")
+                            .setValue(msgAddPackage?.toByteString())
+                            .build()
+                    )
+
+                } else {
+                    val msgRun = MsgRun.newBuilder().setCaller(messageValue["caller"].asString)
+                        .setSend(messageValue["send"].asString)
+                        .setMaxDeposit(
+                            messageValue.get("max_deposit")?.takeIf { !it.isJsonNull }?.asString
+                                ?: ""
+                        )
+                        .setPackage(memPackage).build()
+
+                    msgAnys.add(
+                        Any.newBuilder().setTypeUrl("/vm.m_run").setValue(msgRun?.toByteString())
+                            .build()
+                    )
+                }
             }
         }
 

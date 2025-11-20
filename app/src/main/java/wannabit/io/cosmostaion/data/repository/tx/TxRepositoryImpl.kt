@@ -2509,15 +2509,20 @@ class TxRepositoryImpl : TxRepository {
             )
 
             if (simulateResponse.isSuccessful) {
-                val value =
-                    simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                val responseBase =
-                    com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+                if (simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].isJsonNull) {
+                    "Simulate Error"
 
-                if (responseBase.responseBase.hasError()) {
-                    responseBase.responseBase.error.typeUrl
                 } else {
-                    responseBase.gasUsed.toString()
+                    val value =
+                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                    val responseBase =
+                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+
+                    if (responseBase.responseBase.hasError()) {
+                        responseBase.responseBase.error.typeUrl
+                    } else {
+                        responseBase.gasUsed.toString()
+                    }
                 }
 
             } else {
@@ -2574,15 +2579,20 @@ class TxRepositoryImpl : TxRepository {
             )
 
             if (simulateResponse.isSuccessful) {
-                val value =
-                    simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
-                val responseBase =
-                    com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+                if (simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].isJsonNull) {
+                    "Simulate Error"
 
-                if (responseBase.responseBase.hasError()) {
-                    responseBase.responseBase.error.typeUrl
                 } else {
-                    responseBase.gasUsed.toString()
+                    val value =
+                        simulateJsonObject["result"].asJsonObject["response"].asJsonObject["Value"].asString
+                    val responseBase =
+                        com.tm2.abci.AbciProto.ResponseDeliverTx.parseFrom(Base64.decode(value.toByteArray()))
+
+                    if (responseBase.responseBase.hasError()) {
+                        responseBase.responseBase.error.typeUrl
+                    } else {
+                        responseBase.gasUsed.toString()
+                    }
                 }
 
             } else {
