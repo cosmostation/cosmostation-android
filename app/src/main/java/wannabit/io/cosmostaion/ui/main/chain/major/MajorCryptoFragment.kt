@@ -108,7 +108,6 @@ class MajorCryptoFragment : Fragment() {
             }
         }
         binding.apply {
-            dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
             babylonStaking.visibleOrGone(
                 selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT)
