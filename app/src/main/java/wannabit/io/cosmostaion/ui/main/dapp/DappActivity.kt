@@ -2552,15 +2552,17 @@ class DappActivity : BaseActivity() {
                     messages.forEach { message ->
                         val value = message.asJsonObject["value"].asJsonObject
                         val type = message.asJsonObject["type"].asString
-                        val maxDeposit =
-                            if (message.asJsonObject["value"].asJsonObject.has("max_deposit")) message.asJsonObject["value"].asJsonObject["max_deposit"].asString else ""
 
                         val msg = Gson().fromJson(value, Msgs::class.java)
                         val typeMsg = if (type.contains("MsgSend")) {
                             msg.copy(type = type)
+
                         } else {
+                            val maxDeposit =
+                                if (value.has("max_deposit")) value["max_deposit"].asString else ""
                             msg.copy(type = type, max_deposit = maxDeposit)
                         }
+
                         msgs.add(typeMsg)
                     }
 
