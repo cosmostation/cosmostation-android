@@ -22,6 +22,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -141,7 +142,8 @@ class MajorDetailFragment : Fragment() {
 
             fabMenu.menuIconView.setImageResource(R.drawable.icon_floating)
             fabMenu.isIconAnimated = false
-            if (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT || selectedChain is ChainSolana) {
+            if (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_LEGACY || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NESTED_SEGWIT ||
+                selectedChain is ChainSolana || selectedChain is ChainAptos) {
                 fabMenu.visibility = View.GONE
             } else {
                 fabMenu.visibility = View.VISIBLE

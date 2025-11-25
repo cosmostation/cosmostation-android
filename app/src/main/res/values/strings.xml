@@ -499,6 +499,7 @@
 
 
     // header
+    <string name="str_coins" translatable="false">Coins</string>
     <string name="str_native_coins" translatable="false">Native coins</string>
     <string name="str_ibc_coins" translatable="false">Ibc coins</string>
     <string name="str_bridge_coins" translatable="false">Bridged coins</string>

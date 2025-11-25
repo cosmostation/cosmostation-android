@@ -167,10 +167,12 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXrplEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainZeroGravity
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -248,6 +250,7 @@ open class BaseChain : Parcelable {
     var evmRpcFetcher: EvmFetcher? = null
     var gnoRpcFetcher: GnoFetcher? = null
     var solanaFetcher: SolanaFetcher? = null
+    var aptosFetcher: AptosFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
@@ -779,6 +782,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainAndromeda())
+//    chains.add(ChainAptos())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
     chains.add(ChainArkeo())
@@ -1007,7 +1011,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, SOLANA_ED25519, NONE }
+enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, SOLANA_ED25519, APTOS_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

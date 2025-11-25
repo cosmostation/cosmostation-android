@@ -19,6 +19,7 @@ import org.bitcoinj.crypto.HDKeyDerivation
 import org.bitcoinj.crypto.MnemonicCode
 import org.bitcoinj.crypto.MnemonicException.MnemonicLengthException
 import org.bouncycastle.jcajce.provider.digest.Blake2b
+import org.bouncycastle.jcajce.provider.digest.SHA3
 import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.Keys
 import org.web3j.crypto.WalletUtils
@@ -92,20 +93,24 @@ object BaseKey {
         parentPaths: List<ChildNumber>,
         lastPath: String
     ): ByteArray? {
-        return if (pubKeyType == PubKeyType.SUI_ED25519 || pubKeyType == PubKeyType.IOTA_ED25519 || pubKeyType == PubKeyType.SOLANA_ED25519) {
-            getEd25519PrivateKey(chain, seed, lastPath)
-        } else {
-            val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
-            val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
-                parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath))
-            )
-            deterministicKey.privKeyBytes
+        return when (pubKeyType) {
+            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519, PubKeyType.SOLANA_ED25519, PubKeyType.APTOS_ED25519 -> {
+                getEd25519PrivateKey(chain, seed, lastPath)
+            }
+
+            else -> {
+                val masterKey = HDKeyDerivation.createMasterPrivateKey(seed)
+                val deterministicKey = DeterministicHierarchy(masterKey).deriveChild(
+                    parentPaths, true, true, ChildNumber(Integer.parseInt(lastPath))
+                )
+                deterministicKey.privKeyBytes
+            }
         }
     }
 
     fun getPubKeyFromPKey(privateKey: ByteArray?, pubKeyType: PubKeyType): ByteArray? {
         return when (pubKeyType) {
-            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519, PubKeyType.SOLANA_ED25519 -> {
+            PubKeyType.SUI_ED25519, PubKeyType.IOTA_ED25519, PubKeyType.SOLANA_ED25519, PubKeyType.APTOS_ED25519 -> {
                 val keySpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
                 val privateKeySpec = EdDSAPrivateKeySpec(Hex.decode(privateKey?.toHex()), keySpec)
                 val pubKeySpec = EdDSAPublicKeySpec(privateKeySpec.a, keySpec)
@@ -164,6 +169,16 @@ object BaseKey {
 
             PubKeyType.SOLANA_ED25519 -> {
                 result = Base58.encode(pubKey)
+            }
+
+            PubKeyType.APTOS_ED25519 -> {
+                pubKey?.let { pub ->
+                    val data = pub + ByteArray(1)
+                    val sha3256 = SHA3.Digest256()
+                    sha3256.update(data)
+                    val hex = Utils.bytesToHex(sha3256.digest())
+                    return "0x${hex.substring(0, 64)}"
+                }
             }
 
             else -> {
