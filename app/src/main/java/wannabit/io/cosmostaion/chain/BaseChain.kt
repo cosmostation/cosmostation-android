@@ -87,6 +87,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaxi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPocket
@@ -884,6 +885,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOptimism())
     chains.add(ChainPaloma())
     chains.add(ChainPassage())
+    chains.add(ChainPaxi())
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
     chains.add(ChainPlanqEvm())
