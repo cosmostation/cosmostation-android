@@ -148,6 +148,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainLinea
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainMonad
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
@@ -870,6 +871,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway())
+    chains.add(ChainMonad())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNillion())
