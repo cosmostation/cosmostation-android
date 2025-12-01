@@ -22,9 +22,9 @@ class ChainSelf : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uslf"
     override var accountPrefix: String = "self"
-    override var grpcHost: String = "grpc-selfchain.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-selfchain.cosmostation.io/"
+    override var grpcHost: String = "selfchain-mainnet.grpc.stakevillage.net"
+    override var lcdUrl: String = "https://api.selfchain.io/"
 }
