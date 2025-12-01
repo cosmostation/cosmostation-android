@@ -2309,7 +2309,7 @@ public final class TxProto {
        * </pre>
        *
        * <code>string to = 4 [json_name = "to"];</code>
-       * @param value The to to set.
+       * @param value The to set.
        * @return This builder for chaining.
        */
       public Builder setTo(
@@ -4153,7 +4153,7 @@ public final class TxProto {
        * </pre>
        *
        * <code>string to = 5 [json_name = "to"];</code>
-       * @param value The to to set.
+       * @param value The to set.
        * @return This builder for chaining.
        */
       public Builder setTo(
@@ -6421,7 +6421,7 @@ public final class TxProto {
        * </pre>
        *
        * <code>string to = 6 [json_name = "to"];</code>
-       * @param value The to to set.
+       * @param value The to set.
        * @return This builder for chaining.
        */
       public Builder setTo(
