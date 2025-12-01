@@ -21,10 +21,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
@@ -39,7 +36,6 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
-import wannabit.io.cosmostaion.databinding.DialogDropInfoBinding
 import wannabit.io.cosmostaion.databinding.DialogDydxInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentCoinBinding
 import wannabit.io.cosmostaion.ui.main.NoticeInfoFragment
@@ -800,20 +796,6 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
 
     private fun setUpClickAction() {
         binding.apply {
-            dropMoney.visibleOrGone(selectedChain is ChainCosmos || selectedChain is ChainNeutron || selectedChain is ChainCelestia)
-            dropMoney.setOnClickListener {
-                val savedTime = Prefs.getDappInfoHideTime(0)
-                val currentTime = System.currentTimeMillis()
-                if (currentTime >= savedTime) {
-                    showDropInfo()
-                } else {
-                    Intent(requireActivity(), DappActivity::class.java).apply {
-                        putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
-                        startActivity(this)
-                    }
-                }
-            }
-
             dydxTrade.visibleOrGone(selectedChain is ChainDydx)
             dydxTrade.setOnClickListener {
                 val savedTime = Prefs.getDappInfoHideTime(1)
@@ -940,49 +922,6 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             }).show(
             requireActivity().supportFragmentManager, TokenEditFragment::class.java.name
         )
-    }
-
-    private fun showDropInfo() {
-        val inflater =
-            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val binding = DialogDropInfoBinding.inflate(inflater)
-        val alertDialog = AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
-            .setView(binding.root)
-
-        val dialog = alertDialog.create()
-        dialog.setCancelable(false)
-        dialog.show()
-
-        binding.apply {
-            dappView.setBackgroundResource(R.drawable.dialog_transparent_bg)
-            btnDapp.setBackgroundResource(R.drawable.button_liquid_bg)
-
-            var isDropPinned = false
-            btnCheck.setOnClickListener {
-                isDropPinned = !isDropPinned
-                if (isDropPinned) {
-                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
-                } else {
-                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
-                }
-            }
-
-            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-            btnClose.setOnClickListener {
-                if (isDropPinned) {
-                    Prefs.setDappInfoHideTime(0)
-                }
-                dialog.dismiss()
-            }
-
-            btnDapp.setOnClickListener {
-                dialog.dismiss()
-                Intent(requireActivity(), DappActivity::class.java).apply {
-                    putExtra("dapp", "https://app.drop.money/dashboard?referral_code=dropmaga")
-                    startActivity(this)
-                }
-            }
-        }
     }
 
     private fun showDydxInfo() {

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
@@ -92,6 +93,10 @@ class MajorHistoryFragment : Fragment() {
                 historyViewModel.suiHistory(selectedChain as ChainSui)
             }
 
+            is ChainAptos -> {
+
+            }
+
             else -> {
                 historyViewModel.iotaHistory(selectedChain as ChainIota)
             }
@@ -109,6 +114,10 @@ class MajorHistoryFragment : Fragment() {
                 is ChainSui -> {
                     suiHistoryGroup.clear()
                     historyViewModel.suiHistory(selectedChain as ChainSui)
+                }
+
+                is ChainAptos -> {
+
                 }
 
                 else -> {

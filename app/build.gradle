@@ -190,4 +190,8 @@ dependencies {
     implementation("io.coil-kt:coil-svg:2.2.2")
 
     implementation 'com.github.penfeizhou.android.animation:apng:3.0.4'
+
+    implementation('xyz.mcxross.kaptos:kaptos-android:0.1.2-beta') {
+        exclude group: "org.bouncycastle"
+    }
 }

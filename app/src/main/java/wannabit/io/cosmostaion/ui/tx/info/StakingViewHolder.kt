@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.ui.tx.info
 
 import android.content.Context
 import android.graphics.PorterDuff
-import android.os.Handler
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +19,6 @@ import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.isActiveValidator
 import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.databinding.ItemStakingInfoBinding
-import wannabit.io.cosmostaion.ui.main.chain.cosmos.RewardDialog
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -43,33 +41,6 @@ class StakingViewHolder(
             )
             delegationView.setOnClickListener {
                 listener.selectStakingAction(validator)
-            }
-
-            delegationView.setOnLongClickListener { view ->
-                val rewards =
-                    chain.cosmosFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
-                if (rewards?.isNotEmpty() == true) {
-                    val scaleX = view.scaleX
-                    val scaleY = view.scaleY
-                    val customDialog = RewardDialog(context, chain, rewards.toMutableList())
-
-                    if (scaleX == 1.0f && scaleY == 1.0f) {
-                        view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
-                        val handler = Handler()
-                        handler.postDelayed({
-                            customDialog.show()
-                        }, 200)
-                    }
-
-                    customDialog.setOnDismissListener {
-                        view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-                    }
-                    true
-
-                } else {
-                    listener.selectStakingAction(validator)
-                    true
-                }
             }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
@@ -114,14 +85,15 @@ class StakingViewHolder(
                         }
 
                         var anotherCnt = 0
-                        rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
-                            val anotherAmount =
-                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                    .setScale(0, RoundingMode.DOWN)
-                            if (anotherAmount != BigDecimal.ZERO) {
-                                anotherCnt += 1
+                        rewards.filter { it.denom != chain.getStakeAssetDenom() }
+                            .forEach { anotherRewards ->
+                                val anotherAmount =
+                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                        .setScale(0, RoundingMode.DOWN)
+                                if (anotherAmount != BigDecimal.ZERO) {
+                                    anotherCnt += 1
+                                }
                             }
-                        }
                         rewardTitle.text = if (anotherCnt > 0) {
                             "Reward + $anotherCnt"
                         } else {
@@ -167,33 +139,6 @@ class StakingViewHolder(
                 listener.selectInitiaStakingAction(validator)
             }
 
-            delegationView.setOnLongClickListener { view ->
-                val rewards =
-                    chain.cosmosFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
-                if (rewards?.isNotEmpty() == true) {
-                    val scaleX = view.scaleX
-                    val scaleY = view.scaleY
-                    val customDialog = RewardDialog(context, chain, rewards.toMutableList())
-
-                    if (scaleX == 1.0f && scaleY == 1.0f) {
-                        view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
-                        val handler = Handler()
-                        handler.postDelayed({
-                            customDialog.show()
-                        }, 200)
-                    }
-
-                    customDialog.setOnDismissListener {
-                        view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-                    }
-                    true
-
-                } else {
-                    listener.selectInitiaStakingAction(validator)
-                    true
-                }
-            }
-
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
             moniker.text = validator.description?.moniker?.trim()
             if (validator.jailed) {
@@ -237,14 +182,15 @@ class StakingViewHolder(
                         }
 
                         var anotherCnt = 0
-                        rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
-                            val anotherAmount =
-                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                    .setScale(0, RoundingMode.DOWN)
-                            if (anotherAmount != BigDecimal.ZERO) {
-                                anotherCnt += 1
+                        rewards.filter { it.denom != chain.getStakeAssetDenom() }
+                            .forEach { anotherRewards ->
+                                val anotherAmount =
+                                    anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                        .setScale(0, RoundingMode.DOWN)
+                                if (anotherAmount != BigDecimal.ZERO) {
+                                    anotherCnt += 1
+                                }
                             }
-                        }
                         rewardTitle.text = if (anotherCnt > 0) {
                             "Reward + $anotherCnt"
                         } else {
@@ -290,33 +236,6 @@ class StakingViewHolder(
             )
             delegationView.setOnClickListener {
                 listener.selectZenrockStakingAction(validator)
-            }
-
-            delegationView.setOnLongClickListener { view ->
-                val rewards =
-                    chain.cosmosFetcher?.cosmosRewards?.filter { it.validatorAddress == delegation.delegation.validatorAddress }
-                if (rewards?.isNotEmpty() == true) {
-                    val scaleX = view.scaleX
-                    val scaleY = view.scaleY
-                    val customDialog = RewardDialog(context, chain, rewards.toMutableList())
-
-                    if (scaleX == 1.0f && scaleY == 1.0f) {
-                        view.animate().scaleX(1.1f).scaleY(1.1f).setDuration(300).start()
-                        val handler = Handler()
-                        handler.postDelayed({
-                            customDialog.show()
-                        }, 200)
-                    }
-
-                    customDialog.setOnDismissListener {
-                        view.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-                    }
-                    true
-
-                } else {
-                    listener.selectZenrockStakingAction(validator)
-                    true
-                }
             }
 
             monikerImg.setMonikerImg(chain, validator.operatorAddress)
@@ -366,14 +285,15 @@ class StakingViewHolder(
                     }
 
                     var anotherCnt = 0
-                    rewards.filter { it.denom != chain.getStakeAssetDenom() }.forEach { anotherRewards ->
-                        val anotherAmount =
-                            anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                .setScale(0, RoundingMode.DOWN)
-                        if (anotherAmount != BigDecimal.ZERO) {
-                            anotherCnt += 1
+                    rewards.filter { it.denom != chain.getStakeAssetDenom() }
+                        .forEach { anotherRewards ->
+                            val anotherAmount =
+                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
+                                    .setScale(0, RoundingMode.DOWN)
+                            if (anotherAmount != BigDecimal.ZERO) {
+                                anotherCnt += 1
+                            }
                         }
-                    }
                     rewardTitle.text = if (anotherCnt > 0) {
                         "Reward + $anotherCnt"
                     } else {

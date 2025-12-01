@@ -30,6 +30,8 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.iotaCoinType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -49,6 +51,12 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
+import xyz.mcxross.kaptos.Aptos
+import xyz.mcxross.kaptos.model.AccountAddress
+import xyz.mcxross.kaptos.model.AptosConfig
+import xyz.mcxross.kaptos.model.AptosSettings
+import xyz.mcxross.kaptos.model.Network
+import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -235,7 +243,7 @@ class ApplicationViewModel(
                 is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
                 is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
-//                is ChainAptos -> loadAptosData(baseAccountId, this, isEdit)
+                is ChainAptos -> loadAptosData(baseAccountId, this, isEdit)
                 else -> {
                     if (supportCosmos() && this !is ChainOktEvm) {
                         loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
@@ -1720,79 +1728,91 @@ class ApplicationViewModel(
             }
         }
 
-//    fun loadAptosData(
-//        id: Long,
-//        chain: ChainAptos,
-//        isEdit: Boolean? = false,
-//        isTx: Boolean? = false,
-//        isRefresh: Boolean? = false
-//    ) = CoroutineScope(Dispatchers.IO).launch {
-//        chain.apply {
-//            aptosFetcher()?.let { fetcher ->
-//                fetcher.aptosAccountInfo = JsonObject()
-//
-//                try {
-//                    val loadGetAccountDeferred =
-//                        async { walletRepository.aptosAccountInfo(this@apply) }
-//                    val loadGetBalanceDeferred =
-//                        async { walletRepository.aptosBalance(this@apply) }
-//
-//                    val getAccountResult = loadGetAccountDeferred.await()
-//                    val getBalanceResult = loadGetBalanceDeferred.await()
-//
-//                    if (getAccountResult is NetworkResult.Success) {
-//                        fetcher.aptosAccountInfo = getAccountResult.data
-//                    }
-//
-//                    if (getBalanceResult is NetworkResult.Success) {
-//                        fetcher.aptosBalance = getBalanceResult.data.toBigDecimal()
-//                    }
-//
-//                    fetchState = FetchState.SUCCESS
-//                    val refAddress = RefAddress(
-//                        id,
-//                        tag,
-//                        mainAddress,
-//                        "",
-//                        fetcher.aptosBalanceValue(true).toString(),
-//                        fetcher.aptosBalance.toString(),
-//                        "0",
-//                        1
-//                    )
-//                    BaseData.updateRefAddressesMain(refAddress)
-//                    coinValue = fetcher.aptosBalanceValue()
-//                    coinUsdValue = fetcher.aptosBalanceValue(true)
-//                    coinCnt = 1
-//
-//                    withContext(Dispatchers.Main) {
-//                        if (isEdit == true) {
-//                            editFetchedResult.value = tag
-//                        } else if (isTx == true) {
-//                            txFetchedResult.value = tag
-//                        } else if (isRefresh == true) {
-//                            refreshStakingInfoFetchedResult.value = tag
-//                        } else {
-//                            fetchedResult.value = tag
-//                        }
-//                    }
-//
-//                } catch (e: Exception) {
-//                    fetchState = FetchState.FAIL
-//                    withContext(Dispatchers.Main) {
-//                        if (isEdit == true) {
-//                            editFetchedResult.value = tag
-//                        } else if (isTx == true) {
-//                            txFetchedResult.value = tag
-//                        } else if (isRefresh == true) {
-//                            refreshStakingInfoFetchedResult.value = tag
-//                        } else {
-//                            fetchedResult.value = tag
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    fun loadAptosData(
+        id: Long,
+        chain: ChainAptos,
+        isEdit: Boolean? = false,
+        isTx: Boolean? = false,
+        isRefresh: Boolean? = false
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        chain.apply {
+            aptosFetcher()?.let { fetcher ->
+                fetcher.aptosAssetBalance?.clear()
+
+                try {
+                    val aptosConfig = AptosConfig(AptosSettings(network = Network.MAINNET))
+                    val aptos = Aptos(aptosConfig)
+                    val aptosAccount = AccountAddress.fromString(chain.mainAddress)
+
+                    val apotsCoinData = aptos.getAccountCoinsData(accountAddress = aptosAccount)
+                    when (apotsCoinData) {
+                        is Option.Some -> {
+                            fetcher.aptosAssetBalance =
+                                apotsCoinData.value.current_fungible_asset_balances.toMutableList()
+
+                            coinValue = fetcher.allAssetValue()
+                            coinUsdValue = fetcher.allAssetValue(true)
+                            coinCnt = fetcher.aptosAssetBalance?.size ?: 0
+
+                            fetchState = FetchState.SUCCESS
+                            val refAddress = RefAddress(
+                                id,
+                                tag,
+                                mainAddress,
+                                "",
+                                coinUsdValue.toString(),
+                                fetcher.aptosBalanceAmount(APTOS_MAIN_DENOM).toString(),
+                                "0",
+                                coinCnt.toLong()
+                            )
+                            BaseData.updateRefAddressesMain(refAddress)
+
+                            withContext(Dispatchers.Main) {
+                                if (isEdit == true) {
+                                    editFetchedResult.value = tag
+                                } else if (isTx == true) {
+                                    txFetchedResult.value = tag
+                                } else if (isRefresh == true) {
+                                    refreshStakingInfoFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                }
+                            }
+                        }
+
+                        is Option.None -> {
+                            fetchState = FetchState.FAIL
+                            withContext(Dispatchers.Main) {
+                                if (isEdit == true) {
+                                    editFetchedResult.value = tag
+                                } else if (isTx == true) {
+                                    txFetchedResult.value = tag
+                                } else if (isRefresh == true) {
+                                    refreshStakingInfoFetchedResult.value = tag
+                                } else {
+                                    fetchedResult.value = tag
+                                }
+                            }
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    fetchState = FetchState.FAIL
+                    withContext(Dispatchers.Main) {
+                        if (isEdit == true) {
+                            editFetchedResult.value = tag
+                        } else if (isTx == true) {
+                            txFetchedResult.value = tag
+                        } else if (isRefresh == true) {
+                            refreshStakingInfoFetchedResult.value = tag
+                        } else {
+                            fetchedResult.value = tag
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     var refreshStakeData = SingleLiveEvent<Boolean>()
 

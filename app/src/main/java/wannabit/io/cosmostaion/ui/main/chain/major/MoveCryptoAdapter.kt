@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
+import wannabit.io.cosmostaion.databinding.ItemDefaultAssetViewBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemMajorCryptoBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CoinViewHolder
@@ -20,7 +23,8 @@ class MoveCryptoAdapter(
     val context: Context,
     val selectedChain: BaseChain,
     private val moveBalances: MutableList<Pair<String?, BigDecimal?>>,
-    private val moveNativeBalances: MutableList<Pair<String?, BigDecimal?>>
+    private val moveNativeBalances: MutableList<Pair<String?, BigDecimal?>>,
+    private val aptosNativeBalances: MutableList<Pair<String?, BigDecimal?>>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -39,6 +43,13 @@ class MoveCryptoAdapter(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 MoveAssetViewHolder(binding)
+            }
+
+            VIEW_TYPE_APTOS_MAIN_ITEM -> {
+                val binding = ItemDefaultAssetViewBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                MoveAptosAssetViewHolder(binding)
             }
 
             VIEW_TYPE_COIN_HEADER -> {
@@ -81,10 +92,15 @@ class MoveCryptoAdapter(
                                 }
                             }
                         }
+                    }
+                }
+            }
 
-                        else -> {
-
-                        }
+            is MoveAptosAssetViewHolder -> {
+                holder.bind(selectedChain)
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(selectedChain, APTOS_MAIN_DENOM)
                     }
                 }
             }
@@ -97,16 +113,20 @@ class MoveCryptoAdapter(
 
             is CoinViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                    val balance = if (moveBalances.isNotEmpty()) {
-                        moveNativeBalances[position - 2]
+                    val balance = if (selectedChain is ChainAptos) {
+                        aptosNativeBalances[position - 2]
                     } else {
-                        moveNativeBalances[position - 1]
+                        if (moveBalances.isNotEmpty()) {
+                            moveNativeBalances[position - 2]
+                        } else {
+                            moveNativeBalances[position - 1]
+                        }
                     }
 
-                    if (selectedChain is ChainSui) {
-                        holder.suiBind(selectedChain, balance)
-                    } else {
-                        holder.iotaBind(selectedChain, balance)
+                    when (selectedChain) {
+                        is ChainSui -> holder.suiBind(selectedChain, balance)
+                        is ChainIota -> holder.iotaBind(selectedChain, balance)
+                        is ChainAptos -> holder.aptosBind(selectedChain, balance)
                     }
 
                     holder.itemView.setOnClickListener {
@@ -122,9 +142,9 @@ class MoveCryptoAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (selectedChain is ChainSui || selectedChain is ChainIota) {
+        return if (selectedChain is ChainSui || selectedChain is ChainIota) {
             if (moveBalances.isNotEmpty()) {
-                return if (moveNativeBalances.isNotEmpty()) {
+                if (moveNativeBalances.isNotEmpty()) {
                     when (position) {
                         0 -> VIEW_TYPE_MAIN_ITEM
                         1 -> VIEW_TYPE_COIN_HEADER
@@ -135,7 +155,7 @@ class MoveCryptoAdapter(
                 }
 
             } else {
-                return if (moveNativeBalances.isNotEmpty()) {
+                if (moveNativeBalances.isNotEmpty()) {
                     if (position == 0) VIEW_TYPE_COIN_HEADER
                     else VIEW_TYPE_COIN_ITEM
                 } else {
@@ -144,13 +164,17 @@ class MoveCryptoAdapter(
             }
 
         } else {
-            return VIEW_TYPE_MAIN_ITEM
+            when (position) {
+                0 -> VIEW_TYPE_APTOS_MAIN_ITEM
+                1 -> VIEW_TYPE_COIN_HEADER
+                else -> VIEW_TYPE_COIN_ITEM
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return if (selectedChain is ChainSui || selectedChain is ChainIota) {
-            return if (moveBalances.isNotEmpty()) {
+            if (moveBalances.isNotEmpty()) {
                 if (moveNativeBalances.isNotEmpty()) {
                     moveBalances.size + moveNativeBalances.size + 1
                 } else {
@@ -166,7 +190,11 @@ class MoveCryptoAdapter(
             }
 
         } else {
-            1
+            if (aptosNativeBalances.isNotEmpty()) {
+                aptosNativeBalances.size + 2
+            } else {
+                1
+            }
         }
     }
 
@@ -176,11 +204,16 @@ class MoveCryptoAdapter(
 
         fun bind() {
             binding.apply {
-                headerTitle.text = context.getString(R.string.str_native_coins)
-                headerCnt.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
-                    moveNativeBalances.size.toString()
+                headerTitle.text = if (selectedChain is ChainAptos) {
+                    context.getString(R.string.str_coins)
                 } else {
-                    "0"
+                    context.getString(R.string.str_native_coins)
+                }
+
+                headerCnt.text = if (selectedChain is ChainAptos) {
+                    aptosNativeBalances.size.toString()
+                } else {
+                    moveNativeBalances.size.toString()
                 }
             }
         }

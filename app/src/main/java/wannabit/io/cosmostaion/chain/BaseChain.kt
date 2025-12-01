@@ -87,6 +87,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainOrai
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaloma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPassage
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainPaxi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPersistence750
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPocket
@@ -147,12 +148,14 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainLinea
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainMonad
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOptimism
 import wannabit.io.cosmostaion.chain.evmClass.ChainPlanqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainPolygon
 import wannabit.io.cosmostaion.chain.evmClass.ChainQubeticsEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainRealioEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainScroll
 import wannabit.io.cosmostaion.chain.evmClass.ChainSeiEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainShardeum
 import wannabit.io.cosmostaion.chain.evmClass.ChainShidoEvm
@@ -165,12 +168,15 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainWemix
 import wannabit.io.cosmostaion.chain.evmClass.ChainWorldCoin
 import wannabit.io.cosmostaion.chain.evmClass.ChainXplaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainXrplEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainZKsync
 import wannabit.io.cosmostaion.chain.evmClass.ChainZeroGravity
 import wannabit.io.cosmostaion.chain.evmClass.ChainZetaEvm
+import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.EvmFetcher
 import wannabit.io.cosmostaion.chain.fetcher.GnoFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin44
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
@@ -248,6 +254,7 @@ open class BaseChain : Parcelable {
     var evmRpcFetcher: EvmFetcher? = null
     var gnoRpcFetcher: GnoFetcher? = null
     var solanaFetcher: SolanaFetcher? = null
+    var aptosFetcher: AptosFetcher? = null
 
     open var mainAddress: String = ""
     open var mainUrl: String = ""
@@ -779,6 +786,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainAndromeda())
+//    chains.add(ChainAptos())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
     chains.add(ChainArkeo())
@@ -865,6 +873,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMedibloc())
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway())
+    chains.add(ChainMonad())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNillion())
@@ -880,6 +889,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainOptimism())
     chains.add(ChainPaloma())
     chains.add(ChainPassage())
+    chains.add(ChainPaxi())
     chains.add(ChainPersistence118())
     chains.add(ChainPersistence750())
     chains.add(ChainPlanqEvm())
@@ -894,6 +904,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainRegen())
     chains.add(ChainRizon())
     chains.add(ChainSaga())
+    chains.add(ChainScroll())
     chains.add(ChainSecret529())
     chains.add(ChainSecret118())
     chains.add(ChainSeda())
@@ -934,6 +945,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainZeroGravity())
     chains.add(ChainZetaEvm())
     chains.add(ChainZigChain())
+    chains.add(ChainZKsync())
 
 //    chains.add(ChainCosmosTestnet())
 //    chains.add(ChainArtelaTestnet())
@@ -1007,7 +1019,7 @@ val DEFAULT_DISPLAY_CHAIN = mutableListOf(
 
 val EVM_BASE_FEE = BigDecimal("588000000000000")
 
-enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, SOLANA_ED25519, NONE }
+enum class PubKeyType { COSMOS_ETH_KECCAK256, ETH_KECCAK256, COSMOS_SECP256K1, BERA_SECP256K1, SUI_ED25519, BTC_LEGACY, BTC_NESTED_SEGWIT, BTC_NATIVE_SEGWIT, BTC_TAPROOT, IOTA_ED25519, SOLANA_ED25519, APTOS_ED25519, NONE }
 
 enum class CosmosEndPointType { UNKNOWN, USE_GRPC, USE_LCD, USE_RPC }
 

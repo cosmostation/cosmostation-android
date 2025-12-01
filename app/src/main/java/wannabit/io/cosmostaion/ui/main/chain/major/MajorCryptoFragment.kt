@@ -10,7 +10,6 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Parcelable
 import android.os.SystemClock
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,8 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -63,6 +64,8 @@ class MajorCryptoFragment : Fragment() {
     private var searchMoveBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var moveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var searchMoveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+
+    private var aptosNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
 
     private var solanaBalances: MutableList<JsonObject> = mutableListOf()
     private var searchSolanaBalances: MutableList<JsonObject> = mutableListOf()
@@ -108,7 +111,6 @@ class MajorCryptoFragment : Fragment() {
             }
         }
         binding.apply {
-            dropMoney.visibility = View.GONE
             dydxTrade.visibility = View.GONE
             babylonStaking.visibleOrGone(
                 selectedChain.isSupportStaking() && (selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_NATIVE_SEGWIT || selectedChain.accountKeyType.pubkeyType == PubKeyType.BTC_TAPROOT)
@@ -235,6 +237,47 @@ class MajorCryptoFragment : Fragment() {
                     }
                 }
 
+                is ChainAptos -> {
+                    val aptosCoinBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+                    aptosCoinBalances.clear()
+
+                    (selectedChain as ChainAptos).aptosFetcher()?.let { fetcher ->
+                        fetcher.aptosAssetBalance?.forEach { aptosAsset ->
+                            BaseData.getAsset(selectedChain.apiName, aptosAsset.asset_type)?.let {
+                                aptosCoinBalances.add(
+                                    Pair(
+                                        aptosAsset.asset_type,
+                                        aptosAsset.amount.toBigDecimal()
+                                    )
+                                )
+                            }
+                        }
+
+                        if (aptosCoinBalances.none { it.first == APTOS_MAIN_DENOM }) {
+                            aptosCoinBalances.add(Pair(APTOS_MAIN_DENOM, BigDecimal.ZERO))
+                        }
+                        synchronized(aptosCoinBalances) {
+                            aptosCoinBalances.sortWith { o1, o2 ->
+                                when {
+                                    o1.first == APTOS_MAIN_DENOM -> -1
+                                    o2.first == APTOS_MAIN_DENOM -> 1
+                                    else -> {
+                                        val value0 = fetcher.aptosBalanceValue(o1.first ?: "")
+                                        val value1 = fetcher.aptosBalanceValue(o2.first ?: "")
+                                        value1.compareTo(value0)
+                                    }
+                                }
+                            }
+                        }
+                        aptosNativeBalances.addAll(aptosCoinBalances.drop(1))
+
+                        withContext(Dispatchers.Main) {
+                            initMoveRecyclerView()
+                            binding.searchBar.visibility = View.GONE
+                        }
+                    }
+                }
+
                 else -> {
                     withContext(Dispatchers.Main) {
                         initBitRecyclerView()
@@ -319,7 +362,11 @@ class MajorCryptoFragment : Fragment() {
     private fun initMoveRecyclerView() {
         if (isAdded) {
             moveCryptoAdapter = MoveCryptoAdapter(
-                requireContext(), selectedChain, searchMoveBalances, searchMoveNativeBalances
+                requireContext(),
+                selectedChain,
+                searchMoveBalances,
+                searchMoveNativeBalances,
+                aptosNativeBalances
             )
             binding.apply {
                 recycler.apply {
@@ -507,11 +554,11 @@ class MajorCryptoFragment : Fragment() {
                             )
                         }
 
-//                        is ChainAptos -> {
-//                            ApplicationViewModel.shared.loadAptosData(
-//                                account.id, selectedChain as ChainAptos
-//                            )
-//                        }
+                        is ChainAptos -> {
+                            ApplicationViewModel.shared.loadAptosData(
+                                account.id, selectedChain as ChainAptos
+                            )
+                        }
 
                         else -> {
                             ApplicationViewModel.shared.loadBtcData(
