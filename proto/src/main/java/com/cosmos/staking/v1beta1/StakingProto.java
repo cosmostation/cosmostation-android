@@ -23990,7 +23990,7 @@ public final class StakingProto {
 
     /**
      * <pre>
-     * height defines the block height at which the rotation event occured.
+     * height defines the block height at which the rotation event occurred.
      * </pre>
      *
      * <code>uint64 height = 4 [json_name = "height"];</code>
@@ -24192,7 +24192,7 @@ public final class StakingProto {
     private long height_ = 0L;
     /**
      * <pre>
-     * height defines the block height at which the rotation event occured.
+     * height defines the block height at which the rotation event occurred.
      * </pre>
      *
      * <code>uint64 height = 4 [json_name = "height"];</code>
@@ -25108,7 +25108,7 @@ public final class StakingProto {
       private long height_ ;
       /**
        * <pre>
-       * height defines the block height at which the rotation event occured.
+       * height defines the block height at which the rotation event occurred.
        * </pre>
        *
        * <code>uint64 height = 4 [json_name = "height"];</code>
@@ -25120,7 +25120,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * height defines the block height at which the rotation event occured.
+       * height defines the block height at which the rotation event occurred.
        * </pre>
        *
        * <code>uint64 height = 4 [json_name = "height"];</code>
@@ -25136,7 +25136,7 @@ public final class StakingProto {
       }
       /**
        * <pre>
-       * height defines the block height at which the rotation event occured.
+       * height defines the block height at which the rotation event occurred.
        * </pre>
        *
        * <code>uint64 height = 4 [json_name = "height"];</code>
