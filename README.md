@@ -952,7 +952,7 @@ You can download each store.
 
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/routerchain/resource/chain_routerchain_evm.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold"<del>ROUTER</del></span></td>
+    <td><span style="font-weight:bold"><del>ROUTER</del></span></td>
     <td>m/44'/60'/0'/0/X</td>
     <td>keccak256</td>
     <td>gRPC or Rest, evmRPC</td>
