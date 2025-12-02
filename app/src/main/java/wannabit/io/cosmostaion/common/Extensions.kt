@@ -70,13 +70,15 @@ import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemToastBinding
 import xyz.mcxross.kaptos.model.Option
-import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
@@ -535,6 +537,19 @@ fun dpTimeToYear(time: Long): String {
     return outputFormat.format(calendar.timeInMillis)
 }
 
+fun dpMicroTimeToYear(time: Long): String {
+    val locale = Locale.getDefault()
+    val zone = ZoneId.systemDefault()
+    val instant = Instant.ofEpochSecond(time / 1000000L, (time % 1000000L) * 1000L)
+    val zdt = instant.atZone(zone)
+
+    val pattern = if (
+        (locale.country.isEmpty() && Prefs.language == LANGUAGE_ENGLISH) || locale == Locale.US
+    ) "MMM dd, yyyy" else "yyyy.M.d"
+
+    return zdt.format(DateTimeFormatter.ofPattern(pattern, locale))
+}
+
 fun dpTimeToMonth(time: Long): String {
     val locale = Locale.getDefault()
     val calendar = Calendar.getInstance()
@@ -544,6 +559,15 @@ fun dpTimeToMonth(time: Long): String {
         "HH:mm:ss", locale
     )
     return outputFormat.format(calendar.timeInMillis)
+}
+
+fun dpMicroTimeToMonth(time: Long): String {
+    val locale = Locale.getDefault()
+    val zone = ZoneId.systemDefault()
+    val instant = Instant.ofEpochSecond(time / 1000000L, (time % 1000000L) * 1000L)
+    val zdt = instant.atZone(zone)
+
+    return zdt.format(DateTimeFormatter.ofPattern("HH:mm:ss", locale))
 }
 
 fun dpTimeNotSecond(time: Long): String {

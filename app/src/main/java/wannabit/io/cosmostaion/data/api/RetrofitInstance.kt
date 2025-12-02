@@ -84,6 +84,13 @@ object RetrofitInstance {
             .baseUrl(chain.apiUrl).build()
     }
 
+    private fun moveApiRetrofit(chain: BaseChain): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
+            .baseUrl(chain.apiUrl).build()
+    }
+
     val mintscanApi: MintscanApi by lazy {
         mintScanRetrofit.create(MintscanApi::class.java)
     }
@@ -106,6 +113,10 @@ object RetrofitInstance {
 
     fun bitExternalApi(chain: BaseChain): LcdApi {
         return bitApiRetrofit(chain).create(LcdApi::class.java)
+    }
+
+    fun moveApi(chain: BaseChain): LcdApi {
+        return moveApiRetrofit(chain).create(LcdApi::class.java)
     }
 
     val skipApi: SkipApi by lazy {

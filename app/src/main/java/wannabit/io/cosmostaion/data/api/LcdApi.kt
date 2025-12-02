@@ -198,9 +198,6 @@ interface LcdApi {
     @GET("cosmos/base/node/v1beta1/status")
     suspend fun lcdChainHeight(): JsonObject
 
-    @GET("babylon/btccheckpoint/v1/params")
-    suspend fun lcdBtcCheckpointParam(): JsonObject
-
     @GET("babylon/epoching/v1/current_epoch")
     suspend fun lcdCurrentEpoch(): JsonObject
 
@@ -213,4 +210,10 @@ interface LcdApi {
     //Atomone
     @GET("atomone/photon/v1/conversion_rate")
     suspend fun conversionRate(): JsonObject
+
+    //Aptos
+    @GET("accounts/{address}/transactions?limit=50")
+    suspend fun moveTxHistory(
+        @Path("address") address: String
+    ): MutableList<JsonObject>
 }
