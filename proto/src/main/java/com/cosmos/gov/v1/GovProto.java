@@ -2649,7 +2649,7 @@ public final class GovProto {
 
     /**
      * <pre>
-     * Proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal submitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -2660,7 +2660,7 @@ public final class GovProto {
     java.lang.String getProposer();
     /**
      * <pre>
-     * Proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal submitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -3230,7 +3230,7 @@ public final class GovProto {
     private volatile java.lang.Object proposer_ = "";
     /**
      * <pre>
-     * Proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal submitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -3253,7 +3253,7 @@ public final class GovProto {
     }
     /**
      * <pre>
-     * Proposer is the address of the proposal sumbitter
+     * Proposer is the address of the proposal submitter
      *
      * Since: cosmos-sdk 0.47
      * </pre>
@@ -5877,7 +5877,7 @@ public final class GovProto {
       private java.lang.Object proposer_ = "";
       /**
        * <pre>
-       * Proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal submitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -5899,7 +5899,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * Proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal submitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -5922,7 +5922,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * Proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal submitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -5941,7 +5941,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * Proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal submitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>
@@ -5957,7 +5957,7 @@ public final class GovProto {
       }
       /**
        * <pre>
-       * Proposer is the address of the proposal sumbitter
+       * Proposer is the address of the proposal submitter
        *
        * Since: cosmos-sdk 0.47
        * </pre>

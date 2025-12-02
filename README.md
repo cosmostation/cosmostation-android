@@ -127,7 +127,7 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/archway/resource/chain_archway.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">ARCHYWAY</span></td>
+    <td><span style="font-weight:bold">ARCHWAY</span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
