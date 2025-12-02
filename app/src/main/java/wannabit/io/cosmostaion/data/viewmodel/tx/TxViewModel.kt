@@ -32,9 +32,11 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
+import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.isHexString
@@ -324,6 +326,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     val btcStakeBroadcast = SingleLiveEvent<Pair<AbciProto.TxResponse?, String?>>()
 
     val solBroadcast = SingleLiveEvent<String?>()
+
+    val aptosBroadcast = SingleLiveEvent<String?>()
 
     val solSimulate = SingleLiveEvent<Pair<String?, kotlin.Any>>()
 
@@ -1526,6 +1530,56 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
         } catch (e: Exception) {
             solErrorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun moveSendBroadcast(
+        chain: ChainAptos,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String,
+        maxGasAmount: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response = txRepository.broadcastMoveSend(
+                chain,
+                fetcher,
+                from,
+                to,
+                toAmount,
+                toDenom,
+                maxGasAmount
+            )
+            aptosBroadcast.postValue(response)
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message.toString())
+        }
+    }
+
+    fun moveSendSimulate(
+        chain: ChainAptos,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val response =
+                txRepository.simulateMoveSend(chain, fetcher, from, to, toAmount, toDenom)
+
+            val amount = response.toBigDecimalOrNull()
+            if (amount != null) {
+                simulate.postValue(response)
+            } else {
+                errorMessage.postValue(response)
+            }
+
+        } catch (e: Exception) {
+            errorMessage.postValue(e.message)
         }
     }
 }

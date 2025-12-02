@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.BuildConfig
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.sign.BitcoinJs
+import xyz.mcxross.kaptos.model.AccountAddress
 import java.security.SecureRandom
 
 object BaseKey {
@@ -248,4 +249,16 @@ object BaseKey {
         } catch (_: Exception) {
             false
         }
+
+    fun isValidAptosAddress(address: String?): Boolean {
+        if (address?.trim()?.startsWith("0x") == false) return false
+        val hex = address?.trim()?.drop(2)
+        if (hex?.isEmpty() == true || hex?.length != 64) return false
+        return try {
+            AccountAddress.fromString(address.trim())
+            true
+        } catch (_: Exception) {
+            false
+        }
+    }
 }

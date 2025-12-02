@@ -581,6 +581,12 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun simulatedMaxGasMultiply(): Double {
+        return getChainListParam()?.get("simulated_gas_multiply")?.asDouble ?: run {
+            1.2
+        }
+    }
+
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -786,7 +792,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainAndromeda())
-//    chains.add(ChainAptos())
+    chains.add(ChainAptos())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
     chains.add(ChainArkeo())

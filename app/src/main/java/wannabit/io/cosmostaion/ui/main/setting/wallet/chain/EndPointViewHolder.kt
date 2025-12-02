@@ -21,10 +21,12 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.common.getOrNull
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setView
@@ -112,15 +114,12 @@ class EndPointViewHolder(
                     val request = GetNodeInfoRequest.newBuilder().build()
                     val response = stub.getNodeInfo(request)
 
-                    if (response.defaultNodeInfo.network == fromChain?.chainIdCosmos) {
-                        gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                        withContext(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) {
+                        if (response.defaultNodeInfo.network == fromChain?.chainIdCosmos) {
+                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                             gapTime?.let { configureSpeedText(it) }
-                        }
-
-                    } else {
-                        channel.shutdown()
-                        withContext(Dispatchers.Main) {
+                        } else {
+                            channel.shutdown()
                             configureClosedNode()
                         }
                     }
@@ -187,14 +186,11 @@ class EndPointViewHolder(
                                 json["node_info"].asJsonObject["network"].asString
                             }
 
-                            if (network == chain.chainIdCosmos) {
-                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                                withContext(Dispatchers.Main) {
+                            withContext(Dispatchers.Main) {
+                                if (network == chain.chainIdCosmos) {
+                                    gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                     gapTime?.let { configureSpeedText(it) }
-                                }
-
-                            } else {
-                                withContext(Dispatchers.Main) {
+                                } else {
                                     configureClosedNode()
                                 }
                             }
@@ -248,14 +244,12 @@ class EndPointViewHolder(
                         )
                         val suiChainIdResponse =
                             jsonRpcResponse(fetcher.suiRpc(), suiChainIdRequest)
-                        if (suiChainIdResponse.isSuccessful) {
-                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                            withContext(Dispatchers.Main) {
-                                gapTime?.let { configureSpeedText(it) }
-                            }
 
-                        } else {
-                            withContext(Dispatchers.Main) {
+                        withContext(Dispatchers.Main) {
+                            if (suiChainIdResponse.isSuccessful) {
+                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                                gapTime?.let { configureSpeedText(it) }
+                            } else {
                                 configureClosedNode()
                             }
                         }
@@ -308,14 +302,12 @@ class EndPointViewHolder(
                         )
                         val suiChainIdResponse =
                             jsonRpcResponse(fetcher.iotaRpc(), suiChainIdRequest)
-                        if (suiChainIdResponse.isSuccessful) {
-                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                            withContext(Dispatchers.Main) {
-                                gapTime?.let { configureSpeedText(it) }
-                            }
 
-                        } else {
-                            withContext(Dispatchers.Main) {
+                        withContext(Dispatchers.Main) {
+                            if (suiChainIdResponse.isSuccessful) {
+                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                                gapTime?.let { configureSpeedText(it) }
+                            } else {
                                 configureClosedNode()
                             }
                         }
@@ -366,14 +358,12 @@ class EndPointViewHolder(
                     try {
                         val request = Request.Builder().url(url).build()
                         OkHttpClient().newCall(request).execute().use { response ->
-                            if (response.isSuccessful) {
-                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                                withContext(Dispatchers.Main) {
+                            withContext(Dispatchers.Main) {
+                                if (response.isSuccessful) {
+                                    gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
                                     gapTime?.let { configureSpeedText(it) }
-                                }
 
-                            } else {
-                                withContext(Dispatchers.Main) {
+                                } else {
                                     configureClosedNode()
                                 }
                             }
@@ -427,14 +417,12 @@ class EndPointViewHolder(
                         )
                         val solanaHealthResponse =
                             jsonRpcResponse(fetcher.solanaRpc(), solanaHealthRequest)
-                        if (solanaHealthResponse.isSuccessful) {
-                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                            withContext(Dispatchers.Main) {
-                                gapTime?.let { configureSpeedText(it) }
-                            }
 
-                        } else {
-                            withContext(Dispatchers.Main) {
+                        withContext(Dispatchers.Main) {
+                            if (solanaHealthResponse.isSuccessful) {
+                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                                gapTime?.let { configureSpeedText(it) }
+                            } else {
                                 configureClosedNode()
                             }
                         }
@@ -448,6 +436,131 @@ class EndPointViewHolder(
 
                 endpointView.setOnClickListener {
                     listener?.rpcSelect(endpoint.get("url").asString, gapTime)
+                }
+            }
+        }
+    }
+
+    fun moveGraphQLBind(
+        fromChain: BaseChain?,
+        endpoint: JsonObject,
+        listener: EndpointAdapter.EndpointListener?
+    ) {
+        binding.apply {
+            when (fromChain) {
+                is ChainAptos -> {
+                    fromChain.aptosFetcher()?.let { fetcher ->
+                        provider.text = endpoint.get("provider").asString
+                        providerUrl.text = endpoint.get("url").asString
+
+                        val checkTime = System.currentTimeMillis() / 1000.0
+                        if (fetcher.getGraphQL() != endpoint.get("url").asString) {
+                            chainView.visibility = View.GONE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_transparent
+                                )
+                            )
+
+                        } else {
+                            chainView.visibility = View.VISIBLE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_base08
+                                )
+                            )
+                        }
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val networkInfo = fetcher.aptosClient().getLedgerInfo().getOrNull()
+                            withContext(Dispatchers.Main) {
+                                if (networkInfo != null) {
+                                    gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                                    gapTime?.let { configureSpeedText(it) }
+                                } else {
+                                    configureClosedNode()
+                                }
+                            }
+                        }
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+        }
+    }
+
+    fun moveRestBind(
+        fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
+    ) {
+        binding.apply {
+            when (fromChain) {
+                is ChainAptos -> {
+                    fromChain.aptosFetcher()?.let { fetcher ->
+                        provider.text = endpoint.get("provider").asString
+                        providerUrl.text = endpoint.get("url").asString
+
+                        val checkTime = System.currentTimeMillis() / 1000.0
+                        var url = endpoint.get("url").asString
+                        if (!url.endsWith("/")) {
+                            url += "/"
+                        }
+                        url += "/-/healthy"
+
+                        if (fetcher.getApi().contains(endpoint["url"].asString)) {
+                            chainView.visibility = View.VISIBLE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_base08
+                                )
+                            )
+
+                        } else {
+                            chainView.visibility = View.GONE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_transparent
+                                )
+                            )
+                        }
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try {
+                                val request = Request.Builder().url(url).build()
+                                OkHttpClient().newCall(request).execute().use { response ->
+                                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                                    val body = response.body?.string()
+                                    val json = Gson().fromJson(body, JsonObject::class.java)
+                                    val message = json["message"].asString
+
+                                    withContext(Dispatchers.Main) {
+                                        if (message.contains("ok")) {
+                                            gapTime =
+                                                (System.currentTimeMillis() / 1000.0 - checkTime)
+                                            gapTime?.let { configureSpeedText(it) }
+                                        } else {
+                                            configureClosedNode()
+                                        }
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                withContext(Dispatchers.Main) {
+                                    configureClosedNode()
+                                }
+                            }
+                        }
+                    }
+
+                    endpointView.setOnClickListener {
+                        listener?.lcdSelect(endpoint.get("url").asString, gapTime)
+                    }
+                }
+
+                else -> {
+
                 }
             }
         }

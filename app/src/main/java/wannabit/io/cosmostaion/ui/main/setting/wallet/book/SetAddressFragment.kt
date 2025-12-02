@@ -25,6 +25,7 @@ import org.bitcoinj.params.TestNet3Params
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -435,6 +436,9 @@ class SetAddressFragment : BottomSheetDialogFragment() {
 
         } else if (toChain is ChainSolana) {
             return BaseKey.isValidSolanaAddress(address)
+
+        } else if (toChain is ChainAptos) {
+            return BaseKey.isValidAptosAddress(address)
 
         } else if (toChain?.isEvmCosmos() == true) {
             return if (address?.startsWith("0x") == true && BaseKey.isValidEthAddress(address)) {

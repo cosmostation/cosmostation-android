@@ -240,6 +240,7 @@ class MajorCryptoFragment : Fragment() {
                 is ChainAptos -> {
                     val aptosCoinBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
                     aptosCoinBalances.clear()
+                    aptosNativeBalances.clear()
 
                     (selectedChain as ChainAptos).aptosFetcher()?.let { fetcher ->
                         fetcher.aptosAssetBalance?.forEach { aptosAsset ->
@@ -378,8 +379,8 @@ class MajorCryptoFragment : Fragment() {
                     moveCryptoAdapter.setOnItemClickListener { chain, denom ->
                         val sendAssetType = when (chain) {
                             is ChainSui -> SendAssetType.SUI_COIN
-                            else -> SendAssetType.IOTA_COIN
-//                            else -> SendAssetType.APTOS_COIN
+                            is ChainIota -> SendAssetType.IOTA_COIN
+                            else -> SendAssetType.APTOS_COIN
                         }
 
                         handleOneClickWithDelay(

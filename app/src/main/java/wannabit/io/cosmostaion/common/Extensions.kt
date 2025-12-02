@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.NetworkResult
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemToastBinding
+import xyz.mcxross.kaptos.model.Option
 import java.lang.NumberFormatException
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -1034,5 +1035,10 @@ fun String.toBigDecimalOrNull(): BigDecimal? {
     } catch (_: NumberFormatException) {
         null
     }
+}
+
+fun <T> Option<T>.getOrNull(): T? = when (this) {
+    is Option.Some -> this.value
+    is Option.None -> null
 }
 

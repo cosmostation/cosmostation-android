@@ -512,17 +512,21 @@ class PopUpCosmosSignFragment(
     private fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
         val doc = txJsonObject["doc"].asJsonObject
         var authInfo = TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
-        if (authInfo.fee.payer.isEmpty() || authInfo.fee.payer == null) {
-            authInfo = authInfo.toBuilder().setFee(txFee).build()
-        } else {
-            txFee?.let { fee ->
-                val dpFee = Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(
-                    CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
-                        .setAmount(fee.getAmount(0).amount)
-                ).setPayer(authInfo.fee.payer).build()
-                authInfo = authInfo.toBuilder().setFee(dpFee).build()
+
+        txFee?.let {
+            if (authInfo.fee.payer.isEmpty() || authInfo.fee.payer == null) {
+                authInfo = authInfo.toBuilder().setFee(txFee).build()
+            } else {
+                txFee?.let { fee ->
+                    val dpFee = Fee.newBuilder().setGasLimit(fee.gasLimit).addAmount(
+                        CoinProto.Coin.newBuilder().setDenom(fee.getAmount(0).denom)
+                            .setAmount(fee.getAmount(0).amount)
+                    ).setPayer(authInfo.fee.payer).build()
+                    authInfo = authInfo.toBuilder().setFee(dpFee).build()
+                }
             }
         }
+
         val txBody = TxProto.TxBody.parseFrom(Utils.hexToBytes(doc["body_bytes"].asString))
         val fee = authInfo.fee
 

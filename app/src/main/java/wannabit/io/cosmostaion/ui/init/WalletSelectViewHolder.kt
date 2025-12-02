@@ -14,6 +14,8 @@ import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -207,6 +209,19 @@ class WalletSelectViewHolder(
                             )
                         )
 
+                    } else if (chain is ChainAptos) {
+                        val availableAmount = chain.aptosFetcher()?.let { fetcher ->
+                            fetcher.aptosBalanceAmount(APTOS_MAIN_DENOM).movePointLeft(8)
+                                ?.setScale(8, RoundingMode.DOWN)
+                        }
+                        chainBalance.text = formatAmount(availableAmount.toString(), 8)
+                        chainDenom.text = chain.getMainAssetSymbol()
+                        chainDenom.setTextColor(
+                            ContextCompat.getColorStateList(
+                                context, R.color.color_base01
+                            )
+                        )
+
                     } else if (chain is ChainSolana) {
                         val availableAmount = chain.solanaFetcher().let { fetcher ->
                             fetcher?.solanaBalanceAmount()?.movePointLeft(9)
@@ -236,15 +251,19 @@ class WalletSelectViewHolder(
                             updateOktInfo(chain, chain.oktFetcher)
 
                         } else {
-                            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
-                                val availableAmount =
-                                    chain.cosmosFetcher?.balanceAmount(chain.getMainAssetDenom())
-                                        ?.movePointLeft(asset.decimals ?: 6)
-                                chainBalance.text =
-                                    formatAmount(availableAmount.toString(), asset.decimals ?: 6)
-                                chainDenom.text = asset.symbol
-                                chainDenom.setTextColor(asset.assetColor())
-                            }
+                            BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())
+                                ?.let { asset ->
+                                    val availableAmount =
+                                        chain.cosmosFetcher?.balanceAmount(chain.getMainAssetDenom())
+                                            ?.movePointLeft(asset.decimals ?: 6)
+                                    chainBalance.text =
+                                        formatAmount(
+                                            availableAmount.toString(),
+                                            asset.decimals ?: 6
+                                        )
+                                    chainDenom.text = asset.symbol
+                                    chainDenom.setTextColor(asset.assetColor())
+                                }
                         }
 
                     } else {

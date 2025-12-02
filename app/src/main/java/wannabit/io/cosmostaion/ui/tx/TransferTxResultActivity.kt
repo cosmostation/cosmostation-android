@@ -26,11 +26,13 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.getOrNull
 import wannabit.io.cosmostaion.common.historyToMintscan
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.updateButtonView
@@ -47,6 +49,8 @@ import wannabit.io.cosmostaion.databinding.DialogWaitBinding
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookType
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.SetAddressFragment
 import wannabit.io.cosmostaion.ui.tx.genTx.TransferStyle
+import xyz.mcxross.kaptos.model.HexInput
+import xyz.mcxross.kaptos.model.TransactionResponseType
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
@@ -162,6 +166,17 @@ class TransferTxResultActivity : BaseActivity() {
                     showError()
                 }
 
+            } else if (transferStyle == TransferStyle.APTOS_STYLE) {
+                if (isSuccess) {
+                    if (txHash.isNotEmpty()) {
+                        loadAptosTx()
+                    } else {
+                        showError()
+                    }
+                } else {
+                    showError()
+                }
+
             } else {
                 if (isSuccess) {
                     if (txHash.isNotEmpty()) {
@@ -192,10 +207,8 @@ class TransferTxResultActivity : BaseActivity() {
                     viewFailMintscan.visibility = View.GONE
                 }
 
-            } else if (transferStyle == TransferStyle.SUI_STYLE || transferStyle == TransferStyle.SUI_ETC_STYLE ||
-                transferStyle == TransferStyle.IOTA_STYLE || transferStyle == TransferStyle.IOTA_ETC_STYLE
-            ) {
-                if (isSuccess) {
+            } else if (transferStyle == TransferStyle.COSMOS_STYLE) {
+                if (isSuccess && txResponse?.txResponse?.code == 0) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
                     successHash.text = txHash
@@ -206,7 +219,7 @@ class TransferTxResultActivity : BaseActivity() {
                 }
 
             } else {
-                if (isSuccess && txResponse?.txResponse?.code == 0) {
+                if (isSuccess) {
                     loading.visibility = View.GONE
                     successLayout.visibility = View.VISIBLE
                     successHash.text = txHash
@@ -222,36 +235,18 @@ class TransferTxResultActivity : BaseActivity() {
     private fun setUpClickAction() {
         binding.apply {
             viewSuccessMintscan.setOnClickListener {
-                when (transferStyle) {
-                    TransferStyle.WEB3_STYLE -> {
-                        historyToMintscan(fromChain, txHash)
-                    }
-
-                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
-                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
-                        historyToMintscan(fromChain, txHash)
-                    }
-
-                    else -> {
-                        historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
-                    }
+                if (transferStyle == TransferStyle.COSMOS_STYLE) {
+                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                } else {
+                    historyToMintscan(fromChain, txHash)
                 }
             }
 
             viewFailMintscan.setOnClickListener {
-                when (transferStyle) {
-                    TransferStyle.WEB3_STYLE -> {
-                        historyToMintscan(fromChain, txHash)
-                    }
-
-                    TransferStyle.SUI_STYLE, TransferStyle.SUI_ETC_STYLE, TransferStyle.IOTA_STYLE,
-                    TransferStyle.IOTA_ETC_STYLE, TransferStyle.BIT_COIN_STYLE, TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
-                        historyToMintscan(fromChain, txHash)
-                    }
-
-                    else -> {
-                        historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
-                    }
+                if (transferStyle == TransferStyle.COSMOS_STYLE) {
+                    historyToMintscan(fromChain, txResponse?.txResponse?.txhash)
+                } else {
+                    historyToMintscan(fromChain, txHash)
                 }
             }
 
@@ -494,7 +489,7 @@ class TransferTxResultActivity : BaseActivity() {
             (fromChain as ChainSolana).apply {
                 val statusParams = listOf(listOf(txHash), mapOf("searchTransactionHistory" to true))
                 val statusRequest = JsonRpcRequest(
-                    method = "getSignatureStatuses", params = statusParams
+                    method = "getloadSolanaTx()SignatureStatuses", params = statusParams
                 )
                 val statusResponse =
                     jsonRpcResponse(solanaFetcher?.solanaRpc() ?: mainUrl, statusRequest)
@@ -543,6 +538,38 @@ class TransferTxResultActivity : BaseActivity() {
                             showMoreWait()
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun loadAptosTx() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            (fromChain as ChainAptos).aptosFetcher?.let { fetcher ->
+                val txResult = fetcher.aptosClient().waitForTransaction(HexInput(txHash))
+
+                if (txResult.getOrNull()?.type == TransactionResponseType.PENDING) {
+                    fetchCnt -= 1
+                    if (isSuccess && fetchCnt > 0) {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            loadAptosTx()
+                        }, 6000)
+
+                    } else {
+                        runOnUiThread {
+                            showMoreWait()
+                        }
+                    }
+
+                } else {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.apply {
+                            loading.visibility = View.GONE
+                            successLayout.visibility = View.VISIBLE
+                            successHash.text = txHash
+                            showAddressBook()
+                        }
+                    }, 0)
                 }
             }
         }

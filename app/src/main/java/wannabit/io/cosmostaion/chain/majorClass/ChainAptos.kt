@@ -22,7 +22,8 @@ class ChainAptos : BaseChain(), Parcelable {
     override var stakeDenom: String = APTOS_MAIN_DENOM
     override var coinSymbol: String = "APT"
 
-    override var mainUrl: String = "https://rpc.mainnet.aptos.fernlabs.xyz"
+    override var apiUrl: String = "https://api.mainnet.aptoslabs.com/v1/"
+    override var mainUrl: String = "https://api.mainnet.aptoslabs.com/v1/graphql"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
@@ -38,3 +39,5 @@ class ChainAptos : BaseChain(), Parcelable {
 }
 
 const val APTOS_MAIN_DENOM = "0x1::aptos_coin::AptosCoin"
+
+const val APTOS_DEFAULT_FEE = "5000"

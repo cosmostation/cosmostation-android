@@ -219,6 +219,18 @@ class TransferAmountFragment : BottomSheetDialogFragment() {
                     }
                 }
 
+                SendAssetType.APTOS_COIN -> {
+                    toSendAsset?.let { asset ->
+                        assetDecimal = asset.decimals ?: 8
+                        availableAmount.toBigDecimal().movePointLeft(assetDecimal)
+                            ?.setScale(assetDecimal, RoundingMode.DOWN)?.let { amount ->
+                                available.text = formatAmount(amount.toPlainString(), assetDecimal)
+                                availableDenom.text = asset.symbol
+                                availableDenom.setTextColor(asset.assetColor())
+                            }
+                    }
+                }
+
                 else -> {}
             }
 

@@ -51,11 +51,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import xyz.mcxross.kaptos.Aptos
-import xyz.mcxross.kaptos.model.AccountAddress
-import xyz.mcxross.kaptos.model.AptosConfig
-import xyz.mcxross.kaptos.model.AptosSettings
-import xyz.mcxross.kaptos.model.Network
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -1740,11 +1735,8 @@ class ApplicationViewModel(
                 fetcher.aptosAssetBalance?.clear()
 
                 try {
-                    val aptosConfig = AptosConfig(AptosSettings(network = Network.MAINNET))
-                    val aptos = Aptos(aptosConfig)
-                    val aptosAccount = AccountAddress.fromString(chain.mainAddress)
-
-                    val apotsCoinData = aptos.getAccountCoinsData(accountAddress = aptosAccount)
+                    val apotsCoinData =
+                        fetcher.aptosClient().getAccountCoinsData(fetcher.aptosAccount())
                     when (apotsCoinData) {
                         is Option.Some -> {
                             fetcher.aptosAssetBalance =
@@ -1752,7 +1744,12 @@ class ApplicationViewModel(
 
                             coinValue = fetcher.allAssetValue()
                             coinUsdValue = fetcher.allAssetValue(true)
-                            coinCnt = fetcher.aptosAssetBalance?.size ?: 0
+                            coinCnt = fetcher.aptosAssetBalance?.count {
+                                BaseData.getAsset(
+                                    chain.apiName,
+                                    it.asset_type
+                                ) != null
+                            } ?: 0
 
                             fetchState = FetchState.SUCCESS
                             val refAddress = RefAddress(

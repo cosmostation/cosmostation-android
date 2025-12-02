@@ -12,6 +12,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -118,8 +119,8 @@ class MajorAboutFragment : Fragment() {
                     getString(R.string.str_mainnet)
                 }
 
-                stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin86 || selectedChain is ChainSolana)
-                stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin86 || selectedChain is ChainSolana)
+                stakingInfoView.goneOrVisible(selectedChain is ChainBitCoin86 || selectedChain is ChainSolana || selectedChain is ChainAptos)
+                stakingInfoTitle.goneOrVisible(selectedChain is ChainBitCoin86 || selectedChain is ChainSolana || selectedChain is ChainAptos)
 
                 stakingDenom.text = if (selectedChain is ChainSui || selectedChain is ChainIota) {
                     BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.symbol

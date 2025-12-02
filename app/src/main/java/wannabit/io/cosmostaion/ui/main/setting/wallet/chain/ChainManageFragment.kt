@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -102,6 +103,8 @@ class ChainManageFragment : Fragment() {
             }
             val endPointType = if (chain is ChainSui || chain is ChainIota || chain is ChainGnoTestnet || chain is ChainSolana) {
                 EndPointType.END_POINT_RPC
+            } else if (chain is ChainAptos) {
+                EndPointType.END_POINT_MOVE
             } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                 EndPointType.END_POINT_COSMOS
             } else {

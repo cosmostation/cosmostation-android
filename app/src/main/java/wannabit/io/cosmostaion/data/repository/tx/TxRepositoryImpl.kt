@@ -43,11 +43,13 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -58,6 +60,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
 import wannabit.io.cosmostaion.common.bitType
 import wannabit.io.cosmostaion.common.formatJsonString
+import wannabit.io.cosmostaion.common.getOrNull
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.percentile
 import wannabit.io.cosmostaion.common.safeApiCall
@@ -83,6 +86,11 @@ import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
+import xyz.mcxross.kaptos.account.Account
+import xyz.mcxross.kaptos.core.crypto.Ed25519PrivateKey
+import xyz.mcxross.kaptos.model.AccountAddress
+import xyz.mcxross.kaptos.model.InputGenerateTransactionOptions
+import xyz.mcxross.kaptos.model.InputSimulateTransactionOptions
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -3033,6 +3041,92 @@ class TxRepositoryImpl : TxRepository {
 
         } catch (e: Exception) {
             Triple(null, "", e.message.toString())
+        }
+    }
+
+    override suspend fun broadcastMoveSend(
+        chain: ChainAptos,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String,
+        maxGasAmount: String
+    ): String {
+        return try {
+            val privateKey = Ed25519PrivateKey(chain.privateKey?.toHex() ?: "")
+            val account = Account.from(privateKey)
+
+            val transferTransaction = fetcher.aptosClient().transferCoinTransaction(
+                from = AccountAddress.fromString(from),
+                to = AccountAddress.fromString(to),
+                amount = toAmount.toULong(),
+                coinType = toDenom,
+                withFeePayer = false,
+                options = InputGenerateTransactionOptions(
+                    maxGasAmount = maxGasAmount.toLong()
+                )
+            )
+
+            val signed = fetcher.aptosClient().sign(account, transferTransaction)
+            val submit = fetcher.aptosClient().submitTransaction.simple(transferTransaction, signed)
+
+            submit.getOrNull()?.hash ?: ""
+
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun simulateMoveSend(
+        chain: ChainAptos,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String
+    ): String {
+        return try {
+            val privateKey = Ed25519PrivateKey(chain.privateKey?.toHex() ?: "")
+            val account = Account.from(privateKey)
+
+            val transferTransaction = fetcher.aptosClient().transferCoinTransaction(
+                from = AccountAddress.fromString(from),
+                to = AccountAddress.fromString(to),
+                amount = toAmount.toULong(),
+                coinType = toDenom,
+                withFeePayer = false,
+                options = InputGenerateTransactionOptions(
+                    maxGasAmount = 1000
+                )
+            )
+
+            val opts = InputSimulateTransactionOptions(
+                estimateGasUnitPrice = false,
+                estimateMaxGasAmount = false,
+                estimatePrioritizedGasUnitPrice = false
+            )
+
+            val simulateTxs = fetcher.aptosClient().simulateTransaction.simple(
+                signerPublicKey = account.publicKey,
+                transaction = transferTransaction,
+                feePayerPublicKey = null,
+                options = opts
+            )
+            val simulateResult = simulateTxs.getOrNull().orEmpty()
+
+            if (simulateResult.isNotEmpty()) {
+                val gasUsed = simulateResult[0].gasUsed.toBigDecimal()
+                val gasPrice = simulateResult[0].gasUnitPrice.toBigDecimal()
+
+                gasUsed.multiply(gasPrice).toString()
+
+            } else {
+                "RPC Error"
+            }
+
+        } catch (e: Exception) {
+            e.message.toString()
         }
     }
 }
