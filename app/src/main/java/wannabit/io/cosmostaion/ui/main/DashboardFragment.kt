@@ -463,6 +463,8 @@ class DashboardFragment : Fragment() {
                     val endPointType =
                         if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
                             EndPointType.END_POINT_RPC
+                        } else if (chain is ChainAptos) {
+                            EndPointType.END_POINT_MOVE
                         } else if (chain.isEvmCosmos() || chain.supportCosmos()) {
                             EndPointType.END_POINT_COSMOS
                         } else {

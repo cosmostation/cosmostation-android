@@ -32,6 +32,9 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setView
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
+import xyz.mcxross.kaptos.Aptos
+import xyz.mcxross.kaptos.model.AptosConfig
+import xyz.mcxross.kaptos.model.AptosSettings
 import java.io.IOException
 
 class EndPointViewHolder(
@@ -243,7 +246,7 @@ class EndPointViewHolder(
                             method = "sui_getChainIdentifier", params = listOf()
                         )
                         val suiChainIdResponse =
-                            jsonRpcResponse(fetcher.suiRpc(), suiChainIdRequest)
+                            jsonRpcResponse(url, suiChainIdRequest)
 
                         withContext(Dispatchers.Main) {
                             if (suiChainIdResponse.isSuccessful) {
@@ -301,7 +304,7 @@ class EndPointViewHolder(
                             method = "iota_getChainIdentifier", params = listOf()
                         )
                         val suiChainIdResponse =
-                            jsonRpcResponse(fetcher.iotaRpc(), suiChainIdRequest)
+                            jsonRpcResponse(url, suiChainIdRequest)
 
                         withContext(Dispatchers.Main) {
                             if (suiChainIdResponse.isSuccessful) {
@@ -416,7 +419,7 @@ class EndPointViewHolder(
                             method = "getHealth", params = listOf()
                         )
                         val solanaHealthResponse =
-                            jsonRpcResponse(fetcher.solanaRpc(), solanaHealthRequest)
+                            jsonRpcResponse(url, solanaHealthRequest)
 
                         withContext(Dispatchers.Main) {
                             if (solanaHealthResponse.isSuccessful) {
@@ -436,57 +439,6 @@ class EndPointViewHolder(
 
                 endpointView.setOnClickListener {
                     listener?.rpcSelect(endpoint.get("url").asString, gapTime)
-                }
-            }
-        }
-    }
-
-    fun moveGraphQLBind(
-        fromChain: BaseChain?,
-        endpoint: JsonObject,
-        listener: EndpointAdapter.EndpointListener?
-    ) {
-        binding.apply {
-            when (fromChain) {
-                is ChainAptos -> {
-                    fromChain.aptosFetcher()?.let { fetcher ->
-                        provider.text = endpoint.get("provider").asString
-                        providerUrl.text = endpoint.get("url").asString
-
-                        val checkTime = System.currentTimeMillis() / 1000.0
-                        if (fetcher.getGraphQL() != endpoint.get("url").asString) {
-                            chainView.visibility = View.GONE
-                            endpointView.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_transparent
-                                )
-                            )
-
-                        } else {
-                            chainView.visibility = View.VISIBLE
-                            endpointView.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    context, R.color.color_base08
-                                )
-                            )
-                        }
-
-                        CoroutineScope(Dispatchers.IO).launch {
-                            val networkInfo = fetcher.aptosClient().getLedgerInfo().getOrNull()
-                            withContext(Dispatchers.Main) {
-                                if (networkInfo != null) {
-                                    gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                                    gapTime?.let { configureSpeedText(it) }
-                                } else {
-                                    configureClosedNode()
-                                }
-                            }
-                        }
-                    }
-                }
-
-                else -> {
-
                 }
             }
         }
@@ -565,6 +517,68 @@ class EndPointViewHolder(
             }
         }
     }
+
+    fun moveGraphQLBind(
+        fromChain: BaseChain?,
+        endpoint: JsonObject,
+        listener: EndpointAdapter.EndpointListener?
+    ) {
+        binding.apply {
+            when (fromChain) {
+                is ChainAptos -> {
+                    fromChain.aptosFetcher()?.let { fetcher ->
+                        provider.text = endpoint.get("provider").asString
+                        providerUrl.text = endpoint.get("url").asString
+
+                        val checkTime = System.currentTimeMillis() / 1000.0
+                        if (fetcher.getGraphQL() != endpoint.get("url").asString) {
+                            chainView.visibility = View.GONE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_transparent
+                                )
+                            )
+
+                        } else {
+                            chainView.visibility = View.VISIBLE
+                            endpointView.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    context, R.color.color_base08
+                                )
+                            )
+                        }
+
+                        CoroutineScope(Dispatchers.IO).launch {
+                            val config = AptosConfig(
+                                AptosSettings(
+                                    indexer = endpoint.get("url").asString
+                                )
+                            )
+                            val aptos = Aptos(config)
+                            val networkInfo = aptos.getLedgerInfo().getOrNull()
+                            withContext(Dispatchers.Main) {
+                                if (networkInfo != null) {
+                                    gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                                    gapTime?.let { configureSpeedText(it) }
+                                } else {
+                                    configureClosedNode()
+                                }
+                            }
+                        }
+
+                        endpointView.setOnClickListener {
+                            listener?.rpcSelect(endpoint.get("url").asString, gapTime)
+                        }
+                    }
+                }
+
+                else -> {
+
+                }
+            }
+        }
+    }
+
 
     fun getChannel(host: String, port: Int): ManagedChannel {
         return ManagedChannelBuilder.forAddress(host, port).useTransportSecurity().build()

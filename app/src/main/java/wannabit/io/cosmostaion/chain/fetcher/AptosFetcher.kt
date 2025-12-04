@@ -18,8 +18,8 @@ class AptosFetcher(private val chain: BaseChain) {
     fun aptosClient(): Aptos {
         val config = AptosConfig(
             AptosSettings(
-                fullNode = chain.aptosFetcher?.getApi(),
-                indexer = chain.aptosFetcher?.getGraphQL()
+                fullNode = getApi(),
+                indexer = getGraphQL()
             )
         )
         return Aptos(config)
