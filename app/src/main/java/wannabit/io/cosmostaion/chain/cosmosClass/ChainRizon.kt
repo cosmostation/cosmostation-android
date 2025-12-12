@@ -25,6 +25,6 @@ class ChainRizon : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uatolo"
     override var accountPrefix: String = "rizon"
-    override var grpcHost: String = ""
+    override var grpcHost: String = "rizon-grpc.publicnode.com:443"
     override var lcdUrl: String = "https://rizon-rest.publicnode.com/"
 }
