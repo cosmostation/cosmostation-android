@@ -25,6 +25,6 @@ class ChainComdex : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ucmdx"
     override var accountPrefix: String = "comdex"
-    override var grpcHost: String = ""
+    override var grpcHost: String = "comdex-grpc.publicnode.com:443"
     override var lcdUrl: String = "https://comdex.api.m.stavr.tech/"
 }
