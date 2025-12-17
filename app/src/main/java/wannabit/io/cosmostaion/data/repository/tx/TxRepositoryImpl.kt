@@ -3068,9 +3068,8 @@ class TxRepositoryImpl : TxRepository {
                 )
             )
 
-            val signed = fetcher.aptosClient().sign(account, transferTransaction)
-            val submit = fetcher.aptosClient().submitTransaction.simple(transferTransaction, signed)
-
+            val submit =
+                fetcher.aptosClient().signAndSubmitTransaction(account, transferTransaction)
             submit.getOrNull()?.hash ?: ""
 
         } catch (e: Exception) {
