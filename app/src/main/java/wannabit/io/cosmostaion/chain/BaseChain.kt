@@ -196,6 +196,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainPharosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainQubeticsEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTerraClassicTestnet
@@ -970,6 +971,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainPharosTestnet())
     chains.add(ChainQubeticsEvmTestnet())
 //    chains.add(ChainSaharaAiEvmTestnet())
 //    chains.add(ChainSelfTestnet())
