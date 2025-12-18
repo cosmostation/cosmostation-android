@@ -980,7 +980,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainSaharaAiEvmTestnet())
 //    chains.add(ChainSelfTestnet())
 //    chains.add(ChainStroyTestnet())
-    chains.add(ChainTabichainTestnet())
+//    chains.add(ChainTabichainTestnet())
     chains.add(ChainTerraClassicTestnet())
     chains.add(ChainWardenEvmTestnet())
     chains.add(ChainXionTestnet())
