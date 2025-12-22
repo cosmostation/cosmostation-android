@@ -24,6 +24,6 @@ class ChainArkeo : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uarkeo"
     override var accountPrefix: String = "arkeo"
-    override var grpcHost: String = ""
+    override var grpcHost: String = "arkeo-grpc.publicnode.com:443"
     override var lcdUrl: String = "https://rest-seed.arkeo.network/"
 }

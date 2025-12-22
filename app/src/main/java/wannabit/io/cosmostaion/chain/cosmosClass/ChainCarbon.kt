@@ -25,6 +25,6 @@ class ChainCarbon : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "swth"
     override var accountPrefix: String = "swth"
-    override var grpcHost: String = ""
+    override var grpcHost: String = "carbon-grpc.publicnode.com:443"
     override var lcdUrl: String = "https://api.carbon.network/"
 }

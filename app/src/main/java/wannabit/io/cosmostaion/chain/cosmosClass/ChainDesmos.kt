@@ -24,6 +24,6 @@ class ChainDesmos : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "udsm"
     override var accountPrefix: String = "desmos"
-    override var grpcHost: String = ""
+    override var grpcHost: String = "desmos-grpc.publicnode.com:443"
     override var lcdUrl: String = "https://desmos-rest.staketab.org/"
 }
