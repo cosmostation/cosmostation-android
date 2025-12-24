@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -238,7 +239,7 @@ class ApplicationViewModel(
                 is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
                 is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
-                is ChainAptos -> loadAptosData(baseAccountId, this, isEdit)
+                is ChainAptos, is ChainMovement -> loadAptosData(baseAccountId, this, isEdit)
                 else -> {
                     if (supportCosmos() && this !is ChainOktEvm) {
                         loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
@@ -1725,7 +1726,7 @@ class ApplicationViewModel(
 
     fun loadAptosData(
         id: Long,
-        chain: ChainAptos,
+        chain: BaseChain,
         isEdit: Boolean? = false,
         isTx: Boolean? = false,
         isRefresh: Boolean? = false

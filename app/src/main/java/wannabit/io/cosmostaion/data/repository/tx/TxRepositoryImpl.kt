@@ -3045,7 +3045,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastMoveSend(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,
@@ -3078,7 +3078,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateMoveSend(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,

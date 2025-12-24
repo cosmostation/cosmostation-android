@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -449,7 +450,7 @@ class EndPointViewHolder(
     ) {
         binding.apply {
             when (fromChain) {
-                is ChainAptos -> {
+                is ChainAptos, is ChainMovement -> {
                     fromChain.aptosFetcher()?.let { fetcher ->
                         provider.text = endpoint.get("provider").asString
                         providerUrl.text = endpoint.get("url").asString
@@ -459,7 +460,7 @@ class EndPointViewHolder(
                         if (!url.endsWith("/")) {
                             url += "/"
                         }
-                        url += "/-/healthy"
+                        url += "-/healthy"
 
                         if (fetcher.getApi().contains(endpoint["url"].asString)) {
                             chainView.visibility = View.VISIBLE
@@ -525,7 +526,7 @@ class EndPointViewHolder(
     ) {
         binding.apply {
             when (fromChain) {
-                is ChainAptos -> {
+                is ChainAptos, is ChainMovement -> {
                     fromChain.aptosFetcher()?.let { fetcher ->
                         provider.text = endpoint.get("provider").asString
                         providerUrl.text = endpoint.get("url").asString

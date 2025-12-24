@@ -16,11 +16,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dialogResize
 import wannabit.io.cosmostaion.common.makeToast
@@ -92,8 +88,7 @@ class QrDialog(
                             chain.address, BarcodeFormat.QR_CODE, 1040, 1040, hints
                         )
 
-                    } else if (selectedChain is ChainSui || selectedChain is ChainIota || selectedChain is ChainBitCoin86 ||
-                        selectedChain is ChainSolana || selectedChain is ChainAptos) {
+                    } else if (selectedChain.isOtherChains()) {
                         chainName.text = chain.getChainName()
                         addressView.setBackgroundResource(R.drawable.cell_bg)
                         address.text = chain.mainAddress
@@ -197,7 +192,7 @@ class QrDialog(
                     context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = if (selectedChain?.supportCosmos() == true) {
                     ClipData.newPlainText("address", selectedChain.address)
-                } else if (selectedChain is ChainSui || selectedChain is ChainIota || selectedChain is ChainBitCoin86) {
+                } else if (selectedChain?.isOtherChains() == true) {
                     ClipData.newPlainText("address", selectedChain.mainAddress)
                 } else {
                     ClipData.newPlainText("address", selectedChain?.evmAddress)
@@ -211,7 +206,7 @@ class QrDialog(
                 intent.action = Intent.ACTION_SEND
                 val address = if (selectedChain?.supportCosmos() == true) {
                     selectedChain.address
-                } else if (selectedChain is ChainSui || selectedChain is ChainIota || selectedChain is ChainBitCoin86) {
+                } else if (selectedChain?.isOtherChains() == true) {
                     selectedChain.mainAddress
                 } else {
                     selectedChain?.evmAddress

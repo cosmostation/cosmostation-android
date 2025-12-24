@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -60,7 +61,7 @@ class ChainManageViewHolder(
                     restEndpointType.text = "SOLANA RPC"
                 }
 
-                is ChainAptos -> {
+                is ChainAptos, is ChainMovement -> {
                     restLayout.visibility = View.GONE
                     evmLayout.visibility = View.VISIBLE
 

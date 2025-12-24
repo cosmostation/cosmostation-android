@@ -545,7 +545,7 @@ class TransferTxResultActivity : BaseActivity() {
 
     private fun loadAptosTx() {
         lifecycleScope.launch(Dispatchers.IO) {
-            (fromChain as ChainAptos).aptosFetcher?.let { fetcher ->
+            fromChain.aptosFetcher?.let { fetcher ->
                 val txResult = fetcher.aptosClient().waitForTransaction(HexInput(txHash))
 
                 if (txResult.getOrNull()?.type == TransactionResponseType.PENDING) {

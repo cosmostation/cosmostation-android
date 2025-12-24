@@ -398,7 +398,7 @@ interface TxRepository {
     ): Triple<Boolean?, String?, Any>
 
     suspend fun broadcastMoveSend(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,
@@ -408,7 +408,7 @@ interface TxRepository {
     ): String
 
     suspend fun simulateMoveSend(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,

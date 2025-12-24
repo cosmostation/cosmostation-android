@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -89,7 +90,7 @@ class MajorHistoryFragment : Fragment() {
             )
 
             is ChainSui -> historyViewModel.suiHistory(selectedChain as ChainSui)
-            is ChainAptos -> historyViewModel.moveHistory(selectedChain)
+            is ChainAptos, is ChainMovement -> historyViewModel.moveHistory(selectedChain)
             else -> historyViewModel.iotaHistory(selectedChain as ChainIota)
         }
     }
@@ -104,7 +105,7 @@ class MajorHistoryFragment : Fragment() {
                 )
 
                 is ChainSui -> historyViewModel.suiHistory(selectedChain as ChainSui)
-                is ChainAptos -> historyViewModel.moveHistory(selectedChain)
+                is ChainAptos, is ChainMovement -> historyViewModel.moveHistory(selectedChain)
                 else -> historyViewModel.iotaHistory(selectedChain as ChainIota)
             }
         }

@@ -407,7 +407,7 @@ class CommonTransferFragment : BaseTxFragment() {
                         R.string.title_asset_send, toSendAsset?.symbol
                     )
 
-                    (fromChain as ChainAptos).aptosFetcher?.let { fetcher ->
+                    fromChain.aptosFetcher?.let { fetcher ->
                         toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
                         transferImg.setTokenImg(toSendAsset?.image ?: "")
                         sendTitle.text = getString(
@@ -985,7 +985,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 }
 
                 TransferStyle.APTOS_STYLE -> {
-                    (fromChain as ChainAptos).apply {
+                    fromChain.apply {
                         BaseData.getAsset(apiName, getStakeAssetDenom())?.let { asset ->
                             feeTokenImg.setTokenImg(asset)
                             feeToken.text = asset.symbol
@@ -1318,7 +1318,7 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.APTOS_STYLE -> {
                     fromChain.aptosFetcher?.let { fetcher ->
                         txViewModel.moveSendSimulate(
-                            fromChain as ChainAptos,
+                            fromChain,
                             fetcher,
                             fromChain.mainAddress,
                             toAddress,
@@ -1634,7 +1634,7 @@ class CommonTransferFragment : BaseTxFragment() {
                     TransferStyle.APTOS_STYLE -> {
                         fromChain.aptosFetcher?.let { fetcher ->
                             txViewModel.moveSendBroadcast(
-                                fromChain as ChainAptos,
+                                fromChain,
                                 fetcher,
                                 fromChain.mainAddress,
                                 toAddress,

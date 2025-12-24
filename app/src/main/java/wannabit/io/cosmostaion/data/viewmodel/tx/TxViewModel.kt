@@ -1534,7 +1534,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun moveSendBroadcast(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,
@@ -1560,7 +1560,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun moveSendSimulate(
-        chain: ChainAptos,
+        chain: BaseChain,
         fetcher: AptosFetcher,
         from: String,
         to: String,

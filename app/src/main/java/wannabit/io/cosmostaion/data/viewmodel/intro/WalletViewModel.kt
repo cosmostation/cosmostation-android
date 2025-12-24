@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -982,7 +983,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 }
             }
 
-            is ChainAptos -> {
+            is ChainAptos, is ChainMovement -> {
                 chain.aptosFetcher()?.let { fetcher ->
                     chain.apply {
                         fetcher.aptosAssetBalance?.clear()

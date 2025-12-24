@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -209,7 +210,7 @@ class WalletSelectViewHolder(
                             )
                         )
 
-                    } else if (chain is ChainAptos) {
+                    } else if (chain is ChainAptos || chain is ChainMovement) {
                         val availableAmount = chain.aptosFetcher()?.let { fetcher ->
                             fetcher.aptosBalanceAmount(APTOS_MAIN_DENOM).movePointLeft(8)
                                 ?.setScale(8, RoundingMode.DOWN)

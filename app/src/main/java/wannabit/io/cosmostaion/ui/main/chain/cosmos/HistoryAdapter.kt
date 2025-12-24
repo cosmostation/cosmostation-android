@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.dpMicroTimeToYear
 import wannabit.io.cosmostaion.common.dpTimeToYear
@@ -92,7 +93,7 @@ class HistoryAdapter(
                 }
             }
 
-            is ChainAptos -> {
+            is ChainAptos, is ChainMovement -> {
                 val moveHistoryList = currentList as MutableList<Pair<String, JsonObject>>
                 val historyMoveGroup = moveHistoryList[position]
 

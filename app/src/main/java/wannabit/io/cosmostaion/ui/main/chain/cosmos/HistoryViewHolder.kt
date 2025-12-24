@@ -787,18 +787,12 @@ class HistoryViewHolder(
 
             if (historyMoveGroup.second["success"].asBoolean) {
                 txSuccessImg.setImageResource(R.drawable.icon_history_success)
-                txSuccessImg.setColorFilter(
-                    ContextCompat.getColor(context, R.color.color_green), PorterDuff.Mode.SRC_IN
-                )
                 txTime.text =
                     dpMicroTimeToMonth(historyMoveGroup.second["timestamp"].asString.toLong())
                 txHeight.text = "(" + historyMoveGroup.second["version"].asString + ")"
 
             } else {
-                txSuccessImg.setImageResource(R.drawable.icon_history_pending)
-                txSuccessImg.setColorFilter(
-                    ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN
-                )
+                txSuccessImg.setImageResource(R.drawable.icon_history_fail)
                 txTime.text = ""
                 txHeight.text = ""
             }

@@ -104,12 +104,12 @@ class QrCodeEvmFragment : BottomSheetDialogFragment() {
             btnShare.setOnClickListener {
                 val intent = Intent()
                 intent.action = Intent.ACTION_SEND
-                val address =
-                    if (selectedChain is ChainSui || selectedChain is ChainIota || selectedChain is ChainBitCoin86) {
-                        selectedChain.mainAddress
-                    } else {
-                        selectedChain.address
-                    }
+                val address = if (selectedChain.isOtherChains()) {
+                    selectedChain.mainAddress
+                } else {
+                    selectedChain.address
+                }
+
                 intent.putExtra(Intent.EXTRA_TEXT, address)
                 intent.type = "text/plain"
                 startActivity(Intent.createChooser(intent, "share"))

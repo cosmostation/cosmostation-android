@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -113,7 +114,7 @@ class MoveCryptoAdapter(
 
             is CoinViewHolder -> {
                 if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                    val balance = if (selectedChain is ChainAptos) {
+                    val balance = if (selectedChain.isMoveChain) {
                         aptosNativeBalances[position - 2]
                     } else {
                         if (moveBalances.isNotEmpty()) {
@@ -126,7 +127,7 @@ class MoveCryptoAdapter(
                     when (selectedChain) {
                         is ChainSui -> holder.suiBind(selectedChain, balance)
                         is ChainIota -> holder.iotaBind(selectedChain, balance)
-                        is ChainAptos -> holder.aptosBind(selectedChain, balance)
+                        is ChainAptos, is ChainMovement -> holder.aptosBind(selectedChain, balance)
                     }
 
                     holder.itemView.setOnClickListener {
@@ -142,7 +143,14 @@ class MoveCryptoAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (selectedChain is ChainSui || selectedChain is ChainIota) {
+        return if (selectedChain.isMoveChain) {
+            when (position) {
+                0 -> VIEW_TYPE_APTOS_MAIN_ITEM
+                1 -> VIEW_TYPE_COIN_HEADER
+                else -> VIEW_TYPE_COIN_ITEM
+            }
+
+        } else {
             if (moveBalances.isNotEmpty()) {
                 if (moveNativeBalances.isNotEmpty()) {
                     when (position) {
@@ -162,18 +170,18 @@ class MoveCryptoAdapter(
                     -1
                 }
             }
-
-        } else {
-            when (position) {
-                0 -> VIEW_TYPE_APTOS_MAIN_ITEM
-                1 -> VIEW_TYPE_COIN_HEADER
-                else -> VIEW_TYPE_COIN_ITEM
-            }
         }
     }
 
     override fun getItemCount(): Int {
-        return if (selectedChain is ChainSui || selectedChain is ChainIota) {
+        return if (selectedChain.isMoveChain) {
+            if (aptosNativeBalances.isNotEmpty()) {
+                aptosNativeBalances.size + 2
+            } else {
+                1
+            }
+
+        } else {
             if (moveBalances.isNotEmpty()) {
                 if (moveNativeBalances.isNotEmpty()) {
                     moveBalances.size + moveNativeBalances.size + 1
@@ -188,13 +196,6 @@ class MoveCryptoAdapter(
                     0
                 }
             }
-
-        } else {
-            if (aptosNativeBalances.isNotEmpty()) {
-                aptosNativeBalances.size + 2
-            } else {
-                1
-            }
         }
     }
 
@@ -204,16 +205,12 @@ class MoveCryptoAdapter(
 
         fun bind() {
             binding.apply {
-                headerTitle.text = if (selectedChain is ChainAptos) {
-                    context.getString(R.string.str_coins)
+                if (selectedChain.isMoveChain) {
+                    headerTitle.text = context.getString(R.string.str_coins)
+                    headerCnt.text = aptosNativeBalances.size.toString()
                 } else {
-                    context.getString(R.string.str_native_coins)
-                }
-
-                headerCnt.text = if (selectedChain is ChainAptos) {
-                    aptosNativeBalances.size.toString()
-                } else {
-                    moveNativeBalances.size.toString()
+                    headerTitle.text = context.getString(R.string.str_native_coins)
+                    headerCnt.text = moveNativeBalances.size.toString()
                 }
             }
         }

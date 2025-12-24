@@ -185,6 +185,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainAirchainsTestnet
@@ -202,7 +203,6 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainPharosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainQubeticsEvmTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTerraClassicTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainWardenEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
@@ -254,6 +254,8 @@ open class BaseChain : Parcelable {
     open var coinSymbol: String = ""
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
+
+    open var isMoveChain = false
 
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
@@ -332,12 +334,22 @@ open class BaseChain : Parcelable {
         return evmRpcFetcher
     }
 
+    fun aptosFetcher(): AptosFetcher? {
+        if (!isMoveChain) return null
+        if (aptosFetcher == null) aptosFetcher = AptosFetcher(this)
+        return aptosFetcher
+    }
+
     fun supportCosmos(): Boolean {
         return !(cosmosEndPointType == null || cosmosEndPointType == CosmosEndPointType.UNKNOWN)
     }
 
     fun isEvmCosmos(): Boolean {
         return supportCosmos() && supportEvm
+    }
+
+    fun isOtherChains(): Boolean {
+        return this is ChainSui || this is ChainIota || this is ChainBitCoin86 || this is ChainSolana || this.isMoveChain
     }
 
     fun getChainParam(): JsonObject? {
@@ -888,6 +900,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway())
     chains.add(ChainMonad())
+//    chains.add(ChainMovement())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNillion())

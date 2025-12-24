@@ -343,7 +343,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
             rpcSegment.setOnPositionChangedListener { position ->
                 when (position) {
                     0 -> {
-                        if (fromChain is ChainAptos) {
+                        if (fromChain?.isMoveChain == true) {
                             setEndpointWithMove()
                         } else {
                             setEndpointWithCosmos()
@@ -351,7 +351,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
                     }
 
                     else -> {
-                        if (fromChain is ChainAptos) {
+                        if (fromChain?.isMoveChain == true) {
                             setEndpointWithGraphQL()
                         } else {
                             setEndpointWithEvm()
