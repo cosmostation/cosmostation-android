@@ -120,6 +120,7 @@ class DappActivity : BaseActivity() {
     private var selectIotaChain: BaseChain? = null
     private var selectBitcoin: BaseChain? = null
     private var selectSolana: BaseChain? = null
+    private var selectMoveChain: BaseChain? = null
     private var rpcUrl: String? = null
     private var web3j: Web3j? = null
     private var wcUrl: String? = ""
@@ -1006,6 +1007,24 @@ class DappActivity : BaseActivity() {
                 selectSolana, bundle.getLong("id"), data, bundle.getString("method"), signListener
             ).show(
                 supportFragmentManager, PopUpSolanaSignFragment::class.java.name
+            )
+        }
+    }
+
+    private fun showMoveSignDialog(
+        bundle: Bundle,
+        signListener: PopUpMoveSignFragment.WcSignRawDataListener
+    ) {
+        bundle.getString("data")?.let { data ->
+            PopUpMoveSignFragment(
+                selectMoveChain,
+                bundle.getLong("id"),
+                data,
+                bundle.getString("method"),
+                wcUrl,
+                signListener
+            ).show(
+                supportFragmentManager, PopUpMoveSignFragment::class.java.name
             )
         }
     }
@@ -2318,6 +2337,93 @@ class DappActivity : BaseActivity() {
                                 )
                             }
                         })
+                }
+
+                //Aptos
+                "aptos_connect" -> {
+                    if (selectMoveChain == null) {
+                        selectMoveChain =
+                            allChains?.firstOrNull { it.name.contains("Aptos") }
+                    }
+
+                    val publicKey = selectMoveChain?.publicKey?.bytesToHex()
+                    val connectJson = JSONObject()
+                    connectJson.put("address", selectMoveChain?.mainAddress)
+                    connectJson.put("publicKey", publicKey)
+                    appToWebResult(
+                        messageJson, connectJson, messageId
+                    )
+                }
+
+                "aptos_network" -> {
+                    if (selectMoveChain == null) {
+                        selectMoveChain =
+                            allChains?.firstOrNull { it.name.contains("Aptos") }
+                    }
+
+                    val networkJson = JSONObject()
+                    networkJson.put("name", "mainnet")
+                    networkJson.put("chainId", 1)
+                    appToWebResult(
+                        messageJson, networkJson, messageId
+                    )
+                }
+
+                "aptos_disconnect" -> {
+                    appToWebResult(
+                        messageJson, JSONObject.NULL, messageId
+                    )
+                }
+
+                "aptos_signMessage" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val signBundle =
+                            signBundle(0, params.toString(), "aptos_signMessage")
+                        showMoveSignDialog(
+                            signBundle,
+                            object : PopUpMoveSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    val response = JSONObject(data)
+                                    appToWebResult(
+                                        messageJson, response, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson,
+                                        messageId,
+                                        "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
+                }
+
+                "aptos_signTransaction" -> {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        val params = messageJson.getJSONObject("params")
+                        val signBundle =
+                            signBundle(0, params.toString(), "aptos_signTransaction")
+                        showMoveSignDialog(
+                            signBundle,
+                            object : PopUpMoveSignFragment.WcSignRawDataListener {
+                                override fun sign(id: Long, data: String) {
+                                    appToWebResult(
+                                        messageJson, data, messageId
+                                    )
+                                }
+
+                                override fun cancel(id: Long) {
+                                    appToWebError(
+                                        messageJson,
+                                        messageId,
+                                        "User rejected the request."
+                                    )
+                                }
+                            })
+                    }
                 }
 
                 else -> {

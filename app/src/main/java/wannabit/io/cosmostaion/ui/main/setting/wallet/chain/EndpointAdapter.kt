@@ -67,21 +67,24 @@ class EndpointAdapter(
                         if (holder is EndPointViewHolder) {
                             val endPoint = currentList[position - 1] as JsonObject
                             when (fromChain) {
-                                is ChainGnoTestnet -> {
-                                    holder.rpcBind(fromChain, endPoint, listener)
-                                }
+                                is ChainGnoTestnet -> holder.rpcBind(fromChain, endPoint, listener)
 
-                                is ChainSui -> {
-                                    holder.suiBind(fromChain, endPoint, listener)
-                                }
+                                is ChainSui -> holder.suiBind(fromChain, endPoint, listener)
 
-                                is ChainIota -> {
-                                    holder.iotaBind(fromChain, endPoint, listener)
-                                }
+                                is ChainIota -> holder.iotaBind(fromChain, endPoint, listener)
 
-                                is ChainSolana -> {
-                                    holder.solanaBind(fromChain, endPoint, listener)
-                                }
+                                is ChainSolana -> holder.solanaBind(fromChain, endPoint, listener)
+                            }
+                        }
+                    }
+
+                    EndPointType.END_POINT_MOVE -> {
+                        val endPoint = currentList[position - 1] as JsonObject
+                        if (holder is EndPointViewHolder) {
+                            if (grpcEndpoints?.isNotEmpty() == true) {
+                                holder.moveRestBind(fromChain, endPoint, listener)
+                            } else {
+                                holder.moveGraphQLBind(fromChain, endPoint, listener)
                             }
                         }
                     }
@@ -171,19 +174,37 @@ class EndpointAdapter(
             binding.apply {
                 if (viewType == VIEW_TYPE_GRPC_HEADER) {
                     headerView.visibility = View.GONE
-                    headerTitle.text = if (endpointType == EndPointType.END_POINT_EVM) {
-                        "EVM RPC"
-                    } else if (endpointType == EndPointType.END_POINT_RPC) {
-                        when (fromChain) {
-                            is ChainSui -> "SUI RPC"
-                            is ChainIota -> "IOTA RPC"
-                            else -> "RPC"
+                    if (endpointType == EndPointType.END_POINT_MOVE) {
+                        if (grpcEndpoints?.isNotEmpty() == true) {
+                            headerTitle.text = "REST"
+                            headerCnt.text = grpcEndpoints.size.toString()
+                        } else {
+                            headerTitle.text = "GRAPHQL"
+                            headerCnt.text = lcdEndpoints.size.toString()
                         }
+                        apiImg.setImageResource(R.drawable.icon_rest)
+
                     } else {
-                        "GRPC"
+                        headerTitle.text = when (endpointType) {
+                            EndPointType.END_POINT_EVM -> {
+                                "EVM RPC"
+                            }
+
+                            EndPointType.END_POINT_RPC -> {
+                                when (fromChain) {
+                                    is ChainSui -> "SUI RPC"
+                                    is ChainIota -> "IOTA RPC"
+                                    else -> "RPC"
+                                }
+                            }
+
+                            else -> {
+                                "GRPC"
+                            }
+                        }
+                        apiImg.setImageResource(R.drawable.icon_grpc)
+                        headerCnt.text = grpcEndpoints!!.size.toString()
                     }
-                    apiImg.setImageResource(R.drawable.icon_grpc)
-                    headerCnt.text = grpcEndpoints!!.size.toString()
 
                 } else {
                     headerView.visibleOrGone(grpcEndpoints?.isNotEmpty() == true)
@@ -201,5 +222,7 @@ class EndpointAdapter(
         fun rpcSelect(endpoint: String, gapTime: Double?)
 
         fun lcdSelect(endpoint: String, gapTime: Double?)
+
+        fun restSelect(endpoint: String, gapTime: Double?)
     }
 }

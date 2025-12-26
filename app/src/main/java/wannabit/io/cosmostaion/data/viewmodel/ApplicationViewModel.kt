@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -51,11 +52,6 @@ import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
-import xyz.mcxross.kaptos.Aptos
-import xyz.mcxross.kaptos.model.AccountAddress
-import xyz.mcxross.kaptos.model.AptosConfig
-import xyz.mcxross.kaptos.model.AptosSettings
-import xyz.mcxross.kaptos.model.Network
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -243,7 +239,7 @@ class ApplicationViewModel(
                 is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
                 is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
-                is ChainAptos -> loadAptosData(baseAccountId, this, isEdit)
+                is ChainAptos, is ChainMovement -> loadAptosData(baseAccountId, this, isEdit)
                 else -> {
                     if (supportCosmos() && this !is ChainOktEvm) {
                         loadGrpcAuthData(this, baseAccountId, isEdit, isTx, isRefresh)
@@ -1730,7 +1726,7 @@ class ApplicationViewModel(
 
     fun loadAptosData(
         id: Long,
-        chain: ChainAptos,
+        chain: BaseChain,
         isEdit: Boolean? = false,
         isTx: Boolean? = false,
         isRefresh: Boolean? = false
@@ -1740,11 +1736,8 @@ class ApplicationViewModel(
                 fetcher.aptosAssetBalance?.clear()
 
                 try {
-                    val aptosConfig = AptosConfig(AptosSettings(network = Network.MAINNET))
-                    val aptos = Aptos(aptosConfig)
-                    val aptosAccount = AccountAddress.fromString(chain.mainAddress)
-
-                    val apotsCoinData = aptos.getAccountCoinsData(accountAddress = aptosAccount)
+                    val apotsCoinData =
+                        fetcher.aptosClient().getAccountCoinsData(fetcher.aptosAccount())
                     when (apotsCoinData) {
                         is Option.Some -> {
                             fetcher.aptosAssetBalance =
@@ -1752,7 +1745,12 @@ class ApplicationViewModel(
 
                             coinValue = fetcher.allAssetValue()
                             coinUsdValue = fetcher.allAssetValue(true)
-                            coinCnt = fetcher.aptosAssetBalance?.size ?: 0
+                            coinCnt = fetcher.aptosAssetBalance?.count {
+                                BaseData.getAsset(
+                                    chain.apiName,
+                                    it.asset_type
+                                ) != null
+                            } ?: 0
 
                             fetchState = FetchState.SUCCESS
                             val refAddress = RefAddress(

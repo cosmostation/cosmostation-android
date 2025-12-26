@@ -28,8 +28,10 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
@@ -64,6 +66,7 @@ import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.sign.BitcoinJs
+import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
@@ -970,6 +973,41 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             }
 
                             is NetworkResult.Error -> {
+                                fetchState = FetchState.FAIL
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            is ChainAptos, is ChainMovement -> {
+                chain.aptosFetcher()?.let { fetcher ->
+                    chain.apply {
+                        fetcher.aptosAssetBalance?.clear()
+                        val apotsCoinData =
+                            fetcher.aptosClient().getAccountCoinsData(fetcher.aptosAccount())
+
+                        when (apotsCoinData) {
+                            is Option.Some -> {
+                                fetcher.aptosAssetBalance =
+                                    apotsCoinData.value.current_fungible_asset_balances.toMutableList()
+
+                                fetchState = FetchState.SUCCESS
+                                coinCnt = fetcher.aptosAssetBalance?.count {
+                                    BaseData.getAsset(
+                                        chain.apiName,
+                                        it.asset_type
+                                    ) != null
+                                } ?: 0
+                                withContext(Dispatchers.Main) {
+                                    _balanceResult.value = chain.tag
+                                }
+                            }
+
+                            is Option.None -> {
                                 fetchState = FetchState.FAIL
                                 withContext(Dispatchers.Main) {
                                     _balanceResult.value = chain.tag

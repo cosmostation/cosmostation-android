@@ -9,8 +9,10 @@ import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -394,4 +396,23 @@ interface TxRepository {
         mint: String,
         toAmount: String
     ): Triple<Boolean?, String?, Any>
+
+    suspend fun broadcastMoveSend(
+        chain: BaseChain,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String,
+        maxGasAmount: String
+    ): String
+
+    suspend fun simulateMoveSend(
+        chain: BaseChain,
+        fetcher: AptosFetcher,
+        from: String,
+        to: String,
+        toAmount: String,
+        toDenom: String
+    ): String
 }

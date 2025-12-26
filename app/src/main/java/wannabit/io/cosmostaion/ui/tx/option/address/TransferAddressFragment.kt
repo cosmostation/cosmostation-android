@@ -280,6 +280,25 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                                 return@setOnClickListener
                             }
                         }
+
+                        SendAssetType.APTOS_COIN -> {
+                            if (BaseKey.isValidAptosAddress(address)) {
+                                if (fromChain.mainAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
+
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
+                                return@setOnClickListener
+                            }
+                        }
                     }
                 }
             }

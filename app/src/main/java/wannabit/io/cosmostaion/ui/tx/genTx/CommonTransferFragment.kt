@@ -42,6 +42,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_DEFAULT_FEE
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -146,6 +148,9 @@ class CommonTransferFragment : BaseTxFragment() {
     private val gnoGasRate: List<Double> = listOf(
         1.0, 1.1, 1.2
     )
+
+    private var aptosFeeAmount = BigDecimal.ZERO
+    private var aptosMaxGasAmount = BigDecimal.ZERO
 
     private var availableAmount = BigDecimal.ZERO
 
@@ -395,6 +400,30 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
 
+                SendAssetType.APTOS_COIN -> {
+                    toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                    transferImg.setTokenImg(toSendAsset?.image ?: "")
+                    sendTitle.text = getString(
+                        R.string.title_asset_send, toSendAsset?.symbol
+                    )
+
+                    fromChain.aptosFetcher?.let { fetcher ->
+                        toSendAsset = BaseData.getAsset(fromChain.apiName, toSendDenom)
+                        transferImg.setTokenImg(toSendAsset?.image ?: "")
+                        sendTitle.text = getString(
+                            R.string.title_asset_send, toSendAsset?.symbol
+                        )
+
+                        availableAmount = fetcher.aptosBalanceAmount(toSendDenom)
+                        if (fromChain.getStakeAssetDenom() == toSendDenom) {
+                            availableAmount = availableAmount.subtract(aptosFeeAmount)
+                        }
+                        if (availableAmount <= BigDecimal.ZERO) {
+                            availableAmount = BigDecimal.ZERO
+                        }
+                    }
+                }
+
                 else -> {}
             }
         }
@@ -511,6 +540,26 @@ class CommonTransferFragment : BaseTxFragment() {
                         btnFee.visibility = View.GONE
 
                         solanaFeeAmount = SOLANA_DEFAULT_FEE.toBigDecimal()
+                    }
+
+                    TransferStyle.APTOS_STYLE -> {
+                        val iotaGasTitle = listOf(
+                            "Default"
+                        )
+                        for (i in iotaGasTitle.indices) {
+                            val segmentView = ItemSegmentedFeeBinding.inflate(layoutInflater)
+                            feeSegment.addView(
+                                segmentView.root,
+                                i,
+                                LinearLayout.LayoutParams(0, dpToPx(requireContext(), 32), 1f)
+                            )
+                            segmentView.btnTitle.text = iotaGasTitle[i]
+                        }
+                        feeSegment.setPosition(0, false)
+                        selectedFeePosition = 0
+                        btnFee.visibility = View.GONE
+
+                        aptosFeeAmount = APTOS_DEFAULT_FEE.toBigDecimal()
                     }
 
                     else -> {
@@ -636,6 +685,11 @@ class CommonTransferFragment : BaseTxFragment() {
 
                 SendAssetType.SOLANA_TOKEN -> {
                     transferStyle = TransferStyle.SOLANA_TOKEN_STYLE
+                    memoView.visibility = View.GONE
+                }
+
+                SendAssetType.APTOS_COIN -> {
+                    transferStyle = TransferStyle.APTOS_STYLE
                     memoView.visibility = View.GONE
                 }
 
@@ -801,6 +855,18 @@ class CommonTransferFragment : BaseTxFragment() {
                         }
                     }
 
+                    SendAssetType.APTOS_COIN -> {
+                        val price = BaseData.getPrice(toSendAsset?.coinGeckoId)
+                        val dpAmount = toAmount.toBigDecimal()
+                            .amountHandlerLeft(toSendAsset?.decimals ?: 8)
+                        val value = price.multiply(dpAmount)
+
+                        sendAmount.text =
+                            formatAmount(dpAmount.toPlainString(), toSendAsset?.decimals ?: 8)
+                        sendDenom.text = toSendAsset?.symbol
+                        sendValue.text = formatAssetValue(value)
+                    }
+
                     else -> {}
                 }
                 txSimulate()
@@ -909,6 +975,25 @@ class CommonTransferFragment : BaseTxFragment() {
                             val amount =
                                 solanaFeeAmount.movePointLeft(asset.decimals ?: 6)
                                     .setScale(asset.decimals ?: 6, RoundingMode.UP)
+                            val value = price.multiply(amount)
+
+                            feeAmount.text =
+                                formatAmount(amount.toPlainString(), asset.decimals ?: 6)
+                            feeValue.text = formatAssetValue(value)
+                        }
+                    }
+                }
+
+                TransferStyle.APTOS_STYLE -> {
+                    fromChain.apply {
+                        BaseData.getAsset(apiName, getStakeAssetDenom())?.let { asset ->
+                            feeTokenImg.setTokenImg(asset)
+                            feeToken.text = asset.symbol
+
+                            val price = BaseData.getPrice(asset.coinGeckoId)
+                            val amount =
+                                aptosFeeAmount.movePointLeft(asset.decimals ?: 8)
+                                    .setScale(asset.decimals ?: 8, RoundingMode.UP)
                             val value = price.multiply(amount)
 
                             feeAmount.text =
@@ -1230,6 +1315,19 @@ class CommonTransferFragment : BaseTxFragment() {
                     }
                 }
 
+                TransferStyle.APTOS_STYLE -> {
+                    fromChain.aptosFetcher?.let { fetcher ->
+                        txViewModel.moveSendSimulate(
+                            fromChain,
+                            fetcher,
+                            fromChain.mainAddress,
+                            toAddress,
+                            toSendAmount,
+                            toSendDenom
+                        )
+                    }
+                }
+
                 else -> {
                     fromChain.apply {
                         if (!isSimulable()) {
@@ -1320,6 +1418,12 @@ class CommonTransferFragment : BaseTxFragment() {
 
         } else if (transferStyle == TransferStyle.SOLANA_COIN_STYLE || transferStyle == TransferStyle.SOLANA_TOKEN_STYLE) {
             if (gasUsed?.isNotEmpty() == true) solanaFeeAmount = gasUsed.toBigDecimal()
+
+        } else if (transferStyle == TransferStyle.APTOS_STYLE) {
+            if (gasUsed?.isNotEmpty() == true) aptosFeeAmount = gasUsed.toBigDecimal()
+            aptosMaxGasAmount =
+                gasUsed?.toBigDecimal()?.multiply(BigDecimal(fromChain.simulatedMaxGasMultiply()))
+                    ?.setScale(0, RoundingMode.UP)
 
         } else if (transferStyle == TransferStyle.COSMOS_STYLE) {
             cosmosTxFee?.let { fee ->
@@ -1524,6 +1628,20 @@ class CommonTransferFragment : BaseTxFragment() {
                     TransferStyle.SOLANA_COIN_STYLE, TransferStyle.SOLANA_TOKEN_STYLE -> {
                         (fromChain as ChainSolana).apply {
                             txViewModel.solSendBroadcast(this, SolanaJs, solanaTxHex)
+                        }
+                    }
+
+                    TransferStyle.APTOS_STYLE -> {
+                        fromChain.aptosFetcher?.let { fetcher ->
+                            txViewModel.moveSendBroadcast(
+                                fromChain,
+                                fetcher,
+                                fromChain.mainAddress,
+                                toAddress,
+                                toSendAmount,
+                                toSendDenom,
+                                aptosMaxGasAmount.toString()
+                            )
                         }
                     }
 
@@ -1816,6 +1934,24 @@ class CommonTransferFragment : BaseTxFragment() {
             dismiss()
         }
 
+        txViewModel.aptosBroadcast.observe(viewLifecycleOwner) { response ->
+            Intent(requireContext(), TransferTxResultActivity::class.java).apply {
+                if (response?.isNotEmpty() == true) {
+                    putExtra("isSuccess", true)
+                    putExtra("txHash", response)
+                } else {
+                    putExtra("isSuccess", false)
+                    putExtra("errorMsg", response)
+                }
+                putExtra("fromChainTag", fromChain.tag)
+                putExtra("toChainTag", toChain.tag)
+                putExtra("recipientAddress", toAddress)
+                putExtra("transferStyle", transferStyle.ordinal)
+                startActivity(this)
+            }
+            dismiss()
+        }
+
         txViewModel.broadcast.observe(viewLifecycleOwner) { response ->
             Intent(requireContext(), TransferTxResultActivity::class.java).apply {
                 response?.let { txResponse ->
@@ -1939,7 +2075,7 @@ class CommonTransferFragment : BaseTxFragment() {
     }
 }
 
-enum class SendAssetType { ONLY_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, ONLY_COSMOS_GRC20, IOTA_COIN, IOTA_NFT, SOLANA_COIN, SOLANA_TOKEN }
-enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, SUI_ETC_STYLE, BIT_COIN_STYLE, IOTA_STYLE, IOTA_ETC_STYLE, SOLANA_COIN_STYLE, SOLANA_TOKEN_STYLE }
+enum class SendAssetType { ONLY_EVM_COIN, ONLY_COSMOS_COIN, ONLY_COSMOS_CW20, ONLY_EVM_ERC20, SUI_COIN, SUI_NFT, BIT_COIN, ONLY_COSMOS_GRC20, IOTA_COIN, IOTA_NFT, SOLANA_COIN, SOLANA_TOKEN, APTOS_COIN }
+enum class TransferStyle { COSMOS_STYLE, WEB3_STYLE, SUI_STYLE, SUI_ETC_STYLE, BIT_COIN_STYLE, IOTA_STYLE, IOTA_ETC_STYLE, SOLANA_COIN_STYLE, SOLANA_TOKEN_STYLE, APTOS_STYLE }
 enum class SuiTxType { SUI_SEND_COIN, SUI_SEND_NFT, SUI_STAKE, SUI_UNSTAKE }
 enum class IotaTxType { IOTA_SEND_COIN, IOTA_SEND_NFT, IOTA_STAKE, IOTA_UNSTAKE }

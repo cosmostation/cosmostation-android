@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
@@ -57,6 +59,17 @@ class ChainManageViewHolder(
                     chainName.text = chain.getChainName()
                     restEndpoint.text = chain.solanaFetcher()?.solanaRpc()?.replace("https://", "")
                     restEndpointType.text = "SOLANA RPC"
+                }
+
+                is ChainAptos, is ChainMovement -> {
+                    restLayout.visibility = View.GONE
+                    evmLayout.visibility = View.VISIBLE
+
+                    evmChainName.text = chain.getChainName()
+                    rpcEndpoint.text = chain.aptosFetcher()?.getApi()
+                    rpcEndpointType.text = "REST"
+                    evmRpcEndpoint.text = chain.aptosFetcher()?.getGraphQL()
+                    evmRpcEndpointType.text = "GRAPHQL"
                 }
 
                 else -> {

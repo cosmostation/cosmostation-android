@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.data.repository.chain.HistoryRepositoryImpl
@@ -36,9 +37,7 @@ class MajorHistoryFragment : Fragment() {
     private var afterTxId: String = ""
     private var hasMore = false
 
-    private val suiHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
-    private val iotaHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
-    private val bitHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private val majorHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -85,45 +84,29 @@ class MajorHistoryFragment : Fragment() {
         }
 
         when (selectedChain) {
-            is ChainBitCoin86 -> {
-                historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
-            }
+            is ChainBitCoin86 -> historyViewModel.bitHistory(
+                selectedChain as ChainBitCoin86,
+                afterTxId
+            )
 
-            is ChainSui -> {
-                historyViewModel.suiHistory(selectedChain as ChainSui)
-            }
-
-            is ChainAptos -> {
-
-            }
-
-            else -> {
-                historyViewModel.iotaHistory(selectedChain as ChainIota)
-            }
+            is ChainSui -> historyViewModel.suiHistory(selectedChain as ChainSui)
+            is ChainAptos, is ChainMovement -> historyViewModel.moveHistory(selectedChain)
+            else -> historyViewModel.iotaHistory(selectedChain as ChainIota)
         }
     }
 
     private fun refreshData() {
         binding.refresher.setOnRefreshListener {
+            majorHistoryGroup.clear()
             when (selectedChain) {
-                is ChainBitCoin86 -> {
-                    bitHistoryGroup.clear()
-                    historyViewModel.bitHistory(selectedChain as ChainBitCoin86, afterTxId)
-                }
+                is ChainBitCoin86 -> historyViewModel.bitHistory(
+                    selectedChain as ChainBitCoin86,
+                    afterTxId
+                )
 
-                is ChainSui -> {
-                    suiHistoryGroup.clear()
-                    historyViewModel.suiHistory(selectedChain as ChainSui)
-                }
-
-                is ChainAptos -> {
-
-                }
-
-                else -> {
-                    iotaHistoryGroup.clear()
-                    historyViewModel.iotaHistory(selectedChain as ChainIota)
-                }
+                is ChainSui -> historyViewModel.suiHistory(selectedChain as ChainSui)
+                is ChainAptos, is ChainMovement -> historyViewModel.moveHistory(selectedChain)
+                else -> historyViewModel.iotaHistory(selectedChain as ChainIota)
             }
         }
     }
@@ -176,55 +159,37 @@ class MajorHistoryFragment : Fragment() {
     }
 
     private fun checkHistory() {
-        historyViewModel.suiHistoryResult.observe(viewLifecycleOwner) { response ->
-            suiHistoryGroup.clear()
+        historyViewModel.majorHistoryResult.observe(viewLifecycleOwner) { response ->
+            majorHistoryGroup.clear()
             binding.refresher.isRefreshing = false
             response?.let { historyGroup ->
-                suiHistoryGroup.addAll(historyGroup)
-                if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(suiHistoryGroup as List<Any>?)
-                }
+                majorHistoryGroup.addAll(historyGroup)
 
-                binding.loading.visibility = View.GONE
-                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
-                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
-                historyAdapter.notifyDataSetChanged()
-            }
-        }
+                if (selectedChain is ChainBitCoin86) {
+                    historyAdapter.submitList(majorHistoryGroup as List<Any>?)
+                    if (historyGroup.size < 50) {
+                        hasMore = false
+                    } else {
+                        hasMore = true
+                        afterTxId =
+                            historyGroup[historyGroup.size - 1].second.asJsonObject["txid"].asString
+                    }
 
-        historyViewModel.iotaHistoryResult.observe(viewLifecycleOwner) { response ->
-            iotaHistoryGroup.clear()
-            binding.refresher.isRefreshing = false
-            response?.let { historyGroup ->
-                iotaHistoryGroup.addAll(historyGroup)
-                if (historyGroup.isNotEmpty()) {
-                    historyAdapter.submitList(iotaHistoryGroup as List<Any>?)
-                }
+                    binding.loading.visibility = View.GONE
+                    binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+                    binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
+                    historyAdapter.notifyDataSetChanged()
 
-                binding.loading.visibility = View.GONE
-                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
-                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
-                historyAdapter.notifyDataSetChanged()
-            }
-        }
-
-        historyViewModel.btcHistoryResult.observe(viewLifecycleOwner) { response ->
-            binding.refresher.isRefreshing = false
-            response?.let { historyGroup ->
-                bitHistoryGroup.addAll(historyGroup)
-                historyAdapter.submitList(bitHistoryGroup as List<Any>?)
-                if (historyGroup.size < 50) {
-                    hasMore = false
                 } else {
-                    hasMore = true
-                    afterTxId =
-                        historyGroup[historyGroup.size - 1].second.asJsonObject["txid"].asString
-                }
+                    if (historyGroup.isNotEmpty()) {
+                        historyAdapter.submitList(majorHistoryGroup as List<Any>?)
+                    }
 
-                binding.loading.visibility = View.GONE
-                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
-                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
-                historyAdapter.notifyDataSetChanged()
+                    binding.loading.visibility = View.GONE
+                    binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+                    binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
+                    historyAdapter.notifyDataSetChanged()
+                }
             }
         }
 

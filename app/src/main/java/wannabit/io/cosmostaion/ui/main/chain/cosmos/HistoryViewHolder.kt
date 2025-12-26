@@ -11,13 +11,15 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.iotaCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
+import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.dpMicroTimeToMonth
+import wannabit.io.cosmostaion.common.dpMicroTimeToYear
 import wannabit.io.cosmostaion.common.dpTimeToMonth
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatAmount
@@ -100,6 +102,12 @@ class HistoryViewHolder(
                             txDenom.text = asset.symbol
                             txDenom.setTextColor(asset.assetColor())
                         }
+
+                    } ?: run {
+                        txAmount.text = ""
+                        txDenom.text = "-"
+                        txDenom.setTextColor(Color.parseColor("#ffffff"))
+                        txCnt.visibility = View.GONE
                     }
 
                 } else {
@@ -129,12 +137,6 @@ class HistoryViewHolder(
                         }
                     }
                 }
-
-            } ?: run {
-                txAmount.text = ""
-                txDenom.text = "-"
-                txDenom.setTextColor(Color.parseColor("#ffffff"))
-                txCnt.visibility = View.GONE
             }
         }
     }
@@ -253,7 +255,14 @@ class HistoryViewHolder(
                                     txAmount.text = formatAmount(dpAmount.toString(), 9)
                                 }
                             }
+                        } ?: run {
+                            txDenom.text = "-"
+                            txAmount.text = ""
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -271,9 +280,17 @@ class HistoryViewHolder(
                                     txAmount.text =
                                         formatAmount(dpAmount.toString(), asset.decimals ?: 9)
                                     txDenom.text = asset.symbol
+
+                                } ?: run {
+                                    txDenom.text = "-"
+                                    txAmount.text = ""
                                 }
                             }
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -295,8 +312,20 @@ class HistoryViewHolder(
                                     txAmount.text =
                                         formatAmount(dpAmount.toString(), asset.decimals ?: 9)
                                     txDenom.text = asset.symbol
-                                }
+
+                                } ?: run {
+                                txDenom.text = "-"
+                                txAmount.text = ""
+                            }
+
+                        } ?: run {
+                            txDenom.text = "-"
+                            txAmount.text = ""
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -421,8 +450,20 @@ class HistoryViewHolder(
                                         ?.setScale(18, RoundingMode.DOWN)
                                     txAmount.text = formatAmount(dpAmount.toString(), 9)
                                 }
+
+                            } ?: run {
+                                txDenom.text = "-"
+                                txAmount.text = ""
                             }
+
+                        } ?: run {
+                            txDenom.text = "-"
+                            txAmount.text = ""
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -440,9 +481,17 @@ class HistoryViewHolder(
                                     txAmount.text =
                                         formatAmount(dpAmount.toString(), asset.decimals ?: 9)
                                     txDenom.text = asset.symbol
+
+                                } ?: run {
+                                    txDenom.text = "-"
+                                    txAmount.text = ""
                                 }
                             }
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -464,8 +513,20 @@ class HistoryViewHolder(
                                     txAmount.text =
                                         formatAmount(dpAmount.toString(), asset.decimals ?: 9)
                                     txDenom.text = asset.symbol
-                                }
+
+                                } ?: run {
+                                txDenom.text = "-"
+                                txAmount.text = ""
+                            }
+
+                        } ?: run {
+                            txDenom.text = "-"
+                            txAmount.text = ""
                         }
+
+                    } ?: run {
+                        txDenom.text = "-"
+                        txAmount.text = ""
                     }
                 }
 
@@ -649,9 +710,9 @@ class HistoryViewHolder(
         }
     }
 
-    fun bindSolanaHistory(
-        chain: ChainSolana,
-        historySolanaGroup: Pair<String, JsonObject>,
+    fun bindMoveHistory(
+        chain: BaseChain,
+        historyMoveGroup: Pair<String, JsonObject>,
         headerIndex: Int,
         cnt: Int,
         position: Int
@@ -659,9 +720,13 @@ class HistoryViewHolder(
         binding.apply {
             historyView.setBackgroundResource(R.drawable.item_bg)
             headerLayout.visibleOrGone(headerIndex == position)
+            txCnt.visibility = View.GONE
+            txDenom.setTextColor(Color.parseColor("#ffffff"))
+
             val headerDate =
-                dpTimeToYear(historySolanaGroup.second["blockTime"].asString.toLong() * 1000)
+                dpMicroTimeToYear(historyMoveGroup.second["timestamp"].asString.toLong())
             val currentDate = formatCurrentTimeToYear()
+
             if (headerDate == currentDate) {
                 headerTitle.text = context.getString(R.string.str_today)
             } else {
@@ -669,19 +734,69 @@ class HistoryViewHolder(
             }
             headerCnt.text = "($cnt)"
 
-            txMessage.text = historySolanaGroup.second.asJsonObject["slot"].asString
-            txHash.text = historySolanaGroup.second.asJsonObject["signature"].asString
-            txTime.text =
-                dpTimeToMonth(historySolanaGroup.second["blockTime"].asString.toLong() * 1000)
-            txAmount.text = ""
-            txDenom.text = "-"
-            txDenom.setTextColor(Color.parseColor("#ffffff"))
+            if (historyMoveGroup.second.has("payload")) {
+                val payload = historyMoveGroup.second["payload"].asJsonObject
+                val function = payload["function"].asString
+                val typeArguments =
+                    if (payload.has("type_arguments")) payload["type_arguments"].asJsonArray.toMutableList() else mutableListOf()
+                val arguments =
+                    if (payload.has("arguments")) payload["arguments"].asJsonArray.toMutableList() else mutableListOf()
 
-            if (historySolanaGroup.second["err"].isJsonNull) {
+                if (function.lowercase().contains("transfer")) {
+                    txMessage.text = context.getString(R.string.tx_send)
+                    if (arguments.count() >= 2) {
+                        val assetType = if (typeArguments.isNotEmpty()) {
+                            typeArguments[0].asString
+                        } else {
+                            APTOS_MAIN_DENOM
+                        }
+
+                        BaseData.getAsset(chain.apiName, assetType)?.let { asset ->
+                            val dpAmount = arguments[1].asString.toBigDecimal()
+                                .movePointLeft(asset.decimals ?: 8)
+                                ?.setScale(asset.decimals ?: 8, RoundingMode.DOWN)
+
+                            txAmount.text = formatAmount(dpAmount.toString(), asset.decimals ?: 8)
+                            txDenom.text = asset.symbol
+
+                        } ?: run {
+                            txAmount.text = ""
+                            txDenom.text = "-"
+                        }
+
+                    } else {
+                        txAmount.text = ""
+                        txDenom.text = "-"
+                    }
+
+                } else {
+                    txAmount.text = ""
+                    txDenom.text = "-"
+                    txMessage.text = if (function.lowercase().contains("swap")) {
+                        context.getString(R.string.tx_osmosis_coin_swap)
+                    } else {
+                        function.split("::").lastOrNull().orEmpty()
+                    }
+                }
+
+            } else {
+                txMessage.text = "Transaction"
+                txAmount.text = ""
+                txDenom.text = "-"
+            }
+
+            if (historyMoveGroup.second["success"].asBoolean) {
                 txSuccessImg.setImageResource(R.drawable.icon_history_success)
+                txTime.text =
+                    dpMicroTimeToMonth(historyMoveGroup.second["timestamp"].asString.toLong())
+                txHeight.text = "(" + historyMoveGroup.second["version"].asString + ")"
+
             } else {
                 txSuccessImg.setImageResource(R.drawable.icon_history_fail)
+                txTime.text = ""
+                txHeight.text = ""
             }
+            txHash.text = historyMoveGroup.second["hash"].asString
         }
     }
 }

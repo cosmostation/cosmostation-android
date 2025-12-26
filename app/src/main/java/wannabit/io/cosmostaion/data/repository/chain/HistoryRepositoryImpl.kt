@@ -188,4 +188,10 @@ class HistoryRepositoryImpl : HistoryRepository {
             RetrofitInstance.bitApi(chain).bitBlockHeight()
         }
     }
+
+    override suspend fun moveHistory(chain: BaseChain): NetworkResult<MutableList<JsonObject>?> {
+        return safeApiCall(Dispatchers.IO) {
+            RetrofitInstance.moveApi(chain).moveTxHistory(chain.mainAddress)
+        }
+    }
 }

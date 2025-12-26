@@ -38,4 +38,6 @@ interface HistoryRepository {
     suspend fun bitHistory(chain: ChainBitCoin86, afterTxId: String): NetworkResult<MutableList<JsonObject>?>
 
     suspend fun bitBlockHeight(chain: ChainBitCoin86): NetworkResult<Long?>
+
+    suspend fun moveHistory(chain: BaseChain): NetworkResult<MutableList<JsonObject>?>
 }

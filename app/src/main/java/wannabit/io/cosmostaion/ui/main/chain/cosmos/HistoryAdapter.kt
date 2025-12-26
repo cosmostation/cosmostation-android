@@ -11,10 +11,12 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.common.dpMicroTimeToYear
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -91,26 +93,19 @@ class HistoryAdapter(
                 }
             }
 
-            is ChainSolana -> {
-                val solanaHistoryList = currentList as MutableList<Pair<String, JsonObject>>
-                val historySolanaGroup = solanaHistoryList[position]
+            is ChainAptos, is ChainMovement -> {
+                val moveHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historyMoveGroup = moveHistoryList[position]
 
-                historySolanaGroup.second.let { header ->
-                    val headerDate =
-                        dpTimeToYear(header["blockTime"].asString.toLong() * 1000)
-                    val headerIndex = solanaHistoryList.indexOfFirst { it.first == headerDate }
-                    val headerCnt = solanaHistoryList.filter { it.first == headerDate }.size
-                    holder.bindSolanaHistory(
-                        chain,
-                        historySolanaGroup,
-                        headerIndex,
-                        headerCnt,
-                        position
-                    )
+                historyMoveGroup.second.let { header ->
+                    val headerDate = dpMicroTimeToYear(header["timestamp"].asString.toLong())
+                    val headerIndex = moveHistoryList.indexOfFirst { it.first == headerDate }
+                    val headerCnt = moveHistoryList.filter { it.first == headerDate }.size
+                    holder.bindMoveHistory(chain, historyMoveGroup, headerIndex, headerCnt, position)
 
                     holder.itemView.setOnClickListener {
                         onItemClickListener?.let {
-                            it(chain, null, historySolanaGroup.second["signature"].asString)
+                            it(chain, null, historyMoveGroup.second["hash"].asString)
                         }
                     }
                 }

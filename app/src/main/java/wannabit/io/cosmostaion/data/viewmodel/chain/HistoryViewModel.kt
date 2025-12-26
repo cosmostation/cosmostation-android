@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.common.dpMicroTimeToYear
 import wannabit.io.cosmostaion.common.dpTimeToYear
 import wannabit.io.cosmostaion.common.formatTxTime
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -55,8 +56,31 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
         }
     }
 
-    private var _suiHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
-    val suiHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _suiHistoryResult
+    private var _ethHistoryResult = MutableLiveData<JsonObject>()
+    val ethHistoryResult: LiveData<JsonObject> get() = _ethHistoryResult
+    fun ethHistory(
+        chain: BaseChain, limit: String, searchAfter: String
+    ) = viewModelScope.launch(Dispatchers.IO) {
+        when (val response = historyRepository.ethHistory(chain, limit, searchAfter)) {
+            is NetworkResult.Success -> {
+                response.data.let { data ->
+                    if (data.isSuccessful) {
+                        _ethHistoryResult.postValue(data.body())
+
+                    } else {
+                        _errorMessage.postValue("Error")
+                    }
+                }
+            }
+
+            is NetworkResult.Error -> {
+                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
+            }
+        }
+    }
+
+    private var _majorHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
+    val majorHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _majorHistoryResult
 
     fun suiHistory(chain: ChainSui) = viewModelScope.launch(Dispatchers.IO) {
         chain.suiFetcher()?.let { fetcher ->
@@ -88,7 +112,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                         val headerDate = dpTimeToYear(history["timestampMs"].asString.toLong())
                         result.add(Pair(headerDate, history))
                     }
-                    _suiHistoryResult.postValue(result)
+                    _majorHistoryResult.postValue(result)
 
                 } else {
                     if (fromHistoryResult is NetworkResult.Error) {
@@ -104,9 +128,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
             }
         }
     }
-
-    private var _iotaHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
-    val iotaHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _iotaHistoryResult
 
     fun iotaHistory(chain: ChainIota) = viewModelScope.launch(Dispatchers.IO) {
         chain.iotaFetcher()?.let { fetcher ->
@@ -138,7 +159,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                         val headerDate = dpTimeToYear(history["timestampMs"].asString.toLong())
                         result.add(Pair(headerDate, history))
                     }
-                    _iotaHistoryResult.postValue(result)
+                    _majorHistoryResult.postValue(result)
 
                 } else {
                     if (fromHistoryResult is NetworkResult.Error) {
@@ -154,32 +175,6 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
             }
         }
     }
-
-    private var _ethHistoryResult = MutableLiveData<JsonObject>()
-    val ethHistoryResult: LiveData<JsonObject> get() = _ethHistoryResult
-    fun ethHistory(
-        chain: BaseChain, limit: String, searchAfter: String
-    ) = viewModelScope.launch(Dispatchers.IO) {
-        when (val response = historyRepository.ethHistory(chain, limit, searchAfter)) {
-            is NetworkResult.Success -> {
-                response.data.let { data ->
-                    if (data.isSuccessful) {
-                        _ethHistoryResult.postValue(data.body())
-
-                    } else {
-                        _errorMessage.postValue("Error")
-                    }
-                }
-            }
-
-            is NetworkResult.Error -> {
-                _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
-            }
-        }
-    }
-
-    private var _btcHistoryResult = MutableLiveData<MutableList<Pair<String, JsonObject>>>()
-    val btcHistoryResult: LiveData<MutableList<Pair<String, JsonObject>>> get() = _btcHistoryResult
 
     fun bitHistory(chain: ChainBitCoin86, afterTxId: String) =
         viewModelScope.launch(Dispatchers.IO) {
@@ -222,7 +217,7 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
                                 }
                             result.add(Pair(headerDate, history))
                         }
-                        _btcHistoryResult.postValue(result)
+                        _majorHistoryResult.postValue(result)
 
                     } else {
                         if (historyResult is NetworkResult.Error) {
@@ -235,6 +230,27 @@ class HistoryViewModel(private val historyRepository: HistoryRepository) : ViewM
 
                 } catch (_: Exception) {
 
+                }
+            }
+        }
+
+    fun moveHistory(chain: BaseChain) =
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val response = historyRepository.moveHistory(chain)) {
+                is NetworkResult.Success -> {
+                    val result: MutableList<Pair<String, JsonObject>> = mutableListOf()
+                    response.data?.let { historys ->
+                        historys.reversed().forEach { history ->
+                            val headerDate =
+                                dpMicroTimeToYear(history["timestamp"].asString.toLong())
+                            result.add(Pair(headerDate, history))
+                        }
+                    }
+                    _majorHistoryResult.postValue(result)
+                }
+
+                is NetworkResult.Error -> {
+                    _errorMessage.postValue("error type : ${response.errorType}  error message : ${response.errorMessage}")
                 }
             }
         }

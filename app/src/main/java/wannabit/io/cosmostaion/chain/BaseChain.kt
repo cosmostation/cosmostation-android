@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainArkeo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAssetMantle
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
@@ -48,6 +49,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFirma
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGgezchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGitopia
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGonka
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGravityBridge
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainHippocrat
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
@@ -134,6 +136,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCelo
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainEpixEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
@@ -182,8 +185,10 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.testnetClass.ChainAirchainsTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin84Testnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBitcoin86Testnet
@@ -196,8 +201,8 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainMantraTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainMonadTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNeutronTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainNillionTestnet
+import wannabit.io.cosmostaion.chain.testnetClass.ChainPharosTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainQubeticsEvmTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainTabichainTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainTerraClassicTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainWardenEvmTestnet
 import wannabit.io.cosmostaion.chain.testnetClass.ChainXionTestnet
@@ -249,6 +254,8 @@ open class BaseChain : Parcelable {
     open var coinSymbol: String = ""
     open var evmRpcURL: String = ""
     var web3j: Web3j? = null
+
+    open var isMoveChain = false
 
     var cosmosFetcher: CosmosFetcher? = null
     var evmRpcFetcher: EvmFetcher? = null
@@ -327,12 +334,22 @@ open class BaseChain : Parcelable {
         return evmRpcFetcher
     }
 
+    fun aptosFetcher(): AptosFetcher? {
+        if (!isMoveChain) return null
+        if (aptosFetcher == null) aptosFetcher = AptosFetcher(this)
+        return aptosFetcher
+    }
+
     fun supportCosmos(): Boolean {
         return !(cosmosEndPointType == null || cosmosEndPointType == CosmosEndPointType.UNKNOWN)
     }
 
     fun isEvmCosmos(): Boolean {
         return supportCosmos() && supportEvm
+    }
+
+    fun isOtherChains(): Boolean {
+        return this is ChainSui || this is ChainIota || this is ChainBitCoin86 || this is ChainSolana || this.isMoveChain
     }
 
     fun getChainParam(): JsonObject? {
@@ -581,6 +598,12 @@ open class BaseChain : Parcelable {
         }
     }
 
+    fun simulatedMaxGasMultiply(): Double {
+        return getChainListParam()?.get("simulated_gas_multiply")?.asDouble ?: run {
+            1.2
+        }
+    }
+
     fun isSupportFeeMarket(): Boolean? {
         return if (getChainListParam()?.get("cosmos_fee_info")?.asJsonObject?.get("is_feemarket") == null) {
             false
@@ -786,7 +809,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAltheaEvm())
     chains.add(ChainAlthea118())
     chains.add(ChainAndromeda())
-//    chains.add(ChainAptos())
+    chains.add(ChainAptos())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
     chains.add(ChainArkeo())
@@ -794,6 +817,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
     chains.add(ChainAxelar())
+    chains.add(ChainAxone())
     chains.add(ChainBabylon())
     chains.add(ChainBand())
     chains.add(ChainBase())
@@ -826,6 +850,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
     chains.add(ChainElys())
+    chains.add(ChainEpixEvm())
     chains.add(ChainEthereum())
     chains.add(ChainEvmosEvm())
     chains.add(ChainFantom())
@@ -837,6 +862,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
     chains.add(ChainGitopia())
+    chains.add(ChainGonka())
     chains.add(ChainGravityAlpha())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
@@ -874,6 +900,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMigaloo())
     chains.add(ChainMilkyway())
     chains.add(ChainMonad())
+//    chains.add(ChainMovement())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNillion())
@@ -951,6 +978,7 @@ fun allChains(): MutableList<BaseChain> {
 //    chains.add(ChainArtelaTestnet())
 //    chains.add(ChainBitcoin44Testnet())
 //    chains.add(ChainBitcoin49Testnet())
+    chains.add(ChainAirchainsTestnet())
     chains.add(ChainBabylonTestnet())
 //    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
@@ -964,11 +992,12 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMonadTestnet())
     chains.add(ChainNeutronTestnet())
     chains.add(ChainNillionTestnet())
+    chains.add(ChainPharosTestnet())
     chains.add(ChainQubeticsEvmTestnet())
 //    chains.add(ChainSaharaAiEvmTestnet())
 //    chains.add(ChainSelfTestnet())
 //    chains.add(ChainStroyTestnet())
-    chains.add(ChainTabichainTestnet())
+//    chains.add(ChainTabichainTestnet())
     chains.add(ChainTerraClassicTestnet())
     chains.add(ChainWardenEvmTestnet())
     chains.add(ChainXionTestnet())

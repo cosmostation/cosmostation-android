@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -237,11 +238,12 @@ class MajorCryptoFragment : Fragment() {
                     }
                 }
 
-                is ChainAptos -> {
+                is ChainAptos, is ChainMovement -> {
                     val aptosCoinBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
                     aptosCoinBalances.clear()
+                    aptosNativeBalances.clear()
 
-                    (selectedChain as ChainAptos).aptosFetcher()?.let { fetcher ->
+                    selectedChain.aptosFetcher()?.let { fetcher ->
                         fetcher.aptosAssetBalance?.forEach { aptosAsset ->
                             BaseData.getAsset(selectedChain.apiName, aptosAsset.asset_type)?.let {
                                 aptosCoinBalances.add(
@@ -378,8 +380,8 @@ class MajorCryptoFragment : Fragment() {
                     moveCryptoAdapter.setOnItemClickListener { chain, denom ->
                         val sendAssetType = when (chain) {
                             is ChainSui -> SendAssetType.SUI_COIN
-                            else -> SendAssetType.IOTA_COIN
-//                            else -> SendAssetType.APTOS_COIN
+                            is ChainIota -> SendAssetType.IOTA_COIN
+                            else -> SendAssetType.APTOS_COIN
                         }
 
                         handleOneClickWithDelay(
@@ -554,9 +556,9 @@ class MajorCryptoFragment : Fragment() {
                             )
                         }
 
-                        is ChainAptos -> {
+                        is ChainAptos, is ChainMovement -> {
                             ApplicationViewModel.shared.loadAptosData(
-                                account.id, selectedChain as ChainAptos
+                                account.id, selectedChain
                             )
                         }
 

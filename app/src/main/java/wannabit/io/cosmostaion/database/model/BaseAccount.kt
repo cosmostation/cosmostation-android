@@ -137,10 +137,6 @@ data class BaseAccount(
                     chain.coinValue = chain.iotaFetcher()?.allAssetValue()
                 }
 
-                is ChainAptos -> {
-                    chain.coinValue = chain.aptosFetcher()?.allAssetValue()
-                }
-
                 is ChainSolana -> {
                     chain.coinValue = chain.solanaFetcher()?.solanaBalanceValue()
                     chain.tokenValue = chain.solanaFetcher()?.allSplTokenValue()
@@ -166,7 +162,10 @@ data class BaseAccount(
                 }
 
                 else -> {
-                    if (chain.isEvmCosmos()) {
+                    if (chain.isOtherChains()) {
+                        chain.coinValue = chain.aptosFetcher()?.allAssetValue()
+
+                    } else if (chain.isEvmCosmos()) {
                         chain.coinValue = chain.cosmosFetcher()?.allAssetValue()
                         chain.tokenValue = chain.cosmosFetcher()?.allTokenValue(id)
                             ?.add(chain.evmRpcFetcher()?.allTokenValue(id))
