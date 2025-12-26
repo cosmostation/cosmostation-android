@@ -1422,7 +1422,7 @@ class CommonTransferFragment : BaseTxFragment() {
         } else if (transferStyle == TransferStyle.APTOS_STYLE) {
             if (gasUsed?.isNotEmpty() == true) aptosFeeAmount = gasUsed.toBigDecimal()
             aptosMaxGasAmount =
-                gasUsed?.toBigDecimal()?.multiply(BigDecimal(fromChain.simulatedMaxGasMultiply()))
+                gasUsed?.toBigDecimal()?.multiply(BigDecimal(fromChain.simulatedGasMultiply()))
                     ?.setScale(0, RoundingMode.UP)
 
         } else if (transferStyle == TransferStyle.COSMOS_STYLE) {

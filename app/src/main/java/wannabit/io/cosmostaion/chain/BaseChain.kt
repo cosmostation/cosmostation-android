@@ -185,7 +185,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainAirchainsTestnet
@@ -595,12 +594,6 @@ open class BaseChain : Parcelable {
         return getChainListParam()?.getAsJsonObject("cosmos_fee_info")
             ?.get("simulated_gas_multiply")?.asDouble ?: run {
             1.3
-        }
-    }
-
-    fun simulatedMaxGasMultiply(): Double {
-        return getChainListParam()?.get("simulated_gas_multiply")?.asDouble ?: run {
-            1.2
         }
     }
 
