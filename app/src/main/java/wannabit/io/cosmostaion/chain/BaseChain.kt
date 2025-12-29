@@ -103,7 +103,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSelf
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
@@ -928,7 +927,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSeda())
     chains.add(ChainSeiEvm())
     chains.add(ChainSei())
-    chains.add(ChainSelf())
     chains.add(ChainSentinel())
     chains.add(ChainShardeum())
     chains.add(ChainShentu())
@@ -965,13 +963,9 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainZigChain())
     chains.add(ChainZKsync())
 
-//    chains.add(ChainCosmosTestnet())
-//    chains.add(ChainArtelaTestnet())
-//    chains.add(ChainBitcoin44Testnet())
-//    chains.add(ChainBitcoin49Testnet())
+
     chains.add(ChainAirchainsTestnet())
     chains.add(ChainBabylonTestnet())
-//    chains.add(ChainBerachainTestnet())
     chains.add(ChainBitcoin84Testnet())
     chains.add(ChainBitcoin86Testnet())
     chains.add(ChainGnoTestnet())
@@ -985,10 +979,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainNillionTestnet())
     chains.add(ChainPharosTestnet())
     chains.add(ChainQubeticsEvmTestnet())
-//    chains.add(ChainSaharaAiEvmTestnet())
-//    chains.add(ChainSelfTestnet())
-//    chains.add(ChainStroyTestnet())
-//    chains.add(ChainTabichainTestnet())
     chains.add(ChainTerraClassicTestnet())
     chains.add(ChainWardenEvmTestnet())
     chains.add(ChainXionTestnet())
@@ -996,6 +986,16 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainZeroGravityEvmTestnet())
     chains.add(ChainZigChainTestnet())
     chains.add(ChainZkcloudTestnet())
+
+
+//    chains.add(ChainCosmosTestnet())
+//    chains.add(ChainArtelaTestnet())
+//    chains.add(ChainBerachainTestnet())
+//    chains.add(ChainBitcoin44Testnet())
+//    chains.add(ChainBitcoin49Testnet())
+//    chains.add(ChainSaharaAiEvmTestnet())
+//    chains.add(ChainStroyTestnet())
+//    chains.add(ChainTabichainTestnet())
 
     chains.forEach { chain ->
         if (chain.chainIdCosmos.isEmpty()) {
