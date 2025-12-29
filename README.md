@@ -180,6 +180,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/axone/resource/chain_axone.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">AXONE</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/babylon/resource/chain_babylon.png?raw=true" width="42" height = "42"></td>
@@ -387,6 +396,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/epix/resource/chain_epix_evm.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">EPIX</span></td>
+    <td>m/44'/60'/0'/0/X</td>
+    <td>keccak256</td>
+    <td>gRPC or Rest, evmRPC</td>
+    <td></td>
+  </tr>
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/evmos/resource/chain_evmos_evm.png?raw=true" width="42" height = "42"></td>
@@ -437,6 +455,15 @@ You can download each store.
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/gitopia/resource/chain_gitopia.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">GITOPIA</span></td>
     <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/gonka/resource/chain_gonka.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">GONKA</span></td>
+    <td>m/44'/1200'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td></td>
@@ -1519,6 +1546,15 @@ You can download each store.
     <th style="text-align:center">Call Method</th>
     <th style="text-align:center">Note</th>
   </tr>
+  
+  <tr> 
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/aptos/resource/chain_aptos.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">APTOS</span></td>
+    <td>m/44'/637'/0'/0'/X'</td>
+    <td>ed25519</td>
+    <td>GraphQL, Rest</td>
+    <td></td>
+  </tr>
 
   <tr> 
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/bitcoin/resource/chain_bitcoin.png?raw=true" width="42" height = "42"></td>
@@ -1577,6 +1613,15 @@ You can download each store.
     <th style="text-align:center">Public-Key Type</th>
     <th style="text-align:center">Call Method</th>
     <th style="text-align:center">Note</th>
+  </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/airchains-testnet/resource/chain_airchains-testnet.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">AIRCHAINS TESTNET</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
   </tr>
     
   <tr>
@@ -1672,6 +1717,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/pharos-testnet/resource/chain_pharos-testnet.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">PHAROS TESTNET</span></td>
+    <td>m/44'/60'/0'/0/X</td>
+    <td>keccak256</td>
+    <td>evmRPC</td>
+    <td></td>
+  </tr>
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/qubetics-testnet/resource/chain_qubetics-testnet.png?raw=true" width="42" height = "42"></td>
@@ -1702,7 +1756,7 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/tabichain-testnet/resource/chain_tabichain-testnet.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">TABI CHAIN TESTNET</span></td>
+    <td><span style="font-weight:bold"><del>TABI CHAIN TESTNET</del></span></td>
     <td>m/44'/60'/0'/0/X</td>
     <td>keccak256</td>
     <td>gRPC or Rest, evmRPC</td>
