@@ -508,6 +508,7 @@
     <string name="str_kip10_coins" translatable="false">Kip10 coins</string>
     <string name="str_kip20_tokens" translatable="false">Kip20 tokens</string>
     <string name="str_grc20_tokens" translatable="false">Grc20 tokens</string>
+    <string name="str_fungible_coins" translatable="false">Fungible coins</string>
     <string name="str_unknown_coins" translatable="false">Unknown coins</string>
     <string name="str_reward_address">Reward address</string>
     <string name="str_my_staking">My staking</string>
