@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
+import wannabit.io.cosmostaion.chain.fetcher.FUNGIBLE_FUNCTION_TYPE
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
@@ -93,7 +94,6 @@ import xyz.mcxross.kaptos.model.AccountAddress
 import xyz.mcxross.kaptos.model.HexInput
 import xyz.mcxross.kaptos.model.InputGenerateTransactionOptions
 import xyz.mcxross.kaptos.model.InputSimulateTransactionOptions
-import xyz.mcxross.kaptos.model.MoveString
 import xyz.mcxross.kaptos.model.TypeTagStruct
 import xyz.mcxross.kaptos.model.U64
 import xyz.mcxross.kaptos.model.entryFunctionData
@@ -3065,7 +3065,7 @@ class TxRepositoryImpl : TxRepository {
                 val transaction = if (asset.type == "fungible") {
                     fetcher.aptosClient().buildTransaction.simple(
                         sender = AccountAddress.fromString(from), data = entryFunctionData {
-                            function = "0x1::primary_fungible_store::transfer"
+                            function = FUNGIBLE_FUNCTION_TYPE
                             typeArguments = typeArguments {
                                 +TypeTagStruct(type = "0x1::fungible_asset::Metadata".toStructTag())
                             }
@@ -3118,7 +3118,7 @@ class TxRepositoryImpl : TxRepository {
                 val transaction = if (asset.type == "fungible") {
                     fetcher.aptosClient().buildTransaction.simple(
                         sender = AccountAddress.fromString(from), data = entryFunctionData {
-                            function = "0x1::primary_fungible_store::transfer"
+                            function = FUNGIBLE_FUNCTION_TYPE
                             typeArguments = typeArguments {
                                 +TypeTagStruct(type = "0x1::fungible_asset::Metadata".toStructTag())
                             }

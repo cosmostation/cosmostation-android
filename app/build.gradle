@@ -1,8 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+
+def hasGoogleServicesJson = file("google-services.json").exists()
+if (hasGoogleServicesJson) {
+    apply plugin: 'com.google.gms.google-services'
+} else {
+    logger.lifecycle("[build] google-services plugin skipped (google-services.json not found).")
+}
 
 android {
     def localPropertiesFile = rootProject.file("local.properties")

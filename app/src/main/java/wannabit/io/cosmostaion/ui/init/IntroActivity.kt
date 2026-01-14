@@ -324,9 +324,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
-        if (FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseApp.initializeApp(this)
-        }
+        val existing = FirebaseApp.getApps(this).firstOrNull()
+        val app = existing ?: FirebaseApp.initializeApp(this)
+        if (app == null) return
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
