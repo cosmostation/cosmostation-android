@@ -111,3 +111,5 @@ class AptosFetcher(private val chain: BaseChain) {
         return aptosJs.executeFunction("signAptosTxFunction()")
     }
 }
+
+const val FUNGIBLE_FUNCTION_TYPE = "0x1::primary_fungible_store::transfer"

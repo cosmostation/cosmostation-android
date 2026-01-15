@@ -183,6 +183,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin49
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin84
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.testnetClass.ChainAirchainsTestnet
@@ -890,7 +891,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMedibloc())
     chains.add(ChainMilkyway())
     chains.add(ChainMonad())
-//    chains.add(ChainMovement())
+    chains.add(ChainMovement())
     chains.add(ChainNeutron())
     chains.add(ChainNibiru())
     chains.add(ChainNillion())
