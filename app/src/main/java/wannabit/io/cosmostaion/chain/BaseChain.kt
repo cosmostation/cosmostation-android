@@ -75,6 +75,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainManifest
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMantra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMedibloc
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainMilkyway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainMirage
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNibiru
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNillion
@@ -890,6 +891,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainMantra())
     chains.add(ChainMedibloc())
     chains.add(ChainMilkyway())
+    chains.add(ChainMirage())
     chains.add(ChainMonad())
     chains.add(ChainMovement())
     chains.add(ChainNeutron())
