@@ -18,7 +18,7 @@ class ChainHippocrat : BaseChain(), Parcelable {
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/0'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
-        ChildNumber(44, true), ChildNumber(0, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
+        ChildNumber(44, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
