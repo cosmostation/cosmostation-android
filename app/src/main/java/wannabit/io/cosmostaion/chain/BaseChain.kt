@@ -141,6 +141,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
 import wannabit.io.cosmostaion.chain.evmClass.ChainForma
 import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
+import wannabit.io.cosmostaion.chain.evmClass.ChainGnosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainGravityAlpha
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainHumansEvm
@@ -856,6 +857,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainGgezchain())
     chains.add(ChainGitopia())
     chains.add(ChainGonka())
+    chains.add(ChainGnosis())
     chains.add(ChainGravityAlpha())
     chains.add(ChainGravityBridge())
     chains.add(ChainHaqqEvm())
