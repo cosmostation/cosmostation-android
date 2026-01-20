@@ -175,6 +175,7 @@ class IntroActivity : AppCompatActivity() {
                                         "push_network",
                                         intent.extras?.getString("network") ?: ""
                                     )
+                                    putExtra("push_url", intent.extras?.getString("url") ?: "")
                                 }
                                 startActivity(this)
                                 flags =
