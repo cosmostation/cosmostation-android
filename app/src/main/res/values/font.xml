@@ -67,6 +67,11 @@
         <item name="android:textSize">@dimen/text_size_12</item>
     </style>
 
+    <style name="font_sr_12" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo_regular</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
     <style name="font_sb_11" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo_bold</item>
         <item name="android:textSize">@dimen/text_size_11</item>

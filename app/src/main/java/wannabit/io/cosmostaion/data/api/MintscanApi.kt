@@ -10,6 +10,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
 import wannabit.io.cosmostaion.data.model.req.PushSyncReq
+import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.CosmosHistory
@@ -87,6 +88,9 @@ interface MintscanApi {
     suspend fun daoVoteStatus(
         @Path("chain") chain: String?, @Path("address") address: String?
     ): Response<MutableList<ResDaoVoteStatus>>
+
+    @GET("ad_list.json")
+    suspend fun adsInfo(): AdsResponse
 
     @GET("v11/dapp")
     suspend fun ecoSystemInfo(): MutableList<JsonObject>

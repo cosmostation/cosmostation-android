@@ -1,6 +1,9 @@
 package wannabit.io.cosmostaion.ui.main
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
@@ -10,10 +13,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,12 +43,15 @@ import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.toMoveAnimation
+import wannabit.io.cosmostaion.data.model.res.Ads
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.data.viewmodel.intro.WalletViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.database.model.BaseAccountType
+import wannabit.io.cosmostaion.databinding.DialogAdsInfoBinding
 import wannabit.io.cosmostaion.databinding.FragmentDashboardBinding
+import wannabit.io.cosmostaion.databinding.ItemAdsBinding
 import wannabit.io.cosmostaion.ui.main.chain.cosmos.CosmosActivity
 import wannabit.io.cosmostaion.ui.main.chain.evm.EvmActivity
 import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
@@ -95,6 +107,7 @@ class DashboardFragment : Fragment() {
         setupHideButton()
         refreshData()
         initSearchView()
+        showAdsInfo()
     }
 
     override fun onResume() {
@@ -489,6 +502,103 @@ class DashboardFragment : Fragment() {
             }).show(
             requireActivity().supportFragmentManager, NoticeInfoFragment::class.java.name
         )
+    }
+
+    private fun showAdsInfo() {
+        val savedTime = Prefs.getDappInfoHideTime(4)
+        val currentTime = System.currentTimeMillis()
+        if (currentTime < savedTime) {
+            return
+        }
+
+        if (BaseData.ads?.isNotEmpty() == true) {
+            BaseData.ads?.let { ads ->
+                val inflater =
+                    requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val binding = DialogAdsInfoBinding.inflate(inflater)
+                val alertDialog =
+                    AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+                        .setView(binding.root)
+
+                val dialog = alertDialog.create()
+                dialog.setCancelable(false)
+                dialog.show()
+
+                binding.apply {
+                    fun updateIndicator(position: Int) {
+                        adsIndicator.text = "${position + 1}/${ads.size}"
+                    }
+
+                    adsView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+                    viewpager2.adapter = AdsPagerAdapter(ads) { adInfo ->
+                        dialog.dismiss()
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                adInfo.linkUrl?.toUri()
+                            )
+                        )
+                    }
+                    viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+                    adsIndicator.isVisible = ads.size > 1
+                    viewpager2.registerOnPageChangeCallback(object :
+                        ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            updateIndicator(position)
+                        }
+                    })
+
+                    var isAdsPinned = false
+                    btnCheck.setOnClickListener {
+                        isAdsPinned = !isAdsPinned
+                        if (isAdsPinned) {
+                            checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                        } else {
+                            checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                        }
+                    }
+
+                    btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    btnClose.setOnClickListener {
+                        if (isAdsPinned) {
+                            Prefs.setDappInfoHideTime(4)
+                        }
+                        dialog.dismiss()
+                    }
+                }
+            }
+        }
+    }
+
+    private class AdsPagerAdapter(
+        private val ads: List<Ads>,
+        private val btnViewClick: (Ads) -> Unit
+    ) : RecyclerView.Adapter<AdsPagerAdapter.VH>() {
+
+        inner class VH(val binding: ItemAdsBinding) : RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            val inflater = LayoutInflater.from(parent.context)
+            return VH(ItemAdsBinding.inflate(inflater, parent, false))
+        }
+
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val adInfo = ads[position]
+            holder.binding.apply {
+                Picasso.get().load(adInfo.images.mobile).error(R.drawable.icon_default_dapp)
+                    .into(adsImg)
+                viewDetail.text = adInfo.view_detail
+                val color = adInfo.color?.toColorInt() ?: "#FFFFFF".toColorInt()
+                btnView.setBackgroundColor(color)
+
+                btnView.setOnClickListener {
+                    btnViewClick(adInfo)
+                }
+            }
+        }
+
+        override fun getItemCount() = ads.size
     }
 
     private fun observeViewModels() {

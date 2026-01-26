@@ -46,6 +46,7 @@
     <color name="color_eco_type">#09B8C1</color>
     <color name="color_bit_type">#8C83F981</color>
     <color name="color_bit_taproot_type">#996C7C</color>
+    <color name="color_ads_type">#33FFFFFF</color>
 
     <color name="color_blue">#58C3FF</color>
     <color name="color_red01">#CD1A1A</color>

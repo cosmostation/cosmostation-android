@@ -46,6 +46,7 @@ import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.data.model.req.Cw721Model
 import wannabit.io.cosmostaion.data.model.req.Cw721TokenModel
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
+import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
@@ -68,6 +69,7 @@ import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
+import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -143,6 +145,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
         val loadCw721Deferred = async { walletRepository.cw721() }
         val loadSplDeferred = async { walletRepository.spl() }
         val loadEcoSystemDeferred = async { walletRepository.ecoSystemInfo() }
+        val loadAdsInfoDeferred = async { walletRepository.adsInfo() }
 
         val responses = awaitAll(
             loadParamDeferred,
@@ -152,7 +155,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             loadGrc20Deferred,
             loadCw721Deferred,
             loadSplDeferred,
-            loadEcoSystemDeferred
+            loadEcoSystemDeferred,
+            loadAdsInfoDeferred
         )
 
         responses.forEach { response ->
@@ -197,6 +201,28 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
 
                         is SplResponse -> {
                             response.data.assets?.let { BaseData.splTokens = it }
+                        }
+
+                        is AdsResponse -> {
+                            BaseData.ads = emptyList()
+
+                            val now = System.currentTimeMillis()
+                            BaseData.ads = response.data.ads.orEmpty().filter { adInfo ->
+                                if (adInfo.images.mobile.isNullOrEmpty()) return@filter false
+
+                                val start = Instant.parse(adInfo.startAt).toEpochMilli()
+                                if (now < start) return@filter false
+
+                                val endStr = adInfo.endAt?.trim()
+                                if (endStr.isNullOrEmpty()) {
+                                    true
+                                } else {
+                                    val end = Instant.parse(endStr).toEpochMilli()
+                                    if (end < start) return@filter false
+
+                                    now <= end
+                                }
+                            }.sortedBy { it.priority }
                         }
 
                         is MutableList<*> -> {
