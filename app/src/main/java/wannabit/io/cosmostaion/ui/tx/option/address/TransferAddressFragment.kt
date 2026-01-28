@@ -181,7 +181,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     when (sendAssetType) {
                         SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
-                            if (BaseKey.isValidEthAddress(address)) {
+                            if (address.contains(".eth")) {
+                                txViewModel.ensService(address)
+
+                            } else if (BaseKey.isValidEthAddress(address)) {
                                 if (fromChain.evmAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener

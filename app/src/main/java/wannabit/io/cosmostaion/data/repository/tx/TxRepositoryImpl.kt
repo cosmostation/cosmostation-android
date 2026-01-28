@@ -34,6 +34,7 @@ import org.web3j.abi.datatypes.generated.Uint256
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
+import org.web3j.ens.EnsResolver
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
@@ -43,6 +44,7 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FUNGIBLE_FUNCTION_TYPE
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
@@ -108,6 +110,19 @@ import java.util.concurrent.TimeUnit
 class TxRepositoryImpl : TxRepository {
 
     private var duration = 8L
+
+    override suspend fun ensAddress(userInput: String?): String {
+        val ethRpcUrl = ChainEthereum().evmRpcFetcher()?.getEvmRpc()
+        val web3j = Web3j.build(HttpService(ethRpcUrl))
+        val ens = EnsResolver(web3j)
+
+        return try {
+            val evmAddress = ens.resolve(userInput)
+            return evmAddress
+        } catch (e: Exception) {
+            ""
+        }
+    }
 
     override suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String

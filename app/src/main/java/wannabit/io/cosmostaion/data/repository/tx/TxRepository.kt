@@ -26,6 +26,8 @@ import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
 
+    suspend fun ensAddress(userInput: String?): String
+
     suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String
     ): String?

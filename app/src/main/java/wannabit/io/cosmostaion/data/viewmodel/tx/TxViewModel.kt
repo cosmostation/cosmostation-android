@@ -36,7 +36,6 @@ import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.isHexString
@@ -60,6 +59,18 @@ import java.util.concurrent.TimeUnit
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     var nameServices = SingleLiveEvent<MutableList<NameService>>()
+
+    fun ensService(userInput: String) = viewModelScope.launch(Dispatchers.IO) {
+        val ensServiceList = mutableListOf<NameService>()
+
+        val response = txRepository.ensAddress(userInput)
+        if (response.isNotEmpty() && response.startsWith("0x")) {
+            ensServiceList.add(
+                NameService(NameService.NameServiceType.ENS, userInput, response)
+            )
+        }
+        nameServices.postValue(ensServiceList)
+    }
 
     fun icnsAddress(recipientChain: BaseChain, userInput: String, prefix: String) =
         viewModelScope.launch(Dispatchers.IO) {

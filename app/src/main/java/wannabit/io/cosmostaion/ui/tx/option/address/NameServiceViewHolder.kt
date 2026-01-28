@@ -12,6 +12,10 @@ class NameServiceViewHolder(
     fun bind(nameService: NameService) {
         binding.apply {
             when (nameService.type) {
+                NameService.NameServiceType.ENS -> {
+                    nsType.text = "Ethereum Name Service"
+                    nsImg.setImageResource(R.drawable.icon_ens)
+                }
                 NameService.NameServiceType.STARGAZE -> {
                     nsType.text = "Stargaze Name Service"
                     nsImg.setImageResource(R.drawable.icon_stargaze_ns)
