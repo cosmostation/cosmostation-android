@@ -77,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/space_4"
-                        android:text="@string/str_hide_next_7days"
+                        android:text="@string/str_hide_any_more"
                         android:textColor="@color/color_base01"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/check_img"
