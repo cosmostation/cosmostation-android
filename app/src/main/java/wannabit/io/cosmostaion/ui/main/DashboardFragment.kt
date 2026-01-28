@@ -505,9 +505,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showAdsInfo() {
-        val savedTime = Prefs.getDappInfoHideTime(4)
-        val currentTime = System.currentTimeMillis()
-        if (currentTime < savedTime) {
+        if (Prefs.adsShowOption) {
             return
         }
 
@@ -561,9 +559,7 @@ class DashboardFragment : Fragment() {
 
                     btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     btnClose.setOnClickListener {
-                        if (isAdsPinned) {
-                            Prefs.setDappInfoHideTime(4)
-                        }
+                        Prefs.adsShowOption = isAdsPinned
                         dialog.dismiss()
                     }
                 }
@@ -588,12 +584,17 @@ class DashboardFragment : Fragment() {
             holder.binding.apply {
                 Picasso.get().load(adInfo.images.mobile).error(R.drawable.icon_default_dapp)
                     .into(adsImg)
-                viewDetail.text = adInfo.view_detail
-                val color = adInfo.color?.toColorInt() ?: "#FFFFFF".toColorInt()
-                btnView.setBackgroundColor(color)
+                if (adInfo.view_detail?.isEmpty() == true) {
+                    btnView.visibility = View.GONE
 
-                btnView.setOnClickListener {
-                    btnViewClick(adInfo)
+                } else {
+                    viewDetail.text = adInfo.view_detail
+                    val color = adInfo.color?.toColorInt() ?: "#FFFFFF".toColorInt()
+                    btnView.setBackgroundColor(color)
+
+                    btnView.setOnClickListener {
+                        btnViewClick(adInfo)
+                    }
                 }
             }
         }

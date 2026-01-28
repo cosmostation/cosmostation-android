@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.chain.DEFAULT_DISPLAY_CHAIN
 import wannabit.io.cosmostaion.database.model.BaseAccount
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import java.util.Calendar
+import androidx.core.content.edit
 
 object Prefs {
     private const val PREFERENCES_NAME = "PREFS"
@@ -54,6 +55,7 @@ object Prefs {
     private const val DAPP_PINNED = "PRE_DAPP_PINNED"
     private const val DAPP_HIDE = "PRE_DAPP_HIDE"
     private const val UPDATE_ADDRESS_BOOK = "PRE_UPDATE_ADDRESS_BOOK"
+    private const val ADS_SHOW_OPTION = "PRE_ADS_SHOW_OPTION"
 
 
     private val preference =
@@ -213,6 +215,10 @@ object Prefs {
     var isUpdateAddressBook: Boolean
         get() = preference.getBoolean(UPDATE_ADDRESS_BOOK, false)
         set(value) = preference.edit().putBoolean(UPDATE_ADDRESS_BOOK, value).apply()
+
+    var adsShowOption: Boolean
+        get() = preference.getBoolean(ADS_SHOW_OPTION, false)
+        set(value) = preference.edit { putBoolean(ADS_SHOW_OPTION, value) }
 
     fun setDappHideTime(id: Int) {
         val key = "$DAPP_HIDE:$id"
