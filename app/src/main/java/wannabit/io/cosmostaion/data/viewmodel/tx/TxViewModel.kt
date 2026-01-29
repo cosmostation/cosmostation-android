@@ -72,6 +72,32 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         nameServices.postValue(ensServiceList)
     }
 
+    fun suiNameService(fetcher: SuiFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.suiNameServiceAddress(fetcher, userInput)
+            if (response is NetworkResult.Success) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.SUI, userInput, response.data)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun iotaNameService(fetcher: IotaFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.iotaNameServiceAddress(fetcher, userInput)
+            if (response is NetworkResult.Success) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.IOTA, userInput, response.data)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
     fun icnsAddress(recipientChain: BaseChain, userInput: String, prefix: String) =
         viewModelScope.launch(Dispatchers.IO) {
             val nameServiceList = mutableListOf<NameService>()

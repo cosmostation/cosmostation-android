@@ -124,6 +124,58 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
+    override suspend fun suiNameServiceAddress(
+        fetcher: SuiFetcher?,
+        userInput: String?
+    ): NetworkResult<String> {
+        return try {
+            val suiResolveAddressRequest = JsonRpcRequest(
+                method = "suix_resolveNameServiceAddress", params = listOf(userInput)
+            )
+
+            val suiResolveAddressResponse =
+                jsonRpcResponse(fetcher?.suiRpc() ?: "", suiResolveAddressRequest)
+            val suiResolveAddressJsonObject = Gson().fromJson(
+                suiResolveAddressResponse.body?.string(), JsonObject::class.java
+            )
+
+            safeApiCall(Dispatchers.IO) {
+                suiResolveAddressJsonObject["result"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun iotaNameServiceAddress(
+        fetcher: IotaFetcher?,
+        userInput: String?
+    ): NetworkResult<String> {
+        return try {
+            val iotaNamesLookupRequest = JsonRpcRequest(
+                method = "iotax_iotaNamesLookup", params = listOf(userInput)
+            )
+
+            val iotaNamesLookupResponse =
+                jsonRpcResponse(fetcher?.iotaRpc() ?: "", iotaNamesLookupRequest)
+            val iotaNamesLookupJsonObject = Gson().fromJson(
+                iotaNamesLookupResponse.body?.string(), JsonObject::class.java
+            )
+
+            safeApiCall(Dispatchers.IO) {
+                iotaNamesLookupJsonObject["result"].asJsonObject["targetAddress"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
     override suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String
     ): String? {

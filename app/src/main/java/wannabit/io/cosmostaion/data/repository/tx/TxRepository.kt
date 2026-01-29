@@ -28,6 +28,10 @@ interface TxRepository {
 
     suspend fun ensAddress(userInput: String?): String
 
+    suspend fun suiNameServiceAddress(fetcher: SuiFetcher?, userInput: String?): NetworkResult<String>
+
+    suspend fun iotaNameServiceAddress(fetcher: IotaFetcher?, userInput: String?): NetworkResult<String>
+
     suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String
     ): String?

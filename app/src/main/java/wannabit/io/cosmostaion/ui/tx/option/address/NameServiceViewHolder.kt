@@ -16,6 +16,14 @@ class NameServiceViewHolder(
                     nsType.text = "Ethereum Name Service"
                     nsImg.setImageResource(R.drawable.icon_ens)
                 }
+                NameService.NameServiceType.SUI -> {
+                    nsType.text = "Sui Name Service"
+                    nsImg.setImageResource(R.drawable.icon_suins)
+                }
+                NameService.NameServiceType.IOTA -> {
+                    nsType.text = "Iota Name Service"
+                    nsImg.setImageResource(R.drawable.icon_iotans)
+                }
                 NameService.NameServiceType.STARGAZE -> {
                     nsType.text = "Stargaze Name Service"
                     nsImg.setImageResource(R.drawable.icon_stargaze_ns)
