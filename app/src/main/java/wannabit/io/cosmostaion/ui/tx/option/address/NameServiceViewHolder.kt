@@ -24,6 +24,14 @@ class NameServiceViewHolder(
                     nsType.text = "Iota Name Service"
                     nsImg.setImageResource(R.drawable.icon_iotans)
                 }
+                NameService.NameServiceType.MOVE -> {
+                    nsType.text = "Aptos Name Service"
+                    nsImg.setImageResource(R.drawable.icon_movens)
+                }
+                NameService.NameServiceType.SOL -> {
+                    nsType.text = "Solana Name Service"
+                    nsImg.setImageResource(R.drawable.icon_solanans)
+                }
                 NameService.NameServiceType.STARGAZE -> {
                     nsType.text = "Stargaze Name Service"
                     nsImg.setImageResource(R.drawable.icon_stargaze_ns)

@@ -17,8 +17,10 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
@@ -250,7 +252,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                         SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
                             if (address.contains(".sui") || address.startsWith("@")) {
-                                txViewModel.suiNameService((fromChain as ChainSui).suiFetcher, address)
+                                txViewModel.suiNameService(
+                                    (fromChain as ChainSui).suiFetcher,
+                                    address
+                                )
 
                             } else if (BaseUtils.isValidSuiAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
@@ -272,7 +277,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                         SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
                             if (address.contains(".iota") || address.startsWith("@")) {
-                                txViewModel.iotaNameService((fromChain as ChainIota).iotaFetcher, address)
+                                txViewModel.iotaNameService(
+                                    (fromChain as ChainIota).iotaFetcher,
+                                    address
+                                )
 
                             } else if (BaseUtils.isValidSuiAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
@@ -293,7 +301,14 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         }
 
                         SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
-                            if (BaseKey.isValidSolanaAddress(address)) {
+                            if (address.contains(".sol")) {
+                                txViewModel.solanaNameService(
+                                    requireContext(),
+                                    (fromChain as ChainSolana).solanaFetcher,
+                                    address
+                                )
+
+                            } else if (BaseKey.isValidSolanaAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener
@@ -312,7 +327,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         }
 
                         SendAssetType.APTOS_COIN -> {
-                            if (BaseKey.isValidAptosAddress(address)) {
+                            if (address.contains(".apt") && fromChain is ChainAptos) {
+                                txViewModel.moveNameService(
+                                    (fromChain as ChainAptos).aptosFetcher,
+                                    address
+                                )
+
+                            } else if (BaseKey.isValidAptosAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener

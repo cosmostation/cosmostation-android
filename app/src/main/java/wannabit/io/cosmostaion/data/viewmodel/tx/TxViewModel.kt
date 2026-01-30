@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.viewmodel.tx
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -93,6 +95,36 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             if (response is NetworkResult.Success) {
                 ensServiceList.add(
                     NameService(NameService.NameServiceType.IOTA, userInput, response.data)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun moveNameService(fetcher: AptosFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.moveNameServiceAddress(fetcher, userInput)
+            if (response?.isNotEmpty() == true) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.MOVE, userInput, response)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun solanaNameService(context: Context, fetcher: SolanaFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            if (!SolanaJs.isInitialized()) {
+                SolanaJs.initialize(context).await()
+            }
+
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.solanaNameServiceAddress(SolanaJs, fetcher, userInput)
+            if (response?.isNotEmpty() == true) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.SOL, userInput, response)
                 )
             }
             nameServices.postValue(ensServiceList)

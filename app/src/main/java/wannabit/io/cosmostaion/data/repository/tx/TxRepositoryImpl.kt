@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FUNGIBLE_FUNCTION_TYPE
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
@@ -173,6 +174,32 @@ class TxRepositoryImpl : TxRepository {
             safeApiCall(Dispatchers.IO) {
                 ""
             }
+        }
+    }
+
+    override suspend fun moveNameServiceAddress(
+        fetcher: AptosFetcher?,
+        userInput: String?
+    ): String? {
+        return try {
+            val address = fetcher?.aptosClient()?.getTargetAddress(userInput ?: "")
+            address?.getOrNull()?.value
+
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun solanaNameServiceAddress(
+        solanaJS: SolanaJs,
+        fetcher: SolanaFetcher?,
+        userInput: String?
+    ): String? {
+        return try {
+            val address = fetcher?.solanaNameServiceAddress(solanaJS, userInput)
+            address
+        } catch (e: Exception) {
+            ""
         }
     }
 
