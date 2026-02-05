@@ -207,22 +207,28 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             BaseData.ads = emptyList()
 
                             val now = System.currentTimeMillis()
-                            BaseData.ads = response.data.ads.orEmpty().filter { adInfo ->
-                                if (adInfo.images.mobile.isNullOrEmpty()) return@filter false
+                            val hiddenIds = Prefs.getAdsSet()
 
-                                val start = Instant.parse(adInfo.startAt).toEpochMilli()
-                                if (now < start) return@filter false
+                            BaseData.ads =
+                                response.data.ads.orEmpty().asSequence().filter { adInfo ->
+                                    if (adInfo.images.mobile.isNullOrEmpty()) return@filter false
 
-                                val endStr = adInfo.endAt?.trim()
-                                if (endStr.isNullOrEmpty()) {
-                                    true
-                                } else {
-                                    val end = Instant.parse(endStr).toEpochMilli()
-                                    if (end < start) return@filter false
+                                    val start = Instant.parse(adInfo.startAt).toEpochMilli()
+                                    if (now < start) return@filter false
 
-                                    now <= end
-                                }
-                            }.sortedBy { it.priority }
+                                    val endStr = adInfo.endAt?.trim()
+                                    if (endStr.isNullOrEmpty()) {
+                                        true
+                                    } else {
+                                        val end = Instant.parse(endStr).toEpochMilli()
+                                        if (end < start) return@filter false
+
+                                        now <= end
+                                    }
+                                }.filter { adInfo ->
+                                    val id = adInfo.id.trim().lowercase()
+                                    !hiddenIds.contains(id)
+                                }.sortedBy { it.priority }.toList()
                         }
 
                         is MutableList<*> -> {
@@ -1024,8 +1030,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 fetchState = FetchState.SUCCESS
                                 coinCnt = fetcher.aptosAssetBalance?.count {
                                     BaseData.getAsset(
-                                        chain.apiName,
-                                        it.asset_type
+                                        chain.apiName, it.asset_type
                                     ) != null
                                 } ?: 0
                                 withContext(Dispatchers.Main) {
@@ -1086,8 +1091,8 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                     if (decodeData == "null") {
                                         tempBalances.add(
                                             CoinProto.Coin.newBuilder()
-                                                .setDenom(chain.getStakeAssetDenom())
-                                                .setAmount("0").build()
+                                                .setDenom(chain.getStakeAssetDenom()).setAmount("0")
+                                                .build()
                                         )
                                         fetcher.gnoBalances = tempBalances
                                         chain.fetchState = FetchState.SUCCESS
@@ -1112,8 +1117,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
                                                     .setDenom(chain.getStakeAssetDenom())
-                                                    .setAmount("0")
-                                                    .build()
+                                                    .setAmount("0").build()
                                             )
                                         }
 
@@ -1163,8 +1167,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                 chain.fetchState = FetchState.SUCCESS
                                 chain.coinCnt = chain.cosmosFetcher?.cosmosBalances?.count {
                                     BaseData.getAsset(
-                                        chain.apiName,
-                                        it.denom
+                                        chain.apiName, it.denom
                                     ) != null
                                 } ?: 0
                                 withContext(Dispatchers.Main) {

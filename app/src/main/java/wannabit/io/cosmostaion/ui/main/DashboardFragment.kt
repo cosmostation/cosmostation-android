@@ -505,10 +505,6 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showAdsInfo() {
-        if (Prefs.adsShowOption) {
-            return
-        }
-
         if (BaseData.ads?.isNotEmpty() == true) {
             BaseData.ads?.let { ads ->
                 val inflater =
@@ -559,7 +555,10 @@ class DashboardFragment : Fragment() {
 
                     btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     btnClose.setOnClickListener {
-                        Prefs.adsShowOption = isAdsPinned
+                        if (isAdsPinned) {
+                            val ids = BaseData.ads?.map { it.id } ?: mutableListOf()
+                            Prefs.setAdsSet(ids)
+                        }
                         dialog.dismiss()
                     }
                 }
