@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
+import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.DialogBabylonInfoBinding
@@ -66,7 +67,7 @@ class MajorCryptoFragment : Fragment() {
     private var moveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
     private var searchMoveNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
 
-    private var aptosNativeBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+    private var aptosNativeBalances: MutableList<Pair<Asset?, BigDecimal?>> = mutableListOf()
 
     private var solanaBalances: MutableList<JsonObject> = mutableListOf()
     private var searchSolanaBalances: MutableList<JsonObject> = mutableListOf()
@@ -239,33 +240,36 @@ class MajorCryptoFragment : Fragment() {
                 }
 
                 is ChainAptos, is ChainMovement -> {
-                    val aptosCoinBalances: MutableList<Pair<String?, BigDecimal?>> = mutableListOf()
+                    val aptosCoinBalances: MutableList<Pair<Asset?, BigDecimal?>> = mutableListOf()
                     aptosCoinBalances.clear()
                     aptosNativeBalances.clear()
 
                     selectedChain.aptosFetcher()?.let { fetcher ->
                         fetcher.aptosAssetBalance?.forEach { aptosAsset ->
-                            BaseData.getAsset(selectedChain.apiName, aptosAsset.asset_type)?.let {
-                                aptosCoinBalances.add(
-                                    Pair(
-                                        aptosAsset.asset_type,
-                                        aptosAsset.amount.toBigDecimal()
+                            BaseData.getAsset(selectedChain.apiName, aptosAsset.asset_type)
+                                ?.let { asset ->
+                                    aptosCoinBalances.add(
+                                        Pair(
+                                            asset,
+                                            aptosAsset.amount.toBigDecimal()
+                                        )
                                     )
-                                )
-                            }
+                                }
                         }
 
-                        if (aptosCoinBalances.none { it.first == APTOS_MAIN_DENOM }) {
-                            aptosCoinBalances.add(Pair(APTOS_MAIN_DENOM, BigDecimal.ZERO))
+                        if (aptosCoinBalances.none { it.first?.denom == APTOS_MAIN_DENOM }) {
+                            val mainAsset =
+                                BaseData.getAsset(selectedChain.apiName, APTOS_MAIN_DENOM)
+                            aptosCoinBalances.add(Pair(mainAsset, BigDecimal.ZERO))
                         }
                         synchronized(aptosCoinBalances) {
                             aptosCoinBalances.sortWith { o1, o2 ->
                                 when {
-                                    o1.first == APTOS_MAIN_DENOM -> -1
-                                    o2.first == APTOS_MAIN_DENOM -> 1
+                                    o1.first?.denom == APTOS_MAIN_DENOM -> -1
+                                    o2.first?.denom == APTOS_MAIN_DENOM -> 1
                                     else -> {
-                                        val value0 = fetcher.aptosBalanceValue(o1.first ?: "")
-                                        val value1 = fetcher.aptosBalanceValue(o2.first ?: "")
+                                        val value0 = fetcher.aptosBalanceValue(o1.first?.denom ?: "")
+                                        val value1 = fetcher.aptosBalanceValue(o2.first?.denom ?: "")
                                         value1.compareTo(value0)
                                     }
                                 }

@@ -34,6 +34,7 @@ import org.web3j.abi.datatypes.generated.Uint256
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
 import org.web3j.crypto.TransactionEncoder
+import org.web3j.ens.EnsResolver
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
@@ -43,13 +44,15 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
+import wannabit.io.cosmostaion.chain.fetcher.FUNGIBLE_FUNCTION_TYPE
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.fetcher.accountInfos
 import wannabit.io.cosmostaion.chain.fetcher.accountNumber
 import wannabit.io.cosmostaion.chain.fetcher.sequence
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
@@ -58,6 +61,7 @@ import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
+import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.bitType
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.getOrNull
@@ -88,9 +92,16 @@ import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import xyz.mcxross.kaptos.account.Account
 import xyz.mcxross.kaptos.core.crypto.Ed25519PrivateKey
+import xyz.mcxross.kaptos.extension.toStructTag
 import xyz.mcxross.kaptos.model.AccountAddress
+import xyz.mcxross.kaptos.model.HexInput
 import xyz.mcxross.kaptos.model.InputGenerateTransactionOptions
 import xyz.mcxross.kaptos.model.InputSimulateTransactionOptions
+import xyz.mcxross.kaptos.model.TypeTagStruct
+import xyz.mcxross.kaptos.model.U64
+import xyz.mcxross.kaptos.model.entryFunctionData
+import xyz.mcxross.kaptos.model.functionArguments
+import xyz.mcxross.kaptos.model.typeArguments
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -100,6 +111,97 @@ import java.util.concurrent.TimeUnit
 class TxRepositoryImpl : TxRepository {
 
     private var duration = 8L
+
+    override suspend fun ensAddress(userInput: String?): String {
+        val ethRpcUrl = ChainEthereum().evmRpcFetcher()?.getEvmRpc()
+        val web3j = Web3j.build(HttpService(ethRpcUrl))
+        val ens = EnsResolver(web3j)
+
+        return try {
+            val evmAddress = ens.resolve(userInput)
+            return evmAddress
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun suiNameServiceAddress(
+        fetcher: SuiFetcher?,
+        userInput: String?
+    ): NetworkResult<String> {
+        return try {
+            val suiResolveAddressRequest = JsonRpcRequest(
+                method = "suix_resolveNameServiceAddress", params = listOf(userInput)
+            )
+
+            val suiResolveAddressResponse =
+                jsonRpcResponse(fetcher?.suiRpc() ?: "", suiResolveAddressRequest)
+            val suiResolveAddressJsonObject = Gson().fromJson(
+                suiResolveAddressResponse.body?.string(), JsonObject::class.java
+            )
+
+            safeApiCall(Dispatchers.IO) {
+                suiResolveAddressJsonObject["result"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun iotaNameServiceAddress(
+        fetcher: IotaFetcher?,
+        userInput: String?
+    ): NetworkResult<String> {
+        return try {
+            val iotaNamesLookupRequest = JsonRpcRequest(
+                method = "iotax_iotaNamesLookup", params = listOf(userInput)
+            )
+
+            val iotaNamesLookupResponse =
+                jsonRpcResponse(fetcher?.iotaRpc() ?: "", iotaNamesLookupRequest)
+            val iotaNamesLookupJsonObject = Gson().fromJson(
+                iotaNamesLookupResponse.body?.string(), JsonObject::class.java
+            )
+
+            safeApiCall(Dispatchers.IO) {
+                iotaNamesLookupJsonObject["result"].asJsonObject["targetAddress"].asString
+            }
+
+        } catch (e: Exception) {
+            safeApiCall(Dispatchers.IO) {
+                ""
+            }
+        }
+    }
+
+    override suspend fun moveNameServiceAddress(
+        fetcher: AptosFetcher?,
+        userInput: String?
+    ): String? {
+        return try {
+            val address = fetcher?.aptosClient()?.getTargetAddress(userInput ?: "")
+            address?.getOrNull()?.value
+
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    override suspend fun solanaNameServiceAddress(
+        solanaJS: SolanaJs,
+        fetcher: SolanaFetcher?,
+        userInput: String?
+    ): String? {
+        return try {
+            val address = fetcher?.solanaNameServiceAddress(solanaJS, userInput)
+            address
+        } catch (e: Exception) {
+            ""
+        }
+    }
 
     override suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String
@@ -2635,8 +2737,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun minimumRentBalance(
-        chain: ChainSolana,
-        dataSize: Int
+        chain: ChainSolana, dataSize: Int
     ): NetworkResult<String> {
         return try {
             val rentParams = listOf(
@@ -2673,9 +2774,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastSolanaSendTx(
-        chain: ChainSolana,
-        solanaJS: SolanaJs?,
-        programTxHex: String
+        chain: ChainSolana, solanaJS: SolanaJs?, programTxHex: String
     ): Pair<Boolean, String?> {
         return try {
             val privateKey = chain.privateKey?.toHex()
@@ -2877,8 +2976,7 @@ class TxRepositoryImpl : TxRepository {
                          return receiverATA;
                     }""".trimMargin()
             solanaJS?.mergeFunction(getAssociatedTokenAddressFunction)
-            val receiverATA =
-                solanaJS?.executeFunction("getAssociatedTokenAddressFunction()")
+            val receiverATA = solanaJS?.executeFunction("getAssociatedTokenAddressFunction()")
 
             val accountInfoParams = listOf(
                 receiverATA,
@@ -2888,11 +2986,9 @@ class TxRepositoryImpl : TxRepository {
             val accountInfoRequest = JsonRpcRequest(
                 method = "getAccountInfo", params = accountInfoParams
             )
-            val accountInfoResponse =
-                jsonRpcResponse(
-                    chain.solanaFetcher?.solanaRpc() ?: chain.mainUrl,
-                    accountInfoRequest
-                )
+            val accountInfoResponse = jsonRpcResponse(
+                chain.solanaFetcher?.solanaRpc() ?: chain.mainUrl, accountInfoRequest
+            )
             val accountInfoJsonObject = Gson().fromJson(
                 accountInfoResponse.body?.string(), JsonObject::class.java
             )
@@ -3056,24 +3152,46 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val privateKey = Ed25519PrivateKey(chain.privateKey?.toHex() ?: "")
             val account = Account.from(privateKey)
+            val transactionOption =
+                InputGenerateTransactionOptions(maxGasAmount = maxGasAmount.toLong())
 
-            val transferTransaction = fetcher.aptosClient().transferCoinTransaction(
-                from = AccountAddress.fromString(from),
-                to = AccountAddress.fromString(to),
-                amount = toAmount.toULong(),
-                coinType = toDenom,
-                withFeePayer = false,
-                options = InputGenerateTransactionOptions(
-                    maxGasAmount = maxGasAmount.toLong()
-                )
-            )
+            BaseData.getAsset(chain.apiName, toDenom)?.let { asset ->
+                val transaction = if (asset.type == "fungible") {
+                    fetcher.aptosClient().buildTransaction.simple(
+                        sender = AccountAddress.fromString(from), data = entryFunctionData {
+                            function = FUNGIBLE_FUNCTION_TYPE
+                            typeArguments = typeArguments {
+                                +TypeTagStruct(type = "0x1::fungible_asset::Metadata".toStructTag())
+                            }
+                            functionArguments = functionArguments {
+                                +HexInput(toDenom)
+                                +AccountAddress.fromString(to)
+                                +U64(toAmount.toULong())
+                            }
+                        }, withFeePayer = false, options = transactionOption
+                    )
 
-            val submit =
-                fetcher.aptosClient().signAndSubmitTransaction(account, transferTransaction)
-            submit.getOrNull()?.hash ?: ""
+                } else {
+                    fetcher.aptosClient().transferCoinTransaction(
+                        from = AccountAddress.fromString(from),
+                        to = AccountAddress.fromString(to),
+                        amount = toAmount.toULong(),
+                        coinType = toDenom,
+                        withFeePayer = false,
+                        options = transactionOption
+                    )
+                }
+
+                val submit =
+                    fetcher.aptosClient().signAndSubmitTransaction(account, transaction)
+                submit.getOrNull()?.hash ?: ""
+
+            } ?: run {
+                "Not Support Coin"
+            }
 
         } catch (e: Exception) {
-            ""
+            e.message.toString()
         }
     }
 
@@ -3088,40 +3206,61 @@ class TxRepositoryImpl : TxRepository {
         return try {
             val privateKey = Ed25519PrivateKey(chain.privateKey?.toHex() ?: "")
             val account = Account.from(privateKey)
+            val transactionOption = InputGenerateTransactionOptions(maxGasAmount = 1000)
 
-            val transferTransaction = fetcher.aptosClient().transferCoinTransaction(
-                from = AccountAddress.fromString(from),
-                to = AccountAddress.fromString(to),
-                amount = toAmount.toULong(),
-                coinType = toDenom,
-                withFeePayer = false,
-                options = InputGenerateTransactionOptions(
-                    maxGasAmount = 1000
+            BaseData.getAsset(chain.apiName, toDenom)?.let { asset ->
+                val transaction = if (asset.type == "fungible") {
+                    fetcher.aptosClient().buildTransaction.simple(
+                        sender = AccountAddress.fromString(from), data = entryFunctionData {
+                            function = FUNGIBLE_FUNCTION_TYPE
+                            typeArguments = typeArguments {
+                                +TypeTagStruct(type = "0x1::fungible_asset::Metadata".toStructTag())
+                            }
+                            functionArguments = functionArguments {
+                                +HexInput(toDenom)
+                                +AccountAddress.fromString(to)
+                                +U64(toAmount.toULong())
+                            }
+                        }, withFeePayer = false, options = transactionOption
+                    )
+
+                } else {
+                    fetcher.aptosClient().transferCoinTransaction(
+                        from = AccountAddress.fromString(from),
+                        to = AccountAddress.fromString(to),
+                        amount = toAmount.toULong(),
+                        coinType = toDenom,
+                        withFeePayer = false,
+                        options = transactionOption
+                    )
+                }
+
+                val opts = InputSimulateTransactionOptions(
+                    estimateGasUnitPrice = false,
+                    estimateMaxGasAmount = false,
+                    estimatePrioritizedGasUnitPrice = false
                 )
-            )
 
-            val opts = InputSimulateTransactionOptions(
-                estimateGasUnitPrice = false,
-                estimateMaxGasAmount = false,
-                estimatePrioritizedGasUnitPrice = false
-            )
+                val simulateTxs = fetcher.aptosClient().simulateTransaction.simple(
+                    signerPublicKey = account.publicKey,
+                    transaction = transaction,
+                    feePayerPublicKey = null,
+                    options = opts
+                )
+                val simulateResult = simulateTxs.getOrNull().orEmpty()
 
-            val simulateTxs = fetcher.aptosClient().simulateTransaction.simple(
-                signerPublicKey = account.publicKey,
-                transaction = transferTransaction,
-                feePayerPublicKey = null,
-                options = opts
-            )
-            val simulateResult = simulateTxs.getOrNull().orEmpty()
+                if (simulateResult.isNotEmpty()) {
+                    val gasUsed = simulateResult[0].gasUsed.toBigDecimal()
+                    val gasPrice = simulateResult[0].gasUnitPrice.toBigDecimal()
 
-            if (simulateResult.isNotEmpty()) {
-                val gasUsed = simulateResult[0].gasUsed.toBigDecimal()
-                val gasPrice = simulateResult[0].gasUnitPrice.toBigDecimal()
+                    gasUsed.multiply(gasPrice).toString()
 
-                gasUsed.multiply(gasPrice).toString()
+                } else {
+                    "RPC Error"
+                }
 
-            } else {
-                "RPC Error"
+            } ?: run {
+                "Not Support Coin"
             }
 
         } catch (e: Exception) {

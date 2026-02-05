@@ -24,5 +24,5 @@ class ChainPharosTestnet : ChainPharos(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://atlantic.dplabs-internal.com"
+    override var evmRpcURL: String = "https://rpc.evm.pharos.testnet.cosmostation.io"
 }

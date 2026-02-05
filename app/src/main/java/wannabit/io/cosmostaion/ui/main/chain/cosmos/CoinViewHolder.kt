@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.common.priceChangeStatus
 import wannabit.io.cosmostaion.common.priceChangeStatusColor
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.setTokenImg
+import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Coin
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
@@ -210,38 +211,36 @@ class CoinViewHolder(
         }
     }
 
-    fun aptosBind(chain: BaseChain, balance: Pair<String?, BigDecimal?>) {
+    fun aptosBind(chain: BaseChain, balance: Pair<Asset?, BigDecimal?>) {
         binding.apply {
             coinView.setBackgroundResource(R.drawable.item_bg)
 
-            balance.first?.let { assetType ->
-                BaseData.getAsset(chain.apiName, assetType)?.let { asset ->
-                    tokenImg.setTokenImg(asset)
-                    tokenImg.clipToOutline = true
-                    tokenName.text = asset.symbol
+            balance.first?.let { asset ->
+                tokenImg.setTokenImg(asset)
+                tokenImg.clipToOutline = true
+                tokenName.text = asset.symbol
 
-                    tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
-                    BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
-                        tokenPriceChange.priceChangeStatusColor(lastUpDown)
-                        tokenPriceChange.text = priceChangeStatus(lastUpDown)
-                    }
+                tokenPrice.text = formatAssetValue(BaseData.getPrice(asset.coinGeckoId))
+                BaseData.lastUpDown(asset.coinGeckoId).let { lastUpDown ->
+                    tokenPriceChange.priceChangeStatusColor(lastUpDown)
+                    tokenPriceChange.text = priceChangeStatus(lastUpDown)
+                }
 
-                    val amount = balance.second?.movePointLeft(asset.decimals ?: 6)
-                        ?.setScale(6, RoundingMode.DOWN)
-                    if (Prefs.hideValue) {
-                        coinAmount.visibility = View.GONE
-                        coinAmountValue.visibility = View.GONE
-                        hideValue.visibility = View.VISIBLE
-                    } else {
-                        coinAmount.visibility = View.VISIBLE
-                        coinAmountValue.visibility = View.VISIBLE
-                        hideValue.visibility = View.GONE
+                val amount = balance.second?.movePointLeft(asset.decimals ?: 6)
+                    ?.setScale(6, RoundingMode.DOWN)
+                if (Prefs.hideValue) {
+                    coinAmount.visibility = View.GONE
+                    coinAmountValue.visibility = View.GONE
+                    hideValue.visibility = View.VISIBLE
+                } else {
+                    coinAmount.visibility = View.VISIBLE
+                    coinAmountValue.visibility = View.VISIBLE
+                    hideValue.visibility = View.GONE
 
-                        coinAmount.text = formatAmount(amount?.toPlainString() ?: "0", 6)
-                        coinAmountValue.text = formatAssetValue(
-                            chain.aptosFetcher?.aptosBalanceValue(assetType) ?: BigDecimal.ZERO
-                        )
-                    }
+                    coinAmount.text = formatAmount(amount?.toPlainString() ?: "0", 6)
+                    coinAmountValue.text = formatAssetValue(
+                        chain.aptosFetcher?.aptosBalanceValue(asset.denom ?: "") ?: BigDecimal.ZERO
+                    )
                 }
             }
         }

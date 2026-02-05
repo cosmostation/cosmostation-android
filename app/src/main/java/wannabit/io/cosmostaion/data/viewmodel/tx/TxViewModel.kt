@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.viewmodel.tx
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,8 +36,8 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.common.isHexString
@@ -60,6 +61,74 @@ import java.util.concurrent.TimeUnit
 class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     var nameServices = SingleLiveEvent<MutableList<NameService>>()
+
+    fun ensService(userInput: String) = viewModelScope.launch(Dispatchers.IO) {
+        val ensServiceList = mutableListOf<NameService>()
+
+        val response = txRepository.ensAddress(userInput)
+        if (response.isNotEmpty() && response.startsWith("0x")) {
+            ensServiceList.add(
+                NameService(NameService.NameServiceType.ENS, userInput, response)
+            )
+        }
+        nameServices.postValue(ensServiceList)
+    }
+
+    fun suiNameService(fetcher: SuiFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.suiNameServiceAddress(fetcher, userInput)
+            if (response is NetworkResult.Success) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.SUI, userInput, response.data)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun iotaNameService(fetcher: IotaFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.iotaNameServiceAddress(fetcher, userInput)
+            if (response is NetworkResult.Success) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.IOTA, userInput, response.data)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun moveNameService(fetcher: AptosFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.moveNameServiceAddress(fetcher, userInput)
+            if (response?.isNotEmpty() == true) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.MOVE, userInput, response)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
+
+    fun solanaNameService(context: Context, fetcher: SolanaFetcher?, userInput: String) =
+        viewModelScope.launch(Dispatchers.IO) {
+            if (!SolanaJs.isInitialized()) {
+                SolanaJs.initialize(context).await()
+            }
+
+            val ensServiceList = mutableListOf<NameService>()
+
+            val response = txRepository.solanaNameServiceAddress(SolanaJs, fetcher, userInput)
+            if (response?.isNotEmpty() == true) {
+                ensServiceList.add(
+                    NameService(NameService.NameServiceType.SOL, userInput, response)
+                )
+            }
+            nameServices.postValue(ensServiceList)
+        }
 
     fun icnsAddress(recipientChain: BaseChain, userInput: String, prefix: String) =
         viewModelScope.launch(Dispatchers.IO) {

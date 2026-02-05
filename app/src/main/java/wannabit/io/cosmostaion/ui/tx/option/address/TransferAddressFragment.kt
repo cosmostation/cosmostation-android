@@ -17,7 +17,11 @@ import com.google.zxing.client.android.Intents
 import com.google.zxing.integration.android.IntentIntegrator
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
+import wannabit.io.cosmostaion.chain.majorClass.ChainIota
+import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
+import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.makeToast
@@ -181,7 +185,10 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
 
                     when (sendAssetType) {
                         SendAssetType.ONLY_EVM_COIN, SendAssetType.ONLY_EVM_ERC20 -> {
-                            if (BaseKey.isValidEthAddress(address)) {
+                            if (address.contains(".eth")) {
+                                txViewModel.ensService(address)
+
+                            } else if (BaseKey.isValidEthAddress(address)) {
                                 if (fromChain.evmAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener
@@ -243,8 +250,39 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                             }
                         }
 
-                        SendAssetType.SUI_COIN, SendAssetType.IOTA_COIN, SendAssetType.SUI_NFT, SendAssetType.IOTA_NFT -> {
-                            if (BaseUtils.isValidSuiAddress(address)) {
+                        SendAssetType.SUI_COIN, SendAssetType.SUI_NFT -> {
+                            if (address.contains(".sui") || address.startsWith("@")) {
+                                txViewModel.suiNameService(
+                                    (fromChain as ChainSui).suiFetcher,
+                                    address
+                                )
+
+                            } else if (BaseUtils.isValidSuiAddress(address)) {
+                                if (fromChain.mainAddress.equals(address, true)) {
+                                    requireContext().makeToast(R.string.error_self_sending)
+                                    return@setOnClickListener
+                                }
+
+                                addressListener?.selectAddress(
+                                    address, addressBookMemo
+                                )
+                                dismiss()
+                                return@setOnClickListener
+
+                            } else {
+                                requireContext().makeToast(R.string.error_invalid_address)
+                                return@setOnClickListener
+                            }
+                        }
+
+                        SendAssetType.IOTA_COIN, SendAssetType.IOTA_NFT -> {
+                            if (address.contains(".iota") || address.startsWith("@")) {
+                                txViewModel.iotaNameService(
+                                    (fromChain as ChainIota).iotaFetcher,
+                                    address
+                                )
+
+                            } else if (BaseUtils.isValidSuiAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener
@@ -263,7 +301,14 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         }
 
                         SendAssetType.SOLANA_COIN, SendAssetType.SOLANA_TOKEN -> {
-                            if (BaseKey.isValidSolanaAddress(address)) {
+                            if (address.contains(".sol")) {
+                                txViewModel.solanaNameService(
+                                    requireContext(),
+                                    (fromChain as ChainSolana).solanaFetcher,
+                                    address
+                                )
+
+                            } else if (BaseKey.isValidSolanaAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener
@@ -282,7 +327,13 @@ class TransferAddressFragment : BottomSheetDialogFragment() {
                         }
 
                         SendAssetType.APTOS_COIN -> {
-                            if (BaseKey.isValidAptosAddress(address)) {
+                            if (address.contains(".apt") && fromChain is ChainAptos) {
+                                txViewModel.moveNameService(
+                                    (fromChain as ChainAptos).aptosFetcher,
+                                    address
+                                )
+
+                            } else if (BaseKey.isValidAptosAddress(address)) {
                                 if (fromChain.mainAddress.equals(address, true)) {
                                     requireContext().makeToast(R.string.error_self_sending)
                                     return@setOnClickListener

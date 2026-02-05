@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import wannabit.io.cosmostaion.database.Prefs
+import androidx.core.net.toUri
 
 class PushNotificationActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class PushNotificationActivity: AppCompatActivity() {
     }
 
     private fun openUrlInCustomTab(context: Context, url: String) {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         val customTabsIntent = CustomTabsIntent.Builder().build()
         customTabsIntent.launchUrl(context, uri)
     }

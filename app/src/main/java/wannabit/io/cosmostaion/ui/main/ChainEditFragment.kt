@@ -65,20 +65,24 @@ class ChainEditFragment : BaseTxFragment() {
                     val searchTxt = binding?.searchView?.query
 
                     mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
-                    searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                    searchMainnetChains.addAll(
+                        if (searchTxt.isNullOrEmpty()) {
                         mainnetChains
                     } else {
                         mainnetChains.filter { chain ->
-                            chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
+                            chain.getChainName()
+                                ?.contains(searchTxt.toString(), ignoreCase = true) == true
                         }
                     })
 
                     testnetChains.addAll(account.allChains.filter { it.isTestnet })
-                    searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
+                    searchTestnetChains.addAll(
+                        if (searchTxt.isNullOrEmpty()) {
                         testnetChains
                     } else {
                         testnetChains.filter { chain ->
-                            chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
+                            chain.getChainName()
+                                ?.contains(searchTxt.toString(), ignoreCase = true) == true
                         }
                     })
 
@@ -203,7 +207,9 @@ class ChainEditFragment : BaseTxFragment() {
                         mainnetChains = account.allChains.filter { !it.isTestnet }.toMutableList()
                         toDisplayChains.add("cosmos118")
                         for (chain in mainnetChains) {
-                            if ((chain.allValue(true) ?: BigDecimal.ZERO) > BigDecimal.ONE && chain.tag != "cosmos118") {
+                            if ((chain.allValue(true)
+                                    ?: BigDecimal.ZERO) > BigDecimal.ONE && chain.tag != "cosmos118"
+                            ) {
                                 toDisplayChains.add(chain.tag)
                             }
                         }
@@ -222,39 +228,41 @@ class ChainEditFragment : BaseTxFragment() {
             btnSort.setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {
                     BaseData.baseAccount?.let { account ->
-                        mainnetChains.clear()
-                        testnetChains.clear()
-                        searchMainnetChains.clear()
-                        searchTestnetChains.clear()
-                        Prefs.chainFilter = !Prefs.chainFilter
-                        account.sortLine(Prefs.chainFilter)
-                        val searchTxt = searchView.query
+                        val result = withContext(Dispatchers.Default) {
+                            Prefs.chainFilter = !Prefs.chainFilter
+                            account.sortLine(Prefs.chainFilter)
 
-                        mainnetChains.addAll(account.allChains.filter { !it.isTestnet })
-                        searchMainnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
-                            mainnetChains
-                        } else {
-                            mainnetChains.filter { chain ->
-                                chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
-                            }
-                        })
+                            val searchTxt = searchView.query?.toString().orEmpty()
 
-                        testnetChains.addAll(account.allChains.filter { it.isTestnet })
-                        searchTestnetChains.addAll(if (searchTxt.isNullOrEmpty()) {
-                            testnetChains
-                        } else {
-                            testnetChains.filter { chain ->
-                                chain.getChainName()?.contains(searchTxt.toString(), ignoreCase = true) == true
-                            }
-                        })
-                    }
+                            val mainnet = account.allChains.filter { !it.isTestnet }
+                            val testnet = account.allChains.filter { it.isTestnet }
 
-                    withContext(Dispatchers.Main) {
-                        ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
-                        btnSort.setImageResource(
-                            if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort
-                        )
-                        chainEditAdapter.notifyDataSetChanged()
+                            val searchMainnet =
+                                if (searchTxt.isEmpty()) mainnet
+                                else mainnet.filter {
+                                    it.getChainName()?.contains(searchTxt, true) == true
+                                }
+
+                            val searchTestnet =
+                                if (searchTxt.isEmpty()) testnet
+                                else testnet.filter {
+                                    it.getChainName()?.contains(searchTxt, true) == true
+                                }
+
+                            Quad(mainnet, testnet, searchMainnet, searchTestnet)
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            ApplicationViewModel.shared.chainFilter(Prefs.chainFilter)
+                            btnSort.setImageResource(if (Prefs.chainFilter) R.drawable.icon_name_sort else R.drawable.icon_value_sort)
+
+                            mainnetChains.replaceWith(result.mainnet)
+                            testnetChains.replaceWith(result.testnet)
+                            searchMainnetChains.replaceWith(result.searchMainnet)
+                            searchTestnetChains.replaceWith(result.searchTestnet)
+
+                            chainEditAdapter.notifyDataSetChanged()
+                        }
                     }
                 }
             }
@@ -311,6 +319,18 @@ class ChainEditFragment : BaseTxFragment() {
                 }
             })
         }
+    }
+
+    private data class Quad(
+        val mainnet: List<BaseChain>,
+        val testnet: List<BaseChain>,
+        val searchMainnet: List<BaseChain>,
+        val searchTestnet: List<BaseChain>
+    )
+
+    private fun <T> MutableList<T>.replaceWith(newItems: List<T>) {
+        clear()
+        addAll(newItems)
     }
 
     override fun onDestroyView() {

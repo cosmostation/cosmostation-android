@@ -59,36 +59,41 @@ class MainActivity : BaseActivity() {
     @SuppressLint("WrongConstant")
     private fun showPushData() {
         intent.apply {
-            if (getStringExtra("push_txhash")?.isEmpty() == true) {
-                return
-            }
+            var url = ""
             if (getStringExtra("push_type").toString() == "0") {
+                if (getStringExtra("push_txhash")?.isEmpty() == true) {
+                    return
+                }
+
                 getStringExtra("push_txhash")?.let { txHash ->
                     getStringExtra("push_network")?.let { network ->
-                        val url = CosmostationConstants.EXPLORER_BASE_TX_URL.replace(
+                        url = CosmostationConstants.EXPLORER_BASE_TX_URL.replace(
                             "{apiName}", network
                         ).replace("{hash}", txHash)
-
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
-                                putExtra("url", url)
-                                startActivity(this)
-                                if (Build.VERSION.SDK_INT >= 34) {
-                                    overrideActivityTransition(
-                                        Activity.OVERRIDE_TRANSITION_OPEN,
-                                        R.anim.anim_slide_in_bottom,
-                                        R.anim.anim_fade_out
-                                    )
-                                } else {
-                                    overridePendingTransition(
-                                        R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                                    )
-                                }
-                            }
-                        }, 1000)
                     }
                 }
+
+            } else {
+                url = getStringExtra("push_url") ?: ""
             }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
+                    putExtra("url", url)
+                    startActivity(this)
+                    if (Build.VERSION.SDK_INT >= 34) {
+                        overrideActivityTransition(
+                            Activity.OVERRIDE_TRANSITION_OPEN,
+                            R.anim.anim_slide_in_bottom,
+                            R.anim.anim_fade_out
+                        )
+                    } else {
+                        overridePendingTransition(
+                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                        )
+                    }
+                }
+            }, 1000)
         }
     }
 

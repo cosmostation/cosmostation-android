@@ -244,4 +244,45 @@ class SolanaFetcher(private val chain: BaseChain) {
             solanaRpc(), sendTransactionRequest
         )
     }
+
+    fun solanaNameServiceAddress(solanaJs: SolanaJs, userInput: String?): String? {
+        val deriveNameAccountKeyFunction = """function deriveNameAccountKeyFunction() {
+            const resolveAddress = deriveNameAccountKey('${userInput}');
+            return resolveAddress;
+        }""".trimMargin()
+        solanaJs.mergeFunction(deriveNameAccountKeyFunction)
+        val accountKey = SolanaJs.executeFunction("deriveNameAccountKeyFunction()")
+
+        if (accountKey?.isNotEmpty() == true) {
+            val params = listOf(
+                accountKey,
+                mapOf("commitment" to "confirmed", "encoding" to "base64"),
+            )
+
+            val accountInfoRequest = JsonRpcRequest(
+                method = "getAccountInfo", params = params
+            )
+
+            val accountInfoResponse =
+                jsonRpcResponse(solanaRpc(), accountInfoRequest)
+            val accountInfoJsonObject = Gson().fromJson(
+                accountInfoResponse.body?.string(), JsonObject::class.java
+            )
+
+            val data =
+                accountInfoJsonObject["result"].asJsonObject["value"].asJsonObject["data"].asJsonArray
+            if (data.size() > 0) {
+                val parseData = data[0].asString
+                val parseNameRegistryOwnerFunction = """function parseNameRegistryOwnerFunction() {
+                    const owner = parseNameRegistryOwner('${parseData}');
+                    return owner;
+                }""".trimMargin()
+                solanaJs.mergeFunction(parseNameRegistryOwnerFunction)
+                val ownerAddress = SolanaJs.executeFunction("parseNameRegistryOwnerFunction()")
+
+                return ownerAddress
+            }
+        }
+        return ""
+    }
 }

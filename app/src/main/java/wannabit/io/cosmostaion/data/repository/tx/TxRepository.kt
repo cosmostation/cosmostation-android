@@ -11,6 +11,7 @@ import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
+import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -25,6 +26,16 @@ import wannabit.io.cosmostaion.sign.SolanaJs
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 
 interface TxRepository {
+
+    suspend fun ensAddress(userInput: String?): String
+
+    suspend fun suiNameServiceAddress(fetcher: SuiFetcher?, userInput: String?): NetworkResult<String>
+
+    suspend fun iotaNameServiceAddress(fetcher: IotaFetcher?, userInput: String?): NetworkResult<String>
+
+    suspend fun moveNameServiceAddress(fetcher: AptosFetcher?, userInput: String?): String?
+
+    suspend fun solanaNameServiceAddress(solanaJS: SolanaJs, fetcher: SolanaFetcher?, userInput: String?): String?
 
     suspend fun osIcnsAddress(
         managedChannel: ManagedChannel?, userInput: String?, prefix: String

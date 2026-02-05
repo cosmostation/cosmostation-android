@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -52,6 +53,9 @@ class BaseFCM : FirebaseMessagingService() {
                             ).replace("{hash}", txHash)
                         }
                     }
+
+                } else {
+                    url = bundle.getString("url") ?: ""
                 }
 
                 if (CosmostationApp.instance.appStatus == CosmostationApp.AppStatus.BACKGROUND) {
@@ -78,14 +82,12 @@ class BaseFCM : FirebaseMessagingService() {
 
                         val notificationManager =
                             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            val channel = NotificationChannel(
-                                PUSH_CHANNEL_ID,
-                                PUSH_CHANNEL_NAME,
-                                NotificationManager.IMPORTANCE_HIGH
-                            )
-                            notificationManager.createNotificationChannel(channel)
-                        }
+                        val channel = NotificationChannel(
+                            PUSH_CHANNEL_ID,
+                            PUSH_CHANNEL_NAME,
+                            NotificationManager.IMPORTANCE_HIGH
+                        )
+                        notificationManager.createNotificationChannel(channel)
 
                         Glide.with(this@BaseFCM).asBitmap()
                             .load(bundle.getString("gcm.notification.image"))
@@ -128,6 +130,8 @@ class BaseFCM : FirebaseMessagingService() {
                         .replace("{hash}", txHash)
                 }
             }
+        } else {
+            url = data["url"] ?: ""
         }
 
         val intent = Intent(this, PushNotificationActivity::class.java).apply {
@@ -146,12 +150,10 @@ class BaseFCM : FirebaseMessagingService() {
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            PUSH_CHANNEL_ID, PUSH_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH
+        )
+        notificationManager.createNotificationChannel(channel)
 
         Glide.with(this).asBitmap().load(notification.imageUrl)
             .into(object : CustomTarget<Bitmap>() {

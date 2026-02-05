@@ -86,6 +86,7 @@ import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.safeApiCall
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.bitExternalApi
+import wannabit.io.cosmostaion.data.api.RetrofitInstance.githubApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.lcdApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanApi
 import wannabit.io.cosmostaion.data.api.RetrofitInstance.mintscanJsonApi
@@ -102,6 +103,7 @@ import wannabit.io.cosmostaion.data.model.req.StarCw721TokenIdReq
 import wannabit.io.cosmostaion.data.model.req.StarCw721TokenInfoReq
 import wannabit.io.cosmostaion.data.model.req.VotingPower
 import wannabit.io.cosmostaion.data.model.req.VotingPowerReq
+import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20Balance
@@ -1045,6 +1047,12 @@ class WalletRepositoryImpl : WalletRepository {
     override suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
             mintscanJsonApi.ecoSystemInfo()
+        }
+    }
+
+    override suspend fun adsInfo(): NetworkResult<AdsResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            githubApi.adsInfo()
         }
     }
 

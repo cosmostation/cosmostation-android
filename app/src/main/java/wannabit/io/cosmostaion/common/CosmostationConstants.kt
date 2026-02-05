@@ -19,6 +19,8 @@ object CosmostationConstants {
     const val CHAIN_BASE_URL =
         "https://raw.githubusercontent.com/cosmostation/chainlist/master/chain/"
     const val CHAIN_MONIKER_URL = "https://serve.dev-mintscan.com/assets/moniker/"
+    const val WALLET_BASE_URL =
+        "https://raw.githubusercontent.com/cosmostation/chainlist/master/wallet/"
 
     //cosmostation
     const val COSMOSTATION_HOMEPAGE = "https://www.cosmostation.io/"

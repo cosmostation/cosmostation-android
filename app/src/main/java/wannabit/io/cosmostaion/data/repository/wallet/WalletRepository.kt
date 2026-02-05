@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.data.model.req.MoonPayReq
+import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.AppVersion
 import wannabit.io.cosmostaion.data.model.res.AssetResponse
 import wannabit.io.cosmostaion.data.model.res.Cw20TokenResponse
@@ -203,6 +204,8 @@ interface WalletRepository {
     ): NetworkResult<JsonObject>
 
     suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>>
+
+    suspend fun adsInfo(): NetworkResult<AdsResponse>
 
     suspend fun notice(): NetworkResult<NoticeResponse>
 

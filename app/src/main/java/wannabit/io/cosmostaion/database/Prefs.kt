@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.database
 
 import SecureSharedPreferences
 import android.content.Context
+import androidx.core.content.edit
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 import org.json.JSONArray
@@ -54,6 +55,7 @@ object Prefs {
     private const val DAPP_PINNED = "PRE_DAPP_PINNED"
     private const val DAPP_HIDE = "PRE_DAPP_HIDE"
     private const val UPDATE_ADDRESS_BOOK = "PRE_UPDATE_ADDRESS_BOOK"
+    private const val ADS_SHOW_AGAIN_OPTION = "PRE_ADS_SHOW_AGAIN_OPTION"
 
 
     private val preference =
@@ -442,5 +444,19 @@ object Prefs {
             }
         }
         return mutableListOf()
+    }
+
+    fun getAdsSet(): MutableSet<String> {
+        val saved: Set<String> = preference.getStringSet(ADS_SHOW_AGAIN_OPTION, emptySet()) ?: emptySet()
+        return saved.map { it.lowercase() }.toMutableSet()
+    }
+
+    fun setAdsSet(ids: List<String>) {
+        val saved = getAdsSet()
+        ids.forEach { saved.add(it.lowercase()) }
+
+        preference.edit {
+            putStringSet(ADS_SHOW_AGAIN_OPTION, saved)
+        }
     }
 }

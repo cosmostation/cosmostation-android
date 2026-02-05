@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
-import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
+import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.databinding.ItemCosmosTokenBinding
 import wannabit.io.cosmostaion.databinding.ItemDefaultAssetViewBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
@@ -25,7 +24,7 @@ class MoveCryptoAdapter(
     val selectedChain: BaseChain,
     private val moveBalances: MutableList<Pair<String?, BigDecimal?>>,
     private val moveNativeBalances: MutableList<Pair<String?, BigDecimal?>>,
-    private val aptosNativeBalances: MutableList<Pair<String?, BigDecimal?>>
+    private val aptosNativeBalances: MutableList<Pair<Asset?, BigDecimal?>>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -33,6 +32,8 @@ class MoveCryptoAdapter(
         const val VIEW_TYPE_APTOS_MAIN_ITEM = 1
         const val VIEW_TYPE_COIN_HEADER = 2
         const val VIEW_TYPE_COIN_ITEM = 3
+        const val VIEW_TYPE_FUNGIBLE_HEADER = 4
+        const val VIEW_TYPE_FUNGIBLE_ITEM = 5
     }
 
     private var onItemClickListener: ((BaseChain, String) -> Unit)? = null
@@ -53,14 +54,14 @@ class MoveCryptoAdapter(
                 MoveAptosAssetViewHolder(binding)
             }
 
-            VIEW_TYPE_COIN_HEADER -> {
+            VIEW_TYPE_COIN_HEADER, VIEW_TYPE_FUNGIBLE_HEADER -> {
                 val binding = ItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
                 MajorCryptoHeaderViewHolder(binding)
             }
 
-            VIEW_TYPE_COIN_ITEM -> {
+            VIEW_TYPE_COIN_ITEM, VIEW_TYPE_FUNGIBLE_ITEM -> {
                 val binding = ItemCosmosTokenBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
@@ -107,33 +108,57 @@ class MoveCryptoAdapter(
             }
 
             is MajorCryptoHeaderViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_COIN_HEADER) {
+                if (holder.itemViewType == VIEW_TYPE_COIN_HEADER || holder.itemViewType == VIEW_TYPE_FUNGIBLE_HEADER) {
                     holder.bind()
                 }
             }
 
             is CoinViewHolder -> {
-                if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
-                    val balance = if (selectedChain.isMoveChain) {
-                        aptosNativeBalances[position - 2]
+                if (selectedChain.isMoveChain) {
+                    val fungibleBalances =
+                        aptosNativeBalances.filter { it.first?.type == "fungible" }
+                    val nativeBalances = aptosNativeBalances.filter { it.first?.type == "bridge" }
+
+                    val balance = if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
+                        nativeBalances[position - 2]
+
                     } else {
-                        if (moveBalances.isNotEmpty()) {
+                        val fungiblePosition = if (nativeBalances.isNotEmpty()) {
+                            position - nativeBalances.size - 3
+                        } else {
+                            position - 2
+                        }
+                        fungibleBalances[fungiblePosition]
+                    }
+
+                    holder.aptosBind(selectedChain, balance)
+                    holder.itemView.setOnClickListener {
+                        onItemClickListener?.let {
+                            balance.first?.denom?.let { denom ->
+                                it(selectedChain, denom)
+                            }
+                        }
+                    }
+
+                } else {
+                    if (holder.itemViewType == VIEW_TYPE_COIN_ITEM) {
+                        val balance = if (moveBalances.isNotEmpty()) {
                             moveNativeBalances[position - 2]
                         } else {
                             moveNativeBalances[position - 1]
                         }
-                    }
 
-                    when (selectedChain) {
-                        is ChainSui -> holder.suiBind(selectedChain, balance)
-                        is ChainIota -> holder.iotaBind(selectedChain, balance)
-                        is ChainAptos, is ChainMovement -> holder.aptosBind(selectedChain, balance)
-                    }
+                        if (selectedChain is ChainSui) {
+                            holder.suiBind(selectedChain, balance)
+                        } else {
+                            holder.iotaBind(selectedChain, balance)
+                        }
 
-                    holder.itemView.setOnClickListener {
-                        onItemClickListener?.let {
-                            balance.first?.let { denom ->
-                                it(selectedChain, denom)
+                        holder.itemView.setOnClickListener {
+                            onItemClickListener?.let {
+                                balance.first?.let { denom ->
+                                    it(selectedChain, denom)
+                                }
                             }
                         }
                     }
@@ -144,10 +169,20 @@ class MoveCryptoAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (selectedChain.isMoveChain) {
-            when (position) {
-                0 -> VIEW_TYPE_APTOS_MAIN_ITEM
-                1 -> VIEW_TYPE_COIN_HEADER
-                else -> VIEW_TYPE_COIN_ITEM
+            val nativeBalances = aptosNativeBalances.filter { it.first?.type == "bridge" }
+            if (nativeBalances.isNotEmpty()) {
+                if (position == 0) VIEW_TYPE_APTOS_MAIN_ITEM
+                else if (position == 1) VIEW_TYPE_COIN_HEADER
+                else if (position < nativeBalances.size + 2) VIEW_TYPE_COIN_ITEM
+                else if (position < nativeBalances.size + 3) VIEW_TYPE_FUNGIBLE_HEADER
+                else VIEW_TYPE_FUNGIBLE_ITEM
+
+            } else {
+                when (position) {
+                    0 -> VIEW_TYPE_APTOS_MAIN_ITEM
+                    1 -> VIEW_TYPE_FUNGIBLE_HEADER
+                    else -> VIEW_TYPE_FUNGIBLE_ITEM
+                }
             }
 
         } else {
@@ -175,7 +210,12 @@ class MoveCryptoAdapter(
 
     override fun getItemCount(): Int {
         return if (selectedChain.isMoveChain) {
-            if (aptosNativeBalances.isNotEmpty()) {
+            val hasNative = aptosNativeBalances.any { it.first?.type == "bridge" }
+            val hasFungible = aptosNativeBalances.any { it.first?.type == "fungible" }
+
+            if (hasNative && hasFungible) {
+                aptosNativeBalances.size + 3
+            } else if (hasNative || hasFungible) {
                 aptosNativeBalances.size + 2
             } else {
                 1
@@ -206,8 +246,16 @@ class MoveCryptoAdapter(
         fun bind() {
             binding.apply {
                 if (selectedChain.isMoveChain) {
-                    headerTitle.text = context.getString(R.string.str_coins)
-                    headerCnt.text = aptosNativeBalances.size.toString()
+                    if (itemViewType == VIEW_TYPE_COIN_HEADER) {
+                        headerTitle.text = context.getString(R.string.str_coins)
+                        headerCnt.text =
+                            aptosNativeBalances.filter { it.first?.type == "bridge" }.size.toString()
+                    } else {
+                        headerTitle.text = context.getString(R.string.str_fungible_coins)
+                        headerCnt.text =
+                            aptosNativeBalances.filter { it.first?.type == "fungible" }.size.toString()
+                    }
+
                 } else {
                     headerTitle.text = context.getString(R.string.str_native_coins)
                     headerCnt.text = moveNativeBalances.size.toString()

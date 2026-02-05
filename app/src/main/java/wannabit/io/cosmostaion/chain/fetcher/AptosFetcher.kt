@@ -12,6 +12,7 @@ import xyz.mcxross.kaptos.generated.getaccountcoinsdata.current_fungible_asset_b
 import xyz.mcxross.kaptos.model.AccountAddress
 import xyz.mcxross.kaptos.model.AptosConfig
 import xyz.mcxross.kaptos.model.AptosSettings
+import xyz.mcxross.kaptos.model.Network
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -22,6 +23,7 @@ class AptosFetcher(private val chain: BaseChain) {
     fun aptosClient(): Aptos {
         val config = AptosConfig(
             AptosSettings(
+                network = Network.MAINNET,
                 fullNode = getApi(),
                 indexer = getGraphQL()
             )
@@ -111,3 +113,5 @@ class AptosFetcher(private val chain: BaseChain) {
         return aptosJs.executeFunction("signAptosTxFunction()")
     }
 }
+
+const val FUNGIBLE_FUNCTION_TYPE = "0x1::primary_fungible_store::transfer"

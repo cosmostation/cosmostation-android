@@ -175,6 +175,7 @@ class IntroActivity : AppCompatActivity() {
                                         "push_network",
                                         intent.extras?.getString("network") ?: ""
                                     )
+                                    putExtra("push_url", intent.extras?.getString("url") ?: "")
                                 }
                                 startActivity(this)
                                 flags =
@@ -324,9 +325,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun initFirebase() {
-        if (FirebaseApp.getApps(this).isEmpty()) {
-            FirebaseApp.initializeApp(this)
-        }
+        val existing = FirebaseApp.getApps(this).firstOrNull()
+        val app = existing ?: FirebaseApp.initializeApp(this)
+        if (app == null) return
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {

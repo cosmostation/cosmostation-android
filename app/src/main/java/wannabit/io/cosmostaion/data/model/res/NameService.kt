@@ -10,6 +10,6 @@ class NameService(
 ) : Serializable, Parcelable {
 
     enum class NameServiceType {
-        ICNS, STARGAZE, ARCHWAY
+        ICNS, STARGAZE, ARCHWAY, ENS, SUI, IOTA, MOVE, SOL
     }
 }

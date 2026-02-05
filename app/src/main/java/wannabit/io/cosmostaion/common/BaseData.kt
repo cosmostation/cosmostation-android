@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.data.model.res.Ads
+import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Price
@@ -32,6 +34,7 @@ object BaseData {
     var splTokens: List<Token>? = mutableListOf()
     var originEcosystems: MutableList<JsonObject>? = mutableListOf()
     var ecosystems: MutableList<JsonObject>? = mutableListOf()
+    var ads: List<Ads>? = mutableListOf()
 
     var isBackGround = false
     var appSchemeUrl = ""
