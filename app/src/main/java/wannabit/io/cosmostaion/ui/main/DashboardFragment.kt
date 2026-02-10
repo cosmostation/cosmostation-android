@@ -21,6 +21,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.concurrent.AtomicBoolean
 import androidx.viewpager2.widget.ViewPager2
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,7 @@ import wannabit.io.cosmostaion.ui.main.chain.major.MajorActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainEndpointFragment
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.EndPointType
 import java.math.BigDecimal
+import java.time.Instant
 
 
 class DashboardFragment : Fragment() {
@@ -461,9 +463,7 @@ class DashboardFragment : Fragment() {
 
     private fun nodeDownPopup(chain: BaseChain) {
         NoticeInfoFragment.newInstance(
-            chain,
-            NoticeType.NODE_DOWN_GUIDE,
-            object : NodeDownSelectListener {
+            chain, NoticeType.NODE_DOWN_GUIDE, object : NodeDownSelectListener {
                 override fun select(tag: String?) {
                     baseAccount?.let { account ->
                         ApplicationViewModel.shared.loadChainData(chain, account.id)
@@ -505,61 +505,87 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showAdsInfo() {
-        if (BaseData.ads?.isNotEmpty() == true) {
-            BaseData.ads?.let { ads ->
-                val inflater =
-                    requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                val binding = DialogAdsInfoBinding.inflate(inflater)
-                val alertDialog =
-                    AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
-                        .setView(binding.root)
+        AdsOnceGate.runOnce {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val now = System.currentTimeMillis()
+                val hiddenIds = Prefs.getAdsSet()
 
-                val dialog = alertDialog.create()
-                dialog.setCancelable(false)
-                dialog.show()
+                val filteredAds = BaseData.ads.orEmpty().asSequence().filter { adInfo ->
+                    if (adInfo.images.mobile.isNullOrEmpty()) return@filter false
 
-                binding.apply {
-                    fun updateIndicator(position: Int) {
-                        adsIndicator.text = "${position + 1}/${ads.size}"
+                    val start = Instant.parse(adInfo.startAt).toEpochMilli()
+                    if (now < start) return@filter false
+
+                    val endStr = adInfo.endAt?.trim()
+                    if (endStr.isNullOrEmpty()) {
+                        true
+                    } else {
+                        val end = Instant.parse(endStr).toEpochMilli()
+                        if (end < start) return@filter false
+
+                        now <= end
                     }
+                }.filter { adInfo ->
+                    val id = adInfo.id.trim().lowercase()
+                    !hiddenIds.contains(id)
+                }.sortedBy { it.priority }.toList()
 
-                    adsView.setBackgroundResource(R.drawable.dialog_transparent_bg)
-                    viewpager2.adapter = AdsPagerAdapter(ads) { adInfo ->
-                        dialog.dismiss()
-                        startActivity(
-                            Intent(
-                                Intent.ACTION_VIEW,
-                                adInfo.linkUrl?.toUri()
-                            )
-                        )
-                    }
-                    viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                withContext(Dispatchers.Main) {
+                    if (filteredAds.isNotEmpty()) {
+                        val inflater =
+                            requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                        val binding = DialogAdsInfoBinding.inflate(inflater)
+                        val alertDialog =
+                            AlertDialog.Builder(requireContext(), R.style.AppTheme_AlertDialogTheme)
+                                .setView(binding.root)
 
-                    adsIndicator.isVisible = ads.size > 1
-                    viewpager2.registerOnPageChangeCallback(object :
-                        ViewPager2.OnPageChangeCallback() {
-                        override fun onPageSelected(position: Int) {
-                            updateIndicator(position)
+                        val dialog = alertDialog.create()
+                        dialog.setCancelable(false)
+                        dialog.show()
+
+                        binding.apply {
+                            fun updateIndicator(position: Int) {
+                                adsIndicator.text = "${position + 1}/${filteredAds.size}"
+                            }
+
+                            adsView.setBackgroundResource(R.drawable.dialog_transparent_bg)
+                            viewpager2.adapter = AdsPagerAdapter(filteredAds) { adInfo ->
+                                dialog.dismiss()
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW, adInfo.linkUrl?.toUri()
+                                    )
+                                )
+                            }
+                            viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+                            adsIndicator.isVisible = filteredAds.size > 1
+                            viewpager2.registerOnPageChangeCallback(object :
+                                ViewPager2.OnPageChangeCallback() {
+                                override fun onPageSelected(position: Int) {
+                                    updateIndicator(position)
+                                }
+                            })
+
+                            var isAdsPinned = false
+                            btnCheck.setOnClickListener {
+                                isAdsPinned = !isAdsPinned
+                                if (isAdsPinned) {
+                                    checkImg.setImageResource(R.drawable.icon_checkbox_on)
+                                } else {
+                                    checkImg.setImageResource(R.drawable.icon_checkbox_off)
+                                }
+                            }
+
+                            btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                            btnClose.setOnClickListener {
+                                if (isAdsPinned) {
+                                    val ids = BaseData.ads?.map { it.id } ?: mutableListOf()
+                                    Prefs.setAdsSet(ids)
+                                }
+                                dialog.dismiss()
+                            }
                         }
-                    })
-
-                    var isAdsPinned = false
-                    btnCheck.setOnClickListener {
-                        isAdsPinned = !isAdsPinned
-                        if (isAdsPinned) {
-                            checkImg.setImageResource(R.drawable.icon_checkbox_on)
-                        } else {
-                            checkImg.setImageResource(R.drawable.icon_checkbox_off)
-                        }
-                    }
-
-                    btnClose.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                    btnClose.setOnClickListener {
-                        if (isAdsPinned) {
-                            val ids = BaseData.ads?.map { it.id } ?: mutableListOf()
-                            Prefs.setAdsSet(ids)
-                        }
-                        dialog.dismiss()
                     }
                 }
             }
@@ -567,8 +593,7 @@ class DashboardFragment : Fragment() {
     }
 
     private class AdsPagerAdapter(
-        private val ads: List<Ads>,
-        private val btnViewClick: (Ads) -> Unit
+        private val ads: List<Ads>, private val btnViewClick: (Ads) -> Unit
     ) : RecyclerView.Adapter<AdsPagerAdapter.VH>() {
 
         inner class VH(val binding: ItemAdsBinding) : RecyclerView.ViewHolder(binding.root)
@@ -589,7 +614,7 @@ class DashboardFragment : Fragment() {
                 } else {
                     viewDetail.text = adInfo.view_detail
                     val color = adInfo.color?.toColorInt() ?: "#FFFFFF".toColorInt()
-                    btnView.setBackgroundColor(color)
+                    btnView.setCardBackgroundColor(color)
 
                     btnView.setOnClickListener {
                         btnViewClick(adInfo)
@@ -720,5 +745,14 @@ class DashboardFragment : Fragment() {
         _binding = null
         ApplicationViewModel.shared.fetchedResult.removeObservers(viewLifecycleOwner)
         super.onDestroyView()
+    }
+}
+
+object AdsOnceGate {
+    private val didOnceShowAds = AtomicBoolean(false)
+
+    fun runOnce(block: () -> Unit) {
+        if (!didOnceShowAds.compareAndSet(false, true)) return
+        block()
     }
 }

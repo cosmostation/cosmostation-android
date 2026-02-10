@@ -166,6 +166,7 @@
     <string name="title_legacy_enabled">旧住所の活性化</string>
     <string name="title_testnet_enabled">テストネットの有効化</string>
     <string name="title_chain">Chain manage</string>
+    <string name="title_chain_notice">Chain Announcements</string>
     <string name="title_address_book">連絡先の管理</string>
     <string name="title_address_book_edit">アドレス帳編集</string>
     <string name="title_general">一般</string>
