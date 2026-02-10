@@ -6,10 +6,9 @@
 
     <ImageView
         android:id="@+id/ads_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/dialog_transparent_bg"
-        android:src="@drawable/dydx"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,6 +17,9 @@
         android:id="@+id/btn_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/space_4"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
         android:layout_marginBottom="@dimen/space_40"
         app:layout_constraintBottom_toBottomOf="@+id/ads_img"
         app:layout_constraintEnd_toEndOf="parent"

@@ -72,6 +72,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".ui.main.setting.wallet.chain.ChainNoticeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ui.password.PasswordCheckActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

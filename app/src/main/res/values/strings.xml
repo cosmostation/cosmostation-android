@@ -231,6 +231,7 @@
     <string name="title_legacy_enabled">Enable old addresses</string>
     <string name="title_testnet_enabled">Enable Testnet</string>
     <string name="title_chain">Manage chains</string>
+    <string name="title_chain_notice">Chain Announcements</string>
     <string name="title_address_book">Add Address Book</string>
     <string name="title_address_book_edit">Edit Address Book</string>
     <string name="title_general">General</string>

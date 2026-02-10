@@ -204,31 +204,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                         }
 
                         is AdsResponse -> {
-                            BaseData.ads = emptyList()
-
-                            val now = System.currentTimeMillis()
-                            val hiddenIds = Prefs.getAdsSet()
-
-                            BaseData.ads =
-                                response.data.ads.orEmpty().asSequence().filter { adInfo ->
-                                    if (adInfo.images.mobile.isNullOrEmpty()) return@filter false
-
-                                    val start = Instant.parse(adInfo.startAt).toEpochMilli()
-                                    if (now < start) return@filter false
-
-                                    val endStr = adInfo.endAt?.trim()
-                                    if (endStr.isNullOrEmpty()) {
-                                        true
-                                    } else {
-                                        val end = Instant.parse(endStr).toEpochMilli()
-                                        if (end < start) return@filter false
-
-                                        now <= end
-                                    }
-                                }.filter { adInfo ->
-                                    val id = adInfo.id.trim().lowercase()
-                                    !hiddenIds.contains(id)
-                                }.sortedBy { it.priority }.toList()
+                            response.data.ads?.let { BaseData.ads = it }
                         }
 
                         is MutableList<*> -> {

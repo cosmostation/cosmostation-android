@@ -6,23 +6,22 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.toMoveBack
 import wannabit.io.cosmostaion.database.Prefs
-import wannabit.io.cosmostaion.databinding.ActivityChainBinding
+import wannabit.io.cosmostaion.databinding.ActivityChainNoticeBinding
 
-class ChainActivity : BaseActivity() {
+class ChainNoticeActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityChainBinding
+    private lateinit var binding: ActivityChainNoticeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChainBinding.inflate(layoutInflater)
+        binding = ActivityChainNoticeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ChainManageFragment())
-                .commit()
+                .replace(R.id.fragment_container, ChainNoticeFragment()).commit()
         }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {

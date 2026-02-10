@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.ui.main.setting.general.PushManager
 import wannabit.io.cosmostaion.ui.main.setting.wallet.account.AccountActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.book.AddressBookListActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainActivity
+import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainNoticeActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.WaitingDialog
 import java.util.Locale
@@ -91,6 +92,7 @@ class SettingFragment : Fragment() {
                 legacyView,
                 testnetView,
                 chainView,
+                chainNoticeView,
                 addressBookView,
                 languageView,
                 themeView,
@@ -236,6 +238,13 @@ class SettingFragment : Fragment() {
 
             chainView.setOnClickListener {
                 Intent(requireContext(), ChainActivity::class.java).apply {
+                    startActivity(this)
+                    requireActivity().toMoveAnimation()
+                }
+            }
+
+            chainNoticeView.setOnClickListener {
+                Intent(requireContext(), ChainNoticeActivity::class.java).apply {
                     startActivity(this)
                     requireActivity().toMoveAnimation()
                 }
