@@ -737,6 +737,15 @@ You can download each store.
     <td>gRPC or Rest</td>
     <td></td>
   </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/mirage/resource/chain_mirage.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">MIRAGE</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
+    <td></td>
+  </tr>
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/neutron/resource/chain_neutron.png?raw=true" width="42" height = "42"></td>
@@ -807,11 +816,11 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/omniflix/resource/chain_omniflix.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">OMNIFLIX</span></td>
+    <td><span style="font-weight:bold"><del>OMNIFLIX</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
-    <td></td>
+    <td>sunset Jan 2026</td> 
   </tr>
     
   <tr>
@@ -1386,6 +1395,15 @@ You can download each store.
     <td></td>
   </tr>
   
+  <tr> 
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/gnosis/resource/chain_gnosis.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">GNOSIS</span></td>
+    <td>m/44'/60'/0'/0/X</td>
+    <td>keccak256</td>
+    <td>evmRPC</td>
+    <td></td>
+  </tr>
+  
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/gravity-alpha/resource/chain_gravity-alpha.png?raw=true" width="42" height = "42"></td>
     <td><span style="font-weight:bold">GRAVITY-ALPHA</span></td>
@@ -1577,6 +1595,15 @@ You can download each store.
     <td>m/44'/4218'/0'/0'/X'</td>
     <td>ed25519</td>
     <td>Rest</td>
+    <td></td>
+  </tr>
+  
+  <tr> 
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/movement/resource/chain_movement.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">MOVEMENT</span></td>
+    <td>m/44'/637'/0'/0'/X'</td>
+    <td>ed25519</td>
+    <td>GraphQL, Rest</td>
     <td></td>
   </tr>
   
