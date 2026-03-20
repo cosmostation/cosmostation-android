@@ -110,7 +110,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSynternet
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerraClassic
@@ -470,20 +469,23 @@ open class BaseChain : Parcelable {
         var feeCoin: CoinProto.Coin? = null
         for (i in 0 until getDefaultFeeCoins(c).size) {
             val minFee = getDefaultFeeCoins(c)[i]
-            if (this is ChainGnoTestnet && minFee.amount.toBigDecimal() <= gnoRpcFetcher?.balanceAmount(
-                    minFee.denom
-                )
-            ) {
-                feeCoin = minFee
-                break
+            val minFeeAmount = minFee.amount.toBigDecimal()
 
+            if (this is ChainGnoTestnet) {
+                val balance = gnoRpcFetcher?.balanceAmount(minFee.denom) ?: BigDecimal.ZERO
+                if (minFeeAmount <= balance) {
+                    feeCoin = minFee
+                    break
+                }
             } else {
-                if (minFee.amount.toBigDecimal() <= cosmosFetcher?.availableAmount(minFee.denom)) {
+                val available = cosmosFetcher?.availableAmount(minFee.denom) ?: BigDecimal.ZERO
+                if (minFeeAmount <= available) {
                     feeCoin = minFee
                     break
                 }
             }
         }
+
         if (feeCoin != null) {
             return TxProto.Fee.newBuilder().setGasLimit(getInitGasLimit()).addAmount(feeCoin)
                 .build()
@@ -945,7 +947,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStride())
     chains.add(ChainSui())
     chains.add(ChainSunrise())
-    chains.add(ChainSynternet())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())

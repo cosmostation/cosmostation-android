@@ -25,5 +25,5 @@ class ChainSunrise : BaseChain(), Parcelable {
     override var stakeDenom: String = "uvrise"
     override var accountPrefix: String = "sunrise"
     override var grpcHost: String = "sunrise-grpc.noders.services"
-    override var lcdUrl: String = "https://sunrise-mainnet-api.mekonglabs.tech"
+    override var lcdUrl: String = "https://rest.sunrise.tcnetwork.io"
 }

@@ -23,5 +23,5 @@ open class ChainXrplEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.evm.xrplevm.mainnet.cosmostation.io"
+    override var evmRpcURL: String = "https://rpc.xrplevm.org"
 }

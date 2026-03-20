@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.ui.main.setting.general
 
 import android.app.Activity
+import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -13,6 +15,8 @@ import wannabit.io.cosmostaion.databinding.ActivityDevDialogBinding
 class DevDialogActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         val binding = ActivityDevDialogBinding.inflate(layoutInflater)
         val alertDialog =
             AlertDialog.Builder(this, R.style.AppTheme_AlertDialogTheme).setView(binding.root)
@@ -57,6 +61,12 @@ class DevDialogActivity : Activity() {
                     finish()
                 }
             }
+        }
+    }
+
+    override fun setRequestedOrientation(requestedOrientation: Int) {
+        if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            super.setRequestedOrientation(requestedOrientation)
         }
     }
 }
