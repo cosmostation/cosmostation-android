@@ -22,9 +22,9 @@ class ChainBand : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(494, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uband"
     override var accountPrefix: String = "band"
-    override var grpcHost: String = "grpc-band.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-band.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://laozi1.bandchain.org/api/"
 }

@@ -25,6 +25,6 @@ class ChainBitsong : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ubtsg"
     override var accountPrefix: String = "bitsong"
-    override var grpcHost: String = "grpc-bitsong-ia.cosmosia.notional.ventures"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://lcd.explorebitsong.com/"
 }
