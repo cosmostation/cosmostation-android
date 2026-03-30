@@ -21,9 +21,9 @@ class ChainCoreum : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(990, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ucore"
     override var accountPrefix: String = "core"
-    override var grpcHost: String = "grpc-coreum.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-coreum.cosmostation.io/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://rest-coreum.ecostake.com/"
 }

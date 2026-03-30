@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,6 +24,6 @@ class ChainChihuahua : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uhuahua"
     override var accountPrefix: String = "chihuahua"
-    override var grpcHost: String = "grpc-chihuahua.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-chihuahua.cosmostation.io/"
+    override var grpcHost: String = "grpc.chihuahua.validatus.com"
+    override var lcdUrl: String = "https://chihuahua-api.polkachu.com/"
 }

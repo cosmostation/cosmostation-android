@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -22,9 +21,9 @@ class ChainCryptoorg : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "basecro"
     override var accountPrefix: String = "cro"
-    override var grpcHost: String = "grpc-crypto-org.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-crypto-org.cosmostation.io/"
+    override var grpcHost: String = "grpc.mainnet.crypto.org"
+    override var lcdUrl: String = "https://cryptocom-api.polkachu.com/"
 }
