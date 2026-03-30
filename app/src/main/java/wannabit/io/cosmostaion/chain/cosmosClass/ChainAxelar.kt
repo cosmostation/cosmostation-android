@@ -22,9 +22,9 @@ class ChainAxelar : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uaxl"
     override var accountPrefix: String = "axelar"
-    override var grpcHost: String = "grpc-axelar.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-axelar.cosmostation.io/"
+    override var grpcHost: String = "axelar.grpc.stakin-nodes.com"
+    override var lcdUrl: String = "https://axelar-rest.staketab.org/"
 }

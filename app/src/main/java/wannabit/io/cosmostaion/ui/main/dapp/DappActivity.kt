@@ -1209,8 +1209,6 @@ class DappActivity : BaseActivity() {
             val messageId = requestJson.getString("messageId")
             val messageJson = requestJson.getJSONObject("message")
 
-            Log.e("test12345 : ", messageJson.getString("method"))
-
             when (val method = messageJson.getString("method")) {
                 "cos_requestAccount", "cos_account", "ten_requestAccount", "ten_account" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
@@ -1411,13 +1409,11 @@ class DappActivity : BaseActivity() {
                 }
 
                 "eth_chainId" -> {
-                    Log.e("test12345 : ", selectedChain.toString())
                     if (selectedChain == null) {
                         selectedChain =
                             allChains?.firstOrNull { chain -> chain.isSupportErc20() && chain.chainIdEvm == "0x1" }
                     }
                     currentEvmChainId = selectedChain?.chainIdEvm
-                    Log.e("Test12345 : ", currentEvmChainId.toString())
                     rpcUrl = selectedChain?.evmRpcFetcher?.getEvmRpc() ?: selectedChain?.evmRpcURL
                     web3j = Web3j.build(HttpService(rpcUrl))
                     appToWebResult(messageJson, currentEvmChainId, messageId)

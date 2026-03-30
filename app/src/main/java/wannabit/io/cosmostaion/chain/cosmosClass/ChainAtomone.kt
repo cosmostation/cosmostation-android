@@ -25,6 +25,6 @@ class ChainAtomone : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uatone"
     override var accountPrefix: String = "atone"
-    override var grpcHost: String = "grpc-atomone.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-atomone.cosmostation.io/"
+    override var grpcHost: String = "grpc.atomone.citizenweb3.com"
+    override var lcdUrl: String = "https://api.atomone.citizenweb3.com/"
 }

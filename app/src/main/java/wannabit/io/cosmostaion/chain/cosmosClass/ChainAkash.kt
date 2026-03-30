@@ -22,9 +22,9 @@ class ChainAkash : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uakt"
     override var accountPrefix: String = "akash"
-    override var grpcHost: String = "grpc-akash.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-akash.cosmostation.io/"
+    override var grpcHost: String = "akash.lavenderfive.com"
+    override var lcdUrl: String = "https://rest-akash.ecostake.com/"
 }
