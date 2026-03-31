@@ -24,6 +24,6 @@ class ChainGonka : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ngonka"
     override var accountPrefix: String = "gonka"
-    override var grpcHost: String = "node1.gonka.ai:8443"
-    override var lcdUrl: String = "https://node1.gonka.ai:8443/chain-api/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://gonka04.6block.com:8443/chain-api/"
 }
