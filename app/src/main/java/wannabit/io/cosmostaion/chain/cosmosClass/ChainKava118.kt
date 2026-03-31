@@ -19,7 +19,7 @@ class ChainKava118 : ChainKava459(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var grpcHost: String = "grpc-kava.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-kava.cosmostation.io/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var grpcHost: String = "grpc.data.kava.io"
+    override var lcdUrl: String = "https://api.data.kava.io/"
 }

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
@@ -23,11 +22,11 @@ open class ChainKava459 : ChainKavaEvm(), Parcelable {
         ChildNumber(44, true), ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ukava"
     override var accountPrefix: String = "kava"
-    override var grpcHost: String = "grpc-kava.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-kava.cosmostation.io/"
+    override var grpcHost: String = "grpc.data.kava.io"
+    override var lcdUrl: String = "https://api.data.kava.io/"
 
     override var supportEvm: Boolean = false
     override var coinSymbol: String = ""

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,6 +24,6 @@ class ChainJuno : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ujuno"
     override var accountPrefix: String = "juno"
-    override var grpcHost: String = "juno-grpc.chainroot.io"
+    override var grpcHost: String = "juno-grpc.cogwheel.zone"
     override var lcdUrl: String = "https://juno-rest.publicnode.com/"
 }
