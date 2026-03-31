@@ -24,6 +24,6 @@ class ChainPaxi : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "upaxi"
     override var accountPrefix: String = "paxi"
-    override var grpcHost: String = "mainnet-rpc.paxinet.io"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://mainnet-lcd.paxinet.io/"
 }

@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -26,5 +25,5 @@ class ChainPassage : BaseChain(), Parcelable {
     override var stakeDenom: String = "upasg"
     override var accountPrefix: String = "pasg"
     override var grpcHost: String = "passage-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://rest-passage.ecostake.com/"
+    override var lcdUrl: String = "https://passage-api.polkachu.com/"
 }
