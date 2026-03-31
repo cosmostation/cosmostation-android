@@ -23,5 +23,5 @@ class ChainSomnia : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.evm.somnia.mainnet.cosmostation.io"
+    override var evmRpcURL: String = "https://api.infra.mainnet.somnia.network"
 }

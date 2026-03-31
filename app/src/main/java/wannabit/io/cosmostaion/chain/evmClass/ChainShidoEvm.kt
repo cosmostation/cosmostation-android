@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,7 +24,7 @@ class ChainShidoEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "shido"
     override var accountPrefix: String = "shido"
-    override var grpcHost: String = "grpc.shidoscan.com"
+    override var grpcHost: String = "grpc.mavnode.io"
     override var lcdUrl: String = "https://api.shidoscan.net/"
 
     override var supportEvm: Boolean = true

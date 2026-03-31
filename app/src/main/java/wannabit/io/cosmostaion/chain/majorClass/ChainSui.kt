@@ -29,7 +29,7 @@ class ChainSui : BaseChain(), Parcelable {
     override var stakeDenom: String = SUI_MAIN_DENOM
     override var coinSymbol: String = "SUI"
 
-    override var mainUrl: String = "https://sui-mainnet-us-2.cosmostation.io"
+    override var mainUrl: String = "https://fullnode.mainnet.sui.io"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
