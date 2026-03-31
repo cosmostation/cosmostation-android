@@ -25,5 +25,5 @@ class ChainBluzelle : BaseChain(), Parcelable {
     override var stakeDenom: String = "ubnt"
     override var accountPrefix: String = "bluzelle"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://b.client.sentry.net.bluzelle.com:1317/"
+    override var lcdUrl: String = "https://a.client.sentry.net.bluzelle.com:1317/"
 }

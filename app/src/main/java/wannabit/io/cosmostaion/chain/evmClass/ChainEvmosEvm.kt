@@ -25,7 +25,7 @@ class ChainEvmosEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "aevmos"
     override var accountPrefix: String = "evmos"
-    override var grpcHost: String = "evmos-grpc.stake-town.com"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://evmos-api.polkachu.com/"
 
     override var supportEvm: Boolean = true

@@ -25,5 +25,5 @@ class ChainDesmos : BaseChain(), Parcelable {
     override var stakeDenom: String = "udsm"
     override var accountPrefix: String = "desmos"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://desmos-rest.staketab.org/"
+    override var lcdUrl: String = "https://api.mainnet.desmos.network/"
 }

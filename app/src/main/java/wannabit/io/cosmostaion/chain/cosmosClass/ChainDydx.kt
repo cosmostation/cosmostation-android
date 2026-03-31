@@ -25,8 +25,8 @@ class ChainDydx : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "adydx"
     override var accountPrefix: String = "dydx"
-    override var grpcHost: String = "grpc-dydx.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-dydx.cosmostation.io/"
+    override var grpcHost: String = "dydx-grpc.kingnodes.com"
+    override var lcdUrl: String = "https://dydx-dao-api.polkachu.com/"
 }
 
 const val DYDX_USDC_DENOM = "ibc/8E27BA2D5493AF5636760E354E46004562C46AB7EC0CC4C1CA14E9E20E2545B5"

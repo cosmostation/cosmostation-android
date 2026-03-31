@@ -23,5 +23,5 @@ class ChainEthereum : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc-ethereum-evm.cosmostation.io/rpc"
+    override var evmRpcURL: String = "https://rpc.ankr.com/eth"
 }

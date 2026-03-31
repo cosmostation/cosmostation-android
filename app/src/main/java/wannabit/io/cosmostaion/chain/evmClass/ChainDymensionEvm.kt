@@ -22,13 +22,13 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "adym"
     override var accountPrefix: String = "dym"
-    override var grpcHost: String = "grpc-dymension.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-dymension.cosmostation.io/"
+    override var grpcHost: String = "grpc.dymension.nodestake.org"
+    override var lcdUrl: String = "https://api.dymension.nodestake.org/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "DYM"
-    override var evmRpcURL: String = "https://rpc-dymension-evm.cosmostation.io"
+    override var evmRpcURL: String = "https://jsonrpc.dymension.nodestake.org"
 }
