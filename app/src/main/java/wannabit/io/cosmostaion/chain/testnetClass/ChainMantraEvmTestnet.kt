@@ -13,9 +13,9 @@ class ChainMantraEvmTestnet : ChainMantraEvm(), Parcelable {
     override var isTestnet: Boolean = true
     override var apiName: String = "mantra-testnet"
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var grpcHost: String = "grpc-office-mantra.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-office.cosmostation.io/mantra-testnet/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var grpcHost: String = "grpc.dukong.mantrachain.io"
+    override var lcdUrl: String = "https://api.dukong.mantrachain.io/"
 
-    override var evmRpcURL: String = "https://rpc.evm.mantra.testnet.cosmostation.io"
+    override var evmRpcURL: String = "https://evm.dukong.mantrachain.io"
 }

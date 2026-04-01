@@ -4,9 +4,7 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
-import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
@@ -24,9 +22,9 @@ class ChainBabylonTestnet : ChainBabylon(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ubbn"
     override var accountPrefix: String = "bbn"
-    override var grpcHost: String = "grpc-office-babylon.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-office.cosmostation.io/babylon-testnet/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://babylon-testnet-api.nodes.guru/"
 }

@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.chain.testnetClass
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.evmClass.ChainMonad
 
 @Parcelize

@@ -12,5 +12,5 @@ class ChainXrplEvmTestnet : ChainXrplEvm(), Parcelable {
     override var isTestnet: Boolean = true
     override var apiName: String = "xrplevm-testnet"
 
-    override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/xrplevm-testnet/"
+    override var evmRpcURL: String = "https://rpc.testnet.xrplevm.org"
 }

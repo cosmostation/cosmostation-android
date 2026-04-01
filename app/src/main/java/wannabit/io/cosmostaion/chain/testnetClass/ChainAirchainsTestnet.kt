@@ -25,6 +25,6 @@ class ChainAirchainsTestnet : ChainAirchains(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uamf"
     override var accountPrefix: String = "air"
-    override var grpcHost: String = "airchains-testnet-grpc.cosmonautstakes.com:14190"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://airchains.api.t.stavr.tech/"
 }

@@ -14,6 +14,6 @@ class ChainLumeraTestnet : ChainLumera(), Parcelable {
     override var apiName: String = "lumera-testnet"
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var grpcHost: String = "grpc.testnet.lumera.io"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://api-t.lumera.nodestake.org/"
 }

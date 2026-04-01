@@ -24,7 +24,7 @@ class ChainQubeticsEvmTestnet : ChainQubeticsEvm(), Parcelable {
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "tics"
-    override var grpcHost: String = "grpc-testnet.qubetics.work"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://swagger-testnet.qubetics.work/"
 
     override var evmRpcURL: String = "https://rpc-testnet.qubetics.work"
