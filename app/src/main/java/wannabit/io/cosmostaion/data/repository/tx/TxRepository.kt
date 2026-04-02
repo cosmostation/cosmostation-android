@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.content.Context
 import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.tx.v1beta1.TxProto.Fee
 import com.gno.bank.BankProto.MsgSend
@@ -177,11 +178,11 @@ interface TxRepository {
     ): NetworkResult<String>
 
     suspend fun unsafeStake(
-        fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
     ): NetworkResult<String>
 
     suspend fun unsafeUnStake(
-        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String>
 
     suspend fun suiDryRun(fetcher: SuiFetcher, txBytes: String): NetworkResult<JsonObject>
@@ -225,6 +226,7 @@ interface TxRepository {
     ): String
 
     suspend fun broadcastSuiStake(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         validator: String,
@@ -234,10 +236,11 @@ interface TxRepository {
     ): JsonObject
 
     suspend fun simulateSuiStake(
-        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String
 
     suspend fun broadcastSuiUnStake(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         objectId: String,
@@ -246,7 +249,7 @@ interface TxRepository {
     ): JsonObject
 
     suspend fun simulateSuiUnStake(
-        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): String
 
 
@@ -314,6 +317,7 @@ interface TxRepository {
     ): String
 
     suspend fun broadcastIotaStake(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         validator: String,
@@ -323,10 +327,11 @@ interface TxRepository {
     ): JsonObject
 
     suspend fun simulateIotaStake(
-        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String
 
     suspend fun broadcastIotaUnStake(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         objectId: String,
@@ -335,15 +340,15 @@ interface TxRepository {
     ): JsonObject
 
     suspend fun simulateIotaUnStake(
-        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ): String
 
     suspend fun unsafeIotaStake(
-        fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
     ): NetworkResult<String>
 
     suspend fun unsafeIotaUnStake(
-        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String>
 
 

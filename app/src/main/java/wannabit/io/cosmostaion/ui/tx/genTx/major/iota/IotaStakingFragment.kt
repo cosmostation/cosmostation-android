@@ -288,7 +288,7 @@ class IotaStakingFragment : BaseTxFragment() {
                 iotaFetcher?.let { fetcher ->
                     toValidator?.get("iotaAddress")?.asString?.let { validator ->
                         txViewModel.iotaStakeSimulate(
-                            fetcher, mainAddress, toStakeAmount, validator, iotaFeeBudget.toString()
+                            requireContext(), fetcher, mainAddress, toStakeAmount, validator, iotaFeeBudget.toString()
                         )
                     }
                 }
@@ -318,6 +318,7 @@ class IotaStakingFragment : BaseTxFragment() {
                     iotaFetcher?.let { fetcher ->
                         toValidator?.get("iotaAddress")?.asString?.let { validator ->
                             txViewModel.iotaStakeBroadcast(
+                                requireContext(),
                                 fetcher,
                                 mainAddress,
                                 toStakeAmount,

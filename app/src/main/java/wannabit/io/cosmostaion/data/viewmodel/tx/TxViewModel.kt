@@ -626,6 +626,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiStakeBroadcast(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         validator: String,
@@ -635,7 +636,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastSuiStake(
-                fetcher, sender, validator, amount, gasBudget, selectedChain
+                context, fetcher, sender, validator, amount, gasBudget, selectedChain
             )
             if (response["error"] == null) {
                 suiBroadcast.postValue(response)
@@ -649,11 +650,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiStakeSimulate(
-        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateSuiStake(
-                fetcher, sender, amount, validator, gasBudget
+                context, fetcher, sender, amount, validator, gasBudget
             )
 
             if (response.toLongOrNull() != null) {
@@ -668,6 +669,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiUnStakeBroadcast(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         objectId: String,
@@ -676,7 +678,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastSuiUnStake(
-                fetcher, sender, objectId, gasBudget, selectedChain
+                context, fetcher, sender, objectId, gasBudget, selectedChain
             )
             if (response["error"] == null) {
                 suiBroadcast.postValue(response)
@@ -690,11 +692,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiUnStakeSimulate(
-        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateSuiUnStake(
-                fetcher, sender, objectId, gasBudget
+                context, fetcher, sender, objectId, gasBudget
             )
 
             if (response.toLongOrNull() != null) {
@@ -802,6 +804,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun iotaStakeBroadcast(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         validator: String,
@@ -811,7 +814,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastIotaStake(
-                fetcher, sender, validator, amount, gasBudget, selectedChain
+                context, fetcher, sender, validator, amount, gasBudget, selectedChain
             )
             if (response["error"] == null) {
                 iotaBroadcast.postValue(response)
@@ -825,11 +828,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun iotaStakeSimulate(
-        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateIotaStake(
-                fetcher, sender, amount, validator, gasBudget
+                context, fetcher, sender, amount, validator, gasBudget
             )
 
             if (response.toLongOrNull() != null) {
@@ -844,6 +847,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun iotaUnStakeBroadcast(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         objectId: String,
@@ -852,7 +856,7 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastIotaUnStake(
-                fetcher, sender, objectId, gasBudget, selectedChain
+                context, fetcher, sender, objectId, gasBudget, selectedChain
             )
             if (response["error"] == null) {
                 iotaBroadcast.postValue(response)
@@ -866,11 +870,11 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun iotaUnStakeSimulate(
-        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateIotaUnStake(
-                fetcher, sender, objectId, gasBudget
+                context, fetcher, sender, objectId, gasBudget
             )
 
             if (response.toLongOrNull() != null) {

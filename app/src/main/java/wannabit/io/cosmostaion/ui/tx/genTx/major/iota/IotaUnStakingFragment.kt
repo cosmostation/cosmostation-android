@@ -64,10 +64,11 @@ class IotaUnStakingFragment(
 
     private fun initView() {
         binding.apply {
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
-                titleUnstakeImg.setTokenImg(asset)
-                titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
+                ?.let { asset ->
+                    titleUnstakeImg.setTokenImg(asset)
+                    titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
+                }
 
             listOf(stakeCoinView, feeView).forEach {
                 it.setBackgroundResource(
@@ -148,13 +149,14 @@ class IotaUnStakingFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())?.let { asset ->
-                feeTokenImg.setTokenImg(asset)
-                feeToken.text = asset.symbol
-                iotaFeeBudget =
-                    (selectedChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_UNSTAKE)
-                updateFeeView()
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())
+                ?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
+                    iotaFeeBudget =
+                        (selectedChain as ChainIota).iotaFetcher?.iotaBaseFee(IotaTxType.IOTA_UNSTAKE)
+                    updateFeeView()
+                }
         }
     }
 
@@ -203,7 +205,11 @@ class IotaUnStakingFragment(
                 iotaFetcher?.let { fetcher ->
                     staked.second.get("stakedIotaId").asString?.let { objectId ->
                         txViewModel.iotaUnStakeSimulate(
-                            fetcher, mainAddress, objectId, iotaFeeBudget.toString()
+                            requireContext(),
+                            fetcher,
+                            mainAddress,
+                            objectId,
+                            iotaFeeBudget.toString()
                         )
                     }
                 }
@@ -233,7 +239,12 @@ class IotaUnStakingFragment(
                     iotaFetcher?.let { fetcher ->
                         staked?.second?.get("stakedIotaId")?.asString?.let { objectId ->
                             txViewModel.iotaUnStakeBroadcast(
-                                fetcher, mainAddress, objectId, iotaFeeBudget.toString(), this
+                                requireContext(),
+                                fetcher,
+                                mainAddress,
+                                objectId,
+                                iotaFeeBudget.toString(),
+                                this
                             )
                         }
                     }

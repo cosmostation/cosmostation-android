@@ -116,7 +116,12 @@ object BitcoinJs {
     }
 
     fun executeFunction(functionCall: String): String? {
-        return jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
+        val result = jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
+        return if (result.isNullOrBlank()) {
+            null
+        } else {
+            result
+        }
     }
 
     fun mergeFunction(createTx: String) {

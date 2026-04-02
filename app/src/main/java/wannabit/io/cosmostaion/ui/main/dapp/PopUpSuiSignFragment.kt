@@ -26,9 +26,7 @@ import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setImg
-import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
-import wannabit.io.cosmostaion.data.model.req.MoveTransactionBlock
 import wannabit.io.cosmostaion.databinding.FragmentSuiSignBinding
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
@@ -97,7 +95,7 @@ class PopUpSuiSignFragment(
                     if (method == "sui_signMessage") {
                         val messageBytes = Base64.decode(txJsonObject["message"].asString)
                         updateData = txJsonObject["message"].asString
-                        signature = Signer.moveSignature(
+                        signature = Signer.messageMoveSignature(
                             selectedChain as ChainSui, txJsonObject["message"].asString
                         )[0]
 
@@ -114,19 +112,13 @@ class PopUpSuiSignFragment(
                             txJsonObject["transactionBlockSerialized"].asString,
                             JsonObject::class.java
                         )
+                        val buildHexString = txJsonObject["buildHexString"].asString
+
                         var format = ""
                         var gasCost = BigDecimal.ZERO
 
-                        val response = RetrofitInstance.moveApi.transactionBlock(
-                            MoveTransactionBlock(
-                                txJsonObject["transactionBlockSerialized"].asString,
-                                mainAddress,
-                                fetcher.suiRpc()
-                            )
-                        )
-
-                        if (response.isSuccessful) {
-                            val txBytes = Base64.toBase64String(Utils.hexToBytes(response.body()))
+                        if (buildHexString.isNotEmpty()) {
+                            val txBytes = Base64.toBase64String(Utils.hexToBytes(buildHexString))
                             val suiDryRunRequest = JsonRpcRequest(
                                 method = "sui_dryRunTransactionBlock", params = listOf(txBytes)
                             )

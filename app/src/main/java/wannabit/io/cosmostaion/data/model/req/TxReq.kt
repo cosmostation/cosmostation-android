@@ -8,18 +8,3 @@ data class BroadcastTxReq(
     val mode: Int, val tx_bytes: String
 )
 
-//Sui
-data class MoveStakeReq(
-    val address: String,
-    val validatorAddress: String?,
-    val gas: String,
-    val amount: String,
-    val rpc: String
-)
-
-data class MoveUnStakeReq(
-    val address: String, val objectId: String?, val gas: String, val rpc: String
-)
-
-data class MoveTransactionBlock(val txBlock: String, val address: String, val rpc: String)
-
