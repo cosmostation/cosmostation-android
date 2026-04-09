@@ -1046,7 +1046,7 @@ class WalletRepositoryImpl : WalletRepository {
 
     override suspend fun ecoSystemInfo(): NetworkResult<MutableList<JsonObject>> {
         return safeApiCall(Dispatchers.IO) {
-            mintscanJsonApi.ecoSystemInfo()
+            githubApi.ecoSystemInfo()
         }
     }
 

@@ -24,6 +24,6 @@ class ChainQuicksilver : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uqck"
     override var accountPrefix: String = "quick"
-    override var grpcHost: String = "quicksilver.tdrsys.com:2083"
-    override var lcdUrl: String = "https://lcd.quicksilver.zone/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://quicksilver.tdrsys.com/"
 }

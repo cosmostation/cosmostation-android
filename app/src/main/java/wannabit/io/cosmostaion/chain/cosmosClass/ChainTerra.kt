@@ -25,5 +25,5 @@ class ChainTerra : BaseChain(), Parcelable {
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
     override var grpcHost: String = "erra2.tdrsys.com:2083"
-    override var lcdUrl: String = "https://terra2.tdrsys.com/"
+    override var lcdUrl: String = "https://terra-api.cosmosrescue.dev/"
 }

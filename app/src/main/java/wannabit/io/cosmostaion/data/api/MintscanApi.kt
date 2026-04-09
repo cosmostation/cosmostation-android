@@ -92,7 +92,7 @@ interface MintscanApi {
     @GET("ad_list.json")
     suspend fun adsInfo(): AdsResponse
 
-    @GET("v11/dapp")
+    @GET("eco_list.json")
     suspend fun ecoSystemInfo(): MutableList<JsonObject>
 
     @GET("v10/notice?include_content=true&flatform=MOBILE")

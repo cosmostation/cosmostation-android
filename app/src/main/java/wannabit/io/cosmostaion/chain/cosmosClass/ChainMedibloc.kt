@@ -25,5 +25,5 @@ class ChainMedibloc : BaseChain(), Parcelable {
     override var stakeDenom: String = "umed"
     override var accountPrefix: String = "panacea"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.gopanacea.org/"
+    override var lcdUrl: String = "https://lcd-medibloc.imperator.co/"
 }
