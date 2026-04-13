@@ -10,7 +10,7 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainCheqd : BaseChain(), Parcelable {
+open class ChainCheqd : BaseChain(), Parcelable {
 
     override var name: String = "Cheqd"
     override var tag: String = "cheqd118"
