@@ -25,5 +25,5 @@ class ChainAxelar : BaseChain(), Parcelable {
     override var stakeDenom: String = "uaxl"
     override var accountPrefix: String = "axelar"
     override var grpcHost: String = "axelar.grpc.stakin-nodes.com"
-    override var lcdUrl: String = "https://axelar-rest.staketab.org/"
+    override var lcdUrl: String = "https://lcd-axelar.imperator.co/"
 }

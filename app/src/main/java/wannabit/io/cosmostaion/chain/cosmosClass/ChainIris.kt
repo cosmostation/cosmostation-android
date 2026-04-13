@@ -26,5 +26,5 @@ class ChainIris : BaseChain(), Parcelable {
     override var stakeDenom: String = "uiris"
     override var accountPrefix: String = "iaa"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://iris-api.highstakes.ch/"
+    override var lcdUrl: String = "https://mainnet-iris-api.konsortech.xyz/"
 }
