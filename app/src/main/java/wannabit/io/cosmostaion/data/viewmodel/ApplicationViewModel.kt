@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cosmos.base.v1beta1.CoinProto
+import com.cosmos.base.v1beta1.CoinProto.DecCoin
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import io.grpc.ManagedChannel
@@ -22,6 +23,7 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainCheqd
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -562,7 +564,13 @@ class ApplicationViewModel(
                                 apiName, baseFee.denom
                             ) != null
                         ) {
-                            cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                            if (chain is ChainCheqd) {
+                                val baseFeeAmount = baseFee.amount.toBigDecimal().movePointRight(4).toString()
+                                val tempBaseFee = DecCoin.newBuilder().setDenom(baseFee.denom).setAmount(baseFeeAmount).build()
+                                cosmosFetcher?.cosmosBaseFees?.add(tempBaseFee)
+                            } else {
+                                cosmosFetcher?.cosmosBaseFees?.add(baseFee)
+                            }
                         }
                     }
                     cosmosFetcher?.cosmosBaseFees?.sortWith { o1, o2 ->
