@@ -21,7 +21,7 @@ class ChainInjectiveEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "inj"
     override var accountPrefix: String = "inj"
     override var grpcHost: String = "sentry.chain.grpc.injective.network"

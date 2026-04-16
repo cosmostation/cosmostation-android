@@ -1245,8 +1245,7 @@ object Signer {
     }
 
     fun messageMoveSignature(selectedChain: BaseChain, txByte: String): MutableList<String> {
-        val test = "U2lnbiBpbiB3aXRoIE5vdGlmaSAKCiAgICBObyBwYXNzd29yZCBuZWVkZWQgb3IgZ2FzIGlzIG5lZWRlZC4gCgogICAgQ2xpY2tpbmcg4oCcQXBwcm92ZeKAnSBvbmx5IG1lYW5zIHlvdSBoYXZlIHByb3ZlZCB0aGlzIHdhbGxldCBpcyBvd25lZCBieSB5b3UhIAoKICAgIFRoaXMgcmVxdWVzdCB3aWxsIG5vdCB0cmlnZ2VyIGFueSB0cmFuc2FjdGlvbiBvciBjb3N0IGFueSBnYXMgZmVlcy4gCgogICAgVXNlIG9mIG91ciB3ZWJzaXRlIGFuZCBzZXJ2aWNlIGlzIHN1YmplY3QgdG8gb3VyIHRlcm1zIG9mIHNlcnZpY2UgYW5kIHByaXZhY3kgcG9saWN5LiAKIAogJ05vbmNlOicgMHgyNjk0YTg4MjBjOTgxNTk1ZWY3ODg4NWVhMGNiMWVkYWQ3NTQ3YzE2NWQ3MTc3ZWU0YWQ0Mzg3NDc1ZjAxYTNkc3VpbnMxNzc1MTE1NDkz"
-        val messageBytes = Base64.decode(test)
+        val messageBytes = Base64.decode(txByte)
         val lengthPrefix = encodeULEB128(messageBytes.size)
 
         val data = byteArrayOf(3, 0, 0) + lengthPrefix + messageBytes
