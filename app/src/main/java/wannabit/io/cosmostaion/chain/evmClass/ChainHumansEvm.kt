@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -22,13 +21,13 @@ class ChainHumansEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "aheart"
     override var accountPrefix: String = "human"
-    override var grpcHost: String = "grpc-humans.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-humans.cosmostation.io/"
+    override var grpcHost: String = "grpc.humans.nodestake.top"
+    override var lcdUrl: String = "https://humans-mainnet-api.itrocket.net/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "HEART"
-    override var evmRpcURL: String = "https://rpc-humans-evm.cosmostation.io"
+    override var evmRpcURL: String = "https://jsonrpc.humans.nodestake.top"
 }

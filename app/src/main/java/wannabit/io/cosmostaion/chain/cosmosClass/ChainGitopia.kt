@@ -24,6 +24,6 @@ class ChainGitopia : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ulore"
     override var accountPrefix: String = "gitopia"
-    override var grpcHost: String = "gitopia.lavenderfive.com"
+    override var grpcHost: String = "gitopia.grpc.liveraven.net"
     override var lcdUrl: String = "https://rest.cosmos.directory/gitopia/"
 }

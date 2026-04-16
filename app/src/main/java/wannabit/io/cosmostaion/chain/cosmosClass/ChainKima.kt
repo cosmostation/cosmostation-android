@@ -21,9 +21,9 @@ class ChainKima : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uKIMA"
     override var accountPrefix: String = "kima"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.kima.network/"
+    override var grpcHost: String = "grpc.kima.network"
+    override var lcdUrl: String = ""
 }

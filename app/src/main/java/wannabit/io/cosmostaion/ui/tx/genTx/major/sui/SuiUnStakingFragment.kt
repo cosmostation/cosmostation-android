@@ -203,7 +203,7 @@ class SuiUnStakingFragment(
                 suiFetcher()?.let { fetcher ->
                     staked.second.get("stakedSuiId").asString?.let { objectId ->
                         txViewModel.suiUnStakeSimulate(
-                            fetcher, mainAddress, objectId, suiFeeBudget.toString()
+                            requireContext(), fetcher, mainAddress, objectId, suiFeeBudget.toString()
                         )
                     }
                 }
@@ -233,7 +233,7 @@ class SuiUnStakingFragment(
                     suiFetcher()?.let { fetcher ->
                         staked?.second?.get("stakedSuiId")?.asString?.let { objectId ->
                             txViewModel.suiUnStakeBroadcast(
-                                fetcher, mainAddress, objectId, suiFeeBudget.toString(), this
+                                requireContext(), fetcher, mainAddress, objectId, suiFeeBudget.toString(), this
                             )
                         }
                     }

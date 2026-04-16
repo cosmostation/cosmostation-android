@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -26,7 +25,7 @@ class ChainRealioEvm : BaseChain(), Parcelable {
     override var stakeDenom: String = "ario"
     override var accountPrefix: String = "realio"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api-realio-network.nodeist.net/"
+    override var lcdUrl: String = "https://realio.api.m.stavr.tech/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "RIO"

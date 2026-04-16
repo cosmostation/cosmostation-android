@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -26,5 +25,5 @@ class ChainAssetMantle : BaseChain(), Parcelable {
     override var stakeDenom: String = "umntl"
     override var accountPrefix: String = "mantle"
     override var grpcHost: String = "assetmantle-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://assetmantle-api.polkachu.com/"
+    override var lcdUrl: String = "https://assetmantle-rest.stakerhouse.com/"
 }

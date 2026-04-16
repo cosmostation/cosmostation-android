@@ -7,8 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-object SolanaJs {
+object SuiJS {
     private var jsIsolate: JavaScriptIsolate? = null
     private var initializationDeferred: CompletableDeferred<Boolean>? = null
     private var isInitialized: Boolean = false
@@ -21,7 +20,7 @@ object SolanaJs {
                 val sandbox = JsSandboxManager.getSandbox(context)
                 jsIsolate = sandbox.createIsolate()
 
-                val jsCode = context.assets.open("solana.js")
+                val jsCode = context.assets.open("sui.js")
                     .bufferedReader().use { it.readText() }
                 jsIsolate?.evaluateJavaScriptAsync(jsCode)?.get()
 

@@ -1220,19 +1220,30 @@ class DappActivity : BaseActivity() {
 
                             val accountJson = JSONObject()
                             accountJson.put("isLedger", false)
-                            accountJson.put("isEthermint", chain?.supportEvm)
-                            accountJson.put("address", chain?.address)
+                            accountJson.put("isEthermint", chain?.supportEvm ?: false)
+                            accountJson.put("address", chain?.address ?: "")
                             accountJson.put("name", account.name)
-                            accountJson.put("publicKey", chain?.publicKey?.bytesToHex())
+                            accountJson.put("publicKey", chain?.publicKey?.bytesToHex() ?: "")
                             appToWebResult(messageJson, accountJson, messageId)
+
+                            if (selectedChain == null) {
+                                makeToast(getString(R.string.error_not_support_chain) + " " + chainId)
+                            }
                         }
                     }
                 }
 
                 "cos_supportedChainIds" -> {
                     lifecycleScope.launch(Dispatchers.IO) {
-                        val supportChainIds =
-                            allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
+                        val supportChainIds = BaseData.chainParam?.entrySet()?.mapNotNull {
+                            it.value.asJsonObject["params"]
+                                ?.asJsonObject
+                                ?.get("chainlist_params")
+                                ?.asJsonObject
+                                ?.get("chain_id_cosmos")
+                                ?.asString
+                        }
+                            ?: allChains?.filter { it.supportCosmos() && it.chainIdCosmos.isNotEmpty() }
                                 ?.map { it.chainIdCosmos }?.distinct()
 
                         if (supportChainIds?.isNotEmpty() == true) {
@@ -1251,6 +1262,7 @@ class DappActivity : BaseActivity() {
                     val supportChainNames = allChains?.filter {
                         it.supportCosmos() && it.name.lowercase().isNotEmpty()
                     }?.map { it.name.lowercase() }?.distinct()
+
                     if (supportChainNames?.isNotEmpty() == true) {
                         val dataJson = JSONObject()
                         dataJson.put("official", JSONArray(supportChainNames))
@@ -1756,6 +1768,18 @@ class DappActivity : BaseActivity() {
                     )
                 }
 
+                "sui_basicParam" -> {
+                    if (selectSuiChain == null) {
+                        selectSuiChain = allChains?.find { it.name == "Sui" }
+                    }
+                    val chainJson = JSONObject()
+                    chainJson.put("rpc", (selectSuiChain as ChainSui).suiFetcher()?.suiRpc())
+                    chainJson.put("address", (selectSuiChain as ChainSui).mainAddress)
+                    appToWebResult(
+                        messageJson, chainJson, messageId
+                    )
+                }
+
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
@@ -1840,6 +1864,18 @@ class DappActivity : BaseActivity() {
                     selectIotaChain = allChains?.find { it.name == "Iota" }
                     appToWebResult(
                         messageJson, "mainnet", messageId
+                    )
+                }
+
+                "iota_basicParam" -> {
+                    if (selectIotaChain == null) {
+                        selectIotaChain = allChains?.find { it.name == "Iota" }
+                    }
+                    val chainJson = JSONObject()
+                    chainJson.put("rpc", (selectIotaChain as ChainIota).iotaFetcher()?.iotaRpc())
+                    chainJson.put("address", (selectIotaChain as ChainIota).mainAddress)
+                    appToWebResult(
+                        messageJson, chainJson, messageId
                     )
                 }
 

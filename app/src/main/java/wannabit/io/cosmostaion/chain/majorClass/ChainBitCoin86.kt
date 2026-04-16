@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
@@ -30,7 +29,7 @@ open class ChainBitCoin86 : BaseChain(), Parcelable {
 
     override var coinSymbol: String = "BTC"
 
-    override var mainUrl: String = "https://rpc-office.cosmostation.io/bitcoin-mainnet"
+    override var mainUrl: String = "https://bitcoin-mainnet.gateway.tatum.io"
     override var apiUrl: String = "https://staking-api.babylonlabs.io"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {

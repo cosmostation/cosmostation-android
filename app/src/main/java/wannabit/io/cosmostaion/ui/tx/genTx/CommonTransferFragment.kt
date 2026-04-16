@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.fetcher.OP_RETURN
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
 import wannabit.io.cosmostaion.chain.majorClass.APTOS_DEFAULT_FEE
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
@@ -1145,10 +1144,12 @@ class CommonTransferFragment : BaseTxFragment() {
             feeSegment.setOnPositionChangedListener { position ->
                 selectedFeePosition = position
                 if (transferStyle == TransferStyle.COSMOS_STYLE) {
+                    val ctx = context ?: return@setOnPositionChangedListener
+
                     fromChain.apply {
                         cosmosTxFee =
-                            if (fromChain.cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
-                                val baseFee = fromChain.cosmosFetcher?.cosmosBaseFees?.firstOrNull {
+                            if (cosmosFetcher?.cosmosBaseFees?.isNotEmpty() == true) {
+                                val baseFee = cosmosFetcher?.cosmosBaseFees?.firstOrNull {
                                     it.denom == cosmosTxFee?.getAmount(0)?.denom
                                 }
                                 val gasAmount = cosmosTxFee?.gasLimit?.toBigDecimal()
@@ -1164,8 +1165,8 @@ class CommonTransferFragment : BaseTxFragment() {
                                 Signer.setFee(selectedFeePosition, cosmosTxFee)
 
                             } else {
-                                fromChain.getBaseFee(
-                                    requireContext(),
+                                getBaseFee(
+                                    ctx,
                                     selectedFeePosition,
                                     cosmosTxFee?.getAmount(0)?.denom
                                 )
@@ -1720,24 +1721,25 @@ class CommonTransferFragment : BaseTxFragment() {
 
     private fun setUpUtxo() {
         txViewModel.bitTxDataResult.observe(viewLifecycleOwner) { bitData ->
-            lifecycleScope.launch(Dispatchers.IO) {
-                (fromChain as ChainBitCoin86).apply {
-                    utxo = bitData.first
-                    bitGasRate = bitData.second.toBigDecimal()
-                    bitVBytesFee = btcFetcher()?.bitVBytesFee(utxo, txMemo)
-                    bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
-                        .setScale(0, RoundingMode.UP)
+            viewLifecycleOwner.lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    (fromChain as ChainBitCoin86).apply {
+                        utxo = bitData.first
+                        bitGasRate = bitData.second.trim().toBigDecimalOrNull() ?: BigDecimal.ZERO
+                        bitVBytesFee = btcFetcher()?.bitVBytesFee(utxo, txMemo)
+                        bitFee = bitGasRate.multiply(bitVBytesFee).movePointRight(5)
+                            .setScale(0, RoundingMode.UP)
 
-                    availableAmount = if (bitFee >= btcFetcher?.btcBalances) {
-                        BigDecimal.ZERO
-                    } else {
-                        btcFetcher?.btcBalances?.subtract(bitFee)
+                        availableAmount = if (bitFee >= btcFetcher?.btcBalances) {
+                            BigDecimal.ZERO
+                        } else {
+                            btcFetcher?.btcBalances?.subtract(bitFee)
+                        }
                     }
                 }
-                withContext(Dispatchers.Main) {
-                    binding.backdropLayout.visibility = View.GONE
-                    updateFeeView()
-                }
+
+                binding.backdropLayout.visibility = View.GONE
+                updateFeeView()
             }
         }
     }

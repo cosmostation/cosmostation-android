@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
@@ -26,6 +25,6 @@ class ChainNeutronTestnet : ChainNeutron(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "untrn"
     override var accountPrefix: String = "neutron"
-    override var grpcHost: String = "grpc-office-neutron.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-office.cosmostation.io/neutron-testnet/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://rest-falcron.pion-1.ntrn.tech/"
 }

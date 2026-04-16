@@ -24,5 +24,5 @@ class ChainZeroGravityEvmTestnet : ChainZeroGravity(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://evmrpc-testnet.0g.ai/"
+    override var evmRpcURL: String = "https://evmrpc-testnet.0g.ai"
 }

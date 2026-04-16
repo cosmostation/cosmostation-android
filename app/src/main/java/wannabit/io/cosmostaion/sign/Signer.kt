@@ -80,7 +80,6 @@ import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainGovgen
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
@@ -487,7 +486,6 @@ object Signer {
     fun voteMsg(chain: BaseChain, msgVotes: MutableList<TxProto.MsgVote?>?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         val typeUrl = when (chain) {
-            is ChainGovgen -> "/govgen.gov.v1beta1.MsgVote"
             is ChainAtomone -> "/atomone.gov.v1beta1.MsgVote"
             else -> "/cosmos.gov.v1beta1.MsgVote"
         }
@@ -1244,6 +1242,34 @@ object Signer {
         signature.initSign(EdDSAPrivateKey(privateKeySpec))
         signature.update(blake2b.digest())
         return mutableListOf(toBase64String((byteArrayOf(0x00) + signature.sign() + selectedChain.publicKey!!)))
+    }
+
+    fun messageMoveSignature(selectedChain: BaseChain, txByte: String): MutableList<String> {
+        val messageBytes = Base64.decode(txByte)
+        val lengthPrefix = encodeULEB128(messageBytes.size)
+
+        val data = byteArrayOf(3, 0, 0) + lengthPrefix + messageBytes
+        val blake2b = Blake2b.Blake2b256()
+        blake2b.update(data)
+        val spec: EdDSAParameterSpec = EdDSANamedCurveTable.getByName(EdDSANamedCurveTable.ED_25519)
+        val privateKeySpec =
+            EdDSAPrivateKeySpec(Hex.decode(selectedChain.privateKey?.toHex()), spec)
+        val signature = EdDSAEngine(MessageDigest.getInstance(spec.hashAlgorithm))
+        signature.initSign(EdDSAPrivateKey(privateKeySpec))
+        signature.update(blake2b.digest())
+        return mutableListOf(toBase64String((byteArrayOf(0x00) + signature.sign() + selectedChain.publicKey!!)))
+    }
+
+    private fun encodeULEB128(value: Int): ByteArray {
+        var v = value
+        val result = mutableListOf<Byte>()
+        do {
+            var byte = (v and 0x7F).toByte()
+            v = v ushr 7
+            if (v != 0) byte = (byte.toInt() or 0x80).toByte()
+            result.add(byte)
+        } while (v != 0)
+        return result.toByteArray()
     }
 
     fun gnoDappSignedMsg(param: JsonObject): MutableList<Any> {

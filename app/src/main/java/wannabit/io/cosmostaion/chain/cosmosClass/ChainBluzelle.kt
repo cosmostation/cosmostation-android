@@ -24,6 +24,6 @@ class ChainBluzelle : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ubnt"
     override var accountPrefix: String = "bluzelle"
-    override var grpcHost: String = "a.client.sentry.net.bluzelle.com:9090"
-    override var lcdUrl: String = "https://b.client.sentry.net.bluzelle.com:1317/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://a.client.sentry.net.bluzelle.com:1317/"
 }

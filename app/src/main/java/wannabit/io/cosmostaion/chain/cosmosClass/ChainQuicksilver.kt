@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,6 +24,6 @@ class ChainQuicksilver : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uqck"
     override var accountPrefix: String = "quick"
-    override var grpcHost: String = "quicksilver-grpc.stake-town.com"
-    override var lcdUrl: String = "https://lcd.quicksilver.zone/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://mainnet-quicksilver-api.konsortech.xyz/"
 }

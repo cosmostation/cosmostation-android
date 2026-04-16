@@ -25,6 +25,6 @@ class ChainTerraClassicTestnet : ChainTerraClassic(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
-    override var grpcHost: String = "rebel-rpc.luncgoblins.com"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://rebel-lcd.luncgoblins.com/"
 }

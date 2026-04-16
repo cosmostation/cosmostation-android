@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.data.repository.tx
 
+import android.content.Context
 import com.cosmos.auth.v1beta1.QueryGrpc
 import com.cosmos.auth.v1beta1.QueryProto.QueryAccountRequest
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -76,8 +77,6 @@ import wannabit.io.cosmostaion.data.model.req.EstimateGasParams
 import wannabit.io.cosmostaion.data.model.req.ICNSInfoReq
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.data.model.req.LFee
-import wannabit.io.cosmostaion.data.model.req.MoveStakeReq
-import wannabit.io.cosmostaion.data.model.req.MoveUnStakeReq
 import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.req.NSArchwayReq
 import wannabit.io.cosmostaion.data.model.req.NSStargazeInfoReq
@@ -89,6 +88,7 @@ import wannabit.io.cosmostaion.data.model.res.Token
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.sign.SolanaJs
+import wannabit.io.cosmostaion.sign.SuiJS
 import wannabit.io.cosmostaion.ui.tx.genTx.SendAssetType
 import xyz.mcxross.kaptos.account.Account
 import xyz.mcxross.kaptos.core.crypto.Ed25519PrivateKey
@@ -1609,14 +1609,19 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun unsafeStake(
-        fetcher: SuiFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        amount: String,
+        validator: String?,
+        gasBudget: String
     ): NetworkResult<String> {
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
+
         return try {
-            val response = RetrofitInstance.moveApi.unSafeStake(
-                MoveStakeReq(
-                    sender, validator, gasBudget, amount, fetcher.suiRpc()
-                )
-            )
+            val response = fetcher.buildStakingRequest(SuiJS, amount, validator)
             safeApiCall(Dispatchers.IO) {
                 Base64.toBase64String(Utils.hexToBytes(response))
             }
@@ -1629,14 +1634,14 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun unsafeUnStake(
-        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String> {
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
+
         return try {
-            val response = RetrofitInstance.moveApi.unSafeUnStake(
-                MoveUnStakeReq(
-                    sender, objectId, gasBudget, fetcher.suiRpc()
-                )
-            )
+            val response = fetcher.buildUnstakingRequest(SuiJS, objectId)
             safeApiCall(Dispatchers.IO) {
                 Base64.toBase64String(Utils.hexToBytes(response))
             }
@@ -1857,6 +1862,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastSuiStake(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         validator: String,
@@ -1865,7 +1871,7 @@ class TxRepositoryImpl : TxRepository {
         selectedChain: BaseChain
     ): JsonObject {
         try {
-            val txBytes = unsafeStake(fetcher, sender, validator, amount, gasBudget)
+            val txBytes = unsafeStake(context, fetcher, sender, validator, amount, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
@@ -1886,10 +1892,15 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateSuiStake(
-        fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        amount: String,
+        validator: String,
+        gasBudget: String
     ): String {
         try {
-            val txBytes = unsafeStake(fetcher, sender, amount, validator, gasBudget)
+            val txBytes = unsafeStake(context, fetcher, sender, amount, validator, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
@@ -1926,6 +1937,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastSuiUnStake(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
         objectId: String,
@@ -1933,7 +1945,7 @@ class TxRepositoryImpl : TxRepository {
         selectedChain: BaseChain
     ): JsonObject {
         try {
-            val txBytes = unsafeUnStake(fetcher, sender, objectId, gasBudget)
+            val txBytes = unsafeUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val dryRes = suiDryRun(fetcher, txBytes.data)
@@ -1954,10 +1966,10 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateSuiUnStake(
-        fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): String {
         try {
-            val txBytes = unsafeUnStake(fetcher, sender, objectId, gasBudget)
+            val txBytes = unsafeUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val response = suiDryRun(fetcher, txBytes.data)
@@ -2287,6 +2299,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastIotaStake(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         validator: String,
@@ -2295,7 +2308,7 @@ class TxRepositoryImpl : TxRepository {
         selectedChain: BaseChain
     ): JsonObject {
         try {
-            val txBytes = unsafeIotaStake(fetcher, sender, validator, amount, gasBudget)
+            val txBytes = unsafeIotaStake(context, fetcher, sender, validator, amount, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val dryRes = iotaDryRun(fetcher, txBytes.data)
@@ -2316,10 +2329,10 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateIotaStake(
-        fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
     ): String {
         try {
-            val txBytes = unsafeIotaStake(fetcher, sender, amount, validator, gasBudget)
+            val txBytes = unsafeIotaStake(context, fetcher, sender, amount, validator, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val response = iotaDryRun(fetcher, txBytes.data)
@@ -2356,6 +2369,7 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastIotaUnStake(
+        context: Context,
         fetcher: IotaFetcher,
         sender: String,
         objectId: String,
@@ -2363,7 +2377,7 @@ class TxRepositoryImpl : TxRepository {
         selectedChain: BaseChain
     ): JsonObject {
         try {
-            val txBytes = unsafeIotaUnStake(fetcher, sender, objectId, gasBudget)
+            val txBytes = unsafeIotaUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val dryRes = iotaDryRun(fetcher, txBytes.data)
@@ -2384,10 +2398,10 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateIotaUnStake(
-        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ): String {
         try {
-            val txBytes = unsafeIotaUnStake(fetcher, sender, objectId, gasBudget)
+            val txBytes = unsafeIotaUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
                 val response = iotaDryRun(fetcher, txBytes.data)
@@ -2424,14 +2438,19 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun unsafeIotaStake(
-        fetcher: IotaFetcher, sender: String, amount: String, validator: String?, gasBudget: String
+        context: Context,
+        fetcher: IotaFetcher,
+        sender: String,
+        amount: String,
+        validator: String?,
+        gasBudget: String
     ): NetworkResult<String> {
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
+
         return try {
-            val response = RetrofitInstance.moveApi.unSafeIotaStake(
-                MoveStakeReq(
-                    sender, validator, gasBudget, amount, fetcher.iotaRpc()
-                )
-            )
+            val response = fetcher.buildStakingRequest(SuiJS, amount, validator)
             safeApiCall(Dispatchers.IO) {
                 Base64.toBase64String(Utils.hexToBytes(response))
             }
@@ -2444,21 +2463,21 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun unsafeIotaUnStake(
-        fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
+        context: Context, fetcher: IotaFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String> {
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
+
         return try {
-            val response = RetrofitInstance.moveApi.unSafeIotaUnStake(
-                MoveUnStakeReq(
-                    sender, objectId, gasBudget, fetcher.iotaRpc()
-                )
-            )
+            val response = fetcher.buildUnstakingRequest(SuiJS, objectId)
             safeApiCall(Dispatchers.IO) {
                 Base64.toBase64String(Utils.hexToBytes(response))
             }
 
         } catch (e: Exception) {
             safeApiCall(Dispatchers.IO) {
-                ""
+                e.message.toString()
             }
         }
     }

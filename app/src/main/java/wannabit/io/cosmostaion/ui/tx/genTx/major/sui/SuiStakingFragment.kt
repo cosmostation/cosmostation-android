@@ -286,7 +286,7 @@ class SuiStakingFragment : BaseTxFragment() {
                 suiFetcher()?.let { fetcher ->
                     toValidator?.get("suiAddress")?.asString?.let { validator ->
                         txViewModel.suiStakeSimulate(
-                            fetcher, mainAddress, toStakeAmount, validator, suiFeeBudget.toString()
+                            requireContext(), fetcher, mainAddress, toStakeAmount, validator, suiFeeBudget.toString()
                         )
                     }
                 }
@@ -316,6 +316,7 @@ class SuiStakingFragment : BaseTxFragment() {
                     suiFetcher()?.let { fetcher ->
                         toValidator?.get("suiAddress")?.asString?.let { validator ->
                             txViewModel.suiStakeBroadcast(
+                                requireContext(),
                                 fetcher,
                                 mainAddress,
                                 toStakeAmount,

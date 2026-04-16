@@ -24,7 +24,7 @@ class ChainEpixEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "aepix"
     override var accountPrefix: String = "epix"
-    override var grpcHost: String = "grpc.epix.zone:15067"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://api.epix.zone/"
 
     override var supportEvm: Boolean = true

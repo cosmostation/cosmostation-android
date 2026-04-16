@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
+import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_FEE_SEND
@@ -8,7 +10,10 @@ import wannabit.io.cosmostaion.chain.majorClass.IOTA_FEE_UNSTAKE
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_TYPE_COIN
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.sign.SuiJS
 import wannabit.io.cosmostaion.ui.tx.genTx.IotaTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -159,6 +164,96 @@ class IotaFetcher(private val chain: BaseChain) {
             endpoint
         } else {
             chain.mainUrl
+        }
+    }
+
+    private fun referenceGasPrice(): String {
+        val iotaxReferenceGasPriceRequest =
+            JsonRpcRequest(method = "iotax_getReferenceGasPrice", params = listOf())
+        val iotaxReferenceGasPriceResponse = jsonRpcResponse(
+            iotaRpc(), iotaxReferenceGasPriceRequest
+        )
+        val iotaxReferenceGasPriceJsonObject = Gson().fromJson(
+            iotaxReferenceGasPriceResponse.body?.string(), JsonObject::class.java
+        )
+        return iotaxReferenceGasPriceJsonObject["result"].asString
+    }
+
+    private fun iotaxCoins(): JsonArray {
+        val iotaxGetCoinsRequest = JsonRpcRequest(
+            method = "iotax_getCoins", params = listOf(chain.mainAddress, IOTA_MAIN_DENOM, null, 1)
+        )
+        val iotaxGetCoinsResponse = jsonRpcResponse(chain.mainUrl, iotaxGetCoinsRequest)
+        val iotaxGetCoinsJsonObject = Gson().fromJson(
+            iotaxGetCoinsResponse.body?.string(), JsonObject::class.java
+        )
+
+        return iotaxGetCoinsJsonObject["result"].asJsonObject["data"].asJsonArray
+    }
+
+    fun buildStakingRequest(suiJs: SuiJS, amount: String, validatorAddress: String?): String? {
+        val gasPrice = referenceGasPrice()
+        val coinDatas = iotaxCoins()
+
+        return if (coinDatas.size() > 0) {
+            val coinData = coinDatas[0].asJsonObject
+            val gasBudget = iotaBaseFee(IotaTxType.IOTA_STAKE)
+            val coinObjectId = coinData["coinObjectId"].asString
+            val version = coinData["version"].asString
+            val digest = coinData["digest"].asString
+
+            val buildStakingRequestFunction =
+                """function buildStakingRequestFunction() {
+                const txHex = buildIotaStakingRequest('${amount}', '${validatorAddress}', '${chain.mainAddress}', 
+                '${gasPrice}', '${gasBudget}', '${coinObjectId}', '${version}', '${digest}');
+                return txHex;
+                }""".trimMargin()
+            suiJs.mergeFunction(buildStakingRequestFunction)
+            return suiJs.executeFunction("buildStakingRequestFunction()")
+
+        } else {
+            ""
+        }
+    }
+
+    private fun iotaObject(objectId: String): JsonObject {
+        val iotaGetObjectRequest = JsonRpcRequest(
+            method = "iota_getObject", params = listOf(objectId, mapOf("showContent" to false))
+        )
+        val iotaGetObjectResponse = jsonRpcResponse(chain.mainUrl, iotaGetObjectRequest)
+        val iotaGetObjectJsonObject = Gson().fromJson(
+            iotaGetObjectResponse.body?.string(), JsonObject::class.java
+        )
+
+        return iotaGetObjectJsonObject["result"].asJsonObject["data"].asJsonObject
+    }
+
+    fun buildUnstakingRequest(suiJs: SuiJS, objectId: String): String? {
+        val gasPrice = referenceGasPrice()
+        val coinDatas = iotaxCoins()
+
+        return if (coinDatas.size() > 0) {
+            val coinData = coinDatas[0].asJsonObject
+            val gasBudget = iotaBaseFee(IotaTxType.IOTA_UNSTAKE)
+            val coinObjectId = coinData["coinObjectId"].asString
+            val version = coinData["version"].asString
+            val digest = coinData["digest"].asString
+
+            val stakedObject = iotaObject(objectId)
+            val stakedObjectVersion = stakedObject["version"].asString
+            val stakedObjectDigest = stakedObject["digest"].asString
+
+            val buildUnstakingRequestFunction =
+                """function buildUnstakingRequestFunction() {
+                const txHex = buildIotaUnstakingRequest('${chain.mainAddress}', '${gasPrice}', '${gasBudget}', '${coinObjectId}', '${version}', '${digest}',
+                '${objectId}', '${stakedObjectVersion}', '${stakedObjectDigest}');
+                return txHex;
+                }""".trimMargin()
+            suiJs.mergeFunction(buildUnstakingRequestFunction)
+            return suiJs.executeFunction("buildUnstakingRequestFunction()")
+
+        } else {
+            ""
         }
     }
 }

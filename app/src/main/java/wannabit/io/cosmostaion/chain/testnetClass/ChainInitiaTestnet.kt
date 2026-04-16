@@ -13,7 +13,7 @@ class ChainInitiaTestnet : ChainInitia(), Parcelable {
     override var isTestnet: Boolean = true
     override var apiName: String = "initia-testnet"
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var grpcHost: String = "grpc-office-initia-2.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-office.cosmostation.io/initia-2-testnet/"
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://rest.testnet.initia.xyz/"
 }

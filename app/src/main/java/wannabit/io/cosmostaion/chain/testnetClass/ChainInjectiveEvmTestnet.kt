@@ -26,9 +26,9 @@ class ChainInjectiveEvmTestnet : BaseChain(), Parcelable {
     override var stakeDenom: String = "inj"
     override var accountPrefix: String = "inj"
     override var grpcHost: String = "testnet.sentry.chain.grpc.injective.network"
-    override var lcdUrl: String = "https://lcd-office.cosmostation.io/injective-testnet/"
+    override var lcdUrl: String = "https://testnet.sentry.lcd.injective.network:443"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "INJ"
-    override var evmRpcURL: String = "https://rpc-office-evm.cosmostation.io/injective-testnet/"
+    override var evmRpcURL: String = "https://testnet.sentry.chain.json-rpc.injective.network/"
 }

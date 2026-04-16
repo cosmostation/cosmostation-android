@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -22,9 +21,9 @@ open class ChainFetchAi : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "afet"
     override var accountPrefix: String = "fetch"
-    override var grpcHost: String = "grpc-fetchai.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-fetchai.cosmostation.io/"
+    override var grpcHost: String = "grpc-fetchhub.fetch.ai"
+    override var lcdUrl: String = "https://fetch-api.polkachu.com/"
 }

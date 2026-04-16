@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,6 +24,6 @@ class ChainUx : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "uumee"
     override var accountPrefix: String = "umee"
-    override var grpcHost: String = "umee-grpc.stake-town.com"
+    override var grpcHost: String = "grpc-umee.mzonder.com"
     override var lcdUrl: String = "https://umee-api.polkachu.com/"
 }

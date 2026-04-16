@@ -77,23 +77,25 @@ class MainActivity : BaseActivity() {
                 url = getStringExtra("push_url") ?: ""
             }
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
-                    putExtra("url", url)
-                    startActivity(this)
-                    if (Build.VERSION.SDK_INT >= 34) {
-                        overrideActivityTransition(
-                            Activity.OVERRIDE_TRANSITION_OPEN,
-                            R.anim.anim_slide_in_bottom,
-                            R.anim.anim_fade_out
-                        )
-                    } else {
-                        overridePendingTransition(
-                            R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
-                        )
+            if (url.isNotEmpty()) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Intent(this@MainActivity, PushNotificationActivity::class.java).apply {
+                        putExtra("url", url)
+                        startActivity(this)
+                        if (Build.VERSION.SDK_INT >= 34) {
+                            overrideActivityTransition(
+                                Activity.OVERRIDE_TRANSITION_OPEN,
+                                R.anim.anim_slide_in_bottom,
+                                R.anim.anim_fade_out
+                            )
+                        } else {
+                            overridePendingTransition(
+                                R.anim.anim_slide_in_bottom, R.anim.anim_fade_out
+                            )
+                        }
                     }
-                }
-            }, 1000)
+                }, 1000)
+            }
         }
     }
 

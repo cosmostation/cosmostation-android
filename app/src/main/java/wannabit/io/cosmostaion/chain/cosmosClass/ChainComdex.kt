@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
@@ -25,6 +24,6 @@ class ChainComdex : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ucmdx"
     override var accountPrefix: String = "comdex"
-    override var grpcHost: String = "comdex-grpc.publicnode.com:443"
-    override var lcdUrl: String = "https://comdex.api.m.stavr.tech/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://comdex-api.polkachu.com"
 }

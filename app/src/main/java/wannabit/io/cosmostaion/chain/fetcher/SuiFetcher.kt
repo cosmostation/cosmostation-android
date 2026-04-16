@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
+import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_DEFAULT
@@ -9,7 +11,10 @@ import wannabit.io.cosmostaion.chain.majorClass.SUI_FEE_UNSTAKE
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_TYPE_COIN
 import wannabit.io.cosmostaion.common.BaseData
+import wannabit.io.cosmostaion.common.jsonRpcResponse
+import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.database.Prefs
+import wannabit.io.cosmostaion.sign.SuiJS
 import wannabit.io.cosmostaion.ui.tx.genTx.SuiTxType
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -156,17 +161,102 @@ class SuiFetcher(private val chain: BaseChain) {
         }
     }
 
-    fun hasFee(txType: SuiTxType): Boolean {
-        val suiBalance = suiBalanceAmount(SUI_MAIN_DENOM)
-        return suiBalance?.compareTo(suiBaseFee(txType))!! > 0
-    }
-
     fun suiRpc(): String {
         val endpoint = Prefs.getEvmRpcEndpoint(chain)
         return if (endpoint?.isNotEmpty() == true) {
             endpoint
         } else {
             chain.mainUrl
+        }
+    }
+
+    private fun referenceGasPrice(): String {
+        val suixReferenceGasPriceRequest =
+            JsonRpcRequest(method = "suix_getReferenceGasPrice", params = listOf())
+        val suixReferenceGasPriceResponse = jsonRpcResponse(
+            suiRpc(), suixReferenceGasPriceRequest
+        )
+        val suixReferenceGasPriceJsonObject = Gson().fromJson(
+            suixReferenceGasPriceResponse.body?.string(), JsonObject::class.java
+        )
+        return suixReferenceGasPriceJsonObject["result"].asString
+    }
+
+    private fun suixCoins(): JsonArray {
+        val suixGetCoinsRequest = JsonRpcRequest(
+            method = "suix_getCoins", params = listOf(chain.mainAddress, SUI_MAIN_DENOM, null, 1)
+        )
+        val suixGetCoinsResponse = jsonRpcResponse(chain.mainUrl, suixGetCoinsRequest)
+        val suixGetCoinsJsonObject = Gson().fromJson(
+            suixGetCoinsResponse.body?.string(), JsonObject::class.java
+        )
+
+        return suixGetCoinsJsonObject["result"].asJsonObject["data"].asJsonArray
+    }
+
+    fun buildStakingRequest(suiJs: SuiJS, amount: String, validatorAddress: String?): String? {
+        val gasPrice = referenceGasPrice()
+        val coinDatas = suixCoins()
+
+        return if (coinDatas.size() > 0) {
+            val coinData = coinDatas[0].asJsonObject
+            val gasBudget = suiBaseFee(SuiTxType.SUI_STAKE)
+            val coinObjectId = coinData["coinObjectId"].asString
+            val version = coinData["version"].asString
+            val digest = coinData["digest"].asString
+
+            val buildStakingRequestFunction =
+                """function buildStakingRequestFunction() {
+                const txHex = buildStakingRequest('${amount}', '${validatorAddress}', '${chain.mainAddress}', 
+                '${gasPrice}', '${gasBudget}', '${coinObjectId}', '${version}', '${digest}');
+                return txHex;
+                }""".trimMargin()
+            suiJs.mergeFunction(buildStakingRequestFunction)
+            return suiJs.executeFunction("buildStakingRequestFunction()")
+
+        } else {
+            ""
+        }
+    }
+
+    private fun suiObject(objectId: String): JsonObject {
+        val suiGetObjectRequest = JsonRpcRequest(
+            method = "sui_getObject", params = listOf(objectId, mapOf("showContent" to false))
+        )
+        val suiGetObjectResponse = jsonRpcResponse(chain.mainUrl, suiGetObjectRequest)
+        val suiGetObjectJsonObject = Gson().fromJson(
+            suiGetObjectResponse.body?.string(), JsonObject::class.java
+        )
+
+        return suiGetObjectJsonObject["result"].asJsonObject["data"].asJsonObject
+    }
+
+    fun buildUnstakingRequest(suiJs: SuiJS, objectId: String): String? {
+        val gasPrice = referenceGasPrice()
+        val coinDatas = suixCoins()
+
+        return if (coinDatas.size() > 0) {
+            val coinData = coinDatas[0].asJsonObject
+            val gasBudget = suiBaseFee(SuiTxType.SUI_UNSTAKE)
+            val coinObjectId = coinData["coinObjectId"].asString
+            val version = coinData["version"].asString
+            val digest = coinData["digest"].asString
+
+            val stakedObject = suiObject(objectId)
+            val stakedObjectVersion = stakedObject["version"].asString
+            val stakedObjectDigest = stakedObject["digest"].asString
+
+            val buildUnstakingRequestFunction =
+                """function buildUnstakingRequestFunction() {
+                const txHex = buildUnstakingRequest('${chain.mainAddress}', '${gasPrice}', '${gasBudget}', '${coinObjectId}', '${version}', '${digest}',
+                '${objectId}', '${stakedObjectVersion}', '${stakedObjectDigest}');
+                return txHex;
+                }""".trimMargin()
+            suiJs.mergeFunction(buildUnstakingRequestFunction)
+            return suiJs.executeFunction("buildUnstakingRequestFunction()")
+
+        } else {
+            ""
         }
     }
 }

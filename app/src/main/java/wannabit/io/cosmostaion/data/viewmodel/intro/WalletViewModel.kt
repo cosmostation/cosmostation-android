@@ -69,7 +69,6 @@ import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
-import java.time.Instant
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -995,30 +994,39 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                 chain.aptosFetcher()?.let { fetcher ->
                     chain.apply {
                         fetcher.aptosAssetBalance?.clear()
-                        val apotsCoinData =
-                            fetcher.aptosClient().getAccountCoinsData(fetcher.aptosAccount())
 
-                        when (apotsCoinData) {
-                            is Option.Some -> {
-                                fetcher.aptosAssetBalance =
-                                    apotsCoinData.value.current_fungible_asset_balances.toMutableList()
+                        try {
+                            val apotsCoinData =
+                                fetcher.aptosClient().getAccountCoinsData(fetcher.aptosAccount())
 
-                                fetchState = FetchState.SUCCESS
-                                coinCnt = fetcher.aptosAssetBalance?.count {
-                                    BaseData.getAsset(
-                                        chain.apiName, it.asset_type
-                                    ) != null
-                                } ?: 0
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
+                            when (apotsCoinData) {
+                                is Option.Some -> {
+                                    fetcher.aptosAssetBalance =
+                                        apotsCoinData.value.current_fungible_asset_balances.toMutableList()
+
+                                    fetchState = FetchState.SUCCESS
+                                    coinCnt = fetcher.aptosAssetBalance?.count {
+                                        BaseData.getAsset(
+                                            chain.apiName, it.asset_type
+                                        ) != null
+                                    } ?: 0
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
+                                }
+
+                                is Option.None -> {
+                                    fetchState = FetchState.FAIL
+                                    withContext(Dispatchers.Main) {
+                                        _balanceResult.value = chain.tag
+                                    }
                                 }
                             }
 
-                            is Option.None -> {
-                                fetchState = FetchState.FAIL
-                                withContext(Dispatchers.Main) {
-                                    _balanceResult.value = chain.tag
-                                }
+                        } catch (e: Exception) {
+                            fetchState = FetchState.FAIL
+                            withContext(Dispatchers.Main) {
+                                _balanceResult.value = chain.tag
                             }
                         }
                     }

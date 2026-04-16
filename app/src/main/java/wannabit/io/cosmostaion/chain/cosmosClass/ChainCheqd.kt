@@ -4,14 +4,13 @@ import android.os.Parcelable
 import com.google.common.collect.ImmutableList
 import kotlinx.parcelize.Parcelize
 import org.bitcoinj.crypto.ChildNumber
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainCheqd : BaseChain(), Parcelable {
+open class ChainCheqd : BaseChain(), Parcelable {
 
     override var name: String = "Cheqd"
     override var tag: String = "cheqd118"

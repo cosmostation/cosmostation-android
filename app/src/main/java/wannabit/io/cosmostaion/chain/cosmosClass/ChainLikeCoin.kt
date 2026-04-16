@@ -24,6 +24,6 @@ class ChainLikeCoin : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "nanolike"
     override var accountPrefix: String = "like"
-    override var grpcHost: String = "grpc-likecoin-mainnet.pikaser.net"
+    override var grpcHost: String = ""
     override var lcdUrl: String = "https://mainnet-node.like.co/"
 }
