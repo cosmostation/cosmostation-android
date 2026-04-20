@@ -553,7 +553,7 @@ You can download each store.
   
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/intento/resource/chain_intento.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">INTENTO</span></td>
+    <td><span style="font-weight:bold"><del>INTENTO</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>Rest</td>
@@ -684,7 +684,7 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/manifest/resource/chain_manifest.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">MANIFEST</span></td>
+    <td><span style="font-weight:bold"><del>MANIFEST</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
@@ -731,10 +731,11 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/milkyway/resource/chain_milkyway.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">MILKYWAY</span></td>
+    <td><span style="font-weight:bold"><del>MILKYWAY</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
+    <td>sunset Mar 2026</td>
     <td></td>
   </tr>
   
@@ -767,10 +768,11 @@ You can download each store.
 	 	
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/nillion/resource/chain_nillion.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">NILLION</span></td>
+    <td><span style="font-weight:bold"><del>NILLION</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
+    <td>sunset Mar 2026</td>
     <td></td>
   </tr>
 	 	
@@ -916,10 +918,11 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/pryzm/resource/chain_pryzm.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">PRYZM</span></td>
+    <td><span style="font-weight:bold"><del>PRYZM</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
+    <td>sunset Feb 2026</td>
     <td></td>
   </tr>
     
@@ -1144,10 +1147,11 @@ You can download each store.
     
   <tr>
     <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/synternet/resource/chain_synternet.png?raw=true" width="42" height = "42"></td>
-    <td><span style="font-weight:bold">SYNTERNET</span></td>
+    <td><span style="font-weight:bold"><del>SYNTERNET</del></span></td>
     <td>m/44'/118'/0'/0/X</td>
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
+    <td>sunset Feb 2026</td>
     <td></td>
   </tr>
     
@@ -1668,6 +1672,15 @@ You can download each store.
     <td><span>p2tr</span><br/>
         <span>p2wpkh</span></td>
     <td>Rest</td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><img src="https://github.com/cosmostation/chainlist/blob/main/chain/cheqd-testnet/resource/chain_cheqd-testnet.png?raw=true" width="42" height = "42"></td>
+    <td><span style="font-weight:bold">CHEQD TESTNET</span></td>
+    <td>m/44'/118'/0'/0/X</td>
+    <td>secp256k1</td>
+    <td>gRPC or Rest</td>
     <td></td>
   </tr>
     
