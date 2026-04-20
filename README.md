@@ -736,7 +736,6 @@ You can download each store.
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td>sunset Mar 2026</td>
-    <td></td>
   </tr>
   
   <tr>
@@ -773,7 +772,6 @@ You can download each store.
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td>sunset Mar 2026</td>
-    <td></td>
   </tr>
 	 	
   <tr>
@@ -923,7 +921,6 @@ You can download each store.
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td>sunset Feb 2026</td>
-    <td></td>
   </tr>
     
   <tr>
@@ -1152,7 +1149,6 @@ You can download each store.
     <td>secp256k1</td>
     <td>gRPC or Rest</td>
     <td>sunset Feb 2026</td>
-    <td></td>
   </tr>
     
   <tr>
