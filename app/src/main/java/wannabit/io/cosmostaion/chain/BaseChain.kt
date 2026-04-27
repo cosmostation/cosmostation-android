@@ -133,6 +133,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainEpixEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
+import wannabit.io.cosmostaion.chain.evmClass.ChainFilecoin
 import wannabit.io.cosmostaion.chain.evmClass.ChainForma
 import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainGnosis
@@ -847,6 +848,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainFetchAi())
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
+    chains.add(ChainFilecoin())
     chains.add(ChainFirma())
     chains.add(ChainForma())
     chains.add(ChainFxcoreEvm())
