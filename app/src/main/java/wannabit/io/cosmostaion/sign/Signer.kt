@@ -5,7 +5,6 @@ import android.util.Base64.encode
 import com.atomone.photon.v1.TxProto.MsgMintPhoton
 import com.babylon.btcstaking.v1.TxProto.MsgCreateBTCDelegation
 import com.cosmos.bank.v1beta1.TxProto.MsgSend
-import com.cosmos.base.abci.v1beta1.AbciProto
 import com.cosmos.base.v1beta1.CoinProto
 import com.cosmos.crypto.secp256k1.KeysProto.PubKey
 import com.cosmos.distribution.v1beta1.DistributionProto.DelegationDelegatorReward
@@ -18,6 +17,7 @@ import com.cosmos.staking.v1beta1.TxProto.MsgCancelUnbondingDelegation
 import com.cosmos.staking.v1beta1.TxProto.MsgDelegate
 import com.cosmos.staking.v1beta1.TxProto.MsgUndelegate
 import com.cosmos.tx.signing.v1beta1.SigningProto
+import com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastMode
 import com.cosmos.tx.v1beta1.ServiceProto.BroadcastTxRequest
 import com.cosmos.tx.v1beta1.ServiceProto.SimulateRequest
@@ -76,6 +76,7 @@ import org.bouncycastle.util.encoders.Hex
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.Sign
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
@@ -103,6 +104,7 @@ import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_TRANSFER
 import wannabit.io.cosmostaion.common.BaseConstant.OK_MSG_TYPE_WITHDRAW
 import wannabit.io.cosmostaion.common.ByteUtils.integerToBytes
 import wannabit.io.cosmostaion.common.toHex
+import wannabit.io.cosmostaion.data.api.RetrofitInstance
 import wannabit.io.cosmostaion.data.model.req.BroadcastReq
 import wannabit.io.cosmostaion.data.model.req.ClaimReq
 import wannabit.io.cosmostaion.data.model.req.ClaimRewards
@@ -112,6 +114,7 @@ import wannabit.io.cosmostaion.data.model.req.Msg
 import wannabit.io.cosmostaion.data.model.req.Msgs
 import wannabit.io.cosmostaion.data.model.req.SignPayload
 import wannabit.io.cosmostaion.data.model.req.Signature
+import wannabit.io.cosmostaion.data.model.req.SimulateTxReq
 import wannabit.io.cosmostaion.data.model.req.StdSignMsg
 import wannabit.io.cosmostaion.data.model.req.StdTx
 import wannabit.io.cosmostaion.data.model.req.StdTxValue
@@ -1195,16 +1198,33 @@ object Signer {
         return StdTx(COSMOS_AUTH_TYPE_STDTX, StdTxValue(msgs, fee, signatures, memo))
     }
 
-    fun dAppSimulateGas(
+    suspend fun dAppSimulateGas(
         selectedChain: BaseChain, txBody: TxBody, authInfo: AuthInfo?
-    ): AbciProto.GasInfo {
-        val channel = selectedChain.cosmosFetcher()?.getChannel()
-        val simulateStub = com.cosmos.tx.v1beta1.ServiceGrpc.newBlockingStub(channel)
-            .withDeadlineAfter(20L, TimeUnit.SECONDS)
+    ): String {
         val simulateTx = grpcSimulTx(txBody, authInfo)
         val simulateRequest =
             SimulateRequest.newBuilder().setTxBytes(simulateTx?.toByteString()).build()
-        return simulateStub.simulate(simulateRequest).gasInfo
+
+        return if (selectedChain.cosmosFetcher?.endPointType(selectedChain) == CosmosEndPointType.USE_GRPC) {
+            val channel = selectedChain.cosmosFetcher()?.getChannel()
+            val simulateStub = newBlockingStub(channel)
+                .withDeadlineAfter(20L, TimeUnit.SECONDS)
+            simulateStub.simulate(simulateRequest).gasInfo.gasUsed.toString()
+
+        } else {
+            val txByte = toBase64String(simulateRequest.txBytes.toByteArray())
+            val response =
+                RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
+            if (response.isSuccessful) {
+                response.body()?.getAsJsonObject("gas_info")
+                    ?.get("gas_used")?.asString.toString()
+            } else {
+                val errorMessageJsonObject = Gson().fromJson(
+                    response.errorBody()?.string(), JsonObject::class.java
+                )
+                errorMessageJsonObject["message"].asString
+            }
+        }
     }
 
     fun signature(selectedChain: BaseChain?, toSignByte: ByteArray?): String {

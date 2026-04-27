@@ -509,7 +509,7 @@ class PopUpCosmosSignFragment(
         return txJsonSignDoc
     }
 
-    private fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
+    private suspend fun updateFeeInfoInDirectMessage(txJsonObject: JsonObject): JsonObject {
         val doc = txJsonObject["doc"].asJsonObject
         var authInfo = TxProto.AuthInfo.parseFrom(Utils.hexToBytes(doc["auth_info_bytes"].asString))
 
@@ -537,7 +537,7 @@ class PopUpCosmosSignFragment(
                     selectedChain = chain
                     val simulateGas = Signer.dAppSimulateGas(chain, txBody, authInfo)
                     val simulateGasLimit =
-                        (simulateGas.gasUsed.toDouble() * chain.simulatedGasMultiply()).toLong()
+                        (simulateGas.toDouble() * chain.simulatedGasMultiply()).toLong()
                     val updateFee = updateFeeWithSimulate(
                         simulateGasLimit.toBigDecimal(), fee
                     )
