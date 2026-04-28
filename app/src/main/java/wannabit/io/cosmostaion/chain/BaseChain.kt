@@ -144,6 +144,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainLinea
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantaPacific
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainMonad
@@ -884,6 +885,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum880())
     chains.add(ChainLum118())
     chains.add(ChainLumera())
+    chains.add(ChainMantaPacific())
     chains.add(ChainMantle())
     chains.add(ChainMantraEvm())
     chains.add(ChainMantra())
@@ -911,7 +913,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPocket())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
-//    chains.add(ChainPryzm())
     chains.add(ChainPundix())
     chains.add(ChainQubeticsEvm())
     chains.add(ChainQuicksilver())
