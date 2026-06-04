@@ -50,7 +50,7 @@ class DappViewHolder(
                 allChains().firstOrNull { it.apiName == supportChain.asString }?.let { chain ->
                     view.chainImg.setChainLogo(chain)
                     if (chains.size() == 1) {
-                        addInfo.text = chain.name.uppercase()
+                        addInfo.text = chain.getChainName()?.uppercase() ?: "Unknown"
                     } else if (chains.size() > 7) {
                         addInfo.text = "+" + (chains.size() - 7)
                     } else {
