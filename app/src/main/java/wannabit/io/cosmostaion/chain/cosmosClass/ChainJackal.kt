@@ -24,6 +24,6 @@ class ChainJackal : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ujkl"
     override var accountPrefix: String = "jkl"
-    override var grpcHost: String = "grpc.jackal.silentvalidator.com"
-    override var lcdUrl: String = "https://api.jackalprotocol.com/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://jkl.api.m.stavr.tech/"
 }
