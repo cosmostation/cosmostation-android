@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitBadges
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
@@ -37,6 +38,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDecentr
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
@@ -100,12 +102,14 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSymphony
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerraClassic
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnion
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnunifi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
@@ -813,6 +817,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitCoin84())
     chains.add(ChainBitCoin86())
     chains.add(ChainBitsong())
+    chains.add(ChainBitway())
     chains.add(ChainBinanceSmart())
     chains.add(ChainBlast())
     chains.add(ChainCantoEvm())
@@ -825,6 +830,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainCoreum())
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
+    chains.add(ChainDecentr())
     chains.add(ChainDesmos())
     chains.add(ChainDoravota())
     chains.add(ChainDungeon())
@@ -924,6 +930,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainStride())
     chains.add(ChainSui())
     chains.add(ChainSunrise())
+    chains.add(ChainSymphony())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
@@ -931,6 +938,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUnion())
+    chains.add(ChainUnunifi())
     chains.add(ChainWemix())
     chains.add(ChainWorldCoin())
     chains.add(ChainXion())

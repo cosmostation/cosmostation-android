@@ -10,11 +10,11 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainCelestia : BaseChain(), Parcelable {
+class ChainDecentr : BaseChain(), Parcelable {
 
-    override var name: String = "Celestia"
-    override var tag: String = "celestia118"
-    override var apiName: String = "celestia"
+    override var name: String = "Decentr"
+    override var tag: String = "decentr118"
+    override var apiName: String = "decentr"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -22,8 +22,8 @@ class ChainCelestia : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "utia"
-    override var accountPrefix: String = "celestia"
+    override var stakeDenom: String = "udec"
+    override var accountPrefix: String = "decentr"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://celestia-mainnet-api.itrocket.net/"
+    override var lcdUrl: String = "https://api.decentr.chaintools.tech/"
 }
