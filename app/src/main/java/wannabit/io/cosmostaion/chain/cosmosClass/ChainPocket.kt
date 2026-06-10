@@ -25,5 +25,5 @@ class ChainPocket : BaseChain(), Parcelable {
     override var stakeDenom: String = "upokt"
     override var accountPrefix: String = "pokt"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://shannon-grove-api.mainnet.poktroll.com/"
+    override var lcdUrl: String = "https://pocket.api.pocket.network/"
 }

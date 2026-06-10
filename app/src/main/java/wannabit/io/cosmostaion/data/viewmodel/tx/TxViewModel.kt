@@ -32,7 +32,6 @@ import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOsmosis
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
@@ -134,37 +133,6 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val nameServiceList = mutableListOf<NameService>()
             when (recipientChain) {
-                is ChainStargaze -> {
-                    val osIcnsDeferred = async {
-                        txRepository.osIcnsAddress(
-                            ChainOsmosis().cosmosFetcher()?.getChannel(), userInput, prefix
-                        )
-                    }
-                    val starIcnsDeferred = async {
-                        txRepository.sgIcnsAddress(
-                            ChainStargaze().cosmosFetcher()?.getChannel(), userInput
-                        )
-                    }
-                    val responses = awaitAll(osIcnsDeferred, starIcnsDeferred)
-                    if (responses[0]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.ICNS, userInput, responses[0].toString()
-                            )
-                        )
-                    }
-                    if (responses[1]?.isNotEmpty() == true) {
-                        nameServiceList.add(
-                            NameService(
-                                NameService.NameServiceType.STARGAZE,
-                                userInput,
-                                responses[1].toString()
-                            )
-                        )
-                    }
-                    nameServices.postValue(nameServiceList)
-                }
-
                 is ChainArchway -> {
                     val osIcnsDeferred = async {
                         txRepository.osIcnsAddress(

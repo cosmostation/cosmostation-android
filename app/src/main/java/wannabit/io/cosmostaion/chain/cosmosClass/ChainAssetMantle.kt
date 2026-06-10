@@ -25,5 +25,5 @@ class ChainAssetMantle : BaseChain(), Parcelable {
     override var stakeDenom: String = "umntl"
     override var accountPrefix: String = "mantle"
     override var grpcHost: String = "assetmantle-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://assetmantle-rest.stakerhouse.com/"
+    override var lcdUrl: String = "https://assetmantle-api.polkachu.com/"
 }
