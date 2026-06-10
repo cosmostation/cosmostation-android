@@ -10,11 +10,11 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainKopi : BaseChain(), Parcelable {
+class ChainBitway : BaseChain(), Parcelable {
 
-    override var name: String = "Kopi"
-    override var tag: String = "kopi118"
-    override var apiName: String = "kopi"
+    override var name: String = "Bitway"
+    override var tag: String = "bitway118"
+    override var apiName: String = "bitway"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -22,8 +22,8 @@ class ChainKopi : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "ukopi"
-    override var accountPrefix: String = "kopi"
-    override var grpcHost: String = "kopi-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://rest.kopi.money/"
+    override var stakeDenom: String = "ubtw"
+    override var accountPrefix: String = "bc"
+    override var grpcHost: String = "grpc.bitway.com:443"
+    override var lcdUrl: String = "https://rest.bitway.com/"
 }

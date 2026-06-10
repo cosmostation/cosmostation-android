@@ -25,10 +25,10 @@ class ChainDymensionEvm : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "adym"
     override var accountPrefix: String = "dym"
-    override var grpcHost: String = "grpc.dymension.nodestake.org"
-    override var lcdUrl: String = "https://api.dymension.nodestake.org/"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://m-dymension.api.utsa.tech/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "DYM"
-    override var evmRpcURL: String = "https://jsonrpc.dymension.nodestake.org"
+    override var evmRpcURL: String = "https://dymension.drpc.org"
 }

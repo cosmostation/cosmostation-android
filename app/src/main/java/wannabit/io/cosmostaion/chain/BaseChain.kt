@@ -26,19 +26,19 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBand
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBeezee
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitBadges
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitcanna
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitsong
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainBluzelle
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainBitway
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainC4E
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCarbon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCelestia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCheqd
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainChihuahua
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainComdex
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCosmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCryptoorg
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainDHealth
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainDecentr
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDesmos
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
@@ -61,9 +61,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainJackal
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainJuno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKava459
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKima
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainKopi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainKyve
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLava
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainLikeCoin
@@ -93,7 +91,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainProvenance
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainPundix
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainQuicksilver
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainRegen
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainRizon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSaga
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSecret529
@@ -103,16 +100,16 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainStargaze
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainSymphony
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTeritori
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerra
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainTerraClassic
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainThorchain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnification
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnion
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainUx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainUnunifi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXion
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainXpla
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
@@ -131,10 +128,9 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEpixEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
-import wannabit.io.cosmostaion.chain.evmClass.ChainEvmosEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainFantom
+import wannabit.io.cosmostaion.chain.evmClass.ChainFilecoin
 import wannabit.io.cosmostaion.chain.evmClass.ChainForma
-import wannabit.io.cosmostaion.chain.evmClass.ChainFxcoreEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainGnosis
 import wannabit.io.cosmostaion.chain.evmClass.ChainGravityAlpha
 import wannabit.io.cosmostaion.chain.evmClass.ChainHaqqEvm
@@ -143,6 +139,7 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainKaia
 import wannabit.io.cosmostaion.chain.evmClass.ChainKavaEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainLinea
+import wannabit.io.cosmostaion.chain.evmClass.ChainMantaPacific
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantle
 import wannabit.io.cosmostaion.chain.evmClass.ChainMantraEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainMonad
@@ -813,15 +810,16 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBase())
     chains.add(ChainBeezee())
     chains.add(ChainBerachain())
+    chains.add(ChainBitBadges())
     chains.add(ChainBitcanna())
     chains.add(ChainBitCoin44())
     chains.add(ChainBitCoin49())
     chains.add(ChainBitCoin84())
     chains.add(ChainBitCoin86())
     chains.add(ChainBitsong())
+    chains.add(ChainBitway())
     chains.add(ChainBinanceSmart())
     chains.add(ChainBlast())
-    chains.add(ChainBluzelle())
     chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
@@ -829,12 +827,11 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainC4E())
     chains.add(ChainCheqd())
     chains.add(ChainChihuahua())
-    chains.add(ChainComdex())
     chains.add(ChainCoreum())
     chains.add(ChainCronos())
     chains.add(ChainCryptoorg())
+    chains.add(ChainDecentr())
     chains.add(ChainDesmos())
-    chains.add(ChainDHealth())
     chains.add(ChainDoravota())
     chains.add(ChainDungeon())
     chains.add(ChainDydx())
@@ -842,14 +839,13 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainElys())
     chains.add(ChainEpixEvm())
     chains.add(ChainEthereum())
-    chains.add(ChainEvmosEvm())
     chains.add(ChainFantom())
     chains.add(ChainFetchAi())
     chains.add(ChainFetchAi60Old())
     chains.add(ChainFetchAi60Secp())
+    chains.add(ChainFilecoin())
     chains.add(ChainFirma())
     chains.add(ChainForma())
-    chains.add(ChainFxcoreEvm())
     chains.add(ChainGgezchain())
     chains.add(ChainGitopia())
     chains.add(ChainGonka())
@@ -871,9 +867,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainKavaEvm())
     chains.add(ChainKava459())
     chains.add(ChainKava118())
-    chains.add(ChainKi())
     chains.add(ChainKima())
-    chains.add(ChainKopi())
     chains.add(ChainKyve())
     chains.add(ChainLava())
     chains.add(ChainLikeCoin())
@@ -882,6 +876,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainLum880())
     chains.add(ChainLum118())
     chains.add(ChainLumera())
+    chains.add(ChainMantaPacific())
     chains.add(ChainMantle())
     chains.add(ChainMantraEvm())
     chains.add(ChainMantra())
@@ -909,13 +904,11 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainPocket())
     chains.add(ChainPolygon())
     chains.add(ChainProvenance())
-//    chains.add(ChainPryzm())
     chains.add(ChainPundix())
     chains.add(ChainQubeticsEvm())
     chains.add(ChainQuicksilver())
     chains.add(ChainRealioEvm())
     chains.add(ChainRegen())
-    chains.add(ChainRizon())
     chains.add(ChainSaga())
     chains.add(ChainScroll())
     chains.add(ChainSecret529())
@@ -932,12 +925,12 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSomnia())
     chains.add(ChainSonic())
     chains.add(ChainSource())
-    chains.add(ChainStargaze())
     chains.add(ChainStory())
     chains.add(ChainStratosEvm())
     chains.add(ChainStride())
     chains.add(ChainSui())
     chains.add(ChainSunrise())
+    chains.add(ChainSymphony())
     chains.add(ChainTenetEvm())
     chains.add(ChainTeritori())
     chains.add(ChainTerra())
@@ -945,7 +938,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainThorchain())
     chains.add(ChainUnification())
     chains.add(ChainUnion())
-    chains.add(ChainUx())
+    chains.add(ChainUnunifi())
     chains.add(ChainWemix())
     chains.add(ChainWorldCoin())
     chains.add(ChainXion())

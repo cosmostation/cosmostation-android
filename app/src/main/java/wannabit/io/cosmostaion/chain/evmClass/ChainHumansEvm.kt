@@ -29,5 +29,5 @@ class ChainHumansEvm : BaseChain(), Parcelable {
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "HEART"
-    override var evmRpcURL: String = "https://jsonrpc.humans.nodestake.top"
+    override var evmRpcURL: String = "https://humans-mainnet-evm.itrocket.net"
 }

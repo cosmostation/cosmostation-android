@@ -25,5 +25,5 @@ class ChainCelestia : BaseChain(), Parcelable {
     override var stakeDenom: String = "utia"
     override var accountPrefix: String = "celestia"
     override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.celestia.nodestake.org/"
+    override var lcdUrl: String = "https://celestia-mainnet-api.itrocket.net/"
 }

@@ -24,6 +24,6 @@ class ChainThorchain : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "rune"
     override var accountPrefix: String = "thor"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://thornode.ninerealms.com/"
+    override var grpcHost: String = "grpc-thorchain.rorcual.xyz:443"
+    override var lcdUrl: String = "https://gateway.liquify.com/chain/thorchain_api/"
 }

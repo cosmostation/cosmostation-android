@@ -10,11 +10,11 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainStargaze : BaseChain(), Parcelable {
+class ChainUnunifi : BaseChain(), Parcelable {
 
-    override var name: String = "Stargaze"
-    override var tag: String = "stargaze118"
-    override var apiName: String = "stargaze"
+    override var name: String = "Ununifi"
+    override var tag: String = "ununifi118"
+    override var apiName: String = "ununifi"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -22,8 +22,8 @@ class ChainStargaze : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "ustars"
-    override var accountPrefix: String = "stars"
-    override var grpcHost: String = "stargaze-grpc.stakerhouse.com"
-    override var lcdUrl: String = "https://rest.stargaze-apis.com/"
+    override var stakeDenom: String = "uguu"
+    override var accountPrefix: String = "ununifi"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://a.lcd.ununifi.cauchye.net:1318/"
 }

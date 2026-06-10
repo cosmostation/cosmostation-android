@@ -9,19 +9,19 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainTenetEvm : BaseChain(), Parcelable {
+class ChainMantaPacific : BaseChain(), Parcelable {
 
-    override var name: String = "Tenet"
-    override var tag: String = "tenet60"
-    override var apiName: String = "tenet"
+    override var name: String = "Manta Pacific"
+    override var tag: String = "mantapacific60"
+    override var apiName: String = "manta-pacific"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "TENET"
+    override var coinSymbol: String = "ETH"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.tenet.org"
+    override var evmRpcURL: String = "https://pacific-rpc.manta.network/http"
 }

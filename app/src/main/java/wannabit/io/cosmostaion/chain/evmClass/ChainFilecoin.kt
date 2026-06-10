@@ -9,19 +9,19 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainTenetEvm : BaseChain(), Parcelable {
+class ChainFilecoin : BaseChain(), Parcelable {
 
-    override var name: String = "Tenet"
-    override var tag: String = "tenet60"
-    override var apiName: String = "tenet"
+    override var name: String = "Filecoin"
+    override var tag: String = "filecoin60"
+    override var apiName: String = "filecoin"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "TENET"
+    override var coinSymbol: String = "FIL"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://rpc.tenet.org"
+    override var evmRpcURL: String = "https://filecoin.chainup.net/rpc/v1"
 }

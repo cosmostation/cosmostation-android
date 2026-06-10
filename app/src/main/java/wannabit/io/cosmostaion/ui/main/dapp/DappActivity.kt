@@ -1226,8 +1226,10 @@ class DappActivity : BaseActivity() {
                             accountJson.put("publicKey", chain?.publicKey?.bytesToHex() ?: "")
                             appToWebResult(messageJson, accountJson, messageId)
 
-                            if (selectedChain == null) {
-                                makeToast(getString(R.string.error_not_support_chain) + " " + chainId)
+                            withContext(Dispatchers.Main) {
+                                if (selectedChain == null) {
+                                    makeToast(getString(R.string.error_not_support_chain) + " " + chainId)
+                                }
                             }
                         }
                     }
