@@ -25,6 +25,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
+import wannabit.io.cosmostaion.common.disableFlagSecure
+import wannabit.io.cosmostaion.common.enableFlagSecure
 import wannabit.io.cosmostaion.databinding.FragmentCreateMnemonicBinding
 import wannabit.io.cosmostaion.databinding.PopupWordMenuBinding
 import wannabit.io.cosmostaion.ui.main.MainActivity
@@ -71,6 +73,21 @@ class CreateMnemonicFragment : Fragment() {
         initView()
         setUpClickAction()
         checkCreate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        enableFlagSecure()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (hidden) {
+            disableFlagSecure()
+        } else {
+            enableFlagSecure()
+        }
     }
 
     private fun initView() {
@@ -206,5 +223,6 @@ class CreateMnemonicFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        disableFlagSecure()
     }
 }

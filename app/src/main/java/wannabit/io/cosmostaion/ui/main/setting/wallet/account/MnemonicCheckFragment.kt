@@ -12,6 +12,8 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
+import wannabit.io.cosmostaion.common.disableFlagSecure
+import wannabit.io.cosmostaion.common.enableFlagSecure
 import wannabit.io.cosmostaion.common.toMoveFragment
 import wannabit.io.cosmostaion.database.CryptoHelper
 import wannabit.io.cosmostaion.database.model.BaseAccount
@@ -55,6 +57,20 @@ class MnemonicCheckFragment : Fragment() {
         setUpClickAction()
     }
 
+    override fun onResume() {
+        super.onResume()
+        enableFlagSecure()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (hidden) {
+            disableFlagSecure()
+        } else {
+            enableFlagSecure()
+        }
+    }
 
     private fun setUpViewModels() {
         binding.apply {
@@ -111,5 +127,6 @@ class MnemonicCheckFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        disableFlagSecure()
     }
 }

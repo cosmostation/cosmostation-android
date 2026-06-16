@@ -1066,3 +1066,11 @@ fun <T> Option<T>.getOrNull(): T? = when (this) {
     is Option.None -> null
 }
 
+fun Fragment.enableFlagSecure() {
+    requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+}
+
+fun Fragment.disableFlagSecure() {
+    requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+}
+
