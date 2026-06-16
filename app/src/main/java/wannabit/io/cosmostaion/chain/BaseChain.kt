@@ -44,6 +44,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainDoravota
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDungeon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainElys
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainEmpower
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Old
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainFetchAi60Secp
@@ -837,6 +838,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainDydx())
     chains.add(ChainDymensionEvm())
     chains.add(ChainElys())
+    chains.add(ChainEmpower())
     chains.add(ChainEpixEvm())
     chains.add(ChainEthereum())
     chains.add(ChainFantom())

@@ -10,11 +10,11 @@ import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
 
 @Parcelize
-class ChainSymphony : BaseChain(), Parcelable {
+class ChainEmpower : BaseChain(), Parcelable {
 
-    override var name: String = "Symphony"
-    override var tag: String = "symphony118"
-    override var apiName: String = "symphony"
+    override var name: String = "EmpowerChain"
+    override var tag: String = "empowerchain118"
+    override var apiName: String = "empower"
 
     override var accountKeyType = AccountKeyType(PubKeyType.COSMOS_SECP256K1, "m/44'/118'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
@@ -22,8 +22,8 @@ class ChainSymphony : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
-    override var stakeDenom: String = "note"
-    override var accountPrefix: String = "symphony"
-    override var grpcHost: String = "symphony-grpc.cogwheel.zone:443"
-    override var lcdUrl: String = "https://symphony-api.cogwheel.zone/"
+    override var stakeDenom: String = "umpwr"
+    override var accountPrefix: String = "empower"
+    override var grpcHost: String = ""
+    override var lcdUrl: String = "https://mainnet-empower-api.konsortech.xyz/"
 }
