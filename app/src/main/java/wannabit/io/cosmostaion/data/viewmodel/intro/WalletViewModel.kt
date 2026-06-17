@@ -618,8 +618,12 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             o2.description.moniker == "Cosmostation" -> 1
                             o1.jailed && !o2.jailed -> 1
                             !o1.jailed && o2.jailed -> -1
-                            o1.tokensList.first { it.denom == chain.getStakeAssetDenom() }.amount.toDouble() > o2.tokensList.first { it.denom == chain.getStakeAssetDenom() }.amount.toDouble() -> -1
-                            o1.tokensList.first { it.denom == chain.getStakeAssetDenom() }.amount.toDouble() < o2.tokensList.first { it.denom == chain.getStakeAssetDenom() }.amount.toDouble() -> 1
+                            (o1.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
+                                ?: 0.0) > (o2.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
+                                ?: 0.0) -> -1
+                            (o1.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
+                                ?: 0.0) < (o2.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
+                                ?: 0.0) -> 1
                             else -> 0
                         }
                     }

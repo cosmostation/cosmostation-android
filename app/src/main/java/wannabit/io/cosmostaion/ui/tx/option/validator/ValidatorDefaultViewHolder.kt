@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.common.setMonikerImg
 import wannabit.io.cosmostaion.common.setProviderImg
 import wannabit.io.cosmostaion.common.toHex
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 class ValidatorDefaultViewHolder(
@@ -81,7 +82,7 @@ class ValidatorDefaultViewHolder(
             BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
                 val vpAmount =
                     validator.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toBigDecimal()
-                        ?.movePointLeft(asset.decimals ?: 6)
+                        ?.movePointLeft(asset.decimals ?: 6) ?: BigDecimal.ZERO
                 votingPower.text = formatAmount(vpAmount.toString(), 0)
 
                 val commissionRate =
