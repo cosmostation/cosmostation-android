@@ -23,5 +23,5 @@ class ChainFilecoin : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://filecoin.chainup.net/rpc/v1"
+    override var evmRpcURL: String = "https://api.chain.love/rpc/v1"
 }
