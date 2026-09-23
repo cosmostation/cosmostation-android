@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -1029,7 +1030,57 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         val dataJson =
                                             Gson().fromJson(decodeData, JsonObject::class.java)
                                         val accountData = dataJson["BaseAccount"].asJsonObject
-                                        if (accountData["coins"].asString.isNotEmpty()) {
+                                        val tempVestings: MutableList<CoinProto.Coin> =
+                                            mutableListOf()
+
+                                        if (accountData["vesting"]?.isJsonNull == false) {
+                                            val vestingData = accountData["vesting"].asJsonObject
+                                            val (vestingDenom, originalVestingAmount) =
+                                                vestingData["original_vesting"].asString.regexWithNumberAndChar()
+                                            val startTime =
+                                                vestingData["start_time"].asString.toLong()
+                                            val endTime = vestingData["end_time"].asString.toLong()
+                                            val now = System.currentTimeMillis() / 1000
+
+                                            val duration = (endTime - startTime).coerceAtLeast(1)
+                                            val elapsed = (now - startTime).coerceIn(0, duration)
+
+                                            val originalVesting =
+                                                originalVestingAmount.toBigDecimalOrNull()
+                                                    ?: BigDecimal.ZERO
+                                            val vested =
+                                                originalVesting.multiply(elapsed.toBigDecimal())
+                                                    .divide(
+                                                        duration.toBigDecimal(),
+                                                        0,
+                                                        RoundingMode.DOWN
+                                                    )
+                                            val locked = (originalVesting - vested).coerceAtLeast(
+                                                BigDecimal.ZERO
+                                            )
+
+                                            val (balanceDenom, totalBalanceAmount) =
+                                                accountData["coins"].asString.regexWithNumberAndChar()
+                                            val total =
+                                                totalBalanceAmount.toBigDecimalOrNull()
+                                                    ?: BigDecimal.ZERO
+                                            val spendable =
+                                                (total - locked).coerceAtLeast(BigDecimal.ZERO)
+
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(balanceDenom.ifEmpty { vestingDenom })
+                                                    .setAmount(spendable.toPlainString())
+                                                    .build()
+                                            )
+                                            tempVestings.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(vestingDenom)
+                                                    .setAmount(locked.toPlainString())
+                                                    .build()
+                                            )
+
+                                        } else if (accountData["coins"].asString.isNotEmpty()) {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
                                                     .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
@@ -1050,6 +1101,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                                 accountData["public_key"].asJsonObject["value"].asString
                                         }
                                         fetcher.gnoBalances = tempBalances
+                                        fetcher.gnoVestings = tempVestings
                                         fetcher.gnoAccountNumber =
                                             accountData["account_number"].asString.toLong()
                                         fetcher.gnoSequence =

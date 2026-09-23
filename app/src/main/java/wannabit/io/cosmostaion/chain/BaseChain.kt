@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainAllora
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAlthea118
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAndromeda
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainArchway
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainArkeo
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAtomone
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxelar
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainAxone
@@ -92,7 +93,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainSei
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSentinel
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainShentu
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSommelier
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainSource
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainStride
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSymphony
@@ -112,7 +112,6 @@ import wannabit.io.cosmostaion.chain.evmClass.ChainBase
 import wannabit.io.cosmostaion.chain.evmClass.ChainBerachain
 import wannabit.io.cosmostaion.chain.evmClass.ChainBinanceSmart
 import wannabit.io.cosmostaion.chain.evmClass.ChainBlast
-import wannabit.io.cosmostaion.chain.evmClass.ChainCantoEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainCelo
 import wannabit.io.cosmostaion.chain.evmClass.ChainCronos
 import wannabit.io.cosmostaion.chain.evmClass.ChainDymensionEvm
@@ -785,6 +784,7 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainAptos())
     chains.add(ChainArbitrum())
     chains.add(ChainArchway())
+    chains.add(ChainArkeo())
     chains.add(ChainAtomone())
     chains.add(ChainAvalanche())
     chains.add(ChainAxelar())
@@ -804,7 +804,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainBitway())
     chains.add(ChainBinanceSmart())
     chains.add(ChainBlast())
-    chains.add(ChainCantoEvm())
     chains.add(ChainCarbon())
     chains.add(ChainCelestia())
     chains.add(ChainCelo())
@@ -901,7 +900,6 @@ fun allChains(): MutableList<BaseChain> {
     chains.add(ChainSolana())
     chains.add(ChainSomnia())
     chains.add(ChainSonic())
-    chains.add(ChainSource())
     chains.add(ChainStory())
     chains.add(ChainStratosEvm())
     chains.add(ChainStride())
