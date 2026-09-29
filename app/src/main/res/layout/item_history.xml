@@ -157,6 +157,9 @@
                     style="@style/font_sb_10"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_13"
+                    android:maxWidth="@dimen/space_60"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/color_base01"
                     app:layout_constraintBaseline_toBaselineOf="@+id/tx_amount"
                     app:layout_constraintEnd_toStartOf="@+id/tx_cnt" />

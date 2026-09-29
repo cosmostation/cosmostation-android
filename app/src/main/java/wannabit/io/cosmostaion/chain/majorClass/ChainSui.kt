@@ -116,9 +116,9 @@ const val EXCHANGE_RATE_QUERY = """
 """
 
 const val SUI_HISTORY_QUERY = """
-    query(${'$'}addr: SuiAddress!, ${'$'}first: Int!, ${'$'}after: String) {
-      transactions(first: ${'$'}first, after: ${'$'}after, filter: {affectedAddress: ${'$'}addr}) {
-        pageInfo { hasNextPage endCursor }
+    query(${'$'}addr: SuiAddress!, ${'$'}last: Int!, ${'$'}before: String) {
+      transactions(last: ${'$'}last, before: ${'$'}before, filter: {affectedAddress: ${'$'}addr}) {
+        pageInfo { hasPreviousPage startCursor }
         nodes {
           digest
           sender { address }

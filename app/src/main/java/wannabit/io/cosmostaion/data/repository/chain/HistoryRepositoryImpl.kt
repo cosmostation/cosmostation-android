@@ -36,7 +36,7 @@ class HistoryRepositoryImpl : HistoryRepository {
         return try {
             val response = graphQlResponse(
                 chain.mainUrl, SUI_HISTORY_QUERY,
-                mapOf("addr" to address, "first" to 50, "after" to after)
+                mapOf("addr" to address, "last" to 50, "before" to after)
             )
             val json = Gson().fromJson(response.body?.string(), JsonObject::class.java)
             val txConnection = json["data"]?.asJsonObject?.get("transactions")?.asJsonObject
@@ -45,8 +45,8 @@ class HistoryRepositoryImpl : HistoryRepository {
             txConnection?.get("nodes")?.asJsonArray?.forEach { result.add(it.asJsonObject) }
 
             val pageInfo = txConnection?.get("pageInfo")?.asJsonObject
-            val nextCursor = if (pageInfo?.get("hasNextPage")?.asBoolean == true) {
-                pageInfo["endCursor"].asString
+            val nextCursor = if (pageInfo?.get("hasPreviousPage")?.asBoolean == true) {
+                pageInfo["startCursor"].asString
             } else null
 
             safeApiCall(Dispatchers.IO) { Pair(result, nextCursor) }
