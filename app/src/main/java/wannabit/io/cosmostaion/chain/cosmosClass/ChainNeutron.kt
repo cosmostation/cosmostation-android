@@ -12,7 +12,7 @@ import wannabit.io.cosmostaion.chain.fetcher.CosmosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.NeutronFetcher
 
 @Parcelize
-open class ChainNeutron : BaseChain(), Parcelable {
+class ChainNeutron : BaseChain(), Parcelable {
 
     override var name: String = "Neutron"
     override var tag: String = "neutron118"
