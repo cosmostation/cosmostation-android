@@ -494,14 +494,11 @@ class MajorCryptoFragment : Fragment() {
 
                                         if (asset != null) {
                                             asset.symbol?.contains(searchTxt, ignoreCase = true)
-                                        } else if (metaData != null) {
-                                            metaData["symbol"].asString.contains(
-                                                searchTxt, ignoreCase = true
-                                            )
-                                        } else {
-                                            balance.first.suiCoinSymbol()
+                                        } else metaData?.symbol?.contains(
+                                            searchTxt, ignoreCase = true
+                                        )
+                                            ?: balance.first.suiCoinSymbol()
                                                 ?.contains(searchTxt, ignoreCase = true)
-                                        }
                                     } ?: false
                                 })
                             }
@@ -550,7 +547,7 @@ class MajorCryptoFragment : Fragment() {
 
                         is ChainSui -> {
                             ApplicationViewModel.shared.loadSuiData(
-                                account.id, selectedChain
+                                account.id, selectedChain as ChainSui
                             )
                         }
 

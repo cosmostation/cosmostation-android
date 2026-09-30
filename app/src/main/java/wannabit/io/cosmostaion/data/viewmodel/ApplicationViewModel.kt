@@ -24,14 +24,15 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCheqd
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.iotaCoinType
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
+import wannabit.io.cosmostaion.chain.fetcher.suiNormalizeType
 import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -41,7 +42,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.majorClass.SUI_STAKED_TYPE
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatJsonString
 import wannabit.io.cosmostaion.common.regexWithNumberAndChar
@@ -56,6 +57,7 @@ import wannabit.io.cosmostaion.database.model.RefAddress
 import wannabit.io.cosmostaion.ui.main.CosmostationApp
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class ApplicationViewModel(
@@ -215,7 +217,7 @@ class ApplicationViewModel(
                     token.clone()
                 }?.toMutableList() ?: mutableListOf()
 
-            if (chain is ChainGnoTestnet) {
+            if (chain is ChainGno) {
                 chain.gnoRpcFetcher()?.grc20Tokens =
                     BaseData.grc20Tokens?.filter { it.chainName == chain.apiName }?.map { token ->
                         token.clone()
@@ -239,7 +241,7 @@ class ApplicationViewModel(
                 is ChainOkt996Keccak -> loadOktLcdData(this, baseAccountId, isEdit)
                 is ChainSui -> loadSuiData(baseAccountId, this, isEdit, isTx, isRefresh)
                 is ChainIota -> loadIotaData(baseAccountId, this, isEdit, isTx, isRefresh)
-                is ChainGnoTestnet -> loadRpcData(this, baseAccountId, isEdit)
+                is ChainGno -> loadRpcData(this, baseAccountId, isEdit)
                 is ChainSolana -> loadSolData(baseAccountId, this, isEdit)
                 is ChainAptos, is ChainMovement -> loadAptosData(baseAccountId, this, isEdit)
                 else -> {
@@ -424,30 +426,6 @@ class ApplicationViewModel(
                         chain.initiaFetcher()?.initiaUnbondings = unBondingResult.data
                     }
 
-                } else if (chain is ChainZenrock) {
-                    val loadDelegationDeferred =
-                        async { walletRepository.zenrockDelegation(channel, chain) }
-                    val loadUnBondingDeferred =
-                        async { walletRepository.zenrockUnBonding(channel, chain) }
-
-                    val delegationResult = loadDelegationDeferred.await()
-                    val unBondingResult = loadUnBondingDeferred.await()
-
-                    if (delegationResult is NetworkResult.Success && delegationResult.data is MutableList<*>) {
-                        chain.zenrockFetcher()?.zenrockDelegations?.clear()
-                        delegationResult.data.forEach { delegation ->
-                            if (delegation.balance.amount.toBigDecimal() > BigDecimal.ZERO) {
-                                chain.zenrockFetcher()?.zenrockDelegations?.add(
-                                    delegation
-                                )
-                            }
-                        }
-                    }
-
-                    if (unBondingResult is NetworkResult.Success && unBondingResult.data is MutableList<*>) {
-                        chain.zenrockFetcher()?.zenrockUnbondings = unBondingResult.data
-                    }
-
                 } else {
                     if (chain is ChainNeutron) {
                         val loadVaultDepositDeferred =
@@ -565,8 +543,10 @@ class ApplicationViewModel(
                             ) != null
                         ) {
                             if (chain is ChainCheqd) {
-                                val baseFeeAmount = baseFee.amount.toBigDecimal().movePointRight(4).toString()
-                                val tempBaseFee = DecCoin.newBuilder().setDenom(baseFee.denom).setAmount(baseFeeAmount).build()
+                                val baseFeeAmount =
+                                    baseFee.amount.toBigDecimal().movePointRight(4).toString()
+                                val tempBaseFee = DecCoin.newBuilder().setDenom(baseFee.denom)
+                                    .setAmount(baseFeeAmount).build()
                                 cosmosFetcher?.cosmosBaseFees?.add(tempBaseFee)
                             } else {
                                 cosmosFetcher?.cosmosBaseFees?.add(baseFee)
@@ -1033,14 +1013,15 @@ class ApplicationViewModel(
 
     fun loadSuiData(
         id: Long,
-        chain: BaseChain,
+        chain: ChainSui,
         isEdit: Boolean? = false,
         isTx: Boolean? = false,
         isRefresh: Boolean? = false
     ) = CoroutineScope(Dispatchers.IO).launch {
-        (chain as ChainSui).suiFetcher()?.let { fetcher ->
-            chain.apply {
-                fetcher.suiSystem = JsonObject()
+        chain.apply {
+            suiFetcher()?.let { fetcher ->
+                fetcher.suiObjects.clear()
+                fetcher.suiSystem = null
                 fetcher.suiBalances.clear()
                 fetcher.suiStakedList.clear()
                 fetcher.suiObjects.clear()
@@ -1048,98 +1029,79 @@ class ApplicationViewModel(
                 fetcher.suiApys.clear()
                 fetcher.suiCoinMeta.clear()
 
+                val channel = chain.suiFetcher()?.getChannel()
                 try {
                     val loadSystemStateDeferred =
-                        async { walletRepository.suiSystemState(fetcher, this@apply) }
+                        async { walletRepository.suiSystemState(channel, chain) }
                     val loadOwnedObjectDeferred =
-                        async { walletRepository.suiOwnedObject(fetcher, this@apply, null) }
-                    val loadStakesDeferred =
-                        async { walletRepository.suiStakes(fetcher, this@apply) }
-                    val loadApysDeferred = async { walletRepository.suiApys(fetcher, this@apply) }
+                        async { walletRepository.suiOwnedObject(channel, chain, null) }
 
                     val systemStateResult = loadSystemStateDeferred.await()
                     loadOwnedObjectDeferred.await()
-                    val stakesResult = loadStakesDeferred.await()
-                    val apysResult = loadApysDeferred.await()
 
                     if (systemStateResult is NetworkResult.Success) {
                         fetcher.suiSystem = systemStateResult.data
-                        fetcher.suiSystem["result"].asJsonObject["activeValidators"].asJsonArray.forEach { validator ->
-                            fetcher.suiValidators.add(validator.asJsonObject)
+                        fetcher.suiSystem?.systemState?.validators?.activeValidatorsList?.forEach { validator ->
+                            fetcher.suiValidators.add(validator)
                         }
                         fetcher.suiValidators.sortWith { o1, o2 ->
                             when {
-                                o1["name"].asString == "Cosmostation" -> -1
-                                o2["name"].asString == "Cosmostation" -> 1
-                                else -> o2["votingPower"]?.asInt?.compareTo(
-                                    o1["votingPower"]?.asInt ?: 0
-                                ) ?: 0
+                                o1.name == "Cosmostation" -> -1
+                                o2.name == "Cosmostation" -> 1
+                                else -> o2.votingPower.compareTo(o1.votingPower)
                             }
-                        }
-                    }
-
-                    if (apysResult is NetworkResult.Success) {
-                        fetcher.suiApys = apysResult.data
-                        fetcher.suiApys.sortByDescending {
-                            it["apy"]?.asDouble ?: Double.MIN_VALUE
                         }
                     }
 
                     fetcher.suiObjects.forEach { suiObject ->
-                        val coinType = suiObject["data"].asJsonObject["type"].asString.suiCoinType()
-                        if (coinType != null) {
-                            val fields =
-                                suiObject["data"].asJsonObject["content"].asJsonObject["fields"].asJsonObject
-                            fields?.get("balance")?.let { balance ->
-                                val index =
-                                    fetcher.suiBalances.indexOfFirst { it.first == coinType }
-                                if (index != -1) {
-                                    val alreadyAmount = fetcher.suiBalances[index].second
-                                    val sumAmount =
-                                        alreadyAmount?.add(balance.asString.toBigDecimal())
-                                    fetcher.suiBalances[index] = Pair(coinType, sumAmount)
+                        val coinType = suiObject.objectType.suiCoinType()
+                        if (coinType != null && suiObject.hasBalance() && suiObject.balance > 0) {
+                            val balance = suiObject.balance.toBigDecimal()
 
-                                } else {
-                                    val newAmount = balance.asString.toBigDecimal()
-                                    fetcher.suiBalances.add(Pair(coinType, newAmount))
-                                }
+                            val index = fetcher.suiBalances.indexOfFirst { it.first == coinType }
+                            if (index != -1) {
+                                val alreadyAmount = fetcher.suiBalances[index].second
+                                val sumAmount = alreadyAmount?.add(balance)
+                                fetcher.suiBalances[index] = Pair(coinType, sumAmount)
+                            } else {
+                                fetcher.suiBalances.add(Pair(coinType, balance))
                             }
                         }
                     }
 
-                    if (stakesResult is NetworkResult.Success) {
-                        stakesResult.data["result"].asJsonArray.forEach { stake ->
-                            fetcher.suiStakedList.add(stake.asJsonObject)
-                        }
+                    val poolMap = fetcher.suiSystem?.systemState?.let { fetcher.buildPoolMap(it) }
+                        ?: emptyMap()
+                    val stakedObjects = fetcher.suiObjects.filter {
+                        it.objectType.suiNormalizeType().startsWith(SUI_STAKED_TYPE)
                     }
+                    val currentEpoch = fetcher.suiSystem?.epoch ?: 0L
+                    fetcher.suiStakedList = walletRepository.suiStakeRewards(
+                        fetcher, chain, stakedObjects, poolMap, currentEpoch
+                    ).toMutableList()
 
                     withContext(Dispatchers.Default) {
                         val coinMetaDeferred = fetcher.suiBalances.map { (coinType, _) ->
                             async {
-                                walletRepository.suiCoinMetadata(fetcher, this@apply, coinType)
+                                walletRepository.suiCoinMetadata(channel, chain, coinType)
                             }
                         }
 
+                        val suspiciousCoinTypes = mutableListOf<String>()
                         coinMetaDeferred.forEachIndexed { index, deferred ->
                             val coinMetadataResult = deferred.await()
                             if (coinMetadataResult is NetworkResult.Success && fetcher.suiBalances.isNotEmpty()) {
                                 fetcher.suiBalances[index].first?.let { type ->
-                                    val result = coinMetadataResult.data["result"]
-                                    val resultData = when (result) {
-                                        is JsonObject -> {
-                                            result.asJsonObject
+                                    coinMetadataResult.data?.let { metadata ->
+                                        if (fetcher.isSuiSuspiciousCoin(metadata)) {
+                                            suspiciousCoinTypes.add(type)
+                                        } else {
+                                            fetcher.suiCoinMeta[type] = metadata
                                         }
-
-                                        else -> {
-                                            null
-                                        }
-                                    }
-                                    if (resultData != null) {
-                                        fetcher.suiCoinMeta[type] = resultData
                                     }
                                 }
                             }
                         }
+                        fetcher.suiBalances.removeAll { suspiciousCoinTypes.contains(it.first) }
                     }
 
                     fetchState = FetchState.SUCCESS
@@ -1448,9 +1410,10 @@ class ApplicationViewModel(
             chain.apply {
                 when (val response = walletRepository.rpcAuth(chain)) {
                     is NetworkResult.Success -> {
-                        (chain as ChainGnoTestnet).gnoRpcFetcher()?.let { fetcher ->
+                        (chain as ChainGno).gnoRpcFetcher()?.let { fetcher ->
                             if (response.data.isSuccessful) {
                                 val tempBalances: MutableList<CoinProto.Coin> = mutableListOf()
+                                val tempVestings: MutableList<CoinProto.Coin> = mutableListOf()
                                 val jsonResponse = Gson().fromJson(
                                     response.data.body?.string(), JsonObject::class.java
                                 )
@@ -1483,22 +1446,68 @@ class ApplicationViewModel(
                                     val dataJson =
                                         Gson().fromJson(decodeData, JsonObject::class.java)
                                     val accountData = dataJson["BaseAccount"].asJsonObject
-                                    if (accountData["coins"].asString.isNotEmpty()) {
+
+                                    if (accountData["vesting"]?.isJsonNull == false) {
+                                        val vestingData = accountData["vesting"].asJsonObject
+                                        val (vestingDenom, originalVestingAmount) =
+                                            vestingData["original_vesting"].asString.regexWithNumberAndChar()
+                                        val startTime = vestingData["start_time"].asString.toLong()
+                                        val endTime = vestingData["end_time"].asString.toLong()
+                                        val now = System.currentTimeMillis() / 1000
+
+                                        val duration = (endTime - startTime).coerceAtLeast(1)
+                                        val elapsed = (now - startTime).coerceIn(0, duration)
+
+                                        val originalVesting =
+                                            originalVestingAmount.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                                        val vested = originalVesting.multiply(elapsed.toBigDecimal())
+                                            .divide(duration.toBigDecimal(), 0, RoundingMode.DOWN)
+                                        val locked = (originalVesting - vested).coerceAtLeast(BigDecimal.ZERO)
+
+                                        val (balanceDenom, totalBalanceAmount) =
+                                            accountData["coins"].asString.regexWithNumberAndChar()
+                                        val total =
+                                            totalBalanceAmount.toBigDecimalOrNull() ?: BigDecimal.ZERO
+                                        val spendable = (total - locked).coerceAtLeast(BigDecimal.ZERO)
+
                                         tempBalances.add(
                                             CoinProto.Coin.newBuilder()
-                                                .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
-                                                .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                .setDenom(balanceDenom.ifEmpty { vestingDenom })
+                                                .setAmount(spendable.toPlainString())
                                                 .build()
                                         )
-                                    } else {
-                                        tempBalances.add(
+                                        tempVestings.add(
                                             CoinProto.Coin.newBuilder()
-                                                .setDenom(getStakeAssetDenom())
-                                                .setAmount("0").build()
+                                                .setDenom(vestingDenom)
+                                                .setAmount(locked.toPlainString())
+                                                .build()
                                         )
+
+                                    } else {
+                                        if (accountData["coins"].asString.isNotEmpty()) {
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
+                                                    .setAmount(accountData["coins"].asString.regexWithNumberAndChar().second)
+                                                    .build()
+                                            )
+                                        } else {
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(getStakeAssetDenom())
+                                                    .setAmount("0").build()
+                                            )
+
+                                            tempVestings.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(getStakeAssetDenom())
+                                                    .setAmount("0").build()
+                                            )
+                                        }
                                     }
 
                                     fetcher.gnoBalances = tempBalances
+                                    fetcher.gnoVestings = tempVestings
                                     fetcher.gnoAccountNumber =
                                         accountData["account_number"].asString.toLong()
                                     fetcher.gnoSequence = accountData["sequence"].asString.toLong()

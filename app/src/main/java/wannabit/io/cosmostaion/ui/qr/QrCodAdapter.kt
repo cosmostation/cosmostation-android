@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.database.model.BaseAccount
-import wannabit.io.cosmostaion.databinding.ItemByFooterBinding
 import wannabit.io.cosmostaion.databinding.ItemHeaderBinding
 import wannabit.io.cosmostaion.databinding.ItemQrBinding
 
@@ -18,7 +17,6 @@ class QrCodAdapter(
         const val VIEW_TYPE_EVM_ITEM = 1
         const val VIEW_TYPE_COSMOS_HEADER = 2
         const val VIEW_TYPE_COSMOS_ITEM = 3
-        const val VIEW_TYPE_FOOTER = 4
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,12 +32,6 @@ class QrCodAdapter(
                 val binding =
                     ItemQrBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 QrCodeViewHolder(parent.context, binding)
-            }
-
-            VIEW_TYPE_FOOTER -> {
-                val binding =
-                    ItemByFooterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ByFooterViewHolder(binding)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
@@ -59,10 +51,6 @@ class QrCodAdapter(
                     holder.bind(account, selectedChain)
                 }
             }
-
-            is ByFooterViewHolder -> {
-                holder.bind()
-            }
         }
     }
 
@@ -73,22 +61,19 @@ class QrCodAdapter(
                     0 -> VIEW_TYPE_EVM_HEADER
                     1 -> VIEW_TYPE_EVM_ITEM
                     2 -> VIEW_TYPE_COSMOS_HEADER
-                    3 -> VIEW_TYPE_COSMOS_ITEM
-                    else -> VIEW_TYPE_FOOTER
+                    else -> VIEW_TYPE_COSMOS_ITEM
                 }
             } else {
                 when (position) {
                     0 -> VIEW_TYPE_EVM_HEADER
-                    1 -> VIEW_TYPE_EVM_ITEM
-                    else -> VIEW_TYPE_FOOTER
+                    else -> VIEW_TYPE_EVM_ITEM
                 }
             }
 
         } else {
             when (position) {
                 0 -> VIEW_TYPE_COSMOS_HEADER
-                1 -> VIEW_TYPE_COSMOS_ITEM
-                else -> VIEW_TYPE_FOOTER
+                else -> VIEW_TYPE_COSMOS_ITEM
             }
         }
     }
@@ -96,12 +81,12 @@ class QrCodAdapter(
     override fun getItemCount(): Int {
         return if (selectedChain.supportEvm) {
             if (selectedChain.supportCosmos()) {
-                5
+                4
             } else {
-                3
+                2
             }
         } else {
-            3
+            2
         }
     }
 
@@ -122,14 +107,6 @@ class QrCodAdapter(
                     headerTitle.text = "My address"
                 }
             }
-        }
-    }
-
-    inner class ByFooterViewHolder(
-        private val binding: ItemByFooterBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-
         }
     }
 }

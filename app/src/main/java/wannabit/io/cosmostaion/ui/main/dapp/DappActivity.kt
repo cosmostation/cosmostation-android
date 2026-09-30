@@ -35,6 +35,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.google.protobuf.ByteString
+import com.google.protobuf.FieldMask
 import com.google.protobuf.util.JsonFormat
 import com.reown.android.Core
 import com.reown.android.CoreClient
@@ -43,6 +44,11 @@ import com.reown.sign.client.Sign.Model.Namespace
 import com.reown.sign.client.SignClient
 import com.reown.sign.client.SignInterface
 import com.reown.util.bytesToHex
+import com.sui.rpc.v2.BcsProto
+import com.sui.rpc.v2.SignatureProto
+import com.sui.rpc.v2.TransactionExecutionServiceGrpc
+import com.sui.rpc.v2.TransactionExecutionServiceProto
+import com.sui.rpc.v2.TransactionProto
 import com.tm2.tx.TxProto.Tx
 import com.tm2.tx.TxProto.TxFee
 import com.tm2.tx.TxProto.TxSignature
@@ -1770,18 +1776,6 @@ class DappActivity : BaseActivity() {
                     )
                 }
 
-                "sui_basicParam" -> {
-                    if (selectSuiChain == null) {
-                        selectSuiChain = allChains?.find { it.name == "Sui" }
-                    }
-                    val chainJson = JSONObject()
-                    chainJson.put("rpc", (selectSuiChain as ChainSui).suiFetcher()?.suiRpc())
-                    chainJson.put("address", (selectSuiChain as ChainSui).mainAddress)
-                    appToWebResult(
-                        messageJson, chainJson, messageId
-                    )
-                }
-
                 "sui_signTransaction", "sui_signTransactionBlock" -> {
                     val params = messageJson.getJSONObject("params")
                     val signBundle = signBundle(0, params.toString(), "sui_signTransaction")
@@ -2576,27 +2570,44 @@ class DappActivity : BaseActivity() {
     ) {
         lifecycleScope.launch(Dispatchers.IO) {
             (selectSuiChain as ChainSui).suiFetcher()?.let { fetcher ->
-                val params = messageJson.getJSONObject("params")
-                val txJsonObject = JsonParser.parseString(params.toString()).asJsonObject
-                val options = if (txJsonObject["options"] != null) {
-                    formatJsonOptions(
-                        Gson().fromJson(
-                            txJsonObject["options"], JsonObject::class.java
+                try {
+                    val request = TransactionExecutionServiceProto.ExecuteTransactionRequest.newBuilder()
+                        .setTransaction(
+                            TransactionProto.Transaction.newBuilder()
+                                .setBcs(
+                                    BcsProto.Bcs.newBuilder()
+                                        .setValue(ByteString.copyFrom(Base64.decode(txByte, Base64.DEFAULT)))
+                                )
                         )
-                    )
-                } else {
-                    mapOf("showInput" to true, "showEffects" to true, "showEvents" to true)
-                }
+                        .addSignatures(
+                            SignatureProto.UserSignature.newBuilder()
+                                .setBcs(
+                                    BcsProto.Bcs.newBuilder()
+                                        .setValue(ByteString.copyFrom(Base64.decode(signature, Base64.DEFAULT)))
+                                )
+                        )
+                        .setReadMask(
+                            FieldMask.newBuilder()
+                                .addPaths("digest")
+                                .addPaths("effects")
+                                .addPaths("events")
+                                .addPaths("balance_changes")
+                        ).build()
 
-                val param = listOf(
-                    txByte, mutableListOf(signature), options, "WaitForLocalExecution"
-                )
-                val suiExecuteRequest = JsonRpcRequest(
-                    method = "sui_executeTransactionBlock", params = param
-                )
-                val suiExecuteResponse = jsonRpcResponse(fetcher.suiRpc(), suiExecuteRequest)
-                val suiExecuteJsonObject = JSONObject(suiExecuteResponse.body?.string())
-                appToWebResult(messageJson, suiExecuteJsonObject.getJSONObject("result"), messageId)
+                    val stub = TransactionExecutionServiceGrpc.newBlockingStub(fetcher.getChannel())
+                        .withDeadlineAfter(30L, TimeUnit.SECONDS)
+                    val response = stub.executeTransaction(request)
+
+                    appToWebResult(
+                        messageJson, JSONObject(
+                            JsonFormat.printer().includingDefaultValueFields()
+                                .print(response.transaction)
+                        ), messageId
+                    )
+
+                } catch (e: Exception) {
+                    appToWebError(messageJson, messageId, e.message ?: "Failed to execute transaction")
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
 import wannabit.io.cosmostaion.chain.majorClass.APTOS_MAIN_DENOM
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.fadeInAnimation
 import wannabit.io.cosmostaion.common.fadeOutAnimation
@@ -236,7 +236,7 @@ class WalletSelectViewHolder(
                             )
                         )
 
-                    } else if (chain is ChainGnoTestnet) {
+                    } else if (chain is ChainGno) {
                         BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                             val availableAmount =
                                 chain.gnoRpcFetcher?.balanceAmount(chain.getMainAssetDenom())
@@ -399,7 +399,7 @@ class WalletSelectViewHolder(
                             chainDenom.text = chain.getMainAssetSymbol()
                         }
 
-                    } else if (chain is ChainGnoTestnet) {
+                    } else if (chain is ChainGno) {
                         BaseData.getAsset(chain.apiName, chain.getMainAssetDenom())?.let { asset ->
                             val availableAmount =
                                 chain.gnoRpcFetcher?.balanceAmount(chain.getMainAssetDenom())

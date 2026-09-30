@@ -33,7 +33,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
-import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.toMoveAnimation
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
@@ -54,7 +53,7 @@ import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainActivity
 import wannabit.io.cosmostaion.ui.main.setting.wallet.chain.ChainNoticeActivity
 import wannabit.io.cosmostaion.ui.password.PasswordCheckActivity
 import wannabit.io.cosmostaion.ui.qr.WaitingDialog
-import java.util.Locale
+import androidx.core.net.toUri
 
 class SettingFragment : Fragment() {
 
@@ -103,11 +102,7 @@ class SettingFragment : Fragment() {
                 appLockView,
                 bioView,
                 helpView,
-                homepageView,
                 noticeView,
-                termView,
-                privacyView,
-                githubView,
                 versionView,
                 devView
             ).forEach { it.setBackgroundResource(R.drawable.item_bg) }
@@ -325,28 +320,16 @@ class SettingFragment : Fragment() {
             helpView.setOnClickListener {
                 val url = when (Prefs.language) {
                     BaseUtils.LANGUAGE_KOREAN -> {
-                        Uri.parse("https://www.cosmostation.io/kr/support/mobile")
-                    }
-
-                    BaseUtils.LANGUAGE_JAPANESE -> {
-                        Uri.parse("https://www.cosmostation.io/jp/support/mobile")
+                        "https://www.stamper.network/guide-ko.pdf".toUri()
                     }
 
                     else -> {
-                        Uri.parse("https://www.cosmostation.io/en/support/mobile")
+                        "https://www.stamper.network/guide-en.pdf".toUri()
                     }
                 }
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW, url
-                    )
-                )
-            }
-
-            homepageView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_HOMEPAGE)
                     )
                 )
             }
@@ -358,46 +341,11 @@ class SettingFragment : Fragment() {
                 }
             }
 
-            termView.setOnClickListener {
-                if (Prefs.language == BaseUtils.LANGUAGE_KOREAN || Locale.getDefault().language == "ko") {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(CosmostationConstants.COSMOSTATION_TERM_KR)
-                        )
-                    )
-                } else {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(CosmostationConstants.COSMOSTATION_TERM_EN)
-                        )
-                    )
-                }
-            }
-
-            privacyView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(CosmostationConstants.COSMOSTATION_PRIVACY_POLICY)
-                    )
-                )
-            }
-
-            githubView.setOnClickListener {
-                startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW, Uri.parse(CosmostationConstants.COSMOSTATION_GITHUB)
-                    )
-                )
-            }
-
             versionView.setOnClickListener {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=" + requireActivity().packageName)
+                        ("market://details?id=" + requireActivity().packageName).toUri()
                     )
                 )
             }
@@ -413,7 +361,7 @@ class SettingFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.getStringExtra("url")?.let { url ->
-                    val uri = Uri.parse(url)
+                    val uri = url.toUri()
                     Handler(Looper.getMainLooper()).postDelayed({
                         if (uri.scheme != null && uri.host != null && Patterns.WEB_URL.matcher(url)
                                 .matches()

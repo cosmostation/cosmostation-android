@@ -21,9 +21,9 @@ open class ChainCheqd : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ncheq"
     override var accountPrefix: String = "cheqd"
-    override var grpcHost: String = "grpc.cheqd.net"
-    override var lcdUrl: String = "https://api.cheqd.net/"
+    override var grpcHost: String = "grpc-cheqd.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-cheqd.mainnet.cosmoslabs.kr/"
 }

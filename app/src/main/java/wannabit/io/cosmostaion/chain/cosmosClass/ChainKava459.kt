@@ -22,11 +22,11 @@ open class ChainKava459 : ChainKavaEvm(), Parcelable {
         ChildNumber(44, true), ChildNumber(459, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ukava"
     override var accountPrefix: String = "kava"
-    override var grpcHost: String = "grpc.data.kava.io"
-    override var lcdUrl: String = "https://api.data.kava.io/"
+    override var grpcHost: String = "grpc-kava.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-kava.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = false
     override var coinSymbol: String = ""

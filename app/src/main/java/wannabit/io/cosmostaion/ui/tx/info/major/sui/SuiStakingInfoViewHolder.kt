@@ -4,25 +4,22 @@ import android.content.Context
 import android.graphics.PorterDuff
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.StakeReward
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.setImageFromSvg
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemSuiStakingInfoBinding
-import java.math.BigDecimal
 import java.math.RoundingMode
 
 class SuiStakingInfoViewHolder(
     val context: Context, private val binding: ItemSuiStakingInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(chain: BaseChain, staked: Pair<String, JsonObject>) {
+    fun bind(chain: BaseChain, staked: StakeReward) {
         binding.apply {
             stakeCoinView.setBackgroundResource(R.drawable.item_bg)
             clickImg.setColorFilter(
@@ -30,39 +27,30 @@ class SuiStakingInfoViewHolder(
             )
 
             (chain as ChainSui).suiFetcher()?.let { fetcher ->
-                fetcher.suiValidators.firstOrNull { it["suiAddress"].asString == staked.first }
+                fetcher.suiValidators.firstOrNull { it.address == staked.validatorAddress }
                     ?.let { validator ->
                         monikerImg.setImageFromSvg(
-                            validator.moveValidatorImg(), R.drawable.icon_default_vaildator
+                            validator.imageUrl, R.drawable.icon_default_vaildator
                         )
-                        monikerName.text = validator.moveValidatorName()
+                        monikerName.text = validator.name
                     }
 
-                clickImg.goneOrVisible(staked.second["status"].asString == "Pending")
-                pendingBadge.visibleOrGone(staked.second["status"].asString == "Pending")
+                clickImg.goneOrVisible(staked.isPending)
+                pendingBadge.visibleOrGone(staked.isPending)
                 pendingBadge.setColorFilter(
                     ContextCompat.getColor(context, R.color.color_blue), PorterDuff.Mode.SRC_IN
                 )
-                objectId.text = staked.second["stakedSuiId"].asString
+                objectId.text = staked.objectId
 
-                val principal = try {
-                    staked.second["principal"].asLong.toBigDecimal().movePointLeft(9)
-                        .setScale(9, RoundingMode.DOWN)
-                } catch (e: Exception) {
-                    BigDecimal.ZERO
-                }
-
-                val estimatedReward = try {
-                    staked.second["estimatedReward"].asLong.toBigDecimal().movePointLeft(9)
-                        .setScale(9, RoundingMode.DOWN)
-                } catch (e: Exception) {
-                    BigDecimal.ZERO
-                }
+                val principal =
+                    staked.principal.toBigDecimal().movePointLeft(9).setScale(9, RoundingMode.DOWN)
+                val estimatedReward = staked.estimatedReward.toBigDecimal().movePointLeft(9)
+                    .setScale(9, RoundingMode.DOWN)
 
                 principalTxt.text = formatAmount(principal.toString(), 9)
                 earned.text = formatAmount(estimatedReward.toString(), 9)
                 totalStaked.text = formatAmount(principal.add(estimatedReward).toString(), 9)
-                startEarning.text = "Epoch #" + staked.second["stakeActiveEpoch"].asString
+                startEarning.text = "Epoch #" + staked.activationEpoch
             }
         }
     }

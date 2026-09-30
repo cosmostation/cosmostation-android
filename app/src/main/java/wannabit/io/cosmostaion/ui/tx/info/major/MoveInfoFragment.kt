@@ -59,7 +59,7 @@ class MoveInfoFragment : BottomSheetDialogFragment() {
         binding.apply {
             val epoch = if (selectedChain is ChainSui) {
                 (selectedChain as ChainSui).suiFetcher?.let { fetcher ->
-                    fetcher.suiSystem["result"].asJsonObject["epoch"].asLong
+                    fetcher.suiSystem?.epoch
                 }
 
             } else {

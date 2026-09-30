@@ -21,9 +21,9 @@ class ChainAllora : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uallo"
     override var accountPrefix: String = "allo"
-    override var grpcHost: String = "allora-grpc.mainnet.allora.network"
-    override var lcdUrl: String = "https://allora-api.mainnet.allora.network/"
+    override var grpcHost: String = "grpc-allora.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-allora.mainnet.cosmoslabs.kr/"
 }

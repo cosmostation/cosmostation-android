@@ -21,9 +21,9 @@ class ChainDoravota : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "peaka"
     override var accountPrefix: String = "dora"
-    override var grpcHost: String = "vota-grpc.dorafactory.org"
-    override var lcdUrl: String = "https://vota-rest.dorafactory.org/"
+    override var grpcHost: String = "grpc-dora.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-dora.mainnet.cosmoslabs.kr/"
 }

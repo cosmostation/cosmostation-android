@@ -21,11 +21,11 @@ class ChainHumansEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aheart"
     override var accountPrefix: String = "human"
-    override var grpcHost: String = "grpc.humans.nodestake.top"
-    override var lcdUrl: String = "https://humans-mainnet-api.itrocket.net/"
+    override var grpcHost: String = "grpc-humans.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-humans.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "HEART"

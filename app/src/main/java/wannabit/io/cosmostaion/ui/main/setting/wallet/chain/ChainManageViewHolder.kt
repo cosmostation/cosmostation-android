@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.setChainLogo
 import wannabit.io.cosmostaion.databinding.ItemChainManageBinding
 
@@ -70,6 +70,15 @@ class ChainManageViewHolder(
                     rpcEndpointType.text = "REST"
                     evmRpcEndpoint.text = chain.aptosFetcher()?.getGraphQL()
                     evmRpcEndpointType.text = "GRAPHQL"
+                }
+
+                is ChainGno -> {
+                    restLayout.visibility = View.VISIBLE
+                    evmLayout.visibility = View.GONE
+
+                    chainName.text = chain.getChainName()
+                    restEndpoint.text = chain.gnoRpcFetcher()?.gnoRpc()?.replace("https://", "")
+                    restEndpointType.text = "RPC"
                 }
 
                 else -> {
@@ -152,7 +161,7 @@ class ChainManageViewHolder(
                     restEndpointType.text = "API"
                 }
 
-                is ChainGnoTestnet -> {
+                is ChainGno -> {
                     restLayout.visibility = View.VISIBLE
                     evmLayout.visibility = View.GONE
 

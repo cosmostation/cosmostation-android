@@ -21,9 +21,9 @@ class ChainXion : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uxion"
     override var accountPrefix: String = "xion"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://xion-api.polkachu.com/"
+    override var grpcHost: String = "grpc-xion.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-xion.mainnet.cosmoslabs.kr/"
 }

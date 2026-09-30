@@ -15,7 +15,6 @@ import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.visibleOrGone
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.ui.tx.genTx.UnStakingFragment
 import wannabit.io.cosmostaion.ui.tx.info.InitiaUnBondingEntry
 import wannabit.io.cosmostaion.ui.tx.info.OptionType
 import wannabit.io.cosmostaion.ui.tx.info.UnBondingEntry
-import wannabit.io.cosmostaion.ui.tx.info.ZenrockUnBondingEntry
 
 class StakingOptionFragment : BottomSheetDialogFragment() {
 
@@ -41,8 +39,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
     private var unBondingEntry: UnBondingEntry? = null
     private var initiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null
     private var initiaUnBondingEntry: InitiaUnBondingEntry? = null
-    private var zenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null
-    private var zenrockUnBondingEntry: ZenrockUnBondingEntry? = null
     private var optionType: OptionType? = OptionType.STAKE
 
     private var isClickable = true
@@ -53,20 +49,16 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
             selectedChain: BaseChain,
             validator: Validator? = null,
             initiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
-            zenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null,
             unBondingEntry: UnBondingEntry? = null,
             initiaUnBondingEntry: InitiaUnBondingEntry? = null,
-            zenrockUnBondingEntry: ZenrockUnBondingEntry? = null,
             optionType: OptionType?
         ): StakingOptionFragment {
             val args = Bundle().apply {
                 putParcelable("selectedChain", selectedChain)
                 putSerializable("validator", validator)
                 putSerializable("initiaValidator", initiaValidator)
-                putSerializable("zenrockValidator", zenrockValidator)
                 putParcelable("unBondingEntry", unBondingEntry)
                 putParcelable("initiaUnBondingEntry", initiaUnBondingEntry)
-                putParcelable("zenrockUnBondingEntry", zenrockUnBondingEntry)
                 putSerializable("optionType", optionType)
             }
             val fragment = StakingOptionFragment()
@@ -100,16 +92,10 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     initiaValidator = getSerializable(
                         "initiaValidator", com.initia.mstaking.v1.StakingProto.Validator::class.java
                     )
-                    zenrockValidator = getSerializable(
-                        "zenrockValidator",
-                        com.zrchain.validation.HybridValidationProto.ValidatorHV::class.java
-                    )
 
                     unBondingEntry = getParcelable("unBondingEntry", UnBondingEntry::class.java)
                     initiaUnBondingEntry =
                         getParcelable("initiaUnBondingEntry", InitiaUnBondingEntry::class.java)
-                    zenrockUnBondingEntry =
-                        getParcelable("zenrockUnBondingEntry", ZenrockUnBondingEntry::class.java)
                     optionType = getSerializable("optionType", OptionType::class.java)
                 }
             } else {
@@ -120,14 +106,10 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                     validator = getSerializable("validator") as? Validator
                     initiaValidator =
                         getSerializable("initiaValidator") as? com.initia.mstaking.v1.StakingProto.Validator
-                    zenrockValidator =
-                        getSerializable("zenrockValidator") as? com.zrchain.validation.HybridValidationProto.ValidatorHV
 
                     unBondingEntry = getParcelable("unBondingEntry") as? UnBondingEntry
                     initiaUnBondingEntry =
                         getParcelable("initiaUnBondingEntry") as? InitiaUnBondingEntry
-                    zenrockUnBondingEntry =
-                        getParcelable("zenrockUnBondingEntry") as? ZenrockUnBondingEntry
                     optionType = getSerializable("optionType") as? OptionType
                 }
             }
@@ -172,14 +154,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         )
                     }
 
-                    is ChainZenrock -> {
-                        handleOneClickWithDelay(
-                            StakingFragment.newInstance(
-                                selectedChain, zenrockToValidator = zenrockValidator
-                            )
-                        )
-                    }
-
                     else -> {
                         handleOneClickWithDelay(
                             StakingFragment.newInstance(
@@ -196,14 +170,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         handleOneClickWithDelay(
                             UnStakingFragment.newInstance(
                                 selectedChain, initiaValidator = initiaValidator
-                            )
-                        )
-                    }
-
-                    is ChainZenrock -> {
-                        handleOneClickWithDelay(
-                            UnStakingFragment.newInstance(
-                                selectedChain, zenrockValidator = zenrockValidator
                             )
                         )
                     }
@@ -228,14 +194,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         )
                     }
 
-                    is ChainZenrock -> {
-                        handleOneClickWithDelay(
-                            ReDelegateFragment.newInstance(
-                                selectedChain, zenrockFromValidator = zenrockValidator
-                            )
-                        )
-                    }
-
                     else -> {
                         handleOneClickWithDelay(
                             ReDelegateFragment.newInstance(
@@ -251,9 +209,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
                     when (selectedChain) {
                         is ChainInitia -> it.validatorAddress == initiaValidator?.operatorAddress
-
-                        is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
-
                         else -> it.validatorAddress == validator?.operatorAddress
                     }
                 }?.let { claimableReward ->
@@ -285,9 +240,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                 selectedChain.cosmosFetcher?.cosmosRewards?.firstOrNull {
                     when (selectedChain) {
                         is ChainInitia -> it.validatorAddress == initiaValidator?.operatorAddress
-
-                        is ChainZenrock -> it.validatorAddress == zenrockValidator?.operatorAddress
-
                         else -> it.validatorAddress == validator?.operatorAddress
                     }
                 }?.let { claimableReward ->
@@ -315,14 +267,6 @@ class StakingOptionFragment : BottomSheetDialogFragment() {
                         handleOneClickWithDelay(
                             CancelUnBondingFragment.newInstance(
                                 selectedChain, initiaUnBondingEntry = initiaUnBondingEntry
-                            )
-                        )
-                    }
-
-                    is ChainZenrock -> {
-                        handleOneClickWithDelay(
-                            CancelUnBondingFragment.newInstance(
-                                selectedChain, zenrockUnBondingEntry = zenrockUnBondingEntry
                             )
                         )
                     }

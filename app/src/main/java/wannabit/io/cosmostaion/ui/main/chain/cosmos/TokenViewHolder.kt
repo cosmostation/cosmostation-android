@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -103,7 +103,7 @@ class TokenViewHolder(
                         }
 
                     } ?: run {
-                    (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chain.apiName && token.address == coin.denom }
+                    (chain as ChainGno).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chain.apiName && token.address == coin.denom }
                         ?.let { grcToken ->
                             tokenImg.setTokenImg(grcToken.image)
                             tokenImg.clipToOutline = true

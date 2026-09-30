@@ -10,28 +10,32 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.google.protobuf.FieldMask
+import com.sui.rpc.v2.TransactionExecutionServiceGrpc
+import com.sui.rpc.v2.TransactionExecutionServiceProto
+import com.sui.rpc.v2.TransactionProto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import net.i2p.crypto.eddsa.Utils
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.sign.mapProgrammableTransactionKind
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.formatJsonString
-import wannabit.io.cosmostaion.common.jsonRpcResponse
 import wannabit.io.cosmostaion.common.setImg
-import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
 import wannabit.io.cosmostaion.databinding.FragmentSuiSignBinding
 import wannabit.io.cosmostaion.sign.Signer
 import wannabit.io.cosmostaion.ui.tx.genTx.BaseTxFragment
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.concurrent.TimeUnit
 
 
 class PopUpSuiSignFragment(
@@ -112,50 +116,57 @@ class PopUpSuiSignFragment(
                             txJsonObject["transactionBlockSerialized"].asString,
                             JsonObject::class.java
                         )
-                        val buildHexString = txJsonObject["buildHexString"].asString
 
                         var format = ""
                         var gasCost = BigDecimal.ZERO
 
-                        if (buildHexString.isNotEmpty()) {
-                            val txBytes = Base64.toBase64String(Utils.hexToBytes(buildHexString))
-                            val suiDryRunRequest = JsonRpcRequest(
-                                method = "sui_dryRunTransactionBlock", params = listOf(txBytes)
-                            )
-                            val suiDryRunResponse =
-                                jsonRpcResponse(fetcher.suiRpc(), suiDryRunRequest)
-                            val suiDryRunJsonObject = Gson().fromJson(
-                                suiDryRunResponse.body?.string(), JsonObject::class.java
-                            )
+                        try {
+                            val kind = mapProgrammableTransactionKind(txSerialized)
+
+                            val request =
+                                TransactionExecutionServiceProto.SimulateTransactionRequest.newBuilder()
+                                    .setTransaction(
+                                        TransactionProto.Transaction.newBuilder()
+                                            .setSender(selectedChain?.mainAddress ?: "")
+                                            .setKind(kind)
+                                    )
+                                    .setDoGasSelection(true)
+                                    .setReadMask(
+                                        FieldMask.newBuilder()
+                                            .addPaths("transaction.effects")
+                                            .addPaths("transaction.transaction")
+                                    ).build()
+
+                            val stub =
+                                TransactionExecutionServiceGrpc.newBlockingStub(fetcher.getChannel())
+                                    .withDeadlineAfter(15L, TimeUnit.SECONDS)
+                            val response = stub.simulateTransaction(request)
+                            val resolvedTx = response.transaction.transaction
+                            val gasPayment = resolvedTx.gasPayment
 
                             txSerialized.addProperty("sender", selectedChain?.mainAddress)
                             if (txSerialized["gasData"] != null) {
                                 txSerialized["gasData"].asJsonObject?.let { gasData ->
-                                    gasData.addProperty(
-                                        "budget",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["budget"].asString
-                                    )
-                                    gasData.addProperty(
-                                        "price",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["price"].asString
-                                    )
-                                    gasData.addProperty(
-                                        "owner",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["owner"].asString
-                                    )
-                                    gasData.add(
-                                        "payment",
-                                        suiDryRunJsonObject["result"].asJsonObject["input"].asJsonObject["gasData"].asJsonObject["payment"].asJsonArray
-                                    )
+                                    gasData.addProperty("budget", gasPayment.budget.toString())
+                                    gasData.addProperty("price", gasPayment.price.toString())
+                                    gasData.addProperty("owner", gasPayment.owner)
+                                    gasData.add("payment", JsonArray().apply {
+                                        gasPayment.objectsList.forEach { ref ->
+                                            add(JsonObject().apply {
+                                                addProperty("objectId", ref.objectId)
+                                                addProperty("version", ref.version)
+                                                addProperty("digest", ref.digest)
+                                            })
+                                        }
+                                    })
                                 }
                             }
                             format = formatJsonString(txSerialized.toString())
-                            val computationCost =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                            val storageCost =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                            val storageRebate =
-                                suiDryRunJsonObject["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+
+                            val gasUsed = response.transaction.effects.gasUsed
+                            val computationCost = gasUsed.computationCost.toBigDecimal()
+                            val storageCost = gasUsed.storageCost.toBigDecimal()
+                            val storageRebate = gasUsed.storageRebate.toBigDecimal()
 
                             val cost = storageCost.subtract(storageRebate)
                             val dpCost = if (cost > BigDecimal.ZERO) {
@@ -164,8 +175,14 @@ class PopUpSuiSignFragment(
                                 BigDecimal.ZERO
                             }
                             gasCost = computationCost.add(dpCost).setScale(0, RoundingMode.DOWN)
+
+                            val txBytes =
+                                Base64.toBase64String(resolvedTx.bcs.value.toByteArray())
                             updateData = txBytes
                             signature = Signer.moveSignature(selectedChain as ChainSui, txBytes)[0]
+
+                        } catch (e: Exception) {
+                            format = e.message ?: "Failed to build transaction"
                         }
 
                         withContext(Dispatchers.Main) {

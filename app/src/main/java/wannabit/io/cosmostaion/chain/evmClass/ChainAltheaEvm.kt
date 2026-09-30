@@ -22,11 +22,11 @@ class ChainAltheaEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aalthea"
     override var accountPrefix: String = "althea"
-    override var grpcHost: String = "grpc.althea.citizenweb3.com"
-    override var lcdUrl: String = "https://nodes.chandrastation.com/api/althea/"
+    override var grpcHost: String = "grpc-althea.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-althea.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ALTHEA"

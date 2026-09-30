@@ -4,12 +4,10 @@ import android.content.Context
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.AccountKeyType
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.fetcher.assetImg
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -28,8 +26,8 @@ class ChainSui : BaseChain(), Parcelable {
 
     override var stakeDenom: String = SUI_MAIN_DENOM
     override var coinSymbol: String = "SUI"
-
-    override var mainUrl: String = "https://fullnode.mainnet.sui.io"
+    override var grpcHost: String = "fullnode.mainnet.sui.io"
+    override var mainUrl: String = "https://graphql.mainnet.sui.io/graphql"
 
     override suspend fun setInfoWithPrivateKey(context: Context, privateKey: ByteArray?) {
         this.privateKey = privateKey
@@ -51,7 +49,7 @@ class ChainSui : BaseChain(), Parcelable {
             if (asset != null) {
                 return asset.image ?: ""
             } else if (metaData != null) {
-                return metaData.assetImg()
+                return metaData.iconUrl
             }
         }
         return ""
@@ -65,7 +63,7 @@ class ChainSui : BaseChain(), Parcelable {
             if (asset != null) {
                 return asset.symbol
             } else if (metaData != null) {
-                return metaData["symbol"].asString
+                return metaData.symbol
             }
         }
         return denom.suiCoinSymbol() ?: "UnKnown"
@@ -79,7 +77,7 @@ class ChainSui : BaseChain(), Parcelable {
             if (asset != null) {
                 return asset.decimals ?: 9
             } else if (metaData != null) {
-                return metaData["decimals"]?.asInt ?: 9
+                return metaData.decimals
             }
         }
         return 9
@@ -95,6 +93,7 @@ class ChainSui : BaseChain(), Parcelable {
 
 const val SUI_TYPE_COIN = "0x2::coin::Coin"
 const val SUI_MAIN_DENOM = "0x2::sui::SUI"
+const val SUI_STAKED_TYPE = "0x3::staking_pool::StakedSui"
 
 const val SUI_MIN_STAKE = "1000000000"
 const val SUI_FEE_SEND = "4000000"
@@ -102,4 +101,42 @@ const val SUI_FEE_STAKE = "50000000"
 const val SUI_FEE_UNSTAKE = "50000000"
 const val SUI_FEE_DEFAULT = "70000000"
 
-const val MOVE_API = "https://us-central1-splash-wallet-60bd6.cloudfunctions.net"
+const val EXCHANGE_RATE_QUERY = """
+    query(${'$'}tableId: SuiAddress!, ${'$'}epochKey: Base64!) {
+        address(address: ${'$'}tableId) {
+            dynamicField(name: { type: "u64", bcs: ${'$'}epochKey }) {
+                value {
+                    ... on MoveValue {
+                        json
+                    }
+                }
+            }
+        }
+    }
+"""
+
+const val SUI_HISTORY_QUERY = """
+    query(${'$'}addr: SuiAddress!, ${'$'}last: Int!, ${'$'}before: String) {
+      transactions(last: ${'$'}last, before: ${'$'}before, filter: {affectedAddress: ${'$'}addr}) {
+        pageInfo { hasPreviousPage startCursor }
+        nodes {
+          digest
+          sender { address }
+          effects {
+            checkpoint { sequenceNumber }
+            status
+            timestamp
+            balanceChanges { nodes { owner { address } coinType { repr } amount } }
+            gasEffects { gasSummary { computationCost storageCost storageRebate } }
+          }
+          kind {
+            __typename
+            ... on ProgrammableTransaction {
+              inputs { nodes { __typename ... on MoveValue { type { repr } json } } }
+              commands { nodes { __typename ... on MoveCallCommand { function { name module { name } } } } }
+            }
+          }
+        }
+      }
+    }
+"""

@@ -21,9 +21,9 @@ class ChainProvenance : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(505, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "nhash"
     override var accountPrefix: String = "pb"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://provenance.api.m.stavr.tech/"
+    override var grpcHost: String = "grpc-provenance.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-provenance.mainnet.cosmoslabs.kr/"
 }

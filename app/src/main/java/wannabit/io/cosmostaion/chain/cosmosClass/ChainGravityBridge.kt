@@ -21,9 +21,9 @@ class ChainGravityBridge : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ugraviton"
     override var accountPrefix: String = "gravity"
-    override var grpcHost: String = "grpc.gravity.citizenweb3.com"
-    override var lcdUrl: String = "https://gravitychain.io:1317/"
+    override var grpcHost: String = "grpc-gravity-bridge.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-gravity-bridge.mainnet.cosmoslabs.kr/"
 }

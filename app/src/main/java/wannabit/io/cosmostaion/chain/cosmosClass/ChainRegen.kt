@@ -21,9 +21,9 @@ class ChainRegen : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uregen"
     override var accountPrefix: String = "regen"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://rest-regen.ecostake.com/"
+    override var grpcHost: String = "grpc-regen.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-regen.mainnet.cosmoslabs.kr/"
 }

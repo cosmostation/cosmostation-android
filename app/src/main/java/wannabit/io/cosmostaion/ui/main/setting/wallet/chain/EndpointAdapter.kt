@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.visibleOrGone
 import wannabit.io.cosmostaion.databinding.ItemEndpointBinding
 import wannabit.io.cosmostaion.databinding.ItemEndpointHeaderViewBinding
@@ -67,7 +67,7 @@ class EndpointAdapter(
                         if (holder is EndPointViewHolder) {
                             val endPoint = currentList[position - 1] as JsonObject
                             when (fromChain) {
-                                is ChainGnoTestnet -> holder.rpcBind(fromChain, endPoint, listener)
+                                is ChainGno -> holder.rpcBind(fromChain, endPoint, listener)
 
                                 is ChainSui -> holder.suiBind(fromChain, endPoint, listener)
 

@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.ui.tx.option.general
 import androidx.recyclerview.widget.RecyclerView
 import com.cosmos.base.v1beta1.CoinProto
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.amountHandlerLeft
 import wannabit.io.cosmostaion.common.formatAmount
@@ -24,7 +24,7 @@ class AssetViewHolder(
                     tokenImg.setTokenImg(asset)
                     tokenName.text = asset.symbol
 
-                    val feeCoin = if (chain is ChainGnoTestnet) {
+                    val feeCoin = if (chain is ChainGno) {
                         chain.gnoRpcFetcher?.gnoBalances?.firstOrNull { it.denom == denom }
                     } else {
                         chain.cosmosFetcher?.cosmosAvailable?.firstOrNull { it.denom == denom }

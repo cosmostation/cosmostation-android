@@ -23,9 +23,9 @@ class ChainMantraTestnet : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uom"
     override var accountPrefix: String = "mantra"
-    override var grpcHost: String = "grpc.dukong.mantrachain.io"
-    override var lcdUrl: String = "https://api.dukong.mantrachain.io/"
+    override var grpcHost: String = "grpc-mantra.testnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-mantra.testnet.cosmoslabs.kr/"
 }

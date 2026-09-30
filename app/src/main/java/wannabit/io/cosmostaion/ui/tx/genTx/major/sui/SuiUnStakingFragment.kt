@@ -15,8 +15,7 @@ import androidx.core.content.ContextCompat
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
+import wannabit.io.cosmostaion.chain.fetcher.StakeReward
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
@@ -37,7 +36,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class SuiUnStakingFragment(
-    private val selectedChain: BaseChain, private val staked: Pair<String, JsonObject>?
+    private val selectedChain: BaseChain, private val staked: StakeReward
 ) : BaseTxFragment() {
 
     private var _binding: FragmentSuiUnstakingBinding? = null
@@ -64,10 +63,11 @@ class SuiUnStakingFragment(
 
     private fun initView() {
         binding.apply {
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
-                titleUnstakeImg.setTokenImg(asset)
-                titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
+                ?.let { asset ->
+                    titleUnstakeImg.setTokenImg(asset)
+                    titleUnstake.text = getString(R.string.title_unstaking, asset.symbol)
+                }
 
             listOf(stakeCoinView, feeView).forEach {
                 it.setBackgroundResource(
@@ -84,34 +84,24 @@ class SuiUnStakingFragment(
     private fun initValidatorView() {
         binding.apply {
             (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                fetcher.suiValidators.firstOrNull { it["suiAddress"].asString == staked?.first }
+                fetcher.suiValidators.firstOrNull { it.address == staked.validatorAddress }
                     ?.let { validator ->
                         monikerImg.setImageFromSvg(
-                            validator.moveValidatorImg(), R.drawable.icon_default_vaildator
+                            validator.imageUrl, R.drawable.icon_default_vaildator
                         )
-                        monikerName.text = validator.moveValidatorName()
-                        objectId.text = staked?.second?.get("stakedSuiId")?.asString
+                        monikerName.text = validator.name
+                        objectId.text = staked.objectId
 
-                        val principal = try {
-                            staked?.second?.get("principal")?.asLong?.toBigDecimal()
-                                ?.movePointLeft(9)?.setScale(9, RoundingMode.DOWN)
-                        } catch (e: Exception) {
-                            BigDecimal.ZERO
-                        }
-
-                        val estimatedReward = try {
-                            staked?.second?.get("estimatedReward")?.asLong?.toBigDecimal()
-                                ?.movePointLeft(9)?.setScale(9, RoundingMode.DOWN)
-                        } catch (e: Exception) {
-                            BigDecimal.ZERO
-                        }
+                        val principal = staked.principal.toBigDecimal()
+                            .movePointLeft(9)?.setScale(9, RoundingMode.DOWN) ?: BigDecimal.ZERO
+                        val estimatedReward = staked.estimatedReward.toBigDecimal()
+                            .movePointLeft(9)?.setScale(9, RoundingMode.DOWN) ?: BigDecimal.ZERO
 
                         principalTxt.text = formatAmount(principal.toString(), 9)
                         earned.text = formatAmount(estimatedReward.toString(), 9)
                         totalStaked.text =
                             formatAmount(principal?.add(estimatedReward).toString(), 9)
-                        startEarning.text =
-                            "Epoch #" + staked?.second?.get("stakeActiveEpoch")?.asString
+                        startEarning.text = "Epoch #" + staked.activationEpoch
                     }
 
                 txSimulate()
@@ -148,13 +138,14 @@ class SuiUnStakingFragment(
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())?.let { asset ->
-                feeTokenImg.setTokenImg(asset)
-                feeToken.text = asset.symbol
-                suiFeeBudget =
-                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_UNSTAKE)
-                updateFeeView()
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())
+                ?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
+                    suiFeeBudget =
+                        (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_UNSTAKE)
+                    updateFeeView()
+                }
         }
     }
 
@@ -201,11 +192,13 @@ class SuiUnStakingFragment(
             backdropLayout.visibility = View.VISIBLE
             (selectedChain as ChainSui).apply {
                 suiFetcher()?.let { fetcher ->
-                    staked.second.get("stakedSuiId").asString?.let { objectId ->
-                        txViewModel.suiUnStakeSimulate(
-                            requireContext(), fetcher, mainAddress, objectId, suiFeeBudget.toString()
-                        )
-                    }
+                    txViewModel.suiUnStakeSimulate(
+                        requireContext(),
+                        fetcher,
+                        mainAddress,
+                        staked.objectId,
+                        suiFeeBudget.toString()
+                    )
                 }
             }
         }
@@ -231,11 +224,14 @@ class SuiUnStakingFragment(
                 binding.backdropLayout.visibility = View.VISIBLE
                 (selectedChain as ChainSui).apply {
                     suiFetcher()?.let { fetcher ->
-                        staked?.second?.get("stakedSuiId")?.asString?.let { objectId ->
-                            txViewModel.suiUnStakeBroadcast(
-                                requireContext(), fetcher, mainAddress, objectId, suiFeeBudget.toString(), this
-                            )
-                        }
+                        txViewModel.suiUnStakeBroadcast(
+                            requireContext(),
+                            fetcher,
+                            mainAddress,
+                            staked.objectId,
+                            suiFeeBudget.toString(),
+                            this
+                        )
                     }
                 }
             }
@@ -243,19 +239,30 @@ class SuiUnStakingFragment(
 
     private fun setUpBroadcast() {
         txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
-            if (response["result"] != null) {
-                val status =
-                    response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
+            if (response != null) {
+                val isSuccess = response.transaction.effects.status.success
+                val suiResultJson = JsonObject().apply {
+                    add("result", JsonObject().apply {
+                        add("effects", JsonObject().apply {
+                            add("status", JsonObject().apply {
+                                addProperty("status", if (isSuccess) "success" else "failure")
+                                if (!isSuccess) {
+                                    addProperty(
+                                        "error",
+                                        response.transaction.effects.status.error.description
+                                    )
+                                }
+                            })
+                        })
+                    })
+                }
+
                 Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                    if (status != "success") {
-                        putExtra("isSuccess", false)
-                    } else {
-                        putExtra("isSuccess", true)
-                    }
-                    putExtra("txHash", response["result"].asJsonObject["digest"].asString)
+                    putExtra("isSuccess", isSuccess)
+                    putExtra("txHash", response.transaction.digest)
                     putExtra("fromChainTag", selectedChain.tag)
-                    putExtra("transferStyle", TransferStyle.SUI_STYLE.ordinal)
-                    putExtra("suiResult", response.toString())
+                    putExtra("transferStyle", TransferStyle.SUI_ETC_STYLE.ordinal)
+                    putExtra("suiResult", suiResultJson.toString())
                     startActivity(this)
                 }
                 dismiss()

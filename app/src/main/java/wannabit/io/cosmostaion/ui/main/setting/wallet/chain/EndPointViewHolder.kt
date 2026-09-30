@@ -8,6 +8,8 @@ import com.cosmos.base.tendermint.v1beta1.QueryProto.GetNodeInfoRequest
 import com.cosmos.base.tendermint.v1beta1.ServiceGrpc.newBlockingStub
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.sui.rpc.v2.LedgerServiceGrpc
+import com.sui.rpc.v2.LedgerServiceProto.GetServiceInfoRequest
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -21,12 +23,12 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.getOrNull
 import wannabit.io.cosmostaion.common.goneOrVisible
 import wannabit.io.cosmostaion.common.jsonRpcResponse
@@ -220,11 +222,14 @@ class EndPointViewHolder(
         binding.apply {
             (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
                 provider.text = endpoint.get("provider").asString
-                providerUrl.text = endpoint.get("url").asString.replace("https://", "")
+                providerUrl.text = endpoint.get("url").asString
 
                 val checkTime = System.currentTimeMillis() / 1000.0
-                val url = endpoint.get("url").asString
-                if (fetcher.suiRpc() != url) {
+                val host = endpoint.get("url").asString.split(":")[0].trim()
+                val port =
+                    endpoint.get("url").asString.split(":").getOrNull(1)?.trim()?.toIntOrNull() ?: 443
+
+                if (fetcher.getSuiGrpc().first != host) {
                     chainView.visibility = View.GONE
                     endpointView.setBackgroundColor(
                         ContextCompat.getColor(
@@ -242,23 +247,19 @@ class EndPointViewHolder(
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {
+                    val channel = getChannel(host, port)
                     try {
-                        val suiChainIdRequest = JsonRpcRequest(
-                            method = "sui_getChainIdentifier", params = listOf()
-                        )
-                        val suiChainIdResponse =
-                            jsonRpcResponse(url, suiChainIdRequest)
+                        val stub = LedgerServiceGrpc.newBlockingStub(channel)
+                        val request = GetServiceInfoRequest.newBuilder().build()
+                        stub.getServiceInfo(request)
 
                         withContext(Dispatchers.Main) {
-                            if (suiChainIdResponse.isSuccessful) {
-                                gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
-                                gapTime?.let { configureSpeedText(it) }
-                            } else {
-                                configureClosedNode()
-                            }
+                            gapTime = (System.currentTimeMillis() / 1000.0 - checkTime)
+                            gapTime?.let { configureSpeedText(it) }
                         }
 
                     } catch (e: Exception) {
+                        channel.shutdown()
                         withContext(Dispatchers.Main) {
                             configureClosedNode()
                         }
@@ -266,7 +267,7 @@ class EndPointViewHolder(
                 }
 
                 endpointView.setOnClickListener {
-                    listener?.rpcSelect(endpoint.get("url").asString, gapTime)
+                    listener?.select(endpoint.get("url").asString, gapTime)
                 }
             }
         }
@@ -334,7 +335,7 @@ class EndPointViewHolder(
         fromChain: BaseChain?, endpoint: JsonObject, listener: EndpointAdapter.EndpointListener?
     ) {
         binding.apply {
-            (fromChain as ChainGnoTestnet).gnoRpcFetcher()?.let { fetcher ->
+            (fromChain as ChainGno).gnoRpcFetcher()?.let { fetcher ->
                 provider.text = endpoint.get("provider").asString
                 providerUrl.text = endpoint.get("url").asString.replace("https://", "")
 

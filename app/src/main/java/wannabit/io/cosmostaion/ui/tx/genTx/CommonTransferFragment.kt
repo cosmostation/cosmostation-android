@@ -28,6 +28,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.Any
 import com.google.protobuf.ByteString
+import com.sui.rpc.v2.ObjectProto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +49,7 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SOLANA_DEFAULT_FEE
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.ByteUtils.convertBits
 import wannabit.io.cosmostaion.common.amountHandlerLeft
@@ -1234,17 +1236,21 @@ class CommonTransferFragment : BaseTxFragment() {
                 TransferStyle.SUI_STYLE -> {
                     (fromChain as ChainSui).apply {
                         suiFetcher?.let { fetcher ->
-                            txViewModel.suiSimulate(
-                                fetcher,
-                                toSendDenom,
-                                mainAddress,
-                                suiInputs(),
-                                mutableListOf(toAddress),
-                                mutableListOf(
-                                    toSendAmount
-                                ),
-                                suiFeeBudget.toString()
-                            )
+                            val gasCoin = suiGasInput()
+                            if (gasCoin != null) {
+                                txViewModel.suiSimulate(
+                                    requireContext(),
+                                    fetcher,
+                                    toSendAmount,
+                                    mainAddress,
+                                    toAddress,
+                                    if (toSendDenom == SUI_MAIN_DENOM) null else suiInputs(),
+                                    toSendDenom,
+                                    suiFeeBudget.toString(),
+                                    gasCoin,
+                                    this
+                                )
+                            }
                         }
                     }
                 }
@@ -1486,16 +1492,23 @@ class CommonTransferFragment : BaseTxFragment() {
         }
     }
 
-    private fun suiInputs(): MutableList<String> {
-        val result: MutableList<String> = mutableListOf()
+    private fun suiInputs(): MutableList<ObjectProto.Object> {
+        val result: MutableList<ObjectProto.Object> = mutableListOf()
         (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
             fetcher.suiObjects.forEach { suiObject ->
-                if (suiObject["data"].asJsonObject["type"].asString.suiCoinType() == toSendDenom) {
-                    result.add(suiObject["data"].asJsonObject["objectId"].asString)
+                if (suiObject.objectType.suiCoinType() == toSendDenom) {
+                    result.add(suiObject)
                 }
             }
         }
         return result
+    }
+
+    private fun suiGasInput(): ObjectProto.Object? {
+        (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
+            return fetcher.suiObjects.firstOrNull { it.objectType.suiCoinType() == SUI_MAIN_DENOM }
+        }
+        return null
     }
 
     private fun iotaInputs(): MutableList<String> {
@@ -1585,18 +1598,21 @@ class CommonTransferFragment : BaseTxFragment() {
                     TransferStyle.SUI_STYLE -> {
                         (fromChain as ChainSui).apply {
                             suiFetcher?.let { fetcher ->
-                                txViewModel.suiBroadcast(
-                                    fetcher,
-                                    toSendDenom,
-                                    mainAddress,
-                                    suiInputs(),
-                                    mutableListOf(toAddress),
-                                    mutableListOf(
-                                        toSendAmount
-                                    ),
-                                    suiFeeBudget.toString(),
-                                    this
-                                )
+                                val gasCoin = suiGasInput()
+                                if (gasCoin != null) {
+                                    txViewModel.suiBroadcast(
+                                        requireContext(),
+                                        fetcher,
+                                        toSendAmount,
+                                        mainAddress,
+                                        toAddress,
+                                        if (toSendDenom == SUI_MAIN_DENOM) null else suiInputs(),
+                                        toSendDenom,
+                                        suiFeeBudget.toString(),
+                                        gasCoin,
+                                        this
+                                    )
+                                }
                             }
                         }
                     }
@@ -1879,20 +1895,33 @@ class CommonTransferFragment : BaseTxFragment() {
         }
 
         txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
-            val status =
-                response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
+            val isSuccess = response?.transaction?.effects?.status?.success == true
+
+            val suiResultJson = JsonObject().apply {
+                add("result", JsonObject().apply {
+                    add("effects", JsonObject().apply {
+                        add("status", JsonObject().apply {
+                            addProperty("status", if (isSuccess) "success" else "failure")
+                            if (!isSuccess) {
+                                addProperty(
+                                    "error",
+                                    response?.transaction?.effects?.status?.error?.description
+                                        ?: "Unknown error"
+                                )
+                            }
+                        })
+                    })
+                })
+            }
+
             Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                if (status != "success") {
-                    putExtra("isSuccess", false)
-                } else {
-                    putExtra("isSuccess", true)
-                }
-                putExtra("txHash", response["result"].asJsonObject["digest"].asString)
+                putExtra("isSuccess", isSuccess)
+                putExtra("txHash", response?.transaction?.digest ?: "")
                 putExtra("fromChainTag", fromChain.tag)
                 putExtra("toChainTag", toChain.tag)
                 putExtra("recipientAddress", toAddress)
                 putExtra("transferStyle", transferStyle.ordinal)
-                putExtra("suiResult", response.toString())
+                putExtra("suiResult", suiResultJson.toString())
                 startActivity(this)
             }
             dismiss()

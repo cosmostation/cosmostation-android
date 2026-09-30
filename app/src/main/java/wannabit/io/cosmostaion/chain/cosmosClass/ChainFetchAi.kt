@@ -21,9 +21,9 @@ open class ChainFetchAi : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "afet"
     override var accountPrefix: String = "fetch"
-    override var grpcHost: String = "grpc-fetchhub.fetch.ai"
-    override var lcdUrl: String = "https://fetch-api.polkachu.com/"
+    override var grpcHost: String = "grpc-fetchai.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-fetchai.mainnet.cosmoslabs.kr/"
 }

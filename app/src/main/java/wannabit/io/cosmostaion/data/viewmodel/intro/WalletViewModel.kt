@@ -24,10 +24,11 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
+import wannabit.io.cosmostaion.chain.fetcher.suiNormalizeType
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
@@ -36,7 +37,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.testnetClass.ChainBabylonTestnet
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.CosmostationConstants
@@ -69,6 +69,7 @@ import wannabit.io.cosmostaion.database.model.Password
 import wannabit.io.cosmostaion.sign.BitcoinJs
 import xyz.mcxross.kaptos.model.Option
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.concurrent.TimeUnit
 
 class WalletViewModel(private val walletRepository: WalletRepository) : ViewModel() {
@@ -621,82 +622,15 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                             (o1.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                                 ?: 0.0) > (o2.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                                 ?: 0.0) -> -1
+
                             (o1.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                                 ?: 0.0) < (o2.tokensList.firstOrNull { it.denom == chain.getStakeAssetDenom() }?.amount?.toDouble()
                                 ?: 0.0) -> 1
+
                             else -> 0
                         }
                     }
                     chain.initiaFetcher()?.initiaValidators = dataTempValidators
-
-                } finally {
-                    channel?.shutdown()
-                    try {
-                        if (channel?.awaitTermination(5, TimeUnit.SECONDS) == false) {
-                            channel.shutdownNow()
-                        }
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-
-            is ChainZenrock -> {
-                if (chain.zenrockFetcher()?.zenrockValidators?.isNotEmpty() == true) {
-                    return@launch
-                }
-                val tempValidators =
-                    mutableListOf<com.zrchain.validation.HybridValidationProto.ValidatorHV>()
-                try {
-                    val loadBondedDeferred =
-                        async { walletRepository.zenrockBondedValidator(channel, chain) }
-                    val loadUnBondedDeferred =
-                        async { walletRepository.zenrockUnBondedValidator(channel, chain) }
-                    val loadUnBondingDeferred =
-                        async { walletRepository.zenrockUnBondingValidator(channel, chain) }
-
-                    val bondedValidatorsResult = loadBondedDeferred.await()
-                    if (bondedValidatorsResult is NetworkResult.Success) {
-                        bondedValidatorsResult.data.let { data ->
-                            if (data is Collection<*>) {
-                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
-                            }
-                        }
-                    }
-
-                    val unBondedValidatorsResult = loadUnBondedDeferred.await()
-                    if (unBondedValidatorsResult is NetworkResult.Success) {
-                        unBondedValidatorsResult.data.let { data ->
-                            if (data is Collection<*>) {
-                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
-                            }
-                        }
-                    }
-
-                    val unBondingValidatorsResult = loadUnBondingDeferred.await()
-                    if (unBondingValidatorsResult is NetworkResult.Success) {
-                        unBondingValidatorsResult.data.let { data ->
-                            if (data is Collection<*>) {
-                                tempValidators.addAll(data as Collection<com.zrchain.validation.HybridValidationProto.ValidatorHV>)
-                            }
-                        }
-                    }
-
-                    chain.zenrockFetcher()?.zenrockOriginValidators?.addAll(tempValidators)
-
-                    val dataTempValidators = tempValidators.toMutableList()
-                    dataTempValidators.sortWith { o1, o2 ->
-                        when {
-                            o1.description.moniker == "Cosmostation" -> -1
-                            o2.description.moniker == "Cosmostation" -> 1
-                            o1.jailed && !o2.jailed -> 1
-                            !o1.jailed && o2.jailed -> -1
-                            o1.tokensNative.toDouble() > o2.tokensNative.toDouble() -> -1
-                            o1.tokensNative.toDouble() < o2.tokensNative.toDouble() -> 1
-                            else -> 0
-                        }
-                    }
-                    chain.zenrockFetcher()?.zenrockValidators = dataTempValidators
 
                 } finally {
                     channel?.shutdown()
@@ -882,14 +816,17 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             is ChainSui -> {
                 chain.suiFetcher()?.let { fetcher ->
                     chain.apply {
-                        when (val response = walletRepository.suiBalance(fetcher, this)) {
+                        when (val response =
+                            walletRepository.suiBalance(fetcher.getChannel(), this)) {
                             is NetworkResult.Success -> {
                                 fetcher.suiBalances.clear()
-                                response.data?.get("result")?.asJsonArray?.forEach { balance ->
-                                    val coinType = balance.asJsonObject["coinType"].asString
-                                    val amount =
-                                        balance.asJsonObject["totalBalance"].asString.toBigDecimal()
-                                    fetcher.suiBalances.add(Pair(coinType, amount))
+                                response.data.forEach { balance ->
+                                    fetcher.suiBalances.add(
+                                        Pair(
+                                            balance.coinType.suiNormalizeType(),
+                                            balance.balance.toBigDecimal()
+                                        )
+                                    )
                                 }
                                 fetcher.suiBalances.sortWith { o1, o2 ->
                                     when {
@@ -1063,7 +1000,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
             }
 
             else -> {
-                if (chain is ChainGnoTestnet) {
+                if (chain is ChainGno) {
                     chain.gnoRpcFetcher()?.let { fetcher ->
                         when (val response = walletRepository.rpcAuth(chain)) {
                             is NetworkResult.Success -> {
@@ -1093,7 +1030,57 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                         val dataJson =
                                             Gson().fromJson(decodeData, JsonObject::class.java)
                                         val accountData = dataJson["BaseAccount"].asJsonObject
-                                        if (accountData["coins"].asString.isNotEmpty()) {
+                                        val tempVestings: MutableList<CoinProto.Coin> =
+                                            mutableListOf()
+
+                                        if (accountData["vesting"]?.isJsonNull == false) {
+                                            val vestingData = accountData["vesting"].asJsonObject
+                                            val (vestingDenom, originalVestingAmount) =
+                                                vestingData["original_vesting"].asString.regexWithNumberAndChar()
+                                            val startTime =
+                                                vestingData["start_time"].asString.toLong()
+                                            val endTime = vestingData["end_time"].asString.toLong()
+                                            val now = System.currentTimeMillis() / 1000
+
+                                            val duration = (endTime - startTime).coerceAtLeast(1)
+                                            val elapsed = (now - startTime).coerceIn(0, duration)
+
+                                            val originalVesting =
+                                                originalVestingAmount.toBigDecimalOrNull()
+                                                    ?: BigDecimal.ZERO
+                                            val vested =
+                                                originalVesting.multiply(elapsed.toBigDecimal())
+                                                    .divide(
+                                                        duration.toBigDecimal(),
+                                                        0,
+                                                        RoundingMode.DOWN
+                                                    )
+                                            val locked = (originalVesting - vested).coerceAtLeast(
+                                                BigDecimal.ZERO
+                                            )
+
+                                            val (balanceDenom, totalBalanceAmount) =
+                                                accountData["coins"].asString.regexWithNumberAndChar()
+                                            val total =
+                                                totalBalanceAmount.toBigDecimalOrNull()
+                                                    ?: BigDecimal.ZERO
+                                            val spendable =
+                                                (total - locked).coerceAtLeast(BigDecimal.ZERO)
+
+                                            tempBalances.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(balanceDenom.ifEmpty { vestingDenom })
+                                                    .setAmount(spendable.toPlainString())
+                                                    .build()
+                                            )
+                                            tempVestings.add(
+                                                CoinProto.Coin.newBuilder()
+                                                    .setDenom(vestingDenom)
+                                                    .setAmount(locked.toPlainString())
+                                                    .build()
+                                            )
+
+                                        } else if (accountData["coins"].asString.isNotEmpty()) {
                                             tempBalances.add(
                                                 CoinProto.Coin.newBuilder()
                                                     .setDenom(accountData["coins"].asString.regexWithNumberAndChar().first)
@@ -1114,6 +1101,7 @@ class WalletViewModel(private val walletRepository: WalletRepository) : ViewMode
                                                 accountData["public_key"].asJsonObject["value"].asString
                                         }
                                         fetcher.gnoBalances = tempBalances
+                                        fetcher.gnoVestings = tempVestings
                                         fetcher.gnoAccountNumber =
                                             accountData["account_number"].asString.toLong()
                                         fetcher.gnoSequence =

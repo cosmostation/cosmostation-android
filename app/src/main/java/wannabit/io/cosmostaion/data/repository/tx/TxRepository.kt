@@ -7,6 +7,8 @@ import com.gno.bank.BankProto.MsgSend
 import com.gno.vm.VmProto.MsgCall
 import com.google.gson.JsonObject
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
+import com.sui.rpc.v2.ObjectProto
+import com.sui.rpc.v2.TransactionExecutionServiceProto
 import io.grpc.ManagedChannel
 import org.web3j.protocol.Web3j
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -14,7 +16,6 @@ import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.IotaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SolanaFetcher
 import wannabit.io.cosmostaion.chain.fetcher.SuiFetcher
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.data.model.req.LFee
@@ -155,26 +156,26 @@ interface TxRepository {
         selectedChain: BaseChain
     ): String
 
-    suspend fun unSafePaySui(
-        fetcher: SuiFetcher,
-        sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
-    ): NetworkResult<String>
-
     suspend fun unSafePay(
+        context: Context,
         fetcher: SuiFetcher,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        toSendDenom: String,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): NetworkResult<String>
 
     suspend fun unsafeTransferObject(
-        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        recipient: String,
+        nftObject: ObjectProto.Object,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): NetworkResult<String>
 
     suspend fun unsafeStake(
@@ -185,44 +186,58 @@ interface TxRepository {
         context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String
     ): NetworkResult<String>
 
-    suspend fun suiDryRun(fetcher: SuiFetcher, txBytes: String): NetworkResult<JsonObject>
+    suspend fun suiDryRun(channel: ManagedChannel?, txBytes: String
+    ): NetworkResult<TransactionExecutionServiceProto.SimulateTransactionResponse?>
 
     suspend fun suiExecuteTx(
-        fetcher: SuiFetcher, txBytes: String, signatures: MutableList<String>
-    ): NetworkResult<JsonObject>
+        channel: ManagedChannel?, txBytes: String, signatures: MutableList<String>
+    ): NetworkResult<TransactionExecutionServiceProto.ExecuteTransactionResponse?>
 
     suspend fun broadcastSuiSend(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
-    ): JsonObject
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse?
 
     suspend fun simulateSuiSend(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object,
+        selectedChain: BaseChain
     ): String
 
     suspend fun broadcastSuiNftSend(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
-        objectId: String,
         recipient: String,
+        nftObject: ObjectProto.Object,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
-    ): JsonObject
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse?
 
     suspend fun simulateSuiNftSend(
-        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        recipient: String,
+        nftObject: ObjectProto.Object,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): String
 
     suspend fun broadcastSuiStake(
@@ -233,7 +248,7 @@ interface TxRepository {
         amount: String,
         gasBudget: String,
         selectedChain: BaseChain
-    ): JsonObject
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse?
 
     suspend fun simulateSuiStake(
         context: Context, fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
@@ -246,7 +261,7 @@ interface TxRepository {
         objectId: String,
         gasBudget: String,
         selectedChain: BaseChain
-    ): JsonObject
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse?
 
     suspend fun simulateSuiUnStake(
         context: Context, fetcher: SuiFetcher, sender: String, objectId: String, gasBudget: String

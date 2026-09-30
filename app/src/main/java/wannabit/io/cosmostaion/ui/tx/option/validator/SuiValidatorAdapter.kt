@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.google.gson.JsonObject
+import com.sui.rpc.v2.SystemStateProto
 import wannabit.io.cosmostaion.databinding.ItemValidatorDefaultBinding
 
 class SuiValidatorAdapter :
-    ListAdapter<JsonObject, ValidatorDefaultViewHolder>(ValidatorDefaultDiffCallback()) {
+    ListAdapter<SystemStateProto.Validator, ValidatorDefaultViewHolder>(ValidatorDefaultDiffCallback()) {
 
     private var onItemClickListener: ((String) -> Unit)? = null
 
@@ -24,18 +24,25 @@ class SuiValidatorAdapter :
 
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
-                it(validator["suiAddress"].asString)
+                it(validator.address)
             }
         }
     }
 
-    private class ValidatorDefaultDiffCallback : DiffUtil.ItemCallback<JsonObject>() {
+    private class ValidatorDefaultDiffCallback :
+        DiffUtil.ItemCallback<SystemStateProto.Validator>() {
 
-        override fun areItemsTheSame(oldItem: JsonObject, newItem: JsonObject): Boolean {
+        override fun areItemsTheSame(
+            oldItem: SystemStateProto.Validator,
+            newItem: SystemStateProto.Validator
+        ): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: JsonObject, newItem: JsonObject): Boolean {
+        override fun areContentsTheSame(
+            oldItem: SystemStateProto.Validator,
+            newItem: SystemStateProto.Validator
+        ): Boolean {
             return oldItem == newItem
         }
     }

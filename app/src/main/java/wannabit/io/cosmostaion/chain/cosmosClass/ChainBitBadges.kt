@@ -24,6 +24,6 @@ class ChainBitBadges : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
     override var stakeDenom: String = "ubadge"
     override var accountPrefix: String = "bb"
-    override var grpcHost: String = "grpc.bitbadges.io"
-    override var lcdUrl: String = "https://lcd.bitbadges.io/"
+    override var grpcHost: String = "grpc-bitbadges.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-bitbadges.mainnet.cosmoslabs.kr/"
 }

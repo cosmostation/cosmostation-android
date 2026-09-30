@@ -12,14 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.zrchain.validation.HybridValidationProto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
 import wannabit.io.cosmostaion.databinding.FragmentStakingInfoBinding
@@ -111,41 +109,6 @@ class UnStakingInfoFragment : Fragment() {
                         }
                     }
 
-                    is ChainZenrock -> {
-                        val validators =
-                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockValidators
-                                ?: mutableListOf()
-                        val unBondings =
-                            (selectedChain as ChainZenrock).zenrockFetcher()?.zenrockUnbondings?.flatMap { unBonding ->
-                                unBonding.entriesList.map { entry ->
-                                    ZenrockUnBondingEntry(unBonding.validatorAddress, entry)
-                                }
-                            }?.sortedBy { it.entry?.creationHeight }?.toMutableList()
-                                ?: mutableListOf()
-
-                        withContext(Dispatchers.Main) {
-                            refresher.isRefreshing = false
-                            if (unBondings.isNotEmpty()) {
-                                recycler.visibility = View.VISIBLE
-                                emptyLayout.visibility = View.GONE
-                                stakingInfoAdapter = StakingInfoAdapter(
-                                    selectedChain,
-                                    zenrockValidators = validators,
-                                    zenrockUnBondings = unBondings,
-                                    optionType = OptionType.UNSTAKE,
-                                    listener = selectClickAction
-                                )
-                                recycler.setHasFixedSize(true)
-                                recycler.layoutManager = LinearLayoutManager(requireContext())
-                                recycler.adapter = stakingInfoAdapter
-
-                            } else {
-                                recycler.visibility = View.GONE
-                                emptyLayout.visibility = View.VISIBLE
-                            }
-                        }
-                    }
-
                     else -> {
                         val validators =
                             selectedChain.cosmosFetcher?.cosmosValidators ?: mutableListOf()
@@ -219,14 +182,6 @@ class UnStakingInfoFragment : Fragment() {
             )
         }
 
-        override fun selectZenrockStakingAction(validator: HybridValidationProto.ValidatorHV?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain, zenrockValidator = validator, optionType = OptionType.STAKE
-                )
-            )
-        }
-
         override fun selectUnStakingCancelAction(unBondingEntry: UnBondingEntry?) {
             handleOneClickWithDelay(
                 StakingOptionFragment.newInstance(
@@ -240,16 +195,6 @@ class UnStakingInfoFragment : Fragment() {
                 StakingOptionFragment.newInstance(
                     selectedChain,
                     initiaUnBondingEntry = initiaUnBondingEntry,
-                    optionType = OptionType.UNSTAKE
-                )
-            )
-        }
-
-        override fun selectZenrockUnStakingCancelAction(zenrockUnBondingEntry: ZenrockUnBondingEntry?) {
-            handleOneClickWithDelay(
-                StakingOptionFragment.newInstance(
-                    selectedChain,
-                    zenrockUnBondingEntry = zenrockUnBondingEntry,
                     optionType = OptionType.UNSTAKE
                 )
             )

@@ -21,9 +21,9 @@ class ChainDecentr : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "udec"
     override var accountPrefix: String = "decentr"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.decentr.chaintools.tech/"
+    override var grpcHost: String = "grpc-decentr.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-decentr.mainnet.cosmoslabs.kr/"
 }

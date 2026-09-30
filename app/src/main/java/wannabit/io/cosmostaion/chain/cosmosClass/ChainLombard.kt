@@ -25,6 +25,6 @@ class ChainLombard : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ustake"
     override var accountPrefix: String = "lom"
-    override var grpcHost: String = "grpc-lombard.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-lombard.cosmostation.io/"
+    override var grpcHost: String = "grpc-lombard.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-lombard.mainnet.cosmoslabs.kr/"
 }

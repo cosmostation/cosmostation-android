@@ -18,10 +18,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
+import com.sui.rpc.v2.ObjectProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.moveNftUrl
+import wannabit.io.cosmostaion.chain.fetcher.getStringField
+import wannabit.io.cosmostaion.chain.fetcher.suiCoinType
+import wannabit.io.cosmostaion.chain.fetcher.suiNftUrl
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
+import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.formatAmount
@@ -45,7 +49,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class SuiNftTransferFragment(
-    private val fromChain: BaseChain, private val toSendSuiNFT: JsonObject?
+    private val fromChain: BaseChain, private val toSendSuiNFT: ObjectProto.Object?
 ) : BaseTxFragment() {
 
     private var _binding: FragmentNftTransferBinding? = null
@@ -103,22 +107,23 @@ class SuiNftTransferFragment(
     private fun initNft() {
         binding.apply {
             nftImg.clipToOutline = true
-            toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
-                data.moveNftUrl()?.let { url ->
+            toSendSuiNFT?.let { data ->
+                val imageUrl = if (data.hasDisplay()) data.display.output.suiNftUrl() else null
+                imageUrl?.let { url ->
                     Glide.with(requireActivity()).load(url).diskCacheStrategy(
                         DiskCacheStrategy.ALL
                     ).placeholder(R.drawable.icon_nft_default).error(R.drawable.icon_nft_default)
                         .into(nftImg)
-
                 } ?: run {
                     nftImg.setImageResource(R.drawable.icon_nft_default)
                 }
-                nftTitle.text = data["objectId"].asString
-                try {
-                    nftId.text =
-                        data.asJsonObject["display"].asJsonObject["data"].asJsonObject["name"].asString
-                } catch (e: Exception) {
+                nftTitle.text = data.objectId
+
+                val name = if (data.hasDisplay()) data.display.output.getStringField("name") else null
+                if (name.isNullOrEmpty()) {
                     nftId.visibility = View.GONE
+                } else {
+                    nftId.text = name
                 }
             }
         }
@@ -233,13 +238,16 @@ class SuiNftTransferFragment(
                 binding.backdropLayout.visibility = View.VISIBLE
                 (fromChain as ChainSui).apply {
                     suiFetcher()?.let { fetcher ->
-                        toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
+                        val gasCoin = suiGasInput()
+                        if (toSendSuiNFT != null && gasCoin != null) {
                             txViewModel.suiNftSendBroadcast(
+                                requireContext(),
                                 fetcher,
                                 mainAddress,
-                                data.asJsonObject["objectId"].asString,
                                 toAddress,
+                                toSendSuiNFT,
                                 suiFeeBudget.toString(),
+                                gasCoin,
                                 this
                             )
                         }
@@ -255,18 +263,28 @@ class SuiNftTransferFragment(
             backdropLayout.visibility = View.VISIBLE
             (fromChain as ChainSui).apply {
                 suiFetcher()?.let { fetcher ->
-                    toSendSuiNFT?.get("data")?.asJsonObject?.let { data ->
+                    val gasCoin = suiGasInput()
+                    if (toSendSuiNFT != null && gasCoin != null) {
                         txViewModel.suiNftSendSimulate(
+                            requireContext(),
                             fetcher,
                             mainAddress,
-                            data.asJsonObject["objectId"].asString,
                             toAddress,
-                            suiFeeBudget.toString()
+                            toSendSuiNFT,
+                            suiFeeBudget.toString(),
+                            gasCoin
                         )
                     }
                 }
             }
         }
+    }
+
+    private fun suiGasInput(): ObjectProto.Object? {
+        (fromChain as ChainSui).suiFetcher()?.let { fetcher ->
+            return fetcher.suiObjects.firstOrNull { it.objectType.suiCoinType() == SUI_MAIN_DENOM }
+        }
+        return null
     }
 
     private fun setUpSimulate() {
@@ -285,19 +303,27 @@ class SuiNftTransferFragment(
 
     private fun setUpBroadcast() {
         txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
-            if (response["result"] != null) {
-                val status =
-                    response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
+            if (response != null) {
+                val isSuccess = response.transaction.effects.status.success
+                val suiResultJson = JsonObject().apply {
+                    add("result", JsonObject().apply {
+                        add("effects", JsonObject().apply {
+                            add("status", JsonObject().apply {
+                                addProperty("status", if (isSuccess) "success" else "failure")
+                                if (!isSuccess) {
+                                    addProperty("error", response.transaction.effects.status.error.description)
+                                }
+                            })
+                        })
+                    })
+                }
+
                 Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                    if (status != "success") {
-                        putExtra("isSuccess", false)
-                    } else {
-                        putExtra("isSuccess", true)
-                    }
-                    putExtra("txHash", response["result"].asJsonObject["digest"].asString)
+                    putExtra("isSuccess", isSuccess)
+                    putExtra("txHash", response.transaction.digest)
                     putExtra("fromChainTag", fromChain.tag)
                     putExtra("transferStyle", TransferStyle.SUI_STYLE.ordinal)
-                    putExtra("suiResult", response.toString())
+                    putExtra("suiResult", suiResultJson.toString())
                     startActivity(this)
                 }
                 dismiss()
@@ -327,5 +353,6 @@ class SuiNftTransferFragment(
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+        txViewModel.suiBroadcast.removeObservers(viewLifecycleOwner)
     }
 }

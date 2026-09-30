@@ -22,9 +22,9 @@ class ChainSei : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "usei"
     override var accountPrefix: String = "sei"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api-sei.stingray.plus/"
+    override var grpcHost: String = "grpc-sei.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-seo.mainnet.cosmoslabs.kr/"
 }

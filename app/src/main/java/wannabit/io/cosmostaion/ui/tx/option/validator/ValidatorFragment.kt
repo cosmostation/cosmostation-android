@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto.Validator
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.initia.mstaking.v1.StakingProto
-import com.zrchain.validation.HybridValidationProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.databinding.FragmentCommonBottomBinding
 
 class ValidatorFragment(
@@ -51,18 +49,6 @@ class ValidatorFragment(
                     val delegations = selectedChain.initiaFetcher()?.initiaDelegations
                     delegations?.forEach { delegation ->
                         selectedChain.initiaFetcher()?.initiaValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
-                            ?.let { validator ->
-                                validators.add(validator)
-                            }
-                    }
-                    validatorAdapter.submitList(validators as List<Any>)
-                }
-
-                is ChainZenrock -> {
-                    val validators: MutableList<HybridValidationProto.ValidatorHV> = mutableListOf()
-                    val delegations = selectedChain.zenrockFetcher()?.zenrockDelegations
-                    delegations?.forEach { delegation ->
-                        selectedChain.zenrockFetcher()?.zenrockValidators?.firstOrNull { it.operatorAddress == delegation.delegation.validatorAddress }
                             ?.let { validator ->
                                 validators.add(validator)
                             }

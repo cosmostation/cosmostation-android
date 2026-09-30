@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.database.Prefs
 import wannabit.io.cosmostaion.databinding.FragmentChainManageBinding
 
@@ -102,7 +102,7 @@ class ChainManageFragment : Fragment() {
                 isClickable = true
                 return
             }
-            val endPointType = if (chain is ChainSui || chain is ChainIota || chain is ChainGnoTestnet || chain is ChainSolana) {
+            val endPointType = if (chain is ChainSui || chain is ChainIota || chain is ChainGno || chain is ChainSolana) {
                 EndPointType.END_POINT_RPC
             } else if (chain is ChainAptos || chain is ChainMovement) {
                 EndPointType.END_POINT_MOVE

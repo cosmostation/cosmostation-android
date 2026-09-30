@@ -85,7 +85,6 @@ import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Secp
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.evmClass.ChainInjectiveEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.evmClass.ChainStratosEvm
@@ -225,15 +224,6 @@ object Signer {
         return msgAnys
     }
 
-    fun zenrockDelegateMsg(msgDelegate: com.zrchain.validation.TxProto.MsgDelegate?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgDelegate")
-                .setValue(msgDelegate?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
     fun babylonDelegateMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedDelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -256,15 +246,6 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgUndelegate")
-                .setValue(msgUndelegate?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
-    fun zenrockUnDelegateMsg(msgUndelegate: com.zrchain.validation.TxProto.MsgUndelegate?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgUndelegate")
                 .setValue(msgUndelegate?.toByteString()).build()
         )
         return msgAnys
@@ -297,15 +278,6 @@ object Signer {
         return msgAnys
     }
 
-    fun zenrockReDelegateMsg(msgReDelegate: com.zrchain.validation.TxProto.MsgBeginRedelegate?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgBeginRedelegate")
-                .setValue(msgReDelegate?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
     fun babylonReDelegateMsg(msgDelegate: com.babylon.epoching.v1.TxProto.MsgWrappedBeginRedelegate?): MutableList<Any> {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
@@ -328,15 +300,6 @@ object Signer {
         val msgAnys: MutableList<Any> = mutableListOf()
         msgAnys.add(
             Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgCancelUnbondingDelegation")
-                .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
-        )
-        return msgAnys
-    }
-
-    fun zenrockCancelUnbondingMsg(msgCancelUnbondingDelegation: com.zrchain.validation.TxProto.MsgCancelUnbondingDelegation?): MutableList<Any> {
-        val msgAnys: MutableList<Any> = mutableListOf()
-        msgAnys.add(
-            Any.newBuilder().setTypeUrl("/zrchain.validation.MsgCancelUnbondingDelegation")
                 .setValue(msgCancelUnbondingDelegation?.toByteString()).build()
         )
         return msgAnys
@@ -407,16 +370,6 @@ object Signer {
                         .build()
 
                     Any.newBuilder().setTypeUrl("/initia.mstaking.v1.MsgDelegate")
-                        .setValue(delegateMsg.toByteString()).build()
-                }
-
-                is ChainZenrock -> {
-                    val delegateMsg = com.zrchain.validation.TxProto.MsgDelegate.newBuilder()
-                        .setDelegatorAddress(selectedChain.address)
-                        .setValidatorAddress(reward?.validatorAddress).setAmount(delegateCoin)
-                        .build()
-
-                    Any.newBuilder().setTypeUrl("/zrchain.validation.MsgDelegate")
                         .setValue(delegateMsg.toByteString()).build()
                 }
 

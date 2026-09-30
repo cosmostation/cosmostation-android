@@ -3,10 +3,9 @@ package wannabit.io.cosmostaion.common
 import com.google.gson.JsonObject
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.data.model.res.Ads
-import wannabit.io.cosmostaion.data.model.res.AdsResponse
 import wannabit.io.cosmostaion.data.model.res.Asset
 import wannabit.io.cosmostaion.data.model.res.Cw721
 import wannabit.io.cosmostaion.data.model.res.Price
@@ -70,7 +69,7 @@ object BaseData {
             chain.evmRpcFetcher()?.evmTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else if (chain.isSupportCw20()) {
             chain.cosmosFetcher()?.tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
-        } else if (chain is ChainGnoTestnet) {
+        } else if (chain is ChainGno) {
             chain.gnoRpcFetcher()?.grc20Tokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }
         } else if (chain is ChainSolana) {
             chain.solanaFetcher()?.splTokens?.firstOrNull { token -> token.chainName == chainName && token.address == address }

@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
+import com.sui.rpc.v2.SystemStateProto
 import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -28,8 +28,7 @@ class ValidatorDefaultFragment(
     private val selectedChain: BaseChain,
     private val fromValidator: StakingProto.Validator? = null,
     private val fromInitiaValidator: com.initia.mstaking.v1.StakingProto.Validator? = null,
-    private val fromZenrockValidator: com.zrchain.validation.HybridValidationProto.ValidatorHV? = null,
-    private val suiFromValidator: MutableList<JsonObject>? = null,
+    private val suiFromValidator: MutableList<SystemStateProto.Validator>? = null,
     private val iotaFromValidator: MutableList<JsonObject>? = null,
     private val finalityProvider: MutableList<FinalityProvider>? = null,
     val listener: ValidatorDefaultListener
@@ -46,9 +45,7 @@ class ValidatorDefaultFragment(
     private var searchValidators: MutableList<StakingProto.Validator> = mutableListOf()
     private var searchInitiaValidators: MutableList<com.initia.mstaking.v1.StakingProto.Validator> =
         mutableListOf()
-    private var searchZenrockValidators: MutableList<com.zrchain.validation.HybridValidationProto.ValidatorHV> =
-        mutableListOf()
-    private var searchSuiValidators: MutableList<JsonObject> = mutableListOf()
+    private var searchSuiValidators: MutableList<SystemStateProto.Validator> = mutableListOf()
     private var searchIotaValidators: MutableList<JsonObject> = mutableListOf()
     private var searchProviders: MutableList<FinalityProvider> = mutableListOf()
 
@@ -82,9 +79,6 @@ class ValidatorDefaultFragment(
                     ?.let {
                         searchInitiaValidators.addAll(it)
                     }
-
-                is ChainZenrock -> selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
-                    ?.let { searchZenrockValidators.addAll(it) }
 
                 else -> selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                     ?.let { searchValidators.addAll(it) }
@@ -156,14 +150,6 @@ class ValidatorDefaultFragment(
                         }
                     }
 
-                    is ChainZenrock -> {
-                        validatorDefaultAdapter.submitList(searchZenrockValidators as List<Any>?)
-                        validatorDefaultAdapter.setOnItemClickListener {
-                            listener.select(it)
-                            dismiss()
-                        }
-                    }
-
                     else -> {
                         validatorDefaultAdapter.submitList(searchValidators as List<Any>?)
                         validatorDefaultAdapter.setOnItemClickListener {
@@ -188,7 +174,6 @@ class ValidatorDefaultFragment(
                 override fun onQueryTextChange(newText: String?): Boolean {
                     searchValidators.clear()
                     searchInitiaValidators.clear()
-                    searchZenrockValidators.clear()
                     searchSuiValidators.clear()
                     searchIotaValidators.clear()
 
@@ -210,11 +195,6 @@ class ValidatorDefaultFragment(
                                         }
                                 }
 
-                                is ChainZenrock -> {
-                                    selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
-                                        ?.let { searchZenrockValidators.addAll(it) }
-                                }
-
                                 else -> {
                                     selectedChain.cosmosFetcher?.cosmosValidators?.filterNot { it == fromValidator }
                                         ?.let { searchValidators.addAll(it) }
@@ -228,7 +208,7 @@ class ValidatorDefaultFragment(
                         newText?.let { searchTxt ->
                             if (suiFromValidator != null) {
                                 suiFromValidator.filter { validator ->
-                                    validator.moveValidatorName()
+                                    validator.name
                                         .contains(searchTxt, ignoreCase = true)
                                 }.let { searchSuiValidators.addAll(it) }
                                 suiValidatorDefaultAdapter.notifyDataSetChanged()
@@ -250,15 +230,6 @@ class ValidatorDefaultFragment(
                                                 )
                                             }?.let { searchInitiaValidators.addAll(it) }
 
-                                    }
-
-                                    is ChainZenrock -> {
-                                        selectedChain.zenrockFetcher()?.zenrockValidators?.filterNot { it == fromZenrockValidator }
-                                            ?.filter { validator ->
-                                                validator.description.moniker.contains(
-                                                    searchTxt, ignoreCase = true
-                                                )
-                                            }?.let { searchZenrockValidators.addAll(it) }
                                     }
 
                                     else -> {

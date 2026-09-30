@@ -21,7 +21,7 @@ class MajorNftAdapter(val chain: BaseChain) :
 
     override fun onBindViewHolder(holder: NftViewHolder, position: Int) {
         val info = currentList[position]
-        holder.suiBind(info)
+        holder.iotaBind(info)
         holder.itemView.setOnClickListener {
             onItemClickListener?.let {
                 it(chain, info)

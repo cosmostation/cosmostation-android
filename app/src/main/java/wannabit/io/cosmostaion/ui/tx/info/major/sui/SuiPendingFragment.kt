@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.fetcher.StakeReward
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
@@ -30,7 +30,7 @@ class SuiPendingFragment : Fragment() {
 
     private lateinit var suiStakingInfoAdapter: SuiStakingInfoAdapter
 
-    private var pendingList: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private var pendingList: MutableList<StakeReward> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -78,23 +78,13 @@ class SuiPendingFragment : Fragment() {
                 refresher.isRefreshing = false
                 pendingList.clear()
                 (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    fetcher.suiStakedList.forEach { suiStaked ->
-                        suiStaked["stakes"].asJsonArray.forEach { stakes ->
-                            pendingList.add(
-                                Pair(
-                                    suiStaked["validatorAddress"].asString, stakes.asJsonObject
-                                )
-                            )
-                        }
-                    }
+                    pendingList.addAll(fetcher.suiStakedList)
                 }
 
                 withContext(Dispatchers.Main) {
-                    pendingList.sortByDescending {
-                        it.second["stakeRequestEpoch"].asLong
-                    }
+                    pendingList.sortByDescending { it.activationEpoch }
 
-                    val pending = pendingList.filter { it.second["status"].asString == "Pending" }
+                    val pending = pendingList.filter { it.isPending }
                     if (pending.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
@@ -129,7 +119,7 @@ class SuiPendingFragment : Fragment() {
                     selectedChain.fetchState = FetchState.IDLE
                     ApplicationViewModel.shared.loadSuiData(
                         account.id,
-                        selectedChain,
+                        selectedChain as ChainSui,
                         isRefresh = true
                     )
                 }

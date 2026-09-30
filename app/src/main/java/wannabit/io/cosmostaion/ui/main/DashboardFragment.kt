@@ -32,6 +32,7 @@ import org.apache.commons.lang3.StringUtils
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
@@ -39,7 +40,6 @@ import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainMovement
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.concurrentForEach
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -475,7 +475,7 @@ class DashboardFragment : Fragment() {
                     if (chain is ChainOktEvm || chain is ChainBitCoin86) return
 
                     val endPointType =
-                        if (chain is ChainSui || chain is ChainGnoTestnet || chain is ChainIota || chain is ChainSolana) {
+                        if (chain is ChainSui || chain is ChainGno || chain is ChainIota || chain is ChainSolana) {
                             EndPointType.END_POINT_RPC
                         } else if (chain is ChainAptos || chain is ChainMovement) {
                             EndPointType.END_POINT_MOVE

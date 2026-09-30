@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.chain.fetcher
 
 import com.cosmos.base.v1beta1.CoinProto
+import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.model.res.Token
@@ -14,15 +15,17 @@ class GnoFetcher(private val chain: BaseChain) {
     var gnoAccountNumber: Long? = null
     var gnoSequence: Long? = null
     var gnoBalances: MutableList<CoinProto.Coin>? = null
+    var gnoVestings: MutableList<CoinProto.Coin>? = null
+    val gnoHistory: MutableList<JsonObject> = mutableListOf()
 
     var grc20Tokens = mutableListOf<Token>()
 
     fun allAssetValue(isUsd: Boolean? = false): BigDecimal {
-        return balanceValueSum(isUsd)
+        return balanceValueSum(isUsd).add(vestingValueSum(isUsd))
     }
 
     fun denomValue(denom: String, isUsd: Boolean? = false): BigDecimal? {
-        return balanceValue(denom, isUsd)
+        return balanceValue(denom, isUsd).add(vestingValue(denom, isUsd))
     }
 
     fun grc20TokenValue(address: String, isUsd: Boolean? = false): BigDecimal {
@@ -90,6 +93,37 @@ class GnoFetcher(private val chain: BaseChain) {
         if (gnoBalances?.isNotEmpty() == true) {
             gnoBalances?.forEach { balance ->
                 sum = sum.add(balanceValue(balance.denom, isUsd))
+            }
+        }
+        return sum
+    }
+
+    fun vestingAmount(denom: String): BigDecimal {
+        if (gnoVestings?.isNotEmpty() == true) {
+            return gnoVestings?.firstOrNull { it.denom == denom }?.amount?.toBigDecimal()
+                ?: BigDecimal.ZERO
+        }
+        return BigDecimal.ZERO
+    }
+
+    private fun vestingValue(denom: String, isUsd: Boolean? = false): BigDecimal {
+        BaseData.getAsset(chain.apiName, denom)?.let { asset ->
+            val price = BaseData.getPrice(asset.coinGeckoId, isUsd)
+            val amount = vestingAmount(denom)
+            asset.decimals?.let { decimal ->
+                return price.multiply(amount).movePointLeft(decimal).setScale(6, RoundingMode.DOWN)
+            } ?: run {
+                return BigDecimal.ZERO
+            }
+        }
+        return BigDecimal.ZERO
+    }
+
+    private fun vestingValueSum(isUsd: Boolean? = false): BigDecimal {
+        var sum = BigDecimal.ZERO
+        if (gnoVestings?.isNotEmpty() == true) {
+            gnoVestings?.forEach { vesting ->
+                sum = sum.add(vestingValue(vesting.denom, isUsd))
             }
         }
         return sum

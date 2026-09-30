@@ -15,6 +15,15 @@ import com.gno.vm.VmProto
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.protobuf.ByteString
+import com.google.protobuf.FieldMask
+import com.sui.rpc.v2.BcsProto
+import com.sui.rpc.v2.NameServiceGrpc
+import com.sui.rpc.v2.NameServiceProto
+import com.sui.rpc.v2.ObjectProto
+import com.sui.rpc.v2.SignatureProto
+import com.sui.rpc.v2.TransactionExecutionServiceGrpc
+import com.sui.rpc.v2.TransactionExecutionServiceProto
+import com.sui.rpc.v2.TransactionProto
 import com.trustwallet.walletconnect.extensions.toHex
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +54,7 @@ import org.web3j.utils.Numeric
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
 import wannabit.io.cosmostaion.chain.PubKeyType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.evmClass.ChainEthereum
 import wannabit.io.cosmostaion.chain.fetcher.AptosFetcher
 import wannabit.io.cosmostaion.chain.fetcher.FUNGIBLE_FUNCTION_TYPE
@@ -57,8 +67,6 @@ import wannabit.io.cosmostaion.chain.fetcher.sequence
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.IOTA_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseConstant.ICNS_OSMOSIS_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_ARCHWAY_ADDRESS
 import wannabit.io.cosmostaion.common.BaseConstant.NS_STARGZE_ADDRESS
@@ -129,25 +137,24 @@ class TxRepositoryImpl : TxRepository {
         fetcher: SuiFetcher?,
         userInput: String?
     ): NetworkResult<String> {
+        val channel = fetcher?.getChannel()
         return try {
-            val suiResolveAddressRequest = JsonRpcRequest(
-                method = "suix_resolveNameServiceAddress", params = listOf(userInput)
-            )
-
-            val suiResolveAddressResponse =
-                jsonRpcResponse(fetcher?.suiRpc() ?: "", suiResolveAddressRequest)
-            val suiResolveAddressJsonObject = Gson().fromJson(
-                suiResolveAddressResponse.body?.string(), JsonObject::class.java
-            )
+            val stub = NameServiceGrpc.newBlockingStub(channel)
+            val request = NameServiceProto.LookupNameRequest.newBuilder()
+                .setName(userInput ?: "")
+                .build()
+            val response = stub.lookupName(request)
 
             safeApiCall(Dispatchers.IO) {
-                suiResolveAddressJsonObject["result"].asString
+                response.record.targetAddress
             }
 
         } catch (e: Exception) {
             safeApiCall(Dispatchers.IO) {
                 ""
             }
+        } finally {
+            channel?.shutdown()
         }
     }
 
@@ -267,7 +274,7 @@ class TxRepositoryImpl : TxRepository {
     override suspend fun auth(
         managedChannel: ManagedChannel?, chain: BaseChain
     ) {
-        return if (chain is ChainGnoTestnet) {
+        return if (chain is ChainGno) {
             val authRequest = JsonRpcRequest(
                 method = "abci_query",
                 params = listOf("auth/accounts/${chain.address}", "", "0", true)
@@ -297,7 +304,7 @@ class TxRepositoryImpl : TxRepository {
                 stub.account(request).account.accountInfos().third
 
         } else {
-            val response = RetrofitInstance.lcdApi(chain)
+            val response = lcdApi(chain)
                 .lcdAuthInfo(chain.address).asJsonObject["account"].asJsonObject
             chain.cosmosFetcher()?.cosmosLcdAuth = response
             chain.cosmosFetcher()?.cosmosAccountNumber = response.accountNumber()
@@ -1424,8 +1431,7 @@ class TxRepositoryImpl : TxRepository {
                 simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
             } else {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
-                val response =
-                    RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
+                val response = lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
                 if (response.isSuccessful) {
                     response.body()?.getAsJsonObject("gas_info")
                         ?.get("gas_used")?.asString.toString()
@@ -1446,7 +1452,7 @@ class TxRepositoryImpl : TxRepository {
     ): LegacyRes? {
         return try {
             val reqBroadCast = Signer.oktBroadcast(msgs, fee, memo, selectedChain)
-            RetrofitInstance.lcdApi(selectedChain).broadTx(reqBroadCast)
+            lcdApi(selectedChain).broadTx(reqBroadCast)
 
         } catch (_: Exception) {
             null
@@ -1501,8 +1507,7 @@ class TxRepositoryImpl : TxRepository {
                 simulStub.simulate(simulateTx).gasInfo.gasUsed.toString()
             } else {
                 val txByte = Base64.toBase64String(simulateTx?.txBytes?.toByteArray())
-                val response =
-                    RetrofitInstance.lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
+                val response = lcdApi(selectedChain).lcdSimulateTx(SimulateTxReq(txByte))
                 if (response.isSuccessful) {
                     val gasUsed = response.body()?.getAsJsonObject("gas_info")
                         ?.get("gas_used")?.asString?.toLong()
@@ -1525,55 +1530,34 @@ class TxRepositoryImpl : TxRepository {
         }
     }
 
-    override suspend fun unSafePaySui(
-        fetcher: SuiFetcher,
-        sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
-    ): NetworkResult<String> {
-        return try {
-            val param = listOf(sender, coins, recipient, amounts, gasBudget)
-
-            val suiUnSafePaySuiRequest = JsonRpcRequest(
-                method = "unsafe_paySui", params = param
-            )
-            val suiUnSafePaySuiResponse = jsonRpcResponse(fetcher.suiRpc(), suiUnSafePaySuiRequest)
-            val suiUnSafePaySuiJsonObject = Gson().fromJson(
-                suiUnSafePaySuiResponse.body?.string(), JsonObject::class.java
-            )
-            safeApiCall(Dispatchers.IO) {
-                suiUnSafePaySuiJsonObject["result"].asJsonObject["txBytes"].asString
-            }
-
-        } catch (e: Exception) {
-            safeApiCall(Dispatchers.IO) {
-                ""
-            }
-        }
-    }
-
     override suspend fun unSafePay(
+        context: Context,
         fetcher: SuiFetcher,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        toSendDenom: String,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): NetworkResult<String> {
-        return try {
-            val param = listOf(sender, coins, recipient, amounts, null, gasBudget)
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
 
-            val suiUnSafePayRequest = JsonRpcRequest(
-                method = "unsafe_pay", params = param
-            )
-            val suiUnSafePayResponse = jsonRpcResponse(fetcher.suiRpc(), suiUnSafePayRequest)
-            val suiUnSafePayJsonObject = Gson().fromJson(
-                suiUnSafePayResponse.body?.string(), JsonObject::class.java
+        return try {
+            val response = fetcher.buildSendRequest(
+                SuiJS,
+                amounts,
+                sender,
+                recipient,
+                coins,
+                toSendDenom,
+                gasBudget,
+                gasCoin
             )
             safeApiCall(Dispatchers.IO) {
-                suiUnSafePayJsonObject["result"].asJsonObject["txBytes"].asString
+                Base64.toBase64String(Utils.hexToBytes(response))
             }
 
         } catch (e: Exception) {
@@ -1584,21 +1568,24 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun unsafeTransferObject(
-        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        recipient: String,
+        nftObject: ObjectProto.Object,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): NetworkResult<String> {
-        return try {
-            val param = listOf(sender, objectId, null, gasBudget, recipient)
+        if (!SuiJS.isInitialized()) {
+            SuiJS.initialize(context).await()
+        }
 
-            val suiUnSafeTransferObjectRequest = JsonRpcRequest(
-                method = "unsafe_transferObject", params = param
-            )
-            val suiUnSafeTransferObjectResponse =
-                jsonRpcResponse(fetcher.suiRpc(), suiUnSafeTransferObjectRequest)
-            val suiUnSafeTransferObjectJsonObject = Gson().fromJson(
-                suiUnSafeTransferObjectResponse.body?.string(), JsonObject::class.java
+        return try {
+            val response = fetcher.buildSendNFTRequest(
+                SuiJS, sender, recipient, nftObject, gasBudget, gasCoin
             )
             safeApiCall(Dispatchers.IO) {
-                suiUnSafeTransferObjectJsonObject["result"].asJsonObject["txBytes"].asString
+                Base64.toBase64String(Utils.hexToBytes(response))
             }
 
         } catch (e: Exception) {
@@ -1654,77 +1641,85 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun suiDryRun(
-        fetcher: SuiFetcher, txBytes: String
-    ): NetworkResult<JsonObject> {
+        channel: ManagedChannel?, txBytes: String
+    ): NetworkResult<TransactionExecutionServiceProto.SimulateTransactionResponse?> {
         return try {
-            val suiDryRunRequest = JsonRpcRequest(
-                method = "sui_dryRunTransactionBlock", params = listOf(txBytes)
-            )
-            val suiDryRunResponse = jsonRpcResponse(fetcher.suiRpc(), suiDryRunRequest)
-            val suiDryRunJsonObject = Gson().fromJson(
-                suiDryRunResponse.body?.string(), JsonObject::class.java
-            )
+            val stub = TransactionExecutionServiceGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(duration, TimeUnit.SECONDS)
+            val request = TransactionExecutionServiceProto.SimulateTransactionRequest.newBuilder()
+                .setTransaction(
+                    TransactionProto.Transaction.newBuilder().setBcs(
+                        BcsProto.Bcs.newBuilder().setValue(
+                            ByteString.copyFrom(Base64.decode(txBytes))
+                        )
+                    )
+                ).setReadMask(FieldMask.newBuilder().addPaths("transaction.effects")).build()
+
             safeApiCall(Dispatchers.IO) {
-                suiDryRunJsonObject
+                stub.simulateTransaction(request)
             }
 
         } catch (e: Exception) {
-            safeApiCall(Dispatchers.IO) {
-                JsonObject()
-            }
+            safeApiCall(Dispatchers.IO) { null }
         }
     }
 
     override suspend fun suiExecuteTx(
-        fetcher: SuiFetcher, txBytes: String, signatures: MutableList<String>
-    ): NetworkResult<JsonObject> {
+        channel: ManagedChannel?, txBytes: String, signatures: MutableList<String>
+    ): NetworkResult<TransactionExecutionServiceProto.ExecuteTransactionResponse?> {
         return try {
-            val param =
-                listOf(txBytes, signatures, mapOf("showEffects" to true), "WaitForLocalExecution")
-            val suiExecuteRequest = JsonRpcRequest(
-                method = "sui_executeTransactionBlock", params = param
-            )
-            val suiExecuteResponse = jsonRpcResponse(fetcher.suiRpc(), suiExecuteRequest)
-            val suiExecuteJsonObject = Gson().fromJson(
-                suiExecuteResponse.body?.string(), JsonObject::class.java
-            )
-            safeApiCall(Dispatchers.IO) {
-                suiExecuteJsonObject
-            }
+            val stub = TransactionExecutionServiceGrpc.newBlockingStub(channel)
+                .withDeadlineAfter(30L, TimeUnit.SECONDS)
 
+            val request = TransactionExecutionServiceProto.ExecuteTransactionRequest.newBuilder()
+                .setTransaction(
+                    TransactionProto.Transaction.newBuilder()
+                        .setBcs(
+                            BcsProto.Bcs.newBuilder()
+                                .setValue(ByteString.copyFrom(Base64.decode(txBytes)))
+                        )
+                )
+                .addAllSignatures(
+                    signatures.map {
+                        SignatureProto.UserSignature.newBuilder()
+                            .setBcs(
+                                BcsProto.Bcs.newBuilder()
+                                    .setValue(ByteString.copyFrom(Base64.decode(it)))
+                            )
+                            .build()
+                    }
+                ).setReadMask(FieldMask.newBuilder().addPaths("effects").addPaths("digest")).build()
+
+            safeApiCall(Dispatchers.IO) { stub.executeTransaction(request) }
         } catch (e: Exception) {
-            safeApiCall(Dispatchers.IO) {
-                JsonObject()
-            }
+            safeApiCall(Dispatchers.IO) { null }
         }
     }
 
     override suspend fun broadcastSuiSend(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
-    ): JsonObject {
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse? {
         try {
-            val txBytes = if (sendDenom == SUI_MAIN_DENOM) {
-                unSafePaySui(
-                    fetcher, sender, coins, recipient, amounts, gasBudget
-                )
-            } else {
-                unSafePay(
-                    fetcher, sender, coins, recipient, amounts, gasBudget
-                )
-            }
+            val txBytes = unSafePay(
+                context, fetcher, amounts, sender, recipient, coins, sendDenom, gasBudget, gasCoin
+            )
 
             if (txBytes is NetworkResult.Success) {
-                val dryRes = suiDryRun(fetcher, txBytes.data)
-                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                val dryRes = suiDryRun(fetcher.getChannel(), txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data?.transaction?.effects?.status?.success == true) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                        fetcher.getChannel(),
+                        txBytes.data,
+                        Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1733,55 +1728,56 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            return JsonObject()
+            return null
         }
-        return JsonObject()
+        return null
     }
 
     override suspend fun simulateSuiSend(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object,
+        selectedChain: BaseChain
     ): String {
         try {
-            val txBytes = if (sendDenom == SUI_MAIN_DENOM) {
-                unSafePaySui(
-                    fetcher, sender, coins, recipient, amounts, gasBudget
-                )
-            } else {
-                unSafePay(
-                    fetcher, sender, coins, recipient, amounts, gasBudget
-                )
-            }
+            val txBytes = unSafePay(
+                context, fetcher, amounts, sender, recipient, coins, sendDenom, gasBudget, gasCoin
+            )
 
             if (txBytes is NetworkResult.Success) {
-                val response = suiDryRun(fetcher, txBytes.data)
-                if (response is NetworkResult.Success) {
-                    if (response.data["error"] != null) {
-                        return response.data["error"].asJsonObject["message"].asString
+                when (val response = suiDryRun(fetcher.getChannel(), txBytes.data)) {
+                    is NetworkResult.Success -> {
+                        if (response.data != null) {
+                            val effects = response.data.transaction.effects
 
-                    } else {
-                        val computationCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                        val storageCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                        val storageRebate =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                            if (!effects.status.success) {
+                                return effects.status.error.description
 
-                        val gasCost = if (storageCost > storageRebate) {
-                            computationCost.add(storageCost).subtract(storageRebate).multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
-                        } else {
-                            computationCost.multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
+                            } else {
+                                val computationCost = effects.gasUsed.computationCost.toBigDecimal()
+                                val storageCost = effects.gasUsed.storageCost.toBigDecimal()
+                                val storageRebate = effects.gasUsed.storageRebate.toBigDecimal()
+
+                                val gasCost = if (storageCost > storageRebate) {
+                                    computationCost.add(storageCost).subtract(storageRebate)
+                                        .multiply(BigDecimal("1.3")).setScale(0, RoundingMode.DOWN)
+                                } else {
+                                    computationCost.multiply(BigDecimal("1.3"))
+                                        .setScale(0, RoundingMode.DOWN)
+                                }
+                                return gasCost.toString()
+                            }
                         }
-                        return gasCost.toString()
+                    }
+
+                    is NetworkResult.Error -> {
+                        return response.errorMessage ?: ""
                     }
                 }
             }
@@ -1793,21 +1789,27 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun broadcastSuiNftSend(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
-        objectId: String,
         recipient: String,
+        nftObject: ObjectProto.Object,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
-    ): JsonObject {
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse? {
         try {
-            val txBytes = unsafeTransferObject(fetcher, sender, objectId, recipient, gasBudget)
+            val txBytes = unsafeTransferObject(
+                context, fetcher, sender, recipient, nftObject, gasBudget, gasCoin
+            )
 
             if (txBytes is NetworkResult.Success) {
-                val dryRes = suiDryRun(fetcher, txBytes.data)
-                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                val dryRes = suiDryRun(fetcher.getChannel(), txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data?.transaction?.effects?.status?.success == true) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                        fetcher.getChannel(),
+                        txBytes.data,
+                        Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1816,41 +1818,53 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            return JsonObject()
+            return null
         }
-        return JsonObject()
+        return null
     }
 
     override suspend fun simulateSuiNftSend(
-        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        recipient: String,
+        nftObject: ObjectProto.Object,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ): String {
         try {
-            val txBytes = unsafeTransferObject(fetcher, sender, objectId, recipient, gasBudget)
+            val txBytes = unsafeTransferObject(
+                context, fetcher, sender, recipient, nftObject, gasBudget, gasCoin
+            )
 
             if (txBytes is NetworkResult.Success) {
-                val response = suiDryRun(fetcher, txBytes.data)
-                if (response is NetworkResult.Success) {
-                    if (response.data["error"] != null) {
-                        return response.data["error"].asJsonObject["message"].asString
+                when (val response = suiDryRun(fetcher.getChannel(), txBytes.data)) {
+                    is NetworkResult.Success -> {
+                        if (response.data != null) {
+                            val effects = response.data.transaction.effects
 
-                    } else {
-                        val computationCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                        val storageCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                        val storageRebate =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                            if (!effects.status.success) {
+                                return effects.status.error.description
 
-                        val gasCost = if (storageCost > storageRebate) {
-                            computationCost.add(storageCost).subtract(storageRebate).multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
-                        } else {
-                            computationCost.multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
+                            } else {
+                                val computationCost = effects.gasUsed.computationCost.toBigDecimal()
+                                val storageCost = effects.gasUsed.storageCost.toBigDecimal()
+                                val storageRebate = effects.gasUsed.storageRebate.toBigDecimal()
+
+                                val gasCost = if (storageCost > storageRebate) {
+                                    computationCost.add(storageCost).subtract(storageRebate)
+                                        .multiply(BigDecimal("1.3")).setScale(0, RoundingMode.DOWN)
+                                } else {
+                                    computationCost.multiply(BigDecimal("1.3"))
+                                        .setScale(0, RoundingMode.DOWN)
+                                }
+                                return gasCost.toString()
+                            }
                         }
-                        return gasCost.toString()
+                    }
+
+                    is NetworkResult.Error -> {
+                        return response.errorMessage ?: ""
                     }
                 }
             }
@@ -1869,15 +1883,17 @@ class TxRepositoryImpl : TxRepository {
         amount: String,
         gasBudget: String,
         selectedChain: BaseChain
-    ): JsonObject {
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse? {
         try {
             val txBytes = unsafeStake(context, fetcher, sender, validator, amount, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
-                val dryRes = suiDryRun(fetcher, txBytes.data)
-                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                val dryRes = suiDryRun(fetcher.getChannel(), txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data?.transaction?.effects?.status?.success == true) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                        fetcher.getChannel(),
+                        txBytes.data,
+                        Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1886,9 +1902,9 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            return JsonObject()
+            return null
         }
-        return JsonObject()
+        return null
     }
 
     override suspend fun simulateSuiStake(
@@ -1903,29 +1919,33 @@ class TxRepositoryImpl : TxRepository {
             val txBytes = unsafeStake(context, fetcher, sender, amount, validator, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
-                val response = suiDryRun(fetcher, txBytes.data)
-                if (response is NetworkResult.Success) {
-                    if (response.data["error"] != null) {
-                        return response.data["error"].asJsonObject["message"].asString
+                when (val response = suiDryRun(fetcher.getChannel(), txBytes.data)) {
+                    is NetworkResult.Success -> {
+                        if (response.data != null) {
+                            val effects = response.data.transaction.effects
 
-                    } else {
-                        val computationCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                        val storageCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                        val storageRebate =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                            if (!effects.status.success) {
+                                return effects.status.error.description
 
-                        val gasCost = if (storageCost > storageRebate) {
-                            computationCost.add(storageCost).subtract(storageRebate).multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
-                        } else {
-                            computationCost.multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
+                            } else {
+                                val computationCost = effects.gasUsed.computationCost.toBigDecimal()
+                                val storageCost = effects.gasUsed.storageCost.toBigDecimal()
+                                val storageRebate = effects.gasUsed.storageRebate.toBigDecimal()
+
+                                val gasCost = if (storageCost > storageRebate) {
+                                    computationCost.add(storageCost).subtract(storageRebate)
+                                        .multiply(BigDecimal("1.3")).setScale(0, RoundingMode.DOWN)
+                                } else {
+                                    computationCost.multiply(BigDecimal("1.3"))
+                                        .setScale(0, RoundingMode.DOWN)
+                                }
+                                return gasCost.toString()
+                            }
                         }
-                        return gasCost.toString()
+                    }
+
+                    is NetworkResult.Error -> {
+                        return response.errorMessage ?: ""
                     }
                 }
             }
@@ -1943,15 +1963,17 @@ class TxRepositoryImpl : TxRepository {
         objectId: String,
         gasBudget: String,
         selectedChain: BaseChain
-    ): JsonObject {
+    ): TransactionExecutionServiceProto.ExecuteTransactionResponse? {
         try {
             val txBytes = unsafeUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
-                val dryRes = suiDryRun(fetcher, txBytes.data)
-                if (dryRes is NetworkResult.Success && dryRes.data["error"] == null) {
+                val dryRes = suiDryRun(fetcher.getChannel(), txBytes.data)
+                if (dryRes is NetworkResult.Success && dryRes.data?.transaction?.effects?.status?.success == true) {
                     val broadRes = suiExecuteTx(
-                        fetcher, txBytes.data, Signer.moveSignature(selectedChain, txBytes.data)
+                        fetcher.getChannel(),
+                        txBytes.data,
+                        Signer.moveSignature(selectedChain, txBytes.data)
                     )
                     if (broadRes is NetworkResult.Success) {
                         return broadRes.data
@@ -1960,9 +1982,9 @@ class TxRepositoryImpl : TxRepository {
             }
 
         } catch (e: Exception) {
-            return JsonObject()
+            return null
         }
-        return JsonObject()
+        return null
     }
 
     override suspend fun simulateSuiUnStake(
@@ -1972,29 +1994,33 @@ class TxRepositoryImpl : TxRepository {
             val txBytes = unsafeUnStake(context, fetcher, sender, objectId, gasBudget)
 
             if (txBytes is NetworkResult.Success) {
-                val response = suiDryRun(fetcher, txBytes.data)
-                if (response is NetworkResult.Success) {
-                    if (response.data["error"] != null) {
-                        return response.data["error"].asJsonObject["message"].asString
+                when (val response = suiDryRun(fetcher.getChannel(), txBytes.data)) {
+                    is NetworkResult.Success -> {
+                        if (response.data != null) {
+                            val effects = response.data.transaction.effects
 
-                    } else {
-                        val computationCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["computationCost"].asString.toBigDecimal()
-                        val storageCost =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageCost"].asString.toBigDecimal()
-                        val storageRebate =
-                            response.data["result"].asJsonObject["effects"].asJsonObject["gasUsed"].asJsonObject["storageRebate"].asString.toBigDecimal()
+                            if (!effects.status.success) {
+                                return effects.status.error.description
 
-                        val gasCost = if (storageCost > storageRebate) {
-                            computationCost.add(storageCost).subtract(storageRebate).multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
-                        } else {
-                            computationCost.multiply(
-                                BigDecimal("1.3")
-                            ).setScale(0, RoundingMode.DOWN)
+                            } else {
+                                val computationCost = effects.gasUsed.computationCost.toBigDecimal()
+                                val storageCost = effects.gasUsed.storageCost.toBigDecimal()
+                                val storageRebate = effects.gasUsed.storageRebate.toBigDecimal()
+
+                                val gasCost = if (storageCost > storageRebate) {
+                                    computationCost.add(storageCost).subtract(storageRebate)
+                                        .multiply(BigDecimal("1.3")).setScale(0, RoundingMode.DOWN)
+                                } else {
+                                    computationCost.multiply(BigDecimal("1.3"))
+                                        .setScale(0, RoundingMode.DOWN)
+                                }
+                                return gasCost.toString()
+                            }
                         }
-                        return gasCost.toString()
+                    }
+
+                    is NetworkResult.Error -> {
+                        return response.errorMessage ?: ""
                     }
                 }
             }
@@ -2329,7 +2355,12 @@ class TxRepositoryImpl : TxRepository {
     }
 
     override suspend fun simulateIotaStake(
-        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context,
+        fetcher: IotaFetcher,
+        sender: String,
+        amount: String,
+        validator: String,
+        gasBudget: String
     ): String {
         try {
             val txBytes = unsafeIotaStake(context, fetcher, sender, amount, validator, gasBudget)

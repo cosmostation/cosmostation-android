@@ -21,9 +21,9 @@ class ChainSentinel : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "udvpn"
     override var accountPrefix: String = "sent"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api-sentinel.busurnode.com/"
+    override var grpcHost: String = "grpc-sentinel.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-sentinel.mainnet.cosmoslabs.kr/"
 }

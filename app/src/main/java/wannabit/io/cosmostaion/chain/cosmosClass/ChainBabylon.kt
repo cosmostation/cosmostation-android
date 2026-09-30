@@ -24,11 +24,11 @@ open class ChainBabylon : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubbn"
     override var accountPrefix: String = "bbn"
-    override var grpcHost: String = "grpc.babylon.validatus.com"
-    override var lcdUrl: String = "https://babylon.nodes.guru/api/"
+    override var grpcHost: String = "grpc-babylon.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-babylon.mainnet.cosmoslabs.kr/"
 
     fun babylonFetcher(): BabylonFetcher? {
         if (babylonFetcher == null) {

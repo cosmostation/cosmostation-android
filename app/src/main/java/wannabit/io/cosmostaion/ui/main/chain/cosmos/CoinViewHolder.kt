@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide
 import org.bouncycastle.util.encoders.Base64
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.fetcher.assetImg
 import wannabit.io.cosmostaion.chain.fetcher.iotaCoinSymbol
 import wannabit.io.cosmostaion.chain.fetcher.suiCoinSymbol
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -59,7 +59,7 @@ class CoinViewHolder(
                     hideValue.visibility = View.GONE
 
                     coinAmount.text = formatAmount(amount.toPlainString(), 6)
-                    coinAmountValue.text = if (chain is ChainGnoTestnet) {
+                    coinAmountValue.text = if (chain is ChainGno) {
                         chain.gnoRpcFetcher?.denomValue(coin.denom)
                             ?.let { formatAssetValue(it) }
                     } else {
@@ -115,18 +115,18 @@ class CoinViewHolder(
                     }
 
                     if (metaData != null) {
-                        if (metaData.assetImg().contains("base64")) {
-                            val base64String = metaData.assetImg().substringAfter("base64,")
+                        if (metaData.iconUrl.contains("base64")) {
+                            val base64String = metaData.iconUrl.substringAfter("base64,")
                             val decodedString = Base64.decode(base64String)
                             val base64ToBitmap =
                                 BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
                             tokenImg.setImageBitmap(base64ToBitmap)
                         } else {
-                            tokenImg.setImageFromSvg(metaData.assetImg(), R.drawable.token_default)
+                            tokenImg.setImageFromSvg(metaData.iconUrl, R.drawable.token_default)
                         }
 
-                        tokenName.text = metaData["symbol"].asString
-                        val dpAmount = balance.second?.movePointLeft(metaData["decimals"].asInt)
+                        tokenName.text = metaData.symbol
+                        val dpAmount = balance.second?.movePointLeft(metaData.decimals)
                             ?.setScale(18, RoundingMode.DOWN)
                         coinAmount.text = formatAmount(dpAmount.toString(), 6)
                         return

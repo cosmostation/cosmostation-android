@@ -21,6 +21,7 @@ import com.google.gson.JsonPrimitive
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseUtils
 import wannabit.io.cosmostaion.common.formatPercent
@@ -85,6 +86,12 @@ class AboutFragment : Fragment() {
                 (arguments?.getParcelable("selectedChain") as? BaseChain)?.let {
                     selectedChain = it
                 }
+            }
+
+            if (selectedChain is ChainGno) {
+                stakingInfoView.visibility = View.GONE
+            } else {
+                stakingInfoView.visibility = View.VISIBLE
             }
             chainParam = selectedChain.getChainParam()
 

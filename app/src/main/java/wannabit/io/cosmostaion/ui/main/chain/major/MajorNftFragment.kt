@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
+import com.sui.rpc.v2.ObjectProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
@@ -29,12 +30,14 @@ class MajorNftFragment : Fragment() {
     private var _binding: FragmentMajorNftBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var suiNftAdapter: SuiNftAdapter
     private lateinit var majorNftAdapter: MajorNftAdapter
 
     private lateinit var walletViewModel: WalletViewModel
 
     private lateinit var selectedChain: BaseChain
-    private var moveAllNfts: MutableList<JsonObject> = mutableListOf()
+    private var suiAllNfts: MutableList<ObjectProto.Object> = mutableListOf()
+    private var iotaAllNfts: MutableList<JsonObject> = mutableListOf()
 
     private var isClickable = true
 
@@ -82,12 +85,11 @@ class MajorNftFragment : Fragment() {
 
         if (selectedChain is ChainSui) {
             (selectedChain as ChainSui).suiFetcher?.let { fetcher ->
-                moveAllNfts.addAll(fetcher.suiAllNfts())
+                suiAllNfts.addAll(fetcher.suiAllNfts())
             }
-
         } else {
             (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
-                moveAllNfts.addAll(fetcher.iotaAllNfts())
+                iotaAllNfts.addAll(fetcher.iotaAllNfts())
             }
         }
 
@@ -100,41 +102,68 @@ class MajorNftFragment : Fragment() {
             loading.visibility = View.GONE
             binding.recycler.suppressLayout(false)
 
-            if (moveAllNfts.isEmpty()) {
-                emptyLayout.visibility = View.VISIBLE
-                recycler.visibility = View.GONE
+            if (selectedChain is ChainSui) {
+                if (suiAllNfts.isEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
 
-            } else {
-                emptyLayout.visibility = View.GONE
-                recycler.visibility = View.VISIBLE
+                } else {
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
 
-                majorNftAdapter = MajorNftAdapter(selectedChain)
-                recycler.setHasFixedSize(true)
-                recycler.layoutManager = GridLayoutManager(requireContext(), 2)
-                recycler.adapter = majorNftAdapter
-                majorNftAdapter.submitList(moveAllNfts)
+                    suiNftAdapter = SuiNftAdapter(selectedChain)
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+                    recycler.adapter = suiNftAdapter
+                    suiNftAdapter.submitList(suiAllNfts)
 
-                if (::majorNftAdapter.isInitialized) {
-                    majorNftAdapter.setOnItemClickListener { chain, info ->
-                        if (isClickable) {
-                            isClickable = false
+                    if (::suiNftAdapter.isInitialized) {
+                        suiNftAdapter.setOnItemClickListener { chain, info ->
+                            if (isClickable) {
+                                isClickable = false
 
-                            if (selectedChain is ChainSui) {
                                 SuiNftTransferFragment(chain, info).show(
                                     requireActivity().supportFragmentManager,
                                     SuiNftTransferFragment::class.java.name
                                 )
 
-                            } else {
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    isClickable = true
+                                }, 300)
+                            }
+                        }
+                    }
+                }
+
+            } else {
+                if (iotaAllNfts.isEmpty()) {
+                    emptyLayout.visibility = View.VISIBLE
+                    recycler.visibility = View.GONE
+
+                } else {
+                    emptyLayout.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
+
+                    majorNftAdapter = MajorNftAdapter(selectedChain)
+                    recycler.setHasFixedSize(true)
+                    recycler.layoutManager = GridLayoutManager(requireContext(), 2)
+                    recycler.adapter = majorNftAdapter
+                    majorNftAdapter.submitList(iotaAllNfts)
+
+                    if (::majorNftAdapter.isInitialized) {
+                        majorNftAdapter.setOnItemClickListener { chain, info ->
+                            if (isClickable) {
+                                isClickable = false
+
                                 IotaNftTransferFragment(chain, info).show(
                                     requireActivity().supportFragmentManager,
                                     IotaNftTransferFragment::class.java.name
                                 )
-                            }
 
-                            Handler(Looper.getMainLooper()).postDelayed({
-                                isClickable = true
-                            }, 300)
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    isClickable = true
+                                }, 300)
+                            }
                         }
                     }
                 }
@@ -152,7 +181,7 @@ class MajorNftFragment : Fragment() {
                 selectedChain.fetchState = FetchState.IDLE
 
                 if (selectedChain is ChainSui) {
-                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain)
+                    ApplicationViewModel.shared.loadSuiData(account.id, selectedChain as ChainSui)
                 } else {
                     ApplicationViewModel.shared.loadIotaData(account.id, selectedChain)
                 }
@@ -162,15 +191,14 @@ class MajorNftFragment : Fragment() {
 
     private fun setUpObserve() {
         ApplicationViewModel.shared.notifyTxResult.observe(viewLifecycleOwner) {
-            moveAllNfts.clear()
             if (selectedChain is ChainSui) {
+                suiAllNfts.clear()
                 (selectedChain as ChainSui).suiFetcher?.let { fetcher ->
-                    moveAllNfts.addAll(fetcher.suiAllNfts())
+                    suiAllNfts.addAll(fetcher.suiAllNfts())
                 }
-
             } else {
                 (selectedChain as ChainIota).iotaFetcher?.let { fetcher ->
-                    moveAllNfts.addAll(fetcher.iotaAllNfts())
+                    iotaAllNfts.addAll(fetcher.iotaAllNfts())
                 }
             }
 

@@ -25,5 +25,6 @@ class ChainGnoTestnet : ChainGno(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_RPC
     override var stakeDenom: String = "ugnot"
     override var accountPrefix: String = "g"
-    override var mainUrl: String = "https://rpc.test11.testnets.gno.land/"
+    override var mainUrl: String = "https://rpc.onyx.testnets.gno.land:443"
+    override var gnoIndexerUrl: String = "https://indexer.onyx.testnets.gno.land/graphql/query"
 }

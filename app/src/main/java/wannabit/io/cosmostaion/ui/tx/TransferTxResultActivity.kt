@@ -26,10 +26,9 @@ import org.web3j.protocol.http.HttpService
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseActivity
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.getOrNull
@@ -273,7 +272,7 @@ class TransferTxResultActivity : BaseActivity() {
     private fun loadHistoryTx() {
         lifecycleScope.launch(Dispatchers.IO) {
             fromChain.apply {
-                if (this is ChainGnoTestnet) {
+                if (this is ChainGno) {
                     val txStatusRequest = JsonRpcRequest(
                         method = "tx", params = listOf(txHash)
                     )

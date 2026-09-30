@@ -16,12 +16,12 @@ class ChainStory : BaseChain(), Parcelable {
     override var apiName: String = "story"
 
     override var supportEvm: Boolean = true
-    override var coinSymbol: String = "IP"
+    override var coinSymbol: String = "DATA"
 
     override var accountKeyType = AccountKeyType(PubKeyType.ETH_KECCAK256, "m/44'/60'/0'/0/X")
     override var setParentPath: List<ChildNumber> = ImmutableList.of(
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var evmRpcURL: String = "https://evmrpc.story.nodestake.org"
+    override var evmRpcURL: String = "https://mainnet.storyrpc.io"
 }

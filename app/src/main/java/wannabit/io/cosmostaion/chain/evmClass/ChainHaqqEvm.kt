@@ -21,11 +21,11 @@ class ChainHaqqEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aISLM"
     override var accountPrefix: String = "haqq"
-    override var grpcHost: String = "grpc.haqq.sh"
-    override var lcdUrl: String = "https://rest.cosmos.haqq.network/"
+    override var grpcHost: String = "grpc-haqq.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-haqq.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ISLM"

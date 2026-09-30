@@ -21,9 +21,9 @@ class ChainSunrise : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uvrise"
     override var accountPrefix: String = "sunrise"
-    override var grpcHost: String = "sunrise-grpc.noders.services"
-    override var lcdUrl: String = "https://rest.sunrise.tcnetwork.io"
+    override var grpcHost: String = "grpc-sunrise.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-sunrise.mainnet.cosmoslabs.kr/"
 }

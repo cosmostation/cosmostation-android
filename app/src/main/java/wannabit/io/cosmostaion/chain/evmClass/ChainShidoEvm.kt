@@ -21,11 +21,11 @@ class ChainShidoEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "shido"
     override var accountPrefix: String = "shido"
-    override var grpcHost: String = "grpc.mavnode.io"
-    override var lcdUrl: String = "https://api.shidoscan.net/"
+    override var grpcHost: String = "grpc-shido.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-shido.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "SHIDO"

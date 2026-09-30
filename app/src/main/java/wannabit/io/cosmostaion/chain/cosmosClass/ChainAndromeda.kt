@@ -21,9 +21,9 @@ class ChainAndromeda : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uandr"
     override var accountPrefix: String = "andr"
-    override var grpcHost: String = "andromeda.grpc.liveraven.net"
-    override var lcdUrl: String = "https://andro.api.m.stavr.tech/"
+    override var grpcHost: String = "grpc-andromeda.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-andromeda.mainnet.cosmoslabs.kr/"
 }

@@ -8,7 +8,6 @@ import com.initia.mstaking.v1.StakingProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.common.BaseData
@@ -80,35 +79,6 @@ class ValidatorViewHolder(
                                 ?.setScale(asset.decimals ?: 6, RoundingMode.DOWN)
                         stakedAmount.text =
                             formatAmount(stakingAmount.toString(), asset.decimals ?: 6)
-                    }
-            }
-        }
-    }
-
-    fun zenrockBind(
-        chain: ChainZenrock, validator: com.zrchain.validation.HybridValidationProto.ValidatorHV
-    ) {
-        binding.apply {
-            monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker?.trim()
-            if (validator.jailed) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (!validator.isActiveValidator(chain)) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_inactive)
-            } else {
-                jailedImg.visibility = View.GONE
-            }
-
-            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
-                chain.zenrockFetcher()?.zenrockDelegations?.firstOrNull { it.delegation.validatorAddress == validator.operatorAddress }
-                    ?.let { delegation ->
-                        val stakingAmount = delegation.balance.amount.toBigDecimal()
-                            .movePointLeft(asset.decimals ?: 6)
-                            .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                        stakedAmount.text =
-                            formatAmount(stakingAmount.toPlainString(), asset.decimals ?: 6)
                     }
             }
         }

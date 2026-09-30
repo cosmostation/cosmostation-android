@@ -21,9 +21,9 @@ class ChainArchway : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aarch"
     override var accountPrefix: String = "archway"
-    override var grpcHost: String = "grpc.mainnet.archway.io"
-    override var lcdUrl: String = "https://api.mainnet.archway.io/"
+    override var grpcHost: String = "grpc-archway.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-archway.mainnet.cosmoslabs.kr/"
 }

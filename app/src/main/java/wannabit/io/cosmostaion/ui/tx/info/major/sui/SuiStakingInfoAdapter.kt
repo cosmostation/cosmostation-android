@@ -4,15 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.fetcher.StakeReward
 import wannabit.io.cosmostaion.databinding.ItemSuiStakingInfoBinding
 
 class SuiStakingInfoAdapter(
     private val selectedChain: BaseChain
-) : ListAdapter<Pair<String, JsonObject>, SuiStakingInfoViewHolder>(SuiStakingInfoDiffCallback()) {
+) : ListAdapter<StakeReward, SuiStakingInfoViewHolder>(SuiStakingInfoDiffCallback()) {
 
-    private var onItemClickListener: ((Pair<String, JsonObject>) -> Unit)? = null
+    private var onItemClickListener: ((StakeReward) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuiStakingInfoViewHolder {
         val binding =
@@ -31,22 +31,22 @@ class SuiStakingInfoAdapter(
         }
     }
 
-    private class SuiStakingInfoDiffCallback : DiffUtil.ItemCallback<Pair<String, JsonObject>>() {
+    private class SuiStakingInfoDiffCallback : DiffUtil.ItemCallback<StakeReward>() {
 
         override fun areItemsTheSame(
-            oldItem: Pair<String, JsonObject>, newItem: Pair<String, JsonObject>
+            oldItem: StakeReward, newItem: StakeReward
         ): Boolean {
             return oldItem == newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Pair<String, JsonObject>, newItem: Pair<String, JsonObject>
+            oldItem: StakeReward, newItem: StakeReward
         ): Boolean {
             return oldItem == newItem
         }
     }
 
-    fun setOnItemClickListener(listener: (Pair<String, JsonObject>) -> Unit) {
+    fun setOnItemClickListener(listener: (StakeReward) -> Unit) {
         onItemClickListener = listener
     }
 }

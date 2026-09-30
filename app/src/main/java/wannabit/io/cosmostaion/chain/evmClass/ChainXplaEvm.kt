@@ -21,11 +21,11 @@ class ChainXplaEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "axpla"
     override var accountPrefix: String = "xpla"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://dimension-lcd.xpla.io/"
+    override var grpcHost: String = "grpc-xpla.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-xpla.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "XPLA"

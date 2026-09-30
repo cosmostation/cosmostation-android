@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
 import wannabit.io.cosmostaion.common.setTokenImg
@@ -107,7 +107,7 @@ class TokenEditViewHolder(
                         }
 
                     } ?: run {
-                    (chain as ChainGnoTestnet).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
+                    (chain as ChainGno).gnoRpcFetcher()?.grc20Tokens?.firstOrNull { it.chainName == chain.apiName && it.address == token.address }
                         ?.let { grcToken ->
                             if (token.fetched) {
                                 val dpAmount = grcToken.amount?.toBigDecimal()

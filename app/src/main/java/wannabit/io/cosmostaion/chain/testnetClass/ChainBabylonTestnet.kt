@@ -22,9 +22,9 @@ class ChainBabylonTestnet : ChainBabylon(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubbn"
     override var accountPrefix: String = "bbn"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://babylon-testnet-api.nodes.guru/"
+    override var grpcHost: String = "grpc-babylon.testnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-babylon.testnet.cosmoslabs.kr/"
 }

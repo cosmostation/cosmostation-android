@@ -21,9 +21,9 @@ class ChainTerra : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(330, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uluna"
     override var accountPrefix: String = "terra"
-    override var grpcHost: String = "erra2.tdrsys.com:2083"
-    override var lcdUrl: String = "https://terra-api.cosmosrescue.dev/"
+    override var grpcHost: String = "grpc-terra.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-terra.mainnet.cosmoslabs.kr/"
 }

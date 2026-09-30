@@ -22,9 +22,9 @@ class ChainXionTestnet : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uxion"
     override var accountPrefix: String = "xion"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.xion-testnet-2.burnt.com/"
+    override var grpcHost: String = "grpc-xion.testnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-xion.testnet.cosmoslabs.kr/"
 }

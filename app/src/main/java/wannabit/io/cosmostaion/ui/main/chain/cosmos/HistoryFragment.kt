@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.common.dpTimeToYear
@@ -42,6 +43,7 @@ class HistoryFragment : Fragment() {
 
     private val allHistoryGroup: MutableList<Pair<String, CosmosHistory>> = mutableListOf()
     private val allEthHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private val allGnoHistoryGroup: MutableList<Pair<String, JsonObject>> = mutableListOf()
 
     companion object {
         @JvmStatic
@@ -116,6 +118,14 @@ class HistoryFragment : Fragment() {
                             }
                         }
 
+                        is ChainGno -> {
+                            chain.explorerTx(hash)?.let {
+                                startActivity(Intent(Intent.ACTION_VIEW, it))
+                            } ?: run {
+                                return@setOnItemClickListener
+                            }
+                        }
+
                         else -> {
                             history?.let {
                                 if (it.getMsgCnt() == 1 && it.getMsgType(
@@ -158,6 +168,10 @@ class HistoryFragment : Fragment() {
                 historyViewModel.ethHistory(selectedChain, BATCH_CNT.toString(), searchAfter)
             }
 
+            is ChainGno -> {
+                historyViewModel.gnoHistory(selectedChain as ChainGno)
+            }
+
             else -> {
                 if (!selectedChain.isSupportMintscan()) return
                 historyViewModel.history(
@@ -196,6 +210,8 @@ class HistoryFragment : Fragment() {
                                 val next = searchAfter.toLong() - 1
                                 historyViewModel.ethHistory(selectedChain, "20", next.toString())
                             }
+
+                            is ChainGno -> {}
 
                             else -> {
                                 historyViewModel.history(
@@ -259,6 +275,24 @@ class HistoryFragment : Fragment() {
             binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
             binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
             historyAdapter.notifyDataSetChanged()
+        }
+
+        historyViewModel.majorHistoryResult.observe(viewLifecycleOwner) { response ->
+            if (selectedChain !is ChainGno) return@observe
+            binding.refresher.isRefreshing = false
+            binding.recycler.suppressLayout(false)
+            response?.let { historyGroup ->
+                allGnoHistoryGroup.clear()
+                allGnoHistoryGroup.addAll(historyGroup)
+                hasMore = false
+
+                historyAdapter.submitList(allGnoHistoryGroup as List<Any>?)
+
+                binding.loading.visibility = View.GONE
+                binding.refresher.visibleOrGone(historyGroup.isNotEmpty())
+                binding.emptyLayout.visibleOrGone(historyGroup.isEmpty())
+                historyAdapter.notifyDataSetChanged()
+            }
         }
 
         historyViewModel.errorMessage.observe(viewLifecycleOwner) {

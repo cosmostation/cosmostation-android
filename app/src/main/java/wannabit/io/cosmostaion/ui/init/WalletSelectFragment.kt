@@ -21,7 +21,7 @@ import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.allChains
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.common.BaseConstant
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.BaseKey
@@ -206,7 +206,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain.isOtherChains() || chain is ChainGnoTestnet) {
+                            if (chain.supportCosmos() || chain.isOtherChains() || chain is ChainGno) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)
@@ -227,7 +227,7 @@ class WalletSelectFragment : Fragment() {
                         }
 
                         if (chain.fetchState == FetchState.IDLE || chain.fetchState == FetchState.BUSY) {
-                            if (chain.supportCosmos() || chain.isOtherChains() || chain is ChainGnoTestnet) {
+                            if (chain.supportCosmos() || chain.isOtherChains() || chain is ChainGno) {
                                 walletViewModel.balance(chain)
                             } else {
                                 walletViewModel.evmBalance(chain)

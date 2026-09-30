@@ -21,9 +21,9 @@ class ChainCryptoorg : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "basecro"
     override var accountPrefix: String = "cro"
-    override var grpcHost: String = "grpc.mainnet.crypto.org"
-    override var lcdUrl: String = "https://cryptocom-api.polkachu.com/"
+    override var grpcHost: String = "grpc-crypto-org.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-crypto-org.mainnet.cosmoslabs.kr/"
 }

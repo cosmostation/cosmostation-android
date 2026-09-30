@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.google.gson.JsonObject
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
@@ -62,7 +63,8 @@ class HistoryAdapter(
                 val historySuiGroup = suiHistoryList[position]
 
                 historySuiGroup.second.let { header ->
-                    val headerDate = dpTimeToYear(header["timestampMs"].asString.toLong())
+                    val timestampMs = java.time.Instant.parse(header["effects"].asJsonObject["timestamp"].asString).toEpochMilli()
+                    val headerDate = dpTimeToYear(timestampMs)
                     val headerIndex = suiHistoryList.indexOfFirst { it.first == headerDate }
                     val headerCnt = suiHistoryList.filter { it.first == headerDate }.size
                     holder.bindSuiHistory(chain, historySuiGroup, headerIndex, headerCnt, position)
@@ -107,6 +109,22 @@ class HistoryAdapter(
                         onItemClickListener?.let {
                             it(chain, null, historyMoveGroup.second["hash"].asString)
                         }
+                    }
+                }
+            }
+
+            is ChainGno -> {
+                val gnoHistoryList = currentList as MutableList<Pair<String, JsonObject>>
+                val historyGnoGroup = gnoHistoryList[position]
+
+                val headerDate = historyGnoGroup.first
+                val headerIndex = gnoHistoryList.indexOfFirst { it.first == headerDate }
+                val headerCnt = gnoHistoryList.filter { it.first == headerDate }.size
+                holder.bindGnoHistory(chain, historyGnoGroup, headerIndex, headerCnt, position)
+
+                holder.itemView.setOnClickListener {
+                    onItemClickListener?.let {
+                        it(chain, null, historyGnoGroup.second["hash"].asString)
                     }
                 }
             }

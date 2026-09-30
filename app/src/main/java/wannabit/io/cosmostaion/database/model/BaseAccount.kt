@@ -11,14 +11,13 @@ import net.i2p.crypto.eddsa.Utils
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.allChains
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainBabylon
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.chain.majorClass.ChainIota
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseKey
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.database.AppDatabase
@@ -151,7 +150,7 @@ data class BaseAccount(
                     chain.tokenValue = chain.evmRpcFetcher()?.allTokenValue(id)
                 }
 
-                is ChainGnoTestnet -> {
+                is ChainGno -> {
                     chain.coinValue = chain.gnoRpcFetcher()?.allAssetValue()
                     chain.tokenValue = chain.gnoRpcFetcher()?.allGrc20TokenValue(id)
                 }

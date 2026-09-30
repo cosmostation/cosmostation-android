@@ -120,10 +120,9 @@ class SuiStakeInfoFragment : Fragment() {
             updateTime()
 
             (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                epoch = fetcher.suiSystem["result"].asJsonObject["epoch"].asLong
-                epochStartTimestampMs =
-                    fetcher.suiSystem["result"].asJsonObject["epochStartTimestampMs"].asLong
-                epochDurationMs = fetcher.suiSystem["result"].asJsonObject["epochDurationMs"].asLong
+                epoch = fetcher.suiSystem?.epoch ?: 0
+                epochStartTimestampMs = fetcher.suiSystem?.systemState?.epochStartTimestampMs ?: 0
+                epochDurationMs = fetcher.suiSystem?.systemState?.parameters?.epochDurationMs ?: 0
                 currentEpoch.text = "#$epoch"
             }
         }

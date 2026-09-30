@@ -21,9 +21,9 @@ class ChainLava : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ulava"
     override var accountPrefix: String = "lava@"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://lava.rest.lava.build/"
+    override var grpcHost: String = "grpc-lava.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-lava.mainnet.cosmoslabs.kr/"
 }

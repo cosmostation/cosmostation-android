@@ -21,9 +21,9 @@ class ChainNyx : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "unyx"
     override var accountPrefix: String = "n"
-    override var grpcHost: String = "grpc.nymtech.net"
-    override var lcdUrl: String = "https://nym-api.polkachu.com/"
+    override var grpcHost: String = "grpc-nyx.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-nyx.mainnet.cosmoslabs.kr/"
 }

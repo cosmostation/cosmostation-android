@@ -22,10 +22,10 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainDydx
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainSunrise
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.showToast
@@ -199,7 +199,7 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
             }
 
             else -> {
-                if (selectedChain is ChainGnoTestnet) {
+                if (selectedChain is ChainGno) {
                     selectedChain.gnoRpcFetcher?.gnoBalances?.forEach { coin ->
                         val coinType = BaseData.getAsset(selectedChain.apiName, coin.denom)?.type
                         coinType?.let {
@@ -280,25 +280,20 @@ class CoinFragment : Fragment(), CoinFragmentInteraction {
                 val mainCoin = (selectedChain.getChainListParam()?.get("main_asset_denom")?.asString
                     ?: "").uppercase()
                 if (mainCoin.isNotEmpty()) {
-                    if (nativeCoins.isEmpty()) {
-                        nativeCoins.add(
-                            Coin(
-                                mainCoin, "0", CoinType.NATIVE
-                            )
-                        )
-
-                    } else {
-                        if (nativeCoins.none { coin -> coin.denom.uppercase() == mainCoin }) {
-                            nativeCoins.add(
-                                Coin(
-                                    mainCoin, "0", CoinType.NATIVE
+                    stakeCoins.forEach { stakeCoin ->
+                        if (stakeCoin.denom.uppercase() != mainCoin) {
+                            if (nativeCoins.none { coin -> coin.denom.uppercase() == mainCoin }) {
+                                nativeCoins.add(
+                                    Coin(
+                                        mainCoin, "0", CoinType.NATIVE
+                                    )
                                 )
-                            )
+                            }
                         }
                     }
                 }
 
-                if (selectedChain is ChainGnoTestnet) {
+                if (selectedChain is ChainGno) {
                     nativeCoins.sortWith(compareByDescending {
                         selectedChain.gnoRpcFetcher?.balanceValue(
                             it.denom

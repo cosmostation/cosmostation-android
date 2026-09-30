@@ -21,11 +21,11 @@ class ChainZetaEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "azeta"
     override var accountPrefix: String = "zeta"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://zetachain.blockpi.network/lcd/v1/public/"
+    override var grpcHost: String = "grpc-zeta.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-zeta.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "ZETA"

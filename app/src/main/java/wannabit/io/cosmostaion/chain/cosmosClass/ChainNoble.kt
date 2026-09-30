@@ -21,9 +21,9 @@ class ChainNoble : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ustake"
     override var accountPrefix: String = "noble"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://noble-api.polkachu.com/"
+    override var grpcHost: String = "grpc-noble.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-noble.mainnet.cosmoslabs.kr/"
 }

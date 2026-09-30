@@ -11,7 +11,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainNeutron
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -219,108 +218,6 @@ class StakingViewHolder(
                         .setScale(decimal, RoundingMode.DOWN)
                     estimateReward.text = formatAmount(est.toPlainString(), decimal)
                 }
-            }
-        }
-    }
-
-    fun zenrockBind(
-        chain: ChainZenrock,
-        validator: com.zrchain.validation.HybridValidationProto.ValidatorHV,
-        delegation: com.zrchain.validation.StakingProto.DelegationResponse,
-        listener: StakingInfoAdapter.ClickListener
-    ) {
-        binding.apply {
-            delegationView.setBackgroundResource(R.drawable.item_bg)
-            clickImg.setColorFilter(
-                ContextCompat.getColor(context, R.color.color_base03), PorterDuff.Mode.SRC_IN
-            )
-            delegationView.setOnClickListener {
-                listener.selectZenrockStakingAction(validator)
-            }
-
-            monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            moniker.text = validator.description?.moniker?.trim()
-            if (validator.jailed) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (!validator.isActiveValidator(chain)) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_inactive)
-            } else {
-                jailedImg.visibility = View.GONE
-            }
-
-            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
-                val commissionRate = validator.commission?.commissionRates?.rate?.toBigDecimal()
-                    ?.movePointLeft(16)?.setScale(2, RoundingMode.DOWN)
-                commission.text = formatString("$commissionRate%", 3)
-
-                val stakedAmount =
-                    delegation.balance.amount.toBigDecimal().movePointLeft(asset.decimals ?: 6)
-                staked.text = formatAmount(stakedAmount.toPlainString(), asset.decimals ?: 6)
-
-                chain.zenrockFetcher()?.cosmosRewards?.firstOrNull { it.validatorAddress == validator.operatorAddress }?.rewardList?.let { rewards ->
-                    rewards.firstOrNull { it.denom == chain.getStakeAssetDenom() }
-                        ?.let { mainDenomReward ->
-                            val mainDenomRewardAmount =
-                                mainDenomReward.amount.toBigDecimal().movePointLeft(18)
-                                    .movePointLeft(asset.decimals ?: 6)
-                                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                            rewardAmount.text =
-                                formatAmount(
-                                    mainDenomRewardAmount.toPlainString(),
-                                    asset.decimals ?: 6
-                                )
-                        } ?: run {
-                        rewardTitle.text = "Reward"
-                        rewardAmount.text = formatAmount(
-                            BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
-                            asset.decimals ?: 6
-                        )
-                        estimateReward.text = formatAmount(
-                            BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
-                            asset.decimals ?: 6
-                        )
-                        return
-                    }
-
-                    var anotherCnt = 0
-                    rewards.filter { it.denom != chain.getStakeAssetDenom() }
-                        .forEach { anotherRewards ->
-                            val anotherAmount =
-                                anotherRewards.amount.toBigDecimal().movePointLeft(18)
-                                    .setScale(0, RoundingMode.DOWN)
-                            if (anotherAmount != BigDecimal.ZERO) {
-                                anotherCnt += 1
-                            }
-                        }
-                    rewardTitle.text = if (anotherCnt > 0) {
-                        "Reward + $anotherCnt"
-                    } else {
-                        "Reward"
-                    }
-
-                } ?: run {
-                    rewardTitle.text = "Reward"
-                    rewardAmount.text = formatAmount(
-                        BigDecimal.ZERO.movePointLeft(asset.decimals ?: 6).toPlainString(),
-                        asset.decimals ?: 6
-                    )
-                }
-
-                val apr = chain.getChainParam()?.getAsJsonObject("params")?.get("apr")?.asString
-                    ?: "0"
-                val staked = delegation.balance.amount.toBigDecimal()
-                val comm = BigDecimal.ONE.subtract(
-                    validator.commission?.commissionRates?.rate?.toBigDecimal()
-                        ?.movePointLeft(18)?.setScale(18, RoundingMode.DOWN)
-                )
-                val est = staked.multiply(apr.toBigDecimal()).multiply(comm)
-                    .setScale(0, RoundingMode.DOWN)
-                    .divide(BigDecimal("12"), 0, RoundingMode.DOWN)
-                    .movePointLeft(asset.decimals ?: 6)
-                    .setScale(asset.decimals ?: 6, RoundingMode.DOWN)
-                estimateReward.text = formatAmount(est.toPlainString(), asset.decimals ?: 6)
             }
         }
     }

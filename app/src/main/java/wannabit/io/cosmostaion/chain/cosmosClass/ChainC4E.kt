@@ -21,9 +21,9 @@ class ChainC4E : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uc4e"
     override var accountPrefix: String = "c4e"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://lcd.c4e.io/"
+    override var grpcHost: String = "grpc-chain4energy.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-chain4energy.mainnet.cosmoslabs.kr/"
 }

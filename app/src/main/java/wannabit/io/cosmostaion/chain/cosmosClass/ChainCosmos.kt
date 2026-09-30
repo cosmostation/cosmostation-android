@@ -24,6 +24,6 @@ class ChainCosmos : BaseChain(), Parcelable {
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uatom"
     override var accountPrefix: String = "cosmos"
-    override var grpcHost: String = "grpc-cosmos.cosmostation.io"
-    override var lcdUrl: String = "https://lcd-cosmos.cosmostation.io/"
+    override var grpcHost: String = "grpc-cosmos.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-cosmos.mainnet.cosmoslabs.kr/"
 }

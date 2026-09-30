@@ -21,11 +21,11 @@ class ChainInjectiveEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "inj"
     override var accountPrefix: String = "inj"
-    override var grpcHost: String = "sentry.chain.grpc.injective.network"
-    override var lcdUrl: String = "https://injective-rest.publicnode.com/"
+    override var grpcHost: String = "grpc-injective.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-injective.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "INJ"

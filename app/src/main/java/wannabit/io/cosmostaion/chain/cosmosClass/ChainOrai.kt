@@ -21,9 +21,9 @@ class ChainOrai : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "orai"
     override var accountPrefix: String = "orai"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://lcd.orai.io/"
+    override var grpcHost: String = "grpc-oraichain.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-oraichain.mainnet.cosmoslabs.kr/"
 }

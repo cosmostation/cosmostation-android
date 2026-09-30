@@ -21,11 +21,11 @@ open class ChainMantraEvm : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uom"
     override var accountPrefix: String = "mantra"
-    override var grpcHost: String = "grpc.mantrachain.io"
-    override var lcdUrl: String = "https://api.mantrachain.io/"
+    override var grpcHost: String = "grpc-mantra.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-mantra.mainnet.cosmoslabs.kr/"
 
     override var supportEvm: Boolean = true
     override var coinSymbol: String = "OM"

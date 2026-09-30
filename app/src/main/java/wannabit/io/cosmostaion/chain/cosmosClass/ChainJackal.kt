@@ -21,9 +21,9 @@ class ChainJackal : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ujkl"
     override var accountPrefix: String = "jkl"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://jkl.api.m.stavr.tech/"
+    override var grpcHost: String = "grpc-jackal.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-jackal.mainnet.cosmoslabs.kr/"
 }

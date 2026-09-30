@@ -21,9 +21,9 @@ class ChainKyve : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ukyve"
     override var accountPrefix: String = "kyve"
-    override var grpcHost: String = "grpc-kyve.mms.team"
-    override var lcdUrl: String = "https://api-eu-1.kyve.network/"
+    override var grpcHost: String = "grpc-kyve.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-kyve.mainnet.cosmoslabs.kr/"
 }

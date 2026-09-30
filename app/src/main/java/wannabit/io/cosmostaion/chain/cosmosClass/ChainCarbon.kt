@@ -21,9 +21,9 @@ class ChainCarbon : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "swth"
     override var accountPrefix: String = "swth"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://api.carbon.network/"
+    override var grpcHost: String = "grpc-carbon.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-carbon.mainnet.cosmoslabs.kr/"
 }

@@ -21,9 +21,9 @@ class ChainSeda : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "aseda"
     override var accountPrefix: String = "seda"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://lcd.mainnet.seda.xyz/"
+    override var grpcHost: String = "grpc-seda.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-seda.mainnet.cosmoslabs.kr/"
 }

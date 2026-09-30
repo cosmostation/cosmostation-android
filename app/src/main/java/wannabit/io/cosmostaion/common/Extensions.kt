@@ -61,7 +61,6 @@ import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.PubKeyType
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.common.BaseConstant.CONSTANT_D
 import wannabit.io.cosmostaion.common.BaseUtils.LANGUAGE_ENGLISH
 import wannabit.io.cosmostaion.data.model.req.JsonRpcRequest
@@ -299,22 +298,17 @@ fun ImageView.setProviderImg(chain: BaseChain, apiName: String, opAddress: Strin
 }
 
 fun ImageView.setImageFromSvg(imageUrl: String?, defaultImage: Int) {
+    val imageLoader = ImageLoader.Builder(context).components {
+        add(SvgDecoder.Factory())
+    }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
+
     if (imageUrl?.isNotEmpty() == true) {
-        if (imageUrl.contains(".svg")) {
-            val imageLoader = ImageLoader.Builder(context).components {
-                add(SvgDecoder.Factory())
-            }.memoryCachePolicy(CachePolicy.ENABLED).diskCachePolicy(CachePolicy.ENABLED).build()
-            load(imageUrl, imageLoader) {
-                placeholder(defaultImage)
-                error(defaultImage)
-            }
-
-        } else {
-            Picasso.get().load(imageUrl).error(defaultImage).into(this)
+        load(imageUrl, imageLoader) {
+            placeholder(defaultImage)
+            error(defaultImage)
         }
-
     } else {
-        Picasso.get().load(defaultImage).into(this)
+        load(defaultImage, imageLoader)
     }
 }
 
@@ -940,6 +934,13 @@ fun jsonRpcResponse(rpcUrl: String, request: JsonRpcRequest): Response {
     return OkHttpClient().newCall(rpcRequest).execute()
 }
 
+fun graphQlResponse(url: String, query: String, variables: Map<String, Any?>): Response {
+    val body = ObjectMapper().writeValueAsString(mapOf("query" to query, "variables" to variables))
+    val request = Request.Builder().url(url)
+        .post(body.toRequestBody("application/json".toMediaTypeOrNull())).build()
+    return OkHttpClient().newCall(request).execute()
+}
+
 fun CoinProto.DecCoin.getdAmount(): BigDecimal {
     return amount.toBigDecimal().movePointLeft(18).setScale(18, RoundingMode.DOWN)
 }
@@ -987,26 +988,6 @@ fun com.initia.mstaking.v1.StakingProto.Validator.isActiveValidator(chain: Chain
         }
     } else {
         this.status == com.initia.mstaking.v1.StakingProto.BondStatus.BOND_STATUS_BONDED
-    }
-}
-
-fun com.zrchain.validation.HybridValidationProto.ValidatorHV.isActiveValidator(chain: ChainZenrock): Boolean {
-    return if (chain.getInterchainProviderParams()?.entrySet()?.isNotEmpty() == true) {
-        val maxProviderConsensusCnt = chain.getInterchainProviderParams()
-            ?.get("max_provider_consensus_validators")?.asString.toString().toInt()
-        val sortedValidators =
-            chain.zenrockFetcher()?.zenrockOriginValidators?.filter { it.status == com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_BONDED }
-                ?.sortedWith { o1, o2 ->
-                    o2.tokensNative.toDouble().compareTo(o1.tokensNative.toDouble())
-                }
-        val index = sortedValidators?.indexOf(this) ?: -1
-        if (index != -1) {
-            index < maxProviderConsensusCnt
-        } else {
-            false
-        }
-    } else {
-        this.status == com.zrchain.validation.StakingProto.BondStatus.BOND_STATUS_BONDED
     }
 }
 

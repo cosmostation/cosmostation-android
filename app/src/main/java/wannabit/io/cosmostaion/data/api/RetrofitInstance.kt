@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
-import wannabit.io.cosmostaion.chain.majorClass.MOVE_API
 import wannabit.io.cosmostaion.common.CosmostationConstants
 import wannabit.io.cosmostaion.common.CosmostationConstants.WALLET_BASE_URL
 import java.util.concurrent.TimeUnit
@@ -63,12 +62,6 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
             .baseUrl(chain.lcdUrl).build()
-    }
-
-    private val moveRetrofit: Retrofit by lazy {
-        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(CoroutineCallAdapterFactory()).client(okHttpClient)
-            .baseUrl(MOVE_API).build()
     }
 
     private fun bitRetrofit(chain: ChainBitCoin86): Retrofit {
@@ -128,10 +121,6 @@ object RetrofitInstance {
 
     val skipApi: SkipApi by lazy {
         skipRetrofit.create(SkipApi::class.java)
-    }
-
-    val moveApi: LcdApi by lazy {
-        moveRetrofit.create(LcdApi::class.java)
     }
 
     val githubApi: MintscanApi by lazy {

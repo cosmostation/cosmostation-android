@@ -10,7 +10,6 @@ import com.google.gson.JsonObject
 import com.initia.mstaking.v1.StakingProto
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.majorClass.ChainBitCoin86
 import wannabit.io.cosmostaion.databinding.ItemValidatorBinding
@@ -47,18 +46,6 @@ class ValidatorAdapter(
 
             is ChainInitia -> {
                 holder.initiaBind(selectedChain, validator as StakingProto.Validator)
-                holder.itemView.setOnClickListener {
-                    onItemClickListener?.let {
-                        it(validator.operatorAddress)
-                    }
-                }
-            }
-
-            is ChainZenrock -> {
-                holder.zenrockBind(
-                    selectedChain,
-                    validator as com.zrchain.validation.HybridValidationProto.ValidatorHV
-                )
                 holder.itemView.setOnClickListener {
                     onItemClickListener?.let {
                         it(validator.operatorAddress)

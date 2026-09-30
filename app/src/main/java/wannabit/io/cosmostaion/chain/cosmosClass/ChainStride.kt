@@ -21,9 +21,9 @@ class ChainStride : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ustrd"
     override var accountPrefix: String = "stride"
-    override var grpcHost: String = "grpc.stride.citizenweb3.com"
-    override var lcdUrl: String = "https://stride-api.polkachu.com/"
+    override var grpcHost: String = "grpc-stride.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-stride.mainnet.cosmoslabs.kr/"
 }

@@ -16,11 +16,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
+import com.sui.rpc.v2.SystemStateProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
-import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MAIN_DENOM
 import wannabit.io.cosmostaion.chain.majorClass.SUI_MIN_STAKE
@@ -60,7 +58,7 @@ class SuiStakingFragment : BaseTxFragment() {
     private var suiFeeBudget = BigDecimal.ZERO
     private var availableAmount = BigDecimal.ZERO
     private var toStakeAmount = ""
-    private var toValidator: JsonObject? = null
+    private var toValidator: SystemStateProto.Validator? = null
 
     private var isClickable = true
 
@@ -103,10 +101,11 @@ class SuiStakingFragment : BaseTxFragment() {
                 }
             }
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())?.let { asset ->
-                titleStakeImg.setTokenImg(asset)
-                titleStake.text = getString(R.string.title_staking, asset.symbol)
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
+                ?.let { asset ->
+                    titleStakeImg.setTokenImg(asset)
+                    titleStake.text = getString(R.string.title_staking, asset.symbol)
+                }
 
             listOf(validatorView, amountView, memoView, feeView).forEach {
                 it.setBackgroundResource(
@@ -157,13 +156,14 @@ class SuiStakingFragment : BaseTxFragment() {
             feeSegment.setPosition(0, false)
             selectedFeePosition = 0
 
-            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())?.let { asset ->
-                feeTokenImg.setTokenImg(asset)
-                feeToken.text = asset.symbol
-                suiFeeBudget =
-                    (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
-                updateFeeView()
-            }
+            BaseData.getAsset(selectedChain.apiName, selectedChain.getGasAssetDenom())
+                ?.let { asset ->
+                    feeTokenImg.setTokenImg(asset)
+                    feeToken.text = asset.symbol
+                    suiFeeBudget =
+                        (selectedChain as ChainSui).suiFetcher()?.suiBaseFee(SuiTxType.SUI_STAKE)
+                    updateFeeView()
+                }
         }
     }
 
@@ -171,10 +171,12 @@ class SuiStakingFragment : BaseTxFragment() {
         binding.apply {
             jailedImg.visibility = View.GONE
             monikerImg.setImageFromSvg(
-                toValidator?.moveValidatorImg(), R.drawable.icon_default_vaildator
+                toValidator?.imageUrl, R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator?.moveValidatorName()
-            commissionPercent.text = formatString("${toValidator?.moveValidatorCommission()}%", 3)
+            monikerName.text = toValidator?.name
+            val commissionRate = toValidator?.commissionRate?.toBigDecimal()
+                ?.movePointLeft(2)?.setScale(2, RoundingMode.DOWN)
+            commissionPercent.text = formatString("${commissionRate}%", 3)
             txSimulate()
         }
     }
@@ -228,13 +230,14 @@ class SuiStakingFragment : BaseTxFragment() {
         binding.apply {
             validatorView.setOnClickListener {
                 handleOneClickWithDelay(
-                    ValidatorDefaultFragment(selectedChain,
+                    ValidatorDefaultFragment(
+                        selectedChain,
                         suiFromValidator = (selectedChain as ChainSui).suiFetcher()?.suiValidators
                             ?: mutableListOf(),
                         listener = object : ValidatorDefaultListener {
                             override fun select(validatorAddress: String) {
                                 toValidator =
-                                    (selectedChain as ChainSui).suiFetcher()?.suiValidators?.firstOrNull { it["suiAddress"].asString == validatorAddress }
+                                    (selectedChain as ChainSui).suiFetcher()?.suiValidators?.firstOrNull { it.address == validatorAddress }
                                 updateValidatorView()
                             }
                         })
@@ -243,7 +246,8 @@ class SuiStakingFragment : BaseTxFragment() {
 
             amountView.setOnClickListener {
                 handleOneClickWithDelay(
-                    InsertAmountFragment.newInstance(selectedChain, TxType.SUI_DELEGATE,
+                    InsertAmountFragment.newInstance(
+                        selectedChain, TxType.SUI_DELEGATE,
                         availableAmount.toString(),
                         toStakeAmount,
                         BaseData.getAsset(
@@ -284,9 +288,14 @@ class SuiStakingFragment : BaseTxFragment() {
             backdropLayout.visibility = View.VISIBLE
             (selectedChain as ChainSui).apply {
                 suiFetcher()?.let { fetcher ->
-                    toValidator?.get("suiAddress")?.asString?.let { validator ->
+                    toValidator?.address?.let { validator ->
                         txViewModel.suiStakeSimulate(
-                            requireContext(), fetcher, mainAddress, toStakeAmount, validator, suiFeeBudget.toString()
+                            requireContext(),
+                            fetcher,
+                            mainAddress,
+                            toStakeAmount,
+                            validator,
+                            suiFeeBudget.toString()
                         )
                     }
                 }
@@ -314,7 +323,7 @@ class SuiStakingFragment : BaseTxFragment() {
                 binding.backdropLayout.visibility = View.VISIBLE
                 (selectedChain as ChainSui).apply {
                     suiFetcher()?.let { fetcher ->
-                        toValidator?.get("suiAddress")?.asString?.let { validator ->
+                        toValidator?.address?.let { validator ->
                             txViewModel.suiStakeBroadcast(
                                 requireContext(),
                                 fetcher,
@@ -332,19 +341,27 @@ class SuiStakingFragment : BaseTxFragment() {
 
     private fun setUpBroadcast() {
         txViewModel.suiBroadcast.observe(viewLifecycleOwner) { response ->
-            if (response["result"] != null) {
-                val status =
-                    response["result"].asJsonObject["effects"].asJsonObject["status"].asJsonObject["status"].asString
+            if (response != null) {
+                val isSuccess = response.transaction.effects.status.success
+                val suiResultJson = JsonObject().apply {
+                    add("result", JsonObject().apply {
+                        add("effects", JsonObject().apply {
+                            add("status", JsonObject().apply {
+                                addProperty("status", if (isSuccess) "success" else "failure")
+                                if (!isSuccess) {
+                                    addProperty("error", response.transaction.effects.status.error.description)
+                                }
+                            })
+                        })
+                    })
+                }
+
                 Intent(requireContext(), TransferTxResultActivity::class.java).apply {
-                    if (status != "success") {
-                        putExtra("isSuccess", false)
-                    } else {
-                        putExtra("isSuccess", true)
-                    }
-                    putExtra("txHash", response["result"].asJsonObject["digest"].asString)
+                    putExtra("isSuccess", isSuccess)
+                    putExtra("txHash", response.transaction.digest)
                     putExtra("fromChainTag", selectedChain.tag)
                     putExtra("transferStyle", TransferStyle.SUI_ETC_STYLE.ordinal)
-                    putExtra("suiResult", response.toString())
+                    putExtra("suiResult", suiResultJson.toString())
                     startActivity(this)
                 }
                 dismiss()

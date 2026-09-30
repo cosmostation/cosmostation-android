@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.FetchState
+import wannabit.io.cosmostaion.chain.fetcher.StakeReward
 import wannabit.io.cosmostaion.chain.majorClass.ChainSui
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.data.viewmodel.ApplicationViewModel
@@ -32,7 +32,7 @@ class SuiActiveFragment : Fragment() {
 
     private lateinit var suiStakingInfoAdapter: SuiStakingInfoAdapter
 
-    private var activeList: MutableList<Pair<String, JsonObject>> = mutableListOf()
+    private var activeList: MutableList<StakeReward> = mutableListOf()
 
     private var isClickable = true
 
@@ -82,23 +82,13 @@ class SuiActiveFragment : Fragment() {
                 refresher.isRefreshing = false
                 activeList.clear()
                 (selectedChain as ChainSui).suiFetcher()?.let { fetcher ->
-                    fetcher.suiStakedList.forEach { suiStaked ->
-                        suiStaked["stakes"].asJsonArray.forEach { stakes ->
-                            activeList.add(
-                                Pair(
-                                    suiStaked["validatorAddress"].asString, stakes.asJsonObject
-                                )
-                            )
-                        }
-                    }
+                    activeList.addAll(fetcher.suiStakedList)
                 }
 
                 withContext(Dispatchers.Main) {
-                    activeList.sortByDescending {
-                        it.second["stakeRequestEpoch"].asLong
-                    }
+                    activeList.sortByDescending { it.activationEpoch }
 
-                    val active = activeList.filter { it.second["status"].asString != "Pending" }
+                    val active = activeList.filter { !it.isPending }
                     if (active.isEmpty()) {
                         emptyLayout.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
@@ -136,7 +126,7 @@ class SuiActiveFragment : Fragment() {
                     selectedChain.fetchState = FetchState.IDLE
                     ApplicationViewModel.shared.loadSuiData(
                         account.id,
-                        selectedChain,
+                        selectedChain as ChainSui,
                         isRefresh = true
                     )
                 }

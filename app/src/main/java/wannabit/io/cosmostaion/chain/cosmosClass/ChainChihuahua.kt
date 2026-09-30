@@ -21,9 +21,9 @@ class ChainChihuahua : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "uhuahua"
     override var accountPrefix: String = "chihuahua"
-    override var grpcHost: String = "grpc.chihuahua.validatus.com"
-    override var lcdUrl: String = "https://chihuahua-api.polkachu.com/"
+    override var grpcHost: String = "grpc-chihuahua.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-chihuahua.mainnet.cosmoslabs.kr/"
 }

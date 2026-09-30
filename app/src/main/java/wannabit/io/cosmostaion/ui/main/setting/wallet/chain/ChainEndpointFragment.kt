@@ -13,9 +13,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.CosmosEndPointType
-import wannabit.io.cosmostaion.chain.majorClass.ChainAptos
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.majorClass.ChainSolana
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.dpToPx
 import wannabit.io.cosmostaion.common.makeToast
 import wannabit.io.cosmostaion.common.setChainLogo
@@ -92,7 +91,7 @@ class ChainEndpointFragment : BottomSheetDialogFragment() {
                     EndPointType.END_POINT_RPC -> {
                         val rpcEndpoints: MutableList<Any> = ArrayList()
                         when (fromChain) {
-                            is ChainGnoTestnet -> {
+                            is ChainGno -> {
                                 fromChain?.getChainListParam()
                                     ?.getAsJsonArray("cosmos_rpc_endpoint")
                                     ?.let {

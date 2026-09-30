@@ -4,23 +4,18 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
-import coil.decode.SvgDecoder
 import coil.load
-import coil.request.CachePolicy
 import com.cosmos.staking.v1beta1.StakingProto
 import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
-import com.zrchain.validation.HybridValidationProto
+import com.sui.rpc.v2.SystemStateProto
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainInitia
-import wannabit.io.cosmostaion.chain.cosmosClass.ChainZenrock
 import wannabit.io.cosmostaion.chain.fetcher.FinalityProvider
 import wannabit.io.cosmostaion.chain.fetcher.iotaValidatorVp
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorCommission
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorImg
 import wannabit.io.cosmostaion.chain.fetcher.moveValidatorName
-import wannabit.io.cosmostaion.chain.fetcher.suiValidatorVp
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatString
@@ -93,43 +88,20 @@ class ValidatorDefaultViewHolder(
         }
     }
 
-    fun zenrockBind(chain: ChainZenrock, validator: HybridValidationProto.ValidatorHV) {
-        binding.apply {
-            monikerImg.setMonikerImg(chain, validator.operatorAddress)
-            monikerName.text = validator.description?.moniker?.trim()
-            if (validator.jailed) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_jailed)
-            } else if (!validator.isActiveValidator(chain)) {
-                jailedImg.visibility = View.VISIBLE
-                jailedImg.setImageResource(R.drawable.icon_inactive)
-            } else {
-                jailedImg.visibility = View.GONE
-            }
-
-            BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.let { asset ->
-                val vpAmount =
-                    validator.tokensNative?.toBigDecimal()?.movePointLeft(asset.decimals ?: 6)
-                votingPower.text = formatAmount(vpAmount.toString(), 0)
-
-                val commissionRate =
-                    validator.commission?.commissionRates?.rate?.toBigDecimal()?.movePointLeft(16)
-                        ?.setScale(2, RoundingMode.DOWN)
-                commission.text = formatString("$commissionRate%", 3)
-            }
-        }
-    }
-
-    fun suiBind(toValidator: JsonObject) {
+    fun suiBind(toValidator: SystemStateProto.Validator) {
         binding.apply {
             jailedImg.visibility = View.GONE
             monikerImg.setImageFromSvg(
-                toValidator.moveValidatorImg(), R.drawable.icon_default_vaildator
+                toValidator.imageUrl, R.drawable.icon_default_vaildator
             )
-            monikerName.text = toValidator.moveValidatorName().trim()
+            monikerName.text = toValidator.name.trim()
 
-            votingPower.text = formatAmount(toValidator.suiValidatorVp().toString(), 0)
-            commission.text = formatString("${toValidator.moveValidatorCommission()}%", 3)
+            val stakeAmount = toValidator.stakingPool.suiBalance.toBigDecimal()
+                .movePointLeft(9).setScale(0, RoundingMode.DOWN)
+            votingPower.text = formatAmount(stakeAmount.toString(), 0)
+            val commissionRate = toValidator.commissionRate.toBigDecimal().movePointLeft(2)
+                .setScale(2, RoundingMode.DOWN)
+            commission.text = formatString("${commissionRate}%", 3)
         }
     }
 

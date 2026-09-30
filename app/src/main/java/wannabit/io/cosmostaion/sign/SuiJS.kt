@@ -36,11 +36,11 @@ object SuiJS {
     }
 
     fun executeFunction(functionCall: String): String? {
-        val result = jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
-        return if (result.isNullOrBlank()) {
+        return try {
+            val result = jsIsolate?.evaluateJavaScriptAsync(functionCall)?.get()
+            if (result.isNullOrBlank()) null else result
+        } catch (e: Exception) {
             null
-        } else {
-            result
         }
     }
 

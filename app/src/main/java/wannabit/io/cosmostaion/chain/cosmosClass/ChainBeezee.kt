@@ -21,9 +21,9 @@ class ChainBeezee : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubze"
     override var accountPrefix: String = "bze"
-    override var grpcHost: String = ""
-    override var lcdUrl: String = "https://rest.getbze.com/"
+    override var grpcHost: String = "grpc-beezee.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-beezee.mainnet.cosmoslabs.kr/"
 }

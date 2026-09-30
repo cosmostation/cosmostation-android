@@ -21,9 +21,9 @@ class ChainSaga : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "usaga"
     override var accountPrefix: String = "saga"
-    override var grpcHost: String = "grpc.saga.nodestake.org"
-    override var lcdUrl: String = "https://saga-api.stakeandrelax.net/"
+    override var grpcHost: String = "grpc-saga.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-saga.mainnet.cosmoslabs.kr/"
 }

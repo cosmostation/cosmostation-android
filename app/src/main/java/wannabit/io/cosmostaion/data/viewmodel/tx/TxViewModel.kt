@@ -21,6 +21,8 @@ import com.google.protobuf.Any
 import com.google.protobuf.ByteString
 import com.ibc.applications.transfer.v1.TxProto.MsgTransfer
 import com.ibc.core.client.v1.ClientProto
+import com.sui.rpc.v2.ObjectProto
+import com.sui.rpc.v2.TransactionExecutionServiceProto
 import io.grpc.ManagedChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -354,7 +356,8 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
 
     val simulate = SingleLiveEvent<String?>()
 
-    val suiBroadcast = SingleLiveEvent<JsonObject>()
+    val suiBroadcast =
+        SingleLiveEvent<TransactionExecutionServiceProto.ExecuteTransactionResponse?>()
 
     val iotaBroadcast = SingleLiveEvent<JsonObject>()
 
@@ -502,23 +505,37 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
         }
 
     fun suiBroadcast(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastSuiSend(
-                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget, selectedChain
+                context,
+                fetcher,
+                amounts,
+                sender,
+                recipient,
+                coins,
+                sendDenom,
+                gasBudget,
+                gasCoin,
+                selectedChain
             )
-            if (response["error"] == null) {
+
+            if (response?.transaction?.effects?.status?.success == true) {
                 suiBroadcast.postValue(response)
             } else {
-                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+                val errorDescription = response?.transaction?.effects?.status?.error?.description
+                    ?: "Unknown error"
+                errorMessage.postValue(errorDescription)
             }
 
         } catch (e: Exception) {
@@ -527,17 +544,20 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiSimulate(
+        context: Context,
         fetcher: SuiFetcher,
-        sendDenom: String,
+        amounts: String,
         sender: String,
-        coins: MutableList<String>,
-        recipient: MutableList<String>,
-        amounts: MutableList<String>,
-        gasBudget: String
+        recipient: String,
+        coins: MutableList<ObjectProto.Object>?,
+        sendDenom: String,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object,
+        selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateSuiSend(
-                fetcher, sendDenom, sender, coins, recipient, amounts, gasBudget
+                context, fetcher, amounts, sender, recipient, coins, sendDenom, gasBudget, gasCoin, selectedChain
             )
 
             if (response.toLongOrNull() != null) {
@@ -552,21 +572,26 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiNftSendBroadcast(
+        context: Context,
         fetcher: SuiFetcher,
         sender: String,
-        objectId: String,
         recipient: String,
+        nftObject: ObjectProto.Object,
         gasBudget: String,
+        gasCoin: ObjectProto.Object,
         selectedChain: BaseChain
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.broadcastSuiNftSend(
-                fetcher, sender, objectId, recipient, gasBudget, selectedChain
+                context, fetcher, sender, recipient, nftObject, gasBudget, gasCoin, selectedChain
             )
-            if (response["error"] == null) {
+
+            if (response?.transaction?.effects?.status?.success == true) {
                 suiBroadcast.postValue(response)
             } else {
-                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+                val errorDescription = response?.transaction?.effects?.status?.error?.description
+                    ?: "Unknown error"
+                errorMessage.postValue(errorDescription)
             }
 
         } catch (e: Exception) {
@@ -575,11 +600,17 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiNftSendSimulate(
-        fetcher: SuiFetcher, sender: String, objectId: String, recipient: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        recipient: String,
+        nftObject: ObjectProto.Object,
+        gasBudget: String,
+        gasCoin: ObjectProto.Object
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateSuiNftSend(
-                fetcher, sender, objectId, recipient, gasBudget
+                context, fetcher, sender, recipient, nftObject, gasBudget, gasCoin
             )
 
             if (response.toLongOrNull() != null) {
@@ -606,10 +637,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastSuiStake(
                 context, fetcher, sender, validator, amount, gasBudget, selectedChain
             )
-            if (response["error"] == null) {
+            if (response?.transaction?.effects?.status?.success == true) {
                 suiBroadcast.postValue(response)
             } else {
-                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+                val errorDescription = response?.transaction?.effects?.status?.error?.description
+                    ?: "Unknown error"
+                errorMessage.postValue(errorDescription)
             }
 
         } catch (e: Exception) {
@@ -618,7 +651,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun suiStakeSimulate(
-        context: Context, fetcher: SuiFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context,
+        fetcher: SuiFetcher,
+        sender: String,
+        amount: String,
+        validator: String,
+        gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateSuiStake(
@@ -648,10 +686,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
             val response = txRepository.broadcastSuiUnStake(
                 context, fetcher, sender, objectId, gasBudget, selectedChain
             )
-            if (response["error"] == null) {
+            if (response?.transaction?.effects?.status?.success == true) {
                 suiBroadcast.postValue(response)
             } else {
-                errorMessage.postValue(response["error"].asJsonObject["message"].asString)
+                val errorDescription = response?.transaction?.effects?.status?.error?.description
+                    ?: "Unknown error"
+                errorMessage.postValue(errorDescription)
             }
 
         } catch (e: Exception) {
@@ -796,7 +836,12 @@ class TxViewModel(private val txRepository: TxRepository) : ViewModel() {
     }
 
     fun iotaStakeSimulate(
-        context: Context, fetcher: IotaFetcher, sender: String, amount: String, validator: String, gasBudget: String
+        context: Context,
+        fetcher: IotaFetcher,
+        sender: String,
+        amount: String,
+        validator: String,
+        gasBudget: String
     ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             val response = txRepository.simulateIotaStake(

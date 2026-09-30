@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainCoreum
+import wannabit.io.cosmostaion.chain.cosmosClass.ChainGno
 import wannabit.io.cosmostaion.chain.cosmosClass.ChainOkt996Keccak
 import wannabit.io.cosmostaion.chain.evmClass.ChainOktEvm
 import wannabit.io.cosmostaion.chain.fetcher.OktFetcher
-import wannabit.io.cosmostaion.chain.testnetClass.ChainGnoTestnet
 import wannabit.io.cosmostaion.common.BaseData
 import wannabit.io.cosmostaion.common.formatAmount
 import wannabit.io.cosmostaion.common.formatAssetValue
@@ -48,7 +48,7 @@ class CoinCosmosLineViewHolder(
                             tokenPriceChange.text = priceChangeStatus(lastUpDown)
                         }
 
-                        val availableAmount = if (chain is ChainGnoTestnet) {
+                        val availableAmount = if (chain is ChainGno) {
                             chain.gnoRpcFetcher?.balanceAmount(coin.denom)
                                 ?.movePointLeft(asset.decimals ?: 6)
                                 ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
@@ -57,9 +57,17 @@ class CoinCosmosLineViewHolder(
                                 ?.movePointLeft(asset.decimals ?: 6)
                                 ?.setScale(6, RoundingMode.DOWN) ?: BigDecimal.ZERO
                         }
-                        val vestingAmount = chain.cosmosFetcher?.vestingAmount(coin.denom)
-                            ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
-                            ?: BigDecimal.ZERO
+
+                        val vestingAmount = if (chain is ChainGno) {
+                            chain.gnoRpcFetcher?.vestingAmount(coin.denom)
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
+                        } else {
+                            chain.cosmosFetcher?.vestingAmount(coin.denom)
+                                ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
+                                ?: BigDecimal.ZERO
+                        }
+
                         val stakedAmount = chain.cosmosFetcher?.delegationAmountSum()
                             ?.movePointLeft(asset.decimals ?: 6)?.setScale(6, RoundingMode.DOWN)
                             ?: BigDecimal.ZERO
@@ -76,6 +84,9 @@ class CoinCosmosLineViewHolder(
                         } else {
                             context.getString(R.string.str_vesting)
                         }
+                        stakedLayout.goneOrVisible(chain is ChainGno)
+                        unstakingLayout.goneOrVisible(chain is ChainGno)
+                        rewardLayout.goneOrVisible(chain is ChainGno)
 
                         if (chain.cosmosFetcher?.rewardAllCoins()?.isNotEmpty() == true) {
                             rewardTitle.text =
@@ -120,7 +131,7 @@ class CoinCosmosLineViewHolder(
                             totalValue.text = if (hideValue) {
                                 ""
                             } else {
-                                if (chain is ChainGnoTestnet) {
+                                if (chain is ChainGno) {
                                     formatAssetValue(
                                         chain.gnoRpcFetcher?.denomValue(coin.denom)
                                             ?: BigDecimal.ZERO
@@ -159,14 +170,16 @@ class CoinCosmosLineViewHolder(
             tokenImg.setTokenImg(chain.assetImg(chain.getStakeAssetDenom()))
             tokenName.text = chain.getStakeAssetDenom().uppercase()
 
-            val coinGeckoId = BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.coinGeckoId
+            val coinGeckoId =
+                BaseData.getAsset(chain.apiName, chain.getStakeAssetDenom())?.coinGeckoId
             tokenPrice.text = formatAssetValue(BaseData.getPrice(coinGeckoId))
             BaseData.lastUpDown(coinGeckoId).let { lastUpDown ->
                 tokenPriceChange.priceChangeStatusColor(lastUpDown)
                 tokenPriceChange.text = priceChangeStatus(lastUpDown)
             }
 
-            val availableAmount = oktFetcher?.oktBalanceAmount(chain.getStakeAssetDenom()) ?: BigDecimal.ZERO
+            val availableAmount =
+                oktFetcher?.oktBalanceAmount(chain.getStakeAssetDenom()) ?: BigDecimal.ZERO
             val depositAmount = oktFetcher?.oktDepositAmount() ?: BigDecimal.ZERO
             val withdrawAmount = oktFetcher?.oktWithdrawAmount() ?: BigDecimal.ZERO
             if (BigDecimal.ZERO < withdrawAmount) {

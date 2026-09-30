@@ -21,9 +21,9 @@ class ChainNolus : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "unls"
     override var accountPrefix: String = "nolus"
-    override var grpcHost: String = "grpc.nolus.network"
-    override var lcdUrl: String = "https://lcd.nolus.network/"
+    override var grpcHost: String = "grpc-nolus.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-nolus.mainnet.cosmoslabs.kr/"
 }

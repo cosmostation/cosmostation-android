@@ -21,9 +21,9 @@ class ChainBitway : BaseChain(), Parcelable {
         ChildNumber(44, true), ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO
     )
 
-    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_LCD
+    override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
     override var stakeDenom: String = "ubtw"
     override var accountPrefix: String = "bc"
-    override var grpcHost: String = "grpc.bitway.com:443"
-    override var lcdUrl: String = "https://rest.bitway.com/"
+    override var grpcHost: String = "grpc-bitway.mainnet.cosmoslabs.kr"
+    override var lcdUrl: String = "https://lcd-bitway.mainnet.cosmoslabs.kr/"
 }
