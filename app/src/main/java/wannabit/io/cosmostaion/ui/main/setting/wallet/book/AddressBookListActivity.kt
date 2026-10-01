@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.ImageView
+import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -43,6 +44,11 @@ class AddressBookListActivity : BaseActivity() {
         binding = ActivityAddressBookListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
+
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
         initViewModel()
@@ -61,11 +67,6 @@ class AddressBookListActivity : BaseActivity() {
         )[AddressBookViewModel::class.java]
 
         addressBookViewModel.selectAllAddressBook()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
     }
 
     private fun initData() {

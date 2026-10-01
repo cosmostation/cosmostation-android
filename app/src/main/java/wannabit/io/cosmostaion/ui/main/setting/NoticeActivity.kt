@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.ui.main.setting
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -24,6 +25,11 @@ class NoticeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNoticeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
 
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
@@ -69,8 +75,4 @@ class NoticeActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
-    }
 }

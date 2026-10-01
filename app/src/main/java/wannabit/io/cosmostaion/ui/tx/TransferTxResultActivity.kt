@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.base.abci.v1beta1.AbciProto.TxResponse
@@ -80,6 +81,10 @@ class TransferTxResultActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTxResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+        }
 
         initViewModel()
         initView()
@@ -662,8 +667,4 @@ class TransferTxResultActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
 }

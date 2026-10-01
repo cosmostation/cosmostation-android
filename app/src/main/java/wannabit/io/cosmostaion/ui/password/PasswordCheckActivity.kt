@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.activity.addCallback
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
 import androidx.fragment.app.Fragment
@@ -42,6 +43,10 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
         super.onCreate(savedInstanceState)
         binding = ActivityPasswordCheckBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            handleBackPress()
+        }
 
         initViewModel()
         initView()
@@ -113,7 +118,7 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
 
     override fun userDeletePassword() {
         if (userInput.isEmpty()) {
-            onBackPressed()
+            handleBackPress()
         } else if (userInput.length == 4) {
             userInput = userInput.substring(0, userInput.length - 1)
             binding.pagerKeyboard.setCurrentItem(0, true)
@@ -208,7 +213,7 @@ class PasswordCheckActivity : BaseActivity(), KeyboardListener {
         }
     }
 
-    override fun onBackPressed() {
+    private fun handleBackPress() {
         if (userInput.isNotEmpty()) {
             userDeletePassword()
         } else {

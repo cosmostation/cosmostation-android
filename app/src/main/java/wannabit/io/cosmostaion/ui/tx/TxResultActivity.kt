@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.cosmos.base.abci.v1beta1.AbciProto
@@ -70,6 +71,14 @@ class TxResultActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTxResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (txResultType == TxResultType.SKIP) {
+                startMainActivity()
+            } else {
+                finish()
+            }
+        }
 
         initViewModel()
         initView()
@@ -135,15 +144,6 @@ class TxResultActivity : BaseActivity() {
                 }
             }
             initQuotes()
-        }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        if (txResultType == TxResultType.SKIP) {
-            startMainActivity()
-        } else {
-            finish()
         }
     }
 
