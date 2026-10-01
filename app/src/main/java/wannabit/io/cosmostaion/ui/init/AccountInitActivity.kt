@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.init
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -27,6 +28,11 @@ class AccountInitActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
 
         binding.parentLayout.setBackgroundResource(Prefs.background)
         if (savedInstanceState == null) {
@@ -65,8 +71,4 @@ class AccountInitActivity : BaseActivity() {
         )[WalletViewModel::class.java]
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
-    }
 }

@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -32,6 +33,11 @@ class MajorActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMajorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
 
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
@@ -103,8 +109,4 @@ class MajorActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
-    }
 }

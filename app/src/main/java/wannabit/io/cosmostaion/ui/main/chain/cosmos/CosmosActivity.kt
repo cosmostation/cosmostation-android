@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.chain.BaseChain
@@ -33,6 +34,11 @@ class CosmosActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCosmosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
 
         binding.parentLayout.setBackgroundResource(Prefs.background)
 
@@ -107,10 +113,6 @@ class CosmosActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
-    }
 }
 
 enum class TxType {

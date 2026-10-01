@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -47,6 +48,14 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        onBackPressedDispatcher.addCallback(this) {
+            if (supportFragmentManager.backStackEntryCount <= 0) {
+                moveTaskToBack(true)
+            } else {
+                supportFragmentManager.popBackStack()
+            }
+        }
 
         initViewModel()
         initView()
@@ -356,12 +365,4 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager.backStackEntryCount <= 0) {
-            moveTaskToBack(true)
-            return
-        }
-        super.onBackPressed()
-    }
 }

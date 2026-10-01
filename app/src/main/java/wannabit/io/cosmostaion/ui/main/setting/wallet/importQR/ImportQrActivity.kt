@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.ui.main.setting.wallet.importQR
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import wannabit.io.cosmostaion.R
 import wannabit.io.cosmostaion.common.BaseActivity
@@ -29,6 +30,11 @@ class ImportQrActivity : BaseActivity() {
         binding = ActivityAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+            toMoveBack()
+        }
+
         binding.parentLayout.setBackgroundResource(Prefs.background)
         intent.getStringExtra("mnemonic")?.let { mnemonic ->
             if (savedInstanceState == null) {
@@ -56,8 +62,4 @@ class ImportQrActivity : BaseActivity() {
         )[WalletViewModel::class.java]
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        toMoveBack()
-    }
 }
