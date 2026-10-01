@@ -228,7 +228,7 @@ class CosmosDetailFragment : Fragment() {
             fabStake.visibleOrGone(selectedChain.isStakeEnabled())
             fabClaimReward.visibleOrGone(selectedChain.isStakeEnabled())
             fabCompounding.visibleOrGone(selectedChain.isStakeEnabled() && selectedChain !is ChainSunrise)
-            fabVote.goneOrVisible(!selectedChain.isStakeEnabled() || selectedChain is ChainNeutron)
+            fabVote.goneOrVisible(!selectedChain.isStakeEnabled())
 
             BaseData.getAsset(selectedChain.apiName, selectedChain.getStakeAssetDenom())
                 ?.let { asset ->
