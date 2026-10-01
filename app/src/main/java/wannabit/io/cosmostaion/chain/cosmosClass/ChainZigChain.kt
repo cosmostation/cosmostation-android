@@ -22,7 +22,7 @@ open class ChainZigChain : BaseChain(), Parcelable {
     )
 
     override var cosmosEndPointType: CosmosEndPointType? = CosmosEndPointType.USE_GRPC
-    override var stakeDenom: String = "uzig"
+    override var stakeDenom: String = "azig"
     override var accountPrefix: String = "zig"
     override var grpcHost: String = "grpc-zigchain.mainnet.cosmoslabs.kr"
     override var lcdUrl: String = "https://lcd-zigchain.mainnet.cosmoslabs.kr/"
